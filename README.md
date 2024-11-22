@@ -1,1 +1,59 @@
 # Cloudsmith Docs
+
+The documentation of the Cloudsmith API; replacement for [Cloudsmith.io/docs](https://help.cloudsmith.io/docs)
+
+## Getting started
+
+Make sure you’re running Node version `22.11.0` (LTS). Then install the dependencies.
+
+```bash
+pnpm i
+```
+
+Next run the desired task
+
+```bash
+# Starts app and components in dev mode
+pnpm dev
+
+# Build the app
+pnpm build
+
+# Build the app
+pnpm start
+
+# Linting everything
+pnpm lint
+
+# Linting JS
+pnpm lint:js
+
+# Linting CSS
+pnpm lint:css
+
+# Linting CSS and fixing
+pnpm lint:css:fix
+```
+
+> [!NOTE]  
+> Only development mode is using Turbopack atm. This will change in the future when Turbopack is supports build process. Be aware that Turbopack is the successor of Webpack meaning it's [not 1:1 compatible](https://turbo.build/pack/docs/limitations).
+
+### Tooling
+
+- [PNPM](https://pnpm.io/)
+- [Turbopack](https://turbo.build/pack/docs)
+
+### Framework
+
+- [React 19](https://react.dev/)
+
+### App
+
+- [Next.js 15](https://nextjs.org/docs) using App Router
+
+### General tooling
+
+- [Typescript](https://typescriptlang.org/)
+- [ESLint](https://eslint.org/)
+- [Stylelint](https://stylelint.io/)
+- [Prettier](https://prettier.io/)
