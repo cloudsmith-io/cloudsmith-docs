@@ -1,13 +1,9 @@
-import styles from './test.module.css';
+import './global.css';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={styles.test}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
