@@ -7,7 +7,7 @@ import { prettierFormatter } from '../src/utils/prettier-formatter';
 const projectDir = process.cwd();
 const outputDir = `${projectDir}/src/generated`;
 
-// Load environment variables
+// Load all environment variables
 env.loadEnvConfig(projectDir);
 
 async function downloadSchema(schemaUrl: string, fileName: string) {
