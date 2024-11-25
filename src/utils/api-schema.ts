@@ -1,8 +1,14 @@
+'use cache';
+
 import SwaggerParser from '@apidevtools/swagger-parser';
 
+import generatedSchema from '../generated/api-schema.json';
+
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 export async function getApiSchema() {
-  const apiUrl = process.env.CLOUDSMITH_API_URL!;
-  const schema = await SwaggerParser.parse(apiUrl);
+  // In development mode use the generated schema to avoid fetching to have faster compile times
+  const schema = isDevelopment ? generatedSchema : await SwaggerParser.parse(process.env.CLOUDSMITH_API_URL!);
 
   if (!schema) {
     throw new Error('Failed to fetch API schema');

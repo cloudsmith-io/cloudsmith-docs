@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",
-    "next": "^15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "next": "15.0.4-canary.27",
+    "react": "19.0.0-rc-b01722d5-20241114",
+    "react-dom": "19.0.0-rc-b01722d5-20241114"
   },
   "devDependencies": {
     "@next/env": "^15.0.3",
