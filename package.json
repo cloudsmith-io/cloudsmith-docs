@@ -2,6 +2,7 @@
   "name": "cloudsmith-docs",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -9,23 +10,34 @@
     "lint": "pnpm run lint:js && pnpm run lint:css",
     "lint:js": "next lint",
     "lint:css": "stylelint '**/*.css'",
-    "lint:css:fix": "stylelint 'src/**/*.css' --fix"
+    "lint:css:fix": "stylelint 'src/**/*.css' --fix",
+    "schema": "tsx scripts/download-schema"
   },
   "dependencies": {
-    "next": "^15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "class-variance-authority": "^0.7.1",
+    "next": "15.0.4-canary.27",
+    "react": "19.0.0-rc-b01722d5-20241114",
+    "react-dom": "19.0.0-rc-b01722d5-20241114"
   },
   "devDependencies": {
+    "@next/env": "^15.0.3",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/node": "20.8.10",
-    "@types/react": "18.2.33",
-    "@types/react-dom": "18.2.14",
+    "@types/node": "22.9.3",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "eslint": "^9",
     "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",
-    "typescript": "^5.2.2"
+    "tsx": "^4.19.2",
+    "typescript": "5.7.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    }
   }
 }
