@@ -1,0 +1,21 @@
+.base {
+  border-radius: 5px;
+  display: inline-flex;
+  padding: 5px;
+  background-color: #eaf1fc;
+  color: #2a6fe1;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+/*
+.get {}
+.post {}
+.put {}
+.delete {}
+*/
+
+.active {
+  color: #fff;
+  background-color: #2a6fe1;
+}

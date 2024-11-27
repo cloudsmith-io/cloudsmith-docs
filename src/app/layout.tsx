@@ -1,4 +1,5 @@
 import './global.css';
+import './variables.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

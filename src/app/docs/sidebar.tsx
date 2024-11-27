@@ -1,23 +1,30 @@
 import Link from 'next/link';
 
 import { getSidebarStructure } from '../../utils/api-schema';
+import { Method } from '../_components/method/method';
 
 export async function Sidebar() {
-  const structure = await getSidebarStructure();
+  const sidebar = await getSidebarStructure();
 
   return (
     <nav>
-      {structure.map((section) => (
-        <ul key={section.name}>
-          <strong>{section.name}</strong>
+      {Object.entries(sidebar).map(([tag, tagEndpoints]) => (
+        <ul key={tag}>
+          <strong>{tag}</strong>
           <ul>
-            {section.items.map((item) => {
+            {(tagEndpoints as any).map((path) => {
+              const methods = Object.entries(path).filter(
+                ([key]) => Object.keys(Method.Methods).indexOf(key) !== -1,
+              );
+
               return (
-                <li key={`${item.path}-${item.method}`}>
-                  <Link href={`/`}>
-                    <span>{item.method.toUpperCase()}</span>
-                    {item.name}
-                  </Link>
+                <li key={path.path}>
+                  {methods.map(([method, value]) => (
+                    <Link key={value.operationId} href={`/docs/${value.operationId}`}>
+                      {value.summary}
+                      <Method type={method as Method.Methods} />
+                    </Link>
+                  ))}
                 </li>
               );
             })}

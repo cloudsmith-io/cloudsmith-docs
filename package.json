@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",
+    "class-variance-authority": "^0.7.1",
     "next": "15.0.4-canary.27",
     "react": "19.0.0-rc-b01722d5-20241114",
     "react-dom": "19.0.0-rc-b01722d5-20241114"

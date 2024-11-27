@@ -21,7 +21,7 @@ export async function getApiSchema() {
 
 export async function getSidebarStructure() {
   'use cache';
-  cacheLife('hours');
+  cacheLife('minutes');
 
   const schema = await getApiSchema();
 
@@ -29,16 +29,15 @@ export async function getSidebarStructure() {
     throw new Error('No paths in API schema');
   }
 
-  return Object.entries(schema.paths).map(([path, pathItem]) => {
-    const items = Object.entries(pathItem).map(([method, operation]) => ({
-      name: operation.summary,
-      path: path,
-      method: method,
-    }));
+  const flattenPaths = Object.entries(schema.paths).map(([path, pathItem]) => ({
+    ...pathItem,
+    path,
+  }));
 
-    return {
-      name: path,
-      items,
-    };
-  });
+  const groupedByTags = Object.groupBy(flattenPaths, (item) => item.get?.tags);
+
+  // Parse and stringify to make Next.js caching happy.
+  // There might be a better fix for this, since we might not need all the data
+  // https://nextjs.org/docs/canary/app/api-reference/directives/use-cache#good-to-know
+  return JSON.parse(JSON.stringify(groupedByTags)) as any;
 }
