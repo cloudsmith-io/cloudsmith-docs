@@ -11,7 +11,7 @@ const method = cva(styles.base, {
       delete: styles.delete,
     },
     state: {
-      active: styles.active,
+      true: styles.active,
     },
   },
 });

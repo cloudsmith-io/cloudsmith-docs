@@ -1,7 +1,6 @@
-import Link from 'next/link';
-
+import { Method } from '../../_components/method/method';
 import { getSidebarStructure } from '../../utils/api-schema';
-import { Method } from '../_components/method/method';
+import { OperationLink } from './operation-link';
 
 export async function Sidebar() {
   const sidebar = await getSidebarStructure();
@@ -11,6 +10,7 @@ export async function Sidebar() {
       {Object.entries(sidebar).map(([tag, tagEndpoints]) => (
         <ul key={tag}>
           <strong>{tag}</strong>
+
           <ul>
             {(tagEndpoints as any).map((path) => {
               const methods = Object.entries(path).filter(
@@ -20,10 +20,13 @@ export async function Sidebar() {
               return (
                 <li key={path.path}>
                   {methods.map(([method, value]) => (
-                    <Link key={value.operationId} href={`/docs/${value.operationId}`}>
+                    <OperationLink
+                      key={value.operationId}
+                      method={method as Method.Methods}
+                      href={`/docs/${value.operationId}`}
+                      operationId={value.operationId}>
                       {value.summary}
-                      <Method type={method as Method.Methods} />
-                    </Link>
+                    </OperationLink>
                   ))}
                 </li>
               );
