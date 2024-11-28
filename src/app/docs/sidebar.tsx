@@ -1,5 +1,6 @@
-import { Method } from '../../_components/method/method';
-import { getSidebarStructure } from '../../utils/api-schema';
+import { Method } from '@/components';
+import { getSidebarStructure } from '@/utils/api-schema';
+
 import { OperationLink } from './operation-link';
 
 export async function Sidebar() {

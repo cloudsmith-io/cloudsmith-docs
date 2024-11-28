@@ -3,7 +3,7 @@
 import Link, { LinkProps } from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 
-import { Method } from '../../_components/method/method';
+import { Method } from '@/components';
 
 export function OperationLink({ method, operationId, children, ...linkProps }: Props) {
   const segment = useSelectedLayoutSegment();
@@ -11,7 +11,9 @@ export function OperationLink({ method, operationId, children, ...linkProps }: P
   return (
     <Link {...linkProps}>
       {children}
-      <Method type={method as Method.Methods} state={segment === operationId} />
+      <Method type={method} active={segment === operationId}>
+        {method}
+      </Method>
     </Link>
   );
 }
