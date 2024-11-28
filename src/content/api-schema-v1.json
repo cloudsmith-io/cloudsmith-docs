@@ -2219,6 +2219,74 @@
         { "name": "slug_perm", "in": "path", "required": true, "type": "string" }
       ]
     },
+    "/orgs/{org}/saml-authentication": {
+      "get": {
+        "operationId": "orgs_saml-authentication_read",
+        "summary": "Retrieve the SAML Authentication settings for this Organization.",
+        "description": "Retrieve the SAML Authentication settings for this Organization.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Retrieved the SAML Authentication settings.",
+            "schema": { "$ref": "#/definitions/OrganizationSAMLAuth" }
+          },
+          "402": {
+            "description": "SAML Authentication is not available; please upgrade your account!",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "404": {
+            "description": "Organization not found.",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["orgs"]
+      },
+      "patch": {
+        "operationId": "orgs_saml-authentication_partial_update",
+        "summary": "Update the SAML Authentication settings for this Organization.",
+        "description": "Update the SAML Authentication settings for this Organization.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/OrganizationSAMLAuthRequestPatch" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated the SAML Authentication settings.",
+            "schema": { "$ref": "#/definitions/OrganizationSAMLAuth" }
+          },
+          "402": {
+            "description": "SAML Authentication is not available; please upgrade your account!",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "404": {
+            "description": "Organization not found.",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["orgs"]
+      },
+      "parameters": [{ "name": "org", "in": "path", "required": true, "type": "string" }]
+    },
     "/orgs/{org}/saml-group-sync/": {
       "get": {
         "operationId": "orgs_saml-group-sync_list",
@@ -10997,6 +11065,49 @@
             "type": "string"
           },
           "uniqueItems": true
+        }
+      }
+    },
+    "OrganizationSAMLAuth": {
+      "required": ["saml_auth_enabled", "saml_auth_enforced"],
+      "type": "object",
+      "properties": {
+        "saml_auth_enabled": { "title": "Saml auth enabled", "type": "boolean" },
+        "saml_auth_enforced": { "title": "Saml auth enforced", "type": "boolean" },
+        "saml_metadata_inline": {
+          "title": "Inline SAML metadata",
+          "description": "If configured, SAML metadata will be used as entered instead of retrieved from a remote URL.",
+          "type": "string",
+          "maxLength": 32000
+        },
+        "saml_metadata_url": {
+          "title": "Saml metadata url",
+          "description": "If configured, SAML metadata be retrieved from a remote URL.",
+          "type": "string",
+          "format": "uri",
+          "maxLength": 254,
+          "x-nullable": true
+        }
+      }
+    },
+    "OrganizationSAMLAuthRequestPatch": {
+      "type": "object",
+      "properties": {
+        "saml_auth_enabled": { "title": "Saml auth enabled", "type": "boolean" },
+        "saml_auth_enforced": { "title": "Saml auth enforced", "type": "boolean" },
+        "saml_metadata_inline": {
+          "title": "Inline SAML metadata",
+          "description": "If configured, SAML metadata will be used as entered instead of retrieved from a remote URL.",
+          "type": "string",
+          "maxLength": 32000
+        },
+        "saml_metadata_url": {
+          "title": "Saml metadata url",
+          "description": "If configured, SAML metadata be retrieved from a remote URL.",
+          "type": "string",
+          "format": "uri",
+          "maxLength": 254,
+          "x-nullable": true
         }
       }
     },
@@ -28191,7 +28302,7 @@
           "description": "The current version for the Cloudsmith service.",
           "type": "string",
           "readOnly": true,
-          "default": "1.566.5",
+          "default": "1.566.10",
           "minLength": 1
         }
       }

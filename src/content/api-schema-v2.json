@@ -1,0 +1,41 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Cloudsmith API",
+    "version": "1.566.10 (v2)",
+    "description": "The API to the Cloudsmith Service",
+    "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
+    "contact": {
+      "email": "support@cloudsmith.io",
+      "name": "Cloudsmith Support",
+      "url": "https://help.cloudsmith.io/"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "paths": {},
+  "components": {
+    "securitySchemes": {
+      "apikey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Api-Key"
+      },
+      "basic": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.cloudsmith.io/v2/"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://help.cloudsmith.io/reference/introduction",
+    "description": "Cloudsmith API Reference"
+  }
+}
