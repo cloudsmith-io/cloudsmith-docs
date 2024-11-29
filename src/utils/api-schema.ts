@@ -5,7 +5,7 @@ export async function getApiSchema() {
   'use cache';
   cacheLife('days');
 
-  const schema = await SwaggerParser.parse(`src/content/api-schema.json`);
+  const schema = await SwaggerParser.parse(`src/content/api-schema-v1.json`);
 
   if (!schema) {
     throw new Error('Failed to fetch API schema');

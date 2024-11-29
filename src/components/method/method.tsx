@@ -10,18 +10,14 @@ const method = cva(styles.root, {
       put: styles.put,
       delete: styles.delete,
     },
-    state: {
+    active: {
       true: styles.active,
     },
   },
 });
 
-export function Method({ type, state, ...rest }: Method.Props) {
-  return (
-    <div className={method({ type, state })} {...rest}>
-      {type}
-    </div>
-  );
+export function Method({ type, active, ...rest }: Method.Props) {
+  return <div className={method({ type, active })} {...rest} />;
 }
 
 export namespace Method {
@@ -37,5 +33,7 @@ export namespace Method {
   export interface Props
     extends React.HTMLAttributes<HTMLDivElement>,
       Omit<VariantsProps, 'type'>,
-      Required<Pick<VariantsProps, 'type'>> {}
+      Required<Pick<VariantsProps, 'type'>> {
+    children: React.ReactNode;
+  }
 }
