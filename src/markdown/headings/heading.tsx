@@ -1,9 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 
-import styles from './headings.module.css';
+import styles from './heading.module.css';
 
 const defaultSize = 'h1' as const;
-const headings = cva(styles.root, {
+const heading = cva(styles.root, {
   variants: {
     size: {
       h1: styles.h1,
@@ -19,14 +19,14 @@ const headings = cva(styles.root, {
   },
 });
 
-export function Headings({ size, ...rest }: Headings.Props) {
+export function Heading({ size, ...rest }: Heading.Props) {
   const Tag = size || (defaultSize as typeof defaultSize);
 
-  return <Tag className={headings({ size })} {...rest} />;
+  return <Tag className={heading({ size })} {...rest} />;
 }
 
-export namespace Headings {
-  type VariantsProps = VariantProps<typeof headings>;
+export namespace Heading {
+  type VariantsProps = VariantProps<typeof heading>;
 
   export interface Props
     extends React.HTMLAttributes<HTMLHeadingElement>,
