@@ -1,5 +1,5 @@
 import { Method } from '@/components';
-import { getSidebarStructure } from '@/utils/api-schema';
+import { getSidebarStructure } from '@/lib/schema/api';
 
 import { OperationLink } from './operation-link';
 

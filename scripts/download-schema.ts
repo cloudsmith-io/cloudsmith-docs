@@ -2,7 +2,7 @@ import env from '@next/env';
 import fs from 'fs';
 import path from 'path';
 
-import { prettierFormatter } from '../src/utils/prettier-formatter';
+import { prettierFormatter } from './util/prettier-formatter';
 
 const projectDir = process.cwd();
 const outputDir = `${projectDir}/src/content`;
