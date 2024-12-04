@@ -1,0 +1,6 @@
+.root {
+  /* border: 5px solid red;
+  border-radius: 5px; */
+  color: var(--base-color-white);
+  background-color: var(--base-color-grey-900);
+}

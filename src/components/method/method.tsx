@@ -31,7 +31,7 @@ export namespace Method {
   type VariantsProps = VariantProps<typeof method>;
 
   export interface Props
-    extends React.HTMLAttributes<HTMLDivElement>,
+    extends React.ComponentPropsWithoutRef<'div'>,
       Omit<VariantsProps, 'type'>,
       Required<Pick<VariantsProps, 'type'>> {
     children: React.ReactNode;

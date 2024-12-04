@@ -4,5 +4,8 @@
     "next/core-web-vitals",
     "next/typescript",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/no-namespace": "off"
+  }
 }

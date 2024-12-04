@@ -1,5 +1,6 @@
 @layer variables {
   :root {
-    --base-color-example: black;
+    --base-color-white: #fff;
+    --base-color-grey-900: #092f45;
   }
 }

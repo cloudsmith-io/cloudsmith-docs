@@ -1,15 +1,68 @@
 import { Method } from '@/components';
 
-# Specific path docs
+```tsx filename="app/page.tsx"
+function Test() => {
+  const test = 123;
+  return test;
+}
+```
 
-This is some **bold** and _italics_ text.
+```bash filename="Terminal"
+npx create-next-app
+```
 
-This is a list in markdown:
+```js
+import { Method } from '@/components';
 
-- One
-- Two
-- Three
+function Test() => {
+  const test = 123;
+  return test;
+}
+```
 
-Checkout my React component:
+```python
+weights, biases = init_random_parameters()
+
+epochs = 10
+learning_rate = 0.01 # See ⁴
+
+for epoch in range(epochs):
+  for input_data, target in training_dataset:
+    predictions = forward_pass(input_data, weights, biases)
+    loss = loss_function(predictions, target)
+    gradients = backpropagation(loss, weights, biases)
+
+    # Step 4: Gradient Descent (Parameter Update)
+    weights -= learning_rate * gradients["weights"]
+    biases -= learning_rate * gradients["biases"]
+
+  print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss}")
+```
+
+# GFM
+
+## Autolink literals
+
+www.example.com, https://example.com, and contact@example.com.
+
+## Footnote
+
+A note[^1]
+
+[^1]: Big note.
+
+## Strikethrough
+
+~one~ or ~~two~~ tildes.
+
+## Table
+
+| a   | b   |   c |  d  |
+| --- | :-- | --: | :-: |
+
+## Tasklist
+
+- [ ] to do
+- [x] done
 
 <Method type="get">get</Method>

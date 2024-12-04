@@ -29,7 +29,7 @@ export namespace Heading {
   type VariantsProps = VariantProps<typeof heading>;
 
   export interface Props
-    extends React.HTMLAttributes<HTMLHeadingElement>,
+    extends React.ComponentPropsWithoutRef<'h1'>,
       Omit<VariantsProps, 'size'>,
       Required<Pick<VariantsProps, 'size'>> {}
 }
