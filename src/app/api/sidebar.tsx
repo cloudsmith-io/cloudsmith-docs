@@ -24,7 +24,7 @@ export async function Sidebar() {
                     <OperationLink
                       key={value.operationId}
                       method={method as Method.Methods}
-                      href={`/docs/${value.operationId}`}
+                      href={`/api/${value.operationId}`}
                       operationId={value.operationId}>
                       {value.summary}
                     </OperationLink>
