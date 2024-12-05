@@ -1,45 +1,42 @@
+import { transformerNotationHighlight } from '@shikijs/transformers';
 import { cva } from 'class-variance-authority';
 
-import { highlighter } from '@/lib/highlight';
+import { highlighter, theme } from '@/lib/highlight';
 
 import styles from './code-block.module.css';
 
 const codeBlock = cva(styles.root, {
   variants: {
-    // language: {
-    //   // h1: 'test',
-    // },
+    hideLineNumbers: {
+      false: styles.withLineNumbers,
+    },
   },
-  // defaultVariants: {
-  // },
 });
 
-export async function CodeBlock({ code, filename, lang }: Code.Props) {
+export async function CodeBlock({ code, lang }: Code.Props) {
   'use cache';
 
+  const hideLineNumbers = lang === 'bash' || lang === 'text';
   const html = (await highlighter).codeToHtml(code, {
-    theme: 'github-dark',
     lang,
+    theme,
+    transformers: [
+      // Add more transformers when needed from https://shiki.style/packages/transformers
+      transformerNotationHighlight(),
+    ],
   });
 
   return (
-    <div className={codeBlock()}>
-      <h2>{filename}</h2>
-      <h3>{lang}</h3>
-      <div className="wrapper" dangerouslySetInnerHTML={{ __html: html }} />
+    <div className={codeBlock({ hideLineNumbers })}>
+      <div className={styles.lang}>{lang}</div>
+      <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }
 
 export namespace Code {
-  // type VariantsProps = VariantProps<typeof codeBlock>;
-
   export interface Props extends React.ComponentPropsWithoutRef<'pre'> {
-    // Omit<VariantsProps, 'language'>,
-    // Required<Pick<VariantsProps, 'language'>>
     code: string;
-    filename?: string;
-    hideLineNumbers?: boolean;
     lang: string;
   }
 }

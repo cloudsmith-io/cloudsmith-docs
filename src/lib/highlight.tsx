@@ -1,6 +1,8 @@
 import { createHighlighter } from 'shiki';
 
+export const theme = 'material-theme-palenight';
+
 export const highlighter = createHighlighter({
-  themes: ['github-dark'],
-  langs: ['js', 'bash', 'ts', 'tsx', 'css', 'python'],
+  themes: [theme],
+  langs: ['js', 'jsx', 'ts', 'tsx', 'json', 'text', 'bash'],
 });

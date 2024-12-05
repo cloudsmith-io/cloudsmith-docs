@@ -1,6 +1,59 @@
 .root {
-  /* border: 5px solid red;
-  border-radius: 5px; */
+  /* TODO: Decide on theme colors */
+  --theme-bg-color: #292d3e;
+  --line-color: #818e95;
+  --line-bg-color: rgba(255, 255, 255, 0.15);
+  --line-number-size: 40px;
+  --line-padding: 20px;
+
+  margin-block-end: 30px;
+  line-height: 22px;
+  overflow: hidden;
+}
+
+.code {
+}
+.code :global(pre) {
+  margin: 0;
+  overflow-x: auto;
+  background-color: var(--theme-bg-color);
+  border-radius: 0 0 12px 12px;
+  padding-block: 15px;
+}
+.code :global(code) {
+  display: grid;
+  tab-size: 4;
+  hyphens: none;
+  white-space: pre;
+}
+.code :global(.line) {
+  padding-inline: var(--line-padding);
+}
+
+.withLineNumbers {
+  counter-reset: line;
+  counter-increment: line 0;
+}
+.withLineNumbers :global(.line::before) {
+  content: counter(line) / '';
+  width: 16px;
+  counter-increment: line;
+  margin-inline-end: var(--line-padding);
+  display: inline-block;
+  text-align: right;
+  color: var(--line-color);
+  flex-shrink: 0;
+}
+
+.lang {
+  user-select: none;
   color: var(--base-color-white);
-  background-color: var(--base-color-grey-900);
+  border-radius: 12px 12px 0 0;
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  font-size: 12px;
+  padding-block: 12px;
+  padding-inline: 21px;
+  background: var(--theme-bg-color) linear-gradient(var(--line-bg-color), var(--line-bg-color) 100%) center
+    bottom / 100% 1px no-repeat;
 }

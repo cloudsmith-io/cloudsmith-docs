@@ -1,42 +1,34 @@
 import { Method } from '@/components';
 
-```tsx filename="app/page.tsx"
-function Test() => {
-  const test = 123;
-  return test;
+```js
+function isJSONString(message) {
+  try {
+    // Check if the message is a valid JSON string by parsing it and checking if it's an object or not
+    const json = JSON.parse(message);
+    return typeof json === 'object';
+  } catch (e) {
+    return false;
+  }
 }
 ```
 
-```bash filename="Terminal"
+```text
 npx create-next-app
+```
+
+```ts
+console.log('Not focused');
+console.log('Focused');
+console.log('Not focused');
 ```
 
 ```js
 import { Method } from '@/components';
 
 function Test() => {
-  const test = 123;
+  const test = 123; // [!code highlight]
   return test;
 }
-```
-
-```python
-weights, biases = init_random_parameters()
-
-epochs = 10
-learning_rate = 0.01 # See ⁴
-
-for epoch in range(epochs):
-  for input_data, target in training_dataset:
-    predictions = forward_pass(input_data, weights, biases)
-    loss = loss_function(predictions, target)
-    gradients = backpropagation(loss, weights, biases)
-
-    # Step 4: Gradient Descent (Parameter Update)
-    weights -= learning_rate * gradients["weights"]
-    biases -= learning_rate * gradients["biases"]
-
-  print(f"Epoch {epoch + 1}/{epochs}, Loss: {loss}")
 ```
 
 # GFM

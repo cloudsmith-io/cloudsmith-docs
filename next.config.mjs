@@ -19,9 +19,7 @@ const withMDX = createMDX({
     remarkPlugins: [
       ['remark-gfm', { strict: true, throwOnError: true }]
     ],
-    rehypePlugins: [
-      ["rehype-mdx-code-props", { strict: true, throwOnError: true }] // Must run last
-    ],
+    rehypePlugins: [],
   },
 });
 
