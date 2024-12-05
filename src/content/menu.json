@@ -1,0 +1,22 @@
+{
+  "documentation": {
+    "title": "Documentation",
+    "path": "/documentation",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/getting-started",
+        "children": [
+          {
+            "title": "What is Package Management?",
+            "path": "/getting-started/what-is-package-management"
+          }
+        ]
+      },
+      {
+        "title": "Artifact Management",
+        "path": "/artifact-management"
+      }
+    ]
+  }
+}
