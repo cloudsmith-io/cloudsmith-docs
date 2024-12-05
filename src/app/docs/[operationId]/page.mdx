@@ -1,15 +1,60 @@
 import { Method } from '@/components';
 
-# Specific path docs
+```js
+function isJSONString(message) {
+  try {
+    // Check if the message is a valid JSON string by parsing it and checking if it's an object or not
+    const json = JSON.parse(message);
+    return typeof json === 'object';
+  } catch (e) {
+    return false;
+  }
+}
+```
 
-This is some **bold** and _italics_ text.
+```text
+npx create-next-app
+```
 
-This is a list in markdown:
+```ts
+console.log('Not focused');
+console.log('Focused');
+console.log('Not focused');
+```
 
-- One
-- Two
-- Three
+```js
+import { Method } from '@/components';
 
-Checkout my React component:
+function Test() => {
+  const test = 123; // [!code highlight]
+  return test;
+}
+```
+
+# GFM
+
+## Autolink literals
+
+www.example.com, https://example.com, and contact@example.com.
+
+## Footnote
+
+A note[^1]
+
+[^1]: Big note.
+
+## Strikethrough
+
+~one~ or ~~two~~ tildes.
+
+## Table
+
+| a   | b   |   c |  d  |
+| --- | :-- | --: | :-: |
+
+## Tasklist
+
+- [ ] to do
+- [x] done
 
 <Method type="get">get</Method>
