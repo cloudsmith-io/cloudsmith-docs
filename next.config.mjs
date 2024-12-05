@@ -3,13 +3,10 @@ import createMDX from '@next/mdx';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['mdx', 'tsx'],
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   experimental: {
     ppr: true,
     dynamicIO: true,
-    // mdxRs: true,
+    mdxRs: true,
     optimizePackageImports: ['@/components', '@/markdown'],
   },
 };
