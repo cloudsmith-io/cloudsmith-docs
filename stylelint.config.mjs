@@ -34,12 +34,6 @@ export default {
     "selector-no-vendor-prefix": true,
     "shorthand-property-no-redundant-values": true,
     "value-no-vendor-prefix": true,
-    "selector-pseudo-class-no-unknown": [
-      true,
-      {
-        "ignorePseudoClasses": ["global"]
-      }
-    ],
   },
   ignoreFiles: ["node_modules/**/*.css"]
 };
