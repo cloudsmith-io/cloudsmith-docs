@@ -6,10 +6,10 @@ import styles from './AppShell.module.css';
 
 export function AppShell({ children, secondaryNav }: AppShell.Props) {
   return (
-    <div className={styles.root}>
+    <Container className={styles.root}>
       {secondaryNav && <div className={styles.secondaryNav}>{secondaryNav}</div>}
-      <Container className={styles.main}>{children}</Container>
-    </div>
+      <div className={styles.main}>{children}</div>
+    </Container>
   );
 }
 

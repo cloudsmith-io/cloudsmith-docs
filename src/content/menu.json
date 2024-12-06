@@ -14,8 +14,13 @@
         ]
       },
       {
-        "title": "Artifact Management",
-        "path": "/artifact-management"
+        "title": "Some section",
+        "children": [
+          {
+            "title": "Some child link",
+            "path": "/does-not-exist"
+          }
+        ]
       }
     ]
   }

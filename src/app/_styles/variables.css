@@ -43,5 +43,8 @@
     --container-width-m: 960px;
     --container-width-l: 1400px;
     --container-width-xl: 1512px;
+
+    --sidebar-width: 240px;
+    --navbar-height: 120px;
   }
 }

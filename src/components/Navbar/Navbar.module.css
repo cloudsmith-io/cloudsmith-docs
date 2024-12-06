@@ -5,5 +5,5 @@
 }
 
 .nav {
-  height: 120px;
+  height: var(--navbar-height);
 }
