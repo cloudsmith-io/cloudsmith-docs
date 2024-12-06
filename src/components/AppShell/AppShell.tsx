@@ -4,11 +4,6 @@ import { Container } from '../Container';
 
 import styles from './AppShell.module.css';
 
-interface AppShellProps {
-  children: React.ReactNode;
-  secondaryNav?: React.ReactNode;
-}
-
 export function AppShell({ children, secondaryNav }: AppShellProps) {
   return (
     <Container className={styles.root}>
@@ -16,4 +11,9 @@ export function AppShell({ children, secondaryNav }: AppShellProps) {
       <div className={styles.main}>{children}</div>
     </Container>
   );
+}
+
+interface AppShellProps {
+  children: React.ReactNode;
+  secondaryNav?: React.ReactNode;
 }
