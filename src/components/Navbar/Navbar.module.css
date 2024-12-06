@@ -1,0 +1,9 @@
+/* TODO: Replace with real styles */
+.root {
+  background-color: #031c2b;
+  color: white;
+}
+
+.nav {
+  height: var(--navbar-height);
+}

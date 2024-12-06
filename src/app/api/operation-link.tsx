@@ -3,7 +3,7 @@
 import Link, { LinkProps } from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 
-import { Method } from '@/components';
+import { Method } from '@/components/Method';
 
 export function OperationLink({ method, operationId, children, ...linkProps }: Props) {
   const segment = useSelectedLayoutSegment();
