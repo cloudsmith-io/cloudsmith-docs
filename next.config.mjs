@@ -8,6 +8,14 @@ const nextConfig = {
     dynamicIO: true,
     mdxRs: true,
     optimizePackageImports: ['@/components', '@/markdown'],
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
 };
 
