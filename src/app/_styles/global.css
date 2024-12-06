@@ -1,0 +1,7 @@
+/* TODO: Global styles */
+@layer global {
+  body {
+    margin: 0;
+    font-family: var(--font-family-body);
+  }
+}
