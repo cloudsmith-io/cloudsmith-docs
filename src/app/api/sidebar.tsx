@@ -1,4 +1,4 @@
-import { Method } from '@/components';
+import { Method } from '@/components/Method';
 import { getSidebarStructure } from '@/lib/schema/api';
 
 import { OperationLink } from './operation-link';

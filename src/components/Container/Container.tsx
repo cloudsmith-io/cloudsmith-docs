@@ -9,6 +9,6 @@ export function Container({ children, className }: Container.Props) {
 export namespace Container {
   export interface Props extends React.ComponentPropsWithoutRef<'div'> {
     children: React.ReactNode;
-    className: string;
+    className?: string;
   }
 }

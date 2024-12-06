@@ -1,9 +1,7 @@
+import { AppShell } from '@/components/AppShell';
+
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <Container>
-      <Leftnav>This is the sidebar</Leftnav>
-      <Main>{children}</Main>
-      <Rightnav></Rightnav>
-    </Container>
-  );
+  // get menu data and render in a navigation element
+
+  return <AppShell>{children}</AppShell>;
 }

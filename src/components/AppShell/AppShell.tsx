@@ -14,6 +14,6 @@ export function AppShell({ children, secondaryNav }: AppShell.Props) {
 export namespace AppShell {
   export interface Props extends React.ComponentPropsWithoutRef<'div'> {
     children: React.ReactNode;
-    secondaryNav: React.ReactNode;
+    secondaryNav?: React.ReactNode;
   }
 }

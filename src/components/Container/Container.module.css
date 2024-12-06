@@ -1,0 +1,11 @@
+.root {
+  --container-max-width: var(--container-width-l);
+
+  max-width: var(--container-max-width);
+
+  /* 
+    TODO: Once fluid setup is in place, add "justify" variant that 
+    centers and adds padding like in the web-app repository
+  */
+  margin: 0 auto;
+}
