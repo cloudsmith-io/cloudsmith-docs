@@ -1,5 +1,5 @@
 .root {
-  --container-max-width: var(--container-width-l);
+  --container-max-width: var(--container-width-xl);
 
   max-width: var(--container-max-width);
 
