@@ -30,6 +30,9 @@
       }
     ]
   },
+  "mdx": {
+    "checkMdx": true
+  },
   "include": [
     "**/*.ts",
     "**/*.tsx",

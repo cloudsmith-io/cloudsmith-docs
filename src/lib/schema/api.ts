@@ -34,5 +34,5 @@ export async function getSidebarStructure() {
   // Parse and stringify to make Next.js caching happy.
   // There might be a better fix for this, since we might not need all the data
   // https://nextjs.org/docs/canary/app/api-reference/directives/use-cache#good-to-know
-  return JSON.parse(JSON.stringify(groupedByTags)) as any;
+  return JSON.parse(JSON.stringify(groupedByTags)) as object;
 }
