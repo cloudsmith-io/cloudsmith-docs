@@ -23,11 +23,29 @@
     max-width: 100%;
   }
 
-  input,
   button,
-  textarea,
-  select {
-    font: inherit;
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    padding: 0;
+  }
+
+  [type='button'],
+  [type='reset'],
+  [type='submit'],
+  button {
+    /* stylelint-disable-next-line */
+    -webkit-appearance: button;
+    background-color: initial;
+    background-image: none;
+    border-width: 0;
+    border-style: solid;
   }
 
   p,
@@ -41,7 +59,7 @@
   }
 
   p {
-    /* stylelint-disable-line */
+    /* stylelint-disable-next-line */
     text-wrap: pretty;
   }
 
@@ -51,7 +69,7 @@
   h4,
   h5,
   h6 {
-    /* stylelint-disable-line */
+    /* stylelint-disable-next-line */
     text-wrap: balance;
   }
 }

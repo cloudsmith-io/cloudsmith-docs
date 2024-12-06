@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 
 import { highlighter, theme } from '@/lib/highlight';
 
-import { CopyButton } from './copy-button';
+import { ClipboardCopy } from './clipboard-copy';
 
 import styles from './code-block.module.css';
 
@@ -15,7 +15,7 @@ const codeBlock = cva(styles.root, {
   },
 });
 
-export async function CodeBlock({ code, lang }: Code.Props) {
+export async function CodeBlock({ code, lang }: Props) {
   'use cache';
 
   const hideLineNumbers = lang === 'bash' || lang === 'text';
@@ -30,16 +30,17 @@ export async function CodeBlock({ code, lang }: Code.Props) {
 
   return (
     <div className={codeBlock({ hideLineNumbers })}>
-      <div className={styles.lang}>{lang}</div>
-      <CopyButton code={code} />
+      <div className={styles.lang}>
+        {lang}
+        <ClipboardCopy textToCopy={code} />
+      </div>
+
       <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }
 
-export namespace Code {
-  export interface Props extends React.ComponentPropsWithoutRef<'pre'> {
-    code: string;
-    lang: string;
-  }
+interface Props {
+  code: string;
+  lang: string;
 }

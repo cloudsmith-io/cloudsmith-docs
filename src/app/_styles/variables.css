@@ -1,7 +1,40 @@
 @layer variables {
   :root {
     --base-color-white: #fff;
+    --base-color-blue-50: #f6faff;
+    --base-color-blue-75: #eff5ff;
+    --base-color-blue-100: #ddeafd;
+    --base-color-blue-150: #c1d6f7;
+    --base-color-blue-200: #c2d6f9;
+    --base-color-blue-300: #a7c0f6;
+    --base-color-blue-500: #2a6fe1;
+    --base-color-blue-600: #1f4f9e;
+    --base-color-grey-25: #fafcfc;
+    --base-color-grey-50: #fafbfb;
+    --base-color-grey-100: #f1f3f6;
+    --base-color-grey-150: #f6f8fa;
+    --base-color-grey-200: #ebeff1;
+    --base-color-grey-300: #e6eaec;
+    --base-color-grey-400: #bcc6cc;
+    --base-color-grey-500: #8497a2;
+    --base-color-grey-600: #5f7886;
+    --base-color-grey-700: #39586a;
     --base-color-grey-900: #092f45;
     --base-color-grey-1000: #031c2b;
+
+    /* Border Radius */
+    --border-radius-xs: 2px;
+    --border-radius-s: 4px;
+    --border-radius-m: 6px;
+    --border-radius-l: 8px;
+    --border-radius-xl: 10px;
+    --border-radius-2xl: 12px;
+    --border-radius-full: 9999px;
+
+    /* Transition */
+    --transition-easing-default: ease-in-out;
+    --transition-default: 200ms var(--transition-easing-default);
+    --transition-fast: 100ms var(--transition-easing-default);
+    --transition-slow: 400ms var(--transition-easing-default);
   }
 }
