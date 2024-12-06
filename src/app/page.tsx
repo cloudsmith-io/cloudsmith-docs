@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <>
       <h1>Frontpage</h1>
-      <Link href="/docs">Docs</Link>
+      <Link href="/api">API</Link>
     </>
   );
 }
