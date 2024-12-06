@@ -7,7 +7,7 @@ const nextConfig = {
     ppr: true,
     dynamicIO: true,
     mdxRs: true,
-    optimizePackageImports: ['@/components', '@/markdown'],
+    optimizePackageImports: ['@/components', '@/markdown', '@/icons'],
     turbo: {
       rules: {
         '*.svg': {

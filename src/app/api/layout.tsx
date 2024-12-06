@@ -14,7 +14,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       </nav>
       <main className={styles.main}>
         <article className={styles.content}>{children}</article>
-        <aside className={styles.aside}></aside>
+        <Suspense>
+          <aside className={styles.aside}></aside>
+        </Suspense>
       </main>
     </div>
   );
