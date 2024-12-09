@@ -28,7 +28,7 @@ export function ClipboardCopy({ textToCopy }: { textToCopy: string }) {
       className={cx(styles.button, {
         [styles.copied]: isCopied,
       })}>
-      <Icon name="close" title="Copy text" direction="up" />
+      <Icon name="close" title="Copy text" />
     </button>
   );
 }
