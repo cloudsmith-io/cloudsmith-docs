@@ -3,7 +3,8 @@
 import { useState } from 'react';
 
 import { cx } from 'class-variance-authority';
-import Image from 'next/image';
+
+import { Icon } from '@/icons';
 
 import styles from './clipboard-copy.module.css';
 
@@ -27,7 +28,7 @@ export function ClipboardCopy({ textToCopy }: { textToCopy: string }) {
       className={cx(styles.button, {
         [styles.copied]: isCopied,
       })}>
-      <Image alt="Copy text" src="/icons/copy.svg" width={16} height={16} />
+      <Icon name="close" title="Copy text" />
     </button>
   );
 }
