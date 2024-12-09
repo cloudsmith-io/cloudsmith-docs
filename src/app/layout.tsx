@@ -1,5 +1,7 @@
 import { cx } from 'class-variance-authority';
 
+import Navbar from '@/components/Navbar';
+
 import { mdSystem, replica, replicaMono } from './_assets/fonts';
 
 import './_styles/critical.css';
@@ -9,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={cx(mdSystem.variable, replica.variable, replicaMono.variable)}>
       <body>
+        <Navbar />
         <div className={styles.container}>{children}</div>
       </body>
     </html>

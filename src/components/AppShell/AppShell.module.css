@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.secondaryNav {
+  flex: 0 0 var(--sidebar-width);
+}
+
+.main {
+  flex: 1;
+}

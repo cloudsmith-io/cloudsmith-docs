@@ -1,0 +1,27 @@
+{
+  "documentation": {
+    "title": "Documentation",
+    "path": "/documentation",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/getting-started",
+        "children": [
+          {
+            "title": "What is Package Management?",
+            "path": "/getting-started/what-is-package-management"
+          }
+        ]
+      },
+      {
+        "title": "Some section",
+        "children": [
+          {
+            "title": "Some child link",
+            "path": "/does-not-exist"
+          }
+        ]
+      }
+    ]
+  }
+}
