@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 
-import styles from './method.module.css';
+import styles from './Method.module.css';
 
 const method = cva(styles.root, {
   variants: {

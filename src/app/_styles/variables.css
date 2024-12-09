@@ -36,5 +36,15 @@
     --transition-default: 200ms var(--transition-easing-default);
     --transition-fast: 100ms var(--transition-easing-default);
     --transition-slow: 400ms var(--transition-easing-default);
+
+    /* Container widths */
+    --container-width-xs: 480px;
+    --container-width-s: 640px;
+    --container-width-m: 960px;
+    --container-width-l: 1400px;
+    --container-width-xl: 1512px;
+
+    --sidebar-width: 240px;
+    --navbar-height: 120px;
   }
 }
