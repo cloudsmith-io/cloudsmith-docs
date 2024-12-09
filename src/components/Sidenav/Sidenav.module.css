@@ -8,7 +8,6 @@
 }
 
 .list .list {
-  /* Todo: replace with spacing values when fluid is implemented */
   padding-left: var(--space-s);
 }
 
