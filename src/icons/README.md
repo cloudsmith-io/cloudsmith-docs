@@ -11,7 +11,9 @@ Sprites can be achieved by using the prop `as="symbol"` and `as="use"` together 
 **As normal SVG file**
 
 ```js
-<Icon name="close" title="Close icon" />
+import { Icon } from '@/icons';
+
+<Icon name="close" title="Close icon" />;
 ```
 
 Outputs:
@@ -52,4 +54,16 @@ Outputs:
 <svg width="16" height="16" viewBox="0 0 16 16">
   <use href="#close" />
 </svg>
+```
+
+## Specific props
+
+It's possible to pass specific props to the SVG element. For example, you can pass a orientation prop to the icon to flip it. Then those props can be used in the icon component to manipulate the SVG element accordingly.
+
+To get the correct types of icons with specific props, import the icon directly from the icon folder.
+
+```tsx
+import { ArrowIcon } from '@/icons/close';
+
+<ArrowIcon direction="up" title="Arrow up" />;
 ```

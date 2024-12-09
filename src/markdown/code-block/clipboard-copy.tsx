@@ -4,11 +4,9 @@ import { useState } from 'react';
 
 import { cx } from 'class-variance-authority';
 
-import { Icon, IconProps } from '@/icons';
+import { Icon } from '@/icons';
 
 import styles from './clipboard-copy.module.css';
-
-// type test = typeof Icon['name']
 
 export function ClipboardCopy({ textToCopy }: { textToCopy: string }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -30,7 +28,7 @@ export function ClipboardCopy({ textToCopy }: { textToCopy: string }) {
       className={cx(styles.button, {
         [styles.copied]: isCopied,
       })}>
-      <Icon name="close" title="Copy text" />
+      <Icon name="close" title="Copy text" direction="up" />
     </button>
   );
 }
