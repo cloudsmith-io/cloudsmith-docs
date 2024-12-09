@@ -2,7 +2,7 @@
 
 This folder contains all the icons used in the project. The icons are in SVG format and are used as React components.
 
-There is different ways of using the icons to support different use cases. Main usecase is to enable us to use SVG sprites to reduce the number of requests to the server. It also makes it possible to handle icons as normal React components if needed.
+There are different ways of using the icons to support different use cases. The main use case is to enable us to use SVG sprites to reduce the number of requests to the server. It also makes it possible to handle icons as normal React components if needed.
 
 Sprites can be achieved by using the prop `as="symbol"` and `as="use"` together on the same page. Make sure to use the icons with `as="symbol"` before you use them with `as="use"`.
 
