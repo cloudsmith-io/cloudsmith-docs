@@ -9,7 +9,7 @@
 
 .list .list {
   /* Todo: replace with spacing values when fluid is implemented */
-  padding-left: 20px;
+  padding-left: var(--space-s);
 }
 
 .link {
