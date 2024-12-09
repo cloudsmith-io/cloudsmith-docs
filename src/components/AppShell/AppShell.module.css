@@ -6,9 +6,11 @@
 .secondaryNav {
   flex: 0 0 var(--sidebar-width);
   background-color: var(--color-background-light);
-  border: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
 }
 
 .main {
   flex: 1;
+  padding-left: var(--space-l);
+  padding-right: var(--space-l);
 }

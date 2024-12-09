@@ -3,7 +3,7 @@
  * @type {import("prettier").Config}
  */
 export default {
-  plugins: ["@trivago/prettier-plugin-sort-imports"],
+  //plugins: ["@trivago/prettier-plugin-sort-imports"],
   singleQuote: true,
   printWidth: 110,
   tabWidth: 2,

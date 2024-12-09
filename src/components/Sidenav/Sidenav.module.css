@@ -1,3 +1,18 @@
 .root {
-  
+  font-size: var(--text-body-m);
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+}
+
+.list .list {
+  /* Todo: replace with spacing values when fluid is implemented */
+  padding-left: 20px;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-font-primary);
 }
