@@ -3,9 +3,9 @@ import { cva } from 'class-variance-authority';
 
 import { highlighter, theme } from '@/lib/highlight';
 
-import { ClipboardCopy } from './clipboard-copy';
+import { ClipboardCopy } from './ClipboardCopy';
 
-import styles from './code-block.module.css';
+import styles from './CodeBlock.module.css';
 
 const codeBlock = cva(styles.root, {
   variants: {
