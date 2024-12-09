@@ -1,5 +1,6 @@
 @layer variables {
   :root {
+    /* Base colors */
     --base-color-white: #fff;
     --base-color-blue-50: #f6faff;
     --base-color-blue-75: #eff5ff;
@@ -21,6 +22,13 @@
     --base-color-grey-700: #39586a;
     --base-color-grey-900: #092f45;
     --base-color-grey-1000: #031c2b;
+
+    /* Backgrounds */
+    --color-background-default: var(--base-color-white);
+    --color-background-light: var(--base-color-grey-25);
+
+    /* Border */
+    --color-border: var(--base-color-grey-300);
 
     /* Border Radius */
     --border-radius-xs: 2px;
