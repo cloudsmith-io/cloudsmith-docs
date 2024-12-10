@@ -50,6 +50,7 @@
 .lang {
   display: flex;
   gap: 30px;
+  align-items: center;
   justify-content: space-between;
   position: relative;
   user-select: none;
@@ -58,7 +59,7 @@
   font-family: var(--font-family-mono);
   text-transform: uppercase;
   font-size: 12px;
-  padding-block: 12px;
+  padding-block: 5px;
   padding-inline: 21px;
   background: var(--theme-bg-color) linear-gradient(var(--line-bg-color), var(--line-bg-color) 100%) center
     bottom / 100% 1px no-repeat;

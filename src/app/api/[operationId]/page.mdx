@@ -1,10 +1,12 @@
 import { BlockImage, Method } from '@/components';
 
+import Test from './test.mdx';
+
 ### Local image mdx
 
 ![Local image example](/temp/temp.png 'Local image')
 
-### Image tag
+### External html img tag
 
 <img src="https://github.com/favicon.ico" width="48" />
 
@@ -19,7 +21,7 @@ import { BlockImage, Method } from '@/components';
   align left
 </BlockImage>
 <BlockImage variant="base" align="right" src="/temp/temp.png" width={136} height={136} alt="No text">
-  align right
+  <Test />
 </BlockImage>
 
 ```js

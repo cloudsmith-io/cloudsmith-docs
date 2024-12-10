@@ -31,7 +31,7 @@ export async function CodeBlock({ code, lang }: Props) {
   return (
     <div className={codeBlock({ hideLineNumbers })}>
       <div className={styles.lang}>
-        {lang}
+        <div className={styles.langText}>{lang}</div>
         <ClipboardCopy textToCopy={code} />
       </div>
 
