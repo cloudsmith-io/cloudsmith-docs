@@ -8,13 +8,11 @@ const Sidenav = ({ items }: SidenavProps) => {
 
 const List = ({ items }: ListProps) => {
   return (
-    items && (
-      <ul className={styles.list}>
-        {items.map((item) => (
-          <Item data={item} key={item.title} />
-        ))}
-      </ul>
-    )
+    <ul className={styles.list}>
+      {items.map((item) => (
+        <Item data={item} key={item.title} />
+      ))}
+    </ul>
   );
 };
 

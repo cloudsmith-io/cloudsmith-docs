@@ -1,5 +1,8 @@
+/** @type {import('postcss-load-config').Config} */
+
 export default {
   plugins: {
+    'postcss-flexbugs-fixes': {},
     // This plugin adds the fluid function to CSS, which can be used to generate fluid
     // sizes for type and spacing in a more readable way. A fluid size will adapt itself
     // to the current viewport without the need for a media query.
@@ -18,6 +21,13 @@ export default {
     // },
     'postcss-preset-env': {
       preserve: false,
+      autoprefixer: {
+        flexbox: 'no-2009',
+      },
+      stage: 3,
+      features: {
+        'custom-properties': false,
+      },
     },
   },
 };

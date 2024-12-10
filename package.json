@@ -39,6 +39,7 @@
     "eslint": "^9.16.0",
     "eslint-config-next": "15.0.4-canary.45",
     "eslint-config-prettier": "^9.1.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.1",
     "prettier": "^3.4.2",
     "remark-gfm": "^4.0.0",
