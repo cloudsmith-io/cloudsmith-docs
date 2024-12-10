@@ -40,6 +40,8 @@
     "eslint-config-next": "15.0.4-canary.49",
     "eslint-config-prettier": "^9.1.0",
     "image-size": "^1.1.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^10.1.1",
     "prettier": "^3.4.2",
     "remark-gfm": "^4.0.0",
     "shiki": "^1.24.2",
