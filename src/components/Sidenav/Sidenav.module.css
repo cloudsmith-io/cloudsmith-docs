@@ -8,7 +8,7 @@
 }
 
 .list .list {
-  padding-left: var(--space-s);
+  padding-block-start: var(--space-s);
 }
 
 .link {
