@@ -27,10 +27,11 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@lehoczky/postcss-fluid": "^1.0.3",
     "@next/env": "15.0.4-canary.45",
     "@shikijs/transformers": "^1.24.0",
     "@svgr/webpack": "^8.1.0",
-    "@trivago/prettier-plugin-sort-imports": "^5.0.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.1.0",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.10.1",
     "@types/react": "19.0.0",
@@ -38,6 +39,9 @@
     "eslint": "^9.16.0",
     "eslint-config-next": "15.0.4-canary.45",
     "eslint-config-prettier": "^9.1.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^10.1.1",
+    "prettier": "^3.4.2",
     "remark-gfm": "^4.0.0",
     "shiki": "^1.24.0",
     "stylelint": "^16.11.0",

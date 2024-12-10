@@ -1,0 +1,17 @@
+.root {
+  font-size: var(--text-body-m);
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+}
+
+.list .list {
+  padding-block-start: var(--space-s);
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-font-primary);
+}
