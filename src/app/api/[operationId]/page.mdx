@@ -1,8 +1,26 @@
-import { Method } from '@/components/Method';
+import { BlockImage, Method } from '@/components';
 
-![alt text](/temp/azure.png 'Title')
+### Local image mdx
+
+![Local image example](/temp/temp.png 'Local image')
+
+### Image tag
 
 <img src="https://github.com/favicon.ico" width="48" />
+
+### Local image mdx
+
+<BlockImage variant="base" src="/temp/temp.png" width={136} height={136} alt="No text" />
+<BlockImage variant="base" src="/temp/temp.png" width={136} height={136} alt="No text">
+  Align center. Jorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit
+  interdum, ac aliquet odio mattis.
+</BlockImage>
+<BlockImage variant="base" align="left" src="/temp/temp.png" width={136} height={136} alt="No text">
+  align left
+</BlockImage>
+<BlockImage variant="base" align="right" src="/temp/temp.png" width={136} height={136} alt="No text">
+  align right
+</BlockImage>
 
 ```js
 function isJSONString(message) {
@@ -34,6 +52,12 @@ function Test() => {
   return test;
 }
 ```
+
+[MDX](https://mdxjs.com 'title')
+
+> A greater than…
+
+---
 
 # GFM
 

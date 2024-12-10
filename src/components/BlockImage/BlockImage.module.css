@@ -1,0 +1,39 @@
+.root {
+  border-radius: var(--border-radius-s);
+  display: grid;
+  align-items: start;
+
+  &:has(.caption) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  padding-inline: 16px;
+  padding-block: 16px;
+  border-radius: var(--border-radius-s);
+
+  .variantBase & {
+    background-color: var(--base-color-grey-100);
+  }
+
+  .alignRight & {
+    order: 1;
+  }
+}
+
+.caption {
+  color: var(--base-color-grey-600);
+  font-size: var(--text-body-xs);
+  padding-inline: 16px;
+  padding-block: 16px;
+
+  .alignLeft & {
+    padding-inline-end: 0;
+  }
+  .alignRight & {
+    padding-inline-start: 0;
+  }
+}
