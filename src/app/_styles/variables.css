@@ -1,5 +1,6 @@
 @layer variables {
   :root {
+    /* Base colors */
     --base-color-white: #fff;
     --base-color-blue-50: #f6faff;
     --base-color-blue-75: #eff5ff;
@@ -21,6 +22,47 @@
     --base-color-grey-700: #39586a;
     --base-color-grey-900: #092f45;
     --base-color-grey-1000: #031c2b;
+
+    /* Backgrounds */
+    --color-background-default: var(--base-color-white);
+    --color-background-light: var(--base-color-grey-25);
+
+    /* Text */
+    --color-text-primary: var(--base-color-grey-900);
+    --color-text-secondary: var(--base-color-grey-600);
+    --color-text-on-color: var(--base-color-white);
+
+    /* Border */
+    --color-border: var(--base-color-grey-300);
+
+    /* Text Sizes */
+    --text-body-2xs: fluid(8.5px, 10.5px);
+    --text-body-xs: fluid(10px, 12px);
+    --text-body-s: fluid(12px, 14px);
+    --text-body-m: fluid(14px, 16px);
+    --text-body-l: fluid(16px, 18px);
+    --text-body-xl: fluid(18px, 22px);
+    --text-headline-2xs: fluid(14px, 16px);
+    --text-headline-xs: fluid(16px, 20px);
+    --text-headline-s: fluid(18px, 24px);
+    --text-headline-m: fluid(20px, 32px);
+    --text-headline-l: fluid(26px, 40px);
+    --text-headline-xl: fluid(32px, 54px);
+    --text-headline-2xl: fluid(38px, 80px);
+    --text-headline-3xl: fluid(52px, 88px);
+
+    /* Spacing */
+    --space-4xs: fluid(2px, 4px);
+    --space-3xs: fluid(4px, 6px);
+    --space-2xs: fluid(6px, 8px);
+    --space-xs: fluid(8px, 12px);
+    --space-s: fluid(12px, 16px);
+    --space-m: fluid(16px, 24px);
+    --space-l: fluid(24px, 32px);
+    --space-xl: fluid(32px, 48px);
+    --space-2xl: fluid(48px, 64px);
+    --space-3xl: fluid(64px, 96px);
+    --space-4xl: fluid(96px, 118px);
 
     /* Border Radius */
     --border-radius-xs: 2px;

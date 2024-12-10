@@ -10,15 +10,62 @@
           {
             "title": "What is Package Management?",
             "path": "/getting-started/what-is-package-management"
+          },
+          {
+            "title": "Packages",
+            "path": "/getting-started/packages",
+            "children": [
+              {
+                "title": "First",
+                "path": "/does-not-exist"
+              },
+              {
+                "title": "Second",
+                "path": "/does-not-exist"
+              },
+              {
+                "title": "Third",
+                "path": "/does-not-exist"
+              }
+            ]
+          },
+          {
+            "title": "API Key",
+            "path": "/getting-started/api-key"
           }
         ]
       },
       {
-        "title": "Some section",
+        "title": "General",
+        "isSection": true,
         "children": [
           {
-            "title": "Some child link",
+            "title": "Introduction",
             "path": "/does-not-exist"
+          },
+          {
+            "title": "Endpoints / Versioning",
+            "path": "/does-not-exist"
+          },
+          {
+            "title": "HTTP Verbs",
+            "path": "/does-not-exist"
+          }
+        ]
+      },
+      {
+        "title": "API",
+        "isSection": true,
+        "children": [
+          {
+            "title": "List audit log entries for a specific namespace",
+            "path": "/does-not-exist",
+            "method": "get"
+          },
+          {
+            "title": "List audit log entries for a specific repository",
+            "path": "/does-not-exist",
+            "method": "get"
           }
         ]
       }

@@ -53,7 +53,7 @@
   justify-content: space-between;
   position: relative;
   user-select: none;
-  color: var(--base-color-white);
+  color: var(--color-text-on-color);
   border-radius: 12px 12px 0 0;
   font-family: var(--font-family-mono);
   text-transform: uppercase;

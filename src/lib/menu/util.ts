@@ -1,5 +1,6 @@
-import json from '../../content/menu.json';
 import type { Menu, MenuItem } from './types';
+
+import json from '../../content/menu.json';
 
 const menu: Menu = json;
 

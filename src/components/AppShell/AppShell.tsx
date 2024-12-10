@@ -12,7 +12,6 @@ export function AppShell({ children, secondaryNav }: AppShellProps) {
     </Container>
   );
 }
-
 interface AppShellProps {
   children: React.ReactNode;
   secondaryNav?: React.ReactNode;
