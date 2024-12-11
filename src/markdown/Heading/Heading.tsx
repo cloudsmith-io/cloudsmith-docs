@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 
-import styles from './heading.module.css';
+import styles from './Heading.module.css';
 
 const defaultSize = 'h1' as const;
 const heading = cva(styles.root, {

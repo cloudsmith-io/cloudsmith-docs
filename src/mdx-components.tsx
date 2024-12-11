@@ -1,9 +1,9 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, Suspense } from 'react';
 
 import type { MDXComponents } from 'mdx/types';
-import Image, { ImageProps } from 'next/image';
+import { ImageProps } from 'next/image';
 
-import { CodeBlock, Heading } from '@/markdown';
+import { CodeBlock, Heading, Image } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -24,7 +24,11 @@ const components = {
     return <CodeBlock code={code} lang={lang} {...props} />;
   },
 
-  img: (props: ImageProps) => <Image sizes="100vw" style={{ width: '100%', height: 'auto' }} {...props} />,
+  img: (props: ImageProps) => (
+    <Suspense>
+      <Image {...props} />
+    </Suspense>
+  ),
 };
 
 declare global {

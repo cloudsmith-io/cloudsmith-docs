@@ -6,7 +6,6 @@ const nextConfig = {
   experimental: {
     ppr: "incremental",
     dynamicIO: true,
-    mdxRs: true,
     optimizePackageImports: ['@/components', '@/markdown', '@/icons'],
     turbo: {
       rules: {
@@ -17,12 +16,21 @@ const nextConfig = {
       },
     },
   },
+  images: {
+    // TODO: Only add trusted domains
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+      },
+    ],
+  },
 };
 
 const withMDX = createMDX({
   options: {
     remarkPlugins: [
-      ['remark-gfm', { strict: true, throwOnError: true }]
+      ['remark-gfm']
     ],
     rehypePlugins: [],
   },

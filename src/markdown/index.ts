@@ -1,2 +1,3 @@
-export * from './headings';
-export * from './code-block';
+export * from './Heading';
+export * from './CodeBlock';
+export * from './Image';

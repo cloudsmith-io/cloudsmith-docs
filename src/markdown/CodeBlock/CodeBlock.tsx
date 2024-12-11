@@ -3,9 +3,9 @@ import { cva } from 'class-variance-authority';
 
 import { highlighter, theme } from '@/lib/highlight';
 
-import { ClipboardCopy } from './clipboard-copy';
+import { ClipboardCopy } from './ClipboardCopy';
 
-import styles from './code-block.module.css';
+import styles from './CodeBlock.module.css';
 
 const codeBlock = cva(styles.root, {
   variants: {
@@ -31,7 +31,7 @@ export async function CodeBlock({ code, lang }: Props) {
   return (
     <div className={codeBlock({ hideLineNumbers })}>
       <div className={styles.lang}>
-        {lang}
+        <div className={styles.langText}>{lang}</div>
         <ClipboardCopy textToCopy={code} />
       </div>
 

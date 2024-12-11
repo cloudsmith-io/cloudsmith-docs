@@ -6,7 +6,7 @@ import { cx } from 'class-variance-authority';
 
 import { Icon } from '@/icons';
 
-import styles from './clipboard-copy.module.css';
+import styles from './ClipboardCopy.module.css';
 
 export function ClipboardCopy({ textToCopy }: { textToCopy: string }) {
   const [isCopied, setIsCopied] = useState(false);
