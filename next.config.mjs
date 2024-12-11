@@ -4,7 +4,7 @@ import createMDX from '@next/mdx';
 const nextConfig = {
   pageExtensions: ['mdx', 'tsx'],
   experimental: {
-    ppr: true,
+    ppr: "incremental",
     dynamicIO: true,
     mdxRs: true,
     optimizePackageImports: ['@/components', '@/markdown', '@/icons'],

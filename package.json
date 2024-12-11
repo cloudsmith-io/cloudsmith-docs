@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=23.0.0"
+    "node": "22.x"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "pnpm run lint:js && pnpm run lint:css",
@@ -20,24 +20,24 @@
     "@apidevtools/swagger-parser": "^10.1.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "15.0.4-canary.45",
+    "@next/mdx": "15.1.0",
     "class-variance-authority": "^0.7.1",
-    "next": "15.0.4-canary.45",
+    "next": "15.1.1-canary.0",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@lehoczky/postcss-fluid": "^1.0.3",
-    "@next/env": "15.0.4-canary.45",
+    "@next/env": "15.1.0",
     "@shikijs/transformers": "^1.24.0",
     "@svgr/webpack": "^8.1.0",
     "@trivago/prettier-plugin-sort-imports": "^5.1.0",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.10.1",
-    "@types/react": "19.0.0",
-    "@types/react-dom": "19.0.0",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.2",
     "eslint": "^9.16.0",
-    "eslint-config-next": "15.0.4-canary.45",
+    "eslint-config-next": "15.1.0",
     "eslint-config-prettier": "^9.1.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.1",
@@ -48,5 +48,11 @@
     "stylelint-config-standard": "^36.0.1",
     "tsx": "^4.19.2",
     "typescript": "5.7.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.0.1",
+      "@types/react-dom": "19.0.2"
+    }
   }
 }
