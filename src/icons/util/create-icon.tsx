@@ -46,7 +46,7 @@ type BaseProps = {
   id?: string;
 };
 
-type RenderProps<Props extends {}> = {
+type RenderProps<Props extends object> = {
   [Key in keyof Props]: Key extends keyof BaseProps ? never : Props[Key];
 };
 
