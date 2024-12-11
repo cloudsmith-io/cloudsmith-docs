@@ -22,7 +22,7 @@ export const getImageSize = async (props: ImageProps) => {
   const isLocalImage = !src.startsWith('http');
 
   // Height and width is required for local images
-  if (isLocalImage && !props.width && !props.height) {
+  if (isLocalImage && !props.width && !props.height && !props.fill) {
     const filePath = path.join(process.cwd(), 'public', src);
     const { width, height } = imageSize(filePath);
 
