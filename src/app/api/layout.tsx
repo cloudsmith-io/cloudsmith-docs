@@ -12,7 +12,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           <Sidebar />
         </Suspense>
       }>
-      {children}
+      <Suspense>{children}</Suspense>
     </AppShell>
   );
 }
