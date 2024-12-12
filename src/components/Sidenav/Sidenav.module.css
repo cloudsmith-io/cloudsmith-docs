@@ -1,17 +1,31 @@
+/* TODO: Replace with real styles */
 .root {
   font-size: var(--text-body-m);
+  padding: var(--space-m);
+  max-height: 60px;
 }
 
 .list {
+  display: none;
   padding: 0;
   list-style: none;
 }
 
 .list .list {
-  padding-block-start: var(--space-s);
+  padding-left: var(--space-s);
 }
 
 .link {
   text-decoration: none;
   color: var(--color-font-primary);
+}
+
+@media (--laptop-up) {
+  .root {
+    max-height: none;
+  }
+
+  .list {
+    display: block;
+  }
 }

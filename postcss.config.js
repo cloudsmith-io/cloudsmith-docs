@@ -15,6 +15,7 @@ export default {
     },
     // This is used to make the custom media queries available in all
     // CSS files, so postcss-custom-media can use them.
+    // TODO: Research if there is a better way to handle this
     '@csstools/postcss-global-data': {
       files: ['./src/app/_styles/breakpoints.css'],
     },

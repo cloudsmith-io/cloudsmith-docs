@@ -2,7 +2,7 @@ import { MenuItem } from '@/lib/menu/types';
 import styles from './Sidenav.module.css';
 import Link from 'next/link';
 
-const Sidenav = ({ items }: SidenavProps) => {
+export const Sidenav = ({ items }: SidenavProps) => {
   return <div className={styles.root}>{items && <List items={items} />}</div>;
 };
 
@@ -40,5 +40,3 @@ interface ListProps {
 interface ItemProps {
   data: MenuItem;
 }
-
-export default Sidenav;
