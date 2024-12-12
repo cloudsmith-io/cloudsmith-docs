@@ -1,0 +1,21 @@
+/* TODO: Replace with real styles */
+.root {
+  padding-block-start: var(--space-m);
+  display: flex;
+}
+
+.content {
+  flex: 1;
+}
+
+.nav {
+  display: none;
+}
+
+@media (--desktop-up) {
+  .nav {
+    display: block;
+    padding: var(--space-m);
+    flex: 0 0 var(--sidebar-width);
+  }
+}

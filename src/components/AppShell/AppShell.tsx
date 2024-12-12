@@ -4,14 +4,14 @@ import { Container } from '../Container';
 
 import styles from './AppShell.module.css';
 
-export function AppShell({ children, secondaryNav }: AppShellProps) {
+export const AppShell = ({ children, secondaryNav }: AppShellProps) => {
   return (
     <Container className={styles.root}>
-      {secondaryNav && <div className={styles.secondaryNav}>{secondaryNav}</div>}
+      {secondaryNav && <aside className={styles.secondaryNav}>{secondaryNav}</aside>}
       <div className={styles.main}>{children}</div>
     </Container>
   );
-}
+};
 interface AppShellProps {
   children: React.ReactNode;
   secondaryNav?: React.ReactNode;

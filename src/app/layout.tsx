@@ -1,6 +1,6 @@
 import { cx } from 'class-variance-authority';
 
-import Navbar from '@/components/Navbar';
+import { Navbar } from '@/components';
 
 import { mdSystem, replica, replicaMono } from './_assets/fonts';
 
