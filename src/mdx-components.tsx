@@ -21,7 +21,11 @@ const components = {
     const code = codeProps.children as string;
     const lang = (codeProps.className || '').replace(/language-/, '');
 
-    return <CodeBlock code={code} lang={lang} {...props} />;
+    return (
+      <Suspense>
+        <CodeBlock code={code} lang={lang} {...props} />
+      </Suspense>
+    );
   },
 
   img: (props: ImageProps) => (

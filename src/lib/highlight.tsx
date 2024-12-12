@@ -4,5 +4,5 @@ export const theme = 'material-theme-palenight';
 
 export const highlighter = createHighlighter({
   themes: [theme],
-  langs: ['js', 'jsx', 'ts', 'tsx', 'json', 'text', 'bash'],
+  langs: ['js', 'jsx', 'ts', 'tsx', 'json', 'text', 'bash', 'yaml'],
 });

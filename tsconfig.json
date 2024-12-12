@@ -34,7 +34,10 @@
     ]
   },
   "mdx": {
-    "checkMdx": true
+    "checkMdx": true,
+    "plugins": [
+      "remark-gfm"
+    ]
   },
   "include": [
     "**/*.ts",
