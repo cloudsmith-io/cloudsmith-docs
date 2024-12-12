@@ -1,5 +1,5 @@
 import { getMenuData } from '@/lib/menu/util';
-import Sidenav from '@/components/Sidenav/Sidenav';
+import { Sidenav } from '@/components';
 
 export function Sidebar() {
   const menuData = getMenuData('documentation');

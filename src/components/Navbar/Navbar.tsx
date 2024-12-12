@@ -3,7 +3,7 @@ import { Container } from '../Container';
 
 import styles from './Navbar.module.css';
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
     <div className={styles.root}>
       <Container className={styles.container}>
@@ -17,5 +17,3 @@ const Navbar = () => {
     </div>
   );
 };
-
-export default Navbar;

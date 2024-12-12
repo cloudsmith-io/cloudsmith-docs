@@ -3,10 +3,10 @@
   font-size: var(--text-body-m);
   padding: var(--space-m);
   max-height: 60px;
-  overflow: hidden;
 }
 
 .list {
+  display: none;
   padding: 0;
   list-style: none;
 }
@@ -23,5 +23,9 @@
 @media (--laptop-up) {
   .root {
     max-height: none;
+  }
+
+  .list {
+    display: block;
   }
 }
