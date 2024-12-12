@@ -37,6 +37,9 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
+      '@csstools/postcss-global-data':
+        specifier: ^3.0.0
+        version: 3.0.0(postcss@8.4.49)
       '@lehoczky/postcss-fluid':
         specifier: ^1.0.3
         version: 1.0.3(postcss@8.4.49)
@@ -763,6 +766,12 @@ packages:
 
   '@csstools/postcss-gamut-mapping@2.0.6':
     resolution: {integrity: sha512-0ke7fmXfc8H+kysZz246yjirAH6JFhyX9GTlyRnM0exHO80XcA9zeJpy5pOp5zo/AZiC/q5Pf+Hw7Pd6/uAoYA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      postcss: ^8.4
+
+  '@csstools/postcss-global-data@3.0.0':
+    resolution: {integrity: sha512-3dR5+RDhPW1uqPWZUyTBSVn03gGbxzoSyCEpXugy9UMtXeyKjrB84dX3V8eggzooCsX8wcraKehzdouNO+MlsA==}
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.4
@@ -4553,6 +4562,10 @@ snapshots:
       '@csstools/css-color-parser': 3.0.6(@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3))(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-parser-algorithms': 3.0.4(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-tokenizer': 3.0.3
+      postcss: 8.4.49
+
+  '@csstools/postcss-global-data@3.0.0(postcss@8.4.49)':
+    dependencies:
       postcss: 8.4.49
 
   '@csstools/postcss-gradients-interpolation-method@5.0.6(postcss@8.4.49)':

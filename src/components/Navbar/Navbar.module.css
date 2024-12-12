@@ -4,6 +4,21 @@
   color: white;
 }
 
+.container {
+  padding: 0 var(--space-m);
+}
+
+.logo {
+  padding-block-start: var(--space-s);
+}
+
 .nav {
-  height: var(--navbar-height);
+  padding-block: var(--space-s);
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
 }

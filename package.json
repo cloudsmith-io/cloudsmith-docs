@@ -27,6 +27,7 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@csstools/postcss-global-data": "^3.0.0",
     "@lehoczky/postcss-fluid": "^1.0.3",
     "@next/env": "15.1.0",
     "@shikijs/transformers": "^1.24.0",
