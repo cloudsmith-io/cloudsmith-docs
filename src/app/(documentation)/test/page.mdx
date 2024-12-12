@@ -1,0 +1,94 @@
+# Azure DevOps Integrations
+
+Effortlessly integrate Cloudsmith with Azure DevOps to securely manage artifacts and automate deployments.
+
+## Introduction
+
+Integrate Cloudsmith with Azure DevOps to automate the management of your artifacts securely and efficiently. This guide will help you set up Azure DevOps pipelines to interact directly with Cloudsmith repositories, with options for both API Key and OIDC authentication.
+
+---
+
+## What You’ll Need
+
+Before getting started, you need to have the following prerequisites:
+
+- An Azure DevOps account with pipeline permissions, which can be set up by following the steps in the Azure DevOps documentation.
+- A Cloudsmith account, which can be set up by following the steps in the Cloudsmith documentation.
+- Azure Entra (formerly Azure Active Directory) App registration capabilities if using OIDC.
+
+---
+
+## Integration Features
+
+- Automatic Cloudsmith CLI Setup: Install and configure Cloudsmith CLI in your ADO pipeline.
+- Flexible Authentication: Choose between API Key and OIDC authentication.
+- Cross-Platform Compatibility: Works on Windows, Ubuntu, and Mac ADO agents.
+
+---
+
+## Step-by-Step Guide
+
+### Step 1: Set Up an Azure AD Application in Azure Entra (for OIDC Authentication)
+
+To enable OIDC authentication, create an Azure AD (Azure Entra) application that will allow Azure DevOps to interact securely with Cloudsmith.
+
+- Navigate to Azure Entra Applications:
+  1. Go to Azure Portal.
+  2. Select Azure Active Directory/Entra from the menu.
+  3. Choose App registrations and click New registration.
+- Register the Application:
+  1. Enter a Name (e.g., “Cloudsmith Integration”).
+  2. For Supported account types, select Accounts in this organizational directory only.
+  3. Click Register.
+- Capture Key Details:
+  1. After registration, note the Application (client) ID and Directory (tenant) ID. These will be needed in the pipeline configuration as clientId and tenantId, respectively.
+- Create a Client Secret:
+  1. In your registered app, navigate to Certificates & secrets.
+  2. Under Client secrets, click New client secret.
+  3. Add a Description (e.g., “Cloudsmith Secret”) and set an expiration.
+  4. Click Add and copy the Value. This will be your clientSecret.
+- Configure API Permissions for the Azure Entra App Registration:
+  1. In your Azure Entra App Registration, navigate to the API Permissions blade.
+  2. Click on Add a permission.
+  3. Under Microsoft APIs, select Microsoft Graph.
+  4. Choose Delegated permissions and select User.Read.
+  5. Click Add permissions.
+  6. After adding the permission, click on Grant admin consent for the organization to ensure this permission is granted for all users in the directory.
+- Set App ID URI:
+  1. Navigate to Expose an API in the application’s settings.
+  2. Click Set to define an Application ID URI. You can use the default URI or set one on your own.
+  3. Copy the URI.
+
+> [!NOTE]
+> This URI will be used as the appIdUri in the pipeline configuration with /.default appended to the URI. Example: api://mydomain/myapp/.default.
+
+## Step 2: Install the Cloudsmith CLI Extension in Azure DevOps
+
+Go to the [Azure DevOps Marketplace](#). Search for [Cloudsmith CLI Setup & Authenticate](#) and install it in your DevOps organization.
+
+## Step 3: Add the Cloudsmith CLI Setup & Authenticate Task in Your Pipeline
+
+1. In your Azure DevOps project, navigate to Pipelines and open the pipeline where you want to integrate the Cloudsmith CLI.
+2. In the pipeline editor, add the Cloudsmith CLI Setup & Authenticate task.
+3. To use a specific CLI version, set cliVersion in your pipeline. Leave it blank to use the latest.
+4. Configure the task based on your preferred authentication method:
+5. For API Key Authentication: Enter your Cloudsmith API key.(Check step 3 for more explanation)
+6. For OIDC Authentication: Enter the required OIDC Namespace and OIDC Service Account Slug along with the Client ID, Client Secret, Tenant ID, and App ID URI as needed.(Check step 3 for more explanation)
+
+## Step 4: Configure Authentication in Your Azure DevOps Pipeline
+
+This integration supports both API Key and OIDC authentication.
+
+API Key Authentication
+
+Set authMethod to 'apiKey'.
+
+1. Provide CLOUDSMITH_API_KEY as a secret variable in your pipeline configuration.
+
+Example configuration:
+
+```yaml
+cliVersion: '1.3.1' # Example CLI version
+authMethod: 'apiKey'
+apiKey: '$(CLOUDSMITH_API_KEY)'
+```
