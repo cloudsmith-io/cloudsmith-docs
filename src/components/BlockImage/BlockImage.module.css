@@ -2,18 +2,21 @@
   border-radius: var(--border-radius-s);
   display: grid;
   align-items: start;
+}
 
-  &:has(.caption) {
+@media (--table-up) {
+  .root:has(.caption) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.image {
+.imageContainer {
   display: flex;
   justify-content: center;
   padding-inline: 16px;
   padding-block: 16px;
   border-radius: var(--border-radius-s);
+  position: relative;
 
   .variantBase & {
     background-color: var(--base-color-grey-100);
@@ -23,17 +26,23 @@
     order: 1;
   }
 }
+.image {
+  object-fit: fill;
+}
 
 .caption {
   color: var(--base-color-grey-600);
   font-size: var(--text-body-xs);
+  line-height: fluid(16px, 18px);
   padding-inline: 16px;
   padding-block: 16px;
+}
 
-  .alignLeft & {
+@media (--tablet-up) {
+  .alignLeft .caption {
     padding-inline-end: 0;
   }
-  .alignRight & {
+  .alignRight .caption {
     padding-inline-start: 0;
   }
 }

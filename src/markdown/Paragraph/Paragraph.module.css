@@ -1,0 +1,7 @@
+.root {
+  /* TODO: Decide on default sizes of paragraphs in parent element */
+  /* font-size: 16px;
+  line-height: fluid(23px, 28px); */
+  letter-spacing: 0.08px;
+  margin-block-end: fluid(16px, 30px);
+}

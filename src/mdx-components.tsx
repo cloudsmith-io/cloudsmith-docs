@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, Suspense } from 'react';
 import type { MDXComponents } from 'mdx/types';
 import { ImageProps } from 'next/image';
 
-import { CodeBlock, Heading, Image } from '@/markdown';
+import { CodeBlock, Heading, HorizontalRule, Image, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -15,13 +15,21 @@ const components = {
   h5: (props: HeadingProps<'h5'>) => <Heading size="h5" {...props} />,
   h6: (props: HeadingProps<'h6'>) => <Heading size="h6" {...props} />,
 
+  p: (props: ComponentPropsWithoutRef<'p'>) => <Paragraph {...props} />,
+
+  hr: (props: ComponentPropsWithoutRef<'hr'>) => <HorizontalRule {...props} />,
+
   pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {
     // This type assertion is necessary because the type of children is not always ReactElement
     const codeProps = (children as React.ReactElement).props as React.HTMLProps<HTMLElement>;
     const code = codeProps.children as string;
     const lang = (codeProps.className || '').replace(/language-/, '');
 
-    return <CodeBlock code={code} lang={lang} {...props} />;
+    return (
+      <Suspense>
+        <CodeBlock code={code} lang={lang} {...props} />
+      </Suspense>
+    );
   },
 
   img: (props: ImageProps) => (

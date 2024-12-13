@@ -1,8 +1,17 @@
 .root {
   font-family: var(--font-family-headline);
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .h1 {
-  font-size: 48px;
+  font-size: var(--text-headline-m);
+  line-height: fluid(32px, 38px);
+  letter-spacing: -0.08px;
+  margin-block-end: var(--space-m);
+}
+
+.h2 {
+  font-size: var(--text-headline-xs);
+  line-height: fluid(24px, 28px);
+  margin-block-end: fluid(6px, 12px);
 }

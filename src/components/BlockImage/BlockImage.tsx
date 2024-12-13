@@ -33,8 +33,8 @@ const blockImage = cva(styles.root, {
 export const BlockImage = ({ align, variant, children, ...rest }: BlockImageProps) => {
   return (
     <div className={blockImage({ align, variant })}>
-      <div className={styles.image}>
-        <Image {...rest} />
+      <div className={styles.imageContainer}>
+        <Image className={styles.image} {...rest} />
       </div>
       {children ? <div className={styles.caption}>{children}</div> : null}
     </div>
