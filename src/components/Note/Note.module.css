@@ -5,10 +5,10 @@
   padding-block: var(--space-s);
   padding-inline: var(--space-l);
   font-size: var(--text-body-s);
+}
 
-  p:last-child {
-    margin-block-end: 0;
-  }
+.root p:last-child {
+  margin-block-end: 0;
 }
 
 .headline {
