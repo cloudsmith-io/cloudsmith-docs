@@ -26,6 +26,7 @@
     order: 1;
   }
 }
+
 .image {
   object-fit: fill;
 }
@@ -42,6 +43,7 @@
   .alignLeft .caption {
     padding-inline-end: 0;
   }
+
   .alignRight .caption {
     padding-inline-start: 0;
   }
