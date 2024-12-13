@@ -3,6 +3,7 @@ import { ComponentPropsWithoutRef, Suspense } from 'react';
 import type { MDXComponents } from 'mdx/types';
 import { ImageProps } from 'next/image';
 
+import { Note } from '@/components';
 import { CodeBlock, Heading, HorizontalRule, Image, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
@@ -18,6 +19,8 @@ const components = {
   p: (props: ComponentPropsWithoutRef<'p'>) => <Paragraph {...props} />,
 
   hr: (props: ComponentPropsWithoutRef<'hr'>) => <HorizontalRule {...props} />,
+
+  blockquote: (props: ComponentPropsWithoutRef<'blockquote'>) => <Note headline="Note:" {...props} />,
 
   pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {
     // This type assertion is necessary because the type of children is not always ReactElement

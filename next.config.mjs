@@ -4,7 +4,7 @@ import createMDX from '@next/mdx';
 const nextConfig = {
   pageExtensions: ['mdx', 'tsx'],
   experimental: {
-    ppr: "incremental",
+    ppr: 'incremental',
     dynamicIO: true,
     optimizePackageImports: ['@/components', '@/markdown', '@/icons'],
     turbo: {
@@ -29,9 +29,7 @@ const nextConfig = {
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [
-      ['remark-gfm']
-    ],
+    remarkPlugins: [['remark-gfm']],
     rehypePlugins: [],
   },
 });

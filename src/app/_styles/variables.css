@@ -27,6 +27,8 @@
     --color-background-default: var(--base-color-white);
     --color-background-light: var(--base-color-grey-25);
 
+    --color-background-note: #deeafd; /* TODO: Align color with design system */
+
     /* Text */
     --color-text-primary: var(--base-color-grey-900);
     --color-text-secondary: var(--base-color-grey-600);
