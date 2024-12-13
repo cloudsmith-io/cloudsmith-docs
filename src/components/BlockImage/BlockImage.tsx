@@ -30,11 +30,11 @@ const blockImage = cva(styles.root, {
  *
  * @returns {JSX.Element} The rendered BlockImage component.
  */
-export const BlockImage = ({ align, variant, children, ...rest }: BlockImageProps) => {
+export const BlockImage = ({ alt, align, variant, children, ...rest }: BlockImageProps) => {
   return (
     <div className={blockImage({ align, variant })}>
       <div className={styles.imageContainer}>
-        <Image className={styles.image} {...rest} />
+        <Image className={styles.image} alt={alt} {...rest} />
       </div>
       {children ? <div className={styles.caption}>{children}</div> : null}
     </div>

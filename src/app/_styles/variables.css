@@ -26,6 +26,7 @@
     /* Backgrounds */
     --color-background-default: var(--base-color-white);
     --color-background-light: var(--base-color-grey-25);
+    --color-background-note: #deeafd; /* TODO: Align color with design system */
 
     /* Text */
     --color-text-primary: var(--base-color-grey-900);
@@ -85,7 +86,6 @@
     --container-width-m: 960px;
     --container-width-l: 1400px;
     --container-width-xl: 1512px;
-
     --sidebar-width: 240px;
   }
 }

@@ -1,9 +1,9 @@
 .root {
   /* TODO: Decide on theme colors */
   --theme-bg-color: #292d3e;
-  --theme-clipboard-bg-color: rgba(255, 255, 255, 15%);
+  --theme-clipboard-bg-color: rgb(255 255 255 / 15%);
   --line-color: #818e95;
-  --line-bg-color: rgba(255, 255, 255, 15%);
+  --line-bg-color: rgb(255 255 255 / 15%);
   --line-number-size: 40px;
   --line-padding: 20px;
 
@@ -15,6 +15,7 @@
 .code {
   position: relative;
 }
+
 .code :global(pre) {
   margin: 0;
   overflow-x: auto;
@@ -22,12 +23,14 @@
   border-radius: 0 0 12px 12px;
   padding-block: 15px;
 }
+
 .code :global(code) {
   display: grid;
   tab-size: 4;
   hyphens: none;
   white-space: pre;
 }
+
 .code :global(.line) {
   padding-inline: var(--line-padding);
 }
@@ -36,6 +39,7 @@
   counter-reset: line;
   counter-increment: line 0;
 }
+
 .withLineNumbers :global(.line::before) {
   content: counter(line) / '';
   width: 16px;
