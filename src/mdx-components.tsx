@@ -35,9 +35,9 @@ const components = {
     );
   },
 
-  img: (props: ImageProps) => (
+  img: ({ alt, ...rest }: ImageProps) => (
     <Suspense>
-      <Image {...props} />
+      <Image alt={alt} {...rest} />
     </Suspense>
   ),
 };
