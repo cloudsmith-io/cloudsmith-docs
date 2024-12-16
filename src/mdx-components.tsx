@@ -1,10 +1,11 @@
 import { ComponentPropsWithoutRef, Suspense } from 'react';
 
 import type { MDXComponents } from 'mdx/types';
+import type { Route } from 'next';
 import { ImageProps } from 'next/image';
 
 import { Note } from '@/components';
-import { CodeBlock, Heading, HorizontalRule, Image, Paragraph } from '@/markdown';
+import { CodeBlock, Heading, HorizontalRule, Image, Link, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -40,6 +41,19 @@ const components = {
       <Image alt={alt} {...rest} />
     </Suspense>
   ),
+
+  ol: (props: ComponentPropsWithoutRef<'ol'>) => {
+    // console.log(props);
+
+    return <ol className="list-decimal" style={{ border: '1px solid red' }} {...props} />;
+  },
+  li: (props: ComponentPropsWithoutRef<'li'>) => {
+    // console.log(props);
+
+    return <li style={{ border: '1px solid green' }} {...props} />;
+  },
+
+  a: ({ href, ...rest }: ComponentPropsWithoutRef<'a'>) => <Link href={href as Route} {...rest} />,
 };
 
 declare global {
