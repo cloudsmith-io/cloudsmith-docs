@@ -1,6 +1,6 @@
 /** @type {import('stylelint').Config} */
 export default {
-  extends: ['stylelint-config-standard'],
+  extends: ['stylelint-config-standard', 'stylelint-config-css-modules'],
   rules: {
     'at-rule-no-unknown': true,
     'at-rule-no-vendor-prefix': true,
