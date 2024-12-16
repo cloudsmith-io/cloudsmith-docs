@@ -4,4 +4,14 @@
     font-family: var(--font-family-body);
     color: var(--color-text-primary);
   }
+
+  a {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-decoration-skip: objects;
+
+    &:is(:hover, :focus) {
+      text-decoration: none;
+    }
+  }
 }
