@@ -1,4 +1,5 @@
-import { CloseIcon } from './svgs/close';
+import { CloseIcon } from './svgs/CloseIcon';
+import { ChevronDownIcon } from './svgs/ChevronDown';
 import { createIconRegistry } from './util/create-icon-registry';
 
 export const iconRegistry = createIconRegistry({
