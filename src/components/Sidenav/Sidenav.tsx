@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { cx } from 'class-variance-authority';
 
-import { Icon } from '@/icons';
 import { MenuItem } from '@/lib/menu/types';
 
 import styles from './Sidenav.module.css';
