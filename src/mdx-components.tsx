@@ -42,17 +42,6 @@ const components = {
     </Suspense>
   ),
 
-  ol: (props: ComponentPropsWithoutRef<'ol'>) => {
-    // console.log(props);
-
-    return <ol className="list-decimal" style={{ border: '1px solid red' }} {...props} />;
-  },
-  li: (props: ComponentPropsWithoutRef<'li'>) => {
-    // console.log(props);
-
-    return <li style={{ border: '1px solid green' }} {...props} />;
-  },
-
   a: ({ href, ...rest }: ComponentPropsWithoutRef<'a'>) => <Link href={href as Route} {...rest} />,
 };
 
