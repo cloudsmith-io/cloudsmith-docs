@@ -46,6 +46,10 @@
         ]
       },
       {
+        "title": "Command-Line Interface",
+        "path": "/does-not-exist"
+      },
+      {
         "title": "General",
         "children": [
           {
