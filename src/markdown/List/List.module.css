@@ -1,0 +1,13 @@
+.root {
+  line-height: var(--line-height-m);
+  padding: 0;
+  margin-block: 12px;
+  margin-inline: 25px 0;
+}
+.root .root {
+  margin-block: 0;
+}
+
+/* If specific styles is needed use
+.unOrdered {}
+.ordered {}*/

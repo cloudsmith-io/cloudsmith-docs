@@ -5,7 +5,7 @@ import type { Route } from 'next';
 import { ImageProps } from 'next/image';
 
 import { Note } from '@/components';
-import { CodeBlock, Heading, HorizontalRule, Image, Link, Paragraph } from '@/markdown';
+import { CodeBlock, Heading, HorizontalRule, Image, Link, List, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -41,6 +41,9 @@ const components = {
       <Image alt={alt} {...rest} />
     </Suspense>
   ),
+
+  ul: (props: ComponentPropsWithoutRef<'ul'>) => <List {...props} />,
+  ol: (props: ComponentPropsWithoutRef<'ol'>) => <List ordered {...props} />,
 
   a: ({ href, ...rest }: ComponentPropsWithoutRef<'a'>) => <Link href={href as Route} {...rest} />,
 };
