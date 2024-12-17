@@ -4,7 +4,10 @@ import styles from './List.module.css';
 
 export function List(props: ListProps) {
   if (isOrderedList(props)) {
-    const { ordered, ...rest } = props;
+    const {
+      ordered, // eslint-disable-line @typescript-eslint/no-unused-vars
+      ...rest
+    } = props;
     return <ol className={cx(styles.root, styles.ordered)} {...rest} />;
   }
 
