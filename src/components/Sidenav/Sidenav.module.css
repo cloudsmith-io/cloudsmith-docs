@@ -1,23 +1,45 @@
-/* TODO: Replace with real styles */
 .root {
   font-size: var(--text-body-m);
   padding: var(--space-m);
+  /* Just for now to hide on mobile */
   max-height: 60px;
 }
 
 .list {
+  /* Just for now to hide on mobile */
   display: none;
   padding: 0;
   list-style: none;
+  margin-block-start: var(--space-s);
+  margin-block-end: var(--space-s);
 }
 
 .list .list {
   padding-left: var(--space-s);
+  font-size: var(--text-body-s);
+}
+
+.list .list.bleed {
+  padding-left: 0;
+  margin-block-start: var(--space-3xs);
+}
+
+.link,
+.item {
+  display: block;
+  margin-block-end: var(--space-3xs);
 }
 
 .link {
   text-decoration: none;
   color: var(--color-font-primary);
+}
+
+.section {
+  font-family: var(--font-family-mono);
+  font-size: var(--text-body-xs);
+  color: var(--color-text-label);
+  text-transform: uppercase;
 }
 
 @media (--laptop-up) {

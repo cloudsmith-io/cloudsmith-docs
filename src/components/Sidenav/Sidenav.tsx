@@ -1,14 +1,19 @@
-import { MenuItem } from '@/lib/menu/types';
-import styles from './Sidenav.module.css';
+'use client';
+
 import Link from 'next/link';
+import { cx } from 'class-variance-authority';
+
+import { MenuItem } from '@/lib/menu/types';
+
+import styles from './Sidenav.module.css';
 
 export const Sidenav = ({ items }: SidenavProps) => {
   return <div className={styles.root}>{items && <List items={items} />}</div>;
 };
 
-const List = ({ items }: ListProps) => {
+const List = ({ items, bleed }: ListProps) => {
   return (
-    <ul className={styles.list}>
+    <ul className={cx(styles.list, bleed && styles.bleed)}>
       {items.map((item) => (
         <Item data={item} key={item.title} />
       ))}
@@ -18,15 +23,15 @@ const List = ({ items }: ListProps) => {
 
 const Item = ({ data }: ItemProps) => {
   return (
-    <li>
+    <li className={styles.item}>
       {data.path ? (
         <Link className={styles.link} href={data.path}>
           {data.title}
         </Link>
       ) : (
-        data.title
+        <span className={styles.section}>{data.title}</span>
       )}
-      {data.children && <List items={data.children} />}
+      {data.children && <List items={data.children} bleed={!data.path} />}
     </li>
   );
 };
@@ -36,6 +41,7 @@ interface SidenavProps {
 }
 interface ListProps {
   items: MenuItem[];
+  bleed?: boolean;
 }
 interface ItemProps {
   data: MenuItem;
