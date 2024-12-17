@@ -2,5 +2,5 @@
   border: 0;
   height: 1px;
   background: var(--base-color-grey-300);
-  margin-block: fluid(20px, 30px);
+  margin-block: var(--space-l);
 }

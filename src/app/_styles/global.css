@@ -1,8 +1,8 @@
-/* TODO: Global styles */
 @layer global {
   body {
-    font-family: var(--font-family-body);
     color: var(--color-text-primary);
+    font-family: var(--font-family-body);
+    letter-spacing: var(--letter-body);
   }
 
   a {
