@@ -36,7 +36,7 @@ export const useHeadingsObserver = (
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [querySelector, rootMargin, threshold]);
+  }, [querySelector, rootMargin, threshold, idPrefix]);
 
   return activeHeadline;
 };
