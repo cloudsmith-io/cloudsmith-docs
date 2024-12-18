@@ -1,14 +1,19 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
+import type { OpenAPIV3 } from 'openapi-types';
 
-export async function getApiSchema() {
-  const schema = await SwaggerParser.parse(`src/content/api-schema-v1.json`);
+export async function parseSchema(): Promise<OpenAPIV3.Document> {
+  const schema = (await SwaggerParser.parse(`src/content/api-schema-v2.json`)) as OpenAPIV3.Document;
 
   if (!schema) {
-    throw new Error('Failed to fetch API schema');
+    throw new Error('Failed to parse API schema');
   }
 
   return schema;
 }
+
+// Another function to:
+// Parse all paths into a flat array of custom type built on the openapi-types exported sub-types
+// Parse the array into a tree object that can be used to render the menu?
 
 // export async function getSidebarStructure() {
 
