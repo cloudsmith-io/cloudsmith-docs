@@ -1,4 +1,5 @@
 import createMDX from '@next/mdx';
+import { quickNavPrefix } from './src/lib/constants/settings.mjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -30,7 +31,7 @@ const nextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: [['remark-gfm']],
-    rehypePlugins: [],
+    rehypePlugins: [['rehype-slug', { prefix: quickNavPrefix }]],
   },
 });
 

@@ -1,0 +1,8 @@
+.root {
+  position: sticky;
+  top: 0;
+}
+
+.active {
+  text-decoration: underline;
+}
