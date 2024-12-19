@@ -4,6 +4,31 @@
   font-weight: normal;
 }
 
+/* TODO: anchor design */
+.root:has(a) {
+  --anchorSize: 25px;
+
+  position: relative;
+
+  a {
+    transform: translateY(-50%);
+    position: absolute;
+    inset: 50% calc(var(--anchorSize) * -1);
+    width: var(--anchorSize);
+    height: var(--anchorSize);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-border);
+    border-radius: var(--border-radius-l);
+  }
+
+  &:hover a {
+    opacity: 1;
+  }
+}
+
 .h1 {
   font-size: var(--text-headline-m);
   line-height: fluid(32px, 38px);
