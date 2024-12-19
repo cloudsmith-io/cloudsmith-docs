@@ -10,7 +10,7 @@ export const useHeadingsObserver = (
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    function handleObsever(entries: IntersectionObserverEntry[]) {
+    function handleObserver(entries: IntersectionObserverEntry[]) {
       entries.forEach((entry) => {
         if (entry?.isIntersecting) {
           setActiveHeadline(entry.target.id);
@@ -18,8 +18,8 @@ export const useHeadingsObserver = (
       });
     }
 
-    if (observerRef !== undefined) {
-      observerRef.current = new IntersectionObserver(handleObsever, {
+    if (observerRef !== null) {
+      observerRef.current = new IntersectionObserver(handleObserver, {
         rootMargin: rootMargin,
         threshold: threshold,
       });
@@ -27,8 +27,8 @@ export const useHeadingsObserver = (
       const elements = document.querySelectorAll(querySelector);
 
       elements.forEach((elem) => {
-        if (elem.id.startsWith(idPrefix)) {
-          observerRef.current !== null ? observerRef.current.observe(elem) : null;
+        if (elem.id.startsWith(idPrefix) && observerRef.current !== null) {
+          observerRef.current.observe(elem);
         }
       });
     }

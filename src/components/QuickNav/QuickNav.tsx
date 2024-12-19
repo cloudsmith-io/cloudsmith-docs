@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
 
-const headingsToObserve = 'h1, h2, h3, h4, h5, h6';
+const headingsToObserve = 'h2, h3, h4, h5, h6';
 
 export const QuickNav = () => {
   const [headings, setHeadings] = useState<Array<HeadingList>>([]);
