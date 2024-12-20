@@ -1,4 +1,8 @@
 @layer global {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     color: var(--color-text-primary);
     font-family: var(--font-family-body);
