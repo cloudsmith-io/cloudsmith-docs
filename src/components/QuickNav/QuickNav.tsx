@@ -1,27 +1,29 @@
 'use client';
 
-import { quickNavPrefix } from '@/lib/constants/settings.mjs';
+import { quickNavContentId } from '@/lib/constants/quickNav';
 import { useEffect, useState } from 'react';
 import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
+import { cx } from 'class-variance-authority';
 
 const headingsToObserve = 'h2, h3, h4, h5, h6';
 
 export const QuickNav = () => {
   const [headings, setHeadings] = useState<Array<HeadingList>>([]);
-  const activeHeadline = useHeadingsObserver(headingsToObserve, '-5% 0px -50% 0px', 1, quickNavPrefix);
+  const activeHeadline = useHeadingsObserver(headingsToObserve, '-5% 0px -50% 0px', 1);
 
   useEffect(() => {
+    const contentArea = document.getElementById(quickNavContentId);
+    if (!contentArea) return;
+
     // Get all headings
-    const headingElements = document.querySelectorAll(headingsToObserve);
-    const headingData: Array<HeadingList> = Array.from(headingElements)
-      .filter((element) => element.id.startsWith(quickNavPrefix))
-      .map((element) => ({
-        id: element.id,
-        text: element.textContent || '',
-        level: parseInt(element.tagName[1]),
-        children: [],
-      }));
+    const headingElements = contentArea.querySelectorAll(headingsToObserve);
+    const headingData: Array<HeadingList> = Array.from(headingElements).map((element) => ({
+      id: element.id,
+      text: element.textContent || '',
+      level: parseInt(element.tagName[1]),
+      children: [],
+    }));
 
     // Create a nested structure
     const nestedHeadings: Array<HeadingList> = [];
@@ -44,21 +46,25 @@ export const QuickNav = () => {
     setHeadings(nestedHeadings);
   }, []);
 
-  return <nav className={styles.root}>{renderHeadings(headings, activeHeadline)}</nav>;
+  if (headings.length) {
+    return <nav className={styles.root}>{renderHeadings(headings, activeHeadline)}</nav>;
+  }
 };
 
 const renderHeadings = (headings: Array<HeadingList>, activeHeadline: string) => {
   return (
-    <ul>
+    <ul className={styles.list}>
       {headings.map((heading) => (
-        <li key={heading.id}>
-          <span
-            {...(heading.id === activeHeadline && {
-              className: styles.active,
+        <li key={heading.id} className={styles.item}>
+          <a
+            href={`#${heading.id}`}
+            className={cx(styles.link, {
+              [styles.active]: heading.id === activeHeadline,
             })}>
             {heading.text}
-          </span>
-          {heading.children.length > 0 && renderHeadings(heading.children, activeHeadline)}
+          </a>
+
+          {heading.children ? renderHeadings(heading.children, activeHeadline) : null}
         </li>
       ))}
     </ul>

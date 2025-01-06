@@ -10,8 +10,7 @@
   display: none;
   padding: 0;
   list-style: none;
-  margin-block-start: var(--space-s);
-  margin-block-end: var(--space-s);
+  margin-block: var(--space-s);
 }
 
 .list .list {
