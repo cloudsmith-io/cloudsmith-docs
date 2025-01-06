@@ -37,7 +37,7 @@ const Item = ({ data }: ItemProps) => {
 };
 
 interface SidenavProps {
-  items: MenuItem[] | undefined;
+  items: MenuItem[];
 }
 interface ListProps {
   items: MenuItem[];

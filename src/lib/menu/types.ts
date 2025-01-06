@@ -1,4 +1,4 @@
-import { Method } from '@/components/Method';
+import { OpenAPI, OpenAPIV3 } from 'openapi-types';
 
 export type Menu = { [key: string]: MenuItem };
 
@@ -6,5 +6,5 @@ export type MenuItem = {
   title: string;
   path?: string;
   children?: MenuItem[];
-  method?: Method.Methods;
+  method?: OpenAPIV3.HttpMethods;
 };

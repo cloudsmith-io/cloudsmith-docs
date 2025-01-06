@@ -1,4 +1,4 @@
-import { parseSchema, transformSchema } from './parse';
+import { parseSchema, toMenuItems, toOperations } from './parse';
 
 describe('lib', () => {
   describe('swagger', () => {
@@ -12,20 +12,28 @@ describe('lib', () => {
         });
       });
 
-      describe('transformSchema', () => {
+      // TODO: Update test when we have the proper data
+      describe('toOperations', () => {
         test('it creates flat array of operation objects', async () => {
           const schema = await parseSchema();
-          const result = await transformSchema(schema);
-          expect(result.operations.length).toBeGreaterThan(4);
+          const result = toOperations(schema);
+          expect(result.length).toBeGreaterThan(4);
+        });
+      });
+
+      // TODO: Update test when we have the proper data
+      describe('toMenuItems', () => {
+        test('it creates menu items', async () => {
+          const schema = await parseSchema();
+          const operations = toOperations(schema);
+          const result = toMenuItems(operations);
+          expect(result[0].title).toBe('Policies');
+          expect(result[0].children?.[0].title).toBe('List');
         });
 
-        test('it creates menu tree pointing to operation objects', async () => {
-          const schema = await parseSchema();
-          const result = await transformSchema(schema);
-          // TODO: Update test when we have the proper data
-          expect(result.menu[0].name).toBe('Policies');
-          expect(result.menu[0].children[0].name).toBe('List');
-        });
+        // TODO: It adds the correct method
+        // TODO: It sorts things alphabetically
+        // TODO: It makes the correct link
       });
     });
   });
