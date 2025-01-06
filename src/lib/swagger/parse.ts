@@ -1,7 +1,12 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
-import type { OpenAPIV3 } from 'openapi-types';
+import { OpenAPIV3 } from 'openapi-types';
+import { ApiDefinition, ApiMenuSection, ApiOperation } from './types';
+import { isHttpMethod, parseMenuSegments } from './util';
 
-export async function parseSchema(): Promise<OpenAPIV3.Document> {
+/**
+ * Parses the swagger schema with the Swagger Parser library to resolve refs
+ */
+export const parseSchema = async (): Promise<OpenAPIV3.Document> => {
   const schema = (await SwaggerParser.parse(`src/content/api-schema-v2.json`)) as OpenAPIV3.Document;
 
   if (!schema) {
@@ -9,29 +14,51 @@ export async function parseSchema(): Promise<OpenAPIV3.Document> {
   }
 
   return schema;
-}
+};
 
-// Another function to:
-// Parse all paths into a flat array of custom type built on the openapi-types exported sub-types
-// Parse the array into a tree object that can be used to render the menu?
+/**
+ * Transforms the schema into a custom ApiDefinition type so it's
+ * a bit easier to work with when generating the menu and content pages.
+ */
+export const transformSchema = async (schema: OpenAPIV3.Document): Promise<ApiDefinition> => {
+  const operations: ApiOperation[] = [];
+  const menu: ApiMenuSection[] = [];
 
-// export async function getSidebarStructure() {
+  for (const path in schema.paths) {
+    const pathObject = schema.paths[path];
+    for (const method in pathObject) {
+      if (isHttpMethod(method)) {
+        const operation = pathObject[method as keyof OpenAPIV3.PathItemObject] as ApiOperation;
+        operation.path = path;
+        operation.method = method as OpenAPIV3.HttpMethods;
 
-//   const schema = await getApiSchema();
+        if (operation.operationId) {
+          const segments = parseMenuSegments(operation.operationId);
 
-//   if (!schema?.paths) {
-//     throw new Error('No paths in API schema');
-//   }
+          // Assign last part of segment to name of operation
+          operation.name = segments.pop() || 'Unknown';
 
-//   const flattenPaths = Object.entries(schema.paths).map(([path, pathItem]) => ({
-//     ...pathItem,
-//     path,
-//   }));
+          // Add segments to menu tree so we can easily render later
+          let parent: any[] = menu;
+          for (let i = 0; i < segments.length; i++) {
+            const name = segments[i];
+            let existing = parent.find((child) => child.name === name);
+            if (!existing) {
+              existing = { name, children: [] };
+              parent.push(existing);
+            }
 
-//   const groupedByTags = Object.groupBy(flattenPaths, (item) => item.get?.tags);
+            parent = existing.children;
+          }
 
-//   // Parse and stringify to make Next.js caching happy.
-//   // There might be a better fix for this, since we might not need all the data
-//   // https://nextjs.org/docs/canary/app/api-reference/directives/use-cache#good-to-know
-//   return JSON.parse(JSON.stringify(groupedByTags)) as object;
-// }
+          parent.push(operation);
+          operation.menuSegments = segments;
+        }
+
+        operations.push(operation);
+      }
+    }
+  }
+
+  return { operations, menu };
+};
