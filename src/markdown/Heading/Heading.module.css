@@ -1,17 +1,40 @@
 .root {
+  --anchor-size: 25px;
+
+  position: relative;
+  letter-spacing: var(--letter-headline);
   font-family: var(--font-family-headline);
   font-weight: normal;
+
+  &:hover a {
+    opacity: 1;
+  }
+}
+
+/* TODO: anchor design */
+.root a {
+  transform: translateY(-50%);
+  position: absolute;
+  inset: 50% calc(var(--anchor-size) * -1);
+  width: var(--anchor-size);
+  height: var(--anchor-size);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-border);
+  border-radius: var(--border-radius-l);
 }
 
 .h1 {
   font-size: var(--text-headline-m);
   line-height: fluid(32px, 38px);
-  letter-spacing: -0.08px;
   margin-block-end: var(--space-m);
 }
 
 .h2 {
+  letter-spacing: initial;
   font-size: var(--text-headline-xs);
   line-height: fluid(24px, 28px);
-  margin-block-end: fluid(6px, 12px);
+  margin-block-end: var(--space-s);
 }

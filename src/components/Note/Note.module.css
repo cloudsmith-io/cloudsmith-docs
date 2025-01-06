@@ -4,6 +4,7 @@
   background: var(--color-background-note);
   padding-block: var(--space-s);
   padding-inline: var(--space-l);
+  margin-block: var(--space-s);
   font-size: var(--text-body-s);
 }
 

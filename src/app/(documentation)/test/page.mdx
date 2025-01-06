@@ -125,14 +125,16 @@ oidcServiceSlug: '$(YOUR_SERVICE_SLUG)'
    - Provider Name: Enter a unique name for your provider (e.g., “ado”).
    - Provider URL: Set this to [https://sts.windows.net/your-tenant-id](https://sts.windows.net/your-tenant-id), replacing your-tenant-id with your Azure AD Tenant ID.
    - Required OpenID Token Claims: Ensure at least aud claim is configured. You need to include: aud, email, email_verified, exp, iat, iss, name, sub, and any other claims you want to use in your pipeline.
-   ```json
-   {
-     "aud": "<appIdUri_value>"
-   }
-   ```
-   - Replace `<appIdUri_value>` with the Application ID URI of your Azure AD application.
-   - Under Service Accounts, select the appropriate service account(s) that this provider can authenticate with. For example, you might select a service account like “ado-user” as shown in the image above.
-   - Click Create Settings to save the configuration.
+
+```json
+{
+  "aud": "<appIdUri_value>"
+}
+```
+
+- Replace `<appIdUri_value>` with the Application ID URI of your Azure AD application.
+- Under Service Accounts, select the appropriate service account(s) that this provider can authenticate with. For example, you might select a service account like “ado-user” as shown in the image above.
+- Click Create Settings to save the configuration.
 
 > [!NOTE]
 > This configuration allows Cloudsmith to authenticate requests from Azure DevOps using OIDC, provided the token claims match.

@@ -2,9 +2,10 @@
   border-radius: var(--border-radius-s);
   display: grid;
   align-items: start;
+  margin-block: var(--space-l);
 }
 
-@media (--table-up) {
+@media (--tablet-up) {
   .root:has(.caption) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

@@ -27,10 +27,29 @@ const nextConfig = {
   },
 };
 
+/** @type {import('rehype-autolink-headings').Options} */
+const rehypeAutolinkHeadings = {
+  behavior: 'append',
+  properties: {
+    tabIndex: 0,
+    ariaHidden: true,
+    className: 'anchor'
+  },
+  content: {
+    type: 'element',
+    tagName: 'span',
+    properties: { className: 'anchorIcon' },
+  }
+};
+
 const withMDX = createMDX({
   options: {
     remarkPlugins: [['remark-gfm']],
-    rehypePlugins: [],
+    rehypePlugins: [
+      ['rehype-sanitize'],
+      ['rehype-slug'],
+      ['rehype-autolink-headings', rehypeAutolinkHeadings],
+    ],
   },
 });
 
