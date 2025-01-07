@@ -8,7 +8,11 @@ export const isHttpMethod = (method: string): boolean =>
  * Parses the operationId property to create the menu structure
  * for the API reference. Needs special handling for some values.
  */
-export const parseMenuSegments = (operationId: string): string[] => {
+export const parseMenuSegments = (operationId: string | undefined): string[] => {
+  if (!operationId) {
+    return [];
+  }
+
   const replaced = replaceAll(operationId, {
     partial_update: 'partial-update',
   });
@@ -23,4 +27,11 @@ export const parseMenuSegments = (operationId: string): string[] => {
   }
 
   return split;
+};
+
+/**
+ * Turns the menu segments into a single slugified path
+ */
+export const operationSlug = (menuSegments: string[]): string => {
+  return '/api/' + menuSegments.join('/').replaceAll(' ', '-').toLowerCase();
 };

@@ -1,4 +1,4 @@
-import { parseMenuSegments } from './util';
+import { operationSlug, parseMenuSegments } from './util';
 
 describe('lib', () => {
   describe('swagger', () => {
@@ -13,6 +13,19 @@ describe('lib', () => {
           } as { [operationId: string]: string[] };
           for (const key in mapping) {
             expect(parseMenuSegments(key)).toEqual(mapping[key]);
+          }
+        });
+      });
+      describe('operationSlug', () => {
+        test('it creates proper slug', async () => {
+          const mapping = [
+            { from: ['Orgs', 'List'], to: '/api/orgs/list' },
+            { from: ['Deny Policy', 'List'], to: '/api/deny-policy/list' },
+            { from: ['Deny Policy', 'Partial Update'], to: '/api/deny-policy/partial-update' },
+            { from: ['License Policy', 'Evaluation', 'List'], to: '/api/license-policy/evaluation/list' },
+          ];
+          for (const item of mapping) {
+            expect(operationSlug(item.from)).toEqual(item.to);
           }
         });
       });

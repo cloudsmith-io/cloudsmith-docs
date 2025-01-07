@@ -5,7 +5,6 @@ const nextConfig = {
   pageExtensions: ['mdx', 'tsx'],
   experimental: {
     ppr: 'incremental',
-    dynamicIO: true,
     optimizePackageImports: ['@/components', '@/markdown', '@/icons'],
     turbo: {
       rules: {
@@ -33,13 +32,13 @@ const rehypeAutolinkHeadings = {
   properties: {
     tabIndex: 0,
     ariaHidden: true,
-    className: 'anchor'
+    className: 'anchor',
   },
   content: {
     type: 'element',
     tagName: 'span',
     properties: { className: 'anchorIcon' },
-  }
+  },
 };
 
 const withMDX = createMDX({

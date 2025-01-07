@@ -13,6 +13,7 @@ export const Sidebar = async () => {
   if (menuData.children) allItems.push(...menuData.children);
   allItems.push({
     title: 'API',
+    isSection: true,
     children: operationItems,
   });
 

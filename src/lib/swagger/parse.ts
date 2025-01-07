@@ -1,7 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
 import { ApiOperation } from './types';
-import { isHttpMethod, parseMenuSegments } from './util';
+import { isHttpMethod, operationSlug, parseMenuSegments } from './util';
 import { MenuItem } from '../menu/types';
 
 /**
@@ -28,11 +28,15 @@ export const toOperations = (schema: OpenAPIV3.Document): ApiOperation[] => {
     const pathObject = schema.paths[path];
     for (const method in pathObject) {
       if (isHttpMethod(method)) {
-        const operation = pathObject[method as keyof OpenAPIV3.PathItemObject];
+        const operation = pathObject[method as keyof OpenAPIV3.PathItemObject] as OpenAPIV3.OperationObject;
+        const menuSegments = parseMenuSegments(operation.operationId);
+        const slug = operationSlug(menuSegments);
         operations.push({
           ...(operation as ApiOperation),
           method: method as OpenAPIV3.HttpMethods,
           path,
+          menuSegments,
+          slug,
         });
       }
     }
@@ -61,7 +65,8 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
         if (!existing) {
           existing = { title };
           if (isLast) {
-            existing.path = '/replaceWithPathHelper';
+            existing.path = operation.slug;
+            existing.method = operation.method;
           } else {
             existing.children = [];
           }
