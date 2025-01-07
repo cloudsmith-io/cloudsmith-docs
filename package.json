@@ -15,7 +15,6 @@
     "lint:css": "stylelint '**/*.css'",
     "lint:css:fix": "stylelint 'src/**/*.css' --fix",
     "schema": "tsx scripts/download-schema",
-    "swagger": "tsx scripts/swagger-test",
     "test": "jest"
   },
   "dependencies": {
@@ -24,7 +23,6 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "15.1.0",
     "class-variance-authority": "^0.7.1",
-    "lodash": "^4.17.21",
     "next": "15.1.1-canary.0",
     "react": "19.0.0",
     "react-dom": "19.0.0"
