@@ -7,14 +7,14 @@ export const Sidebar = async () => {
 
   const schema = await parseSchema();
   const operations = toOperations(schema);
-  const operationItems = toMenuItems(operations);
+  const menuItems = toMenuItems(operations);
 
   const allItems = [];
   if (menuData.children) allItems.push(...menuData.children);
   allItems.push({
     title: 'API',
     isSection: true,
-    children: operationItems,
+    children: menuItems,
   });
 
   return <Sidenav items={allItems} />;

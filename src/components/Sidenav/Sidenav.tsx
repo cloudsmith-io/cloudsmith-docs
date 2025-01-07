@@ -6,7 +6,6 @@ import { cx } from 'class-variance-authority';
 import { MenuItem } from '@/lib/menu/types';
 
 import styles from './Sidenav.module.css';
-import { Method } from '../Method';
 
 export const Sidenav = ({ items }: SidenavProps) => {
   return <div className={styles.root}>{items && <List items={items} />}</div>;
@@ -22,6 +21,7 @@ const List = ({ items, bleed }: ListProps) => {
   );
 };
 
+// TODO: Introduce this:
 // const segment = useSelectedLayoutSegment();?
 
 const Item = ({ item }: ItemProps) => {
