@@ -2,7 +2,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import { replaceAll, titleCase } from '../util';
 
 export const isHttpMethod = (method: string): boolean =>
-  Object.values(OpenAPIV3.HttpMethods as any).includes(method);
+  Object.values<string>(OpenAPIV3.HttpMethods).includes(method);
 
 /**
  * Parses the operationId property to create the menu structure
