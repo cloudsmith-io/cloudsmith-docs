@@ -18,6 +18,13 @@ describe('lib', () => {
           const schema = await parseSchema();
           const result = toOperations(schema);
           expect(result.length).toBeGreaterThan(4);
+
+          const operation = result.find((op) => op.operationId === 'orgs_policies_list');
+          expect(operation).toBeDefined();
+          expect(operation?.menuSegments).toEqual(['Policies', 'List']);
+          expect(operation?.path).toEqual('/orgs/{org}/policies/');
+          expect(operation?.method).toEqual('get');
+          expect(operation?.slug).toEqual('/api/policies/list');
         });
       });
 
@@ -27,13 +34,18 @@ describe('lib', () => {
           const schema = await parseSchema();
           const operations = toOperations(schema);
           const result = toMenuItems(operations);
-          expect(result[0].title).toBe('Policies');
-          expect(result[0].children?.[0].title).toBe('List');
-        });
 
-        // TODO: It adds the correct method
-        // TODO: It sorts things alphabetically
-        // TODO: It makes the correct link
+          const parentItem = result[0];
+          const childItem = parentItem.children?.[0];
+
+          expect(parentItem.title).toBe('Policies');
+          expect(parentItem?.path).toBeUndefined();
+          expect(parentItem?.method).toBeUndefined();
+
+          expect(childItem?.title).toEqual('List');
+          expect(childItem?.method).toEqual('get');
+          expect(childItem?.path).toEqual('/api/policies/list');
+        });
       });
     });
   });

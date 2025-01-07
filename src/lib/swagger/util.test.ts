@@ -1,22 +1,22 @@
-import { operationSlug, parseMenuSegments } from './util';
+import { createSlug, parseMenuSegments } from './util';
 
 describe('lib', () => {
   describe('swagger', () => {
     describe('util.ts', () => {
       describe('parseMenuSegments', () => {
         test('it parses the needed operationIDs', async () => {
-          const mapping = {
-            orgs_list: ['Orgs', 'List'],
-            'orgs_deny-policy_list': ['Deny Policy', 'List'],
-            'orgs_deny-policy_partial_update': ['Deny Policy', 'Partial Update'],
-            'orgs_license-policy_evaluation_list': ['License Policy', 'Evaluation', 'List'],
-          } as { [operationId: string]: string[] };
-          for (const key in mapping) {
-            expect(parseMenuSegments(key)).toEqual(mapping[key]);
+          const mapping = [
+            { from: 'orgs_list', to: ['Orgs', 'List'] },
+            { from: 'orgs_deny-policy_list', to: ['Deny Policy', 'List'] },
+            { from: 'orgs_deny-policy_partial_update', to: ['Deny Policy', 'Partial Update'] },
+            { from: 'orgs_license-policy_evaluation_list', to: ['License Policy', 'Evaluation', 'List'] },
+          ];
+          for (const item of mapping) {
+            expect(parseMenuSegments(item.from)).toEqual(item.to);
           }
         });
       });
-      describe('operationSlug', () => {
+      describe('createSlug', () => {
         test('it creates proper slug', async () => {
           const mapping = [
             { from: ['Orgs', 'List'], to: '/api/orgs/list' },
@@ -25,7 +25,7 @@ describe('lib', () => {
             { from: ['License Policy', 'Evaluation', 'List'], to: '/api/license-policy/evaluation/list' },
           ];
           for (const item of mapping) {
-            expect(operationSlug(item.from)).toEqual(item.to);
+            expect(createSlug(item.from)).toEqual(item.to);
           }
         });
       });
