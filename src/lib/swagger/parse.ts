@@ -1,7 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
 import { ApiOperation } from './types';
-import { isHttpMethod, operationSlug, parseMenuSegments } from './util';
+import { isHttpMethod, createSlug, parseMenuSegments } from './util';
 import { MenuItem } from '../menu/types';
 
 /**
@@ -30,7 +30,7 @@ export const toOperations = (schema: OpenAPIV3.Document): ApiOperation[] => {
       if (isHttpMethod(method)) {
         const operation = pathObject[method as keyof OpenAPIV3.PathItemObject] as OpenAPIV3.OperationObject;
         const menuSegments = parseMenuSegments(operation.operationId);
-        const slug = operationSlug(menuSegments);
+        const slug = createSlug(menuSegments);
         operations.push({
           ...(operation as ApiOperation),
           method: method as OpenAPIV3.HttpMethods,

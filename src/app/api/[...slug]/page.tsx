@@ -1,22 +1,28 @@
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
-import { toRouteSegments } from '@/lib/util';
+import { createSlug, toRouteSegments } from '@/lib/swagger/util';
 
 export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
   const schema = await parseSchema();
   const operations = toOperations(schema);
-  return operations.map((op) => {
-    const slug = toRouteSegments(op.slug);
-    slug.shift(); // Get rid of /api
-    return { slug };
-  });
+  return operations.map((op) => ({ slug: toRouteSegments(op.slug) }));
 };
 
 const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
-  // TODO: Load the content we need from operations;
-  return <div>Rendering the slug: {slug}</div>;
+  const schema = await parseSchema();
+  const operations = toOperations(schema);
+  const qualifiedSlug = createSlug(slug);
+  const operation = operations.find((op) => op.slug === qualifiedSlug);
+
+  return (
+    <div>
+      Rendering the operation: {operation?.method} {operation?.path}
+      <p>JSON:</p>
+      <pre>{JSON.stringify(operation, null, 2)}</pre>
+    </div>
+  );
 };
 
 interface PageProps {
