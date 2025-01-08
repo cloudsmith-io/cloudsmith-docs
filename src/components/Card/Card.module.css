@@ -98,13 +98,29 @@
 }
 
 .widthThird {
-  width: calc((100% - (2 * var(--flex-gap))) / 3);
+  width: 100%;
 }
 
 .widthHalf {
-  width: calc((100% - var(--flex-gap)) / 2);
+  width: 100%;
 }
 
 .widthFull {
   width: 100%;
+}
+
+@media (--phablet-up) {
+  .widthThird {
+    width: calc((100% - var(--flex-gap)) / 2);
+  }
+
+  .widthHalf {
+    width: calc((100% - var(--flex-gap)) / 2);
+  }
+}
+
+@media (--tablet-up) {
+  .widthThird {
+    width: calc((100% - (2 * var(--flex-gap))) / 3);
+  }
 }
