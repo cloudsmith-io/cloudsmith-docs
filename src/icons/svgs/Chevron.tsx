@@ -1,33 +1,40 @@
 import * as m from 'motion/react-m';
 
 import { createIcon } from '../util/create-icon';
+import { Transition } from 'motion/dist/react';
 
-export const ChevronIcon = createIcon<ChevronIconProps>('chevron', ({ direction = 'right', ...props }) => ({
-  ...props,
-  children: (
-    <m.path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M2.586 6.402l.707-.707 4.11 4.11h1.32L12.7 5.7l.718.696-4.274 4.408H6.988L2.586 6.402z"
-      fill="var(--svg-path-fill)"
-      animate={{ transform: `rotate(${rotate[direction]})` }}
-    />
-  ),
-}));
+export const ChevronIcon = createIcon<ChevronIconProps>(
+  'chevron',
+  ({ chevronDirection = 'up', transition = { duration: 1 }, ...props }) => ({
+    ...props,
+    children: (
+      <m.path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2.586 6.402l.707-.707 4.11 4.11h1.32L12.7 5.7l.718.696-4.274 4.408H6.988L2.586 6.402z"
+        fill="var(--svg-path-fill)"
+        animate={{ transform: `rotate(${rotate[chevronDirection]})` }}
+        transition={transition}
+        initial={false}
+      />
+    ),
+  }),
+);
 
 const rotate: Rotate = {
-  top: '-90deg',
-  right: '0deg',
-  bottom: '90deg',
-  left: '180deg',
+  up: '-180deg',
+  right: '-90deg',
+  down: '0deg',
+  left: '90deg',
 };
 
 interface ChevronIconProps {
-  direction?: Direction;
+  chevronDirection?: Direction;
+  transition?: Transition;
 }
 
 type Rotate = {
   [key in Direction]: `${number}deg`;
 };
 
-type Direction = 'top' | 'right' | 'bottom' | 'left';
+type Direction = 'up' | 'right' | 'down' | 'left';

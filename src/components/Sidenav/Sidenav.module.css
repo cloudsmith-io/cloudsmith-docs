@@ -10,6 +10,7 @@
 .list {
   padding: 0;
   list-style: none;
+  overflow-y: hidden;
   margin-block-start: var(--space-s);
   margin-block-end: var(--space-s);
 
@@ -28,6 +29,11 @@
   margin-block-end: var(--space-3xs);
 }
 
+.linkButton {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
 .link {
   display: flex;
   justify-content: space-between;
@@ -35,7 +41,7 @@
   text-decoration: none;
   color: var(--base-color-grey-100);
   padding-inline: var(--space-m);
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .linkIcon {
