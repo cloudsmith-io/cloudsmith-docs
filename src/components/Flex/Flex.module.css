@@ -1,0 +1,149 @@
+.root {
+  display: flex;
+  gap: var(--flex-gap, var(--space-m));
+}
+
+/* VARIANTS */
+.root[data-direction='row'] {
+  flex-direction: row;
+}
+
+.root[data-direction='column'] {
+  flex-direction: column;
+}
+
+.root[data-align='start'] {
+  align-items: flex-start;
+}
+
+.root[data-align='center'] {
+  align-items: center;
+}
+
+.root[data-align='end'] {
+  align-items: flex-end;
+}
+
+.root[data-align='baseline'] {
+  align-items: baseline;
+}
+
+.root[data-align='stretch'] {
+  align-items: stretch;
+}
+
+.root[data-justify='start'] {
+  justify-content: flex-start;
+}
+
+.root[data-justify='center'] {
+  justify-content: center;
+}
+
+.root[data-justify='end'] {
+  justify-content: flex-end;
+}
+
+.root[data-justify='between'] {
+  justify-content: space-between;
+}
+
+.root[data-wrap='true'] {
+  flex-wrap: wrap;
+}
+
+.root[data-gap='none'] {
+  --flex-gap: 0;
+}
+
+.root[data-gap='4xs'] {
+  --flex-gap: var(--space-3xs);
+}
+
+.root[data-gap='3xs'] {
+  --flex-gap: var(--space-3xs);
+}
+
+.root[data-gap='2xs'] {
+  --flex-gap: var(--space-2xs);
+}
+
+.root[data-gap='xs'] {
+  --flex-gap: var(--space-xs);
+}
+
+.root[data-gap='s'] {
+  --flex-gap: var(--space-s);
+}
+
+.root[data-gap='m'] {
+  --flex-gap: var(--space-m);
+}
+
+.root[data-gap='l'] {
+  --flex-gap: var(--space-l);
+}
+
+.root[data-gap='xl'] {
+  --flex-gap: var(--space-xl);
+}
+
+.root[data-gap='2xl'] {
+  --flex-gap: var(--space-2xl);
+}
+
+.root[data-gap='3xl'] {
+  --flex-gap: var(--space-3xl);
+}
+
+.root[data-gap='4xl'] {
+  --flex-gap: var(--space-4xl);
+}
+
+.root[data-padding='none'] {
+  padding: 0;
+}
+
+.root[data-padding='4xs'] {
+  padding: var(--space-4xs);
+}
+
+.root[data-padding='3xs'] {
+  padding: var(--space-3xs);
+}
+
+.root[data-padding='2xs'] {
+  padding: var(--space-2xs);
+}
+
+.root[data-padding='xs'] {
+  padding: var(--space-xs);
+}
+
+.root[data-padding='s'] {
+  padding: var(--space-s);
+}
+
+.root[data-padding='m'] {
+  padding: var(--space-m);
+}
+
+.root[data-padding='l'] {
+  padding: var(--space-l);
+}
+
+.root[data-padding='xl'] {
+  padding: var(--space-xl);
+}
+
+.root[data-padding='2xl'] {
+  padding: var(--space-2xl);
+}
+
+.root[data-padding='3xl'] {
+  padding: var(--space-3xl);
+}
+
+.root[data-padding='4xl'] {
+  padding: var(--space-4xl);
+}
