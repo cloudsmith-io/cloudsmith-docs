@@ -21,13 +21,6 @@ export function Method({ type, active, ...rest }: Method.Props) {
 }
 
 export namespace Method {
-  export enum Methods {
-    get = 'get',
-    post = 'post',
-    put = 'put',
-    delete = 'delete',
-  }
-
   type VariantsProps = VariantProps<typeof method>;
 
   export interface Props

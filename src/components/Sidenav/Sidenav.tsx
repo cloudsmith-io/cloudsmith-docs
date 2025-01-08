@@ -15,34 +15,37 @@ const List = ({ items, bleed }: ListProps) => {
   return (
     <ul className={cx(styles.list, bleed && styles.bleed)}>
       {items.map((item) => (
-        <Item data={item} key={item.title} />
+        <Item item={item} key={item.title} />
       ))}
     </ul>
   );
 };
 
-const Item = ({ data }: ItemProps) => {
+// TODO: Introduce this:
+// const segment = useSelectedLayoutSegment();?
+
+const Item = ({ item }: ItemProps) => {
   return (
     <li className={styles.item}>
-      {data.path ? (
-        <Link className={styles.link} href={data.path}>
-          {data.title}
+      {item.path ? (
+        <Link className={styles.link} href={item.path}>
+          {item.method} {item.title}
         </Link>
       ) : (
-        <span className={styles.section}>{data.title}</span>
+        <span className={cx(item.isSection && styles.section)}>{item.title}</span>
       )}
-      {data.children && <List items={data.children} bleed={!data.path} />}
+      {item.children && <List items={item.children} bleed={item.isSection} />}
     </li>
   );
 };
 
 interface SidenavProps {
-  items: MenuItem[] | undefined;
+  items: MenuItem[];
 }
 interface ListProps {
   items: MenuItem[];
   bleed?: boolean;
 }
 interface ItemProps {
-  data: MenuItem;
+  item: MenuItem;
 }

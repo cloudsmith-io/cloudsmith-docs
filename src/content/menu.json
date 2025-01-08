@@ -51,6 +51,7 @@
       },
       {
         "title": "General",
+        "isSection": true,
         "children": [
           {
             "title": "Introduction",
@@ -62,7 +63,6 @@
           },
           {
             "title": "HTTP Verbs",
-            "path": "/does-not-exist",
             "children": [
               {
                 "title": "Nested Items",
@@ -79,25 +79,28 @@
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  "api": {
+    "title": "API Reference",
+    "path": "/api",
+    "children": [
       {
-        "title": "API",
+        "title": "General",
+        "isSection": true,
         "children": [
           {
-            "title": "audit-log",
-            "path": "/should-link-to-first-item",
-            "children": [
-              {
-                "title": "List audit log entries for a specific namespace",
-                "path": "/does-not-exist",
-                "method": "get"
-              },
-              {
-                "title": "List audit log entries for a specific repository",
-                "path": "/does-not-exist",
-                "method": "get"
-              }
-            ]
+            "title": "Article 1",
+            "path": "/does-not-exist"
+          },
+          {
+            "title": "Article 2",
+            "path": "/does-not-exist"
+          },
+          {
+            "title": "Article 3",
+            "path": "/does-not-exist"
           }
         ]
       }

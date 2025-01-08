@@ -1,5 +1,4 @@
 import imageSize from 'image-size';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
 import { ImageProps } from 'next/image';
 import path from 'path';
 
@@ -15,9 +14,6 @@ import path from 'path';
  * the dimensions cannot be determined.
  */
 export const getImageSize = async (props: ImageProps) => {
-  'use cache';
-  cacheLife('weeks');
-
   const src = props.src as string;
   const isLocalImage = !src.startsWith('http');
 
