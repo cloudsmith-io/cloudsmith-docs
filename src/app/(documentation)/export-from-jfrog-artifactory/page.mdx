@@ -1,0 +1,100 @@
+# Export from JFrog Artifactory
+
+Migrating from JFrog Artifactory requires you to migrate hosted repositories only, since any proxy repositories configured in Artifactory can just be set up with the same configuration in Cloudsmith Repository Manager, and all data will be retrieved from the upstream repositories again. All the upstream repositories supported by Cloudsmith are listed here.
+
+Hosted repositories will have to be migrated from Artifactory to Cloudsmith.
+
+To migrate from JFrog Artifactory cloud or a JFrog Artifactory cluster you will be required to have access to Artifactory.
+
+## Exporting via the Cloudsmith Migration Toolkit
+
+The Toolkit provides repository structure mappings, upstream/remote source configurations, and ETL-style data migration. It will securely create your Cloudsmith repos, let you decide which Artifactory repos you want to migrate, transfer artifacts, and preserve metadata and versioning.
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+Install node.js and npm by downloading the latest version based on your current operating system.
+
+```shell
+node -v
+```
+
+```shell
+npm -v
+```
+
+Create an account on [npmjs.com](https://www.npmjs.com/) and login to npm from terminal/shell.
+
+```shell
+npm login
+```
+
+### Install cloudsmith-migration-tool
+
+Clone the repository and navigate to the project directory:
+
+```shell
+git clone https://github.com/cloudsmith-io/cloudsmith-migration-tool.git
+cd cloudsmith-migration-tool
+```
+
+All information about installing and using the Migration Toolkit can be found [here](https://github.com/cloudsmith-io/cloudsmith-migration-tool).
+
+The source code for the mapping-tool is available in [GitHub](https://github.com/cloudsmith-io/cloudsmith-migration-tool) and we invite anyone to make improvements, submit pull requests.
+
+[Contact us](https://help.cloudsmith.io/docs/contact-us) to get started migrating your artifacts.
+
+## Exporting via Artifactorys UI
+
+You can use the import/export feature of Artifactory and migrate one hosted repository after another. Please consult the Artifactory [documentation](https://www.jfrog.com/confluence/display/JFROG/Import+and+Export) for step-by-step instructions on how to export a repository.
+
+## Exporting via the CLI
+
+Exporting via Jfrogs CLI can provide more control over how and what you export. Below are some instructions on how to conduct your export.
+
+### Install jfrog-cli
+
+All the information about installing jfrog-cli can be found [here](https://jfrog.com/getcli/).
+It can be installed on Linux, Mac, or Windows.
+
+### Configure jfrog-cli
+
+Log into jfrog-cli with your Artifactory credentials
+
+```shell
+jfrog config add
+Server ID: server_name
+JFrog platform URL: https://server_name.jfrog.io/
+JFrog access token (Leave blank for username and password/API key):
+JFrog username: artifactory_user
+JFrog password or API key:
+Is the Artifactory reverse proxy configured to accept a client certificate? (y/n)
+```
+
+### Download your packages from Artifactory
+
+The `jfrog rt dl` command can be used to download all packages from Artifactory.
+
+To get all artifacts from all repos in Artifactory do the following:
+
+```shell
+jfrog rt dl "*/*"
+```
+
+The following examples use the `--flat` option to dump all the packages into the same folder.
+
+> NOTE
+> Be careful that the use of the _--flat_ option doesn't cause issues due to packages with the same name in different repositories.
+
+To get all packages from a particular repository called "REPO"
+
+```shell
+jfrog rt dl REPO --flat
+```
+
+The command below shows you how to just get a particular package type from all repositories, using .tgz as an example
+
+```shell
+jfrog rt dl "*/*.tgz" --flat
+```
