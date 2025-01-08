@@ -1,31 +1,38 @@
 .root {
   --svg-path-fill: var(--base-color-grey-100);
 
-  font-size: var(--text-body-m);
   padding-block: var(--space-m);
-  background-color: var(--base-color-grey-1000);
-  border: 1px solid red;
+  padding-inline: var(--space-xs);
+}
+
+@media (--laptop-up) {
+  .root {
+    --svg-path-fill: var(--color-font-primary);
+  }
 }
 
 .list {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-s);
   padding: 0;
   list-style: none;
   overflow-y: hidden;
-  margin-block: var(--space-s);
 
   .list {
-    padding-left: var(--space-s);
+    padding-block-start: var(--space-s);
+    padding-inline-start: var(--space-s);
     font-size: var(--text-body-s);
+
+    .list {
+      row-gap: 0;
+    }
   }
 
   &.bleed {
-    padding-left: 0;
+    padding-inline-start: 0;
     margin-block-start: var(--space-3xs);
   }
-}
-
-.item {
-  margin-block-end: var(--space-3xs);
 }
 
 .linkButton {
@@ -39,33 +46,48 @@
   flex-grow: 1;
   text-decoration: none;
   color: var(--base-color-grey-100);
-  padding-inline: var(--space-m);
-  /* border: 1px solid red; */
+  padding-inline: var(--space-xs);
+  padding-block: var(--space-5xs);
+  border-radius: var(--border-radius-m);
+  font-size: var(--text-fixed-s);
+  line-height: var(--line-height-s);
+
+  .item .item & {
+    font-size: var(--text-fixed-xs);
+  }
+}
+
+@media (--laptop-up) {
+  .link {
+    color: var(--color-font-primary);
+  }
+}
+
+.linkActive {
+  background-color: var(--base-color-grey-900);
+}
+
+@media (--laptop-up) {
+  .linkActive {
+    background-color: var(--base-color-blue-100);
+  }
 }
 
 .linkIcon {
   flex-shrink: 0;
 }
 
-@media (--tablet-up) {
-  .link {
-    color: var(--color-font-primary);
-  }
-}
-
 .section {
+  display: flex;
   font-family: var(--font-family-mono);
   font-size: var(--text-body-xs);
   color: var(--color-text-label);
   text-transform: uppercase;
+  padding-inline: var(--space-xs);
 }
 
 @media (--laptop-up) {
-  /* .root {
-    max-height: none;
-  } */
-
-  .list {
-    display: block;
+  .section {
+    color: var(--color-font-primary);
   }
 }

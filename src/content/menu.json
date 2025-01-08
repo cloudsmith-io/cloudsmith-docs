@@ -9,7 +9,22 @@
         "children": [
           {
             "title": "What is Package Management?",
-            "path": "/does-not-exist"
+            "path": "/getting-started/what-is-package-management",
+            "isActive": false,
+            "children": [
+              {
+                "title": "Nested Items",
+                "path": "/does-not-exist"
+              },
+              {
+                "title": "Yay more",
+                "path": "/does-not-exist"
+              },
+              {
+                "title": "Even more",
+                "path": "/does-not-exist"
+              }
+            ]
           },
           {
             "title": "Packages",
@@ -47,7 +62,13 @@
       },
       {
         "title": "Command-Line Interface",
-        "path": "/does-not-exist"
+        "path": "/does-not-exist",
+        "children": [
+          {
+            "title": "Something",
+            "path": "/does-not-exist"
+          }
+        ]
       },
       {
         "title": "General",
@@ -63,6 +84,7 @@
           },
           {
             "title": "HTTP Verbs",
+            "path": "/does-not-exist",
             "children": [
               {
                 "title": "Nested Items",
@@ -77,6 +99,24 @@
                 "path": "/does-not-exist"
               }
             ]
+          }
+        ]
+      },
+      {
+        "title": "API",
+        "isSection": true,
+        "children": [
+          {
+            "title": "Article 1",
+            "path": "/does-not-exist"
+          },
+          {
+            "title": "Article 2",
+            "path": "/does-not-exist"
+          },
+          {
+            "title": "Article 3",
+            "path": "/does-not-exist"
           }
         ]
       }
