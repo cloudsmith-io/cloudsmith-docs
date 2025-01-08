@@ -1,7 +1,29 @@
 .root {
+  --anchor-size: 25px;
+
+  position: relative;
   letter-spacing: var(--letter-headline);
   font-family: var(--font-family-headline);
   font-weight: normal;
+
+  &:hover a {
+    opacity: 1;
+  }
+}
+
+/* TODO: anchor design */
+.root a {
+  transform: translateY(-50%);
+  position: absolute;
+  inset: 50% calc(var(--anchor-size) * -1);
+  width: var(--anchor-size);
+  height: var(--anchor-size);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-border);
+  border-radius: var(--border-radius-l);
 }
 
 .h1 {

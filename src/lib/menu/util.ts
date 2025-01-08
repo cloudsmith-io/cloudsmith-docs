@@ -7,7 +7,7 @@ const menu: Menu = json as Menu;
 /**
  * Return a single top-level menu section based on the key
  */
-export const getMenuData = (key: string): MenuItem => {
+export const getMenuItem = (key: string): MenuItem => {
   if (!menu[key]) {
     throw `Menu section does not exist ${key}`;
   }

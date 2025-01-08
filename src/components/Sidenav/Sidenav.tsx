@@ -34,48 +34,32 @@ const List = ({ items, bleed, isExpanded }: ListProps) => {
         collapsed: { opacity: 0, height: 0 },
       }}>
       {items.map((item) => (
-        <Item data={item} key={item.title} />
+        <Item item={item} key={item.title} />
       ))}
     </m.ul>
   );
 };
 
-const Item = ({ data }: ItemProps) => {
-  const pathname = usePathname();
-  const [isExpanded, setIsExpanded] = useState(pathname === data.path);
+// TODO: Introduce this:
+// const segment = useSelectedLayoutSegment();?
 
-  function toggleExpand(event: React.MouseEvent<SVGElement>) {
-    if (pathname === data.path) {
-      setIsExpanded(!isExpanded);
-      event.preventDefault();
-    }
-  }
-
+const Item = ({ item }: ItemProps) => {
   return (
     <li className={styles.item}>
-      {data.path ? (
-        <Link className={styles.link} href={data.path}>
-          {data.title}({isExpanded ? 'down' : 'up'})
-          <ChevronIcon
-            onClick={toggleExpand}
-            chevronDirection={isExpanded ? 'down' : 'up'}
-            as="svg"
-            title="Chevron"
-            className={styles.linkIcon}
-            transition={transition}
-          />
+      {item.path ? (
+        <Link className={styles.link} href={item.path}>
+          {item.method} {item.title}
         </Link>
       ) : (
-        <span className={styles.section}>{data.title}</span>
+        <span className={cx(item.isSection && styles.section)}>{item.title}</span>
       )}
-
-      {data.children ? <List items={data.children} bleed={!data.path} isExpanded={isExpanded} /> : null}
+      {item.children && <List items={item.children} bleed={item.isSection} />}
     </li>
   );
 };
 
 interface SidenavProps {
-  items: MenuItem[] | undefined;
+  items: MenuItem[];
 }
 
 interface ListProps {
@@ -85,5 +69,5 @@ interface ListProps {
 }
 
 interface ItemProps {
-  data: MenuItem;
+  item: MenuItem;
 }

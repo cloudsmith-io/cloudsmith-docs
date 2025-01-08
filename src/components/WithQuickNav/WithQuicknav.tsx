@@ -1,10 +1,13 @@
+import { quickNavContentId } from '@/lib/constants/quickNav';
 import { QuickNav } from '../QuickNav';
 import styles from './WithQuicknav.module.css';
 
 const WithQuicknav = ({ children }: WithQuicknavProps) => {
   return (
     <main className={styles.root}>
-      <article className={styles.content}>{children}</article>
+      <article className={styles.content} id={quickNavContentId}>
+        {children}
+      </article>
       <aside className={styles.nav}>
         <QuickNav />
       </aside>

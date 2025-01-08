@@ -11,8 +11,7 @@
   padding: 0;
   list-style: none;
   overflow-y: hidden;
-  margin-block-start: var(--space-s);
-  margin-block-end: var(--space-s);
+  margin-block: var(--space-s);
 
   .list {
     padding-left: var(--space-s);

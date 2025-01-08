@@ -16,8 +16,6 @@ const codeBlock = cva(styles.root, {
 });
 
 export async function CodeBlock({ code, lang }: Props) {
-  'use cache';
-
   const hideLineNumbers = lang === 'bash' || lang === 'text';
   const html = (await highlighter).codeToHtml(code, {
     lang,
