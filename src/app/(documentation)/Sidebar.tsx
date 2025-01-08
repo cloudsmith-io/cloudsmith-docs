@@ -1,7 +1,7 @@
-import { getMenuData } from '@/lib/menu/util';
+import { getMenuItem } from '@/lib/menu/util';
 import { Sidenav } from '@/components';
 
-export function Sidebar() {
-  const menuData = getMenuData('documentation');
-  return <Sidenav items={menuData.children} />;
-}
+export const Sidebar = () => {
+  const menuData = getMenuItem('documentation');
+  return menuData.children ? <Sidenav items={menuData.children} /> : null;
+};
