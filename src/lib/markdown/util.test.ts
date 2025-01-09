@@ -1,4 +1,4 @@
-import { loadMdxSlugs } from './util';
+import { loadApiMdxSlugs, loadMdxSlugs } from './util';
 
 describe('lib', () => {
   describe('markdown', () => {
@@ -9,8 +9,8 @@ describe('lib', () => {
           expect(slugs).toEqual(['test']);
         });
         test('it returns slugs for api files', async () => {
-          const slugs = await loadMdxSlugs(true);
-          expect(slugs).toEqual(['api/test']);
+          const slugs = await loadApiMdxSlugs();
+          expect(slugs).toEqual(['api-test']);
         });
       });
     });

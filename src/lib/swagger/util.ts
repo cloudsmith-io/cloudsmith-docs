@@ -33,13 +33,12 @@ export const parseMenuSegments = (operationId: string | undefined): string[] => 
  * Turns the menu segments into a single slugified path
  */
 export const createSlug = (menuSegments: string[]): string => {
-  return '/api/' + menuSegments.join('/').replaceAll(' ', '-').toLowerCase();
+  return menuSegments.join('/').replaceAll(' ', '-').toLowerCase();
 };
 
 /**
- * Converts a slug in style of /api/something/else to ['something', 'else']
- * Used in generateStaticParams() for catch all route params in /api.
+ * Turns an operation slug into a fully qualified local path to use in links
  */
-export const toRouteSegments = (slug: string): string[] => {
-  return slug.replace('/api/', '').split('/');
+export const apiOperationPath = (slug: string): string => {
+  return `/api/${slug}`;
 };

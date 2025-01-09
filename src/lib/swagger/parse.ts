@@ -1,7 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
 import { ApiOperation } from './types';
-import { isHttpMethod, createSlug, parseMenuSegments } from './util';
+import { isHttpMethod, createSlug, parseMenuSegments, apiOperationPath } from './util';
 import { MenuItem } from '../menu/types';
 
 /**
@@ -65,7 +65,7 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
         if (!existing) {
           existing = { title };
           if (isLast) {
-            existing.path = operation.slug;
+            existing.path = apiOperationPath(operation.slug);
             existing.method = operation.method;
           } else {
             existing.children = [];
