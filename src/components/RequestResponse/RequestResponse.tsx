@@ -16,6 +16,22 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
           </Method>
           {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}${operation.path}`}
         </div>
+
+        <div className={styles.grid}>
+          <div className={cx(styles.item, styles.header)}>
+            <div className={styles.subItem}>Path params</div>
+          </div>
+          <div className={styles.item}>
+            <div className={styles.subItem}>owner</div>
+            <div className={styles.subItem}>string</div>
+            <div className={styles.subItem}>required</div>
+          </div>
+          <div className={styles.item}>
+            <div className={styles.subItem}>owner</div>
+            <div className={styles.subItem}>string</div>
+            <div className={styles.subItem}>required</div>
+          </div>
+        </div>
       </div>
 
       <Heading size="h2">Response</Heading>

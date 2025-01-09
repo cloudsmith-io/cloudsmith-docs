@@ -6,7 +6,46 @@
 
 .url {
   display: flex;
-  padding-block-end: var(--space-s);
-  gap: var(--space-xs);
+  column-gap: var(--space-xs);
+  margin-block-end: var(--space-s);
   word-break: break-all;
+}
+
+/* Table grid */
+.grid {
+  /* grid-template-columns:
+    [fullbleed-start] var(--inline-gap) [main-start] auto [main-end] var(--inline-gap)
+    [fullbleed-end]; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-block-end: var(--space-s);
+  border: 1px solid rgba(9, 47, 69, 0.1);
+  border-radius: var(--border-radius-m);
+}
+
+.item {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  border-top: 1px solid rgba(9, 47, 69, 0.1);
+}
+
+.header {
+  align-content: center;
+  border-top: 0;
+  border-radius: var(--border-radius-m) var(--border-radius-m) 0 0;
+  background-color: var(--base-color-grey-25);
+  text-transform: uppercase;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-body-xs);
+  color: var(--color-text-primary);
+
+  .subItem {
+    grid-column: 1 / -1;
+  }
+}
+
+.subItem {
+  padding-inline: var(--space-m);
+  padding-block: var(--space-s);
 }
