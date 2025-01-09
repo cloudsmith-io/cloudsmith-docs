@@ -23,6 +23,7 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "15.1.0",
     "class-variance-authority": "^0.7.1",
+    "fast-glob": "^3.3.3",
     "next": "15.1.1-canary.0",
     "react": "19.0.0",
     "react-dom": "19.0.0"

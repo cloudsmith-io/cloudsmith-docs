@@ -6,6 +6,9 @@ export const dynamicParams = false;
 export const generateStaticParams = async () => {
   const schema = await parseSchema();
   const operations = toOperations(schema);
+
+  // Todo: Load all the mdx slugs that are inside the /api folder
+
   return operations.map((op) => ({ slug: toRouteSegments(op.slug) }));
 };
 
@@ -15,6 +18,8 @@ const Page = async ({ params }: PageProps) => {
   const operations = toOperations(schema);
   const qualifiedSlug = createSlug(slug);
   const operation = operations.find((op) => op.slug === qualifiedSlug);
+
+  // if there is no operation, render markdown file
 
   return (
     <div>
