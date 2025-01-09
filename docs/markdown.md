@@ -6,9 +6,9 @@ Most of the content on the website is written in Markdown. We use the `.mdx` fil
 
 The following is a list of components that are supported through pure Markdown.
 
-### Headings
+### Heading
 
-```mdx
+```md
 # Page title
 
 Some text here
@@ -19,3 +19,53 @@ Some text here
 
 ### Heading 2
 ```
+
+### Line separator
+
+```md
+Some text
+
+---
+
+Some text
+```
+
+### List
+
+```md
+- Item 1
+- Item 2
+- Item 3
+
+1. Item 1
+2. Item 2
+3. Item 3
+
+- Item 1
+  1. Sub item 1
+  2. Sub item 2
+  3. Sub item 3
+- Item 2
+```
+
+### Link
+
+```mdx
+This is [a link](/api/something) for you to click.
+```
+
+### Note
+
+```mdx
+> This is a note
+```
+
+### Code example
+
+````mdx
+```yaml
+cliVersion: '1.3.1' # Example CLI version
+authMethod: 'apiKey'
+apiKey: '$(CLOUDSMITH_API_KEY)'
+```
+````
