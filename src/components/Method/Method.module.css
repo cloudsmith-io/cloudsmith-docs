@@ -1,21 +1,48 @@
 .root {
-  border-radius: 5px;
   display: inline-flex;
-  padding: 5px;
-  background-color: #eaf1fc;
-  color: #2a6fe1;
+  flex-shrink: 0;
+  align-self: flex-start;
+  border-radius: 5px;
+  background-color: var(--method-bg-color);
+  color: var(--method-text-color);
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: var(--method-font-size);
+  line-height: var(--method-line-height);
+  padding-inline: var(--method-padding-inline);
+  padding-block: var(--method-padding-block);
 }
 
-/*
-.get {}
-.post {}
-.put {}
-.delete {}
-*/
+.small {
+  --method-font-size: 10px;
+  --method-line-height: 11px;
+  --method-padding-inline: 6px;
+  --method-padding-block: 4px;
+}
 
-.active {
-  color: #fff;
-  background-color: #2a6fe1;
+.medium {
+  --method-font-size: 12px;
+  --method-line-height: 11px;
+  --method-padding-inline: 10px;
+  --method-padding-block: 8px;
+}
+
+.get {
+  --method-bg-color: var(--base-color-blue-75);
+  --method-text-color: var(--base-color-blue-500);
+
+  &.active {
+    --method-bg-color: var(--base-color-blue-500);
+    --method-text-color: var(--base-color-white);
+  }
+}
+
+.put,
+.post,
+.delete,
+.options,
+.head,
+.patch,
+.trace {
+  /* TODO: Implement colors */
+  border: 1px solid red;
 }

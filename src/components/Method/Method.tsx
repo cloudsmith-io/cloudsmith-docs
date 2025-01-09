@@ -4,20 +4,31 @@ import styles from './Method.module.css';
 
 const method = cva(styles.root, {
   variants: {
+    size: {
+      small: styles.small,
+      medium: styles.medium,
+    },
     type: {
       get: styles.get,
-      post: styles.post,
       put: styles.put,
+      post: styles.post,
       delete: styles.delete,
+      options: styles.options,
+      head: styles.head,
+      patch: styles.patch,
+      trace: styles.trace,
     },
     active: {
       true: styles.active,
     },
   },
+  defaultVariants: {
+    size: 'small',
+  },
 });
 
-export function Method({ type, active, ...rest }: Method.Props) {
-  return <div className={method({ type, active })} {...rest} />;
+export function Method({ type, active, size, ...rest }: Method.Props) {
+  return <div className={method({ type, active, size })} {...rest} />;
 }
 
 export namespace Method {

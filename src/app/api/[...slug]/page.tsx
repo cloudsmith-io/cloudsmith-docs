@@ -1,3 +1,4 @@
+import { RequestResponse } from '@/components';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { createSlug, toRouteSegments } from '@/lib/swagger/util';
 
@@ -18,9 +19,10 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <div>
+      {operation ? <RequestResponse {...operation} /> : null}
       Rendering the operation: {operation?.method} {operation?.path}
       <p>JSON:</p>
-      <pre>{JSON.stringify(operation, null, 2)}</pre>
+      <pre style={{ maxWidth: '70vw', overflowY: 'auto' }}>{JSON.stringify(operation, null, 2)}</pre>
     </div>
   );
 };

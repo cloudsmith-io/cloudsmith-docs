@@ -1,0 +1,12 @@
+.root {
+}
+
+.request {
+}
+
+.url {
+  display: flex;
+  padding-block-end: var(--space-s);
+  gap: var(--space-xs);
+  word-break: break-all;
+}
