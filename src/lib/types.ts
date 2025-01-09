@@ -39,3 +39,9 @@ export const lineHeights = {
   /* BORDER RADII
    * =========================== */
   export type Radius = 'xs' | 's' | 'm' | 'l' | 'full';
+  
+  /* FLEX
+   * =========================== */
+  export type FlexAlign = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
+  export type FlexDirection = 'row' | 'column';
+  export type FlexJustify = 'start' | 'center' | 'end' | 'between';
