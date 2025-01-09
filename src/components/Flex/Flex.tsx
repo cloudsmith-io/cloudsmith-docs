@@ -61,7 +61,7 @@ const flex = cva(css.root, {
     direction: 'row',
     gap: 'm',
     justify: 'start',
-    padding: 'm',
+    padding: 'none',
     wrap: true,
   },
 });

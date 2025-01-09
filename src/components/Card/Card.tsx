@@ -62,7 +62,7 @@ export function Card({
 
         <div className={styles.link}>
           <span className={styles.linkText}>{linkText}</span>
-          <Icon name="arrow" title="" as="symbol" />
+          <Icon name="arrow" title="" aria-hidden="true" focusable="false" />
         </div>
       </div>
     </Link>
