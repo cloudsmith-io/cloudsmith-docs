@@ -45,7 +45,15 @@ export function Card({
       )}
 
       <div className={styles.icon}>
-        <Icon name={icon} title="" />
+        <Icon
+          name={icon}
+          title=""
+          aria-hidden="true"
+          focusable="false"
+          width={44}
+          height={44}
+          viewBox="0 0 44 44"
+        />
       </div>
 
       <div className={styles.content}>
