@@ -3,13 +3,13 @@
 import { ChevronIcon } from '@/icons/Chevron';
 import { MenuItem } from '@/lib/menu/types';
 import { cx } from 'class-variance-authority';
+import { Transition } from 'motion/dist/react';
 import * as m from 'motion/react-m';
 import Link from 'next/link';
-import { Transition } from 'motion/dist/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 import styles from './Sidenav.module.css';
-import { usePathname } from 'next/navigation';
 
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 

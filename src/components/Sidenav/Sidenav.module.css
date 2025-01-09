@@ -11,13 +11,16 @@
   }
 }
 
+.listWrapper {
+  overflow-y: hidden;
+}
+
 .list {
   display: flex;
   flex-direction: column;
   row-gap: var(--space-s);
   padding: 0;
   list-style: none;
-  overflow-y: hidden;
 
   .list {
     padding-block-start: var(--space-s);
