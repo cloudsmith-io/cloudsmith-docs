@@ -25,8 +25,8 @@ const tagVariants = cva(styles.root, {
     },
   },
   defaultVariants: {
-    size: 'small',
-    type: 'package',
+    size: 'medium',
+    type: 'status',
   },
 });
 

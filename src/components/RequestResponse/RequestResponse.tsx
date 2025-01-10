@@ -10,16 +10,9 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
     <div className={styles.root}>
       <Heading size="h2">Request</Heading>
 
-      <Tag method="get" />
-      <Tag method="get" size="medium" type="package" />
-
-      <Tag variant="green" type="status" size="medium">
-        get
-      </Tag>
-
       <div className={styles.request}>
         <div className={styles.url}>
-          <Tag method={operation.method} type="status" size="medium" />
+          <Tag method={operation.method} />
           {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}${operation.path}`}
         </div>
 
@@ -37,7 +30,7 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
                   {typeof param.schema === 'object' ? param.schema.type : param.schema}
                 </div>
                 <div className={styles.subItem}>
-                  <Tag variant={param.required ? 'red' : 'grey'} type="status" size="medium">
+                  <Tag variant={param.required ? 'red' : 'grey'}>
                     {param.required ? 'required' : 'optional'}
                   </Tag>
                 </div>
