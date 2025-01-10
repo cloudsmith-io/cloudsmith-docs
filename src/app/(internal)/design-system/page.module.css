@@ -10,9 +10,18 @@
 
 .sectionHeading {
   font-family: var(--font-family-heading);
-  margin-bottom: var(--space-m);
+  margin: var(--space-m) 0;
+}
+
+.subHeading {
+  font-family: var(--font-family-heading);
+  margin: var(--space-m) 0;
 }
 
 .componentContainer {
+  margin-bottom: var(--space-3xl);
+}
+
+.flexContainer {
   margin-bottom: var(--space-3xl);
 }

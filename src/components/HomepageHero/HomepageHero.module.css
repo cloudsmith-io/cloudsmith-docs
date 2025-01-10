@@ -1,7 +1,6 @@
 .root {
   background-color: var(--base-color-grey-150);
   overflow: hidden;
-  outline: 1px dashed var(--color-accent-default);
   height: 100%;
 
   --nav-height: 140px;
@@ -52,7 +51,7 @@
     left: auto;
     right: 10%;
   }
-  
+
   .buttonContainer {
     flex-direction: row;
   }
