@@ -1,0 +1,14 @@
+.root {
+  padding: var(--space-l);
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-family-heading);
+    margin-bottom: var(--space-m);
+  }
+}
+
+.flexContainer {
+  margin-bottom: var(--space-3xl);
+}
