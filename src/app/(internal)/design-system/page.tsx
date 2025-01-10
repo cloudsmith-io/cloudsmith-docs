@@ -1,4 +1,4 @@
-import { Card, Flex, HomepageHero, Button } from '@/components';
+import { Card, Flex, HomepageHero, Button, Navbar } from '@/components';
 import { cx } from 'class-variance-authority';
 import styles from './page.module.css';
 
@@ -98,6 +98,12 @@ export default function DesignSystemPage() {
             Full Width Button
           </Button>
         </Flex>
+      </section>
+
+      <section id="navbar" className={styles.section}>
+        <h2 className={cx(styles.sectionHeading, styles.container)}>Navbar</h2>
+
+        <Navbar />
       </section>
 
       <section id="homepageHero" className={styles.section}>
