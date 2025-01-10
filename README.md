@@ -2,6 +2,10 @@
 
 The documentation of the Cloudsmith API; replacement for [Cloudsmith.io/docs](https://help.cloudsmith.io/docs)
 
+## Articles
+
+- [Writing markdown](./docs/markdown.md)
+
 ## Getting started
 
 Make sure you’re running Node version `22.11.0` (LTS). Then install the dependencies.

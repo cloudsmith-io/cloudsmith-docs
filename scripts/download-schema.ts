@@ -5,7 +5,7 @@ import path from 'path';
 import { prettierFormatter } from './util/prettier-formatter';
 
 const projectDir = process.cwd();
-const outputDir = `${projectDir}/src/content`;
+const outputDir = `${projectDir}/src/content/schemas`;
 
 // Load all environment variables
 env.loadEnvConfig(projectDir);
