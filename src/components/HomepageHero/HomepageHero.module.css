@@ -1,0 +1,62 @@
+.root {
+  background-color: var(--base-color-grey-150);
+  overflow: hidden;
+  outline: 1px dashed var(--color-accent-default);
+  height: 100%;
+
+  --nav-height: 140px;
+  --banner-height: 0px;
+  --offset-top: calc(var(--space-s) + var(--nav-height) + var(--banner-height));
+  --hero-illustration-overlap: min(20vh, 150px);
+}
+
+.container {
+  width: 100%;
+  position: relative;
+}
+
+
+.background {
+    position: absolute;
+    height: 100%;
+    width: 800px;
+    right: 15vw;
+  
+    
+  }
+
+.content {
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container-width-s);
+  padding: var(--offset-top) var(--space-m) var(--space-2xl);
+  font-family: var(--font-family-body);
+}
+
+
+.title {
+  font-family: var(--font-family-headline);
+  font-size: var(--text-headline-xl);
+  line-height: var(--line-height-compact);
+}
+
+.description {
+  max-width: var(--container-width-xs);
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--space-s);
+}
+
+@media (--phablet-up) {
+    .buttonContainer {
+        flex-direction: row;
+    }
+
+    .button {
+        width: var(--button-width-m);
+    }
+}
