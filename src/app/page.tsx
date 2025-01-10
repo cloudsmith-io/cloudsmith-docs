@@ -12,6 +12,7 @@ export default function Page() {
           <Link href="/getting-started">Getting Started Test</Link>
         </li>
       </ul>
+      
     </>
   );
 }
