@@ -2,6 +2,8 @@ const defaultProps = {
   width: 16,
   height: 16,
   viewBox: '0 0 16 16',
+  focusable: 'auto',
+  'aria-hidden': false,
 };
 
 export const createIcon = <Props extends RenderProps<Props>>(
@@ -11,9 +13,13 @@ export const createIcon = <Props extends RenderProps<Props>>(
   const Icon = ({ as, title, id, ...props }: Props & IconProps) => {
     const { children, ...svgProps } = render(props as Props);
 
+        // Allow props to override defaults
+        const finalProps = { ...defaultProps, ...svgProps, ...props };
+
+
     if (as === 'use') {
       return (
-        <svg {...defaultProps} {...svgProps}>
+        <svg {...finalProps}>
           <title>{title}</title>
           <use href={`#${id || baseId}`} />
         </svg>
@@ -22,7 +28,7 @@ export const createIcon = <Props extends RenderProps<Props>>(
 
     if (as === 'symbol') {
       return (
-        <svg {...defaultProps} {...svgProps} style={{ display: 'none' }} aria-hidden="true">
+        <svg {...finalProps} style={{ display: 'none' }} focusable="false" aria-hidden="true">
           <symbol id={id || baseId}>{children}</symbol>
         </svg>
       );
@@ -30,7 +36,7 @@ export const createIcon = <Props extends RenderProps<Props>>(
 
     // Default to SVG
     return (
-      <svg {...defaultProps} {...svgProps}>
+      <svg {...finalProps}>
         <title>{title}</title>
         {children}
       </svg>
