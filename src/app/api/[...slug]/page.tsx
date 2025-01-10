@@ -1,5 +1,4 @@
 import { loadApiMdxSlugs } from '@/lib/markdown/util';
-import { RequestResponse } from '@/components';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';

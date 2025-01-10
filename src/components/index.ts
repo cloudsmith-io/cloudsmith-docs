@@ -8,4 +8,6 @@ export * from './Note';
 export * from './QuickNav';
 export * from './RequestResponse';
 export * from './Sidenav';
+export * from './Flex';
+export * from './Card';
 export * from './Tag';
