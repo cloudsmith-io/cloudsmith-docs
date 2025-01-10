@@ -21,3 +21,18 @@ export const capitalize = (str: string) => {
 export const titleCase = (str: string) => {
   return str.replace(/\w\S*/g, (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase());
 };
+
+/**
+ * Converts a slug in style of my-resource/something to ['my-resource', 'something']
+ * Used in generateStaticParams() for catch all route params in /api.
+ */
+export const toRouteSegments = (slug: string): string[] => {
+  return slug.split('/').filter((segment) => !!segment);
+};
+
+/**
+ * Turns route segments back into a slug
+ */
+export const toSlug = (routeSegments: string[]): string => {
+  return routeSegments.join('/');
+};

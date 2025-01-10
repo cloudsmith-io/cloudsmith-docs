@@ -24,7 +24,7 @@ describe('lib', () => {
           expect(operation?.menuSegments).toEqual(['Policies', 'List']);
           expect(operation?.path).toEqual('/orgs/{org}/policies/');
           expect(operation?.method).toEqual('get');
-          expect(operation?.slug).toEqual('/api/policies/list');
+          expect(operation?.slug).toEqual('policies/list');
         });
       });
 

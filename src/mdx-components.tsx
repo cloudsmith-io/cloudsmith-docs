@@ -2,10 +2,9 @@ import { ComponentPropsWithoutRef, Suspense } from 'react';
 
 import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
-import { ImageProps } from 'next/image';
 
 import { Note } from '@/components';
-import { CodeBlock, Heading, HorizontalRule, Image, Link, List, Paragraph } from '@/markdown';
+import { CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -36,11 +35,8 @@ const components = {
     );
   },
 
-  img: ({ alt, ...rest }: ImageProps) => (
-    <Suspense>
-      <Image alt={alt} {...rest} />
-    </Suspense>
-  ),
+  // Disable images in favor of the Image component
+  img: () => null,
 
   ul: (props: ComponentPropsWithoutRef<'ul'>) => <List {...props} />,
   ol: (props: ComponentPropsWithoutRef<'ol'>) => <List ordered {...props} />,

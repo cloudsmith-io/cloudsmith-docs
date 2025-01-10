@@ -1,4 +1,7 @@
-import { Card, Flex, HomepageHero, Button, Navbar } from '@/components';
+import { Card, Flex, BlockImage, HomepageHero, Button, Navbar } from '@/components';
+import horizontalImage from '@/content/images/horizontal.png';
+import verticalImage from '@/content/images/vertical.png';
+
 import { cx } from 'class-variance-authority';
 import styles from './page.module.css';
 
@@ -124,30 +127,30 @@ export default function DesignSystemPage() {
             icon="documentation"
           />
 
-          <Card
-            title="Setting Your Security Policies Guide"
-            description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
-            href="/"
-            linkText="Go to guide"
-            icon="guide"
-          />
+        <Card
+          title="Setting Your Security Policies Guide"
+          description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
+          href="/"
+          linkText="Go to guide"
+          icon="guide"
+        />
 
-          <Card
-            title="Integrating your preferred package format with Cloudsmith"
-            description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
-            href="/"
-            linkText="Go to documentation"
-            icon="guide"
-          />
+        <Card
+          title="Integrating your preferred package format with Cloudsmith"
+          description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
+          href="/"
+          linkText="Go to documentation"
+          icon="guide"
+        />
 
-          <Card
-            title="Integrating your preferred package format with Cloudsmith"
-            description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
-            href="/"
-            linkText="Go to documentation"
-            icon="guide"
-          />
-        </Flex>
+        <Card
+          title="Integrating your preferred package format with Cloudsmith"
+          description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
+          href="/"
+          linkText="Go to documentation"
+          icon="guide"
+        />
+      </Flex>
 
         <h2 className={styles.sectionHeading}>Cards: Size variant (large)</h2>
 
@@ -163,39 +166,39 @@ export default function DesignSystemPage() {
 
         <h3 className={styles.subHeading}>Thirds</h3>
 
-        <Flex gap="l" align="stretch" className={styles.flexContainer}>
-          <Card
-            title="Dependencies"
-            href="/"
-            linkText="For Developers"
-            icon="documentation"
-            size="l"
-            width="third"
-          />
+      <Flex gap="l" align="stretch" className={styles.flexContainer}>
+        <Card
+          title="Dependencies"
+          href="/"
+          linkText="For Developers"
+          icon="documentation"
+          size="l"
+          width="third"
+        />
 
           <Card title="Deployment" href="/" linkText="For Operations" icon="guide" size="l" width="third" />
 
-          <Card
-            title="Distribution"
-            href="/"
-            linkText="For Vendors"
-            icon="apiReference"
-            size="l"
-            width="third"
-          />
-        </Flex>
+        <Card
+          title="Distribution"
+          href="/"
+          linkText="For Vendors"
+          icon="apiReference"
+          size="l"
+          width="third"
+        />
+      </Flex>
 
         <h3 className={styles.subHeading}>Halves</h3>
 
-        <Flex gap="l" align="stretch" className={styles.flexContainer}>
-          <Card
-            title="Dependencies"
-            href="/"
-            linkText="For Developers"
-            icon="documentation"
-            size="l"
-            width="half"
-          />
+      <Flex gap="l" align="stretch" className={styles.flexContainer}>
+        <Card
+          title="Dependencies"
+          href="/"
+          linkText="For Developers"
+          icon="documentation"
+          size="l"
+          width="half"
+        />
 
           <Card title="Deployment" href="/" linkText="For Operations" icon="guide" size="l" width="half" />
         </Flex>
