@@ -1,4 +1,4 @@
-import { loadApiMdxSlugs, loadMdxSlugs } from '@/lib/markdown/util';
+import { loadApiMdxSlugs } from '@/lib/markdown/util';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';

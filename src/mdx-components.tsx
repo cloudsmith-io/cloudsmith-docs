@@ -2,7 +2,6 @@ import { ComponentPropsWithoutRef, Suspense } from 'react';
 
 import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
-import { ImageProps } from 'next/image';
 
 import { Note } from '@/components';
 import { CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';

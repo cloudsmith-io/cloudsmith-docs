@@ -110,15 +110,15 @@ export default function DesignSystemPage() {
       <h2>Images</h2>
 
       <BlockImage src={horizontalImage} alt="Image alternative text">
-        This is a caption that I'd like to show for the image
+        This is a caption that I would like to show for the image
       </BlockImage>
 
       <BlockImage align="left" src={verticalImage} alt="Image alternative text">
-        This is a caption that I'd like to show for the image
+        This is a caption that I would like to show for the image
       </BlockImage>
 
       <BlockImage align="right" src={verticalImage} alt="Image alternative text">
-        This is a caption that I'd like to show for the image
+        This is a caption that I would like to show for the image
       </BlockImage>
     </Container>
   );
