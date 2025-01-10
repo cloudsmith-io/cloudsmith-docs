@@ -15,15 +15,12 @@
   position: relative;
 }
 
-
 .background {
-    position: absolute;
-    height: 100%;
-    width: 800px;
-    right: 15vw;
-  
-    
-  }
+  position: absolute;
+  height: 100%;
+  width: 800px;
+  right: -20%;
+}
 
 .content {
   z-index: 1;
@@ -32,7 +29,6 @@
   padding: var(--offset-top) var(--space-m) var(--space-2xl);
   font-family: var(--font-family-body);
 }
-
 
 .title {
   font-family: var(--font-family-headline);
@@ -52,11 +48,16 @@
 }
 
 @media (--phablet-up) {
-    .buttonContainer {
-        flex-direction: row;
-    }
+  .background {
+    left: auto;
+    right: 10%;
+  }
+  
+  .buttonContainer {
+    flex-direction: row;
+  }
 
-    .button {
-        width: var(--button-width-m);
-    }
+  .button {
+    width: var(--button-width-m);
+  }
 }
