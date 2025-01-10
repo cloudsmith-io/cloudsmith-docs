@@ -1,8 +1,7 @@
-.root {
-}
-
-.request {
-}
+/*
+TODO: Finish styling in upcomming PRs
+.root {}
+.request {} */
 
 .url {
   display: flex;
@@ -13,13 +12,10 @@
 
 /* Table grid */
 .grid {
-  /* grid-template-columns:
-    [fullbleed-start] var(--inline-gap) [main-start] auto [main-end] var(--inline-gap)
-    [fullbleed-end]; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-block-end: var(--space-s);
-  border: 1px solid rgba(9, 47, 69, 0.1);
+  border: 1px solid rgba(9, 47, 69, 10%);
   border-radius: var(--border-radius-m);
 }
 
@@ -27,7 +23,7 @@
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
-  border-top: 1px solid rgba(9, 47, 69, 0.1);
+  border-top: 1px solid rgba(9, 47, 69, 10%);
 }
 
 .header {
@@ -39,13 +35,13 @@
   font-family: var(--font-family-mono);
   font-size: var(--text-body-xs);
   color: var(--color-text-primary);
-
-  .subItem {
-    grid-column: 1 / -1;
-  }
 }
 
 .subItem {
   padding-inline: var(--space-m);
   padding-block: var(--space-s);
+
+  .header & {
+    grid-column: 1 / -1;
+  }
 }
