@@ -10,9 +10,8 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
     <div className={styles.root}>
       <Heading size="h2">Request</Heading>
 
-      <Method method="delete" type="status" size="medium">
-        get
-      </Method>
+      <Method method="get" />
+      <Method method="get" size="medium" type="package" />
 
       <Method variant="green" type="status" size="medium">
         get

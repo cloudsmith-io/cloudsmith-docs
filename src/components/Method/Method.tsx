@@ -30,9 +30,9 @@ const methodVariants = cva(styles.root, {
   },
 });
 
-export function Method({ size, type, ...props }: Method.Props) {
+export const Method = ({ size, type, ...props }: Method.Props) => {
   if ('method' in props) {
-    const { method, ...rest } = props;
+    const { method, children, ...rest } = props;
 
     // Map the HttpMethods to the color variant for easier consumption
     const methods: { [key in Method.HttpMethods]: Method.VariantsProps['variant'] } = {
@@ -46,13 +46,17 @@ export function Method({ size, type, ...props }: Method.Props) {
       trace: 'neutral',
     };
 
-    return <div className={methodVariants({ size, type, variant: methods[method] })} {...rest} />;
+    return (
+      <div className={methodVariants({ size, type, variant: methods[method] })} {...rest}>
+        {children || method}
+      </div>
+    );
   }
 
   const { variant, ...rest } = props;
 
   return <div className={methodVariants({ size, type, variant })} {...rest} />;
-}
+};
 
 export namespace Method {
   export type VariantsProps = VariantProps<typeof methodVariants>;

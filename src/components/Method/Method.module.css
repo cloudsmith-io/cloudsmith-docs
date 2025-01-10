@@ -15,6 +15,7 @@
   flex-shrink: 0;
   align-self: flex-start;
   border-radius: 5px;
+  letter-spacing: var(--letter-tags);
   background-color: var(--method-bg-color);
   color: var(--method-text-color);
   font-size: var(--method-font-size);
