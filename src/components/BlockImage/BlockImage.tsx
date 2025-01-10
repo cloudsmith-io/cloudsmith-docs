@@ -16,6 +16,7 @@ const blockImage = cva(styles.root, {
   },
   defaultVariants: {
     align: 'center',
+    variant: 'base',
   },
 });
 
@@ -31,7 +32,6 @@ const blockImage = cva(styles.root, {
  * @returns {JSX.Element} The rendered BlockImage component.
  */
 export const BlockImage = ({ alt, align, variant, children, ...rest }: BlockImageProps) => {
-  console.log('rendered');
   return (
     <div className={blockImage({ align, variant })}>
       <div className={styles.imageContainer}>
