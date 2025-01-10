@@ -3,23 +3,23 @@ import { ApiOperation } from '@/lib/swagger/types';
 
 import styles from './RequestResponse.module.css';
 import { Heading } from '@/markdown';
-import { Method } from '../Method';
+import { Tag } from '../Tag';
 
 export const RequestResponse = (operation: PropsRequestResponseProps) => {
   return (
     <div className={styles.root}>
       <Heading size="h2">Request</Heading>
 
-      <Method method="get" />
-      <Method method="get" size="medium" type="package" />
+      <Tag method="get" />
+      <Tag method="get" size="medium" type="package" />
 
-      <Method variant="green" type="status" size="medium">
+      <Tag variant="green" type="status" size="medium">
         get
-      </Method>
+      </Tag>
 
       <div className={styles.request}>
         <div className={styles.url}>
-          <Method method={operation.method} type="status" size="medium" />
+          <Tag method={operation.method} type="status" size="medium" />
           {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}${operation.path}`}
         </div>
 
@@ -37,9 +37,9 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
                   {typeof param.schema === 'object' ? param.schema.type : param.schema}
                 </div>
                 <div className={styles.subItem}>
-                  <Method variant={param.required ? 'red' : 'grey'} type="status" size="medium">
+                  <Tag variant={param.required ? 'red' : 'grey'} type="status" size="medium">
                     {param.required ? 'required' : 'optional'}
-                  </Method>
+                  </Tag>
                 </div>
               </div>
             ))}

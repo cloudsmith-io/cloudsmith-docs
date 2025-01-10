@@ -1,9 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { OpenAPIV3 } from 'openapi-types';
 
-import styles from './Method.module.css';
+import styles from './Tag.module.css';
 
-const methodVariants = cva(styles.root, {
+const tagVariants = cva(styles.root, {
   variants: {
     size: {
       small: styles.small,
@@ -30,12 +30,12 @@ const methodVariants = cva(styles.root, {
   },
 });
 
-export const Method = ({ size, type, ...props }: Method.Props) => {
+export const Tag = ({ size, type, ...props }: Tag.Props) => {
   if ('method' in props) {
     const { method, children, ...rest } = props;
 
     // Map the HttpMethods to the color variant for easier consumption
-    const methods: { [key in Method.HttpMethods]: Method.VariantsProps['variant'] } = {
+    const methods: { [key in Tag.HttpMethods]: Tag.VariantsProps['variant'] } = {
       get: 'neutral',
       put: 'neutral',
       post: 'green',
@@ -47,7 +47,7 @@ export const Method = ({ size, type, ...props }: Method.Props) => {
     };
 
     return (
-      <div className={methodVariants({ size, type, variant: methods[method] })} {...rest}>
+      <div className={tagVariants({ size, type, variant: methods[method] })} {...rest}>
         {children || method}
       </div>
     );
@@ -55,11 +55,11 @@ export const Method = ({ size, type, ...props }: Method.Props) => {
 
   const { variant, ...rest } = props;
 
-  return <div className={methodVariants({ size, type, variant })} {...rest} />;
+  return <div className={tagVariants({ size, type, variant })} {...rest} />;
 };
 
-export namespace Method {
-  export type VariantsProps = VariantProps<typeof methodVariants>;
+export namespace Tag {
+  export type VariantsProps = VariantProps<typeof tagVariants>;
   export type HttpMethods = Lowercase<keyof typeof OpenAPIV3.HttpMethods>;
 
   type DivElement = React.ComponentPropsWithoutRef<'div'>;
