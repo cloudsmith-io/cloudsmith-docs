@@ -7,7 +7,6 @@ const blockImage = cva(styles.root, {
   variants: {
     align: {
       left: styles.alignLeft,
-      center: styles.alignCenter,
       right: styles.alignRight,
     },
     variant: {
@@ -15,7 +14,7 @@ const blockImage = cva(styles.root, {
     },
   },
   defaultVariants: {
-    align: 'center',
+    variant: 'base',
   },
 });
 

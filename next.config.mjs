@@ -5,7 +5,6 @@ const nextConfig = {
   pageExtensions: ['mdx', 'tsx'],
   experimental: {
     ppr: 'incremental',
-    dynamicIO: true,
     optimizePackageImports: ['@/components', '@/markdown', '@/icons'],
     turbo: {
       rules: {
@@ -17,13 +16,8 @@ const nextConfig = {
     },
   },
   images: {
-    // TODO: Only add trusted domains
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'github.com',
-      },
-    ],
+    // Do not allow external images
+    remotePatterns: [],
   },
 };
 
@@ -33,20 +27,21 @@ const rehypeAutolinkHeadings = {
   properties: {
     tabIndex: 0,
     ariaHidden: true,
-    className: 'anchor'
+    className: 'anchor',
   },
   content: {
     type: 'element',
     tagName: 'span',
     properties: { className: 'anchorIcon' },
-  }
+  },
 };
 
 const withMDX = createMDX({
   options: {
     remarkPlugins: [['remark-gfm']],
     rehypePlugins: [
-      ['rehype-sanitize'],
+      // This removes all imports and images from the markdown document
+      //['rehype-sanitize'],
       ['rehype-slug'],
       ['rehype-autolink-headings', rehypeAutolinkHeadings],
     ],

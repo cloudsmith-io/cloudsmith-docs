@@ -1,0 +1,100 @@
+# Writing Markdown
+
+Most of the content on the website is written in Markdown. We use the `.mdx` file format to extend Markdown's syntax to support custom React components.
+
+## Basic Markdown
+
+The following is a list of components that are supported through pure Markdown.
+
+### Heading
+
+```md
+# Page title
+
+Some text here
+
+## Heading 1
+
+Some text here
+
+### Heading 2
+```
+
+### Line separator
+
+```md
+Some text
+
+---
+
+Some text
+```
+
+### List
+
+```md
+- Item 1
+- Item 2
+- Item 3
+
+1. Item 1
+2. Item 2
+3. Item 3
+
+- Item 1
+  1. Sub item 1
+  2. Sub item 2
+  3. Sub item 3
+- Item 2
+```
+
+### Link
+
+```mdx
+This is [a link](/api/something) for you to click.
+```
+
+### Note
+
+```mdx
+> This is a note
+```
+
+### Code example
+
+````mdx
+```yaml
+cliVersion: '1.3.1' # Example CLI version
+authMethod: 'apiKey'
+apiKey: '$(CLOUDSMITH_API_KEY)'
+```
+````
+
+## Custom Components
+
+### Images
+
+We use a custom component for images in order to provide options for different layout mechanisms. Images can be saved anywhere in the repository and should be imported into the `.mdx` file and passed to the `BlockImage` component.
+
+```js
+import { BlockImage } from '@/components';
+import testImage from './images/test.png';
+
+<BlockImage src={testImage} alt="Image alt text">
+  This is a caption that I'd like to show for the image
+</BlockImage>;
+```
+
+For vertical images, the `BlockImage` component can be floated left or right:
+
+```js
+// Align image left with caption on the right
+<BlockImage src={testImage} alt="Image alt text" align="left">
+  This is a caption that I'd like to show for the image
+</BlockImage>;
+
+// Align image right with caption on the left
+<BlockImage src={testImage} alt="Image alt text" align="right">
+  This is a caption that I'd like to show for the image
+</BlockImage>;
+```
