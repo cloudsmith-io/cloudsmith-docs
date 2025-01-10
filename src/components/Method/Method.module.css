@@ -1,17 +1,30 @@
 .root {
+  /* TODO: Decide if these are reusable variables for variables.css file */
+  --color-neutral-base: #eaf1fc;
+  --color-neutral-text: #2a6fe1;
+  --color-green-base: #dbfff2;
+  --color-green-text: #76ccad;
+  --color-yellow-base: #fef7e3;
+  --color-yellow-text: #de9070;
+  --color-red-base: #b73b55;
+  --color-red-text: #ffebef;
+  --color-grey-base: #f1f3f6;
+  --color-grey-text: #8497a2;
+
   display: inline-flex;
   flex-shrink: 0;
   align-self: flex-start;
   border-radius: 5px;
   background-color: var(--method-bg-color);
   color: var(--method-text-color);
-  text-transform: uppercase;
   font-size: var(--method-font-size);
+  font-family: var(--font-family-mono);
   line-height: var(--method-line-height);
   padding-inline: var(--method-padding-inline);
   padding-block: var(--method-padding-block);
 }
 
+/* Size */
 .small {
   --method-font-size: 10px;
   --method-line-height: 11px;
@@ -26,23 +39,59 @@
   --method-padding-block: 8px;
 }
 
-.get {
-  --method-bg-color: var(--base-color-blue-75);
-  --method-text-color: var(--base-color-blue-500);
+/* Type */
+/* .package {} */
+.status {
+  text-transform: uppercase;
+}
+
+/* Variant */
+.neutral {
+  --method-bg-color: var(--color-neutral-base);
+  --method-text-color: var(--color-neutral-text);
 
   &.active {
-    --method-bg-color: var(--base-color-blue-500);
-    --method-text-color: var(--base-color-white);
+    --method-bg-color: var(--color-neutral-text);
+    --method-text-color: var(--color-neutral-base);
   }
 }
 
-.put,
-.post,
-.delete,
-.options,
-.head,
-.patch,
-.trace {
-  /* TODO: Implement colors */
-  border: 1px solid red;
+.green {
+  --method-bg-color: var(--color-green-base);
+  --method-text-color: var(--color-green-text);
+
+  &.active {
+    --method-bg-color: var(--color-green-text);
+    --method-text-color: var(--color-green-base);
+  }
+}
+
+.yellow {
+  --method-bg-color: var(--color-yellow-base);
+  --method-text-color: var(--color-yellow-text);
+
+  &.active {
+    --method-bg-color: var(--color-yellow-text);
+    --method-text-color: var(--color-yellow-base);
+  }
+}
+
+.red {
+  --method-bg-color: var(--color-red-base);
+  --method-text-color: var(--color-red-text);
+
+  &.active {
+    --method-bg-color: var(--color-red-text);
+    --method-text-color: var(--color-red-base);
+  }
+}
+
+.grey {
+  --method-bg-color: var(--color-grey-base);
+  --method-text-color: var(--color-grey-text);
+
+  &.active {
+    --method-bg-color: var(--color-grey-text);
+    --method-text-color: var(--color-grey-base);
+  }
 }
