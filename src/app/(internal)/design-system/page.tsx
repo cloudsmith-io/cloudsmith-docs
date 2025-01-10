@@ -1,6 +1,4 @@
-import { Card, Flex, BlockImage, HomepageHero, Button, Navbar } from '@/components';
-import horizontalImage from '@/content/images/horizontal.png';
-import verticalImage from '@/content/images/vertical.png';
+import { Card, Flex, HomepageHero, Button, Navbar } from '@/components';
 
 import { cx } from 'class-variance-authority';
 import styles from './page.module.css';
