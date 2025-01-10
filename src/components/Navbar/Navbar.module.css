@@ -1,7 +1,8 @@
 /* TODO: Replace with real styles */
 .root {
-  background-color: #031c2b;
-  color: white;
+  background-color: var(--base-color-grey-1000);
+  color: var(--base-color-white);
+  font-size: var(--text-body-m);
 }
 
 .container {
@@ -19,6 +20,6 @@
 }
 
 .nav a {
-  color: white;
+  color: var(--base-color-white);
   text-decoration: none;
 }
