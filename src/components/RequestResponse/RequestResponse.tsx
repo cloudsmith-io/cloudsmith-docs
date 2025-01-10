@@ -20,6 +20,7 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
           <div className={cx(styles.item, styles.header)}>
             <div className={styles.subItem}>Path params</div>
           </div>
+
           {operation.parameters
             // Only get path parameters
             ?.filter((param) => 'in' in param)
@@ -27,7 +28,8 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
               <div key={param.name} className={styles.item}>
                 <div className={styles.subItem}>{param.name}</div>
                 <div className={styles.subItem}>
-                  {typeof param.schema === 'string' ? param.schema : param.schema?.type}
+                  {/* @ts-ignore */}
+                  {param.schema && typeof param.schema === 'string' ? param.schema : param.schema?.type}
                 </div>
                 <div className={styles.subItem}>
                   <Tag variant={param.required ? 'red' : 'grey'}>
@@ -36,16 +38,6 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
                 </div>
               </div>
             ))}
-          <div className={styles.item}>
-            <div className={styles.subItem}>owner</div>
-            <div className={styles.subItem}>string</div>
-            <div className={styles.subItem}>required</div>
-          </div>
-          <div className={styles.item}>
-            <div className={styles.subItem}>owner</div>
-            <div className={styles.subItem}>string</div>
-            <div className={styles.subItem}>required</div>
-          </div>
         </div>
       </div>
 
