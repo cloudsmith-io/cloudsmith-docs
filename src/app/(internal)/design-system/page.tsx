@@ -1,5 +1,9 @@
-import { Card, Flex, HomepageHero, Button } from '@/components';
 import { cx } from 'class-variance-authority';
+import { Card, Flex, HomepageHero, Button, BlockImage } from '@/components';
+
+import horizontalImage from '@/content/images/horizontal.png';
+import verticalImage from '@/content/images/vertical.png';
+
 import styles from './page.module.css';
 
 export default function DesignSystemPage() {
@@ -206,6 +210,22 @@ export default function DesignSystemPage() {
             width="full"
           />
         </Flex>
+      </section>
+
+      <section id="images" className={cx(styles.section, styles.container)}>
+        <h2 className={cx(styles.sectionHeading, styles.container)}>Images</h2>
+
+        <BlockImage src={horizontalImage} alt="Image alternative text">
+          This is a caption that I would like to show for the image
+        </BlockImage>
+
+        <BlockImage align="left" src={verticalImage} alt="Image alternative text">
+          This is a caption that I would like to show for the image
+        </BlockImage>
+
+        <BlockImage align="right" src={verticalImage} alt="Image alternative text">
+          This is a caption that I would like to show for the image
+        </BlockImage>
       </section>
     </div>
   );

@@ -9,7 +9,7 @@ export default function Page() {
           <Link href="/api">API</Link>
         </li>
         <li>
-          <Link href="/getting-started">Getting Started Test</Link>
+          <Link href="/test">Test Markdown</Link>
         </li>
       </ul>
       

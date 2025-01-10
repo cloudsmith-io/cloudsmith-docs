@@ -26,8 +26,8 @@ function mergeProps(slotProps: Record<string, unknown>, childProps: Record<strin
       // if the handler exists on both, we compose them
       if (slotPropValue && childPropValue) {
         overrideProps[propName] = (...args: unknown[]) => {
-          (childPropValue as Function)(...args);
-          (slotPropValue as Function)(...args);
+          (childPropValue as Function)(...args); // eslint-disable-line @typescript-eslint/no-unsafe-function-type
+          (slotPropValue as Function)(...args); // eslint-disable-line @typescript-eslint/no-unsafe-function-type
         };
       }
       // but if it exists only on the slot, we use only this one
@@ -37,11 +37,9 @@ function mergeProps(slotProps: Record<string, unknown>, childProps: Record<strin
     }
     // if it's `style`, we merge them
     else if (propName === 'style') {
-      overrideProps[propName] = { ...slotPropValue as object, ...childPropValue as object };
+      overrideProps[propName] = { ...(slotPropValue as object), ...(childPropValue as object) };
     } else if (propName === 'className') {
-      overrideProps[propName] = [slotPropValue, childPropValue]
-        .filter(Boolean)
-        .join(' ');
+      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
     }
   }
 
