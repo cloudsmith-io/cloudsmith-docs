@@ -2,7 +2,7 @@
 
 Most of the content on the website is written in Markdown. We use the `.mdx` file format to extend Markdown's syntax to support custom React components.
 
-## Markdown
+## Basic Markdown
 
 The following is a list of components that are supported through pure Markdown.
 
@@ -69,3 +69,32 @@ authMethod: 'apiKey'
 apiKey: '$(CLOUDSMITH_API_KEY)'
 ```
 ````
+
+## Custom Components
+
+### Images
+
+We use a custom component for images in order to provide options for different layout mechanisms. Images can be saved anywhere in the repository and should be imported into the `.mdx` file and passed to the `BlockImage` component.
+
+```js
+import { BlockImage } from '@/components';
+import testImage from './images/test.png';
+
+<BlockImage src={testImage} alt="Image alt text">
+  This is a caption that I'd like to show for the image
+</BlockImage>;
+```
+
+For vertical images, the `BlockImage` component can be floated left or right:
+
+```js
+// Align image left with caption on the right
+<BlockImage src={testImage} alt="Image alt text" align="left">
+  This is a caption that I'd like to show for the image
+</BlockImage>;
+
+// Align image right with caption on the left
+<BlockImage src={testImage} alt="Image alt text" align="right">
+  This is a caption that I'd like to show for the image
+</BlockImage>;
+```
