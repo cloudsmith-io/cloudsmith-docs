@@ -27,7 +27,7 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
               <div key={param.name} className={styles.item}>
                 <div className={styles.subItem}>{param.name}</div>
                 <div className={styles.subItem}>
-                  {typeof param.schema === 'object' ? param.schema.type : param.schema}
+                  {typeof param.schema === 'string' ? param.schema : param.schema?.type}
                 </div>
                 <div className={styles.subItem}>
                   <Tag variant={param.required ? 'red' : 'grey'}>
