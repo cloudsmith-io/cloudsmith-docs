@@ -8,3 +8,5 @@ export * from './QuickNav';
 export * from './Sidenav';
 export * from './Flex';
 export * from './Card';
+export * from './HomepageHero';
+export * from './Button';
