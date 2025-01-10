@@ -35,8 +35,7 @@
 }
 
 @media (--tablet-up) {
-  .root:has(.caption).alignLeft,
-  .root:has(.caption).alignRight {
+  .root:has(.caption):is(.alignLeft, .alignRight) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
