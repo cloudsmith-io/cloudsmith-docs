@@ -3,6 +3,25 @@ import { Container } from '../Container';
 import { Flex } from '../Flex';
 import styles from './HomepageHero.module.css';
 
+const heroContent = {
+  title: 'Welcome to Cloudsmith’s documentation site.',
+  description: 'Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies.',
+  buttons: [
+    {
+      label: 'Documentation',
+      href: '/',
+    },
+    {
+      label: 'Guides',
+      href: '/',
+    },
+    {
+      label: 'API Reference',
+      href: '/',
+    },
+  ],
+}
+
 const HeroBackground = () => (
   <div className={styles.background}>
     <svg width="798" height="432" viewBox="0 0 798 432" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,22 +72,18 @@ export function HomepageHero() {
       <Container className={styles.container}>
         <HeroBackground />
         <Flex direction="column" align="start" justify="center" className={styles.content}>
-          <h2 className={styles.title}>Welcome to Cloudsmith’s documentation site.</h2>
+          <h2 className={styles.title}>{heroContent.title}</h2>
           <p className={styles.description}>
-            Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the
-            best universal support for all native package and container technologies.
+            {heroContent.description}
           </p>
           <div className={styles.buttonContainer}>
-            <Button href="/" withArrow size="small" width="full" className={styles.button}>
-              Documentation
-            </Button>
-            <Button href="/" withArrow size="small" width="full" className={styles.button}  >
-              Guides
-            </Button>
-            <Button href="/" withArrow size="small" width="full" className={styles.button}>
-              API Reference
-            </Button>
+            {heroContent.buttons.map((button) => (
+              <Button key={button.label} href={button.href} withArrow size="small" width="full" className={styles.button}>
+                {button.label}
+              </Button>
+            ))}
           </div>
+             
         </Flex>
       </Container>
     </Flex>
