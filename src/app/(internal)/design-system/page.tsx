@@ -1,8 +1,5 @@
-import { Card, Flex, HomepageHero, Button, Navbar } from '@/components';
-
 import { cx } from 'class-variance-authority';
-import { Card, Flex, HomepageHero, Button, BlockImage } from '@/components';
-
+import { Card, Flex, HomepageHero, Button, BlockImage, Navbar } from '@/components';
 import horizontalImage from '@/content/images/horizontal.png';
 import verticalImage from '@/content/images/vertical.png';
 
