@@ -53,7 +53,7 @@ export const Navbar = () => {
             />
             <div className={styles.searchButtonText}>
               <span>Search</span>
-              <kbd>
+              <kbd className={styles.searchButtonKbd}>
                 <abbr title="Command">⌘</abbr> K
               </kbd>
             </div>
