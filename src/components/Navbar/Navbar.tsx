@@ -11,7 +11,6 @@ import styles from './Navbar.module.css';
 
 export const Navbar = () => {
   const pathname = usePathname();
-  console.log(pathname === '/');
 
   return (
     <div className={cx(styles.root, pathname === '/' && styles.homeNavbar)}>
