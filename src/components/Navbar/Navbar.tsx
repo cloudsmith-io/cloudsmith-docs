@@ -21,22 +21,22 @@ export const Navbar = () => {
         </Link>
 
         <span className={styles.currentSection}>
-          <Icon name="docs/link" aria-hidden="true" focusable="false" />
+          <Icon name="docs/link" aria-hidden="true" focusable="false" title="" />
           <span>Documentation</span>
         </span>
 
         <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
           <nav className={styles.nav}>
             <Link href="/documentation" className={styles.navLink}>
-              <Icon name="docs/documentation" aria-hidden="true" focusable="false" />
+              <Icon name="docs/documentation" aria-hidden="true" focusable="false" title="" />
               Documentation
             </Link>
             <Link href="/guides" className={styles.navLink}>
-              <Icon name="docs/guide" aria-hidden="true" focusable="false" />
+              <Icon name="docs/guide" aria-hidden="true" focusable="false" title="" />
               Guides
             </Link>
             <Link href="/api" className={styles.navLink}>
-              <Icon name="docs/api" aria-hidden="true" focusable="false" />
+              <Icon name="docs/api" aria-hidden="true" focusable="false" title="" />
               API Reference
             </Link>
           </nav>
@@ -50,6 +50,7 @@ export const Navbar = () => {
               height={10}
               viewBox="0 0 10 10"
               className={styles.searchIcon}
+              title=""
             />
             <div className={styles.searchButtonText}>
               <span>Search</span>
@@ -60,7 +61,7 @@ export const Navbar = () => {
           </button>
 
           <button className={styles.menuButton} aria-label="Menu">
-            <Icon name="menu" aria-hidden="true" focusable="false" />
+            <Icon name="menu" aria-hidden="true" focusable="false" title="" />
           </button>
         </Flex>
       </Container>
