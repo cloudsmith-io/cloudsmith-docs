@@ -22,6 +22,7 @@
     --base-color-grey-700: #39586a;
     --base-color-grey-900: #092f45;
     --base-color-grey-1000: #031c2b;
+    
 
     /* Backgrounds */
     --color-background-default: var(--base-color-white);
@@ -40,6 +41,7 @@
     /* Accent */
     --color-accent-default: var(--base-color-blue-500);
     --color-accent-hover: var(--base-color-blue-600);
+    --color-accent-secondary: #EEC26F;
 
     /* Letter spacings */
     --letter-body: 0.08px;
@@ -98,6 +100,7 @@
     --transition-slow: 400ms var(--transition-easing-default);
 
     /* Container widths */
+    --container-width-xxs: 320px;
     --container-width-xs: 480px;
     --container-width-s: 640px;
     --container-width-m: 960px;
