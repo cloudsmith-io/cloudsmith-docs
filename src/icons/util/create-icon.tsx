@@ -2,7 +2,6 @@ const defaultProps = {
   width: 16,
   height: 16,
   viewBox: '0 0 16 16',
-  focusable: 'auto',
   'aria-hidden': false,
 };
 
@@ -14,7 +13,7 @@ export const createIcon = <Props extends RenderProps<Props>>(
     const { children, ...svgProps } = render(props as Props);
 
     // Allow props to override defaults
-    const finalProps = { ...defaultProps, ...svgProps, ...props };
+    const finalProps = { ...defaultProps, ...svgProps };
 
     if (as === 'use') {
       return (
