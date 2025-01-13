@@ -107,7 +107,15 @@ export default function DesignSystemPage() {
       <section id="homepageHero" className={styles.section}>
         <h2 className={cx(styles.sectionHeading, styles.container)}>Homepage Hero</h2>
 
-        <HomepageHero />
+        <HomepageHero
+          title="Welcome to Cloudsmith’s documentation site."
+          description="Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies."
+          buttons={[
+            { label: 'Documentation', href: '/' },
+            { label: 'Guides', href: '/' },
+            { label: 'API Reference', href: '/' },
+          ]}
+        />
       </section>
 
       <section id="cards" className={cx(styles.section, styles.container)}>
