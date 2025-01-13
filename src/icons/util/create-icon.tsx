@@ -44,17 +44,26 @@ export const createIcon = <Props extends RenderProps<Props>>(
   return Icon;
 };
 
+// Basic SVG-related props
+type SVGProps = React.SVGProps<SVGSVGElement>;
+
+// Icon-specific props
 type Direction = 'up' | 'down' | 'left' | 'right';
 
-type BaseProps = {
+type IconBaseProps = {
   title: React.ReactNode;
   as?: 'svg' | 'use' | 'symbol';
   id?: string;
+};
+
+type IconCustomProps = {
   chevronDirection?: Direction;
 };
 
-type RenderProps<Props extends object> = {
-  [Key in keyof Props]: Key extends keyof BaseProps ? never : Props[Key];
-};
+// Combined props type
+export type IconProps = IconBaseProps & IconCustomProps & SVGProps;
 
-export type IconProps = BaseProps & React.SVGProps<SVGSVGElement>;
+// Utility type for render function props
+type RenderProps<Props extends object> = {
+  [Key in keyof Props]: Key extends Exclude<keyof IconBaseProps, 'chevronDirection'> ? never : Props[Key];
+};
