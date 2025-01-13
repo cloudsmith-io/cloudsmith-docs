@@ -13,7 +13,7 @@ TODO: Finish styling in upcomming PRs
 /* Table grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: min-content min-content auto;
   margin-block-end: var(--space-s);
   border: 1px solid rgba(9, 47, 69, 10%);
   border-radius: var(--border-radius-m);
@@ -44,4 +44,16 @@ TODO: Finish styling in upcomming PRs
   .header & {
     grid-column: 1 / -1;
   }
+}
+
+/* Different types of content */
+.subItemType {
+  color: var(--base-color-blue-500);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-body-xs);
+  letter-spacing: var(--letter-http-type);
+}
+
+.subItemDescription {
+  color: var(--base-color-grey-500);
 }
