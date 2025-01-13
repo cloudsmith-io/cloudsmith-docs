@@ -68,6 +68,9 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
             existing.path = apiOperationPath(operation.slug);
             existing.method = operation.method;
           } else {
+            if (!existing.path) {
+              existing.path = apiOperationPath(operation.slug);
+            }
             existing.children = [];
           }
           parent.push(existing);

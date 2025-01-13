@@ -58,12 +58,13 @@ Outputs:
 
 ## Specific props
 
-It's possible to pass specific props to the SVG element. For example, you can pass a orientation prop to the icon to flip it. Then those props can be used in the icon component to manipulate the SVG element accordingly.
+It's possible to pass specific props to the SVG element. For example, you can pass a direction prop to the icon to flip it. Then those props can be used in the icon component to manipulate the SVG element accordingly.
 
-To get the correct types of icons with specific props, import the icon directly from the icon folder.
+To get the correct types of icons with specific props, import the icon directly from the icons folder.
+This enables you to create icons with specific props to be animated or manipulated in different ways.
 
 ```tsx
-import { ArrowIcon } from '@/icons/close';
+import { ChevronIcon } from '@/icons/Chevron';
 
-<ArrowIcon direction="up" title="Arrow up" />;
+<ChevronIcon chevronDirection="up" title="Chevron up" />;
 ```

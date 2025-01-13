@@ -57,11 +57,15 @@
     --text-headline-xl: fluid(32px, 54px);
     --text-headline-2xl: fluid(38px, 80px);
     --text-headline-3xl: fluid(52px, 88px);
+    --text-fixed-xs: 14px;
+    --text-fixed-s: 16px;
 
     /* Line heights */
+    --line-height-s: fluid(20px, 23px);
     --line-height-m: fluid(23px, 28px);
 
     /* Spacing */
+    --space-5xs: fluid(1px, 2px);
     --space-4xs: fluid(2px, 4px);
     --space-3xs: fluid(4px, 6px);
     --space-2xs: fluid(6px, 8px);
