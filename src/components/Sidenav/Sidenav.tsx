@@ -14,11 +14,7 @@ import styles from './Sidenav.module.css';
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
 export const Sidenav = ({ items }: SidenavProps) => {
-  return (
-    <>
-      <div className={styles.root}>{items ? <List items={items} isExpanded /> : null}</div>
-    </>
-  );
+  return <div className={styles.root}>{items ? <List items={items} isExpanded /> : null}</div>;
 };
 
 const List = ({ items, bleed, isExpanded }: ListProps) => {
@@ -45,7 +41,7 @@ const Item = ({ item }: ItemProps) => {
   const pathname = usePathname();
   const isCurrentPageActive = item.path === pathname;
   const isActive = isDescendantOrSelfActive(item, pathname);
-  const [isExpanded, setIsExpanded] = useState(isActive);
+  const [isExpanded, setIsExpanded] = useState(!item.path ? true : isActive);
 
   function toggleExpand(event: React.MouseEvent<HTMLAnchorElement>) {
     if (isCurrentPageActive) {
@@ -76,7 +72,7 @@ const Item = ({ item }: ItemProps) => {
           ) : null}
         </Link>
       ) : (
-        <span className={styles.section}>{item.title}</span>
+        <span className={cx(item.isSection && styles.section)}>{item.title}</span>
       )}
 
       {item.children ? <List items={item.children} bleed={item.isSection} isExpanded={isExpanded} /> : null}

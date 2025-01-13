@@ -84,7 +84,6 @@
           },
           {
             "title": "HTTP Verbs",
-            "path": "/does-not-exist",
             "children": [
               {
                 "title": "Nested Items",
@@ -99,24 +98,6 @@
                 "path": "/does-not-exist"
               }
             ]
-          }
-        ]
-      },
-      {
-        "title": "API",
-        "isSection": true,
-        "children": [
-          {
-            "title": "Article 1",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Article 2",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Article 3",
-            "path": "/does-not-exist"
           }
         ]
       }

@@ -13,9 +13,8 @@ export const createIcon = <Props extends RenderProps<Props>>(
   const Icon = ({ as, title, id, ...props }: Props & IconProps) => {
     const { children, ...svgProps } = render(props as Props);
 
-        // Allow props to override defaults
-        const finalProps = { ...defaultProps, ...svgProps, ...props };
-
+    // Allow props to override defaults
+    const finalProps = { ...defaultProps, ...svgProps, ...props };
 
     if (as === 'use') {
       return (
