@@ -3,23 +3,15 @@ import { Container } from '../Container';
 import { Flex } from '../Flex';
 import styles from './HomepageHero.module.css';
 
-const heroContent = {
-  title: 'Welcome to Cloudsmith’s documentation site.',
-  description: 'Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies.',
-  buttons: [
-    {
-      label: 'Documentation',
-      href: '/',
-    },
-    {
-      label: 'Guides',
-      href: '/',
-    },
-    {
-      label: 'API Reference',
-      href: '/',
-    },
-  ],
+interface ButtonProps {
+  label: string;
+  href: string;
+}
+
+interface HeroProps {
+  title?: string;
+  description?: string;
+  buttons?: ButtonProps[];
 }
 
 const HeroBackground = () => (
@@ -66,24 +58,33 @@ const HeroBackground = () => (
   </div>
 );
 
-export function HomepageHero() {
+export function HomepageHero({
+  title = 'This is the Hero Title',
+  description = 'This is the Hero Description. It can be as long as you want.',
+  buttons = [],
+}: HeroProps) {
   return (
     <Flex direction="column" align="start" className={styles.root}>
       <Container className={styles.container}>
         <HeroBackground />
         <Flex direction="column" align="start" justify="center" className={styles.content}>
-          <h2 className={styles.title}>{heroContent.title}</h2>
-          <p className={styles.description}>
-            {heroContent.description}
-          </p>
-          <div className={styles.buttonContainer}>
-            {heroContent.buttons.map((button) => (
-              <Button key={button.label} href={button.href} withArrow size="small" width="full" className={styles.button}>
-                {button.label}
-              </Button>
-            ))}
-          </div>
-             
+          <h2 className={styles.title}>{title}</h2>
+          <p className={styles.description}>{description}</p>
+          {buttons.length > 0 && (
+            <div className={styles.buttonContainer}>
+              {buttons.map((button) => (
+                <Button
+                  key={button.label}
+                  href={button.href}
+                  withArrow
+                  size="small"
+                  width="full"
+                  className={styles.button}>
+                  {button.label}
+                </Button>
+              ))}
+            </div>
+          )}
         </Flex>
       </Container>
     </Flex>
