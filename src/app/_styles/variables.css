@@ -40,6 +40,7 @@
     /* Letter spacings */
     --letter-body: 0.08px;
     --letter-headline: -0.08px;
+    --letter-tags: 0.4px;
 
     /* Text Sizes */
     --text-body-2xs: fluid(8.5px, 10.5px);

@@ -19,10 +19,10 @@ describe('lib', () => {
       describe('createSlug', () => {
         test('it creates proper slug', async () => {
           const mapping = [
-            { from: ['Orgs', 'List'], to: '/api/orgs/list' },
-            { from: ['Deny Policy', 'List'], to: '/api/deny-policy/list' },
-            { from: ['Deny Policy', 'Partial Update'], to: '/api/deny-policy/partial-update' },
-            { from: ['License Policy', 'Evaluation', 'List'], to: '/api/license-policy/evaluation/list' },
+            { from: ['Orgs', 'List'], to: 'orgs/list' },
+            { from: ['Deny Policy', 'List'], to: 'deny-policy/list' },
+            { from: ['Deny Policy', 'Partial Update'], to: 'deny-policy/partial-update' },
+            { from: ['License Policy', 'Evaluation', 'List'], to: 'license-policy/evaluation/list' },
           ];
           for (const item of mapping) {
             expect(createSlug(item.from)).toEqual(item.to);

@@ -4,7 +4,6 @@ import createMDX from '@next/mdx';
 const nextConfig = {
   pageExtensions: ['mdx', 'tsx'],
   experimental: {
-    ppr: 'incremental',
     optimizePackageImports: ['@/components', '@/markdown', '@/icons'],
     turbo: {
       rules: {
@@ -16,13 +15,8 @@ const nextConfig = {
     },
   },
   images: {
-    // TODO: Only add trusted domains
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'github.com',
-      },
-    ],
+    // Do not allow external images
+    remotePatterns: [],
   },
 };
 
@@ -45,7 +39,8 @@ const withMDX = createMDX({
   options: {
     remarkPlugins: [['remark-gfm']],
     rehypePlugins: [
-      ['rehype-sanitize'],
+      // This removes all imports and images from the markdown document
+      //['rehype-sanitize'],
       ['rehype-slug'],
       ['rehype-autolink-headings', rehypeAutolinkHeadings],
     ],
