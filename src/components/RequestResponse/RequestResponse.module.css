@@ -63,3 +63,7 @@
 .subItemDescription {
   color: var(--base-color-grey-500);
 }
+
+.subItemDescriptionWide {
+  grid-column: span 2;
+}

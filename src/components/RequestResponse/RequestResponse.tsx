@@ -1,6 +1,6 @@
 import { ApiOperation } from '@/lib/swagger/types';
 import { cx } from 'class-variance-authority';
-import { Heading } from '@/markdown';
+import { Heading, Paragraph } from '@/markdown';
 import { OpenAPIV3 } from 'openapi-types';
 import { Tag } from '../Tag';
 
@@ -9,6 +9,11 @@ import styles from './RequestResponse.module.css';
 export const RequestResponse = (operation: PropsRequestResponseProps) => {
   return (
     <>
+      {/* TODO: Use headline from where? */}
+      <Heading size="h1">Headline</Heading>
+
+      <Paragraph>{operation.description}</Paragraph>
+
       <div className={styles.root}>
         <Heading size="h2" className={styles.fullWidth}>
           Request
@@ -25,6 +30,8 @@ export const RequestResponse = (operation: PropsRequestResponseProps) => {
         <QueryParams {...operation} />
 
         <Heading size="h2">Response</Heading>
+
+        <Responses {...operation} />
       </div>
     </>
   );
@@ -86,6 +93,27 @@ const QueryParams = (operation: PropsRequestResponseProps) => {
   }
 
   return null;
+};
+
+const Responses = (operation: PropsRequestResponseProps) => {
+  const responses = operation.responses as { [code: string]: OpenAPIV3.ResponseObject };
+
+  return (
+    <div className={styles.grid}>
+      <div className={cx(styles.item, styles.header)}>
+        <div className={styles.subItem}>Responses</div>
+      </div>
+
+      {Object.entries(responses).map(([code, response]) => (
+        <div key={code} className={styles.item}>
+          <div className={styles.subItem}>
+            <Tag statusCode={Number(code) as Tag.HttpResponseStatusCodes} />
+          </div>
+          <div className={cx(styles.subItem, styles.subItemDescriptionWide)}>{response.description}</div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 type PropsRequestResponseProps = ApiOperation;
