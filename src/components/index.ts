@@ -1,7 +1,7 @@
 export * from './AppShell';
 export * from './BlockImage';
 export * from './Container';
-export * from './Method';
+export * from './Tag';
 export * from './Navbar';
 export * from './Note';
 export * from './QuickNav';
@@ -10,3 +10,4 @@ export * from './Flex';
 export * from './Card';
 export * from './HomepageHero';
 export * from './Button';
+export * from './RequestResponse';

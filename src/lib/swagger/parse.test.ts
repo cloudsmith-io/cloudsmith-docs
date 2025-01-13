@@ -39,7 +39,7 @@ describe('lib', () => {
           const childItem = parentItem.children?.[0];
 
           expect(parentItem.title).toBe('Policies');
-          expect(parentItem?.path).toBeUndefined();
+          expect(parentItem?.path).toEqual('/api/policies/list'); // Parents always link to the first item
           expect(parentItem?.method).toBeUndefined();
 
           expect(childItem?.title).toEqual('List');

@@ -1,4 +1,5 @@
 import { loadApiMdxSlugs } from '@/lib/markdown/util';
+import { RequestResponse } from '@/components';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
@@ -39,6 +40,7 @@ const Page = async ({ params }: PageProps) => {
   if (operation) {
     return (
       <div>
+        {operation ? <RequestResponse {...operation} /> : null}
         Rendering the operation: {operation?.method} {operation?.path}
         <p>JSON:</p>
         <pre>{JSON.stringify(operation, null, 2)}</pre>

@@ -46,6 +46,7 @@
     /* Letter spacings */
     --letter-body: 0.08px;
     --letter-headline: -0.08px;
+    --letter-tags: 0.4px;
 
     /* Text Sizes */
     --text-body-2xs: fluid(8.5px, 10.5px);
@@ -62,8 +63,11 @@
     --text-headline-xl: fluid(32px, 54px);
     --text-headline-2xl: fluid(38px, 80px);
     --text-headline-3xl: fluid(52px, 88px);
+    --text-fixed-xs: 14px;
+    --text-fixed-s: 16px;
 
     /* Line heights */
+    --line-height-s: fluid(20px, 23px);
     --line-height-m: fluid(23px, 28px);
     --line-height-none: 1;
     --line-height-compact: 1.111;
@@ -72,6 +76,7 @@
     --line-height-normal: 1.444;
 
     /* Spacing */
+    --space-5xs: fluid(1px, 2px);
     --space-4xs: fluid(2px, 4px);
     --space-3xs: fluid(4px, 6px);
     --space-2xs: fluid(6px, 8px);
