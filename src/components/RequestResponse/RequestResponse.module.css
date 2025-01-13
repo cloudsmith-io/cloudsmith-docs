@@ -1,7 +1,12 @@
-/*
-TODO: Finish styling in upcomming PRs
-.root {}
-.request {} */
+.root {
+  display: grid;
+  grid-template-columns: minmax(100px, min-content) minmax(150px, auto) 1fr;
+}
+
+.fullWidth,
+.request {
+  grid-column: 1 / -1;
+}
 
 .url {
   display: flex;
@@ -13,7 +18,8 @@ TODO: Finish styling in upcomming PRs
 /* Table grid */
 .grid {
   display: grid;
-  grid-template-columns: min-content min-content auto;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   margin-block-end: var(--space-s);
   border: 1px solid rgba(9, 47, 69, 10%);
   border-radius: var(--border-radius-m);
