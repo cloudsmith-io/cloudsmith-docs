@@ -37,6 +37,10 @@
     /* Border */
     --color-border: var(--base-color-grey-300);
 
+    /* Accent */
+    --color-accent-default: var(--base-color-blue-500);
+    --color-accent-hover: var(--base-color-blue-600);
+
     /* Letter spacings */
     --letter-body: 0.08px;
     --letter-headline: -0.08px;
@@ -63,6 +67,11 @@
     /* Line heights */
     --line-height-s: fluid(20px, 23px);
     --line-height-m: fluid(23px, 28px);
+    --line-height-none: 1;
+    --line-height-compact: 1.111;
+    --line-height-tight: 1.2;
+    --line-height-snug: 1.222;
+    --line-height-normal: 1.444;
 
     /* Spacing */
     --space-5xs: fluid(1px, 2px);
@@ -100,5 +109,10 @@
     --container-width-l: 1400px;
     --container-width-xl: 1512px;
     --sidebar-width: 240px;
+
+    /* Button fixed widths */
+    --button-width-s: fluid(100px, 120px);
+    --button-width-m: fluid(140px, 168px); 
+    --button-width-l: fluid(168px, 200px);
   }
 }

@@ -1,12 +1,25 @@
-.root {
-  padding: var(--space-l);
+.section {
+  padding: var(--space-2xl) 0;
+}
 
-  & h1,
-  & h2,
-  & h3 {
-    font-family: var(--font-family-heading);
-    margin-bottom: var(--space-m);
-  }
+.container {
+  max-width: var(--container-width-xl);
+  padding: 0 var(--space-m);
+  margin: 0 auto;
+}
+
+.sectionHeading {
+  font-family: var(--font-family-heading);
+  margin: var(--space-m) 0;
+}
+
+.subHeading {
+  font-family: var(--font-family-heading);
+  margin: var(--space-m) 0;
+}
+
+.componentContainer {
+  margin-bottom: var(--space-3xl);
 }
 
 .flexContainer {
