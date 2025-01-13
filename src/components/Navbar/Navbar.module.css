@@ -11,6 +11,7 @@
   padding: 0 var(--space-m);
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: var(--space-xs);
 }
 
@@ -39,6 +40,7 @@
 .navContainer {
   margin-left: auto;
   align-items: center;
+  gap: var(--space-xs);
 }
 
 .nav {
@@ -103,7 +105,6 @@
   .container {
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
   }
 
   .logo {
@@ -124,6 +125,7 @@
 
   .container {
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .currentSection {
@@ -133,6 +135,8 @@
   .navContainer {
     margin-left: unset;
     align-items: start;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .nav {
@@ -175,6 +179,10 @@
   }
 
   .homeNavbar {
+    .navContainer {
+      justify-content: flex-end;
+    }
+
     .searchButton {
       min-width: var(--container-width-xxs);
     }
