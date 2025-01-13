@@ -1,6 +1,6 @@
 import { createIcon } from '../../util/create-icon';
 
-export const DocsGuideIcon = createIcon('docs/guide', () => ({
+export const ActionGuideIcon = createIcon('action/guide', () => ({
   fill: 'none',
   children: (
     <>

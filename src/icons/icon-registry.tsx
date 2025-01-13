@@ -8,10 +8,10 @@ import { SearchIcon } from './svgs/Search';
 import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
 import { UtilityGuideIcon } from './svgs/utility/Guide';
 import { UtilityApiIcon } from './svgs/utility/Api';
-import { DocsDocumentationIcon } from './svgs/docs/Documentation';
-import { DocsGuideIcon } from './svgs/docs/Guide';
-import { DocsApiIcon } from './svgs/docs/Api';
-import { DocsLinkIcon } from './svgs/docs/Link';
+import { ActionDocumentationIcon } from './svgs/action/Documentation';
+import { ActionGuideIcon } from './svgs/action/Guide';
+import { ActionApiIcon } from './svgs/action/Api';
+import { ActionLinkIcon } from './svgs/action/Link';
 
 export const iconRegistry = createIconRegistry({
   close: CloseIcon,
@@ -26,8 +26,8 @@ export const iconRegistry = createIconRegistry({
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,
   'utility/api': UtilityApiIcon,
-  'docs/documentation': DocsDocumentationIcon,
-  'docs/guide': DocsGuideIcon,
-  'docs/api': DocsApiIcon,
-  'docs/link': DocsLinkIcon,
+  'action/documentation': ActionDocumentationIcon,
+  'action/guide': ActionGuideIcon,
+  'action/api': ActionApiIcon,
+  'action/link': ActionLinkIcon,
 });
