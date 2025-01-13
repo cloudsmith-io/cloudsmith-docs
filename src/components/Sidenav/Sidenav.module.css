@@ -1,52 +1,94 @@
 .root {
-  font-size: var(--text-body-m);
-  padding: var(--space-m);
-  /* Just for now to hide on mobile */
-  max-height: 60px;
-}
+  --svg-path-fill: var(--base-color-grey-100);
 
-.list {
-  /* Just for now to hide on mobile */
-  display: none;
-  padding: 0;
-  list-style: none;
-  margin-block: var(--space-s);
-}
-
-.list .list {
-  padding-left: var(--space-s);
-  font-size: var(--text-body-s);
-}
-
-.list .list.bleed {
-  padding-left: 0;
-  margin-block-start: var(--space-3xs);
-}
-
-.link,
-.item {
-  display: block;
-  margin-block-end: var(--space-3xs);
-}
-
-.link {
-  text-decoration: none;
-  color: var(--color-font-primary);
-}
-
-.section {
-  font-family: var(--font-family-mono);
-  font-size: var(--text-body-xs);
-  color: var(--color-text-label);
-  text-transform: uppercase;
+  padding-block: var(--space-m);
+  padding-inline: var(--space-xs);
 }
 
 @media (--laptop-up) {
   .root {
-    max-height: none;
+    --svg-path-fill: var(--color-font-primary);
   }
+}
+
+.listWrapper {
+  overflow-y: hidden;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-s);
+  padding: 0;
+  list-style: none;
 
   .list {
-    display: block;
+    padding-block-start: var(--space-s);
+    padding-inline-start: var(--space-s);
+    font-size: var(--text-body-s);
+
+    .list {
+      row-gap: 0;
+    }
   }
+
+  &.bleed {
+    padding-inline-start: 0;
+    margin-block-start: var(--space-3xs);
+  }
+}
+
+.linkButton {
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  text-decoration: none;
+  color: var(--base-color-grey-100);
+  padding-inline: var(--space-xs);
+  padding-block: var(--space-5xs);
+  border-radius: var(--border-radius-m);
+  font-size: var(--text-fixed-s);
+  line-height: var(--line-height-s);
+  transition: background-color var(--transition-default);
+
+  .item .item & {
+    font-size: var(--text-fixed-xs);
+  }
+}
+
+@media (--laptop-up) {
+  .link {
+    color: var(--color-font-primary);
+  }
+}
+
+.linkActive {
+  background-color: var(--base-color-grey-900);
+}
+
+@media (--laptop-up) {
+  .linkActive {
+    background-color: var(--base-color-blue-100);
+  }
+}
+
+.linkIcon {
+  flex-shrink: 0;
+}
+
+.section {
+  display: flex;
+  font-family: var(--font-family-mono);
+  font-size: var(--text-body-xs);
+  color: var(--color-text-label);
+  text-transform: uppercase;
+  padding-inline: var(--space-xs);
+}
+
+@media (--laptop-up) {
 }

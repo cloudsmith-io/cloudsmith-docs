@@ -39,6 +39,7 @@
   .item .item & {
     padding-inline-start: var(--space-m);
   }
+
   .item .item .item & {
     padding-inline-start: var(--space-l);
   }
