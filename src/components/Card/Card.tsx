@@ -74,7 +74,7 @@ type CardBaseProps = {
   description?: string;
   href: string;
   linkText: string;
-  icon: 'documentation' | 'guide' | 'apiReference';
+  icon: 'utility/documentation' | 'utility/guide' | 'utility/api';
   backgroundImage?: string;
   className?: string;
 };

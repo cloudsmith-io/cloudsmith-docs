@@ -1,6 +1,5 @@
 import { cx } from 'class-variance-authority';
-import { Card, Flex, HomepageHero, Button, BlockImage } from '@/components';
-
+import { Card, Flex, HomepageHero, Button, BlockImage, Navbar } from '@/components';
 import horizontalImage from '@/content/images/horizontal.png';
 import verticalImage from '@/content/images/vertical.png';
 
@@ -104,6 +103,12 @@ export default function DesignSystemPage() {
         </Flex>
       </section>
 
+      <section id="navbar" className={styles.section}>
+        <h2 className={cx(styles.sectionHeading, styles.container)}>Navbar</h2>
+
+        <Navbar />
+      </section>
+
       <section id="homepageHero" className={styles.section}>
         <h2 className={cx(styles.sectionHeading, styles.container)}>Homepage Hero</h2>
 
@@ -127,7 +132,7 @@ export default function DesignSystemPage() {
             description="This is a Card with a description and default size (m)"
             href="/"
             linkText="Go to guide"
-            icon="documentation"
+            icon="utility/documentation"
           />
 
           <Card
@@ -135,7 +140,7 @@ export default function DesignSystemPage() {
             description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
             href="/"
             linkText="Go to guide"
-            icon="guide"
+            icon="utility/guide"
           />
 
           <Card
@@ -143,7 +148,7 @@ export default function DesignSystemPage() {
             description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
             href="/"
             linkText="Go to documentation"
-            icon="guide"
+            icon="utility/guide"
           />
 
           <Card
@@ -151,18 +156,24 @@ export default function DesignSystemPage() {
             description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
             href="/"
             linkText="Go to documentation"
-            icon="guide"
+            icon="utility/guide"
           />
         </Flex>
 
         <h2 className={styles.sectionHeading}>Cards: Size variant (large)</h2>
 
         <Flex gap="l" align="stretch" className={styles.flexContainer}>
-          <Card title="Dependencies" href="/" linkText="For Developers" icon="documentation" size="l" />
+          <Card
+            title="Dependencies"
+            href="/"
+            linkText="For Developers"
+            icon="utility/documentation"
+            size="l"
+          />
 
-          <Card title="Deployment" href="/" linkText="For Operations" icon="guide" size="l" />
+          <Card title="Deployment" href="/" linkText="For Operations" icon="utility/guide" size="l" />
 
-          <Card title="Distribution" href="/" linkText="For Vendors" icon="apiReference" size="l" />
+          <Card title="Distribution" href="/" linkText="For Vendors" icon="utility/api" size="l" />
         </Flex>
 
         <h2 className={styles.sectionHeading}>Cards: Width variants</h2>
@@ -174,18 +185,25 @@ export default function DesignSystemPage() {
             title="Dependencies"
             href="/"
             linkText="For Developers"
-            icon="documentation"
+            icon="utility/documentation"
             size="l"
             width="third"
           />
 
-          <Card title="Deployment" href="/" linkText="For Operations" icon="guide" size="l" width="third" />
+          <Card
+            title="Deployment"
+            href="/"
+            linkText="For Operations"
+            icon="utility/guide"
+            size="l"
+            width="third"
+          />
 
           <Card
             title="Distribution"
             href="/"
             linkText="For Vendors"
-            icon="apiReference"
+            icon="utility/api"
             size="l"
             width="third"
           />
@@ -198,12 +216,19 @@ export default function DesignSystemPage() {
             title="Dependencies"
             href="/"
             linkText="For Developers"
-            icon="documentation"
+            icon="utility/documentation"
             size="l"
             width="half"
           />
 
-          <Card title="Deployment" href="/" linkText="For Operations" icon="guide" size="l" width="half" />
+          <Card
+            title="Deployment"
+            href="/"
+            linkText="For Operations"
+            icon="utility/guide"
+            size="l"
+            width="half"
+          />
         </Flex>
 
         <h3 className={styles.subHeading}>Full</h3>
@@ -213,7 +238,7 @@ export default function DesignSystemPage() {
             title="This is a full width card"
             href="/"
             linkText="Go to documentation"
-            icon="documentation"
+            icon="utility/documentation"
             size="l"
             width="full"
           />

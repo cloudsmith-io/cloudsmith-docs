@@ -9,11 +9,11 @@ export const createIcon = <Props extends RenderProps<Props>>(
   baseId: string,
   render: (props: Props) => React.SVGProps<SVGSVGElement>,
 ) => {
-  const Icon = ({ as, title, id, ...props }: Props & IconProps) => {
-    const { children, ...svgProps } = render(props as Props);
+  const Icon = ({ as, title, id, chevronDirection, ...props }: Props & IconProps) => {
+    const { children, ...svgProps } = render({ chevronDirection, ...props } as Props);
 
-    // Allow props to override defaults
-    const finalProps = { ...defaultProps, ...svgProps };
+    // Allow props to override defaults, but exclude custom props from SVG element
+    const finalProps = { ...defaultProps, ...props, ...svgProps };
 
     if (as === 'use') {
       return (
@@ -44,14 +44,26 @@ export const createIcon = <Props extends RenderProps<Props>>(
   return Icon;
 };
 
-type BaseProps = {
+// Basic SVG-related props
+type SVGProps = React.SVGProps<SVGSVGElement>;
+
+// Icon-specific props
+type Direction = 'up' | 'down' | 'left' | 'right';
+
+type IconBaseProps = {
   title: React.ReactNode;
   as?: 'svg' | 'use' | 'symbol';
   id?: string;
 };
 
-type RenderProps<Props extends object> = {
-  [Key in keyof Props]: Key extends keyof BaseProps ? never : Props[Key];
+type IconCustomProps = {
+  chevronDirection?: Direction;
 };
 
-export type IconProps = BaseProps & React.SVGProps<SVGSVGElement>;
+// Combined props type
+export type IconProps = IconBaseProps & IconCustomProps & SVGProps;
+
+// Utility type for render function props
+type RenderProps<Props extends object> = {
+  [Key in keyof Props]: Key extends Exclude<keyof IconBaseProps, 'chevronDirection'> ? never : Props[Key];
+};

@@ -5,10 +5,6 @@
   letter-spacing: var(--letter-headline);
   font-family: var(--font-family-headline);
   font-weight: normal;
-
-  &:hover a {
-    opacity: 1;
-  }
 }
 
 /* TODO: anchor design */
@@ -24,6 +20,10 @@
   align-items: center;
   background-color: var(--color-border);
   border-radius: var(--border-radius-l);
+}
+
+.root:hover a {
+  opacity: 1;
 }
 
 .h1 {
