@@ -9,11 +9,11 @@ export const createIcon = <Props extends RenderProps<Props>>(
   baseId: string,
   render: (props: Props) => React.SVGProps<SVGSVGElement>,
 ) => {
-  const Icon = ({ as, title, id, ...props }: Props & IconProps) => {
-    const { children, ...svgProps } = render(props as Props);
+  const Icon = ({ as, title, id, chevronDirection, ...props }: Props & IconProps) => {
+    const { children, ...svgProps } = render({ chevronDirection, ...props } as Props);
 
-    // Allow props to override defaults
-    const finalProps = { ...defaultProps, ...svgProps };
+    // Allow props to override defaults, but exclude custom props from SVG element
+    const finalProps = { ...defaultProps, ...props, ...svgProps };
 
     if (as === 'use') {
       return (
@@ -48,6 +48,7 @@ type BaseProps = {
   title: React.ReactNode;
   as?: 'svg' | 'use' | 'symbol';
   id?: string;
+  chevronDirection?: string;
 };
 
 type RenderProps<Props extends object> = {
