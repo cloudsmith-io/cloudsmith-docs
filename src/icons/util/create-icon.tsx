@@ -44,11 +44,13 @@ export const createIcon = <Props extends RenderProps<Props>>(
   return Icon;
 };
 
+type Direction = 'up' | 'down' | 'left' | 'right';
+
 type BaseProps = {
   title: React.ReactNode;
   as?: 'svg' | 'use' | 'symbol';
   id?: string;
-  chevronDirection?: string;
+  chevronDirection?: Direction;
 };
 
 type RenderProps<Props extends object> = {
