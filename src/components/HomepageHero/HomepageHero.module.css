@@ -3,7 +3,6 @@
   overflow: hidden;
   height: 100%;
 
-  /* --nav-height: 140px; */
   --banner-height: 0px;
   --offset-top: calc(var(--space-s) + var(--navbar-height) + var(--banner-height));
   --hero-illustration-overlap: min(20vh, 150px);

@@ -12,7 +12,7 @@ export default function Page() {
         return (
           <section key={index} className={styles.section}>
             <h2 className={styles.sectionHeading}>{section.heading}</h2>
-            <Flex align="stretch" className={styles.cardContainer}>
+            <Flex align="stretch">
               {section.cards.map((card: CardType, cardIndex: number) => (
                 <Card
                   key={cardIndex}

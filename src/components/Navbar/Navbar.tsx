@@ -9,8 +9,6 @@ import { Icon, type IconName } from '@/icons';
 
 import styles from './Navbar.module.css';
 
-type NavItem = { label: string; href: string; icon: IconName };
-
 export const Navbar = () => {
   const pathname = usePathname();
 
@@ -71,3 +69,5 @@ export const Navbar = () => {
     </div>
   );
 };
+
+type NavItem = { label: string; href: string; icon: IconName };
