@@ -1,0 +1,22 @@
+.section {
+  max-width: var(--container-width-xl);
+  margin: 0 auto;
+  padding: var(--space-m);
+}
+
+.sectionHeading {
+  margin-bottom: var(--space-m);
+  font-size: var(--text-body-xl);
+}
+
+.divider {
+  max-width: var(--container-width-xl);
+  margin: 0 auto;
+  padding: var(--space-m);
+
+  span {
+    display: block;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+}
