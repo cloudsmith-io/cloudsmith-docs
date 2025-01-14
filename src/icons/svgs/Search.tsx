@@ -1,12 +1,12 @@
-import { createIcon } from '../util/create-icon';
+import { createIcon, SpecificIconProps } from '../util/create-icon';
 
-export const SearchIcon = createIcon(
+export const SearchIcon = createIcon<SpecificIconProps>(
   'search',
-  ({ width = 10, height = 10, ...props }: React.SVGProps<SVGSVGElement>) => ({
+  ({ width = 10, height = 10, ...props }) => ({
     ...props,
     width,
     height,
-    viewBox: `0 0 ${width} ${height}`,
+    viewBox: '0 0 10 10',
     fill: 'none',
     children: (
       <>

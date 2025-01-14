@@ -1,12 +1,12 @@
-import { createIcon } from '../../util/create-icon';
+import { createIcon, SpecificIconProps } from '../../util/create-icon';
 
-export const UtilityApiIcon = createIcon(
+export const UtilityApiIcon = createIcon<SpecificIconProps>(
   'utility/api',
-  ({ width = 44, height = 44, ...props }: React.SVGProps<SVGSVGElement>) => ({
+  ({ width = 44, height = 44, ...props }) => ({
     ...props,
     width,
     height,
-    viewBox: `0 0 ${width} ${height}`,
+    viewBox: '0 0 44 44',
     fill: 'none',
     children: (
       <>

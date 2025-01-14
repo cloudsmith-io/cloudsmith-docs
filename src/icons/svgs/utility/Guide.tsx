@@ -1,8 +1,8 @@
-import { createIcon } from '../../util/create-icon';
+import { createIcon, SpecificIconProps } from '../../util/create-icon';
 
-export const UtilityGuideIcon = createIcon(
+export const UtilityGuideIcon = createIcon<SpecificIconProps>(
   'utility/guide',
-  ({ width = 44, height = 44, ...props }: React.SVGProps<SVGSVGElement>) => ({
+  ({ width = 44, height = 44, ...props }) => ({
     ...props,
     width,
     height,
