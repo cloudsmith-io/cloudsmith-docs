@@ -21,37 +21,28 @@ export const Navbar = () => {
         </Link>
 
         <span className={styles.currentSection}>
-          <Icon name="action/link" aria-hidden="true" focusable="false" title="" />
+          <Icon name="action/link" title="" />
           <span>Documentation</span>
         </span>
 
         <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
           <nav className={styles.nav}>
             <Link href="/documentation" className={styles.navLink}>
-              <Icon name="action/documentation" aria-hidden="true" focusable="false" title="" />
+              <Icon name="action/documentation" title="" />
               Documentation
             </Link>
             <Link href="/guides" className={styles.navLink}>
-              <Icon name="action/guide" aria-hidden="true" focusable="false" title="" />
+              <Icon name="action/guide" title="" />
               Guides
             </Link>
             <Link href="/api" className={styles.navLink}>
-              <Icon name="action/api" aria-hidden="true" focusable="false" title="" />
+              <Icon name="action/api" title="" />
               API Reference
             </Link>
           </nav>
 
           <button aria-label="Search" className={styles.searchButton}>
-            <Icon
-              name="search"
-              aria-hidden="true"
-              focusable="false"
-              // width={10}
-              // height={10}
-              viewBox="0 0 10 10"
-              className={styles.searchIcon}
-              title=""
-            />
+            <Icon name="search" className={styles.searchIcon} title="" />
             <div className={styles.searchButtonText}>
               <span>Search</span>
               <kbd className={styles.searchButtonKbd}>
@@ -61,7 +52,7 @@ export const Navbar = () => {
           </button>
 
           <button className={styles.menuButton} aria-label="Menu">
-            <Icon name="menu" aria-hidden="true" focusable="false" title="" />
+            <Icon name="menu" title="" />
           </button>
         </Flex>
       </Container>

@@ -1,6 +1,6 @@
 import * as m from 'motion/react-m';
 
-import { createIcon } from '../util/create-icon';
+import { createIcon, SpecificIconProps } from '../util/create-icon';
 import { Transition } from 'motion/dist/react';
 
 export const ChevronIcon = createIcon<ChevronIconProps>(
@@ -28,7 +28,7 @@ const rotate: Rotate = {
   left: '90deg',
 };
 
-interface ChevronIconProps {
+interface ChevronIconProps extends SpecificIconProps {
   chevronDirection?: Direction;
   transition?: Transition;
 }
