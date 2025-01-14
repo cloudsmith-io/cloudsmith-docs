@@ -22,6 +22,7 @@
     --base-color-grey-700: #39586a;
     --base-color-grey-900: #092f45;
     --base-color-grey-1000: #031c2b;
+    
 
     /* Backgrounds */
     --color-background-default: var(--base-color-white);
@@ -36,6 +37,11 @@
 
     /* Border */
     --color-border: var(--base-color-grey-300);
+
+    /* Accent */
+    --color-accent-default: var(--base-color-blue-500);
+    --color-accent-hover: var(--base-color-blue-600);
+    --color-accent-secondary: #EEC26F;
 
     /* Letter spacings */
     --letter-body: 0.08px;
@@ -57,11 +63,20 @@
     --text-headline-xl: fluid(32px, 54px);
     --text-headline-2xl: fluid(38px, 80px);
     --text-headline-3xl: fluid(52px, 88px);
+    --text-fixed-xs: 14px;
+    --text-fixed-s: 16px;
 
     /* Line heights */
+    --line-height-s: fluid(20px, 23px);
     --line-height-m: fluid(23px, 28px);
+    --line-height-none: 1;
+    --line-height-compact: 1.111;
+    --line-height-tight: 1.2;
+    --line-height-snug: 1.222;
+    --line-height-normal: 1.444;
 
     /* Spacing */
+    --space-5xs: fluid(1px, 2px);
     --space-4xs: fluid(2px, 4px);
     --space-3xs: fluid(4px, 6px);
     --space-2xs: fluid(6px, 8px);
@@ -90,11 +105,17 @@
     --transition-slow: 400ms var(--transition-easing-default);
 
     /* Container widths */
+    --container-width-xxs: 320px;
     --container-width-xs: 480px;
     --container-width-s: 640px;
     --container-width-m: 960px;
     --container-width-l: 1400px;
     --container-width-xl: 1512px;
     --sidebar-width: 240px;
+
+    /* Button fixed widths */
+    --button-width-s: fluid(100px, 120px);
+    --button-width-m: fluid(140px, 168px); 
+    --button-width-l: fluid(168px, 200px);
   }
 }

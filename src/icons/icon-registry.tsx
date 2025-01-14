@@ -1,17 +1,33 @@
 import { createIconRegistry } from './util/create-icon-registry';
 
 import { CloseIcon } from './svgs/Close';
-import { ChevronDownIcon } from './svgs/ChevronDown';
+import { MenuIcon } from './svgs/Menu';
+import { ChevronIcon } from './svgs/Chevron';
 import { ArrowIcon } from './svgs/Arrow';
-import { DocumentationIcon } from './svgs/symbols/Documentation';
-import { GuideIcon } from './svgs/symbols/Guide';
-import { ApiReferenceIcon } from './svgs/symbols/ApiReference';
+import { SearchIcon } from './svgs/Search';
+import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
+import { UtilityGuideIcon } from './svgs/utility/Guide';
+import { UtilityApiIcon } from './svgs/utility/Api';
+import { ActionDocumentationIcon } from './svgs/action/Documentation';
+import { ActionGuideIcon } from './svgs/action/Guide';
+import { ActionApiIcon } from './svgs/action/Api';
+import { ActionLinkIcon } from './svgs/action/Link';
 
 export const iconRegistry = createIconRegistry({
   close: CloseIcon,
-  chevronDown: ChevronDownIcon,
+  menu: MenuIcon,
+  chevron: ChevronIcon,
+  chevronUp: (props) => <ChevronIcon {...props} id="icon-chevron-up" chevronDirection="up" />,
+  chevronRight: (props) => <ChevronIcon {...props} id="icon-chevron-right" chevronDirection="right" />,
+  chevronDown: (props) => <ChevronIcon {...props} id="icon-chevron-down" chevronDirection="down" />,
+  chevronLeft: (props) => <ChevronIcon {...props} id="icon-chevron-left" chevronDirection="left" />,
   arrow: ArrowIcon,
-  documentation: DocumentationIcon,
-  guide: GuideIcon,
-  apiReference: ApiReferenceIcon,
+  search: SearchIcon,
+  'utility/documentation': UtilityDocumentationIcon,
+  'utility/guide': UtilityGuideIcon,
+  'utility/api': UtilityApiIcon,
+  'action/documentation': ActionDocumentationIcon,
+  'action/guide': ActionGuideIcon,
+  'action/api': ActionApiIcon,
+  'action/link': ActionLinkIcon,
 });

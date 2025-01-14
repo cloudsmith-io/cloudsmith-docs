@@ -1,4 +1,4 @@
-import { VariantProps, cva } from 'class-variance-authority';
+import { type VariantProps, cva } from 'class-variance-authority';
 import Link from 'next/link';
 import { Icon } from '@/icons';
 import styles from './Card.module.css';
@@ -45,15 +45,7 @@ export function Card({
       )}
 
       <div className={styles.icon}>
-        <Icon
-          name={icon}
-          title=""
-          aria-hidden="true"
-          focusable="false"
-          width={44}
-          height={44}
-          viewBox="0 0 44 44"
-        />
+        <Icon name={icon} title="" />
       </div>
 
       <div className={styles.content}>
@@ -62,7 +54,7 @@ export function Card({
 
         <div className={styles.link}>
           <span className={styles.linkText}>{linkText}</span>
-          <Icon name="arrow" title="" aria-hidden="true" focusable="false" />
+          <Icon name="arrow" title="" />
         </div>
       </div>
     </Link>
@@ -74,7 +66,7 @@ type CardBaseProps = {
   description?: string;
   href: string;
   linkText: string;
-  icon: 'documentation' | 'guide' | 'apiReference';
+  icon: 'utility/documentation' | 'utility/guide' | 'utility/api';
   backgroundImage?: string;
   className?: string;
 };

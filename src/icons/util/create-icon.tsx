@@ -1,9 +1,8 @@
+// Default size of icons should be 16x16, but can be overridden by passing a width and height prop.
 const defaultProps = {
   width: 16,
   height: 16,
   viewBox: '0 0 16 16',
-  focusable: 'auto',
-  'aria-hidden': false,
 };
 
 export const createIcon = <Props extends RenderProps<Props>>(
@@ -12,10 +11,7 @@ export const createIcon = <Props extends RenderProps<Props>>(
 ) => {
   const Icon = ({ as, title, id, ...props }: Props & IconProps) => {
     const { children, ...svgProps } = render(props as Props);
-
-        // Allow props to override defaults
-        const finalProps = { ...defaultProps, ...svgProps, ...props };
-
+    const finalProps = { ...defaultProps, ...svgProps };
 
     if (as === 'use') {
       return (
@@ -57,3 +53,4 @@ type RenderProps<Props extends object> = {
 };
 
 export type IconProps = BaseProps & React.SVGProps<SVGSVGElement>;
+export type SpecificIconProps = Omit<React.SVGProps<SVGSVGElement>, 'id'>;

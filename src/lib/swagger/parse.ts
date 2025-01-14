@@ -8,7 +8,9 @@ import { MenuItem } from '../menu/types';
  * Parses the swagger schema with the Swagger Parser library to resolve refs
  */
 export const parseSchema = async (): Promise<OpenAPIV3.Document> => {
-  const schema = (await SwaggerParser.parse(`src/content/schemas/api-schema-v2.json`)) as OpenAPIV3.Document;
+  const schema = (await SwaggerParser.dereference(
+    `src/content/schemas/api-schema-v2.json`,
+  )) as OpenAPIV3.Document;
 
   if (!schema) {
     throw new Error('Failed to parse API schema');
@@ -68,6 +70,9 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
             existing.path = apiOperationPath(operation.slug);
             existing.method = operation.method;
           } else {
+            if (!existing.path) {
+              existing.path = apiOperationPath(operation.slug);
+            }
             existing.children = [];
           }
           parent.push(existing);

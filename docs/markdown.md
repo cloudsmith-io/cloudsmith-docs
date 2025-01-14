@@ -98,3 +98,80 @@ For vertical images, the `BlockImage` component can be floated left or right:
   This is a caption that I'd like to show for the image
 </BlockImage>;
 ```
+
+### Cards
+
+You can render a row of cards using the `Flex` and `Card` components. You can have as many cards as you want in a flex container, and the `width` property on each card determines how many cards are shown in a row before they go on a new line.
+
+**Note: We still haven't created proper spacings for these components. Go ahead and use the following code below, and then we'll tweak the syntax and spacings so the cards are easy to use**
+
+Show three cards in a row:
+
+```js
+import { Card, Flex } from '@/components';
+
+<Flex gap="l" align="stretch">
+  <Card
+    title="First card"
+    description="This is the card description"
+    href="/"
+    linkText="Read more"
+    icon="utility/documentation"
+  />
+  <Card
+    title="Second card"
+    description="This is the card description"
+    href="/"
+    linkText="Read more"
+    icon="utility/guide"
+  />
+  <Card
+    title="Third card"
+    description="This is the card description"
+    href="/"
+    linkText="Read more"
+    icon="utility/guide"
+  />
+</Flex>;
+```
+
+Show four cards, two in each row:
+
+```js
+import { Card, Flex } from '@/components';
+
+<Flex gap="l" align="stretch">
+  <Card
+    title="First card"
+    description="This is the card description"
+    href="/"
+    linkText="Read more"
+    icon="utility/documentation"
+    width="half"
+  />
+  <Card
+    title="Second card"
+    description="This is the card description"
+    href="/"
+    linkText="Read more"
+    icon="utility/guide"
+    width="half"
+  />
+  <Card
+    title="Third card"
+    description="This is the card description"
+    href="/"
+    linkText="Read more"
+    icon="utility/guide"
+    width="half"
+  />
+  <Card
+    title=" card"
+    description="This is the card description"
+    href="/"
+    linkText="Read more"
+    icon="utility/guide"
+    width="half"
+  />
+</Flex>;
+```
