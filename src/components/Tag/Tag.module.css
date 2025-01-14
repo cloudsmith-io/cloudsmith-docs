@@ -18,26 +18,22 @@
   letter-spacing: var(--letter-tags);
   background-color: var(--method-bg-color);
   color: var(--method-text-color);
-  font-size: var(--method-font-size);
+  font-size: 10px;
   font-family: var(--font-family-mono);
-  line-height: var(--method-line-height);
+  line-height: 11px;
   padding-inline: var(--method-padding-inline);
   padding-block: var(--method-padding-block);
 }
 
 /* Size */
 .small {
-  --method-font-size: 10px;
-  --method-line-height: 11px;
   --method-padding-inline: 6px;
   --method-padding-block: 4px;
 }
 
 .medium {
-  --method-font-size: 12px;
-  --method-line-height: 11px;
-  --method-padding-inline: 10px;
-  --method-padding-block: 8px;
+  --method-padding-inline: 8px;
+  --method-padding-block: 6px;
 }
 
 /* Type */

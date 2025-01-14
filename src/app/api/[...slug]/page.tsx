@@ -43,7 +43,9 @@ const Page = async ({ params }: PageProps) => {
         {operation ? <RequestResponse {...operation} /> : null}
         Rendering the operation: {operation?.method} {operation?.path}
         <p>JSON:</p>
-        <pre>{JSON.stringify(operation, null, 2)}</pre>
+        <pre style={{ maxWidth: '70vw', overflow: 'auto' }}>
+          {JSON.stringify(operation?.responses, null, 2)}
+        </pre>
       </div>
     );
   }

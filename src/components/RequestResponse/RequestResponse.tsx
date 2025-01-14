@@ -1,9 +1,13 @@
+'use client';
+
 import { ChevronIcon } from '@/icons/Chevron';
 import { ApiOperation } from '@/lib/swagger/types';
 import { Heading, Paragraph } from '@/markdown';
 import { cx } from 'class-variance-authority';
+import { Transition } from 'motion/dist/react';
+import * as m from 'motion/react-m';
 import { OpenAPIV3 } from 'openapi-types';
-import React from 'react';
+import { useState } from 'react';
 import { Tag } from '../Tag';
 
 import styles from './RequestResponse.module.css';
@@ -107,28 +111,50 @@ const Responses = (operation: PropsRequestResponseProps) => {
       </div>
 
       {Object.entries(responses).map(([code, response]) => (
-        <React.Fragment key={code}>
-          <button type="button" className={cx(styles.item, styles.itemToggler)}>
-            <div className={styles.subItem}>
-              <Tag statusCode={Number(code) as Tag.HttpResponseStatusCodes} />
-              <ChevronIcon
-                title=""
-                chevronDirection="right"
-                transition={{ duration: 0.35, ease: [0.55, 0, 0, 1] }}
-                className={styles.togglerIcon}
-              />
-            </div>
-            <div className={cx(styles.subItem, styles.subItemDescriptionWide)}>
-              Temporary description
-              {response.description}
-            </div>
-          </button>
-          <div className={cx(styles.item, styles.itemContent)}>
-            <div className={styles.itemContentInner}>Response body</div>
-          </div>
-        </React.Fragment>
+        <Response key={code} code={code} response={response} />
       ))}
     </div>
+  );
+};
+
+const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
+
+export const Response = ({ code, response }: { code: string; response: OpenAPIV3.ResponseObject }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        type="button"
+        className={cx(styles.item, styles.itemToggler)}
+        onClick={() => setIsOpen((open) => !open)}>
+        <div className={styles.subItem}>
+          <Tag statusCode={Number(code) as Tag.HttpResponseStatusCodes} />
+          <ChevronIcon
+            title=""
+            chevronDirection={isOpen ? 'up' : 'right'}
+            transition={{ duration: 0.35, ease: [0.55, 0, 0, 1] }}
+            className={styles.togglerIcon}
+          />
+        </div>
+        <div className={cx(styles.subItem, styles.subItemDescriptionWide)}>
+          Temporary description
+          {response.description}
+        </div>
+      </button>
+
+      <m.div
+        className={cx(styles.item, styles.itemContent)}
+        initial={isOpen ? 'expanded' : 'collapsed'}
+        animate={isOpen ? 'expanded' : 'collapsed'}
+        transition={transition}
+        variants={{
+          expanded: { opacity: 1, height: 'auto' },
+          collapsed: { opacity: 0, height: 0 },
+        }}>
+        <div className={styles.itemContentInner}>Response body</div>
+      </m.div>
+    </>
   );
 };
 
