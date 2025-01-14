@@ -10,3 +10,5 @@ export const Icon = (props: { name: keyof typeof iconRegistry } & IconProps) => 
 
   return <Component {...props} />;
 };
+
+export type IconName = keyof typeof iconRegistry;
