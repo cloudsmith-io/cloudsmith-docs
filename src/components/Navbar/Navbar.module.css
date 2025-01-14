@@ -5,6 +5,10 @@
   font-size: var(--text-body-m);
   padding-top: var(--space-m);
   padding-bottom: var(--space-m);
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .container {
@@ -101,6 +105,10 @@
 .homeNavbar {
   background-color: transparent;
   color: var(--color-text-primary);
+
+  &.root {
+    position: fixed;
+  }
 
   .container {
     flex-direction: row;
