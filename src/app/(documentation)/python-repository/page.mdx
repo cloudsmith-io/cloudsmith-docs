@@ -31,7 +31,7 @@ For more information on Python, please see:
 </BlockImage>
 </a>
 
-> Contextual Documentation
+> Contextual Documentation.
 > The examples in this document are generic. Cloudsmith provides contextual setup instructions within each > repository, complete with copy n' paste snippets (with your namespace/repo pre-configured).
 
 In the following examples: 
@@ -104,9 +104,7 @@ cloudsmith push python org/repo boto3-1.4.4.py2.p3-none-any.whl
 
 ### Upload via Cloudsmith Website
 
-Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-package#upload-via-website-ui) for details of how to upload via the Website UI.
-
-***
+Please see [Upload a Package]() for details of how to upload via the Website UI.
 
 ## Download / Install a package
 
@@ -201,7 +199,7 @@ There is an important distinction to be made between these parameters, especiall
 
 Specifying `--index-url` will override pip's default repository and _only_ search the specified repository. This is the recommended approach from Cloudsmith. This improves your security posture as it reduces the risk of malicious public packages being installed in place of your own.
 
-> 📘 Dependency confusion
+> Dependency confusion
 > 
 > An attack known as [dependency confusion](https://cloudsmith.com/blog/dependency-confusion-attacks/): where an attacker can claim the package on the public repository in a way that will ensure it gets chosen over the private package.
 
@@ -211,7 +209,7 @@ If your Cloudsmith plan does not include upstream proxying and some of your depe
 
 See [pip install](https://pip.pypa.io/en/stable/cli/pip_install/#pip-install) for more information.
 
-> 📘 TLDR
+> TLDR
 > 
 > To search your Cloudsmith repository for packages use the `--index-url` Pip configuration argument.
 > 
