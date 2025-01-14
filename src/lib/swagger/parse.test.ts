@@ -1,3 +1,4 @@
+import { OpenAPIV3 } from 'openapi-types';
 import { parseSchema, toMenuItems, toOperations } from './parse';
 
 describe('lib', () => {
@@ -9,6 +10,14 @@ describe('lib', () => {
           expect(schema.openapi).toBe('3.0.3');
           expect(schema.info.title).toBe('Cloudsmith API');
           expect(Object.keys(schema.paths).length).toBeGreaterThan(4);
+        });
+        test('it resolves refs', async () => {
+          const schema = await parseSchema();
+          const responseObject = schema?.paths['/orgs/{org}/policies/']?.get?.responses[
+            '200'
+          ] as OpenAPIV3.ResponseObject;
+          const schemaObject = responseObject?.content?.['application/json'].schema as OpenAPIV3.SchemaObject;
+          expect(schemaObject.type).toEqual('object');
         });
       });
 
