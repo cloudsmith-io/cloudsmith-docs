@@ -1,3 +1,5 @@
+import { IconName } from '@/icons';
+
 /* TYPOGRAPHY
  * =========================== */
 export const lineHeights = {
@@ -41,4 +43,42 @@ export interface ButtonVariants {
   colorScheme?: ButtonColorScheme;
   size?: ButtonSize;
   width?: ButtonWidth;
+}
+
+/* HOMEPAGE CONTENT
+ * =========================== */
+interface Card {
+  title: string;
+  description: string;
+  href: string;
+  linkText: string;
+  icon: IconName;
+}
+
+interface Button {
+  label: string;
+  href: string;
+}
+
+interface Hero {
+  title: string;
+  description: string;
+  buttons: Button[];
+}
+
+interface CardSection {
+  type: 'cards';
+  heading: string;
+  cards: Card[];
+}
+
+interface DividerSection {
+  type: 'divider';
+}
+
+type Section = CardSection | DividerSection;
+
+export interface HomepageContent {
+  hero?: Hero;
+  sections?: Section[];
 }

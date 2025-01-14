@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import Link from 'next/link';
-import { Icon } from '@/icons';
+import { Icon, IconName } from '@/icons';
 import styles from './Card.module.css';
 
 const card = cva(styles.root, {
@@ -74,7 +74,7 @@ type CardBaseProps = {
   description?: string;
   href: string;
   linkText: string;
-  icon: 'utility/documentation' | 'utility/guide' | 'utility/api';
+  icon: IconName;
   backgroundImage?: string;
   className?: string;
 };
