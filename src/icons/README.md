@@ -6,6 +6,12 @@ There are different ways of using the icons to support different use cases. The 
 
 Sprites can be achieved by using the prop `as="symbol"` and `as="use"` together on the same page. Make sure to use the icons with `as="symbol"` before you use them with `as="use"`.
 
+## Sizes
+
+All icons should be created with 16x16 as the default size. This is to make sure that the icons are consistent in size and can be used in different contexts.
+
+If you need to create an icon with a different size, you can set the custom size directly in the icon itself with the props `width`, `height` and `viewBox`.
+
 ## Usage
 
 **As normal SVG file**
