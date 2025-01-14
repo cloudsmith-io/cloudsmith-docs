@@ -1,4 +1,4 @@
-import { VariantProps, cva } from 'class-variance-authority';
+import { type VariantProps, cva } from 'class-variance-authority';
 import Link from 'next/link';
 import { Icon } from '@/icons';
 import styles from './Card.module.css';
@@ -74,7 +74,7 @@ type CardBaseProps = {
   description?: string;
   href: string;
   linkText: string;
-  icon: 'documentation' | 'guide' | 'apiReference';
+  icon: 'utility/documentation' | 'utility/guide' | 'utility/api';
   backgroundImage?: string;
   className?: string;
 };
