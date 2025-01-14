@@ -1,4 +1,4 @@
-import { Card, Flex, HomepageHero } from '@/components';
+import { Card, Flex, HomepageHero, Container } from '@/components';
 import { HomepageContent, Section, Card as CardType } from '@/lib/types';
 import styles from './page.module.css';
 import content from '@/content/homepage.json';
@@ -10,7 +10,7 @@ export default function Page() {
     switch (section.type) {
       case 'cards':
         return (
-          <section key={index} className={styles.section}>
+          <Container key={index} className={styles.section} as="section">
             <h2 className={styles.sectionHeading}>{section.heading}</h2>
             <Flex align="stretch">
               {section.cards.map((card: CardType, cardIndex: number) => (
@@ -24,7 +24,7 @@ export default function Page() {
                 />
               ))}
             </Flex>
-          </section>
+          </Container>
         );
       case 'divider':
         return (
