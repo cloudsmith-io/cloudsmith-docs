@@ -32,6 +32,7 @@
 
 .description {
   font-family: var(--font-family-body);
+  padding-bottom: var(--space-2xs);
 }
 
 .link {
