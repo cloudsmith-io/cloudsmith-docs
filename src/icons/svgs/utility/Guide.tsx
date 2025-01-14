@@ -6,7 +6,7 @@ export const UtilityGuideIcon = createIcon<SpecificIconProps>(
     ...props,
     width,
     height,
-    viewBox: `0 0 ${width} ${height}`,
+    viewBox: '0 0 44 44',
     fill: 'none',
     children: (
       <>
