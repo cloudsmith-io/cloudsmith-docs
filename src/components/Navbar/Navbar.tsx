@@ -5,12 +5,21 @@ import { cx } from 'class-variance-authority';
 import Link from 'next/link';
 import { Container, Flex } from '@/components';
 import { LogoWordMark, LogoSymbol } from '@/components/Logo';
-import { Icon } from '@/icons';
+import { Icon, type IconName } from '@/icons';
 
 import styles from './Navbar.module.css';
 
+type NavItem = { label: string; href: string; icon: IconName };
+
 export const Navbar = () => {
   const pathname = usePathname();
+
+  const navItems: NavItem[] = [
+    { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
+    { label: 'Guides', href: '/guides', icon: 'action/guide' },
+    { label: 'API Reference', href: '/api', icon: 'action/api' },
+    { label: 'Test Markdown', href: '/test', icon: 'action/api' },
+  ];
 
   return (
     <div className={cx(styles.root, pathname === '/' && styles.homeNavbar)}>
@@ -27,18 +36,12 @@ export const Navbar = () => {
 
         <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
           <nav className={styles.nav}>
-            <Link href="/documentation" className={styles.navLink}>
-              <Icon name="action/documentation" aria-hidden="true" focusable="false" title="" />
-              Documentation
-            </Link>
-            <Link href="/guides" className={styles.navLink}>
-              <Icon name="action/guide" aria-hidden="true" focusable="false" title="" />
-              Guides
-            </Link>
-            <Link href="/api" className={styles.navLink}>
-              <Icon name="action/api" aria-hidden="true" focusable="false" title="" />
-              API Reference
-            </Link>
+            {navItems.map(({ label, href, icon }) => (
+              <Link key={label} href={href} className={styles.navLink}>
+                <Icon name={icon} aria-hidden="true" focusable="false" title="" />
+                {label}
+              </Link>
+            ))}
           </nav>
 
           <button aria-label="Search" className={styles.searchButton}>
