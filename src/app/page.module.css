@@ -17,12 +17,12 @@
   max-width: var(--container-width-xl);
   margin: 0 auto;
   padding: var(--space-m);
+}
 
-  span {
-    display: block;
-    height: 1px;
-    background-color: var(--color-border);
-  }
+.dividerLine {
+  display: block;
+  height: 1px;
+  background-color: var(--color-border);
 }
 
 @media (--phablet-up) {

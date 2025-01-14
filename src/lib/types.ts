@@ -47,7 +47,7 @@ export interface ButtonVariants {
 
 /* HOMEPAGE CONTENT
  * =========================== */
-interface Card {
+export interface Card {
   title: string;
   description: string;
   href: string;
@@ -76,7 +76,7 @@ interface DividerSection {
   type: 'divider';
 }
 
-type Section = CardSection | DividerSection;
+export type Section = CardSection | DividerSection;
 
 export interface HomepageContent {
   hero?: Hero;
