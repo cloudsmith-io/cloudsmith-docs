@@ -1,7 +1,9 @@
+import { ChevronIcon } from '@/icons/Chevron';
 import { ApiOperation } from '@/lib/swagger/types';
-import { cx } from 'class-variance-authority';
 import { Heading, Paragraph } from '@/markdown';
+import { cx } from 'class-variance-authority';
 import { OpenAPIV3 } from 'openapi-types';
+import React from 'react';
 import { Tag } from '../Tag';
 
 import styles from './RequestResponse.module.css';
@@ -105,12 +107,26 @@ const Responses = (operation: PropsRequestResponseProps) => {
       </div>
 
       {Object.entries(responses).map(([code, response]) => (
-        <div key={code} className={styles.item}>
-          <div className={styles.subItem}>
-            <Tag statusCode={Number(code) as Tag.HttpResponseStatusCodes} />
+        <React.Fragment key={code}>
+          <button type="button" className={cx(styles.item, styles.itemToggler)}>
+            <div className={styles.subItem}>
+              <Tag statusCode={Number(code) as Tag.HttpResponseStatusCodes} />
+              <ChevronIcon
+                title=""
+                chevronDirection="right"
+                transition={{ duration: 0.35, ease: [0.55, 0, 0, 1] }}
+                className={styles.togglerIcon}
+              />
+            </div>
+            <div className={cx(styles.subItem, styles.subItemDescriptionWide)}>
+              Temporary description
+              {response.description}
+            </div>
+          </button>
+          <div className={cx(styles.item, styles.itemContent)}>
+            <div className={styles.itemContentInner}>Response body</div>
           </div>
-          <div className={cx(styles.subItem, styles.subItemDescriptionWide)}>{response.description}</div>
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );

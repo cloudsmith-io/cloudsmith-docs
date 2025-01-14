@@ -26,6 +26,8 @@
 }
 
 .item {
+  position: relative;
+  text-align: left;
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
@@ -66,4 +68,25 @@
 
 .subItemDescriptionWide {
   grid-column: span 2;
+  padding-right: var(--space-2xl);
+}
+
+.itemToggler {
+  cursor: pointer;
+}
+
+.itemContent {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.itemContentInner {
+  overflow: hidden;
+}
+
+.togglerIcon {
+  position: absolute;
+  inset: 50% var(--space-m) auto auto;
+  transform: translateY(-50%);
 }
