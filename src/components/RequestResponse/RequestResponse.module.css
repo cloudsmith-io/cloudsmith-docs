@@ -63,7 +63,8 @@
   letter-spacing: var(--letter-http-type);
 }
 
-.subItemDescription {
+.subItemDescription,
+.subItemDescriptionWide {
   color: var(--base-color-grey-500);
 }
 

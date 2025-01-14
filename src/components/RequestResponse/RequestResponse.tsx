@@ -12,6 +12,8 @@ import { Tag } from '../Tag';
 
 import styles from './RequestResponse.module.css';
 
+const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
+
 export const RequestResponse = (operation: PropsRequestResponseProps) => {
   return (
     <>
@@ -102,24 +104,26 @@ const QueryParams = (operation: PropsRequestResponseProps) => {
 };
 
 const Responses = (operation: PropsRequestResponseProps) => {
-  const responses = operation.responses as { [code: string]: OpenAPIV3.ResponseObject };
+  const responses = Object.entries(operation.responses as { [code: string]: OpenAPIV3.ResponseObject });
 
-  return (
-    <div className={styles.grid}>
-      <div className={cx(styles.item, styles.header)}>
-        <div className={styles.subItem}>Responses</div>
+  if (responses.length) {
+    return (
+      <div className={styles.grid}>
+        <div className={cx(styles.item, styles.header)}>
+          <div className={styles.subItem}>Responses</div>
+        </div>
+
+        {responses.map(([code, response]) => (
+          <Response key={code} code={code} response={response} />
+        ))}
       </div>
+    );
+  }
 
-      {Object.entries(responses).map(([code, response]) => (
-        <Response key={code} code={code} response={response} />
-      ))}
-    </div>
-  );
+  return null;
 };
 
-const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
-
-export const Response = ({ code, response }: { code: string; response: OpenAPIV3.ResponseObject }) => {
+const Response = ({ code, response }: ResponseProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -159,3 +163,8 @@ export const Response = ({ code, response }: { code: string; response: OpenAPIV3
 };
 
 type PropsRequestResponseProps = ApiOperation;
+
+interface ResponseProps {
+  code: string;
+  response: OpenAPIV3.ResponseObject;
+}
