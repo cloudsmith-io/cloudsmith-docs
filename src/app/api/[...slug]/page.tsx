@@ -37,8 +37,6 @@ const Page = async ({ params }: PageProps) => {
   const operations = toOperations(schema);
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
-  console.log(operation);
-
   if (operation) {
     return (
       <div>
