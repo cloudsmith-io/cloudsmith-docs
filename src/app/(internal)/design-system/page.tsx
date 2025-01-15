@@ -1,5 +1,5 @@
 import { cx } from 'class-variance-authority';
-import { Card, Flex, HomepageHero, Button, BlockImage, Navbar } from '@/components';
+import { Card, Flex, HomepageHero, Button, BlockImage, Navbar, Video } from '@/components';
 import horizontalImage from '@/content/images/horizontal.png';
 import verticalImage from '@/content/images/vertical.png';
 
@@ -101,6 +101,16 @@ export default function DesignSystemPage() {
             Full Width Button
           </Button>
         </Flex>
+      </section>
+
+      <section id="video" className={cx(styles.section, styles.container)}>
+        <h2 className={styles.sectionHeading}>Video</h2>
+        <p className={styles.sectionDescription}>
+          A responsive Wistia video player that adapts to its container width.
+        </p>
+        <div className={styles.videoContainer}>
+          <Video wistiaId="r5d3j2nz4m" />
+        </div>
       </section>
 
       <section id="navbar" className={styles.section}>
