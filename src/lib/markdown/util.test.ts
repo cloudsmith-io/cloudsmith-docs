@@ -6,11 +6,16 @@ describe('lib', () => {
       describe('loadMdxSlugs', () => {
         test('it returns slugs for documentation files', async () => {
           const slugs = await loadMdxSlugs();
-          expect(slugs).toEqual(['does-not-exist', 'test']);
+          expect(slugs).toEqual(
+            expect.arrayContaining([
+              { file: 'test/index.mdx', slug: 'test' },
+              { file: 'test/another-test.mdx', slug: 'test/another-test' },
+            ]),
+          );
         });
         test('it returns slugs for api files', async () => {
           const slugs = await loadApiMdxSlugs();
-          expect(slugs).toEqual(['api-test']);
+          expect(slugs).toEqual(expect.arrayContaining([{ file: 'api/api-test.mdx', slug: 'api-test' }]));
         });
       });
     });

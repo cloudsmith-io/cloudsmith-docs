@@ -14,7 +14,6 @@ const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
   const qualifiedSlug = toSlug(slug);
 
-  // First check if this is an MDX file
   const mdxSlugs = await loadMdxSlugs();
   const mdxFile = mdxSlugs.find((s) => s === qualifiedSlug);
 

@@ -5,11 +5,11 @@
     "buttons": [
       {
         "label": "Documentation",
-        "href": "/"
+        "href": "/documentation"
       },
       {
-        "label": "Test Markdown",
-        "href": "/test"
+        "label": "Guides",
+        "href": "/guides"
       },
       {
         "label": "API Reference",
