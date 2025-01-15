@@ -118,5 +118,8 @@
     --button-width-s: fluid(100px, 120px);
     --button-width-m: fluid(140px, 168px);
     --button-width-l: fluid(168px, 200px);
+
+    /* Navbar */
+    --navbar-height: 105px;
   }
 }

@@ -3,9 +3,8 @@
   overflow: hidden;
   height: 100%;
 
-  --nav-height: 140px;
   --banner-height: 0px;
-  --offset-top: calc(var(--space-s) + var(--nav-height) + var(--banner-height));
+  --offset-top: calc(var(--space-s) + var(--navbar-height) + var(--banner-height));
   --hero-illustration-overlap: min(20vh, 150px);
 }
 
@@ -31,12 +30,13 @@
 
 .title {
   font-family: var(--font-family-headline);
-  font-size: var(--text-headline-xl);
+  font-size: var(--text-headline-l);
   line-height: var(--line-height-compact);
 }
 
 .description {
   max-width: var(--container-width-xs);
+  margin-bottom: var(--space-s);
 }
 
 .buttonContainer {
@@ -50,6 +50,10 @@
   .background {
     left: auto;
     right: 10%;
+  }
+
+  .title {
+    font-size: var(--text-headline-xl);
   }
 
   .buttonContainer {

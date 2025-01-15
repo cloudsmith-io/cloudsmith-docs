@@ -5,6 +5,10 @@
   font-size: var(--text-body-m);
   padding-top: var(--space-m);
   padding-bottom: var(--space-m);
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .container {
@@ -102,6 +106,10 @@
   background-color: transparent;
   color: var(--color-text-primary);
 
+  &.root {
+    position: absolute;
+  }
+
   .container {
     flex-direction: row;
     justify-content: space-between;
@@ -110,6 +118,14 @@
   .logo {
     color: var(--color-text-primary);
     height: 20px;
+  }
+
+  .logoSymbol {
+    display: none;
+  }
+
+  .logoWordmark {
+    display: inline-flex;
   }
 
   .currentSection,
@@ -153,10 +169,11 @@
   }
 
   .searchButton {
-    background-color: var(--base-color-grey-300);
+    background-color: var(--base-color-white);
     color: var(--base-color-grey-500);
     max-width: var(--container-width-xxs);
     width: 100%;
+    border: 1px solid var(--base-color-grey-300);
   }
 
   .searchButton:hover {
@@ -179,12 +196,15 @@
   }
 
   .homeNavbar {
+    padding-top: var(--space-2xl);
+
     .navContainer {
       justify-content: flex-end;
     }
 
     .searchButton {
       min-width: var(--container-width-xxs);
+      border: 1px solid var(--base-color-grey-500);
     }
   }
 }
