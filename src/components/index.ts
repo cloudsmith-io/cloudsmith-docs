@@ -11,3 +11,4 @@ export * from './Card';
 export * from './HomepageHero';
 export * from './Button';
 export * from './RequestResponse';
+export * from './Video';

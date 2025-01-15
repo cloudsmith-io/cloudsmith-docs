@@ -1,0 +1,17 @@
+.videoResponsivePadding {
+  aspect-ratio: 16/9;
+  position: relative;
+}
+
+.videoResponsiveWrapper {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.video {
+  height: 100%;
+  width: 100%;
+}
