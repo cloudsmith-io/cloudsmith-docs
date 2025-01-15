@@ -206,10 +206,15 @@ const Properties = ({ properties, required, type }: SchemaObject) => {
             <div key={name} className={styles.responseGridRow}>
               <div className={styles.responseGridColumn}>{name}</div>
               <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
-                {property.type}
+                {property.format || property.type}
+                {property.nullable && ' | null'}
               </div>
               <div className={styles.responseGridColumn}>
                 <RequiredTag isRequired={required?.includes(name)} />
+              </div>
+              <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
+                {/* TODO: UI for validation rules */}
+                {property.maxLength ? `TODO: Validation rules` : null}
               </div>
             </div>
           ))}

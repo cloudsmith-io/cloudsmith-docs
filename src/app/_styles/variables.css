@@ -47,6 +47,7 @@
     --letter-headline: -0.08px;
     --letter-tags: 0.4px;
     --letter-http-type: 0.06px;
+    --letter-http-rule: 0.06px;
 
     /* Text Sizes */
     --text-body-2xs: fluid(8.5px, 10.5px);
