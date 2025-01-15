@@ -8,7 +8,11 @@ describe('lib', () => {
           const slugs = await loadContentInfo();
           expect(slugs).toEqual(
             expect.arrayContaining([
-              { file: 'test/index.mdx', slug: 'test', segments: ['test'] },
+              {
+                file: 'test/index.mdx',
+                slug: 'test',
+                segments: ['test'],
+              },
               {
                 file: 'test/another-test.mdx',
                 slug: 'test/another-test',
@@ -20,7 +24,18 @@ describe('lib', () => {
         test('it returns slugs for api files', async () => {
           const slugs = await loadApiContentInfo();
           expect(slugs).toEqual(
-            expect.arrayContaining([{ file: 'api/api-test.mdx', slug: 'api-test', segments: ['api-test'] }]),
+            expect.arrayContaining([
+              {
+                file: 'api/api-test.mdx',
+                slug: 'api-test',
+                segments: ['api-test'],
+              },
+              {
+                file: 'api/index.mdx',
+                slug: '',
+                segments: [],
+              },
+            ]),
           );
         });
       });

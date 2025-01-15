@@ -7,6 +7,7 @@ export const dynamicParams = false;
 export const generateStaticParams = async () => {
   const content = await loadContentInfo();
   const mdxSlugs = content.map((info) => ({ slug: info.segments }));
+
   return mdxSlugs;
 };
 

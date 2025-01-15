@@ -11,8 +11,6 @@ export const generateStaticParams = async () => {
   const content = await loadApiContentInfo();
   const mdxSlugs = content.map((info) => ({ slug: info.segments }));
 
-  console.log(mdxSlugs);
-
   // Generate swagger slugs
   const schema = await parseSchema();
   const operations = toOperations(schema);

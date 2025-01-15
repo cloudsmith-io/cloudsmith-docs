@@ -13,7 +13,7 @@ export const loadContentInfo = async (): Promise<SlugDefinition[]> => {
  * Returns info for all mdx files inside src/content/api
  */
 export const loadApiContentInfo = async (): Promise<SlugDefinition[]> => {
-  return load(['src/content/api/**/*.mdx'], /^api\//);
+  return load(['src/content/api/**/*.mdx'], /^api\/?/);
 };
 
 /**
