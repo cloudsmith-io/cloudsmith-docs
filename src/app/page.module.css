@@ -1,0 +1,32 @@
+.section {
+  max-width: var(--container-width-xl);
+  margin: 0 auto;
+  padding: var(--space-l) var(--space-m);
+}
+
+.section:first-of-type {
+  padding-top: var(--space-2xl);
+}
+
+.sectionHeading {
+  margin-bottom: var(--space-m);
+  font-size: var(--text-body-m);
+}
+
+.divider {
+  max-width: var(--container-width-xl);
+  margin: 0 auto;
+  padding: var(--space-m);
+}
+
+.dividerLine {
+  display: block;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+@media (--phablet-up) {
+  .sectionHeading {
+    font-size: var(--text-body-xl);
+  }
+}
