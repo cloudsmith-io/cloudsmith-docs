@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, Suspense } from 'react';
 import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
 
-import { Note } from '@/components';
+import { Note, Video } from '@/components';
 import { CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
@@ -42,6 +42,7 @@ const components = {
   ol: (props: ComponentPropsWithoutRef<'ol'>) => <List ordered {...props} />,
 
   a: ({ href, ...rest }: ComponentPropsWithoutRef<'a'>) => <Link href={href as Route} {...rest} />,
+  Video: (props: ComponentPropsWithoutRef<'video'>) => <Video {...props} />,
 };
 
 declare global {
