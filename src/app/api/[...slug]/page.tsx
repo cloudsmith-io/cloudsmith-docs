@@ -1,4 +1,4 @@
-import { loadApiMdxSlugs } from '@/lib/markdown/util';
+import { loadApiContentInfo } from '@/lib/markdown/util';
 import { RequestResponse } from '@/components';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
@@ -8,8 +8,10 @@ export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
   // Generate mdx slugs
-  const mdx = await loadApiMdxSlugs();
-  const mdxSlugs = mdx.map((slug) => ({ slug: toRouteSegments(slug) }));
+  const content = await loadApiContentInfo();
+  const mdxSlugs = content.map((info) => ({ slug: info.segments }));
+
+  console.log(mdxSlugs);
 
   // Generate swagger slugs
   const schema = await parseSchema();
@@ -24,11 +26,11 @@ const Page = async ({ params }: PageProps) => {
   const qualifiedSlug = toSlug(slug);
 
   // First check if this is an MDX file
-  const mdxSlugs = await loadApiMdxSlugs();
-  const mdxFile = mdxSlugs.find((s) => s === qualifiedSlug);
+  const content = await loadApiContentInfo();
+  const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
-  if (mdxFile) {
-    const { default: Post } = await import(`@/content/api/${qualifiedSlug}.mdx`);
+  if (mdxInfo) {
+    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
     return <Post />;
   }
 
