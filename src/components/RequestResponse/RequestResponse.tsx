@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronIcon } from '@/icons/Chevron';
-import { ApiOperation } from '@/lib/swagger/types';
+import { ApiOperation, ResponseObject, SchemaObject } from '@/lib/swagger/types';
 import { Heading, Paragraph } from '@/markdown';
 import { cx } from 'class-variance-authority';
 import { Transition } from 'motion/dist/react';
@@ -14,7 +14,7 @@ import styles from './RequestResponse.module.css';
 
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
-export const RequestResponse = (operation: PropsRequestResponseProps) => {
+export const RequestResponse = (operation: ApiOperation) => {
   return (
     <>
       {/* TODO: Use headline from where? */}
@@ -51,7 +51,7 @@ const RequiredTag = ({ isRequired }: { isRequired: boolean | undefined }) => (
   <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
 );
 
-const PathParams = (operation: PropsRequestResponseProps) => {
+const PathParams = (operation: ApiOperation) => {
   const operations = (operation.parameters as OpenAPIV3.ParameterObject[])?.filter(
     (param) => param.in === 'path',
   );
@@ -81,7 +81,7 @@ const PathParams = (operation: PropsRequestResponseProps) => {
   return null;
 };
 
-const QueryParams = (operation: PropsRequestResponseProps) => {
+const QueryParams = (operation: ApiOperation) => {
   const operations = (operation.parameters as OpenAPIV3.ParameterObject[])?.filter(
     (param) => param.in === 'query',
   );
@@ -109,8 +109,8 @@ const QueryParams = (operation: PropsRequestResponseProps) => {
   return null;
 };
 
-const Responses = (operation: PropsRequestResponseProps) => {
-  const responses = Object.entries(operation.responses as { [code: string]: OpenAPIV3.ResponseObject });
+const Responses = (operation: ApiOperation) => {
+  const responses = Object.entries(operation.responses as { [code: string]: ResponseObject });
 
   if (responses.length) {
     return (
@@ -224,30 +224,30 @@ const Properties = ({ properties, required, type }: SchemaObject) => {
   );
 };
 
-type PropsRequestResponseProps = ApiOperation;
+// type PropsRequestResponseProps = ApiOperation;
 
 interface ResponseProps {
   code: string;
-  response: OpenAPIV3.ResponseObject;
+  response: ResponseObject;
   initialOpen?: boolean;
 }
 
-// Replicate the OpenAPIV3.SchemaObject type but without ReferenceObject
-type SchemaObject = ArraySchemaObject | NonArraySchemaObject;
+// // Replicate the OpenAPIV3.SchemaObject type but without ReferenceObject
+// type SchemaObject = ArraySchemaObject | NonArraySchemaObject;
 
-interface ArraySchemaObject extends BaseSchemaObject {
-  type: OpenAPIV3.ArraySchemaObjectType;
-  items: SchemaObject;
-}
+// interface ArraySchemaObject extends BaseSchemaObject {
+//   type: OpenAPIV3.ArraySchemaObjectType;
+//   items: SchemaObject;
+// }
 
-interface NonArraySchemaObject extends BaseSchemaObject {
-  type?: OpenAPIV3.NonArraySchemaObjectType;
-}
+// interface NonArraySchemaObject extends BaseSchemaObject {
+//   type?: OpenAPIV3.NonArraySchemaObjectType;
+// }
 
-interface BaseSchemaObject extends OpenAPIV3.BaseSchemaObject {
-  additionalProperties?: boolean | SchemaObject;
-  properties?: { [name: string]: SchemaObject };
-  allOf?: SchemaObject[];
-  oneOf?: SchemaObject[];
-  anyOf?: SchemaObject[];
-}
+// interface BaseSchemaObject extends OpenAPIV3.BaseSchemaObject {
+//   additionalProperties?: boolean | SchemaObject;
+//   properties?: { [name: string]: SchemaObject };
+//   allOf?: SchemaObject[];
+//   oneOf?: SchemaObject[];
+//   anyOf?: SchemaObject[];
+// }
