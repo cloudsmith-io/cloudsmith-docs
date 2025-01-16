@@ -64,6 +64,8 @@
     --text-headline-xl: fluid(32px, 54px);
     --text-headline-2xl: fluid(38px, 80px);
     --text-headline-3xl: fluid(52px, 88px);
+    --text-fixed-3xs: 10px;
+    --text-fixed-2xs: 12px;
     --text-fixed-xs: 14px;
     --text-fixed-s: 16px;
 
@@ -71,7 +73,7 @@
     --line-height-s: fluid(20px, 23px);
     --line-height-m: fluid(23px, 28px);
     --line-height-none: 1;
-    --line-height-compact: 1.111;
+    --line-height-compact: 1.1;
     --line-height-tight: 1.2;
     --line-height-snug: 1.222;
     --line-height-normal: 1.444;

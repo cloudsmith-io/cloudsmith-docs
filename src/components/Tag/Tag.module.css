@@ -18,9 +18,9 @@
   letter-spacing: var(--letter-tags);
   background-color: var(--method-bg-color);
   color: var(--method-text-color);
-  font-size: 10px;
+  font-size: var(--text-fixed-3xs);
   font-family: var(--font-family-mono);
-  line-height: 11px;
+  line-height: var(--line-height-compact);
   padding-inline: var(--method-padding-inline);
   padding-block: var(--method-padding-block);
 }
