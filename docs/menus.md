@@ -1,4 +1,4 @@
-# Menus
+# Editing Menus
 
 The menus throughout the site are generated using two combined methods:
 
