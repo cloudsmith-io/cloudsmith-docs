@@ -5,6 +5,8 @@ import { OpenAPIV3 } from 'openapi-types';
  * removed since they are removed by the parser. This makes it a lot easier to work with.
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface ApiOperation {
   path: string;
   method: OpenAPIV3.HttpMethods;
@@ -45,7 +47,7 @@ interface ExternalDocumentationObject {
   url: string;
 }
 
-type PathItemObject<T extends {} = {}> = {
+type PathItemObject<T extends object = object> = {
   $ref?: string;
   summary?: string;
   description?: string;
@@ -55,7 +57,7 @@ type PathItemObject<T extends {} = {}> = {
   [method in OpenAPIV3.HttpMethods]?: OperationObject<T>;
 };
 
-type OperationObject<T extends {} = {}> = {
+type OperationObject<T extends object = object> = {
   tags?: string[];
   summary?: string;
   description?: string;
@@ -76,7 +78,7 @@ interface ParameterObject extends ParameterBaseObject {
   name: string;
   in: string;
 }
-interface HeaderObject extends ParameterBaseObject {}
+
 interface ParameterBaseObject {
   description?: string;
   required?: boolean;
@@ -173,7 +175,7 @@ interface MediaTypeObject {
 interface EncodingObject {
   contentType?: string;
   headers?: {
-    [header: string]: HeaderObject;
+    [header: string]: ParameterBaseObject;
   };
   style?: string;
   explode?: boolean;
@@ -192,7 +194,7 @@ interface ResponsesObject {
 interface ResponseObject {
   description: string;
   headers?: {
-    [header: string]: HeaderObject;
+    [header: string]: ParameterBaseObject;
   };
   content?: {
     [media: string]: MediaTypeObject;
@@ -216,95 +218,4 @@ interface CallbackObject {
 }
 interface SecurityRequirementObject {
   [name: string]: string[];
-}
-interface ComponentsObject {
-  schemas?: {
-    [key: string]: SchemaObject;
-  };
-  responses?: {
-    [key: string]: ResponseObject;
-  };
-  parameters?: {
-    [key: string]: ParameterObject;
-  };
-  examples?: {
-    [key: string]: ExampleObject;
-  };
-  requestBodies?: {
-    [key: string]: RequestBodyObject;
-  };
-  headers?: {
-    [key: string]: HeaderObject;
-  };
-  securitySchemes?: {
-    [key: string]: SecuritySchemeObject;
-  };
-  links?: {
-    [key: string]: LinkObject;
-  };
-  callbacks?: {
-    [key: string]: CallbackObject;
-  };
-}
-type SecuritySchemeObject =
-  | HttpSecurityScheme
-  | ApiKeySecurityScheme
-  | OAuth2SecurityScheme
-  | OpenIdSecurityScheme;
-interface HttpSecurityScheme {
-  type: 'http';
-  description?: string;
-  scheme: string;
-  bearerFormat?: string;
-}
-interface ApiKeySecurityScheme {
-  type: 'apiKey';
-  description?: string;
-  name: string;
-  in: string;
-}
-interface OAuth2SecurityScheme {
-  type: 'oauth2';
-  description?: string;
-  flows: {
-    implicit?: {
-      authorizationUrl: string;
-      refreshUrl?: string;
-      scopes: {
-        [scope: string]: string;
-      };
-    };
-    password?: {
-      tokenUrl: string;
-      refreshUrl?: string;
-      scopes: {
-        [scope: string]: string;
-      };
-    };
-    clientCredentials?: {
-      tokenUrl: string;
-      refreshUrl?: string;
-      scopes: {
-        [scope: string]: string;
-      };
-    };
-    authorizationCode?: {
-      authorizationUrl: string;
-      tokenUrl: string;
-      refreshUrl?: string;
-      scopes: {
-        [scope: string]: string;
-      };
-    };
-  };
-}
-interface OpenIdSecurityScheme {
-  type: 'openIdConnect';
-  description?: string;
-  openIdConnectUrl: string;
-}
-interface TagObject {
-  name: string;
-  description?: string;
-  externalDocs?: ExternalDocumentationObject;
 }
