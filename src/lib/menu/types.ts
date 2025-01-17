@@ -7,5 +7,4 @@ export type MenuItem = {
   path?: string;
   children?: MenuItem[];
   method?: OpenAPIV3.HttpMethods;
-  isSection?: boolean;
 };

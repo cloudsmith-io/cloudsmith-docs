@@ -30,25 +30,43 @@ const tagVariants = cva(styles.root, {
   },
 });
 
+// Map the HttpRequestMethods to the color variant for easier consumption
+const requestMethods: { [key in Tag.HttpRequestMethods]: Tag.VariantsProps['variant'] } = {
+  get: 'neutral',
+  put: 'neutral',
+  post: 'green',
+  delete: 'red',
+  options: 'yellow',
+  head: 'neutral',
+  patch: 'neutral',
+  trace: 'neutral',
+};
+
+// Map the HttpResponseStatusCodes to the color variant for easier consumption
+const statusCodes: { [key in Tag.HttpResponseStatusCodes]: Tag.VariantsProps['variant'] } = {
+  200: 'green',
+  201: 'green',
+  204: 'green',
+  400: 'red',
+};
+
 export const Tag = ({ size, type, ...props }: Tag.Props) => {
   if ('method' in props) {
     const { method, children, ...rest } = props;
 
-    // Map the HttpMethods to the color variant for easier consumption
-    const methods: { [key in Tag.HttpMethods]: Tag.VariantsProps['variant'] } = {
-      get: 'neutral',
-      put: 'neutral',
-      post: 'green',
-      delete: 'red',
-      options: 'yellow',
-      head: 'neutral',
-      patch: 'neutral',
-      trace: 'neutral',
-    };
+    return (
+      <div className={tagVariants({ size, type, variant: requestMethods[method] })} {...rest}>
+        {children || method}
+      </div>
+    );
+  }
+
+  if ('statusCode' in props) {
+    const { statusCode, children, ...rest } = props;
 
     return (
-      <div className={tagVariants({ size, type, variant: methods[method] })} {...rest}>
-        {children || method}
+      <div className={tagVariants({ size, type, variant: statusCodes[statusCode] })} {...rest}>
+        {children || statusCode}
       </div>
     );
   }
@@ -60,12 +78,17 @@ export const Tag = ({ size, type, ...props }: Tag.Props) => {
 
 export namespace Tag {
   export type VariantsProps = VariantProps<typeof tagVariants>;
-  export type HttpMethods = Lowercase<keyof typeof OpenAPIV3.HttpMethods>;
+  export type HttpRequestMethods = Lowercase<keyof typeof OpenAPIV3.HttpMethods>;
+  export type HttpResponseStatusCodes = 200 | 201 | 204 | 400; // Supported status codes
 
   type DivElement = React.ComponentPropsWithoutRef<'div'>;
 
   interface withMethod extends DivElement, Omit<VariantsProps, 'variant'> {
-    method: HttpMethods;
+    method: HttpRequestMethods;
+  }
+
+  interface withStatusCode extends DivElement, Omit<VariantsProps, 'variant'> {
+    statusCode: HttpResponseStatusCodes;
   }
 
   interface withVariant
@@ -75,5 +98,5 @@ export namespace Tag {
     children: React.ReactNode;
   }
 
-  export type Props = withMethod | withVariant;
+  export type Props = withMethod | withStatusCode | withVariant;
 }

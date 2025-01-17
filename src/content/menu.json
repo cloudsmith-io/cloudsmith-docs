@@ -72,7 +72,6 @@
       },
       {
         "title": "General",
-        "isSection": true,
         "children": [
           {
             "title": "Introduction",
@@ -109,7 +108,6 @@
     "children": [
       {
         "title": "General",
-        "isSection": true,
         "children": [
           {
             "title": "Article 1",

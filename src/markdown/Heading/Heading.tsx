@@ -1,4 +1,4 @@
-import { VariantProps, cva } from 'class-variance-authority';
+import { VariantProps, cva, cx } from 'class-variance-authority';
 
 import styles from './Heading.module.css';
 
@@ -19,10 +19,10 @@ const heading = cva(styles.root, {
   },
 });
 
-export function Heading({ size, ...rest }: Heading.Props) {
+export function Heading({ size, className, ...rest }: Heading.Props) {
   const Tag = size || (defaultSize as typeof defaultSize);
 
-  return <Tag className={heading({ size })} {...rest} />;
+  return <Tag className={cx(heading({ size }), className)} {...rest} />;
 }
 
 export namespace Heading {
