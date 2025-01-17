@@ -29,7 +29,7 @@ export function Video({
       {showOverlay && (
         <div className={styles.overlay} onClick={handleOverlayClick}>
           <button className={styles.playButton}>
-            {/* TODO; Replace with icon from registry */}
+            {/* TODO; Add play icon to the registry and use it here */}
             <svg
               className={styles.playIcon}
               viewBox="0 0 16 16"
@@ -53,7 +53,7 @@ export function Video({
               resumable: resumable,
               playButton: false,
               controlsVisibleOnLoad: false,
-              poster: posterImage,
+              stillUrl: posterImage,
             },
           },
         }}

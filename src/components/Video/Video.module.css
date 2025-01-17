@@ -1,25 +1,9 @@
-.videoResponsivePadding {
-  aspect-ratio: 16/9;
-  position: relative;
-}
-
-.videoResponsiveWrapper {
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.video {
-  height: 100%;
-  width: 100%;
-}
-
 .videoContainer {
   position: relative;
   width: 100%;
   aspect-ratio: 16/9;
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
 }
 
 .overlay {

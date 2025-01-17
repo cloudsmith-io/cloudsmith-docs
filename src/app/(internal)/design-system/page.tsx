@@ -124,7 +124,7 @@ export default function DesignSystemPage() {
 
         <h3>Resumable</h3>
         <div className={styles.videoContainer}>
-          <Video wistiaId="r5d3j2nz4m" resumable />
+          <Video wistiaId="0x8do0ucl8" resumable />
         </div>
       </section>
 
