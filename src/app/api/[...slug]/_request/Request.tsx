@@ -1,5 +1,3 @@
-'use client';
-
 import { Tag } from '@/components';
 import { ApiOperation } from '@/lib/swagger/types';
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../_components/ApiGrid';

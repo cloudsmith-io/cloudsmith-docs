@@ -4,7 +4,7 @@ import { toRouteSegments, toSlug } from '@/lib/util';
 import { Heading, Paragraph } from '@/markdown';
 import { notFound } from 'next/navigation';
 import { Request } from './_request/Request';
-import { Response } from './_response/Response';
+import { Responses } from './_responses/Responses';
 
 import styles from './page.module.css';
 
@@ -57,7 +57,7 @@ const Page = async ({ params }: PageProps) => {
           <Heading size="h2" className={styles.fullWidth}>
             Response
           </Heading>
-          <Response {...operation} />
+          <Responses {...operation} />
         </div>
 
         {/* Rendering the operation: {operation?.method} {operation?.path}

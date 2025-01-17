@@ -10,27 +10,19 @@ import { useState } from 'react';
 import { RequiredTag } from '../_components/RequireTag';
 import { ApiGrid } from '../_components/ApiGrid';
 
-import styles from './Response.module.css';
+import styles from './Responses.module.css';
 
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
-export const Response = (operation: ApiOperation) => {
-  const responses = Object.entries(operation.responses);
+export const Responses = (operation: ApiOperation) => (
+  <ApiGrid heading="Responses">
+    {Object.entries(operation.responses).map(([code, response], index) => (
+      <Response key={code} code={code} response={response} initialOpen={index === 0} />
+    ))}
+  </ApiGrid>
+);
 
-  if (responses.length) {
-    return (
-      <ApiGrid heading="Responses">
-        {responses.map(([code, response], index) => (
-          <ResponseItem key={code} code={code} response={response} initialOpen={index === 0} />
-        ))}
-      </ApiGrid>
-    );
-  }
-
-  return null;
-};
-
-const ResponseItem = ({ code, response, initialOpen }: ResponseProps) => {
+const Response = ({ code, response, initialOpen }: ResponseProps) => {
   const [isOpen, setIsOpen] = useState(initialOpen);
 
   return (
