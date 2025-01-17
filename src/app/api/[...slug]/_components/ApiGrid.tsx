@@ -1,4 +1,6 @@
 import { cva, cx, VariantProps } from 'class-variance-authority';
+import { Transition } from 'motion/dist/react';
+import * as m from 'motion/react-m';
 
 import styles from './ApiGrid.module.css';
 
@@ -13,9 +15,33 @@ export const ApiGrid = ({ heading, children }: { heading: string; children: Reac
   </div>
 );
 
-/* Row */
-export const ApiGridRow = ({ children }: { children: React.ReactNode }) => (
-  <div className={styles.item}>{children}</div>
+/* Rows */
+export const ApiGridRow = ({ children, ...rest }: GridRowStandard) => (
+  <div className={styles.item} {...rest}>
+    {children}
+  </div>
+);
+
+export const ApiGridRowToggler = ({ onToggle, children }: GridRowToggler) => (
+  <button type="button" className={cx(styles.item, styles.itemToggler)} onClick={onToggle}>
+    {children}
+  </button>
+);
+
+const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
+
+export const ApiGridRowContent = ({ children, isOpen }: GridRowContent) => (
+  <m.div
+    className={cx(styles.item, styles.itemContent)}
+    initial={isOpen ? 'expanded' : 'collapsed'}
+    animate={isOpen ? 'expanded' : 'collapsed'}
+    transition={transition}
+    variants={{
+      expanded: { opacity: 1, height: 'auto' },
+      collapsed: { opacity: 0, height: 0 },
+    }}>
+    <div className={styles.itemContentInner}>{children}</div>
+  </m.div>
 );
 
 /* Column */
@@ -32,6 +58,20 @@ const columnVariants = cva(styles.subItem, {
 export const ApiGridColumn = ({ children, type }: GridColumnProps) => (
   <div className={columnVariants({ type })}>{children}</div>
 );
+
+interface GridRowStandard {
+  children: React.ReactNode;
+}
+
+interface GridRowToggler {
+  onToggle: () => void;
+  children: React.ReactNode;
+}
+
+interface GridRowContent {
+  isOpen: boolean | undefined;
+  children: React.ReactNode;
+}
 
 interface GridColumnProps extends VariantProps<typeof columnVariants> {
   children: React.ReactNode;

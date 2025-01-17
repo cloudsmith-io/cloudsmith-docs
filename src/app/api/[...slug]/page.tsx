@@ -42,6 +42,8 @@ const Page = async ({ params }: PageProps) => {
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {
+    console.log(operation);
+
     return (
       <>
         <Heading size="h1">Missing headling for endpoint</Heading>
