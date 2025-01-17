@@ -7,26 +7,23 @@ import { cx } from 'class-variance-authority';
 import { Transition } from 'motion/dist/react';
 import * as m from 'motion/react-m';
 import { useState } from 'react';
-import { RequiredTag } from '../_common/RequireTag';
+import { RequiredTag } from '../_components/RequireTag';
+import { ApiGrid } from '../_components/ApiGrid';
 
 import styles from './Response.module.css';
 
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
 export const Response = (operation: ApiOperation) => {
-  const responses = Object.entries(operation.responses as { [code: string]: ResponseObject });
+  const responses = Object.entries(operation.responses);
 
   if (responses.length) {
     return (
-      <div className={styles.grid}>
-        <div className={cx(styles.item, styles.header)}>
-          <div className={styles.subItem}>Responses</div>
-        </div>
-
+      <ApiGrid heading="Responses">
         {responses.map(([code, response], index) => (
           <ResponseItem key={code} code={code} response={response} initialOpen={index === 0} />
         ))}
-      </div>
+      </ApiGrid>
     );
   }
 
