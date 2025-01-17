@@ -12,6 +12,7 @@ import { ActionDocumentationIcon } from './svgs/action/Documentation';
 import { ActionGuideIcon } from './svgs/action/Guide';
 import { ActionApiIcon } from './svgs/action/Api';
 import { ActionLinkIcon } from './svgs/action/Link';
+import { ActionPlayIcon } from './svgs/action/Play';
 
 export const iconRegistry = createIconRegistry({
   close: CloseIcon,
@@ -30,4 +31,5 @@ export const iconRegistry = createIconRegistry({
   'action/guide': ActionGuideIcon,
   'action/api': ActionApiIcon,
   'action/link': ActionLinkIcon,
+  'action/play': ActionPlayIcon,
 });
