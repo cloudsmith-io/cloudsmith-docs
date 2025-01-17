@@ -1,6 +1,6 @@
 /* TODO: Replace with real styles */
 .root {
-  padding-block-start: var(--space-m);
+  padding-block-start: var(--space-xl);
   display: flex;
 }
 

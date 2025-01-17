@@ -1,8 +1,8 @@
 .root {
-  line-height: var(--line-height-m);
+  line-height: var(--line-height-l);
   padding: 0;
-  margin-block: 12px;
-  margin-inline: 25px 0;
+  margin-block: var(--space-xs);
+  margin-inline: var(--space-m) 0;
 }
 
 .root .root {

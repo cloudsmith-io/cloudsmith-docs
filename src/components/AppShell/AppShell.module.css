@@ -21,7 +21,7 @@
 
   .main {
     flex: 1;
-    padding-left: var(--space-l);
-    padding-right: var(--space-l);
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
   }
 }

@@ -69,9 +69,13 @@
     --text-fixed-xs: 14px;
     --text-fixed-s: 16px;
 
+    /* Text widths */
+    --text-max-width: 780px;
+
     /* Line heights */
     --line-height-s: fluid(20px, 23px);
-    --line-height-m: fluid(23px, 28px);
+    --line-height-m: fluid(22px, 25px);
+    --line-height-l: fluid(23px, 28px);
     --line-height-none: 1;
     --line-height-compact: 1.1;
     --line-height-tight: 1.2;

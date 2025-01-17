@@ -36,5 +36,6 @@
   letter-spacing: initial;
   font-size: var(--text-headline-xs);
   line-height: fluid(24px, 28px);
+  margin-block-start: var(--space-m);
   margin-block-end: var(--space-s);
 }
