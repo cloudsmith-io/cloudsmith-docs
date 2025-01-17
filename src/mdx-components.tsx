@@ -4,7 +4,7 @@ import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
 
 import { Note } from '@/components';
-import { CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
+import { Code, CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -22,6 +22,7 @@ const components = {
 
   blockquote: (props: ComponentPropsWithoutRef<'blockquote'>) => <Note headline="Note:" {...props} />,
 
+  code: (props: ComponentPropsWithoutRef<'pre'>) => <Code {...props} />,
   pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {
     // This type assertion is necessary because the type of children is not always ReactElement
     const codeProps = (children as React.ReactElement).props as React.HTMLProps<HTMLElement>;

@@ -1,6 +1,6 @@
 .root {
   /* TODO: Decide on theme colors */
-  --theme-bg-color: #292d3e;
+  --theme-bg-color: var(--color-background-pre);
   --theme-clipboard-bg-color: rgb(255 255 255 / 15%);
   --line-color: #818e95;
   --line-bg-color: rgb(255 255 255 / 15%);

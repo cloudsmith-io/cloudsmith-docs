@@ -10,6 +10,7 @@
     --base-color-blue-300: #a7c0f6;
     --base-color-blue-500: #2a6fe1;
     --base-color-blue-600: #1f4f9e;
+    --base-color-blue-1000: #292d3e;
     --base-color-grey-25: #fafcfc;
     --base-color-grey-50: #fafbfb;
     --base-color-grey-100: #f1f3f6;
@@ -27,6 +28,8 @@
     --color-background-default: var(--base-color-white);
     --color-background-light: var(--base-color-grey-25);
     --color-background-note: #deeafd; /* TODO: Align color with design system */
+    --color-background-code: var(--base-color-blue-75);
+    --color-background-pre: var(--base-color-blue-1000);
 
     /* Text */
     --color-text-primary: var(--base-color-grey-900);

@@ -7,6 +7,8 @@
 
 .content {
   flex: 1;
+  /* Make sure that pre tags don't expand the tags */
+  min-width: 0;
 }
 
 .nav {
