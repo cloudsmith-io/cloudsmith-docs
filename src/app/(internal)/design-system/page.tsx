@@ -108,8 +108,23 @@ export default function DesignSystemPage() {
         <p className={styles.sectionDescription}>
           A responsive Wistia video player that adapts to its container width.
         </p>
+
+        <h3>Default</h3>
         <div className={styles.videoContainer}>
           <Video wistiaId="r5d3j2nz4m" />
+        </div>
+
+        <h3>Poster Image</h3>
+        <div className={styles.videoContainer}>
+          <Video
+            wistiaId="oifkgmxnkb"
+            posterImage="https://i.vimeocdn.com/video/1666844499-1666844499_1280x720.jpg"
+          />
+        </div>
+
+        <h3>Resumable</h3>
+        <div className={styles.videoContainer}>
+          <Video wistiaId="r5d3j2nz4m" resumable />
         </div>
       </section>
 

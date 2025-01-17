@@ -1,17 +1,63 @@
-import Script from 'next/script';
+'use client';
+
+import dynamic from 'next/dynamic';
 import styles from './Video.module.css';
-import { cx } from 'class-variance-authority';
+import { useState, useRef } from 'react';
 
-export function Video({ wistiaId = 'r5d3j2nz4m' }: { wistiaId?: string }) {
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
+
+export function Video({
+  wistiaId = 'r5d3j2nz4m',
+  posterImage,
+  resumable = false,
+}: {
+  wistiaId?: string;
+  posterImage?: string;
+  resumable?: boolean;
+}) {
+  const [showOverlay, setShowOverlay] = useState(true);
+  const playerRef = useRef<typeof ReactPlayer>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleOverlayClick = () => {
+    setShowOverlay(false);
+    setIsPlaying(true);
+  };
+
   return (
-    <div>
-      <Script src="//fast.wistia.com/assets/external/E-v1.js" strategy="lazyOnload" />
-
-      <div className={styles.videoResponsivePadding}>
-        <div className={styles.videoResponsiveWrapper}>
-          <div className={cx(styles.video, `wistia_embed wistia_async_${wistiaId} videoFoam=true`)} />
+    <div className={styles.videoContainer}>
+      {showOverlay && (
+        <div className={styles.overlay} onClick={handleOverlayClick}>
+          <button className={styles.playButton}>
+            {/* TODO; Replace with icon from registry */}
+            <svg
+              className={styles.playIcon}
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 7.454v.939L6.63 14H6V2h.63L13 7.454Z" fill="currentColor"></path>
+            </svg>
+          </button>
         </div>
-      </div>
+      )}
+      <ReactPlayer
+        ref={playerRef}
+        url={`https://fast.wistia.net/embed/iframe/${wistiaId}`}
+        width="100%"
+        height="100%"
+        playing={isPlaying}
+        controls={true}
+        config={{
+          wistia: {
+            options: {
+              resumable: resumable,
+              playButton: false,
+              controlsVisibleOnLoad: false,
+              poster: posterImage,
+            },
+          },
+        }}
+      />
     </div>
   );
 }
