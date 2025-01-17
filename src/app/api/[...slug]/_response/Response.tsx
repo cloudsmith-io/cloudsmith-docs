@@ -1,115 +1,19 @@
 'use client';
 
+import { Tag } from '@/components';
 import { ChevronIcon } from '@/icons/Chevron';
 import { ApiOperation, ResponseObject, SchemaObject } from '@/lib/swagger/types';
-import { Heading, Paragraph } from '@/markdown';
 import { cx } from 'class-variance-authority';
 import { Transition } from 'motion/dist/react';
 import * as m from 'motion/react-m';
-import { OpenAPIV3 } from 'openapi-types';
 import { useState } from 'react';
-import { Tag } from '../Tag';
+import { RequiredTag } from '../_common/RequireTag';
 
-import styles from './RequestResponse.module.css';
+import styles from './Response.module.css';
 
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
-export const RequestResponse = (operation: ApiOperation) => {
-  return (
-    <>
-      {/* TODO: Use headline from where? */}
-      <Heading size="h1">Headline</Heading>
-
-      <Paragraph>{operation.description}</Paragraph>
-
-      <div className={styles.root}>
-        <Heading size="h2" className={styles.fullWidth}>
-          Request
-        </Heading>
-
-        <div className={styles.request}>
-          <div className={styles.url}>
-            <Tag method={operation.method} />
-            {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}${operation.path}`}
-          </div>
-        </div>
-
-        <PathParams {...operation} />
-        <QueryParams {...operation} />
-
-        {/* TODO Request body object */}
-
-        <Heading size="h2">Response</Heading>
-
-        <Responses {...operation} />
-      </div>
-    </>
-  );
-};
-
-const RequiredTag = ({ isRequired }: { isRequired: boolean | undefined }) => (
-  <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
-);
-
-const PathParams = (operation: ApiOperation) => {
-  const operations = (operation.parameters as OpenAPIV3.ParameterObject[])?.filter(
-    (param) => param.in === 'path',
-  );
-
-  if (operations.length) {
-    return (
-      <div className={styles.grid}>
-        <div className={cx(styles.item, styles.header)}>
-          <div className={styles.subItem}>Path params</div>
-        </div>
-
-        {operations.map((param) => (
-          <div key={param.name} className={styles.item}>
-            <div className={styles.subItem}>{param.name}</div>
-            <div className={cx(styles.subItem, styles.subItemType)}>
-              {(param.schema as OpenAPIV3.SchemaObject).type}
-            </div>
-            <div className={styles.subItem}>
-              <RequiredTag isRequired={param.required} />
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  return null;
-};
-
-const QueryParams = (operation: ApiOperation) => {
-  const operations = (operation.parameters as OpenAPIV3.ParameterObject[])?.filter(
-    (param) => param.in === 'query',
-  );
-
-  if (operations.length) {
-    return (
-      <div className={styles.grid}>
-        <div className={cx(styles.item, styles.header)}>
-          <div className={styles.subItem}>Query params</div>
-        </div>
-
-        {operations.map((param) => (
-          <div key={param.name} className={styles.item}>
-            <div className={styles.subItem}>{param.name}</div>
-            <div className={cx(styles.subItem, styles.subItemType)}>
-              {(param.schema as OpenAPIV3.SchemaObject).type}
-            </div>
-            <div className={cx(styles.subItem, styles.subItemDescription)}>{param.description}</div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  return null;
-};
-
-const Responses = (operation: ApiOperation) => {
+export const Response = (operation: ApiOperation) => {
   const responses = Object.entries(operation.responses as { [code: string]: ResponseObject });
 
   if (responses.length) {
@@ -120,7 +24,7 @@ const Responses = (operation: ApiOperation) => {
         </div>
 
         {responses.map(([code, response], index) => (
-          <Response key={code} code={code} response={response} initialOpen={index === 0} />
+          <ResponseItem key={code} code={code} response={response} initialOpen={index === 0} />
         ))}
       </div>
     );
@@ -129,7 +33,7 @@ const Responses = (operation: ApiOperation) => {
   return null;
 };
 
-const Response = ({ code, response, initialOpen }: ResponseProps) => {
+const ResponseItem = ({ code, response, initialOpen }: ResponseProps) => {
   const [isOpen, setIsOpen] = useState(initialOpen);
 
   return (
@@ -224,30 +128,8 @@ const Properties = ({ properties, required, type }: SchemaObject) => {
   );
 };
 
-// type PropsRequestResponseProps = ApiOperation;
-
 interface ResponseProps {
   code: string;
   response: ResponseObject;
   initialOpen?: boolean;
 }
-
-// // Replicate the OpenAPIV3.SchemaObject type but without ReferenceObject
-// type SchemaObject = ArraySchemaObject | NonArraySchemaObject;
-
-// interface ArraySchemaObject extends BaseSchemaObject {
-//   type: OpenAPIV3.ArraySchemaObjectType;
-//   items: SchemaObject;
-// }
-
-// interface NonArraySchemaObject extends BaseSchemaObject {
-//   type?: OpenAPIV3.NonArraySchemaObjectType;
-// }
-
-// interface BaseSchemaObject extends OpenAPIV3.BaseSchemaObject {
-//   additionalProperties?: boolean | SchemaObject;
-//   properties?: { [name: string]: SchemaObject };
-//   allOf?: SchemaObject[];
-//   oneOf?: SchemaObject[];
-//   anyOf?: SchemaObject[];
-// }

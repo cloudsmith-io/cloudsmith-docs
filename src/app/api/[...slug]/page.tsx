@@ -1,8 +1,12 @@
 import { loadApiMdxSlugs } from '@/lib/markdown/util';
-import { RequestResponse } from '@/components';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
+import { Heading, Paragraph } from '@/markdown';
 import { notFound } from 'next/navigation';
+import { Request } from './_request/Request';
+import { Response } from './_response/Response';
+
+import styles from './page.module.css';
 
 export const dynamicParams = false;
 
@@ -39,12 +43,27 @@ const Page = async ({ params }: PageProps) => {
 
   if (operation) {
     return (
-      <div>
-        {operation ? <RequestResponse {...operation} /> : null}
-        Rendering the operation: {operation?.method} {operation?.path}
-        <p>JSON:</p>
-        <pre style={{ maxWidth: '70vw', overflow: 'auto' }}>{JSON.stringify(operation, null, 2)}</pre>
-      </div>
+      <>
+        <Heading size="h1">Missing headling for endpoint</Heading>
+        {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
+
+        <div className={styles.gridRoot}>
+          <Heading size="h2" className={styles.fullWidth}>
+            Request
+          </Heading>
+
+          <Request {...operation} />
+
+          <Heading size="h2" className={styles.fullWidth}>
+            Response
+          </Heading>
+          <Response {...operation} />
+        </div>
+
+        {/* Rendering the operation: {operation?.method} {operation?.path}
+          <p>JSON:</p>
+          <pre style={{ maxWidth: '70vw', overflow: 'auto' }}>{JSON.stringify(operation, null, 2)}</pre> */}
+      </>
     );
   }
 
