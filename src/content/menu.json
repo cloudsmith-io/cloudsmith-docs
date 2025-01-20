@@ -8,95 +8,36 @@
         "path": "/getting-started",
         "children": [
           {
-            "title": "What is Package Management?",
-            "path": "/getting-started/what-is-package-management",
-            "isActive": false,
-            "children": [
-              {
-                "title": "Nested Items",
-                "path": "/does-not-exist"
-              },
-              {
-                "title": "Yay more",
-                "path": "/does-not-exist"
-              },
-              {
-                "title": "Even more",
-                "path": "/does-not-exist"
-              }
-            ]
+            "title": "Package Managers",
+            "path": "/getting-started/package-managers"
           },
           {
-            "title": "Packages",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "API Key",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Terraform Provider",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "API Bindings",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Command-Line Interface",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "CLI Scripting",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Custom Domains",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Organizations",
-            "path": "/does-not-exist"
+            "title": "Dependencies for Developers",
+            "path": "/getting-started/dependencies-for-developers"
           }
         ]
       },
       {
-        "title": "Command-Line Interface",
-        "path": "/does-not-exist",
+        "title": "Migrating to Cloudsmith",
+        "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory",
         "children": [
           {
-            "title": "Something",
-            "path": "/does-not-exist"
+            "title": "Export from JFrog Artifactory",
+            "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory"
           }
         ]
       },
       {
-        "title": "General",
+        "title": "Community",
+        "path": "/developer-community"
+      },
+      {
+        "title": "Supported Formats",
+        "path": "/supported-formats/python-repository",
         "children": [
           {
-            "title": "Introduction",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Endpoints / Versioning",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "HTTP Verbs",
-            "children": [
-              {
-                "title": "Nested Items",
-                "path": "/does-not-exist"
-              },
-              {
-                "title": "Yay more",
-                "path": "/does-not-exist"
-              },
-              {
-                "title": "Even more",
-                "path": "/does-not-exist"
-              }
-            ]
+            "title": "Python Repository",
+            "path": "/supported-formats/python-repository"
           }
         ]
       }

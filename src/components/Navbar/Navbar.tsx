@@ -16,7 +16,6 @@ export const Navbar = () => {
     { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
     { label: 'Guides', href: '/guides', icon: 'action/guide' },
     { label: 'API Reference', href: '/api', icon: 'action/api' },
-    { label: 'Test Markdown', href: '/test', icon: 'action/api' },
   ];
 
   return (
