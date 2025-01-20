@@ -1,12 +1,13 @@
-import { loadMdxSlugs } from '@/lib/markdown/util';
-import { toRouteSegments, toSlug } from '@/lib/util';
+import { loadContentInfo } from '@/lib/markdown/util';
+import { toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 
 export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
-  const mdx = await loadMdxSlugs();
-  const mdxSlugs = mdx.map((slug) => ({ slug: toRouteSegments(slug) }));
+  const content = await loadContentInfo();
+  const mdxSlugs = content.map((info) => ({ slug: info.segments }));
+
   return mdxSlugs;
 };
 
@@ -14,12 +15,11 @@ const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
   const qualifiedSlug = toSlug(slug);
 
-  // First check if this is an MDX file
-  const mdxSlugs = await loadMdxSlugs();
-  const mdxFile = mdxSlugs.find((s) => s === qualifiedSlug);
+  const content = await loadContentInfo();
+  const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
-  if (mdxFile) {
-    const { default: Post } = await import(`@/content/${qualifiedSlug}.mdx`);
+  if (mdxInfo) {
+    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
     return <Post />;
   }
 

@@ -1,7 +1,7 @@
 import { cx } from 'class-variance-authority';
 import { Card, Flex, HomepageHero, Button, BlockImage, Navbar, Video } from '@/components';
-import horizontalImage from '@/content/images/horizontal.png';
-import verticalImage from '@/content/images/vertical.png';
+import horizontalImage from '@/content/test/images/horizontal.png';
+import verticalImage from '@/content/test/images/vertical.png';
 
 import styles from './page.module.css';
 
