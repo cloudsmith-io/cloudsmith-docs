@@ -14,6 +14,10 @@
   margin-bottom: var(--space-m);
 }
 
+.sectionDescription {
+  margin-bottom: var(--space-m);
+}
+
 .subHeading {
   font-family: var(--font-family-heading);
   margin-top: var(--space-m);
@@ -26,4 +30,8 @@
 
 .flexContainer {
   margin-bottom: var(--space-3xl);
+}
+
+.videoContainer {
+  max-width: var(--container-width-s);
 }
