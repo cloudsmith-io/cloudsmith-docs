@@ -1,7 +1,5 @@
 import styles from './Code.module.css';
 
-export const Code = ({ children }: Props) => {
+export const Code = ({ children }: React.ComponentPropsWithoutRef<'code'>) => {
   return <code className={styles.root}>{children}</code>;
 };
-
-interface Props extends React.ComponentPropsWithoutRef<'code'> {}

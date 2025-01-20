@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
  * This page is needed in order to server api/index.mdx with the API sidebar.
  * catch-all routes don't serve index files.
  */
-const Page = async ({ params }: PageProps) => {
+const Page = async () => {
   const content = await loadApiContentInfo();
   const mdxInfo = content.find((info) => info.slug === '');
 
@@ -16,9 +16,5 @@ const Page = async ({ params }: PageProps) => {
 
   return notFound();
 };
-
-interface PageProps {
-  params: Promise<{ slug: string[] }>;
-}
 
 export default Page;
