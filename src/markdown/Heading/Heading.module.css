@@ -45,3 +45,9 @@
   margin-block-start: var(--space-xs);
   margin-block-end: var(--space-2xs);
 }
+
+.h4 {
+  font-size: var(--text-headline-2xs);
+  margin-block-start: var(--space-2xs);
+  margin-block-end: var(--space-3xs);
+}
