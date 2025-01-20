@@ -1,11 +1,14 @@
 /* TODO: Replace with real styles */
 .root {
-  padding-block-start: var(--space-m);
+  padding-block-start: var(--space-xl);
+  padding-block-end: var(--space-xl);
   display: flex;
 }
 
 .content {
   flex: 1;
+  /* Make sure that pre tags don't expand the tags */
+  min-width: 0;
 }
 
 .nav {
