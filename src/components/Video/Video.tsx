@@ -7,15 +7,7 @@ import { useState, useRef } from 'react';
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
-export function Video({
-  wistiaId = 'r5d3j2nz4m',
-  posterImage,
-  resumable = false,
-}: {
-  wistiaId?: string;
-  posterImage?: string;
-  resumable?: boolean;
-}) {
+export function Video({ wistiaId = 'r5d3j2nz4m', posterImage, resumable = false }: VideoProps) {
   const [showOverlay, setShowOverlay] = useState(true);
   const playerRef = useRef<typeof ReactPlayer>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -54,4 +46,10 @@ export function Video({
       />
     </div>
   );
+}
+
+interface VideoProps {
+  wistiaId?: string;
+  posterImage?: string;
+  resumable?: boolean;
 }
