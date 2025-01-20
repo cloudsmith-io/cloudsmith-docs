@@ -1,12 +1,10 @@
 import { Tag } from '@/components';
 import { ApiOperation } from '@/lib/swagger/types';
-import { ApiGrid, ApiGridColumn, ApiGridRow, ApiGridRowContent } from '../_components/ApiGrid';
+import { ApiGrid, ApiGridColumn, ApiGridRow } from '../_components/ApiGrid';
 import { RequiredTag } from '../_components/RequireTag';
+import { MediaResponse } from '../_components/ApiMedia';
 
 import styles from './Request.module.css';
-import { Response } from '../_responses/Responses';
-import { MediaResponse } from '../_components/ApiMedia';
-import React from 'react';
 
 export const Request = (operation: ApiOperation) => {
   const getParametersByParam = (param: string) => operation.parameters?.filter((p) => p.in === param);
