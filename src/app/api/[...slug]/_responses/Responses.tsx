@@ -24,7 +24,7 @@ export const Response = ({ code, response, initialOpen }: ResponseProps) => {
     <>
       <ApiGridRowToggler onToggle={() => setIsOpen((open) => !open)}>
         <ApiGridColumn>
-          <Tag statusCode={Number(code) as Tag.HttpResponseStatusCodes} />
+          {code ? <Tag statusCode={Number(code) as Tag.HttpResponseStatusCodes} /> : null}
           <ChevronIcon
             title=""
             chevronDirection={isOpen ? 'up' : 'right'}
@@ -43,7 +43,7 @@ export const Response = ({ code, response, initialOpen }: ResponseProps) => {
 };
 
 interface ResponseProps {
-  code: string;
+  code?: string;
   response: ResponseObject;
   initialOpen?: boolean;
 }

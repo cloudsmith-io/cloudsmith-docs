@@ -181,7 +181,7 @@ interface EncodingObject {
   explode?: boolean;
   allowReserved?: boolean;
 }
-interface RequestBodyObject {
+export interface RequestBodyObject {
   description?: string;
   content: {
     [media: string]: MediaTypeObject;

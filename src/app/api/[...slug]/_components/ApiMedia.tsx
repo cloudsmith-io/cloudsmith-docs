@@ -1,20 +1,22 @@
-import { ResponseObject, SchemaObject } from '@/lib/swagger/types';
+import { RequestBodyObject, ResponseObject, SchemaObject } from '@/lib/swagger/types';
 import { cx } from 'class-variance-authority';
 import { RequiredTag } from '../_components/RequireTag';
 
 import styles from './ApiMedia.module.css';
 
-export const MediaResponse = (response: ResponseObject) => {
+export const MediaResponse = (response: ResponseObject | RequestBodyObject) => {
   return (
     <>
       {response.content ? (
         <div className={styles.responseType}>
-          <p className={styles.responseTitle}>{response.description || 'Response body'}</p>
+          <p className={styles.responseTitle}>
+            {response.description || 'Response body'}
+            {` - ${Object.keys(response.content)[0]}`}
+          </p>
           <div className={styles.responseTypeContent}>
-            {Object.entries(response.content).map(([media, content]) => {
-              const schema = content.schema as SchemaObject;
-              return <Schema key={media} schema={schema} />;
-            })}
+            {Object.entries(response.content).map(([media, content]) => (
+              <Schema key={media} media={media} schema={content.schema as SchemaObject} />
+            ))}
           </div>
         </div>
       ) : null}
@@ -22,7 +24,7 @@ export const MediaResponse = (response: ResponseObject) => {
   );
 };
 
-const Schema = ({ schema }: { schema: SchemaObject }) => {
+const Schema = ({ schema }: { media: string; schema: SchemaObject }) => {
   if (schema.type === 'array') {
     return (
       <>

@@ -18,6 +18,10 @@
 
 .itemToggler {
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--base-color-blue-50);
+  }
 }
 
 .header {
@@ -57,6 +61,11 @@
 .subItemDescriptionWide {
   grid-column: span 2;
   padding-right: var(--space-2xl);
+}
+
+.subItemMedia {
+  padding: 0;
+  grid-column: 1 / -1;
 }
 
 /* Content */

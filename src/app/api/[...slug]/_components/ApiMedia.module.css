@@ -31,16 +31,11 @@
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
-
-  &:last-child .responseGridColumn {
-    padding-block-end: 0;
-  }
 }
 
 .responseGridColumn {
   --column-block-padding: var(--space-xs);
 
-  line-height: var(--line-height-s);
   border-top: 1px solid var(--color-border);
   line-height: var(--line-height-s);
   padding-inline-end: var(--column-inline-padding);
@@ -49,6 +44,17 @@
   &:last-child {
     padding-inline-end: 0;
   }
+}
+
+.responseGridRow:last-child .responseGridColumn {
+  padding-block-end: 0;
+}
+
+.responseGridColumnType {
+  color: var(--base-color-blue-500);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-body-xs);
+  letter-spacing: var(--letter-http-type);
 }
 
 .responseGridColumnRules {

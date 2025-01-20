@@ -5,7 +5,7 @@ import * as m from 'motion/react-m';
 import styles from './ApiGrid.module.css';
 
 /* Grid */
-export const ApiGrid = ({ heading, children }: { heading: string; children: React.ReactNode }) => (
+export const ApiGrid = ({ heading, children }: Grid) => (
   <div className={styles.grid}>
     <div className={cx(styles.item, styles.header)}>
       <div className={styles.subItem}>{heading}</div>
@@ -51,13 +51,19 @@ const columnVariants = cva(styles.subItem, {
       type: styles.subItemType,
       description: styles.subItemDescription,
       descriptionWide: styles.subItemDescriptionWide,
+      media: styles.subItemMedia,
     },
   },
 });
 
-export const ApiGridColumn = ({ children, type }: GridColumnProps) => (
+export const ApiGridColumn = ({ children, type }: GridColumn) => (
   <div className={columnVariants({ type })}>{children}</div>
 );
+
+interface Grid {
+  heading: string | React.ReactNode;
+  children: React.ReactNode;
+}
 
 interface GridRowStandard {
   children: React.ReactNode;
@@ -73,6 +79,6 @@ interface GridRowContent {
   children: React.ReactNode;
 }
 
-interface GridColumnProps extends VariantProps<typeof columnVariants> {
+interface GridColumn extends VariantProps<typeof columnVariants> {
   children: React.ReactNode;
 }

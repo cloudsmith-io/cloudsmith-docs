@@ -1,9 +1,12 @@
 import { Tag } from '@/components';
 import { ApiOperation } from '@/lib/swagger/types';
-import { ApiGrid, ApiGridColumn, ApiGridRow } from '../_components/ApiGrid';
+import { ApiGrid, ApiGridColumn, ApiGridRow, ApiGridRowContent } from '../_components/ApiGrid';
 import { RequiredTag } from '../_components/RequireTag';
 
 import styles from './Request.module.css';
+import { Response } from '../_responses/Responses';
+import { MediaResponse } from '../_components/ApiMedia';
+import React from 'react';
 
 export const Request = (operation: ApiOperation) => {
   const getParametersByParam = (param: string) => operation.parameters?.filter((p) => p.in === param);
@@ -21,6 +24,7 @@ export const Request = (operation: ApiOperation) => {
 
       {pathsParameters?.length ? <PathParams parameters={pathsParameters} /> : null}
       {queryParameters?.length ? <QueryParams parameters={queryParameters} /> : null}
+      {operation.requestBody ? <RequestBody requestBody={operation.requestBody} /> : null}
     </>
   );
 };
@@ -48,5 +52,20 @@ const QueryParams = ({ parameters }: { parameters: NonNullable<ApiOperation['par
         <ApiGridColumn type="description">{param.description}</ApiGridColumn>
       </ApiGridRow>
     ))}
+  </ApiGrid>
+);
+
+const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['requestBody']> }) => (
+  <ApiGrid
+    heading={
+      <>
+        Body params <RequiredTag isRequired={requestBody.required} />
+      </>
+    }>
+    <ApiGridRow>
+      <ApiGridColumn type="media">
+        <MediaResponse {...requestBody} />
+      </ApiGridColumn>
+    </ApiGridRow>
   </ApiGrid>
 );
