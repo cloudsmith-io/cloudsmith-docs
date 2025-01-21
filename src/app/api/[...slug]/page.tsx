@@ -3,13 +3,56 @@ import { RequestResponse } from '@/components';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { generateSharedMetadata, generateDefaultMetadata } from '@/lib/metadata/shared';
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const qualifiedSlug = toSlug(slug);
+
+  // First check if this is an MDX file
+  const content = await loadApiContentInfo();
+  const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
+
+  if (mdxInfo) {
+    const mdxModule = await import(`@/content/${mdxInfo.file}`);
+    return generateSharedMetadata(mdxModule, {
+      defaultTitle: 'API Documentation',
+      templatePrefix: 'Cloudsmith API',
+      filePath: mdxInfo.file,
+    });
+  }
+
+  // For Swagger operations, use the operation details
+  const schema = await parseSchema();
+  const operations = toOperations(schema);
+  const operation = operations.find((op) => op.slug === qualifiedSlug);
+  console.log('operation', operation);
+
+  if (operation) {
+    return {
+      title: {
+        template: `%s | Cloudsmith API`,
+        default: `${operation.menuSegments.join(' - ')}`,
+      },
+      description: operation.description,
+    };
+  }
+
+  return generateDefaultMetadata({
+    defaultTitle: 'API Documentation',
+    templatePrefix: 'Cloudsmith API',
+  });
+}
 
 export const generateStaticParams = async () => {
   // Generate mdx slugs
   const content = await loadApiContentInfo();
-  const mdxSlugs = content.map((info) => ({ slug: info.segments }));
+  const mdxSlugs = content
+    .filter((info) => info.slug !== '') // Exclude the root path
+    .map((info) => ({ slug: info.segments }));
 
   // Generate swagger slugs
   const schema = await parseSchema();
