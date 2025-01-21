@@ -16,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return generateSharedMetadata(mdxModule, {
       defaultTitle: 'API Documentation',
       templatePrefix: 'Cloudsmith API',
+      filePath: mdxInfo.file,
     });
   }
 

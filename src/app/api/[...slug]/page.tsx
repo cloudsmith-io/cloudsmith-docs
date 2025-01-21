@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return generateSharedMetadata(mdxModule, {
       defaultTitle: 'API Documentation',
       templatePrefix: 'Cloudsmith API',
+      filePath: mdxInfo.file,
     });
   }
 

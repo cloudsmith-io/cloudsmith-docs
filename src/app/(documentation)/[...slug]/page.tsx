@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const mdxModule = await import(`@/content/${mdxInfo.file}`);
     return generateSharedMetadata(mdxModule, {
       defaultTitle: 'Documentation',
+      filePath: mdxInfo.file,
     });
   }
 
