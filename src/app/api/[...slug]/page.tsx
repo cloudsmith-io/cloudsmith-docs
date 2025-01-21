@@ -1,5 +1,4 @@
 import { loadApiContentInfo } from '@/lib/markdown/util';
-import { RequestResponse } from '@/components';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { Heading, Paragraph } from '@/markdown';
@@ -43,11 +42,11 @@ const Page = async ({ params }: PageProps) => {
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {
-    console.log(operation);
+    // console.log(operation);
 
     return (
       <>
-        <Heading size="h1">Missing headling for endpoint</Heading>
+        <Heading size="h1">Missing headline for endpoint</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
 
         <div className={styles.gridRoot}>
