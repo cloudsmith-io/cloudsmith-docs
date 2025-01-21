@@ -59,8 +59,13 @@ const Properties = ({ properties, required, type }: SchemaObject) => {
               </div>
               <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
                 <ValidationRules schema={property} />
-                <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre>
+                {/* <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre> */}
               </div>
+              {property.description ? (
+                <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
+                  {property.description}
+                </div>
+              ) : null}
             </div>
           ))}
         </div>
@@ -86,18 +91,32 @@ const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
         acc.push(`multiple of ${value}`);
         break;
       case 'maximum':
-        acc.push(`length ≤ ${value}${schema.exclusiveMaximum ? ' (exclusive)' : ''}`);
+        if (!schema.minimum) {
+          acc.push(`length ≤ ${value}${schema.exclusiveMaximum ? ' (exclusive)' : ''}`);
+        }
         break;
       case 'minimum':
-        acc.push(`length ≥ ${value}${schema.exclusiveMinimum ? ' (exclusive)' : ''}`);
+        if (!schema.maximum) {
+          acc.push(`length ≥ ${value}${schema.exclusiveMinimum ? ' (exclusive)' : ''}`);
+        }
+        if (schema.maximum) {
+          acc.push(`length between ${value} and ${schema.maximum}`);
+        }
         break;
 
       // Validation keywords for strings
       case 'maxLength':
-        acc.push(`length ≤ ${value}`);
+        if (!schema.minLength) {
+          acc.push(`length ≤ ${value}`);
+        }
         break;
       case 'minLength':
-        acc.push(`length ≥ ${value}`);
+        if (!schema.maxLength) {
+          acc.push(`length ≥ ${value}`);
+        }
+        if (schema.maxLength) {
+          acc.push(`length between ${value} and ${schema.maxLength}`);
+        }
         break;
       case 'pattern':
         acc.push(`${value}`);
@@ -110,13 +129,21 @@ const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
         }
         break;
       case 'maxItems':
-        acc.push(`length ≤ ${value}`);
+        if (!schema.minItems) {
+          acc.push(`items ≤ ${value}`);
+        }
         break;
       case 'minItems':
-        acc.push(`length ≥ ${value}`);
+        if (!schema.maxItems) {
+          acc.push(`items ≥ ${value}`);
+        }
+        if (schema.maxItems) {
+          const uniqueText = schema.uniqueItems ? ' (unique)' : '';
+          acc.push(`items between ${value} and ${schema.maxItems}${uniqueText}`);
+        }
         break;
       case 'uniqueItems':
-        if (value === true) {
+        if (value === true && !schema.minItems && !schema.maxItems) {
           acc.push('items must be unique');
         }
         break;
@@ -138,6 +165,14 @@ const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
       case 'enum':
         acc.push(`allowed values ${value.join(', ')}`);
         break;
+      case 'format':
+        acc.push(`${value}`);
+        break;
+      case 'default':
+        acc.push(`defaults to ${value}`);
+        break;
+
+      // TODO: What should we render here?
       case 'allOf':
         acc.push('Must match all schemas');
         break;
@@ -149,12 +184,6 @@ const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
         break;
       case 'not':
         acc.push('Must not match schema');
-        break;
-      case 'format':
-        acc.push(`${value}`);
-        break;
-      case 'default':
-        acc.push(`defaults to ${value}`);
         break;
     }
     return acc;

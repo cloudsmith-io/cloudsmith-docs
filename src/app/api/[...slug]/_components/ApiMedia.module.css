@@ -63,3 +63,10 @@
   color: var(--color-text-label);
   letter-spacing: var(--letter-http-rule);
 }
+
+.responseGridColumnDescription {
+  padding-block-start: 0;
+  grid-column: 1 / -1;
+  border-top: 0;
+  color: var(--base-color-grey-500);
+}
