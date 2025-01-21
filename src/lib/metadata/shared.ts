@@ -1,3 +1,4 @@
+import type { MDXModule } from 'mdx/types';
 import type { Metadata } from 'next';
 import fs from 'fs/promises';
 import path from 'path';
@@ -82,22 +83,10 @@ export function generateDefaultMetadata(options: MetadataOptions): Metadata {
   };
 }
 
-interface MdxModule {
+interface MdxModule extends Partial<MDXModule> {
   frontmatter?: {
     title?: string;
     description?: string;
-  };
-
-  default?: {
-    type?: string;
-    props?: {
-      children?: Array<{
-        type: string;
-        props?: {
-          children?: string;
-        };
-      }>;
-    };
   };
   rawContent?: string;
 }
