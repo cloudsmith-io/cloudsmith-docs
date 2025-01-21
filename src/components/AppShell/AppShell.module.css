@@ -7,6 +7,10 @@
   background-color: var(--base-color-grey-1000);
 }
 
+.open {
+  border: 1px solid red;
+}
+
 @media (--laptop-up) {
   .root {
     display: flex;

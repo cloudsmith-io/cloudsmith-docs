@@ -1,16 +1,18 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { useNavigation } from '@/app/navigation';
+import { Container, Flex } from '@/components';
+import { LogoSymbol, LogoWordMark } from '@/components/Logo';
+import { Icon, type IconName } from '@/icons';
 import { cx } from 'class-variance-authority';
 import Link from 'next/link';
-import { Container, Flex } from '@/components';
-import { LogoWordMark, LogoSymbol } from '@/components/Logo';
-import { Icon, type IconName } from '@/icons';
+import { usePathname } from 'next/navigation';
 
 import styles from './Navbar.module.css';
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const { setIsOpen } = useNavigation();
 
   const navItems: NavItem[] = [
     { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
@@ -51,7 +53,7 @@ export const Navbar = () => {
             </div>
           </button>
 
-          <button className={styles.menuButton} aria-label="Menu">
+          <button className={styles.menuButton} aria-label="Menu" onClick={(isOpen) => setIsOpen(!isOpen)}>
             <Icon name="menu" title="" />
           </button>
         </Flex>
