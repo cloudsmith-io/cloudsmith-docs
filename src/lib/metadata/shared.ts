@@ -51,7 +51,8 @@ export async function generateSharedMetadata(
 
   // Get title following priority order
   const frontmatterTitle = mdxModule.frontmatter?.title;
-  const h1Title = await extractFirstH1Title(filePath);
+  // Only try to get H1 if title is not set in frontmatter
+  const h1Title = !frontmatterTitle ? await extractFirstH1Title(filePath) : undefined;
   const contentTitle = frontmatterTitle || h1Title || defaultTitle;
 
   return {
