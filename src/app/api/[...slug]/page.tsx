@@ -4,6 +4,7 @@ import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { generateSharedMetadata, generateDefaultMetadata } from '@/lib/metadata/shared';
 
 export const dynamicParams = false;
 
@@ -16,26 +17,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
-    console.log('Found MDX info:', mdxInfo); // Debug log
     const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    console.log('MDX Module frontmatter:', mdxModule.frontmatter); // Debug log
-
-    // Get title from frontmatter
-    const frontmatterTitle = mdxModule.frontmatter?.title;
-
-    // If no frontmatter title, use the first text content as title
-    const contentTitle = frontmatterTitle || 'API Documentation';
-
-    const metadata = {
-      title: {
-        template: `%s | Cloudsmith Docs`,
-        default: contentTitle,
-      },
-      description: mdxModule.frontmatter?.description,
-    };
-
-    console.log('Returning metadata:', metadata); // Debug log
-    return metadata;
+    return generateSharedMetadata(mdxModule, {
+      defaultTitle: 'API Documentation',
+      templatePrefix: 'Cloudsmith API',
+    });
   }
 
   // For Swagger operations, use the operation details
@@ -53,12 +39,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  return {
-    title: {
-      template: `%s | Cloudsmith Docs`,
-      default: 'API Documentation',
-    },
-  };
+  return generateDefaultMetadata({
+    defaultTitle: 'API Documentation',
+    templatePrefix: 'Cloudsmith API',
+  });
 }
 
 export const generateStaticParams = async () => {

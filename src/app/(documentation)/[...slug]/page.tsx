@@ -2,6 +2,7 @@ import { loadContentInfo } from '@/lib/markdown/util';
 import { toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { generateSharedMetadata, generateDefaultMetadata } from '@/lib/metadata/shared';
 
 export const dynamicParams = false;
 
@@ -12,8 +13,6 @@ export const generateStaticParams = async () => {
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  console.log('Generating metadata for:', params); // Debug log
-
   const { slug } = await params;
   const qualifiedSlug = toSlug(slug);
 
@@ -21,34 +20,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
-    console.log('Found MDX info:', mdxInfo); // Debug log
     const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    console.log('MDX Module frontmatter:', mdxModule.frontmatter); // Debug log
-
-    // Get title from frontmatter
-    const frontmatterTitle = mdxModule.frontmatter?.title;
-
-    // If no frontmatter title, use the first text content as title
-    const contentTitle = frontmatterTitle || 'Documentation';
-
-    const metadata = {
-      title: {
-        template: `%s | Cloudsmith Docs`,
-        default: contentTitle,
-      },
-      description: mdxModule.frontmatter?.description,
-    };
-
-    console.log('Returning metadata:', metadata); // Debug log
-    return metadata;
+    return generateSharedMetadata(mdxModule, {
+      defaultTitle: 'Documentation',
+    });
   }
 
-  return {
-    title: {
-      template: `%s | Cloudsmith Docs`,
-      default: 'Documentation',
-    },
-  };
+  return generateDefaultMetadata({
+    defaultTitle: 'Documentation',
+  });
 }
 
 const Page = async ({ params }: PageProps) => {
@@ -60,7 +40,6 @@ const Page = async ({ params }: PageProps) => {
 
   if (mdxInfo) {
     const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    console.log('MDX Module:', mdxModule); // See what's in the module
     const { default: Post } = mdxModule;
     return <Post />;
   }
