@@ -89,6 +89,15 @@ Set authMethod to 'apiKey'.
 
 Example configuration:
 
+```ini
+; last modified 1 April 2001 by John Doe
+[owner]
+name = John Doe
+organization = Acme Widgets Inc.
+```
+
+And with language:
+
 ```yaml
 cliVersion: '1.3.1' # Example CLI version
 authMethod: 'apiKey'
@@ -162,3 +171,5 @@ With all the configurations in place, you´re now set up to use Cloudsmith CLI c
 - Use OIDC: Use OIDC authentication instead of API keys for enhanced security.
 - Use Secure Variables: Ensure all sensitive information, like clientId, clientSecret, apiKey, and tenantId, are stored securely as secrets in Azure DevOps rather than hardcoded in your pipeline.
 - Use Latest CLI Versions: Keep the Cloudsmith CLI updated to leverage the latest features and security patches. If specific versions are required, specify them explicitly in your configuration.
+
+<Video wistiaId="r5d3j2nz4m" />

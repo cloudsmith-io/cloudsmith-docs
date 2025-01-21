@@ -3,8 +3,8 @@ import { ComponentPropsWithoutRef, Suspense } from 'react';
 import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
 
-import { Note } from '@/components';
-import { CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
+import { Note, Video } from '@/components';
+import { Code, CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -22,6 +22,7 @@ const components = {
 
   blockquote: (props: ComponentPropsWithoutRef<'blockquote'>) => <Note headline="Note:" {...props} />,
 
+  code: (props: ComponentPropsWithoutRef<'pre'>) => <Code {...props} />,
   pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {
     // This type assertion is necessary because the type of children is not always ReactElement
     const codeProps = (children as React.ReactElement).props as React.HTMLProps<HTMLElement>;
@@ -42,6 +43,7 @@ const components = {
   ol: (props: ComponentPropsWithoutRef<'ol'>) => <List ordered {...props} />,
 
   a: ({ href, ...rest }: ComponentPropsWithoutRef<'a'>) => <Link href={href as Route} {...rest} />,
+  Video: (props: ComponentPropsWithoutRef<'video'>) => <Video {...props} />,
 };
 
 declare global {

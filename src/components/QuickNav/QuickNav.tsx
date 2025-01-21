@@ -6,7 +6,7 @@ import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
 import { cx } from 'class-variance-authority';
 
-const headingsToObserve = 'h2, h3, h4, h5, h6';
+const headingsToObserve = ':scope > h2, :scope > h3, :scope > h4, :scope > h5, :scope > h6';
 
 export const QuickNav = () => {
   const [headings, setHeadings] = useState<Array<HeadingList>>([]);
@@ -54,8 +54,8 @@ export const QuickNav = () => {
 const renderHeadings = (headings: Array<HeadingList>, activeHeadline: string) => {
   return (
     <ul className={styles.list}>
-      {headings.map((heading) => (
-        <li key={heading.id} className={styles.item}>
+      {headings.map((heading, i) => (
+        <li key={`${heading.id}-${i}`} className={styles.item}>
           <a
             href={`#${heading.id}`}
             className={cx(styles.link, {

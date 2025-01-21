@@ -72,17 +72,17 @@ const Item = ({ item }: ItemProps) => {
           ) : null}
         </Link>
       ) : (
-        <span className={cx(item.isSection && styles.section)}>{item.title}</span>
+        <span className={cx(item.path && styles.section)}>{item.title}</span>
       )}
 
-      {item.children ? <List items={item.children} bleed={item.isSection} isExpanded={isExpanded} /> : null}
+      {item.children ? <List items={item.children} bleed={!!item.path} isExpanded={isExpanded} /> : null}
     </li>
   );
 };
 
 function isDescendantOrSelfActive(item: MenuItem, pathname: string) {
   // Sections are always active/open
-  if (item.isSection) {
+  if (!item.path) {
     return true;
   }
 

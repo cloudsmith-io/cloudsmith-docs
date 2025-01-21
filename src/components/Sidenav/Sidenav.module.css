@@ -1,7 +1,7 @@
 .root {
   --svg-path-fill: var(--base-color-grey-100);
 
-  padding-block: var(--space-m);
+  padding-block-start: var(--space-xl);
   padding-inline: var(--space-xs);
 }
 

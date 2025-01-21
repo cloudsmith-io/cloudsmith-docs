@@ -1,7 +1,7 @@
 import { cx } from 'class-variance-authority';
-import { Card, Flex, HomepageHero, Button, BlockImage, Navbar } from '@/components';
-import horizontalImage from '@/content/images/horizontal.png';
-import verticalImage from '@/content/images/vertical.png';
+import { Card, Flex, HomepageHero, Button, BlockImage, Navbar, Video } from '@/components';
+import horizontalImage from '@/content/test/images/horizontal.png';
+import verticalImage from '@/content/test/images/vertical.png';
 
 import styles from './page.module.css';
 
@@ -101,6 +101,31 @@ export default function DesignSystemPage() {
             Full Width Button
           </Button>
         </Flex>
+      </section>
+
+      <section id="video" className={cx(styles.section, styles.container)}>
+        <h2 className={styles.sectionHeading}>Video</h2>
+        <p className={styles.sectionDescription}>
+          A responsive Wistia video player that adapts to its container width.
+        </p>
+
+        <h3>Default</h3>
+        <div className={styles.videoContainer}>
+          <Video wistiaId="r5d3j2nz4m" />
+        </div>
+
+        <h3>Poster Image</h3>
+        <div className={styles.videoContainer}>
+          <Video
+            wistiaId="oifkgmxnkb"
+            posterImage="https://i.vimeocdn.com/video/1666844499-1666844499_1280x720.jpg"
+          />
+        </div>
+
+        <h3>Resumable</h3>
+        <div className={styles.videoContainer}>
+          <Video wistiaId="0x8do0ucl8" resumable />
+        </div>
       </section>
 
       <section id="navbar" className={styles.section}>
