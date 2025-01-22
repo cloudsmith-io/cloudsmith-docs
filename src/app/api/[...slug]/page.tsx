@@ -1,10 +1,9 @@
+import { ApiRequest, ApiResponses } from '@/components';
 import { loadApiContentInfo } from '@/lib/markdown/util';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { Heading, Paragraph } from '@/markdown';
 import { notFound } from 'next/navigation';
-import { Request } from './_request/Request';
-import { Responses } from './_responses/Responses';
 
 import styles from './page.module.css';
 
@@ -42,8 +41,6 @@ const Page = async ({ params }: PageProps) => {
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {
-    // console.log(operation);
-
     return (
       <>
         <Heading size="h1">Missing headline for endpoint</Heading>
@@ -54,17 +51,13 @@ const Page = async ({ params }: PageProps) => {
             Request
           </Heading>
 
-          <Request {...operation} />
+          <ApiRequest {...operation} />
 
           <Heading size="h2" className={styles.fullWidth}>
             Response
           </Heading>
-          <Responses {...operation} />
+          <ApiResponses {...operation} />
         </div>
-
-        {/* Rendering the operation: {operation?.method} {operation?.path}
-          <p>JSON:</p>
-          <pre style={{ maxWidth: '70vw', overflow: 'auto' }}>{JSON.stringify(operation, null, 2)}</pre> */}
       </>
     );
   }

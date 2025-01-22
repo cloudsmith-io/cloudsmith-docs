@@ -1,11 +1,11 @@
+import { Tag } from '@/components';
 import { RequestBodyObject, ResponseObject, SchemaObject } from '@/lib/swagger/types';
 import { cx } from 'class-variance-authority';
 import React from 'react';
-import { RequiredTag } from '../_components/RequireTag';
 
 import styles from './ApiMedia.module.css';
 
-export const MediaResponse = (response: ResponseObject | RequestBodyObject) => {
+export const ApiMediaResponse = (response: ResponseObject | RequestBodyObject) => {
   return (
     <>
       {response.content ? (
@@ -47,27 +47,31 @@ const Properties = ({ properties, required, type }: SchemaObject) => {
 
       {properties ? (
         <div className={styles.responseGrid}>
-          {Object.entries(properties).map(([name, property]) => (
-            <div key={name} className={styles.responseGridRow}>
-              <div className={styles.responseGridColumn}>{name}</div>
-              <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
-                {property.format || property.type}
-                {property.nullable && ' | null'}
-              </div>
-              <div className={styles.responseGridColumn}>
-                <RequiredTag isRequired={required?.includes(name)} />
-              </div>
-              <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
-                <ValidationRules schema={property} />
-                {/* <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre> */}
-              </div>
-              {property.description ? (
-                <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
-                  {property.description}
+          {Object.entries(properties).map(([name, property]) => {
+            const isRequired = required?.includes(name);
+
+            return (
+              <div key={name} className={styles.responseGridRow}>
+                <div className={styles.responseGridColumn}>{name}</div>
+                <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
+                  {property.format || property.type}
+                  {property.nullable && ' | null'}
                 </div>
-              ) : null}
-            </div>
-          ))}
+                <div className={styles.responseGridColumn}>
+                  <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
+                </div>
+                <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
+                  <ValidationRules schema={property} />
+                  {/* <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre> */}
+                </div>
+                {property.description ? (
+                  <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
+                    {property.description}
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
       ) : null}
     </>

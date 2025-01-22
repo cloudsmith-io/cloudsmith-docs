@@ -1,12 +1,11 @@
 import { Tag } from '@/components';
 import { ApiOperation } from '@/lib/swagger/types';
-import { ApiGrid, ApiGridColumn, ApiGridRow } from '../_components/ApiGrid';
-import { RequiredTag } from '../_components/RequireTag';
-import { MediaResponse } from '../_components/ApiMedia';
+import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
+import { ApiMediaResponse } from '../ApiMedia';
 
-import styles from './Request.module.css';
+import styles from './ApiRequest.module.css';
 
-export const Request = (operation: ApiOperation) => {
+export const ApiRequest = (operation: ApiOperation) => {
   const getParametersByParam = (param: string) => operation.parameters?.filter((p) => p.in === param);
   const pathsParameters = getParametersByParam('path');
   const queryParameters = getParametersByParam('query');
@@ -34,7 +33,7 @@ const PathParams = ({ parameters }: { parameters: NonNullable<ApiOperation['para
         <ApiGridColumn>{param.name}</ApiGridColumn>
         <ApiGridColumn type="type">{param.schema?.type}</ApiGridColumn>
         <ApiGridColumn>
-          <RequiredTag isRequired={param.required} />
+          <Tag variant={param.required ? 'red' : 'grey'}>{param.required ? 'required' : 'optional'}</Tag>
         </ApiGridColumn>
       </ApiGridRow>
     ))}
@@ -57,12 +56,15 @@ const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['r
   <ApiGrid
     heading={
       <>
-        Body params <RequiredTag isRequired={requestBody.required} />
+        {'Body params '}
+        <Tag variant={requestBody.required ? 'red' : 'grey'}>
+          {requestBody.required ? 'required' : 'optional'}
+        </Tag>
       </>
     }>
     <ApiGridRow>
       <ApiGridColumn type="media">
-        <MediaResponse {...requestBody} />
+        <ApiMediaResponse {...requestBody} />
       </ApiGridColumn>
     </ApiGridRow>
   </ApiGrid>

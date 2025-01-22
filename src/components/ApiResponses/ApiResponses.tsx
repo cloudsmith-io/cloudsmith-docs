@@ -4,20 +4,20 @@ import { Tag } from '@/components';
 import { ChevronIcon } from '@/icons/Chevron';
 import { ApiOperation, ResponseObject } from '@/lib/swagger/types';
 import { useState } from 'react';
-import { ApiGrid, ApiGridColumn, ApiGridRowContent, ApiGridRowToggler } from '../_components/ApiGrid';
-import { MediaResponse } from '../_components/ApiMedia';
+import { ApiGrid, ApiGridColumn, ApiGridRowContent, ApiGridRowToggler } from '../ApiGrid/ApiGrid';
+import { ApiMediaResponse } from '../ApiMedia/ApiMedia';
 
-import styles from './Responses.module.css';
+import styles from './ApiResponses.module.css';
 
-export const Responses = (operation: ApiOperation) => (
+export const ApiResponses = (operation: ApiOperation) => (
   <ApiGrid heading="Responses">
     {Object.entries(operation.responses).map(([code, response], index) => (
-      <Response key={code} code={code} response={response} initialOpen={index === 0} />
+      <ApiResponse key={code} code={code} response={response} initialOpen={index === 0} />
     ))}
   </ApiGrid>
 );
 
-export const Response = ({ code, response, initialOpen }: ResponseProps) => {
+export const ApiResponse = ({ code, response, initialOpen }: ResponseProps) => {
   const [isOpen, setIsOpen] = useState(initialOpen);
 
   return (
@@ -36,7 +36,7 @@ export const Response = ({ code, response, initialOpen }: ResponseProps) => {
       </ApiGridRowToggler>
 
       <ApiGridRowContent isOpen={isOpen}>
-        <MediaResponse {...response} />
+        <ApiMediaResponse {...response} />
       </ApiGridRowContent>
     </>
   );
