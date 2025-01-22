@@ -1,0 +1,10 @@
+.request {
+  grid-column: 1 / -1;
+}
+
+.url {
+  display: flex;
+  column-gap: var(--space-xs);
+  margin-block-end: var(--column-block-padding);
+  word-break: break-all;
+}
