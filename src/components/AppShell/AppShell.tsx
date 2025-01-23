@@ -15,6 +15,7 @@ export const AppShell = ({ children, secondaryNav }: AppShellProps) => {
       {secondaryNav && (
         <aside className={cx(styles.secondaryNav, { [styles.open]: isOpen })}>{secondaryNav}</aside>
       )}
+
       <div className={styles.main}>{children}</div>
     </Container>
   );

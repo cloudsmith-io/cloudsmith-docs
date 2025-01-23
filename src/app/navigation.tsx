@@ -7,8 +7,11 @@ const NavigationContext = createContext<NavigationContextType | null>(null);
 
 export const NavigationProvider = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
-  return <NavigationContext.Provider value={{ isOpen, setIsOpen }}>{children}</NavigationContext.Provider>;
+  return (
+    <NavigationContext.Provider value={{ isOpen, setIsOpen, toggle }}>{children}</NavigationContext.Provider>
+  );
 };
 
 export const useNavigation = () => {
@@ -36,4 +39,5 @@ export const NavigationEvents = () => {
 interface NavigationContextType {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  toggle: () => void;
 }

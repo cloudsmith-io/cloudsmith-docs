@@ -7,8 +7,21 @@
   background-color: var(--base-color-grey-1000);
 }
 
-.open {
-  border: 1px solid red;
+@media (--phablet-down) {
+  .secondaryNav {
+    position: sticky;
+    top: 0;
+    z-index: var(--layer-navigation-mobile);
+    transform: translateY(-100%);
+    transition: var(--transition-default);
+    transition-property: transform, opacity;
+    opacity: 0;
+  }
+
+  .open {
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }
 
 @media (--laptop-up) {

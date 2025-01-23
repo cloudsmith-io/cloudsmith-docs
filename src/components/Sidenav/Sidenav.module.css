@@ -3,6 +3,7 @@
 
   padding-block-start: var(--space-xl);
   padding-inline: var(--space-xs);
+  position: relative;
 }
 
 @media (--laptop-up) {
@@ -90,5 +91,20 @@
   padding-inline: var(--space-xs);
 }
 
+.closeButton {
+  position: absolute;
+  top: calc(var(--space-m) - var(--space-xs));
+  right: calc(var(--space-m) - var(--space-xs));
+  padding: var(--space-xs);
+  border: 1px solid red;
+}
+
+.closeIcon {
+  color: red;
+}
+
 @media (--laptop-up) {
+  .closeButton {
+    display: none;
+  }
 }

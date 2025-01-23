@@ -33,8 +33,8 @@ interface ChevronIconProps extends SpecificIconProps {
   transition?: Transition;
 }
 
+type Direction = 'up' | 'right' | 'down' | 'left';
+
 type Rotate = {
   [key in Direction]: `${number}deg`;
 };
-
-type Direction = 'up' | 'right' | 'down' | 'left';

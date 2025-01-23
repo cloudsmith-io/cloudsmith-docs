@@ -3,12 +3,10 @@ import { cx } from 'class-variance-authority';
 import { LazyMotion, domAnimation } from 'motion/react';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { Navbar } from '@/components';
 import { mdSystem, replica, replicaMono } from './_assets/fonts';
 import { NavigationEvents, NavigationProvider } from './navigation';
 
 import './_styles/critical.css';
-import styles from './layout.module.css';
 
 export const metadata: Metadata = {
   title: {
@@ -23,11 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <NavigationProvider>
           <Navbar />
-
-          <div className={styles.container}>
-            <LazyMotion features={domAnimation}>{children}</LazyMotion>
-          </div>
-
+          <LazyMotion features={domAnimation}>{children}</LazyMotion>
           <Suspense fallback={null}>
             <NavigationEvents />
           </Suspense>

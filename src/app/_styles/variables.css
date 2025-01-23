@@ -130,5 +130,9 @@
 
     /* Navbar */
     --navbar-height: 105px;
+
+    /* Layers */
+    --layer-navigation: 10;
+    --layer-navigation-mobile: 9;
   }
 }

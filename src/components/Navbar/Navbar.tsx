@@ -12,7 +12,7 @@ import styles from './Navbar.module.css';
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const { setIsOpen } = useNavigation();
+  const { toggle } = useNavigation();
 
   const navItems: NavItem[] = [
     { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
@@ -21,7 +21,7 @@ export const Navbar = () => {
   ];
 
   return (
-    <div className={cx(styles.root, pathname === '/' && styles.homeNavbar)}>
+    <div className={cx(styles.root, { [styles.homeNavbar]: pathname === '/' })}>
       <Container className={styles.container}>
         <Link href="/" className={styles.logo}>
           <LogoWordMark className={styles.logoWordmark} />
@@ -53,7 +53,7 @@ export const Navbar = () => {
             </div>
           </button>
 
-          <button className={styles.menuButton} aria-label="Menu" onClick={(isOpen) => setIsOpen(!isOpen)}>
+          <button className={styles.menuButton} aria-label="Menu" onClick={toggle}>
             <Icon name="menu" title="" />
           </button>
         </Flex>

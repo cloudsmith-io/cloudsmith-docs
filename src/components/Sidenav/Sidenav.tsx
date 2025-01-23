@@ -1,20 +1,32 @@
 'use client';
 
+import { useNavigation } from '@/app/navigation';
+import { Icon } from '@/icons';
 import { ChevronIcon } from '@/icons/Chevron';
 import { MenuItem } from '@/lib/menu/types';
 import { cx } from 'class-variance-authority';
 import { Transition } from 'motion/dist/react';
 import * as m from 'motion/react-m';
 import Link from 'next/link';
-import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
 
 import styles from './Sidenav.module.css';
 
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
 export const Sidenav = ({ items }: SidenavProps) => {
-  return <div className={styles.root}>{items ? <List items={items} isExpanded /> : null}</div>;
+  const { setIsOpen } = useNavigation();
+
+  return (
+    <div className={styles.root}>
+      {items ? <List items={items} isExpanded /> : null}
+
+      <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
+        <Icon name="close" title="" className={styles.closeIcon} />
+      </button>
+    </div>
+  );
 };
 
 const List = ({ items, bleed, isExpanded }: ListProps) => {
