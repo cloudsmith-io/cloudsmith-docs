@@ -1,0 +1,5 @@
+.togglerIcon {
+  position: absolute;
+  inset: 50% var(--column-inline-padding) auto auto;
+  transform: translateY(-50%);
+}

@@ -37,7 +37,11 @@ const rehypeAutolinkHeadings = {
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [['remark-gfm']],
+    remarkPlugins: [
+      ['remark-gfm'],
+      ['remark-frontmatter'],
+      ['remark-mdx-frontmatter', { name: 'frontmatter' }],
+    ],
     rehypePlugins: [
       // This removes all imports and images from the markdown document
       //['rehype-sanitize'],

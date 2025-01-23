@@ -98,7 +98,7 @@ interface ParameterBaseObject {
 }
 type NonArraySchemaObjectType = 'boolean' | 'object' | 'number' | 'string' | 'integer';
 type ArraySchemaObjectType = 'array';
-type SchemaObject = ArraySchemaObject | NonArraySchemaObject;
+export type SchemaObject = ArraySchemaObject | NonArraySchemaObject;
 interface ArraySchemaObject extends BaseSchemaObject {
   type: ArraySchemaObjectType;
   items: SchemaObject;
@@ -181,7 +181,7 @@ interface EncodingObject {
   explode?: boolean;
   allowReserved?: boolean;
 }
-interface RequestBodyObject {
+export interface RequestBodyObject {
   description?: string;
   content: {
     [media: string]: MediaTypeObject;
@@ -191,7 +191,7 @@ interface RequestBodyObject {
 interface ResponsesObject {
   [code: string]: ResponseObject;
 }
-interface ResponseObject {
+export interface ResponseObject {
   description: string;
   headers?: {
     [header: string]: ParameterBaseObject;
