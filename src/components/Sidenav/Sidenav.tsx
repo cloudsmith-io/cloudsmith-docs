@@ -5,8 +5,8 @@ import { Icon } from '@/icons';
 import { ChevronIcon } from '@/icons/Chevron';
 import { MenuItem } from '@/lib/menu/types';
 import { cx } from 'class-variance-authority';
-import { Transition } from 'motion/dist/react';
-import * as m from 'motion/react-m';
+import { Transition } from 'motion/react';
+import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
@@ -16,22 +16,30 @@ import styles from './Sidenav.module.css';
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
 export const Sidenav = ({ items }: SidenavProps) => {
-  const { setIsOpen } = useNavigation();
+  const { isOpen, setIsOpen } = useNavigation();
 
   return (
-    <div className={styles.root}>
+    <motion.div
+      className={styles.root}
+      // initial={false}
+      // animate={{
+      //   transform: isOpen ? 'translateX(0%)' : 'translateX(-100%)',
+      //   opacity: isOpen ? 1 : 0,
+      // }}
+      // transition={{ duration: 0.2, ease: 'easeInOut' }}
+    >
       {items ? <List items={items} isExpanded /> : null}
 
       <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
         <Icon name="close" title="" className={styles.closeIcon} />
       </button>
-    </div>
+    </motion.div>
   );
 };
 
 const List = ({ items, bleed, isExpanded }: ListProps) => {
   return (
-    <m.div
+    <motion.div
       className={styles.listWrapper}
       initial={isExpanded ? 'expanded' : 'collapsed'}
       animate={isExpanded ? 'expanded' : 'collapsed'}
@@ -45,7 +53,7 @@ const List = ({ items, bleed, isExpanded }: ListProps) => {
           <Item item={item} key={item.title} />
         ))}
       </ul>
-    </m.div>
+    </motion.div>
   );
 };
 

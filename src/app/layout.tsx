@@ -1,6 +1,5 @@
 import { Navbar } from '@/components';
 import { cx } from 'class-variance-authority';
-import { LazyMotion, domAnimation } from 'motion/react';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { mdSystem, replica, replicaMono } from './_assets/fonts';
@@ -21,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <NavigationProvider>
           <Navbar />
-          <LazyMotion features={domAnimation}>{children}</LazyMotion>
+          {children}
           <Suspense fallback={null}>
             <NavigationEvents />
           </Suspense>

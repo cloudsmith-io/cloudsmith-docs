@@ -1,21 +1,13 @@
-'use client';
-
-import { useNavigation } from '@/app/navigation';
-import { cx } from 'class-variance-authority';
+import * as motion from 'motion/react-client';
 import React from 'react';
 import { Container } from '../Container';
 
 import styles from './AppShell.module.css';
 
 export const AppShell = ({ children, secondaryNav }: AppShellProps) => {
-  const { isOpen } = useNavigation();
-
   return (
     <Container className={styles.root}>
-      {secondaryNav && (
-        <aside className={cx(styles.secondaryNav, { [styles.open]: isOpen })}>{secondaryNav}</aside>
-      )}
-
+      {secondaryNav && <motion.aside className={styles.secondaryNav}>{secondaryNav}</motion.aside>}
       <div className={styles.main}>{children}</div>
     </Container>
   );

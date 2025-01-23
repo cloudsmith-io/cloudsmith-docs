@@ -1,3 +1,4 @@
+/* stylelint-disable declaration-no-important */
 .root {
   --svg-path-fill: var(--base-color-grey-100);
 
@@ -6,9 +7,25 @@
   position: relative;
 }
 
+/* @media (--phablet-down) {
+  .root {
+    position: fixed;
+    block-size: calc(100% - var(--layout-navbar-height));
+    inline-size: 100%;
+    inset-block-start: var(--layout-navbar-height);
+    z-index: var(--layer-navigation-mobile);
+    background-color: var(--base-color-grey-1000);
+    overflow-y: auto;
+  }
+} */
+
 @media (--laptop-up) {
   .root {
     --svg-path-fill: var(--color-font-primary);
+
+    /* Overwrite animation from JS to always display */
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -96,11 +113,10 @@
   top: calc(var(--space-m) - var(--space-xs));
   right: calc(var(--space-m) - var(--space-xs));
   padding: var(--space-xs);
-  border: 1px solid red;
 }
 
 .closeIcon {
-  color: red;
+  color: var(--base-color-white);
 }
 
 @media (--laptop-up) {

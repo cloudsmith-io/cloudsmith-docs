@@ -134,6 +134,31 @@
   }
 }
 
+.mobileBackground {
+  position: fixed;
+  z-index: var(--layer-navigation-mobile-bg);
+  inset: 0;
+  background-color: var(--base-color-grey-1000);
+}
+
+.mobileNavbar {
+  position: fixed;
+  z-index: var(--layer-navigation-mobile);
+  inset: 0 0 0 var(--space-2xl);
+  background-color: var(--base-color-grey-1000);
+}
+
+.closeButton {
+  position: absolute;
+  top: calc(var(--space-m) - var(--space-xs));
+  right: calc(var(--space-m) - var(--space-xs));
+  padding: var(--space-xs);
+}
+
+.closeIcon {
+  color: var(--base-color-white);
+}
+
 @media (--phablet-up) {
   .root {
     padding-bottom: 0;
@@ -206,5 +231,10 @@
       min-width: var(--container-width-xxs);
       border: 1px solid var(--base-color-grey-500);
     }
+  }
+
+  .mobileBackground,
+  .mobileNavbar {
+    display: none;
   }
 }
