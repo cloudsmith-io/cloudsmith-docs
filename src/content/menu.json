@@ -14,16 +14,28 @@
           {
             "title": "Dependencies for Developers",
             "path": "/getting-started/dependencies-for-developers"
+          },
+          {
+            "title": "What Is Package Management",
+            "path": "/getting-started/what-is-package-management"
+          },
+          {
+            "title": "Packages",
+            "path": "/getting-started/repository-packages"
           }
         ]
       },
       {
         "title": "Migrating to Cloudsmith",
-        "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory",
+        "path": "/migrating-to-cloudsmith",
         "children": [
           {
             "title": "Export from JFrog Artifactory",
             "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory"
+          },
+          {
+            "title": "Export from Nexus Sonatype",
+            "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
           }
         ]
       },
