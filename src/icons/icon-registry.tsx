@@ -23,6 +23,8 @@ export const iconRegistry = createIconRegistry({
   chevronDown: (props) => <ChevronIcon {...props} id="icon-chevron-down" chevronDirection="down" />,
   chevronLeft: (props) => <ChevronIcon {...props} id="icon-chevron-left" chevronDirection="left" />,
   arrow: ArrowIcon,
+  arrowRight: (props) => <ArrowIcon {...props} id="icon-arrow-right" arrowDirection="right" />,
+  arrowLeft: (props) => <ArrowIcon {...props} id="icon-arrow-left" arrowDirection="left" />,
   search: SearchIcon,
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,

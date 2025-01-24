@@ -14,7 +14,7 @@ export const ChevronIcon = createIcon<ChevronIconProps>(
         fill="var(--svg-path-fill)"
         animate={{ transform: `rotate(${rotate[chevronDirection]})` }}
         transition={transition}
-        initial={false}
+        initial={{ transform: `rotate(${rotate[chevronDirection]})` }}
       />
     ),
   }),

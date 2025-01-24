@@ -2,30 +2,52 @@
 .root {
   --svg-path-fill: var(--base-color-grey-100);
 
-  padding-block-start: var(--space-xl);
-  padding-inline: var(--space-xs);
   position: relative;
+  overflow-y: hidden;
 }
 
-/* @media (--phablet-down) {
-  .root {
-    position: fixed;
-    block-size: calc(100% - var(--layout-navbar-height));
-    inline-size: 100%;
-    inset-block-start: var(--layout-navbar-height);
-    z-index: var(--layer-navigation-mobile);
-    background-color: var(--base-color-grey-1000);
-    overflow-y: auto;
-  }
-} */
+.wrapper {
+  padding-block-start: var(--space-xl);
+  padding-inline: var(--space-xs);
+}
+
+.toggleButton {
+  display: flex;
+  inline-size: 100%;
+  padding-inline: var(--space-s);
+  padding-block: var(--space-2xs);
+  align-items: center;
+  color: var(--base-color-grey-100);
+  cursor: pointer;
+  background-color: var(--base-color-grey-1000);
+  font-size: var(--text-body-m);
+  line-height: var(--line-height-m);
+}
+
+.toggleButtonText {
+  margin-inline: var(--space-xs) 6px;
+}
+
+.toggleIconBack,
+.toggleIconDown {
+  --svg-path-fill: var(--base-color-grey-100);
+
+  flex-shrink: 0;
+}
+
+.toggleIconDown {
+  margin-inline-start: auto;
+}
 
 @media (--laptop-up) {
   .root {
     --svg-path-fill: var(--color-font-primary);
 
+    overflow-y: initial;
+
     /* Overwrite animation from JS to always display */
     opacity: 1 !important;
-    transform: none !important;
+    height: auto !important;
   }
 }
 
@@ -106,21 +128,4 @@
   color: var(--color-text-label);
   text-transform: uppercase;
   padding-inline: var(--space-xs);
-}
-
-.closeButton {
-  position: absolute;
-  top: calc(var(--space-m) - var(--space-xs));
-  right: calc(var(--space-m) - var(--space-xs));
-  padding: var(--space-xs);
-}
-
-.closeIcon {
-  color: var(--base-color-white);
-}
-
-@media (--laptop-up) {
-  .closeButton {
-    display: none;
-  }
 }

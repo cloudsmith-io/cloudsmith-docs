@@ -6,11 +6,19 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const NavigationContext = createContext<NavigationContextType | null>(null);
 
 export const NavigationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+  const [navigationState, setNavigationState] = useState<NavigationState>('closed');
+  const toggleNavigation = (nextState: NavigationState) =>
+    setNavigationState((currentState) => (currentState === nextState ? 'closed' : nextState));
 
   return (
-    <NavigationContext.Provider value={{ isOpen, setIsOpen, toggle }}>{children}</NavigationContext.Provider>
+    <NavigationContext.Provider
+      value={{
+        navigationState,
+        setNavigationState,
+        toggleNavigation,
+      }}>
+      {children}
+    </NavigationContext.Provider>
   );
 };
 
@@ -26,18 +34,20 @@ export const useNavigation = () => {
 
 export const NavigationEvents = () => {
   const pathname = usePathname();
-  const { setIsOpen } = useNavigation();
+  const { setNavigationState } = useNavigation();
 
   // Close the navigation when the pathname changes
   useEffect(() => {
-    setIsOpen(false);
-  }, [pathname, setIsOpen]);
+    setNavigationState('closed');
+  }, [pathname, setNavigationState]);
 
   return null;
 };
 
+type NavigationState = 'closed' | 'global' | 'local';
+
 interface NavigationContextType {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-  toggle: () => void;
+  navigationState: NavigationState;
+  setNavigationState: (state: NavigationState) => void;
+  toggleNavigation: (state: NavigationState) => void;
 }

@@ -14,7 +14,8 @@ import styles from './Navbar.module.css';
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const { isOpen, toggle, setIsOpen } = useNavigation();
+  const { navigationState, toggleNavigation } = useNavigation();
+  const toggle = () => toggleNavigation('global');
 
   const navItems: NavItem[] = [
     { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
@@ -46,7 +47,7 @@ export const Navbar = () => {
               ))}
             </nav>
 
-            <button aria-label="Search" className={styles.searchButton}>
+            <button type="button" aria-label="Search" className={styles.searchButton}>
               <Icon name="search" className={styles.searchIcon} title="" />
               <div className={styles.searchButtonText}>
                 <span>Search</span>
@@ -56,7 +57,7 @@ export const Navbar = () => {
               </div>
             </button>
 
-            <button className={styles.menuButton} aria-label="Menu" onClick={toggle}>
+            <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
               <Icon name="menu" title="" />
             </button>
           </Flex>
@@ -64,7 +65,7 @@ export const Navbar = () => {
       </div>
 
       <AnimatePresence initial={false}>
-        {isOpen ? (
+        {navigationState === 'global' ? (
           <>
             <motion.div
               key="mobileBackground"
@@ -73,7 +74,9 @@ export const Navbar = () => {
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}
-              onClick={() => setIsOpen(false)}
+              onClick={toggle}
+              role="button"
+              tabIndex={0}
             />
 
             <motion.div
@@ -83,7 +86,7 @@ export const Navbar = () => {
               animate={{ transform: 'translateX(0%)', opacity: 1 }}
               exit={{ transform: 'translateX(50%)', opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}>
-              <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
+              <button className={styles.closeButton} onClick={toggle}>
                 <Icon name="close" title="" className={styles.closeIcon} />
               </button>
               {/* TODO: Add navigation links from JSON and adjust UI */}

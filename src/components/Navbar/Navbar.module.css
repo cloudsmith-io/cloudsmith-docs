@@ -153,6 +153,7 @@
   top: calc(var(--space-m) - var(--space-xs));
   right: calc(var(--space-m) - var(--space-xs));
   padding: var(--space-xs);
+  cursor: pointer;
 }
 
 .closeIcon {

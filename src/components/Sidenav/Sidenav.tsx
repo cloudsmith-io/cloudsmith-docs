@@ -10,30 +10,39 @@ import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
+import { ArrowIcon } from '@/icons/Arrow';
 
 import styles from './Sidenav.module.css';
 
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
 export const Sidenav = ({ items }: SidenavProps) => {
-  const { isOpen, setIsOpen } = useNavigation();
+  const { navigationState, toggleNavigation } = useNavigation();
+  const isOpen = navigationState === 'local';
+  const toggle = () => toggleNavigation('local');
 
   return (
-    <motion.div
-      className={styles.root}
-      // initial={false}
-      // animate={{
-      //   transform: isOpen ? 'translateX(0%)' : 'translateX(-100%)',
-      //   opacity: isOpen ? 1 : 0,
-      // }}
-      // transition={{ duration: 0.2, ease: 'easeInOut' }}
-    >
-      {items ? <List items={items} isExpanded /> : null}
-
-      <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
-        <Icon name="close" title="" className={styles.closeIcon} />
+    <>
+      <button type="button" className={styles.toggleButton} onClick={toggle}>
+        <ArrowIcon name="arrow" arrowDirection="left" as="svg" title="" className={styles.toggleIconBack} />
+        <span className={styles.toggleButtonText}>
+          {/* TODO: Add current active page name */}
+          Missing current active page name
+        </span>
+        <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
       </button>
-    </motion.div>
+
+      <motion.div
+        className={styles.root}
+        initial={{ height: 0, opacity: 0 }}
+        animate={{
+          height: isOpen ? 'auto' : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}>
+        <div className={styles.wrapper}>{items ? <List items={items} isExpanded /> : null}</div>
+      </motion.div>
+    </>
   );
 };
 
