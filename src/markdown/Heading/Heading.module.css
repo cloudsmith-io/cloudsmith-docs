@@ -36,18 +36,15 @@
   letter-spacing: initial;
   font-size: var(--text-headline-s);
   line-height: fluid(24px, 28px);
-  margin-block-start: var(--space-m);
-  margin-block-end: var(--space-xs);
+  margin-block: var(--space-m) var(--space-xs);
 }
 
 .h3 {
   font-size: var(--text-headline-xs);
-  margin-block-start: var(--space-xs);
-  margin-block-end: var(--space-2xs);
+  margin-block: var(--space-xs) var(--space-2xs);
 }
 
 .h4 {
   font-size: var(--text-headline-2xs);
-  margin-block-start: var(--space-2xs);
-  margin-block-end: var(--space-3xs);
+  margin-block: var(--space-2xs) var(--space-3xs);
 }
