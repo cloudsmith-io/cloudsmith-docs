@@ -44,7 +44,7 @@ describe('lib', () => {
           const operations = toOperations(schema);
           const result = toMenuItems(operations);
 
-          const parentItem = result[0];
+          const parentItem = result[1];
           const childItem = parentItem.children?.[0];
 
           expect(parentItem.title).toBe('Policies');
