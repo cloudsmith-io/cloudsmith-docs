@@ -87,7 +87,7 @@
   line-height: var(--line-height-s);
 
   &:is(:hover, :active) {
-    background-color: var(--base-color-blue-100);
+    background-color: var(--base-color-grey-900);
   }
 
   .item .item & {
@@ -134,6 +134,10 @@
 
   .link {
     color: var(--color-font-primary);
+
+    &:is(:hover, :active) {
+      background-color: var(--base-color-blue-100);
+    }
   }
 
   .linkActive {
