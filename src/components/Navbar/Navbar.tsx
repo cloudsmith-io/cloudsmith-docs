@@ -15,7 +15,7 @@ import styles from './Navbar.module.css';
 export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
-  const toggle = () => toggleNavigation('global');
+  const toggle = () => toggleNavigation('globalNav');
 
   const navItems: NavItem[] = [
     { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
@@ -65,7 +65,7 @@ export const Navbar = () => {
       </div>
 
       <AnimatePresence initial={false}>
-        {navigationState === 'global' ? (
+        {navigationState === 'globalNav' ? (
           <>
             <motion.div
               key="mobileBackground"

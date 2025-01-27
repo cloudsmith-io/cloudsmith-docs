@@ -2,24 +2,29 @@
 
 import { useNavigation } from '@/app/navigation';
 import { Icon } from '@/icons';
+import { ArrowIcon } from '@/icons/Arrow';
 import { ChevronIcon } from '@/icons/Chevron';
 import { MenuItem } from '@/lib/menu/types';
 import { cx } from 'class-variance-authority';
-import { Transition } from 'motion/react';
+import { Transition, Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
-import { ArrowIcon } from '@/icons/Arrow';
 
 import styles from './Sidenav.module.css';
 
-const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
+const togglerTransition: Transition = { duration: 0.2, ease: 'easeInOut' };
+const openCloseTransition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
+const openCloseVariants: Variants = {
+  expanded: { opacity: 1, height: 'auto' },
+  collapsed: { opacity: 0, height: 0 },
+};
 
 export const Sidenav = ({ items }: SidenavProps) => {
   const { navigationState, toggleNavigation } = useNavigation();
-  const isOpen = navigationState === 'local';
-  const toggle = () => toggleNavigation('local');
+  const isOpen = navigationState === 'sideNav';
+  const toggle = () => toggleNavigation('sideNav');
 
   return (
     <>
@@ -39,25 +44,22 @@ export const Sidenav = ({ items }: SidenavProps) => {
           height: isOpen ? 'auto' : 0,
           opacity: isOpen ? 1 : 0,
         }}
-        transition={{ duration: 0.2, ease: 'easeInOut' }}>
+        transition={togglerTransition}>
         <div className={styles.wrapper}>{items ? <List items={items} isExpanded /> : null}</div>
       </motion.div>
     </>
   );
 };
 
-const List = ({ items, bleed, isExpanded }: ListProps) => {
+const List = ({ items, isExpanded }: ListProps) => {
   return (
     <motion.div
       className={styles.listWrapper}
       initial={isExpanded ? 'expanded' : 'collapsed'}
       animate={isExpanded ? 'expanded' : 'collapsed'}
-      transition={transition}
-      variants={{
-        expanded: { opacity: 1, height: 'auto' },
-        collapsed: { opacity: 0, height: 0 },
-      }}>
-      <ul className={cx(styles.list, { [styles.bleed]: bleed })}>
+      transition={openCloseTransition}
+      variants={openCloseVariants}>
+      <ul className={styles.list}>
         {items.map((item) => (
           <Item item={item} key={item.title} />
         ))}
@@ -96,15 +98,15 @@ const Item = ({ item }: ItemProps) => {
               as="svg"
               title={isActive ? 'Expand icon' : 'Collapse icon'}
               className={styles.linkIcon}
-              transition={transition}
+              transition={openCloseTransition}
             />
           ) : null}
         </Link>
       ) : (
-        <span className={cx(item.path && styles.section)}>{item.title}</span>
+        <span className={styles.section}>{item.title}</span>
       )}
 
-      {item.children ? <List items={item.children} bleed={!!item.path} isExpanded={isExpanded} /> : null}
+      {item.children ? <List items={item.children} isExpanded={isExpanded} /> : null}
     </li>
   );
 };
@@ -129,7 +131,6 @@ interface SidenavProps {
 
 interface ListProps {
   items: MenuItem[];
-  bleed?: boolean;
   isExpanded?: boolean;
 }
 

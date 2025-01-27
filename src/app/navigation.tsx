@@ -11,12 +11,7 @@ export const NavigationProvider = ({ children }: { children: React.ReactNode }) 
     setNavigationState((currentState) => (currentState === nextState ? 'closed' : nextState));
 
   return (
-    <NavigationContext.Provider
-      value={{
-        navigationState,
-        setNavigationState,
-        toggleNavigation,
-      }}>
+    <NavigationContext.Provider value={{ navigationState, setNavigationState, toggleNavigation }}>
       {children}
     </NavigationContext.Provider>
   );
@@ -44,7 +39,7 @@ export const NavigationEvents = () => {
   return null;
 };
 
-type NavigationState = 'closed' | 'global' | 'local';
+type NavigationState = 'closed' | 'globalNav' | 'sideNav';
 
 interface NavigationContextType {
   navigationState: NavigationState;

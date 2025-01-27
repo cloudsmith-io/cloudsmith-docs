@@ -9,8 +9,10 @@
 .wrapper {
   padding-block-start: var(--space-xl);
   padding-inline: var(--space-xs);
+  margin-block-end: var(--space-l);
 }
 
+/* Mobile toggler */
 .toggleButton {
   display: flex;
   inline-size: 100%;
@@ -39,18 +41,7 @@
   margin-inline-start: auto;
 }
 
-@media (--laptop-up) {
-  .root {
-    --svg-path-fill: var(--color-font-primary);
-
-    overflow-y: initial;
-
-    /* Overwrite animation from JS to always display */
-    opacity: 1 !important;
-    height: auto !important;
-  }
-}
-
+/* Lists */
 .listWrapper {
   overflow-y: hidden;
 }
@@ -71,13 +62,13 @@
       row-gap: 0;
     }
   }
-
-  &.bleed {
-    padding-inline-start: 0;
-    margin-block-start: var(--space-3xs);
-  }
 }
 
+.section + .listWrapper > .list {
+  padding-inline-start: 0;
+}
+
+/* Links */
 .linkButton {
   flex-shrink: 0;
   cursor: pointer;
@@ -94,16 +85,17 @@
   border-radius: var(--border-radius-m);
   font-size: var(--text-fixed-s);
   line-height: var(--line-height-s);
-  transition: background-color var(--transition-default);
+
+  &:is(:hover, :active) {
+    background-color: var(--base-color-blue-100);
+  }
 
   .item .item & {
     font-size: var(--text-fixed-xs);
   }
-}
 
-@media (--laptop-up) {
-  .link {
-    color: var(--color-font-primary);
+  .item .item .item & {
+    padding-block: var(--space-4xs);
   }
 }
 
@@ -111,21 +103,44 @@
   background-color: var(--base-color-grey-900);
 }
 
-@media (--laptop-up) {
-  .linkActive {
-    background-color: var(--base-color-blue-100);
-  }
-}
-
 .linkIcon {
   flex-shrink: 0;
 }
 
+/* TODO: Maybe remove sections? */
 .section {
   display: flex;
   font-family: var(--font-family-mono);
   font-size: var(--text-body-xs);
-  color: var(--color-text-label);
+  color: var(--base-color-grey-400);
   text-transform: uppercase;
   padding-inline: var(--space-xs);
+}
+
+@media (--laptop-up) {
+  .root {
+    --svg-path-fill: var(--color-font-primary);
+
+    overflow-y: initial;
+
+    /* Overwrite animation from JS to always display */
+    opacity: 1 !important;
+    height: auto !important;
+  }
+
+  .toggleButton {
+    display: none;
+  }
+
+  .link {
+    color: var(--color-font-primary);
+  }
+
+  .linkActive {
+    background-color: var(--base-color-blue-100);
+  }
+
+  .section {
+    color: var(--color-font-primary);
+  }
 }
