@@ -1,0 +1,72 @@
+.responseType {
+  padding-inline: var(--column-inline-padding);
+  padding-block: var(--column-block-padding) calc(var(--column-block-padding) * 2);
+}
+
+.responseTitle {
+  color: var(--base-color-grey-600);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-body-xs);
+  text-transform: uppercase;
+}
+
+.responseTypeContent {
+  border-left: 1px solid var(--color-border);
+  padding-inline-start: var(--column-inline-padding);
+  margin-block-start: var(--column-block-padding);
+}
+
+.responseTypeTitle {
+  color: var(--base-color-grey-600);
+  font-size: var(--text-body-xs);
+}
+
+.responseGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-block-start: var(--column-block-padding);
+}
+
+.responseGridRow {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+.responseGridColumn {
+  --column-block-padding: var(--space-xs);
+
+  border-top: 1px solid var(--color-border);
+  line-height: var(--line-height-s);
+  padding-inline-end: var(--column-inline-padding);
+  padding-block: var(--column-block-padding);
+
+  &:last-child {
+    padding-inline-end: 0;
+  }
+}
+
+.responseGridRow:last-child .responseGridColumn {
+  padding-block-end: 0;
+}
+
+.responseGridColumnType {
+  color: var(--base-color-blue-500);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-body-xs);
+  letter-spacing: var(--letter-http-type);
+}
+
+.responseGridColumnRules {
+  font-size: var(--text-body-xs);
+  font-family: var(--font-family-mono);
+  color: var(--color-text-label);
+  letter-spacing: var(--letter-http-rule);
+}
+
+.responseGridColumnDescription {
+  padding-block-start: 0;
+  grid-column: 1 / -1;
+  border-top: 0;
+  color: var(--base-color-grey-500);
+}

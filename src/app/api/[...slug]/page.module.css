@@ -1,0 +1,12 @@
+.gridRoot {
+  --column-inline-padding: var(--space-m);
+  --column-block-padding: var(--space-s);
+  --color-border: rgba(9, 47, 69, 10%); /* TODO: Correct color? */
+
+  display: grid;
+  grid-template-columns: minmax(100px, min-content) minmax(150px, auto) 1fr;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
