@@ -128,7 +128,16 @@
     --button-width-m: fluid(140px, 168px);
     --button-width-l: fluid(168px, 200px);
 
-    /* Navbar */
-    --navbar-height: 105px;
+    /* Layers */
+    --layer-navigation-mobile-bg: 11;
+    --layer-navigation-mobile: 12;
+    --layer-navigation: 10;
+
+    /* Layout */
+    --layout-navbar-height: 60px; /* TODO: Refactor navbar to use fixed height to make it possible to know the height of the navbar */
+
+    @media (--tablet-up) {
+      --layout-navbar-height: 105px;
+    }
   }
 }

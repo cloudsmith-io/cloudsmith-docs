@@ -4,6 +4,7 @@
 }
 
 .secondaryNav {
+  position: relative;
   background-color: var(--base-color-grey-1000);
 }
 

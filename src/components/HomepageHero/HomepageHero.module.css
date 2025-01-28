@@ -4,7 +4,7 @@
   height: 100%;
 
   --banner-height: 0px;
-  --offset-top: calc(var(--space-s) + var(--navbar-height) + var(--banner-height));
+  --offset-top: calc(var(--space-s) + var(--layout-navbar-height) + var(--banner-height));
   --hero-illustration-overlap: min(20vh, 150px);
 }
 

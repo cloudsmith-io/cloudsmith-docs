@@ -63,15 +63,19 @@
         "title": "General",
         "children": [
           {
-            "title": "Article 1",
+            "title": "Introduction",
             "path": "/does-not-exist"
           },
           {
-            "title": "Article 2",
+            "title": "Endpoints / Versioning",
             "path": "/does-not-exist"
           },
           {
-            "title": "Article 3",
+            "title": "HTTP Verbs",
+            "path": "/does-not-exist"
+          },
+          {
+            "title": "HTTP Responses",
             "path": "/does-not-exist"
           }
         ]
