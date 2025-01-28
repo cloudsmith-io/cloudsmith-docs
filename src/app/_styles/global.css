@@ -1,6 +1,7 @@
 @layer global {
   html {
     scroll-behavior: smooth;
+    height: 100%;
   }
 
   body {
@@ -8,6 +9,8 @@
     font-family: var(--font-family-body);
     letter-spacing: var(--letter-body);
     font-synthesis: style small-caps;
+    scrollbar-gutter: stable;
+    min-height: 100%;
   }
 
   a {
