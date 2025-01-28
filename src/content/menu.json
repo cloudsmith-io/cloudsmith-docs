@@ -22,6 +22,14 @@
           {
             "title": "Packages",
             "path": "/getting-started/repository-packages"
+          },
+          {
+            "title": "API Bindings",
+            "path": "/getting-started/api-bindings"
+          },          
+          {
+            "title": "Command Line Interface",
+            "path": "/getting-started/cli"
           }
         ]
       },
