@@ -2,7 +2,7 @@
 
 import path from 'path';
 import { readFile } from 'fs/promises';
-import { FullOptions, MatchData, Searcher } from 'fast-fuzzy';
+import { FullOptions, Searcher } from 'fast-fuzzy';
 
 import { SearchInput, SearchResult } from './types';
 import { parseSchema, toOperations } from '../swagger/parse';
