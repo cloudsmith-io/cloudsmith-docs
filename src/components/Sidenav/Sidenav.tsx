@@ -1,39 +1,70 @@
 'use client';
 
+import { useNavigation } from '@/app/navigation';
+import { Icon } from '@/icons';
+import { ArrowIcon } from '@/icons/Arrow';
 import { ChevronIcon } from '@/icons/Chevron';
 import { MenuItem } from '@/lib/menu/types';
 import { cx } from 'class-variance-authority';
-import { Transition } from 'motion/dist/react';
-import * as m from 'motion/react-m';
+import { Transition, Variants } from 'motion/react';
+import * as motion from 'motion/react-client';
 import Link from 'next/link';
-import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
 
 import styles from './Sidenav.module.css';
 
-const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
-
-export const Sidenav = ({ items }: SidenavProps) => {
-  return <div className={styles.root}>{items ? <List items={items} isExpanded /> : null}</div>;
+const togglerTransition: Transition = { duration: 0.2, ease: 'easeInOut' };
+const openCloseTransition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
+const openCloseVariants: Variants = {
+  expanded: { opacity: 1, height: 'auto' },
+  collapsed: { opacity: 0, height: 0 },
 };
 
-const List = ({ items, bleed, isExpanded }: ListProps) => {
+export const Sidenav = ({ items }: SidenavProps) => {
+  const { navigationState, toggleNavigation } = useNavigation();
+  const isOpen = navigationState === 'sideNav';
+  const toggle = () => toggleNavigation('sideNav');
+
   return (
-    <m.div
+    <>
+      <button type="button" className={styles.toggleButton} onClick={toggle}>
+        <ArrowIcon name="arrow" arrowDirection="left" as="svg" title="" className={styles.toggleIconBack} />
+        <span className={styles.toggleButtonText}>
+          {/* TODO: Add current active page name */}
+          Missing current active page name
+        </span>
+        <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
+      </button>
+
+      <motion.div
+        className={styles.root}
+        initial={{ height: 0, opacity: 0 }}
+        animate={{
+          height: isOpen ? 'auto' : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={togglerTransition}>
+        <div className={styles.wrapper}>{items ? <List items={items} isExpanded /> : null}</div>
+      </motion.div>
+    </>
+  );
+};
+
+const List = ({ items, isExpanded }: ListProps) => {
+  return (
+    <motion.div
       className={styles.listWrapper}
       initial={isExpanded ? 'expanded' : 'collapsed'}
       animate={isExpanded ? 'expanded' : 'collapsed'}
-      transition={transition}
-      variants={{
-        expanded: { opacity: 1, height: 'auto' },
-        collapsed: { opacity: 0, height: 0 },
-      }}>
-      <ul className={cx(styles.list, { [styles.bleed]: bleed })}>
+      transition={openCloseTransition}
+      variants={openCloseVariants}>
+      <ul className={styles.list}>
         {items.map((item) => (
           <Item item={item} key={item.title} />
         ))}
       </ul>
-    </m.div>
+    </motion.div>
   );
 };
 
@@ -44,7 +75,8 @@ const Item = ({ item }: ItemProps) => {
   const [isExpanded, setIsExpanded] = useState(!item.path ? true : isActive);
 
   function toggleExpand(event: React.MouseEvent<HTMLAnchorElement>) {
-    if (isCurrentPageActive) {
+    // Mobile will always link to the clicked item
+    if (isCurrentPageActive && window.matchMedia('(max-width: 767px)').matches) {
       event.preventDefault();
     }
 
@@ -67,15 +99,15 @@ const Item = ({ item }: ItemProps) => {
               as="svg"
               title={isActive ? 'Expand icon' : 'Collapse icon'}
               className={styles.linkIcon}
-              transition={transition}
+              transition={openCloseTransition}
             />
           ) : null}
         </Link>
       ) : (
-        <span className={cx(item.path && styles.section)}>{item.title}</span>
+        <span className={styles.section}>{item.title}</span>
       )}
 
-      {item.children ? <List items={item.children} bleed={!!item.path} isExpanded={isExpanded} /> : null}
+      {item.children ? <List items={item.children} isExpanded={isExpanded} /> : null}
     </li>
   );
 };
@@ -100,7 +132,6 @@ interface SidenavProps {
 
 interface ListProps {
   items: MenuItem[];
-  bleed?: boolean;
   isExpanded?: boolean;
 }
 

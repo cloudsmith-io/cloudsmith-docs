@@ -1,6 +1,6 @@
 import { cva, cx, VariantProps } from 'class-variance-authority';
-import { Transition } from 'motion/dist/react';
-import * as m from 'motion/react-m';
+import { Transition } from 'motion/react';
+import * as motion from 'motion/react-client';
 
 import styles from './ApiGrid.module.css';
 
@@ -31,7 +31,7 @@ export const ApiGridRowToggler = ({ onToggle, children }: GridRowToggler) => (
 const transition: Transition = { duration: 0.35, ease: [0.55, 0, 0, 1] };
 
 export const ApiGridRowContent = ({ children, isOpen }: GridRowContent) => (
-  <m.div
+  <motion.div
     className={cx(styles.item, styles.itemContent)}
     initial={isOpen ? 'expanded' : 'collapsed'}
     animate={isOpen ? 'expanded' : 'collapsed'}
@@ -41,7 +41,7 @@ export const ApiGridRowContent = ({ children, isOpen }: GridRowContent) => (
       collapsed: { opacity: 0, height: 0 },
     }}>
     <div className={styles.itemContentInner}>{children}</div>
-  </m.div>
+  </motion.div>
 );
 
 /* Column */

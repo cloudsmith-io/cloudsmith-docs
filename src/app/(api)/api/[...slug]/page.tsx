@@ -32,7 +32,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const schema = await parseSchema();
   const operations = toOperations(schema);
   const operation = operations.find((op) => op.slug === qualifiedSlug);
-  console.log('operation', operation);
 
   if (operation) {
     return {
