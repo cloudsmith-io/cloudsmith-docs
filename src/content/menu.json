@@ -30,6 +30,10 @@
           {
             "title": "Command Line Interface",
             "path": "/getting-started/cli"
+          },
+          {
+            "title": "Custom Domains",
+            "path": "/getting-started/custom-domains"
           }
         ]
       },
