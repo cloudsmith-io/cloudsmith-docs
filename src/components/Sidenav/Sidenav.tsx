@@ -75,7 +75,8 @@ const Item = ({ item }: ItemProps) => {
   const [isExpanded, setIsExpanded] = useState(!item.path ? true : isActive);
 
   function toggleExpand(event: React.MouseEvent<HTMLAnchorElement>) {
-    if (isCurrentPageActive) {
+    // Mobile will always link to the clicked item
+    if (isCurrentPageActive && window.matchMedia('(max-width: 767px)').matches) {
       event.preventDefault();
     }
 

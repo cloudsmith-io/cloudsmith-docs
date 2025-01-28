@@ -46,6 +46,15 @@
   overflow-y: hidden;
 }
 
+/* Overwrite animation from JS to always display on mobile */
+@media (--phablet-down) {
+  .listWrapper {
+    overflow-y: initial;
+    opacity: 1 !important;
+    height: auto !important;
+  }
+}
+
 .list {
   display: flex;
   flex-direction: column;
