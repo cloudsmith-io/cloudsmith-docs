@@ -32,6 +32,12 @@ export const load = async (pattern: string[], slugReplace?: RegExp): Promise<Slu
   });
 };
 
+/**
+ * Simple wrapper to turn a markdown slug into a fully qualified path.
+ * Which right now just means adding a '/' at the beginning.
+ */
+export const contentPath = (slug: string): string => `/${slug}`;
+
 interface SlugDefinition {
   file: string;
   slug: string;
