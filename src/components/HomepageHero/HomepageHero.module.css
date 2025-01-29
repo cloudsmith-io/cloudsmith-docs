@@ -21,7 +21,7 @@
 }
 
 .content {
-  z-index: 1;
+  z-index: var(--z-index-hero);
   width: 100%;
   max-width: var(--container-width-s);
   padding: var(--offset-top) var(--space-m) var(--space-2xl);

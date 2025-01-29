@@ -1,0 +1,56 @@
+.root {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  max-width: var(--container-width-xxs);
+  gap: var(--space-2xs);
+  font-size: var(--text-body-s);
+  cursor: pointer;
+  border-radius: var(--border-radius-s);
+  padding: var(--space-2xs) var(--space-xs);
+}
+
+.icon {
+  width: var(--space-s);
+  height: var(--space-s);
+}
+
+.content {
+  display: none;
+  flex-direction: column;
+}
+
+.kbd {
+  margin-left: auto;
+}
+
+@media (--phablet-up) {
+  .root {
+    background-color: var(--base-color-white);
+    color: var(--base-color-grey-500);
+    max-width: var(--container-width-xxs);
+    width: 100%;
+    border: 1px solid var(--base-color-grey-300);
+  }
+
+  .root:hover {
+    background-color: var(--base-color-grey-400);
+  }
+
+  .icon {
+    width: var(--space-xs);
+    height: var(--space-xs);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  /* This should be added inside home navbar. Props should be passed in. 
+  .root {
+    min-width: var(--container-width-xxs);
+    border: 1px solid var(--base-color-grey-500);
+  } */
+}

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import styles from './Navbar.module.css';
+import { SearchDialog } from '../SearchDialog';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -47,15 +48,7 @@ export const Navbar = () => {
               ))}
             </nav>
 
-            <button type="button" aria-label="Search" className={styles.searchButton}>
-              <Icon name="search" className={styles.searchIcon} title="" />
-              <div className={styles.searchButtonText}>
-                <span>Search</span>
-                <kbd className={styles.searchButtonKbd}>
-                  <abbr title="Command">⌘</abbr> K
-                </kbd>
-              </div>
-            </button>
+            <SearchDialog />
 
             <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
               <Icon name="menu" title="" />
