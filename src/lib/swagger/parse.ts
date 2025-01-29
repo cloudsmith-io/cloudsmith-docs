@@ -39,6 +39,8 @@ export const toOperations = (schema: OpenAPIV3.Document): ApiOperation[] => {
           path,
           menuSegments,
           slug,
+          // TODO when summary property is in swagger
+          title: 'Missing headline for endpoint',
         });
       }
     }
