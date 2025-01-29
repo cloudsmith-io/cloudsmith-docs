@@ -4,7 +4,7 @@
   max-width: var(--text-max-width);
 }
 
-.root:first-of-type {
+article > .root:first-of-type {
   font-size: var(--text-body-l);
   line-height: var(--line-height-l);
   margin-block-end: var(--space-m);

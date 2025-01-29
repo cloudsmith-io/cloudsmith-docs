@@ -23,11 +23,41 @@
     --base-color-grey-700: #39586a;
     --base-color-grey-900: #092f45;
     --base-color-grey-1000: #031c2b;
+    --base-color-purple-100: #f1eaff;
+    --base-color-purple-200: #e4d8ff;
+    --base-color-purple-300: #d6c3ff;
+    --base-color-purple-500: #915eff;
+    --base-color-purple-600: #7b4bdf;
+    --base-color-purple-700: #644dbf;
+    --base-color-red-50: #fff0f3;
+    --base-color-red-100: #fddfe7;
+    --base-color-red-200: #d6919f;
+    --base-color-red-500: #ff0c46;
+    --base-color-red-600: #dc2e4d;
+    --base-color-red-700: #b83b54;
+    --base-color-teal-50: #e4f8f0;
+    --base-color-teal-100: #c9f0e2;
+    --base-color-teal-200: #85dabb;
+    --base-color-teal-300: #76ccad;
+    --base-color-teal-400: #5daa8d;
+    --base-color-teal-600: #2a614d;
+    --base-color-yellow-50: #fff9e7;
+    --base-color-yellow-100: #ffecb3;
+    --base-color-yellow-200: #ffe082;
+    --base-color-yellow-300: #ffd54f;
+    --base-color-yellow-500: #eec26f;
+    --base-color-yellow-600: #ffa000;
+    --base-color-yellow-700: #ff8f00;
+    --base-color-yellow-800: #c87107;
 
     /* Backgrounds */
     --color-background-default: var(--base-color-white);
     --color-background-light: var(--base-color-grey-25);
-    --color-background-note: #deeafd; /* TODO: Align color with design system */
+    --color-background-info: var(--base-color-blue-100);
+    --color-background-alert: var(--base-color-red-100);
+    --color-background-premium: var(--base-color-purple-100);
+    --color-background-success: var(--base-color-teal-100);
+    --color-background-warning: var(--base-color-yellow-100);
     --color-background-code: var(--base-color-blue-75);
     --color-background-pre: var(--base-color-blue-1000);
     --color-background-header: var(--base-color-grey-25);
@@ -37,6 +67,11 @@
     --color-text-secondary: var(--base-color-grey-600);
     --color-text-on-color: var(--base-color-white);
     --color-text-label: var(--base-color-grey-500);
+    --color-text-alert: var(--base-color-red-700);
+    --color-text-info: var(--base-color-grey-900);
+    --color-text-success: var(--base-color-teal-600);
+    --color-text-warning: var(--base-color-yellow-800);
+    --color-text-premium: var(--base-color-purple-600);
 
     /* Border */
     --color-border: var(--base-color-grey-300);
