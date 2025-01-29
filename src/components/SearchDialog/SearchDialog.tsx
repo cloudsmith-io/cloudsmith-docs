@@ -12,8 +12,14 @@ import { debounce } from '@/lib/util';
 import { SearchResult } from '@/lib/search/types';
 
 const debouncedSearch = debounce(
-  async (term: string, sections: string[], setResults: Dispatch<SetStateAction<SearchResult[]>>) => {
+  async (
+    term: string,
+    sections: string[],
+    setIsWaiting: Dispatch<SetStateAction<boolean>>,
+    setResults: Dispatch<SetStateAction<SearchResult[]>>,
+  ) => {
     const results = await performSearch(term, sections);
+    setIsWaiting(false);
     setResults(results);
   },
   300,
@@ -21,6 +27,8 @@ const debouncedSearch = debounce(
 
 export const SearchDialog = () => {
   const [term, setTerm] = useState('');
+  // isWaiting is true when the debounce is active or the search function is actually loading.
+  const [isWaiting, setIsWaiting] = useState(false);
   const [sections, setSections] = useState(['documentation', 'guides', 'api']);
   const [results, setResults] = useState<SearchResult[]>([]);
 
@@ -28,7 +36,8 @@ export const SearchDialog = () => {
     if (term === '') {
       setResults([]);
     } else {
-      debouncedSearch(term, sections, setResults);
+      setIsWaiting(true);
+      debouncedSearch(term, sections, setIsWaiting, setResults);
     }
   }, [term, sections, setResults]);
 
@@ -54,7 +63,7 @@ export const SearchDialog = () => {
               {results.map((res) => (
                 <div key={res.path}>{res.title}</div>
               ))}
-              {term !== '' && results.length === 0 && <p>No results</p>}
+              {!isWaiting && results.length === 0 && term !== '' && <p>No results</p>}
             </div>
           </RadixDialog.Content>
         </RadixDialog.Overlay>
