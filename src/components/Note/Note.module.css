@@ -1,21 +1,47 @@
-/* TODO: Adjust sizes in design system */
 .root {
+  background: var(--note-background);
+  color: var(--note-text);
   border-radius: var(--border-radius-s);
-  background: var(--color-background-note);
   padding-block: var(--space-s);
   padding-inline: var(--space-l);
   margin-block: var(--space-s);
   font-size: var(--text-body-s);
 }
-
 .root p:last-child {
   margin-block-end: 0;
 }
 
 .headline {
-  font-size: var(--text-headline-xs);
+  font-size: var(--text-headline-2xs);
   font-weight: bold;
   line-height: var(--text-body-l);
-  margin-block-end: var(--space-xs);
+  margin-block: var(--space-3xs) var(--space-2xs);
   letter-spacing: 0.08px;
+}
+
+/* Variants */
+
+.variantNote {
+  --note-background: var(--color-background-info);
+  --note-text: var(--color-text-info);
+}
+
+.variantTip {
+  --note-background: var(--color-background-success);
+  --note-text: var(--color-text-success);
+}
+
+.variantImportant {
+  --note-background: var(--color-background-premium);
+  --note-text: var(--color-text-premium);
+}
+
+.variantWarning {
+  --note-background: var(--color-background-warning);
+  --note-text: var(--color-text-warning);
+}
+
+.variantCaution {
+  --note-background: var(--color-background-alert);
+  --note-text: var(--color-text-alert);
 }

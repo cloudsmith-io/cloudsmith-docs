@@ -56,6 +56,8 @@ This is [a link](/api/something) for you to click.
 
 ### Note
 
+You can render a simple note using the `>` character in front of your note. This will render a `Note` custom component (see below) with in a `note` variant and without a background.
+
 ```mdx
 > This is a note
 ```
@@ -97,6 +99,26 @@ For vertical images, the `BlockImage` component can be floated left or right:
 <BlockImage src={testImage} alt="Image alt text" align="right">
   This is a caption that I'd like to show for the image
 </BlockImage>;
+```
+
+### Note
+
+You can render notes in different styles depending on the needs. The variants map to the GitHub-style admonitions which are `note`, `tip`, `important`, `warning` and `caution`. These variants can be rendered with or without a heading.
+
+A note without any props render a simple `note` block:
+
+```js
+import { Note } from '@/components';
+
+<Note>This is something I want to say</Note>;
+```
+
+You can change the variant and heading by using the `variant` and `heading` component props:
+
+```js
+<Note variant="caution" heading="Be careful!">
+  This is something I want to say
+</Note>
 ```
 
 ### Cards
