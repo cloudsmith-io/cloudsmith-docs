@@ -54,6 +54,7 @@ export const SearchDialog = () => {
               {results.map((res) => (
                 <div key={res.path}>{res.title}</div>
               ))}
+              {term !== '' && results.length === 0 && <p>No results</p>}
             </div>
           </RadixDialog.Content>
         </RadixDialog.Overlay>
