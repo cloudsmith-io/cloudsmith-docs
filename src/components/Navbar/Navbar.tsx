@@ -9,6 +9,7 @@ import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { getNavBarItems } from '@/lib/menu/util';
 
 import styles from './Navbar.module.css';
 
@@ -16,12 +17,6 @@ export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
   const toggle = () => toggleNavigation('globalNav');
-
-  const navItems: NavItem[] = [
-    { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
-    { label: 'Guides', href: '/guides', icon: 'action/guide' },
-    { label: 'API Reference', href: '/api', icon: 'action/api' },
-  ];
 
   return (
     <>
@@ -39,10 +34,10 @@ export const Navbar = () => {
 
           <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
             <nav className={styles.nav}>
-              {navItems.map(({ label, href, icon }) => (
-                <Link key={label} href={href} className={styles.navLink}>
-                  <Icon name={icon} aria-hidden="true" focusable="false" title="" />
-                  {label}
+              {getNavBarItems().map(([key, item]) => (
+                <Link key={key} href={item.path!} className={styles.navLink}>
+                  <Icon name={item.icon as IconName} aria-hidden="true" focusable="false" title="" />
+                  {item.title}
                 </Link>
               ))}
             </nav>
@@ -97,5 +92,3 @@ export const Navbar = () => {
     </>
   );
 };
-
-type NavItem = { label: string; href: string; icon: IconName };

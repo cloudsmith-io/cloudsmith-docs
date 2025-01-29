@@ -14,3 +14,11 @@ export const getMenuItem = (key: string): MenuItem => {
 
   return menu[key];
 };
+
+/**
+ * Return the top-level menu items that should be displayed in the navbar
+ * and have a path and icon defined
+ */
+export const getNavBarItems = () => {
+  return Object.entries(menu).filter(([_, item]) => item.icon && item.path);
+};
