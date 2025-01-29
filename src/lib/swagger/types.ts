@@ -12,6 +12,7 @@ export interface ApiOperation {
   method: OpenAPIV3.HttpMethods;
   menuSegments: string[];
   slug: string;
+  title: string;
 
   // From OpenAPIV3.OperationObject
   tags?: string[];

@@ -34,6 +34,8 @@ describe('lib', () => {
           expect(operation?.path).toEqual('/orgs/{org}/policies/');
           expect(operation?.method).toEqual('get');
           expect(operation?.slug).toEqual('policies/list');
+          // TODO when summary property is in swagger
+          expect(operation?.title).toEqual('Missing headline for endpoint');
         });
       });
 
@@ -44,7 +46,7 @@ describe('lib', () => {
           const operations = toOperations(schema);
           const result = toMenuItems(operations);
 
-          const parentItem = result[0];
+          const parentItem = result[1];
           const childItem = parentItem.children?.[0];
 
           expect(parentItem.title).toBe('Policies');
