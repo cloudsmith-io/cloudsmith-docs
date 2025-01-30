@@ -26,7 +26,11 @@ export const getNavBarItems = () => {
   Object.entries(menu).forEach(([key, item]) => {
     if (!item.path) return;
 
-    item.icon ? primary.push([key, item]) : secondary.push([key, item]);
+    if (item.icon) {
+      primary.push([key, item]);
+    } else {
+      secondary.push([key, item]);
+    }
   });
 
   return { primary, secondary };
