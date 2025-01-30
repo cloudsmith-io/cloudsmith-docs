@@ -14,13 +14,12 @@ import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
 export const Navbar = () => {
-  const { navigationState, toggleNavigation } = useNavigation();
-  const toggle = () => toggleNavigation('globalNav');
-  const { primary, secondary } = getNavBarItems();
-
   const pathname = usePathname();
+  const { navigationState, toggleNavigation } = useNavigation();
+  const { primary, secondary } = getNavBarItems();
   const pathSegments = pathname.split('/').filter(Boolean);
   const primaryActive = primary.find(([key]) => key === pathSegments[0]);
+  const toggle = () => toggleNavigation('globalNav');
 
   return (
     <>
@@ -92,16 +91,26 @@ export const Navbar = () => {
                 <Icon name="close" title="" className={styles.closeIcon} />
               </button>
 
-              <ul className={styles.mobileNav}>
-                {[...primary, ...secondary]?.map(([key, item]) => (
-                  <li key={key}>
-                    <Link href={item.path!} className={styles.mobileNavLink}>
-                      {item.icon && <Icon name={item.icon} aria-hidden="true" focusable="false" title="" />}
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {[primary, secondary].map((items, index) => (
+                <ul key={index} className={styles.mobileNav}>
+                  {items?.map(([key, item]) => (
+                    <li key={key}>
+                      <Link href={item.path!} className={styles.mobileNavLink}>
+                        {item.icon && (
+                          <Icon
+                            name={item.icon}
+                            className={styles.mobileNavIcon}
+                            aria-hidden="true"
+                            focusable="false"
+                            title=""
+                          />
+                        )}
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ))}
             </motion.nav>
           </>
         ) : null}

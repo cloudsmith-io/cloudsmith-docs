@@ -165,10 +165,10 @@
 .mobileNav {
   display: flex;
   flex-direction: column;
-  gap: var(--space-m);
   color: var(--base-color-white);
   list-style: none;
   margin-inline: var(--space-l);
+  margin-block-end: var(--space-l);
   padding: 0;
 }
 
@@ -176,9 +176,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-3xs);
-  padding: var(--space-s) 0;
+  padding-block: var(--space-xs);
   text-decoration: none;
   color: var(--base-color-white);
+}
+
+.mobileNavIcon {
+  flex-shrink: 0;
 }
 
 @media (--phablet-up) {
