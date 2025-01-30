@@ -28,7 +28,7 @@ export async function CodeBlock({ code, lang }: Props) {
     theme,
     transformers: [
       // Add more transformers when needed from https://shiki.style/packages/transformers
-      transformerNotationHighlight(),
+      transformerNotationHighlight({ matchAlgorithm: 'v3' }),
     ],
   });
 
