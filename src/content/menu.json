@@ -91,5 +91,29 @@
         ]
       }
     ]
+  },
+  "home": {
+    "title": "Home",
+    "path": "/"
+  },
+  "blog": {
+    "title": "Blog",
+    "path": "#"
+  },
+  "support": {
+    "title": "Support",
+    "path": "#"
+  },
+  "signUp": {
+    "title": "Sign Up",
+    "path": "#"
+  },
+  "changelog": {
+    "title": "Changelog",
+    "path": "#"
+  },
+  "goToApp": {
+    "title": "Go to App",
+    "path": "#"
   }
 }

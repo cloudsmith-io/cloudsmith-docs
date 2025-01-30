@@ -16,9 +16,20 @@ export const getMenuItem = (key: string): MenuItem => {
 };
 
 /**
- * Return the top-level menu items that should be displayed in the navbar
- * and have a path and icon defined
+ * Filter the menu items into two arrays, one with items that have an icon and one without
+ * for easier rendering in the navbar
  */
 export const getNavBarItems = () => {
-  return Object.entries(menu).filter(([_, item]) => item.icon && item.path);
+  const primary: NavBarItems = [];
+  const secondary: NavBarItems = [];
+
+  Object.entries(menu).forEach(([key, item]) => {
+    if (!item.path) return;
+
+    item.icon ? primary.push([key, item]) : secondary.push([key, item]);
+  });
+
+  return { primary, secondary };
 };
+
+type NavBarItems = Array<[string, MenuItem]>;
