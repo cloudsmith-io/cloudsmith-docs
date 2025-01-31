@@ -94,7 +94,12 @@ const Item = ({ item }: ItemProps) => {
           <span className={styles.linkTitle}>{item.title}</span>
 
           {item.method ? (
-            <Tag method={item.method!} size="small" className={styles.linkTag} active={isCurrentPageActive}>
+            <Tag
+              method={item.method}
+              size="small"
+              className={styles.linkTag}
+              active={isCurrentPageActive}
+              mobileDarkMode>
               {item.method}
             </Tag>
           ) : null}

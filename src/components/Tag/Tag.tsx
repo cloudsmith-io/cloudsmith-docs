@@ -23,6 +23,9 @@ const tagVariants = cva(styles.root, {
     active: {
       true: styles.active,
     },
+    mobileDarkMode: {
+      true: styles.mobileDarkMode,
+    },
   },
   defaultVariants: {
     size: 'medium',
@@ -50,8 +53,8 @@ const statusCodes: { [key in Tag.HttpResponseStatusCodes]: Tag.VariantsProps['va
   400: 'red',
 };
 
-export const Tag = ({ size, type, active, className, ...props }: Tag.Props) => {
-  const sharedVariants = { size, type, active };
+export const Tag = ({ size, type, active, mobileDarkMode, className, ...props }: Tag.Props) => {
+  const sharedVariants = { size, type, active, mobileDarkMode };
 
   if ('method' in props) {
     const { method, children, ...rest } = props;
@@ -104,5 +107,9 @@ export namespace Tag {
     children: React.ReactNode;
   }
 
-  export type Props = withMethod | withStatusCode | withVariant;
+  interface defaultProps {
+    mobileDarkMode?: boolean;
+  }
+
+  export type Props = (withMethod | withStatusCode | withVariant) & defaultProps;
 }
