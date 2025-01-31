@@ -11,6 +11,7 @@ import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
+import { Tag } from '../Tag';
 
 import styles from './Sidenav.module.css';
 
@@ -90,8 +91,13 @@ const Item = ({ item }: ItemProps) => {
           className={cx(styles.link, { [styles.linkActive]: isCurrentPageActive })}
           href={item.path}
           onClick={toggleExpand}>
-          {item.method && `${item.method} `}
-          {item.title}
+          <span className={styles.linkTitle}>{item.title}</span>
+
+          {item.method ? (
+            <Tag method={item.method!} size="small" className={styles.linkTag} active={isCurrentPageActive}>
+              {item.method}
+            </Tag>
+          ) : null}
 
           {item.children ? (
             <ChevronIcon

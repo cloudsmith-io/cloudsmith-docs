@@ -85,11 +85,10 @@
 
 .link {
   display: flex;
-  justify-content: space-between;
-  flex-grow: 1;
+  justify-content: flex-start;
   text-decoration: none;
   color: var(--base-color-grey-100);
-  padding-inline: var(--space-xs);
+  padding-inline: var(--space-2xs);
   padding-block: var(--space-5xs);
   border-radius: var(--border-radius-m);
   font-size: var(--text-fixed-s);
@@ -112,8 +111,18 @@
   background-color: var(--base-color-grey-900);
 }
 
+.linkTitle {
+  padding-inline-end: var(--space-xs);
+}
+
+.linkTag {
+  align-self: center;
+  margin-inline-start: auto;
+}
+
 .linkIcon {
   flex-shrink: 0;
+  margin-inline-start: auto;
 }
 
 /* TODO: Maybe remove sections? */
