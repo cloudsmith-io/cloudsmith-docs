@@ -1,6 +1,7 @@
 import { createIcon } from '../../util/create-icon';
 
-export const ActionLinkIcon = createIcon('action/link', () => ({
+export const ActionLinkIcon = createIcon('action/link', (props) => ({
+  ...props,
   fill: 'none',
   children: (
     <>

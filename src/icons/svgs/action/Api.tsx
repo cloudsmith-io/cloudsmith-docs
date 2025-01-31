@@ -1,6 +1,7 @@
 import { createIcon } from '../../util/create-icon';
 
-export const ActionApiIcon = createIcon('action/api', () => ({
+export const ActionApiIcon = createIcon('action/api', (props) => ({
+  ...props,
   fill: 'none',
   children: (
     <>

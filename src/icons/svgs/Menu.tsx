@@ -1,6 +1,7 @@
 import { createIcon } from '../util/create-icon';
 
-export const MenuIcon = createIcon('menu', () => ({
+export const MenuIcon = createIcon('menu', (props) => ({
+  ...props,
   fill: 'none',
   children: (
     <>

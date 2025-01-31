@@ -14,3 +14,26 @@ export const getMenuItem = (key: string): MenuItem => {
 
   return menu[key];
 };
+
+/**
+ * Filter the menu items into two arrays, one with items that have an icon and one without
+ * for easier rendering in the navbar
+ */
+export const getNavBarItems = () => {
+  const primary: NavBarItems = [];
+  const secondary: NavBarItems = [];
+
+  Object.entries(menu).forEach(([key, item]) => {
+    if (!item.path) return;
+
+    if (item.icon) {
+      primary.push([key, item]);
+    } else {
+      secondary.push([key, item]);
+    }
+  });
+
+  return { primary, secondary };
+};
+
+type NavBarItems = Array<[string, MenuItem]>;
