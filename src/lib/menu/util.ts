@@ -37,22 +37,24 @@ export const getNavBarItems = () => {
 };
 
 /**
- * Check if a pathname matches any item in the primary navigation
- * Returns the matched primary item or undefined if no match
+ * Check if a pathname matches any item in the navigation
+ * Returns the matched item or undefined if no match
  */
-export const getActivePrimaryItem = (pathname: string): [string, MenuItem] | undefined => {
-  const { primary } = getNavBarItems();
-  return primary.find(([_, item]) => isItemActive(item, pathname));
+export const getActiveItem = (pathname: string, items: NavBarItems) => {
+  return items.find(([_, item]) => isItemActive(item, pathname));
 };
 
 const isItemActive = (item: MenuItem, pathname: string): boolean => {
   if (item.path === pathname) return true;
 
   if (item.children) {
-    return item.children.some((child) => isItemActive(child, pathname));
+    const hasActiveChild = item.children.some((child) => isItemActive(child, pathname));
+    if (hasActiveChild) return true;
   }
 
-  return false;
+  // If no exact match and no active children, check if pathname starts with item.path
+  // since we might match the api endpoints
+  return item.path ? pathname.startsWith(item.path) : false;
 };
 
 type NavBarItems = Array<[string, MenuItem]>;

@@ -4,7 +4,7 @@ import { useNavigation } from '@/app/navigation';
 import { Container, Flex } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
 import { Icon } from '@/icons';
-import { getActivePrimaryItem, getNavBarItems } from '@/lib/menu/util';
+import { getActiveItem, getNavBarItems } from '@/lib/menu/util';
 import { cx } from 'class-variance-authority';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
@@ -17,7 +17,7 @@ export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
   const { primary, secondary } = getNavBarItems();
-  const primaryActive = getActivePrimaryItem(pathname);
+  const primaryActive = getActiveItem(pathname, primary);
   const toggle = () => toggleNavigation('globalNav');
 
   return (
