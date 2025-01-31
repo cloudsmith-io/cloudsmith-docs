@@ -36,4 +36,23 @@ export const getNavBarItems = () => {
   return { primary, secondary };
 };
 
+/**
+ * Check if a pathname matches any item in the primary navigation
+ * Returns the matched primary item or undefined if no match
+ */
+export const getActivePrimaryItem = (pathname: string): [string, MenuItem] | undefined => {
+  const { primary } = getNavBarItems();
+  return primary.find(([_, item]) => isItemActive(item, pathname));
+};
+
+const isItemActive = (item: MenuItem, pathname: string): boolean => {
+  if (item.path === pathname) return true;
+
+  if (item.children) {
+    return item.children.some((child) => isItemActive(child, pathname));
+  }
+
+  return false;
+};
+
 type NavBarItems = Array<[string, MenuItem]>;
