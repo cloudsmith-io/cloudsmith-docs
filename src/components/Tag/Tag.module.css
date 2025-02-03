@@ -1,15 +1,14 @@
 .root {
-  /* TODO: Decide if these are reusable variables for variables.css file */
-  --color-neutral-base: #eaf1fc;
-  --color-neutral-text: #2a6fe1;
-  --color-green-base: #dbfff2;
-  --color-green-text: #76ccad;
-  --color-yellow-base: #fef7e3;
-  --color-yellow-text: #de9070;
-  --color-red-base: #ffebef;
-  --color-red-text: #b73b55;
-  --color-grey-base: #f1f3f6;
-  --color-grey-text: #8497a2;
+  --color-neutral-base: var(--base-color-blue-100);
+  --color-neutral-text: var(--base-color-blue-500);
+  --color-green-base: var(--base-color-teal-100);
+  --color-green-text: var(--base-color-teal-300);
+  --color-yellow-base: var(--base-color-yellow-100);
+  --color-yellow-text: var(--base-color-yellow-700);
+  --color-red-base: var(--base-color-red-100);
+  --color-red-text: var(--base-color-red-700);
+  --color-grey-base: var(--base-color-grey-100);
+  --color-grey-text: var(--base-color-grey-500);
 
   display: inline-flex;
   flex-shrink: 0;
@@ -23,6 +22,21 @@
   line-height: var(--line-height-compact);
   padding-inline: var(--method-padding-inline);
   padding-block: var(--method-padding-block);
+}
+
+@media (--tablet-down) {
+  .root.mobileDarkMode {
+    --color-neutral-base: var(--base-color-blue-600);
+    --color-neutral-text: var(--base-color-blue-200);
+    --color-green-base: var(--base-color-teal-600);
+    --color-green-text: var(--base-color-teal-300);
+    --color-yellow-base: var(--base-color-yellow-800);
+    --color-yellow-text: var(--base-color-yellow-100);
+    --color-red-base: var(--base-color-red-700);
+    --color-red-text: var(--base-color-red-100);
+    --color-grey-base: var(--base-color-grey-500);
+    --color-grey-text: var(--base-color-grey-300);
+  }
 }
 
 /* Size */
