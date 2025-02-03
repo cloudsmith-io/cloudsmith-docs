@@ -1,6 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 
-export const useHeadingsObserver = (querySelector: string, rootMargin: string, threshold: number) => {
+export const useHeadingsObserver = (
+  scopeId: string,
+  querySelector: string,
+  rootMargin: string,
+  threshold: number,
+) => {
   const [activeHeadline, setActiveHeadline] = useState('');
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -19,7 +24,9 @@ export const useHeadingsObserver = (querySelector: string, rootMargin: string, t
         threshold: threshold,
       });
 
-      const elements = document.querySelectorAll(querySelector);
+      const observerArea = document.getElementById(scopeId);
+      if (!observerArea) return;
+      const elements = observerArea.querySelectorAll(querySelector);
 
       elements.forEach((elem) => {
         if (observerRef.current !== null) {
