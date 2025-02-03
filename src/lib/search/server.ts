@@ -8,6 +8,7 @@ import { SearchInput, SearchResult } from './types';
 import { parseSchema, toOperations } from '../swagger/parse';
 import { apiOperationPath } from '../swagger/util';
 import { contentPath, loadApiContentInfo, loadContentInfo } from '../markdown/util';
+import { extractMdxMetadata } from '../metadata/util';
 
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
 
@@ -25,42 +26,47 @@ export const performSearch = async (
     const docContents = await Promise.all(
       docFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
     );
-    docFiles.forEach((info, i) =>
+    for (let i = 0; i < docFiles.length; i++) {
+      const info = docFiles[i];
+      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
       items.push({
-        title: 'Find title',
+        title,
         content: docContents[i],
         path: contentPath(info.slug),
         section: 'documentation',
-      }),
-    );
+      });
+    }
 
     // TODO: Guides
 
     // API swagger
     const schema = await parseSchema();
     const operations = toOperations(schema);
-    operations.forEach((op) =>
+    for (let i = 0; i < operations.length; i++) {
+      const op = operations[i];
       items.push({
         title: op.title,
         content: op.description || 'Default content',
         path: apiOperationPath(op.slug),
         section: 'api',
-      }),
-    );
+      });
+    }
 
     // API MDX
     const apiFiles = await loadApiContentInfo();
     const apiContents = await Promise.all(
       apiFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
     );
-    apiFiles.forEach((info, i) =>
+    for (let i = 0; i < apiFiles.length; i++) {
+      const info = apiFiles[i];
+      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
       items.push({
-        title: 'Find title',
+        title,
         content: apiContents[i],
         path: contentPath(info.slug),
         section: 'api',
-      }),
-    );
+      });
+    }
 
     fuzzySearcher = new Searcher(items, { keySelector: (item) => item.content });
   }
