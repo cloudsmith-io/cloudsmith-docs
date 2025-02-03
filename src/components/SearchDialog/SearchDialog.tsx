@@ -11,6 +11,11 @@ import { performSearch } from '@/lib/search/server';
 import { debounce } from '@/lib/util';
 import { SearchResult } from '@/lib/search/types';
 
+/**
+ * If the requirements for this become even more sophisticated,
+ * or we need to implement client-side fetched anywhere else,
+ * we should replace this with useSWR. For now, it's simple and works.
+ */
 const debouncedSearch = debounce(
   async (
     term: string,
