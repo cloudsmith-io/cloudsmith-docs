@@ -34,7 +34,7 @@ export const SearchDialog = () => {
   const [term, setTerm] = useState('');
   // isWaiting is true when the debounce is active or the search function is actually loading.
   const [isWaiting, setIsWaiting] = useState(false);
-  const [sections, setSections] = useState(['documentation', 'guides', 'api']);
+  const [sections] = useState(['documentation', 'guides', 'api']);
   const [results, setResults] = useState<SearchResult[]>([]);
 
   useEffect(() => {
