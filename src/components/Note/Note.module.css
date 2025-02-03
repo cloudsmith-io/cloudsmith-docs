@@ -5,7 +5,6 @@
   padding-block: var(--space-s);
   padding-inline: var(--space-l);
   margin-block: var(--space-s);
-  font-size: var(--text-body-s);
 }
 
 .root p:last-child {
@@ -16,6 +15,7 @@
   font-size: var(--text-headline-xs);
   font-weight: bold;
   line-height: var(--text-body-l);
+  margin-block-start: var(--space-xs);
   margin-block-end: var(--space-xs);
   letter-spacing: 0.08px;
 }

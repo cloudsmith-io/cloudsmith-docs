@@ -5,6 +5,7 @@ import type { Route } from 'next';
 
 import { Note, Video } from '@/components';
 import { Code, CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
+import { Table } from './markdown/Table/Table';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -41,6 +42,7 @@ const components = {
 
   ul: (props: ComponentPropsWithoutRef<'ul'>) => <List {...props} />,
   ol: (props: ComponentPropsWithoutRef<'ol'>) => <List ordered {...props} />,
+  table: (props: ComponentPropsWithoutRef<'table'>) => <Table {...props} />,
 
   a: ({ href, ...rest }: ComponentPropsWithoutRef<'a'>) => <Link href={href as Route} {...rest} />,
   Video: (props: ComponentPropsWithoutRef<'video'>) => <Video {...props} />,

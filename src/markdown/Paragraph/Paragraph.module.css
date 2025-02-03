@@ -8,4 +8,8 @@
   font-size: var(--text-body-l);
   line-height: var(--line-height-l);
   margin-block-end: var(--space-m);
+
+  & code {
+    font-size: 0.9em;
+  }
 }
