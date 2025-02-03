@@ -31,8 +31,8 @@ export const Navbar = () => {
 
           {primaryActive ? (
             <span className={styles.currentSection}>
-              <Icon name={primaryActive?.[1]?.icon!} title="" />
-              <span>{primaryActive?.[1]?.title}</span>
+              {primaryActive[1]?.icon && <Icon name={primaryActive[1].icon} title="" />}
+              <span>{primaryActive[1]?.title}</span>
             </span>
           ) : null}
 

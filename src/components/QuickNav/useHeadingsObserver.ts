@@ -38,7 +38,7 @@ export const useHeadingsObserver = (
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [querySelector, rootMargin, threshold]);
+  }, [querySelector, rootMargin, threshold, scopeId]);
 
   return activeHeadline;
 };

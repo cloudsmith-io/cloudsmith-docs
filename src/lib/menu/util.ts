@@ -41,7 +41,7 @@ export const getNavBarItems = () => {
  * Returns the matched item or undefined if no match
  */
 export const getActiveItem = (pathname: string, items: NavBarItems) => {
-  return items.find(([_, item]) => isItemActive(item, pathname));
+  return items.find(([, item]) => isItemActive(item, pathname));
 };
 
 const isItemActive = (item: MenuItem, pathname: string): boolean => {
