@@ -12,7 +12,8 @@ export function ClipboardCopy({ textToCopy }: { textToCopy: string }) {
     try {
       await navigator.clipboard.writeText(textToCopy);
       setCopyState('copied');
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {
       setCopyState('error');
     }
 
