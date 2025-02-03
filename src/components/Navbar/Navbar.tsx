@@ -30,7 +30,7 @@ export const Navbar = () => {
           </Link>
 
           <span className={styles.currentSection}>
-            <Icon name="action/link" title="" />
+            <Icon name={primaryActive?.[1]?.icon!} title="" />
             <span>{primaryActive?.[1]?.title}</span>
           </span>
 

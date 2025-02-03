@@ -13,14 +13,13 @@
   inset: 50% calc(var(--anchor-size) * -1);
   width: var(--anchor-size);
   height: var(--anchor-size);
-  opacity: 1;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
 
 .root:hover :global(.anchor) {
-  opacity: 1;
+  display: flex;
 }
 
 .h1 {
