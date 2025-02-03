@@ -71,7 +71,7 @@ const List = ({ items, isExpanded }: ListProps) => {
 
 const Item = ({ item }: ItemProps) => {
   const pathname = usePathname();
-  const isCurrentPageActive = item.path === pathname;
+  const isCurrentPageActive = item.path === pathname && !item.children;
   const isActive = isDescendantOrSelfActive(item, pathname);
   const [isExpanded, setIsExpanded] = useState(!item.path ? true : isActive);
 

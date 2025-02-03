@@ -12,15 +12,15 @@ export const ChevronIcon = createIcon<ChevronIconProps>(
         clipRule="evenodd"
         d="M2.586 6.402l.707-.707 4.11 4.11h1.32L12.7 5.7l.718.696-4.274 4.408H6.988L2.586 6.402z"
         fill="var(--svg-path-fill)"
-        animate={{ transform: `rotate(${rotate[chevronDirection]})` }}
+        animate={{ rotate: getRotationDeg[chevronDirection] }}
         transition={transition}
-        initial={{ transform: `rotate(${rotate[chevronDirection]})` }}
+        initial={false}
       />
     ),
   }),
 );
 
-const rotate: Rotate = {
+const getRotationDeg: Rotate = {
   up: '-180deg',
   right: '-90deg',
   down: '0deg',

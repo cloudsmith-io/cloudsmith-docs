@@ -7,23 +7,19 @@
   font-weight: normal;
 }
 
-/* TODO: anchor design */
-.root a {
+.root :global(.anchor) {
   transform: translateY(-50%);
   position: absolute;
   inset: 50% calc(var(--anchor-size) * -1);
   width: var(--anchor-size);
   height: var(--anchor-size);
-  opacity: 0;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-border);
-  border-radius: var(--border-radius-l);
 }
 
-.root:hover a {
-  opacity: 1;
+.root:hover :global(.anchor) {
+  display: flex;
 }
 
 .h1 {

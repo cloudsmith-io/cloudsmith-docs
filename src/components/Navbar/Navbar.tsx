@@ -4,7 +4,7 @@ import { useNavigation } from '@/app/navigation';
 import { Container, Flex } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
 import { Icon } from '@/icons';
-import { getNavBarItems } from '@/lib/menu/util';
+import { getActiveItem, getNavBarItems } from '@/lib/menu/util';
 import { cx } from 'class-variance-authority';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
@@ -17,8 +17,7 @@ export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
   const { primary, secondary } = getNavBarItems();
-  const pathSegments = pathname.split('/').filter(Boolean);
-  const primaryActive = primary.find(([key]) => key === pathSegments[0]);
+  const primaryActive = getActiveItem(pathname, primary);
   const toggle = () => toggleNavigation('globalNav');
 
   return (
@@ -30,10 +29,12 @@ export const Navbar = () => {
             <LogoSymbol className={styles.logoSymbol} />
           </Link>
 
-          <span className={styles.currentSection}>
-            <Icon name="action/link" title="" />
-            <span>{primaryActive?.[1]?.title}</span>
-          </span>
+          {primaryActive ? (
+            <span className={styles.currentSection}>
+              {primaryActive[1]?.icon && <Icon name={primaryActive[1].icon} title="" />}
+              <span>{primaryActive[1]?.title}</span>
+            </span>
+          ) : null}
 
           <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
             <nav className={styles.nav}>
@@ -83,9 +84,9 @@ export const Navbar = () => {
             <motion.nav
               key="mobileNavbar"
               className={styles.mobileNavbar}
-              initial={{ transform: 'translateX(50%)', opacity: 0 }}
-              animate={{ transform: 'translateX(0%)', opacity: 1 }}
-              exit={{ transform: 'translateX(50%)', opacity: 0 }}
+              initial={{ translateX: '50%', opacity: 0 }}
+              animate={{ translateX: '0%', opacity: 1 }}
+              exit={{ translateX: '50%', opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}>
               <button className={styles.closeButton} onClick={toggle}>
                 <Icon name="close" title="" className={styles.closeIcon} />

@@ -1,7 +1,9 @@
-import { cx } from 'class-variance-authority';
-import { Card, Flex, HomepageHero, Button, BlockImage, Navbar, Video } from '@/components';
+import { BlockImage, Button, Card, Flex, HomepageHero, Navbar, Note, Video } from '@/components';
 import horizontalImage from '@/content/test/images/horizontal.png';
 import verticalImage from '@/content/test/images/vertical.png';
+import { Icon, IconName } from '@/icons';
+import { cx } from 'class-variance-authority';
+import { iconRegistry } from '../../../icons/icon-registry';
 
 import styles from './page.module.css';
 
@@ -103,6 +105,24 @@ export default function DesignSystemPage() {
         </Flex>
       </section>
 
+      <section id="icons" className={cx(styles.section, styles.container)}>
+        <h2 className={styles.sectionHeading}>Icons</h2>
+
+        <div className={styles.iconGrid}>
+          {Object.keys(iconRegistry).map((iconName) => (
+            <div key={iconName} className={styles.iconWrapper}>
+              <Icon name={iconName as IconName} as="svg" title={iconName} width={24} height={24} />
+              <span className={styles.iconName}>{iconName}</span>
+            </div>
+          ))}
+        </div>
+
+        <Note headline="Note">
+          Some icons appear twice because they can be animated and need to be rendered separately for each
+          direction.
+        </Note>
+      </section>
+
       <section id="video" className={cx(styles.section, styles.container)}>
         <h2 className={styles.sectionHeading}>Video</h2>
         <p className={styles.sectionDescription}>
@@ -138,7 +158,7 @@ export default function DesignSystemPage() {
         <h2 className={cx(styles.sectionHeading, styles.container)}>Homepage Hero</h2>
 
         <HomepageHero
-          title="Welcome to Cloudsmith’s documentation site."
+          title="Welcome to Cloudsmith's documentation site."
           description="Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies."
           buttons={[
             { label: 'Documentation', href: '/' },

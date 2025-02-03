@@ -132,7 +132,7 @@
   font-size: var(--text-body-xs);
   color: var(--base-color-grey-400);
   text-transform: uppercase;
-  padding-inline: var(--space-xs);
+  padding-inline: var(--space-2xs);
 }
 
 @media (--laptop-up) {
