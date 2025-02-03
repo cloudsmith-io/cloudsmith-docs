@@ -29,10 +29,12 @@ export const Navbar = () => {
             <LogoSymbol className={styles.logoSymbol} />
           </Link>
 
-          <span className={styles.currentSection}>
-            <Icon name={primaryActive?.[1]?.icon!} title="" />
-            <span>{primaryActive?.[1]?.title}</span>
-          </span>
+          {primaryActive ? (
+            <span className={styles.currentSection}>
+              <Icon name={primaryActive?.[1]?.icon!} title="" />
+              <span>{primaryActive?.[1]?.title}</span>
+            </span>
+          ) : null}
 
           <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
             <nav className={styles.nav}>
