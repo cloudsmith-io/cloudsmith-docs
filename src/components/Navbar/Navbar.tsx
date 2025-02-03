@@ -82,9 +82,9 @@ export const Navbar = () => {
             <motion.nav
               key="mobileNavbar"
               className={styles.mobileNavbar}
-              initial={{ transform: 'translateX(50%)', opacity: 0 }}
-              animate={{ transform: 'translateX(0%)', opacity: 1 }}
-              exit={{ transform: 'translateX(50%)', opacity: 0 }}
+              initial={{ translateX: '50%', opacity: 0 }}
+              animate={{ translateX: '0%', opacity: 1 }}
+              exit={{ translateX: '50%', opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}>
               <button className={styles.closeButton} onClick={toggle}>
                 <Icon name="close" title="" className={styles.closeIcon} />
