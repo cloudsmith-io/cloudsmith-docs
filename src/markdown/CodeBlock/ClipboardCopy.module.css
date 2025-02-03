@@ -1,23 +1,15 @@
 .button {
   height: 32px;
   width: 32px;
-  border-radius: var(--border-radius-m);
+  color: var(--base-color-grey-600);
   cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: background-color var(--transition-default);
 
   &:hover {
-    background-color: var(--theme-clipboard-bg-color);
+    color: var(--color-text-on-color);
   }
 }
-
-/*
-TODO: Implement copyed icon
-.copied {
-
-}
-*/

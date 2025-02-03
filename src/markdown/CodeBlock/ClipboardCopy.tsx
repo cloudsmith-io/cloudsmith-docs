@@ -1,9 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-
-import { cx } from 'class-variance-authority';
-
 import { Icon } from '@/icons';
 
 import styles from './ClipboardCopy.module.css';
@@ -21,14 +18,8 @@ export function ClipboardCopy({ textToCopy }: { textToCopy: string }) {
   }
 
   return (
-    <button
-      type="button"
-      disabled={isCopied}
-      onClick={copyText}
-      className={cx(styles.button, {
-        [styles.copied]: isCopied,
-      })}>
-      <Icon name="close" title="Copy text" />
+    <button type="button" disabled={isCopied} onClick={copyText} className={styles.button}>
+      <Icon name={isCopied ? 'action/check' : 'action/copy'} title="Copy text" />
     </button>
   );
 }
