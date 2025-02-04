@@ -1,0 +1,191 @@
+---
+title: "Conda Repository"
+---
+
+import { Note } from '@/components';
+
+# Conda Repository
+
+Cloudsmith provides public & private repositories for Conda
+
+Conda is a cross-platform, language-agnostic binary package manager. It is the package manager used by Anaconda installations. 
+
+For more information on Conda, please see:
+
+- [Conda Documentation](https://docs.conda.io/)
+- [Anaconda](https://www.anaconda.com/)
+
+<Note variant="warning" headline="Beta Availability">
+Conda Support is currently in Beta and we welcome your feedback for improvements
+</Note>
+
+<Note variant="note" headline="Contextual Documentation">
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                               |
+| :-------------- | :---------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME        | Your Cloudsmith username                                                                  |
+| PASSWORD        | Your Cloudsmith password                                                                  |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
+| PACKAGE_NAME    | The name of your package                                                                  |
+| PACKAGE_VERSION | The version number of your package                                                        |
+
+## Upload a Package
+
+### Creating Conda Packages
+
+To upload via the Cloudsmith API/CLI, you'll need to generate a package first. You can do this with [conda-build](https://docs.conda.io/projects/conda-build/en/latest/index.html):
+
+```
+conda build .
+```
+
+This generates a `.tar.bz2` file like `your-package-0.1.0.tar.bz2` that you can upload.
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/upload-via-cloudsmith-cli-api).
+
+The command to upload Conda package via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push conda OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tar.bz2
+```
+
+Example:
+
+```shell
+cloudsmith push conda my-org/my-repo your-package-0.1.0.tar.bz2
+```
+
+### Upload via Cloudsmith Website
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+
+## Download / Install a Package
+
+### Public Repositories
+
+Adding a new channel can be accomplished by using the `conda` CLI:
+
+```shell
+conda config --add channels https://conda.cloudsmith.io/OWNER/REPOSITORY/
+```
+
+Alternatively, the channel can be added directly to your `.condarc`:
+
+```yaml
+channels:
+  - https://conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+```
+
+Or if you prefer, directly in your `environment.yml` file:
+
+```yaml
+name: env-name
+channels:
+  - https://conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+dependencies:
+  - python=3.7
+  - codecov
+```
+
+### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+Adding a new channel can be accomplished by using the `conda` CLI:
+
+```shell HTTP Basic Auth (User & Pass)
+conda config --add channels https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
+```
+```shell HTTP Basic Auth (API-Key)
+conda config --add channels https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
+```
+```shell HTTP Basic Auth (Token)
+conda config --add channels https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
+```
+
+Alternatively, the channel can be added directly to your `.condarc`:
+
+```yaml HTTP Basic Auth (User & Pass)
+channels:
+  - https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+```
+```yaml HTTP Basic Auth (API-Key)
+channels:
+  - https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+```
+```yaml HTTP Basic Auth (Token)
+channels:
+  - https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+```
+
+Or if you prefer, directly in your `environment.yml` file:
+
+```yaml HTTP Basic Auth (User & Pass)
+name: env-name
+channels:
+  - https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+dependencies:
+  - python=3.7
+  - codecov
+```
+```yaml HTTP Basic Auth (API-Key)
+name: env-name
+channels:
+  - https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+dependencies:
+  - python=3.7
+  - codecov
+```
+```yaml HTTP Basic Auth (Token)
+name: env-name
+channels:
+  - https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - defaults
+dependencies:
+  - python=3.7
+  - codecov
+```
+
+### Install a Package
+
+Once configured, you can install packages from your channel using the `conda` CLI:
+
+```
+conda install your-package=1.2.3
+```
+## Conda repodata patching
+
+In certain scenarios, Conda package metadata may need to be patched. Patching is often required when a package dependency is updated, and backwards compatibility is broken, as in the following example:
+
+- `package-a`, version `3.5.0` depends on `package-b` with a version constraint of `package-b >= 2.0.0`.
+- A new major version of `package-b` is released (`3.0.0`). This introduces breaking changes, making it incompatible with all previous versions of `package-a`.
+
+Repodata patching can be used to resolve the above scenario. For example, the dependency constraint can be amended (patched) to the more specific: `package-b >= 2.0.0, <3`. This approach does not alter the original package artifacts, and means no requirement is placed on package maintainers to re-release corrected versions of any existing (broken) packages.
+
+### Applying repodata patching
+
+Patching is accomplished by applying patching instructions to a channel's repodata file (`repodata.json`). This file format is used by Conda channels to provide an index of all packages and their respective metadata within a specific subdirectory (subdir) of the channel. When a request is made for the relevant repodata.json file, the patch instructions are merged with the repodata, and the patched (modified) repodata is returned. An overview of this process is available [here](https://bioconda.github.io/developer/repodata_patching.html).
+
+Cloudsmith provides a dedicated [cloudsmith-conda-repodata-patches](https://github.com/cloudsmith-io/cloudsmith-conda-repodata-patches) repository to facilitate the easy creation of patching instructions. This repository provides relevant scripts and instructions on how to add, generate and submit your patch instructions to Cloudsmith.
