@@ -83,10 +83,18 @@ export function generateDefaultMetadata(options: MetadataOptions): Metadata {
   };
 }
 
+/**
+ * Gets the last updated date using frontmatter
+ */
+export function getLastUpdated(mdxModule: MdxModule) {
+  return mdxModule.frontmatter?.lastUpdated;
+}
+
 interface MdxModule extends Partial<MDXModule> {
   frontmatter?: {
     title?: string;
     description?: string;
+    lastUpdated?: string;
   };
   rawContent?: string;
 }
