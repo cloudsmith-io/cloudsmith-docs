@@ -4,8 +4,12 @@
   max-width: var(--text-max-width);
 }
 
-article > .root:first-of-type {
+article > .root:first-of-type:nth-child(2) {
   font-size: var(--text-body-l);
   line-height: var(--line-height-l);
   margin-block-end: var(--space-m);
+
+  & code {
+    font-size: 0.9em;
+  }
 }

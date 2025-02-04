@@ -28,7 +28,7 @@
   align-content: center;
   border-top: 0;
   border-radius: var(--border-radius-m) var(--border-radius-m) 0 0;
-  background-color: var(--base-color-grey-25);
+  background-color: var(--color-background-light);
   text-transform: uppercase;
   font-family: var(--font-family-mono);
   font-size: var(--text-body-xs);
