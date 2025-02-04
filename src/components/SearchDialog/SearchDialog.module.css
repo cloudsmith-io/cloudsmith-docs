@@ -1,7 +1,7 @@
 .overlay {
   display: grid;
   position: fixed;
-  z-index: var(--z-index-overlay);
+  z-index: var(--layer-overlay);
   inset: 0;
   overflow-y: auto;
   animation: overlayShow 150ms ease-in-out;
