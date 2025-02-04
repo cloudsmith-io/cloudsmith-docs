@@ -1,0 +1,194 @@
+---
+title: "PowerShell Modules Repository"
+---
+import { Note } from '@/components';
+
+# PowerShell Modules Repository
+
+Cloudsmith provides public & private repositories for PowerShell Modules
+
+A PowerShell module is a package that contains PowerShell members, such as cmdlets, providers, functions, workflows, variables, and aliases. The members of this package can be implemented in a PowerShell script, a compiled DLL, or a combination of both.
+
+For more information on PowerShell modules, please see:
+
+- [PowerShell Documentation](https://docs.microsoft.com/en-gb/powershell/): The official website for PowerShell
+- [PowerShell Modules Documentation](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_modules?view=powershell-7.1): The official documentation for PowerShell Modules
+- [PowerShell Gallery](https://www.powershellgallery.com/): Central Repository for public PowerShell Modules
+- [PowerShell Module Browser](https://docs.microsoft.com/en-us/powershell/module/): Browser for Microsoft PowerShell Modules
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+
+In the following examples: 
+
+| Identifier     | Description                                                                               |
+| :------------- | :---------------------------------------------------------------------------------------- |
+| OWNER          | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY     | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN          | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME       | Your Cloudsmith username                                                                  |
+| PASSWORD       | Your Cloudsmith password                                                                  |
+| API-KEY        | Your Cloudsmith API Key                                                                   |
+| MODULE_NAME    | The name of your module                                                                   |
+| MODULE_VERSION | The version number of your module                                                         |
+
+***
+
+PowerShell modules use the NuGet package format, and Cloudsmith NuGet Feeds are fully compatible as a PowerShell Module Repository.
+
+## Upload a  package
+
+The endpoint for the PowerShell Modules API is:
+
+```
+https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2
+```
+
+### Create a PowerShell Module
+
+PowerShell Modules combine several PowerShell functions into a single reusable and easily sharable resource. You can put many files, such as .DLLs and tools, in a module but the absolute minimum is a `.psm1` file.
+
+#### PowerShell Module Manifest
+
+A PowerShell Module manifest is a PowerShell data file (`.psd1`) that contains information about the module like the version number and exported variables.
+
+<Note variant="note" headline="Note">
+PowerShell Module manifests are required to publish a module to a repository.
+</Note>
+
+To create a PowerShell Module Manifest, use the `New-ModuleManifest` command: 
+
+```powershell
+New-ModuleManifest -Path TARGET_PATH -Author AUTHOR_NAME -Description "MODULE_DESCRIPTION" 
+```
+
+### Upload a package via native PowerShell Module tooling
+
+You can upload your package using `Publish-Module`.  
+
+PowerShell requires that publish locations be explicitly added (with authentication credentials) via `Register-PSRepository` prior to publishing:
+
+```powershell
+$credential = New-Object PSCredential('USERNAME',$(ConvertTo-SecureString 'API-KEY' -AsPlainText -Force))
+```
+
+```powershell
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -PublishLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+```
+
+Then you can publish a module with: 
+
+```powershell
+Publish-Module -Path 'path/to/Your.Module' -Repository 'NAME' -NugetApiKey 'API-KEY'
+```
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command-Line Interface](doc:cli) .
+
+The command to upload a PowerShell Module via the Cloudsmith CLI is:
+
+```shell
+cloudsmith push nuget OWNER/REPOSITORY MODULE_NAME-MODULE_VERSION.nupkg
+```
+
+Example:
+
+```shell
+cloudsmith push nuget demo/examples-repo your-module-1.2.3.nupkg
+```
+
+### Upload via Cloudsmith Website
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-package#upload-via-website-ui) for details of how to upload via the Website UI. 
+
+## Download / Install a Package
+
+### Setup
+
+You can set up the source ahead of time, using ` Register-PackageSource` and `Register-PSRepository`:
+
+#### Public Repositories
+
+```powershell
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet
+```
+
+```powershell
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted'
+```
+
+For example: 
+
+```powershell
+Register-PackageSource -Name 'cloudsmith' -Location 'https://nuget.cloudsmith.io/demo/examples-repo/v2/' -Trusted -ProviderName NuGet
+```
+
+```powershell
+Register-PSRepository -Name "cloudsmith" -SourceLocation "https://nuget.cloudsmith.io/demo/examples-repo-public/v2" -InstallationPolicy 'trusted'
+```
+
+#### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+In order to authenticate to a private Cloudsmith repository, you must first create a `PSCredential` object that you then use with `Register-PackageSource` and  `Register-PSRepository`:
+
+```powershell Entitlement Token
+$credential = New-Object PSCredential('token',$(ConvertTo-SecureString 'TOKEN' -AsPlainText -Force))
+
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
+
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+```
+```powershell Username & Password
+$credential = New-Object PSCredential('USERNAME',$(ConvertTo-SecureString 'PASSWORD' -AsPlainText -Force))
+
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
+
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+```
+```powershell Username & API-Key
+$credential = New-Object PSCredential('USERNAME',$(ConvertTo-SecureString 'API-KEY' -AsPlainText -Force))
+
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
+
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+```
+
+### Install a Package
+
+Then to install a package, you use `Install-Module`
+
+#### Public Repositories
+
+```powershell
+Install-Module -Name "MODULE_NAME"  -Repository NAME
+```
+
+For Example: 
+
+```powershell
+Install-Module -Name "MyModule"  -Repository cloudsmith
+```
+
+#### Private  Repositories
+
+```powershell
+Install-Module -Name 'MODULE_NAME' -Repository NAME -Credential $credential
+```
+
+For Example: 
+
+```powershell
+Install-Module -Name "MyModule"  -Repository cloudsmith -Credential $credential
+```
