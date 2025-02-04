@@ -2,6 +2,18 @@
 
 Most of the content on the website is written in Markdown. We use the `.mdx` file format to extend Markdown's syntax to support custom React components.
 
+## Meta data
+
+The meta data is used to generate the metadata for the page. It is located at the top of the file and is used to generate the metadata for the page.
+
+```mdx
+---
+title: Title of the page
+description: Description of the page
+lastUpdated: 2025-01-01
+---
+```
+
 ## Basic Markdown
 
 The following is a list of components that are supported through pure Markdown.
@@ -19,6 +31,8 @@ Some text here
 
 ### Heading 2
 ```
+
+`````
 
 ### Line separator
 
@@ -70,7 +84,7 @@ cliVersion: '1.3.1' # Example CLI version
 authMethod: 'apiKey'
 apiKey: '$(CLOUDSMITH_API_KEY)'
 ```
-````
+`````
 
 ## Custom Components
 
