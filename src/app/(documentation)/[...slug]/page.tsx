@@ -2,7 +2,8 @@ import { loadContentInfo } from '@/lib/markdown/util';
 import { toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { generateSharedMetadata, generateDefaultMetadata } from '@/lib/metadata/shared';
+import { generateSharedMetadata, generateDefaultMetadata, getLastUpdated } from '@/lib/metadata/shared';
+import { TimeAgo } from '@/components';
 
 export const dynamicParams = false;
 
@@ -42,7 +43,14 @@ const Page = async ({ params }: PageProps) => {
   if (mdxInfo) {
     const mdxModule = await import(`@/content/${mdxInfo.file}`);
     const { default: Post } = mdxModule;
-    return <Post />;
+    const lastUpdated = getLastUpdated(mdxModule);
+
+    return (
+      <>
+        <Post />
+        {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
+      </>
+    );
   }
 
   return notFound();
