@@ -1,0 +1,271 @@
+---
+title: "NuGet Feed"
+---
+import { Note } from '@/components';
+
+# NuGet Feed
+
+Cloudsmith provides public & private feeds for NuGet
+
+NuGet is an open-source package manager designed for the Microsoft development technologies.
+
+The NuGet repository support at Cloudsmith is compatible with [Chocolatey](https://chocolatey.org/), so if you're looking to manage packages on Windows, that's our recommended approach.
+
+For more information on NuGet, please see:
+
+- [NuGet](https://www.nuget.org): The official website for NuGet
+- [NuGet Packages](https://www.nuget.org/packages): The official package repository guide for NuGet
+- [Introduction to NuGet](https://docs.microsoft.com/en-us/nuget/what-is-nuget): Official guide to getting started with NuGet
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                               |
+| :-------------- | :---------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME        | Your Cloudsmith username                                                                  |
+| PASSWORD        | Your Cloudsmith password                                                                  |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
+| PACKAGE_NAME    | The name of your package                                                                  |
+| PACKAGE_VERSION | The version number of your package                                                        |
+
+
+## Upload a Package
+
+Before you can upload, you need to create your NuGet package using the NuGet CLI or the .NET Core CLI:
+
+<Note variant="note" headline="Note">
+This assumes that you've created a compatible `project.csproj` file for your project.
+</Note>
+
+```text NuGet CLI
+nuget pack
+```
+```text .NET Core CLI
+dotnet pack
+```
+
+This generates a nupkg (`.nupkg`) file like `your-package-1.2.3.nupkg` that you can upload.
+
+### Upload via native NuGet Tooling
+
+The endpoint for the native NuGet API is:
+
+```
+https://nuget.cloudsmith.io/OWNER/REPOSITORY/
+```
+
+You can upload your package using the NuGet CLI or the .NET Core CLI.
+
+**NuGet CLI**  
+You can publish a nupkg file that you've generated from your project, using [nuget](https://www.nuget.org/downloads).  
+As a shortcut, you can set up the source (upstream) ahead of time, using `nuget source`:
+
+```shell
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+Then you can publish your package using:
+
+```shell
+nuget push PACKAGE_NAME-PACKAGE_VERSION.nupkg -Source example-repo -ApiKey API-KEY
+```
+
+**.NET Core CLI**  
+You can publish a nupkg file that you've generated from your project, using [dotnet](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet?tabs=netcore21):
+
+```shell
+dotnet nuget push PACKAGE_NAME-VERSION.nupkg -k API-KEY -s https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/upload-via-cloudsmith-cli-api).
+
+The command to upload a NuGet package via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push nuget OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.nupkg
+```
+
+Example:
+
+```shell
+cloudsmith push nuget your-account/your-repo your-package-1.0.0.nupkg
+```
+
+### Upload via Cloudsmith Website
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+
+### Example Project
+
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later, but otherwise just ask, we're here to help!
+
+## Download / Install a Package
+
+### Setup
+
+To consume packages in NuGet from a Cloudsmith NuGet Feed , you'll need to configure it as a source: 
+
+#### Public Repositories
+
+**NuGet CLI**
+
+```shell
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+**.NET Core CLI**  
+When specifying the source in commands via `-s`, use the following URL:
+
+```
+https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+**Paket CLI**  
+You can add the source to your `paket.dependencies` file:
+
+```
+source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+If you don't want to check your username into source control, you can use environment variables instead
+
+**VS Package Manager (PM)**  
+When specifying the source in commands via `-Source`, use the following URL:
+
+```
+https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+#### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+**NuGet CLI**
+
+```shell Entitlement Token Auth
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username token -Password TOKEN -StorePasswordInClearText
+```
+```shell HTTP Basic Auth (User & Pass)
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username USERNAME -Password PASSWORD -StorePasswordInClearText
+```
+```shell HTTP Basic Auth (API-Key)
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username USERNAME -Password API-KEY -StorePasswordInClearText
+```
+```shell HTTP Basic Auth (Token)
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username token -Password TOKEN -StorePasswordInClearText
+```
+
+**.NET Core CLI**  
+When specifying the source in commands via `-s`, use the following URL:
+
+```shell Entitlement Token Auth
+https://token:TOKEN@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+```shell HTTP Basic Auth (User & Pass)
+https://USERNAME:PASSWORD@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+```shell HTTP Basic Auth (API-Key)
+https://USERNAME:API-KEY@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+```shell HTTP Basic Auth (Token)
+https://token:TOKEN@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+**Paket CLI**  
+You can add the source to your `paket.dependencies` file:
+
+```shell Entitlement Token Auth
+source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "token" password: "TOKEN" authtype: "basic"
+```
+```shell HTTP Basic Auth (User & Pass)
+source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "USERNAME" password: "PASSWORD" authtype: "basic"
+```
+```shell HTTP Basic Auth (API-Key)
+source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "USERNAME" password: "API-KEY" authtype: "basic"
+```
+```shell HTTP Basic Auth (Token)
+source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "token" password: "TOKEN" authtype: "basic"
+```
+
+If you don't want to check your username into source control, you can use environment variables instead.
+
+**VS Package Manager (PM)**  
+When specifying the source in commands via `-Source`, use the following URL:
+
+```shell Entitlement Token Auth
+https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+```shell HTTP Basic Auth (User & Pass)
+https://USERNAME:PASSWORD@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+```shell HTTP Basic Auth (API-Key)
+https://USERNAME:API-KEY@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+```shell HTTP Basic Auth (Token)
+https://token:TOKEN@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+```
+
+### Install a Package
+
+To install the latest version of a package you would use: 
+
+**NuGet CLI**
+
+```shell
+nuget install PACKAGE_NAME -Source example-repo -DependencyVersion Highest
+```
+
+**.NET Core CLI**
+
+```
+dotnet add package PACKAGE_NAME -s https://nuget.cloudsmith.io/OWNER/REPOSITOY/v3/index.json
+```
+
+**Paket CLI**
+
+```
+paket add nuget PACKAGE_NAME
+```
+
+**VS Package Manager (PM)**
+
+```
+Install-Package PACKAGE_NAME -Source example-repo
+```
+
+## Current Limitations
+
+The Cloudsmith NuGet feed implementation currently has the following limitations:
+
+- The maximum size per-package file is currently limited to 200MiB (~210 megabytes), but only when utilising the native nuget-cli for publishing. If uploading using the cloudsmith-cli, then the absolute maximum size per-package file limit will be the standard 5GiB.
+
+## Security Scanning
+
+<span class="cs-tag cs-tag-dark-green">Supported</span>  
+Please see our [Security Scanning](doc:security-scanning) documentation for further information.
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+You can configure upstream NuGet feeds that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
+
+Please see our [Upstream Proxying](doc:proxying) documentation for further instructions. 
+
+## Troubleshooting
+
+Please see the [Troubleshooting NuGet](doc:troubleshooting-nuget) page for further help and information.
