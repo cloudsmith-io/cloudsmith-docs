@@ -1,0 +1,74 @@
+---
+title: Export from Nexus Sonatype
+---
+
+# Export from Nexus Sonatype
+
+Migrating from Nexus requires you to migrate hosted repositories only, since any proxy repositories configured in Nexus can just be set up with the same configuration in Cloudsmith Repository Manager, and all data will be retrieved from the upstream repositories again. All the upstream repositories supported by Cloudsmith are listed [here](doc:upstream-proxying-caching). 
+
+Hosted repositories will have to be migrated from Nexus to Cloudsmith. 
+
+To migrate from Nexus you will be required to have access to Nexus and all of the repositories that you wish to migrate. 
+
+As Nexus doesn't provide an official way to download all of the packages, a [community written script](https://stackoverflow.com/questions/70610642/download-entire-repository-from-nexus-3-37-1) can assist in the process.
+
+This script will produce a LogFile and a file for the specified repository with all of the download links, the second part of the script will then pull the information with all of the download links and download them to your directory.
+
+> 🚧
+> We do not maintain this script and it should be used as a guidance only.
+
+```shell
+sourceServer=
+sourceRepo=
+sourceUser=
+sourcePassword=
+
+filters=("\\.zip$") # Grab only the packages specificed in the filter or leave the variable blank to grab everything
+logfile=$sourceRepo-backup.log
+outputFile=$sourceRepo-artifacts.txt
+
+# ======== GET DOWNLOAD URLs =========
+
+url=$sourceServer"/service/rest/v1/assets?repository="$sourceRepo
+contToken="initial"
+while [ ! -z "$contToken" ]; do
+    if [ "$contToken" != "initial" ]; then
+        url=$sourceServer"/service/rest/v1/assets?continuationToken="$contToken"&repository="$sourceRepo
+    fi
+    echo Processing repository token: $contToken | tee -a $logfile
+    response=`curl -ksSL -u "$sourceUser:$sourcePassword" -X GET --header 'Accept: application/json' "$url"`
+    artifacts=( $(echo $response | sed -n 's|.*"downloadUrl" : "\([^"]*\)".*|\1|p') ) 
+    printf "%s\n" "${artifacts[@]}" > artifacts.temp 
+    if [ ! -z "$filters" ]; then
+        for filter in "${filters[@]}"; do
+            cat artifacts.temp | grep "$filter" >> $outputFile
+        done
+    else
+        cat artifacts.temp >> $outputFile
+    fi
+    contToken=( $(echo $response | sed -n 's|.*"continuationToken" : "\([^"]*\)".*|\1|p') )
+done
+
+# ======== DOWNLOAD EVERYTHING =========
+
+echo Downloading artifacts...
+IFS=$'\n' read -d '' -r -a urls < $outputFile
+for url in "${urls[@]}"; do
+    url="$(echo -e "${url}" | sed -e 's/^[[:space:]]*//')"
+    path=${url#https://*/*/*/}
+    dir="\""$sourceRepo"/"${path%/*}"\""
+    curFolder=$(pwd)
+    mkdir -p $dir
+    cd $dir
+    url="$(echo -e "${url}" | sed -e 's/\s/%20/g')"
+    curl -vks -u "$sourceUser:$sourcePassword" -D response.header -X GET "$url" -O  >> /dev/null 2>&1
+    responseCode=`cat response.header | sed -n '1p' | cut -d' ' -f2`
+    if [ "$responseCode" == "200" ]; then
+        echo Successfully downloaded artifact: $url
+    else
+        echo ERROR: Failed to download artifact: $url  with error code: $responseCode
+    fi
+    rm response.header > /dev/null 2>&1
+    cd $curFolder
+done
+```
