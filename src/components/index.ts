@@ -15,3 +15,4 @@ export * from './ApiResponses';
 export * from './ApiRequest';
 export * from './ApiGrid';
 export * from './ApiMedia';
+export * from './TimeAgo';

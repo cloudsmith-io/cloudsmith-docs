@@ -4,6 +4,7 @@ export interface MdxModule extends Partial<MDXModule> {
   frontmatter?: {
     title?: string;
     description?: string;
+    lastUpdated?: string;
   };
   rawContent?: string;
 }

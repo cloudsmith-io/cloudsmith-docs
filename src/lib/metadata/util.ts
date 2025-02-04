@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import fs from 'fs/promises';
 import path from 'path';
-import { MetadataOptions } from './types';
+import { MdxModule, MetadataOptions } from './types';
 
 /**
  * Generates default metadata for any page.
@@ -85,3 +85,10 @@ const extractFirstH1Title = (content: string): string | undefined => {
 
   return undefined;
 };
+
+/**
+ * Gets the last updated date using frontmatter
+ */
+export function getLastUpdated(mdxModule: MdxModule) {
+  return mdxModule.frontmatter?.lastUpdated;
+}

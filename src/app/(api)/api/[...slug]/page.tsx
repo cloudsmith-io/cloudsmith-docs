@@ -1,11 +1,11 @@
-import { ApiRequest, ApiResponses } from '@/components';
+import { ApiRequest, ApiResponses, TimeAgo } from '@/components';
 import { loadApiContentInfo } from '@/lib/markdown/util';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { Heading, Paragraph } from '@/markdown';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { withMdxMetadata, withDefaultMetadata } from '@/lib/metadata/util';
+import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 
 import styles from './page.module.css';
 
@@ -71,8 +71,16 @@ const Page = async ({ params }: PageProps) => {
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
-    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
-    return <Post />;
+    const mdxModule = await import(`@/content/${mdxInfo.file}`);
+    const { default: Post } = mdxModule;
+    const lastUpdated = getLastUpdated(mdxModule);
+
+    return (
+      <>
+        <Post />
+        {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
+      </>
+    );
   }
 
   // Otherwise render as an operation

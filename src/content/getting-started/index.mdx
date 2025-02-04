@@ -3,6 +3,85 @@ title: Getting Started
 description: This is the getting started page
 ---
 
+import { Card, Flex } from '@/components';
+
 # Getting Started
 
-Content goes here
+Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies.
+
+Store public, private and open-source packages in Cloudsmith to help you manage, track and control the software used within your development and deployment pipelines or when you distribute it to your customers.
+
+Install the CLI
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="For Developers"
+    description="Dependencies"
+    href="/getting-started/dependencies-for-developers"
+    icon="utility/guide"
+  />
+  <Card
+    title="For Operations"
+    description="Deployment"
+    href="/getting-started/"
+    icon="utility/guide"
+  />
+  <Card
+    title="For Vendors"
+    description="Distribution"
+    href="/getting-started/"
+    icon="utility/guide"
+  />
+</Flex>
+
+## Developers
+
+Cloudsmith is built by developers, for developers. We understand the workflows and processes that developers use and need, and we try to ensure that what we build brings value to our customers, and generally makes their lives easier.  
+
+We believe in what we have built. We love to talk to other developers about what we have created, how it can fit into their development processes, and how we can help.  If you have questions or would like to chat, please just [contact us](/contact-us).
+
+### REST API
+Retrieve information, upload packages, or take actions programmatically through our API.
+REST API Reference
+API Bindings
+
+### Webhooks
+Stay informed by receiving notifications when particular actions take place within Cloudsmith.
+Webhooks Guide
+Origin IP Addresses
+
+
+## Universal Format Support
+
+Cloudsmith is proud to support the following formats:
+
+| Format                                                        |
+| :------------------------------------------------------------ |
+| [Alpine Linux](doc:alpine-repository)                         |
+| [Cargo](doc:cargo-registry) (rust)                            |
+| [Chocolatey](doc:chocolatey-repository)                       |
+| [CocoaPods](doc:cocoapods-repository)                         |
+| [Composer](doc:composer-repository) (php)                     |
+| [Conan](doc:conan-repository) (C, C++)                        |
+| [Conda](doc:conda-repository)                                 |
+| [CRAN](doc:cran-repository) (R)                               |
+| [Dart](doc:dart-repository)                                   |
+| [Debian](doc:debian-repository)                               |
+| [Docker](doc:docker-registry)                                 |
+| [Go](doc:go-registry)                                         |
+| [Gradle](doc:gradle-repository)                               |
+| [Helm Charts](doc:helm-chart-repository) (Kubernetes)         |
+| [LuaRocks](doc:luarocks-repository) (Lua)                     |
+| [Maven](doc:maven-repository) including support for Leiningen |
+| [npm](doc:npm-registry)                                       |
+| [NuGet](doc:nuget-feed)                                       |
+| [P2](doc:p2-repository)                                       |
+| [PowerShell Modules](doc:powershell-modules-repository)       |
+| [Python](doc:python-repository)                               |
+| [Raw](doc:raw-repository)                                     |
+| [Ruby](doc:ruby-repository)                                   |
+| [RPM](doc:redhat-repository) (RedHat)                         |
+| [sbt](doc:sbt-repository)                                     |
+| [Terraform Modules](doc:terraform-modules-repository)         |
+| [Unity](doc:unity-registry)                                   |
+| [Vagrant](doc:vagrant-repository)                             |
