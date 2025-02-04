@@ -58,11 +58,133 @@
       },
       {
         "title": "Supported Formats",
-        "path": "/supported-formats/python-repository",
+        "path": "/supported-formats/",
         "children": [
           {
-            "title": "Python Repository",
-            "path": "/supported-formats/python-repository"
+            "title": "Alpine Repository",
+            "path": "/supported-formats/alpine-repository"
+          },
+          {
+            "title": "Cargo Registry",
+            "path": "/supported-formats/cargo-registry"
+          },
+          {
+            "title": "Chocolatey Repository",
+            "path": "/supported-formats/chocolatey-repository"
+          },
+          {
+            "title": "Cocoapods Repository",
+            "path": "/supported-formats/cocoapods-repository"
+          },
+          {
+            "title": "Composer Repository",
+            "path": "/supported-formats/composer-repository"
+          },
+          {
+            "title": "Conan Repository",
+            "path": "/supported-formats/conan-repository"
+          },
+          {
+            "title": "Conda Repository",
+            "path": "/supported-formats/conda-repository"
+          },
+          {
+            "title": "CRAN Repository",
+            "path": "/supported-formats/cran-repository"
+          },
+          {
+            "title": "Dart Repository",
+            "path": "/supported-formats/dart-repository"
+          },
+          {
+            "title": "Debian Repository",
+            "path": "/supported-formats/debian-repository"
+          },
+          {
+              "title": "Docker Registry",
+              "path": "/supported-formats/docker-registry"
+          },
+          {
+              "title": "Go Registry",
+              "path": "/supported-formats/go-registry"
+          },
+          {
+              "title": "Gradle Repository",
+              "path": "/supported-formats/gradle-repository"
+          },
+          {
+            "title": "Helm Chart Repository",
+            "path": "/supported-formats/helm-chart-repository"
+          },
+          {
+              "title": "Hex Repository",
+              "path": "/supported-formats/hex-repository"
+          },
+          {
+              "title": "LuaRocks Repository",
+              "path": "/supported-formats/luarocks-repository"
+          },
+          {
+              "title": "Maven Repository",
+              "path": "/supported-formats/maven-repository"
+          },
+          {
+              "title": "npm Registry",
+              "path": "/supported-formats/npm-registry"
+          },
+          {
+              "title": "NuGet Feed",
+              "path": "/supported-formats/nuget-feed",
+              "children": [
+                {
+                  "title": "NuGet Symbol Server",
+                  "path": "/supported-formats/nuget-symbol-server"
+                }
+              ]
+          },
+          {
+              "title": "PowerShell Modules Repository",
+              "path": "/supported-formats/powershell-modules-repository"
+          },
+          {
+              "title": "Python Repository",
+              "path": "/supported-formats/python-repository"
+          },
+          {
+              "title": "Raw Repository",
+              "path": "/supported-formats/raw-repository"
+          },
+          {
+              "title": "RedHat Repository",
+              "path": "/supported-formats/redhat-repository"
+          },
+          {
+            "title": "Ruby Repository",
+            "path": "/supported-formats/ruby-repository"
+          },
+          {
+              "title": "sbt Repository",
+              "path": "/supported-formats/sbt-repository"
+          },
+          {
+              "title": "Swift Registry",
+              "path": "/supported-formats/swift-registry"
+          },
+          {
+              "title": "Terraform Modules Repository",
+              "path": "/supported-formats/terraform-modules-repository"
+          },
+          {
+              "title": "Unity Registry",
+              "path": "/supported-formats/unity-registry"
+          },
+          {
+              "title": "Vagrant Repository",
+              "path": "/supported-formats/vagrant-repository"
+          },
+          {
+            "title": "OCI Repository",
+            "path": "/supported-formats/oci-repository"
           }
         ]
       }
