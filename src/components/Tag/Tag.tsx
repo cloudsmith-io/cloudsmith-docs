@@ -23,6 +23,9 @@ const tagVariants = cva(styles.root, {
     active: {
       true: styles.active,
     },
+    mobileDarkMode: {
+      true: styles.mobileDarkMode,
+    },
   },
   defaultVariants: {
     size: 'medium',
@@ -50,14 +53,18 @@ const statusCodes: { [key in Tag.HttpResponseStatusCodes]: Tag.VariantsProps['va
   400: 'red',
 };
 
-export const Tag = ({ size, type, ...props }: Tag.Props) => {
+export const Tag = ({ size, type, active, mobileDarkMode, className, ...props }: Tag.Props) => {
+  const sharedVariants = { size, type, active, mobileDarkMode };
+
   if ('method' in props) {
     const { method, children, ...rest } = props;
 
     return (
-      <div className={tagVariants({ size, type, variant: requestMethods[method] })} {...rest}>
+      <span
+        className={tagVariants({ ...sharedVariants, variant: requestMethods[method], className })}
+        {...rest}>
         {children || method}
-      </div>
+      </span>
     );
   }
 
@@ -65,15 +72,17 @@ export const Tag = ({ size, type, ...props }: Tag.Props) => {
     const { statusCode, children, ...rest } = props;
 
     return (
-      <div className={tagVariants({ size, type, variant: statusCodes[statusCode] })} {...rest}>
+      <span
+        className={tagVariants({ ...sharedVariants, variant: statusCodes[statusCode], className })}
+        {...rest}>
         {children || statusCode}
-      </div>
+      </span>
     );
   }
 
   const { variant, ...rest } = props;
 
-  return <div className={tagVariants({ size, type, variant })} {...rest} />;
+  return <span className={tagVariants({ ...sharedVariants, variant, className })} {...rest} />;
 };
 
 export namespace Tag {
@@ -98,5 +107,9 @@ export namespace Tag {
     children: React.ReactNode;
   }
 
-  export type Props = withMethod | withStatusCode | withVariant;
+  interface defaultProps {
+    mobileDarkMode?: boolean;
+  }
+
+  export type Props = (withMethod | withStatusCode | withVariant) & defaultProps;
 }

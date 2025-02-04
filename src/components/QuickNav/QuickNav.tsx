@@ -6,11 +6,11 @@ import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
 import { cx } from 'class-variance-authority';
 
-const headingsToObserve = ':scope > h2, :scope > h3, :scope > h4, :scope > h5, :scope > h6';
+const headingsToObserve = ':scope > :is(h2, h3, h4, h5, h6)';
 
 export const QuickNav = () => {
   const [headings, setHeadings] = useState<Array<HeadingList>>([]);
-  const activeHeadline = useHeadingsObserver(headingsToObserve, '-5% 0px -50% 0px', 1);
+  const activeHeadline = useHeadingsObserver(quickNavContentId, headingsToObserve, '-5% 0px -50% 0px', 1);
 
   useEffect(() => {
     const contentArea = document.getElementById(quickNavContentId);

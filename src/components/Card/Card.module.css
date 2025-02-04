@@ -2,7 +2,7 @@
   text-decoration: none;
   border-radius: var(--border-radius-2xl);
   background-color: var(--color-background-default);
-  border: 1px solid var(--color-background-note);
+  border: 1px solid var(--color-background-info);
   display: flex;
   flex-direction: column;
   gap: var(--space-s);

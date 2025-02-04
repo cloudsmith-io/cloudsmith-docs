@@ -21,7 +21,7 @@ const components = {
 
   hr: (props: ComponentPropsWithoutRef<'hr'>) => <HorizontalRule {...props} />,
 
-  blockquote: (props: ComponentPropsWithoutRef<'blockquote'>) => <Note headline="Note:" {...props} />,
+  blockquote: (props: ComponentPropsWithoutRef<'blockquote'>) => <Note {...props} />,
 
   code: (props: ComponentPropsWithoutRef<'pre'>) => <Code {...props} />,
   pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {

@@ -85,7 +85,7 @@ const Page = async ({ params }: PageProps) => {
   if (operation) {
     return (
       <>
-        <Heading size="h1">Missing headline for endpoint</Heading>
+        <Heading size="h1">{operation.title}</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
 
         <div className={styles.gridRoot}>

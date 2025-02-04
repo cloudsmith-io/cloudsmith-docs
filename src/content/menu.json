@@ -2,6 +2,7 @@
   "documentation": {
     "title": "Documentation",
     "path": "/documentation",
+    "icon": "action/documentation",
     "children": [
       {
         "title": "Getting Started",
@@ -67,9 +68,30 @@
       }
     ]
   },
+  "guides": {
+    "title": "Guides",
+    "path": "/guides",
+    "icon": "action/guide",
+    "children": [
+      {
+        "title": "General",
+        "children": [
+          {
+            "title": "Article 1",
+            "path": "/does-not-exist"
+          },
+          {
+            "title": "Article 2",
+            "path": "/does-not-exist"
+          }
+        ]
+      }
+    ]
+  },
   "api": {
     "title": "API Reference",
     "path": "/api",
+    "icon": "action/api",
     "children": [
       {
         "title": "General",
@@ -93,5 +115,29 @@
         ]
       }
     ]
+  },
+  "home": {
+    "title": "Home",
+    "path": "/"
+  },
+  "blog": {
+    "title": "Blog",
+    "path": "#"
+  },
+  "support": {
+    "title": "Support",
+    "path": "#"
+  },
+  "signUp": {
+    "title": "Sign Up",
+    "path": "#"
+  },
+  "changelog": {
+    "title": "Changelog",
+    "path": "#"
+  },
+  "goToApp": {
+    "title": "Go to App",
+    "path": "#"
   }
 }

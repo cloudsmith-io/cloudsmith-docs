@@ -1,3 +1,4 @@
+import { IconName } from '@/icons';
 import { OpenAPIV3 } from 'openapi-types';
 
 export type Menu = { [key: string]: MenuItem };
@@ -7,4 +8,5 @@ export type MenuItem = {
   path?: string;
   children?: MenuItem[];
   method?: OpenAPIV3.HttpMethods;
+  icon?: IconName;
 };

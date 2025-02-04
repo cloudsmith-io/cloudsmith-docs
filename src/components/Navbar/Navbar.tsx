@@ -3,7 +3,8 @@
 import { useNavigation } from '@/app/navigation';
 import { Container, Flex } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
-import { Icon, type IconName } from '@/icons';
+import { Icon } from '@/icons';
+import { getActiveItem, getNavBarItems } from '@/lib/menu/util';
 import { cx } from 'class-variance-authority';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
@@ -15,13 +16,9 @@ import styles from './Navbar.module.css';
 export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
+  const { primary, secondary } = getNavBarItems();
+  const primaryActive = getActiveItem(pathname, primary);
   const toggle = () => toggleNavigation('globalNav');
-
-  const navItems: NavItem[] = [
-    { label: 'Documentation', href: '/documentation', icon: 'action/documentation' },
-    { label: 'Guides', href: '/guides', icon: 'action/guide' },
-    { label: 'API Reference', href: '/api', icon: 'action/api' },
-  ];
 
   return (
     <>
@@ -32,17 +29,22 @@ export const Navbar = () => {
             <LogoSymbol className={styles.logoSymbol} />
           </Link>
 
-          <span className={styles.currentSection}>
-            <Icon name="action/link" title="" />
-            <span>Documentation</span>
-          </span>
+          {primaryActive ? (
+            <span className={styles.currentSection}>
+              {primaryActive[1]?.icon && <Icon name={primaryActive[1].icon} title="" />}
+              <span>{primaryActive[1]?.title}</span>
+            </span>
+          ) : null}
 
           <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
             <nav className={styles.nav}>
-              {navItems.map(({ label, href, icon }) => (
-                <Link key={label} href={href} className={styles.navLink}>
-                  <Icon name={icon} aria-hidden="true" focusable="false" title="" />
-                  {label}
+              {primary?.map(([key, item]) => (
+                <Link
+                  key={key}
+                  href={item.path!}
+                  className={cx(styles.navLink, { [styles.navLinkActive]: primaryActive?.[0] === key })}>
+                  <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
+                  {item.title}
                 </Link>
               ))}
             </nav>
@@ -79,23 +81,41 @@ export const Navbar = () => {
               tabIndex={0}
             />
 
-            <motion.div
+            <motion.nav
               key="mobileNavbar"
               className={styles.mobileNavbar}
-              initial={{ transform: 'translateX(50%)', opacity: 0 }}
-              animate={{ transform: 'translateX(0%)', opacity: 1 }}
-              exit={{ transform: 'translateX(50%)', opacity: 0 }}
+              initial={{ translateX: '50%', opacity: 0 }}
+              animate={{ translateX: '0%', opacity: 1 }}
+              exit={{ translateX: '50%', opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}>
               <button className={styles.closeButton} onClick={toggle}>
                 <Icon name="close" title="" className={styles.closeIcon} />
               </button>
-              {/* TODO: Add navigation links from JSON and adjust UI */}
-            </motion.div>
+
+              {[primary, secondary].map((items, index) => (
+                <ul key={index} className={styles.mobileNav}>
+                  {items?.map(([key, item]) => (
+                    <li key={key}>
+                      <Link href={item.path!} className={styles.mobileNavLink}>
+                        {item.icon && (
+                          <Icon
+                            name={item.icon}
+                            className={styles.mobileNavIcon}
+                            aria-hidden="true"
+                            focusable="false"
+                            title=""
+                          />
+                        )}
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </motion.nav>
           </>
         ) : null}
       </AnimatePresence>
     </>
   );
 };
-
-type NavItem = { label: string; href: string; icon: IconName };
