@@ -3,7 +3,7 @@
 The menus throughout the site are generated using two combined methods:
 
 1. Rendering the data in the [`menu.json`](../src/content/menu.json) file
-2. Auto-generating from the [`api-schema-v2-1.598.1.json`](../src/content/schemas/api-schema-v2-1.598.1.json) file
+2. Auto-generating from the [`api-schema-v3.json`](../src/content/schemas/api-schema-v3.json) file
 
 ## Editing `menu.json`
 
@@ -49,4 +49,4 @@ You can create sections by leaving out the `path` property:
 
 ## Updating the API reference menu
 
-Besides the items that are generated from the [`menu.json`](../src/content/menu.json) file, all menu items are auto-generated via the [`api-schema-v2-1.598.1.json`](../src/content/schemas/api-schema-v2-1.598.1.json) file. Replace this file to update the menu.
+Besides the items that are generated from the [`menu.json`](../src/content/menu.json) file, all menu items are auto-generated via the [`api-schema-v3.json`](../src/content/schemas/api-schema-v3.json) file. Replace this file to update the menu.
