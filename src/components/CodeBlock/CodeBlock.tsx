@@ -18,16 +18,10 @@ const codeBlock = cva(styles.root, {
   },
 });
 
-export async function CodeBlock({ code, lang, header }: Props) {
-  // Remove trailing newline if present
-  let trimmedCode = code;
-  if (code.endsWith('\n')) {
-    trimmedCode = code.slice(0, -1);
-  }
-
+export async function CodeBlock({ code, lang, header = true }: Props) {
   const hideHeader = !lang || !header;
   const hideLineNumbers = lang === 'bash' || lang === 'text';
-  const html = (await getHighlighter()).codeToHtml(trimmedCode, {
+  const html = (await getHighlighter()).codeToHtml(code, {
     lang,
     theme,
     transformers: [
@@ -38,10 +32,12 @@ export async function CodeBlock({ code, lang, header }: Props) {
 
   return (
     <div className={codeBlock({ hideHeader, hideLineNumbers })}>
-      <div className={styles.lang}>
-        <div className={styles.langText}>{lang}</div>
-        <ClipboardCopy textToCopy={trimmedCode} />
-      </div>
+      {!hideHeader && (
+        <div className={styles.lang}>
+          <div className={styles.langText}>{lang}</div>
+          <ClipboardCopy textToCopy={code} />
+        </div>
+      )}
       <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
@@ -50,5 +46,5 @@ export async function CodeBlock({ code, lang, header }: Props) {
 interface Props {
   code: string;
   lang: string;
-  header: boolean;
+  header?: boolean;
 }

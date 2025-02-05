@@ -1,8 +1,9 @@
 import { Icon } from '@/icons';
 import { intlFormatDistance, parseISO } from 'date-fns';
 
+import { HorizontalRule } from '@/components';
+
 import styles from './TimeAgo.module.css';
-import { HorizontalRule } from '@/markdown';
 
 export async function TimeAgo({ date }: TimeAgoProps) {
   return (

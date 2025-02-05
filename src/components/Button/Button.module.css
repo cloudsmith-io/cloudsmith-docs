@@ -22,6 +22,12 @@
   );
 }
 
+/* Badly formatted mdx will insert p in button */
+.root p {
+  margin: 0;
+  line-height: inherit;
+}
+
 /* Sizes */
 .root.sizeSmall {
   font-size: var(--text-body-s);
