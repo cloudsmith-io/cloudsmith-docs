@@ -33,4 +33,4 @@ async function downloadSchema(schemaUrl: string, fileName: string) {
 }
 
 downloadSchema(process.env.CLOUDSMITH_API_V1_URL!, 'api-schema-v1.json');
-downloadSchema(process.env.CLOUDSMITH_API_V2_URL!, 'api-schema-v2-1.598.1.json');
+downloadSchema(process.env.CLOUDSMITH_API_V2_URL!, 'api-schema-v3.json');
