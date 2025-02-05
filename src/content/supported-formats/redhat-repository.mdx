@@ -1,0 +1,361 @@
+---
+title: "RedHat Repository"
+---
+
+import { Note } from '@/components';
+
+# RedHat Repository
+
+Cloudsmith provides public & private repositories for RPM packages (RedHat, Fedora, SUSE)
+
+RedHat is a popular Enterprise focused flavor of Linux. RedHat Package Manager (RPM) is a free and open source packaging format.
+
+For more information on RedHat, please see:
+
+- [RedHat](https://www.redhat.com): The official website for RedHat
+- [RPM](https://rpm.org): The official website for RedHat Package Manager
+- [RPM Documentation](https://rpm.org/documentation.html): The official docs for RPM
+
+<a href="https://youtu.be/HeukhotcMeE" target="_blank"><img src="https://files.readme.io/7602477-cloudsmith-youtube-play-rpm-small.png" /></a>
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                                                                                  |
+| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                                                                                |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                                                                         |
+| DISTRO          | Your distribution  (i.e el, fedora or opensuse). You can also use "any-distro" if your package is compatible with more than one distribution |
+| VERSION         | Your version name (i.e 7, 29). You can also use "any-version" if your package is compatible with more than one version                       |
+| FINGERPRINT     | The 8 Byte fingerprint of the Public GPG key for the repository                                                                              |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details)                                                    |
+| USERNAME        | Your Cloudsmith username                                                                                                                     |
+| PASSWORD        | Your Cloudsmith password                                                                                                                     |
+| API-KEY         | Your Cloudsmith API Key                                                                                                                      |
+| PACKAGE_NAME    | The name of your package                                                                                                                     |
+| PACKAGE_VERSION | The version number of your package                                                                                                           |
+| PACKAGE_ARCH    | The architecture of your package (i.e x86_64)                                                                                                |
+
+## Upload a Package
+
+To upload, you will need to generate your package first. We highly recommend [fpm](https://fpm.readthedocs.io/en/latest/) for simplifying this.  
+With fpm, you can build a package from a directory that represents the layout on the target system installation using:
+
+```
+fpm -f -s dir -t rpm -n PACKAGE_NAME -v PACKAGE_VERSION` 
+```
+
+This generates a RedHat package file (`.rpm`) like `your-package-1.2.3.rpm` that you can upload.
+
+<Note variant="note" headline="Note">
+You can also build a package from a tarball (`.tgz`) or even Python, Ruby or npm packages. In addition to that, you can provide additional information during the packaging, such as other metadata like packaging dependencies, authorship, etc. Please refer to the [official fpm documentation](https://fpm.readthedocs.io/en/latest/) for more information.
+</Note>
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/upload-via-cloudsmith-cli-api).
+
+The command to upload a RedHat package via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push rpm OWNER/REPOSITORY/DISTRO/VERSION PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH.rpm
+```
+
+Example: Upload a package for RedHat 5
+
+```shell
+cloudsmith push rpm org/repo/el/5 libxml2-2.9.4-2.el5.x86_64.rpm
+```
+
+Example: Upload a package for any RedHat version
+
+```shell
+cloudsmith push rpm org/repo/el/any-version libxml2-2.9.4-2.x86_64.rpm
+```
+
+Example: Upload a package for any version of any distribution
+
+```shell
+cloudsmith push rpm org/repo/any-distro/any-version libxml2-2.9.4-2.x86_64.rpm
+```
+
+### Upload via Cloudsmith Website
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+
+## Download/ Install a Package
+
+### Setup
+
+You have a choice of 3 methods to setup your Cloudsmith repository: 
+
+- Automatic configuration (**recommended**)
+- Force a specific distribution/release (if your system is compatible but not identical)
+- Manual configuration
+
+#### Public Repositories
+
+To install RPM packages from a public Cloudsmith repository, you can quickly set up the repository automatically:
+
+**Yum (RedHat, CentOS, Amazon), Dnf (Fedora) or Zypper (Suse)** 
+
+```shell
+curl -1sLf \
+  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo bash
+```
+
+Alternatively, if you need to force a specific distribution:
+
+```shell
+curl -1sLf \
+  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo distro=DISTRO codename=VERSION bash
+```
+
+Or, you can manually configure the repository:
+
+**Yum (RedHat, CentOS, Amazon)** 
+
+```shell
+yum install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+```
+
+**Dnf (Fedora)**
+
+```shell
+dnf install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+```
+
+**Zypper (Suse)**
+
+```shell
+curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
+zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+```
+
+#### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+To install RPM packages from a private Cloudsmith repository, you can quickly set up the repository automatically:
+
+**Yum (RedHat, CentOS, Amazon), Dnf (Fedora) or Zypper (Suse)**
+
+```shell Entitlement Token Auth
+curl -1sLf \
+  'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo bash
+```
+```shell HTTP Basic Auth (User & Pass)
+curl -u "USERNAME:PASSWORD" -1sLf \
+  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo bash
+```
+```shell HTTP Basic Auth (API-Key)
+curl -u "USERNAME:API-KEY" -1sLf \
+  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo bash
+```
+```shell HTTP Basic Auth (Token)
+curl -u "token:TOKEN" -1sLf \
+  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo bash
+```
+
+Alternatively, if you need to force a specific distribution:
+
+```shell Entitlement Token Auth
+curl -1sLf \
+  'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo distro=DISTRO codename=VERSION bash
+```
+```shell HTTP Basic Auth (User & Pass)
+curl -u "USERNAME:PASSWORD" -1sLf \
+  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo distro=DISTRO codename=VERSION bash
+```
+```shell HTTP Basic Auth (API-Key)
+curl -u "USERNAME:API-KEY" -1sLf \
+  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo distro=DISTRO codename=VERSION bash
+```
+```shell HTTP Basic Auth (Token)
+curl -u "token:TOKEN" -1sLf \
+  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  | sudo distro=DISTRO codename=VERSION bash
+```
+
+Or, you can manually configure the repository:
+
+**Yum (RedHat, CentOS, Amazon)** 
+
+```shell Entitlement Token Auth
+yum install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+```
+```shell HTTP Basic Auth (User & Pass)
+yum install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+```
+```shell HTTP Basic Auth (API-Key)
+yum install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+```
+```shell HTTP Basic Auth (Token)
+yum install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+```
+
+**Dnf (Fedora)**
+
+```shell Entitlement Token Auth
+dnf install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+```
+```shell HTTP Basic Auth (User & Pass)
+dnf install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+```
+```shell HTTP Basic Auth (API-Key)
+dnf install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+```
+```shell HTTP Basic Auth (Token)
+dnf install yum-utils pygpgme
+rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+```
+
+**Zypper (Suse)**
+
+```shell Entitlement Token Auth
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+```
+```shell HTTP Basic Auth (User & Pass)
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+```
+```shell HTTP Basic Auth (API-Key)
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+```
+```shell HTTP Basic Auth (Token)
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+```
+
+### Installing a Package
+
+Once you have setup the repository using your chosen authentication method, you can then install a package using: 
+
+**Yum (RedHat, CentOS, Amazon)**
+
+```shell
+sudo yum install PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH
+```
+
+**Dnf (Fedora)**
+
+```shell
+sudo dnf install PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH
+```
+
+**Zypper (Suse)**
+
+```shell
+sudo zypper install PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH
+```
+
+### Removing Setup
+
+If you no longer want to install packages from your Cloudsmith repository, you can remove it with:
+
+**Yum (RedHat, CentOS, Amazon) and Dnf (Fedora)**
+
+```shell
+rm /etc/yum.repos.d/OWNER-REPOSITORY.repo
+rm /etc/yum.repos.d/OWNER-REPOSITORY-source.repo
+```
+
+**Zypper (Suse)**
+
+```shell
+zypper rr OWNER-REPOSITORY
+zypper rr OWNER-REPOSITORY-source
+```
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+You can configure upstream RedHat repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
+
+Please see our [Upstream Proxying](doc:proxying) documentation for further instructions. 
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Index</span> <span class="cs-tag cs-tag-midnight-blue">Packages</span>
+
+<Note variant="note" headline="Note">
+As RPM packages are signed with a GPG key upon upload, this results in a new checksum being generated for the package.
+</Note>
+
+## Troubleshooting
+
+**Q. I don't see packages that are available in my repository when I do `yum list`, even after clearing my yum cache and updating?**
+
+It may be possible that you already have a package installed with the same version as that which is available from the repository. In this case, you need to do `yum list available --showduplicates` to see all available packages. 
+
+**Q. I'm having trouble pulling `noarch` packages?**  
+The noarch index in RedHat is separate, unlike in Debian where it is blended into all arch-specific repositories. The reason for this is that it follows the standard layout for RedHat repositories. If you use our automated repository setup scripts, they configure two repositories when setting up a machine, one for the arch-specific and another for noarch, which will enable you to install `noarch` packages.  
+
+If you are manually setting up a Cloudsmith RedHat repository, or using something like Ansible, please be sure to configure the`noarch` repository also.
+
+Contact us [here](https://support.cloudsmith.com). We're always happy to help!

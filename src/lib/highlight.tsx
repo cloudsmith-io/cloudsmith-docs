@@ -8,7 +8,7 @@ export async function getHighlighter() {
   if (!highlighter) {
     highlighter = await createHighlighter({
       themes: [theme],
-      langs: ['js', 'jsx', 'ts', 'tsx', 'json', 'text', 'bash', 'yaml', 'ini', 'shell', 'powershell'],
+      langs: ['js', 'jsx', 'ts', 'tsx', 'json', 'text', 'bash', 'yaml', 'ini', 'shell', 'powershell', 'toml', 'r', 'groovy', 'kotlin', 'xml', 'scala'],
     });
   }
 

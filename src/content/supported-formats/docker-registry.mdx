@@ -1,0 +1,252 @@
+---
+title: "Docker Registry"
+---
+
+import { Note } from '@/components';
+
+# Docker Registry
+
+Cloudsmith provides public & private registries for Docker images
+
+[Docker](https://www.docker.com/) is an ecosystem that is used to run packaged software known as containers. A container image is bundled with all of the software and configured required to run as an independent process (or collection of processes), and an executing container is isolated from other containers and processes.
+
+Docker provides the concept of the _registry_ as a storage service for storing and distributing image containers for use. The official one of which is [Docker Hub](https://hub.docker.com), which is owned and operated by Docker itself.
+
+Cloudsmith provides a fully-fledged Docker registry with full compatibility for current and future versions of the Docker engine and container image formats. With Cloudsmith you'll be able to push, pull, inspect and manage container images, privately and publicly.
+
+All of this is provided with the standard functionality and features that are offered in the Cloudsmith platform, such as collaboration, advanced permissioning, whitelabelled distribution, multi-tenacy with other packaging formats, etc.
+
+For more information on Docker, please see:
+
+- [Docker](https://www.docker.com): The official website for Docker (the company and product).
+- [Docker Hub](https://hub.docker.com): The official public registry for Docker repositories.
+- [Docker Article](https://en.wikipedia.org/wiki/Docker_(software)): The Wikipedia article on Docker.
+
+<a target="_blank" href="https://youtu.be/ICsgoJ7_5_A"><img src="https://files.readme.io/7d881bf-cloudsmith-youtube-play-docker-small.png"/></a>
+
+
+## Differences from Docker
+
+For clarity, it's important to note some of the differences between a registry such as Docker Hub, and a Cloudsmith Docker registry. These are both naming and functional in nature.
+
+### Naming Differences
+
+Docker defines the following names (this is not the official wording):
+
+- **Layer:** A blob (big object of bytes) containing software and configuration.
+- **Image:** A collection of Docker layers plus metadata that represent an application.
+- **Container:** A running instance of a Docker image in-memory.
+- **Repository:** A collection of Docker images, separated by hashref and version tags.
+- **Registry:** A collection of all Docker repositories, separated by namespaces.
+
+For comparison purposes, where terms differ from Cloudsmith:
+
+- **Package:** A specific identifiable and versionable artifact.
+- **Repository:** A collection of versionable artifacts, with multiple allowed per account.
+
+Therefore, based on the above, the following terms are equivalent:
+
+| Docker Term | Cloudsmith Term |
+| :---------- | :-------------- |
+| Image       | Package         |
+| Registry    | Repository      |
+
+For consistency, the Docker terms will be used within all of the Docker-related documentation but please be aware of the differences if looking at documentation elsewhere.
+
+### Functionality Differences
+
+We have attempted to achieve absolute compatibility at the wire (API) level with Docker Hub and the [Docker registration specification (2.0)](https://docs.docker.com/registry/spec/api/). The functionality differs in how the registry itself is treated.
+
+Referring to the naming differences section above, every Cloudsmith account can have multiple Cloudsmith repositories. Each Cloudsmith repository is an individual Docker registry in its own right and will require a different login in order to push/pull images for it.
+
+As such, it is also not possible to have a global registry of all images on Cloudsmith. This may change in the future as we introduce different forms of Cloudsmith repositories and groupings.
+
+<Note variant="note" headline="Contextual Documentation">
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+
+In the following examples: 
+
+| Identifier | Description                                                                               |
+| :--------- | :---------------------------------------------------------------------------------------- |
+| OWNER      | Your Cloudsmith account name or organisation name (namespace)                             |
+| REGISTRY   | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN      | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME   | Your Cloudsmith username                                                                  |
+| PASSWORD   | Your Cloudsmith password                                                                  |
+| API-KEY    | Your Cloudsmith API Key                                                                   |
+| IMAGE_NAME | The name of your Docker image                                                             |
+| TAG        | A tag for your Docker image                                                               |
+
+***
+
+## Upload an Image
+
+<Note variant="note" headline="Note">
+If you have added a [Custom Domain](https://help.cloudsmith.io/docs/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
+</Note>
+
+### Publish via Docker
+
+The endpoint for the native Docker API is:
+
+```
+https://docker.cloudsmith.io/v2/OWNER/REGISTRY/
+```
+
+Or if you're referring to it from `docker` commands:
+
+```
+docker.cloudsmith.io/OWNER/REGISTRY
+```
+
+In order to authenticate for native publishing, you'll need use `docker login`:
+
+```shell
+docker login docker.cloudsmith.io
+```
+
+You will be prompted for your Username and Password. Enter your Cloudsmith username and your Cloudsmith API Key. 
+
+To publish an image to a Cloudsmith-based Docker registry, you first need to tag your image:
+
+```shell
+docker tag IMAGE_NAME:TAG docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+```
+
+<Note variant="note" headline="Note">
+Docker images are not automatically tagged as 'latest' based on upload date / time.  In order to ensure that you have an image tagged as 'latest' you need to explicitly tag the image. For example:
+ ```shell
+docker tag your-image:latest docker.cloudsmith.io/org/repo/your-image:latest
+```
+</Note>
+
+You can then publish the tagged image using `docker push`:
+
+```shell
+docker push docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+```
+
+### Upload via the Cloudsmith CLI or Website
+
+To upload via the Cloudsmith CLI or Website. you need to export your Docker image first. You can do this with:
+
+```shell
+docker save -o IMAGE_NAME.docker IMAGE_NAME:TAG
+```
+
+This exports the full contents of the image, including all metadata and layers. 
+
+#### Upload via Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/cli).
+
+The command to upload a Docker image via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push docker OWNER/REGISTRY IMAGE_NAME.docker
+```
+
+Example: 
+
+```shell
+cloudsmith push docker org/repo your-image.docker
+```
+
+#### Upload via Cloudsmith Website
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+
+***
+
+## Download / Pull an Image
+
+### Setup
+
+#### Public Registries
+
+For public registries, no further setup is needed as authentication is not required. 
+
+#### Private Registries
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+You need to authenticate via `docker login` to pull images: 
+
+```shell Entitlement Token Auth
+docker login docker.cloudsmith.io
+Username: OWNER/REGISTRY
+Password: TOKEN
+
+Login Succeeded
+```
+```shell HTTP Basic Auth (User & Pass)
+docker login docker.cloudsmith.io
+Username: OWNER/REGISTRY
+Password: PASSWORD
+
+Login Succeeded
+```
+```shell HTTP Basic Auth (API-Key)
+docker login docker.cloudsmith.io
+Username: OWNER/REGISTRY
+Password: API-KEY
+
+Login Succeeded
+```
+```shell HTTP Basic Auth (Token)
+docker login docker.cloudsmith.io
+Username: OWNER/REGISTRY
+Password: TOKEN
+
+Login Succeeded
+```
+
+### Pull an Image
+
+Pulling (downloading) an image from the Cloudsmith Docker registry can be done using the standard `docker pull` command:
+
+```shell
+docker pull docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+```
+
+To refer to this image after pulling in a Dockerfile, specify the following:
+
+```
+FROM docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+```
+
+## Security Scanning
+
+<span class="cs-tag cs-tag-dark-green">Supported</span> 
+
+Please see our [Security Scanning](doc:security-scanning) documentation for further information. 
+
+## Current Limitations
+
+The Cloudsmith Docker registry implementation currently has the following limitations:
+
+- Remote layer mounting (for non-distributable layers, such as Windows) is currently not supported.
+- Digests for images will not match those pushed to Docker Hub (but layers will match).
+- Digests for offline image uploads (via `docker save`) will not match those from `docker push`.
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+
+You can configure upstream Docker registries you wish to use for images. In addition, you can also choose to cache any requested images for future use.
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-red">RSA</span> <span class="cs-tag cs-tag-purple">Index</span>
+
+## Troubleshooting
+
+Please see the [Troubleshooting](doc:troubleshooting) page for further help and information.

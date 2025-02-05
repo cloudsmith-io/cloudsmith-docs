@@ -1,0 +1,229 @@
+---
+title: "Gradle Repository"
+slug: "gradle-repository"
+
+---
+
+import { Note } from '@/components';
+
+# Gradle Repository
+
+Cloudsmith provides public & private repositories for Gradle
+
+Gradle is an open-source build-automation tool that harnesses the power of Maven via a Groovy-based domain-specific language making it easier to define projects and their dependencies.
+
+For more information on Gradle, please see:
+
+- [Gradle](https://gradle.org/): The official website for Gradle
+- [Gradle Docs](https://docs.gradle.org/): The official documentation for Gradle
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                                  |
+| :-------------- | :------------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                                |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                         |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details)    |
+| USERNAME        | Your Cloudsmith username                                                                     |
+| PASSWORD        | Your Cloudsmith password                                                                     |
+| API-KEY         | Your Cloudsmith API Key                                                                      |
+| PACKAGE_VERSION | The version number of your package                                                           |
+| GROUP-ID        | A unique Maven identifier for your project across all projects i.e "com.companyname.project" |
+| ARTIFACT_ID     | The name of the jar without version i.e "project"                                            |
+
+<Note variant="note" headline="Note">
+These examples use the Groovy-based syntax for Gradle. For the Kotlin syntax, please refer to the [official documentation](https://docs.gradle.org/current/userguide/declaring_dependencies.html) for declaring dependencies.
+</Note>
+
+## Upload a Package
+
+### Upload via gradle publish
+
+The endpoint for native Gradle API (Maven-based) is:
+
+```
+https://api.cloudsmith.io/maven/
+```
+
+For Maven-based publishing you'll need to enable the maven-publish plugin:
+
+```groovy
+plugins {
+  id 'maven-publish'
+}
+```
+
+Next, configure a repositories block to point to Cloudsmith as follows:
+
+```groovy
+publishing {
+  repositories {
+    maven {
+      name = "cloudsmith"
+      url = "https://api.cloudsmith.io/maven/OWNER/REPOSITORY/"
+      def releasesRepoUrl = "https://api.cloudsmith.io/maven/OWNER/REPOSITORY/"
+      def snapshotsRepoUrl = "https://api.cloudsmith.io/maven/OWNER/REPOSITORY/"
+      url = version.endsWith('SNAPSHOT') ? **snapshotsRepoUrl **: releasesRepoUrl
+      credentials {
+        username = 'USERNAME'
+        password = 'API-KEY'
+      }
+    }
+  }
+}
+```
+
+A bare minimum publications section is required:
+
+```groovy
+publishing {
+  publications {
+    maven(MavenPublication) {
+      // [snip]
+    }
+  }
+}
+```
+
+You can now publish to the native API with:
+
+```shell
+gradle publish
+```
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/upload-via-cloudsmith-cli-api).
+
+The command to upload via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push maven OWNER/REPOSITORY ARTIFACT_ID-PACKAGE_VERSION.jar --pom-file=ARTIFACT_ID-PACKAGE_VERSION.pom
+```
+
+Example:
+
+```shell
+cloudsmith push maven org/repo validation-api-1.0.0.GA.jar --pom-file=validation-api-1.0.0.GA.pom
+```
+
+### Upload via Cloudsmith Website
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+
+## Download / Installing
+
+### Setup
+
+To enable the retrieval of Cloudsmith hosted packages via Gradle, the first step is to add your repository to the `build.gradle` file.
+
+#### Public Repositories
+
+Add the following, at any location, to your `build.gradle` file:
+
+```kotlin
+repositories {
+  maven {
+    url "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/maven/"
+  }
+}
+```
+
+After the repository is added to the `build.gradle` file, all that is left is to specify the dependency in the dependencies section of the project `build.gradle` file.
+
+To do this add the below to your `build.gradle` file:
+
+```kotlin
+dependencies {
+  implementation 'GROUP_ID:ARTIFACT_ID:PACKAGE_VERSION'
+}
+```
+
+#### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+To enable the retrieval of packages from a private Cloudsmith repository via Gradle, add your repository your `build.gradle` file as follows:
+
+```groovy Entitlement Token Authentication
+repositories {
+  maven {
+    url "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/maven/"
+  }
+}
+```
+```groovy HTTP Basic Authentication
+repositories {
+  maven {
+    url "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/maven/"
+
+    credentials {
+      username "$repositoryUser"
+      password "$repositoryPassword"
+    }
+  }
+}
+```
+
+When using Entitlement Token Authentication, no further setup is required.  
+If using HTTP Basic Authentication, you can provide one following three types of credentials: 
+
+- Cloudsmith Username and Password
+- Cloudsmith API Key
+- An Entitlement Token
+
+When using HTTP Basic Authentication you'll probably want to keep your credentials separately in your `~/.gradle/gradle.properties` file instead of within the `build.gradle` file. Once you have decided which credentials you wish to use, setup your `~/.gradle/gradle.properties` file as follows:
+
+```groovy Username & Password
+repositoryUser=USERNAME
+repositoryPassword=PASSWORD
+```
+```groovy API Key
+repositoryUser=USERNAME
+repositoryPassword=API-KEY
+```
+```groovy Entitlement Token
+repositoryUser=token
+repositoryPassword=TOKEN
+```
+
+For more details on authentication in Gradle, please refer to the official [Gradle documentation](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.repositories.AuthenticationSupported.html)
+
+### Specifying Dependencies
+
+After the repository is added to the `build.gradle` file and your credentials have been added to your `~/.gradle/gradle.properties` file (required for private repositories if using HTTP Basic Authentication), all that is left is to specify the dependency in the dependencies section of the project `build.gradle` file. To do this add the following to your build.gradle file:
+
+```groovy
+dependencies {
+  implementation 'GROUP_ID:ARTIFACT_ID:PACKAGE_VERSION'
+}
+```
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+You can configure upstream repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
+
+Please see our [Upstream Proxying](doc:proxying) documentation for further instructions. 
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Index</span> <span class="cs-tag cs-tag-midnight-blue">Packages</span>
+
+## Troubleshooting
+
+**Occasional Publish Failures**
+
+Gradle + Java8 can experience issues with SNI (Server Name Indicator) endpoints which we use to power our CDN, like https://maven.cloudsmith.io.  If you experience occasional or intermittent publish failures, resulting in a 443 error, then please update your endpoint to https://api-g.cloudsmith.io/maven.
+
+Contact us [here](https://support.cloudsmith.com). We're always happy to help!
