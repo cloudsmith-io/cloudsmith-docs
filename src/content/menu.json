@@ -187,6 +187,14 @@
             "path": "/supported-formats/oci-repository"
           }
         ]
+      },
+      {
+        "title": "Community",
+        "path": "/developer-community"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/troubleshooting"
       }
     ]
   },

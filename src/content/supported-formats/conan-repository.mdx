@@ -245,4 +245,22 @@ After enabling revisions, the `conan upload` command will upload revisions inste
 
 ## Troubleshooting
 
-Please see the [Troubleshooting Conan](doc:troubleshooting-conan) page for further help and information.
+## Q. Why can my conanfile not access external services?
+
+When extracting metadata from the `conanfile.py`, Cloudsmith restricts all network access, meaning that any attempt to reach external services from within your `conanfile.py` will fail, potentially leading to package synchronization to fail.
+
+We recommend keeping your `conanfile.py` as simple as possible to ensure your upload has no issues.
+
+## Q. Why is my recipe failing to synchronize?
+
+Similar to the previous point, when extracting metadata from the `conanfile.py`, Cloudsmith runs your recipe in an isolated secure environment. Things like:
+
+- Reading or writing files to the local filesystem
+- Reaching out to external services (with the exception of Conan Central), like GitHub.
+- Utilization of third-party python libraries
+- Dynamically setting metadata values like version, license, description, url, author, topics from external sources to the recipe file.
+
+Will potentially lead to a synchronization failure. We recommend keeping your `conanfile.py` as simple as possible to ensure the upload has no issues. 
+
+ If you or your organization have a use-case for any of the previous points please [reach out to us](https://help.cloudsmith.io/docs/contact-us).
+
