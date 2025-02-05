@@ -1,0 +1,41 @@
+# Exporting nuget
+
+You can download the packages using the native NuGet/Chocolately/Powershell tools or using your package repository-specific tooling like [Export from JFrog Artifactory](/migrating-to-cloudsmith/export-from-jfrog-artifactory). Using package repository-specific tooling may mean that you don't need to disable your upstreams.
+
+## NuGet packages bulk Export using Powershell
+
+Before continuing, you must **disable your upstreams**- otherwise, this powershell script will download all the packages from your upstreams as well as the packages stored directly in your package repository. 
+
+```powershell
+$credential = New-Object PSCredential('token',$(ConvertTo-SecureString '<TOKEN>' -AsPlainText -Force))
+$SOURCE_REPOSITORY = <SOURCE_REPOSITORY_NAME>
+$NUGET_V2_SOURCE_REPOSITORY_FEED_URL = <NUGET_V2_SOURCE_REPOSITORY_FEED_URL>
+$DESTINATION_DIR = <PATH_TO_DESTINSTION_FOLDER>
+
+Register-PackageSource -Name $SOURCE_REPOSITORY -Location $NUGET_V2_SOURCE_REPOSITORY_FEED_URL -Trusted -Credential $credential -ProviderName NuGet
+
+Find-Package -AllVersions -Source $SOURCE_REPOSITORY -ProviderName NuGet -Credential $credential | ForEach-Object {
+    Save-Package -Name $_.Name -RequiredVersion $_.Version -Path $DESTINATION_DIR -Source $SOURCE_REPOSITORY -Credential $credential -ProviderName NuGet
+}
+```
+
+Some issues: 
+
+- The above may fail saving packages if it can't find it's dependent package(s). In this case you may want to use the powershell command _Install-Package_ to download the packages. 
+
+```powershell
+$credential = New-Object PSCredential('token',$(ConvertTo-SecureString '<TOKEN>' -AsPlainText -Force))
+$SOURCE_REPOSITORY = <SOURCE_REPOSITORY_NAME>
+$NUGET_V2_SOURCE_REPOSITORY_FEED_URL = <NUGET_V2_SOURCE_REPOSITORY_FEED_URL>
+$DESTINATION_DIR = <PATH_TO_DESTINSTION_FOLDER>
+
+Register-PSRepository -Name $SOURCE_REPOSITORY -SourceLocation $NUGET_V2_SOURCE_REPOSITORY_FEED_URL -InstallationPolicy 'trusted' -Credential $credential
+
+Find-Module -AllVersions -Source $SOURCE_REPOSITORY -Credential $credential | ForEach-Object {
+    Save-Module -Name $_.Name -RequiredVersion $_.Version -Path $DESTINATION_DIR -Source $SOURCE_REPOSITORY -Credential $credential
+}
+```
+
+## Export Chocolately packages
+
+You can use the chocolately cli to download packages, [here](https://docs.chocolatey.org/en-us/choco/commands/download)
