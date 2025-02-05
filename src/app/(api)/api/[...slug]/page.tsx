@@ -90,7 +90,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (operation) {
     return (
-      <>
+      <div className={styles.root}>
         <Heading size="h1">{operation.title}</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
 
@@ -106,7 +106,7 @@ const Page = async ({ params }: PageProps) => {
           </Heading>
           <ApiResponses {...operation} />
         </div>
-      </>
+      </div>
     );
   }
 
