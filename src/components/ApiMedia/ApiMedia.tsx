@@ -1,7 +1,10 @@
+'use client';
+
 import { Tag } from '@/components';
+import { ChevronIcon } from '@/icons/Chevron';
 import { RequestBodyObject, ResponseObject, SchemaObject } from '@/lib/swagger/types';
 import { cx } from 'class-variance-authority';
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './ApiMedia.module.css';
 
@@ -48,32 +51,69 @@ const Properties = ({ properties, required, type }: SchemaObject) => {
       {properties ? (
         <div className={styles.responseGrid}>
           {Object.entries(properties).map(([name, property]) => {
-            const isRequired = required?.includes(name);
-
-            return (
-              <div key={name} className={styles.responseGridRow}>
-                <div className={styles.responseGridColumn}>{name}</div>
-                <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
-                  {property.format || property.type}
-                  {property.nullable && ' | null'}
-                </div>
-                <div className={styles.responseGridColumn}>
-                  <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
-                </div>
-                <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
-                  <ValidationRules schema={property} />
-                  {/* <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre> */}
-                </div>
-                {property.description ? (
-                  <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
-                    {property.description}
-                  </div>
-                ) : null}
-              </div>
-            );
+            return <Property key={name} name={name} property={property} required={required} />;
           })}
         </div>
       ) : null}
+    </>
+  );
+};
+
+const Property = ({
+  name,
+  property,
+  required,
+}: {
+  name: string;
+  property: SchemaObject;
+  required: string[] | undefined;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const isRequired = required?.includes(name);
+  const hasDescription = Boolean(property.description);
+
+  function toggleDescriptionVisibility() {
+    setIsOpen(!isOpen);
+  }
+
+  return (
+    <>
+      <div
+        key={name}
+        onClick={toggleDescriptionVisibility}
+        className={cx(styles.responseGridRow, { [styles.responseGridRowToggler]: hasDescription })}>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnTitle)}>{name}</div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
+          {property.format || property.type}
+          {property.nullable && ' | null'}
+        </div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnTag)}>
+          <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
+        </div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
+          <ValidationRules schema={property} />
+          {/* <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre> */}
+        </div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnIcon)}>
+          <ChevronIcon
+            title=""
+            chevronDirection={isOpen ? 'down' : 'up'}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className={styles.togglerIcon}
+          />
+        </div>
+      </div>
+
+      {hasDescription && (
+        <div className={cx(styles.responseGridRow, styles.responseGridRowContent)} aria-hidden={!isOpen}>
+          <div className={styles.responseGridRowInner}>
+            <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
+              <p className={styles.responseGridColumnInner}>{property.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
