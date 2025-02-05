@@ -1,4 +1,6 @@
 .root {
+  --color-background-code: rgba(255, 255, 255, 0.45);
+
   background: var(--note-background);
   color: var(--note-text);
   border-radius: var(--border-radius-s);
@@ -25,24 +27,29 @@
 .variantNote {
   --note-background: var(--color-background-info);
   --note-text: var(--color-text-info);
+  --color-text-code: var(--color-text-info);
 }
 
 .variantTip {
   --note-background: var(--color-background-success);
   --note-text: var(--color-text-success);
+  --color-text-code: var(--color-text-success);
 }
 
 .variantImportant {
   --note-background: var(--color-background-premium);
   --note-text: var(--color-text-premium);
+  --color-text-code: var(--color-text-premium);
 }
 
 .variantWarning {
   --note-background: var(--color-background-warning);
   --note-text: var(--color-text-warning);
+  --color-text-code: var(--color-text-warning);
 }
 
 .variantCaution {
   --note-background: var(--color-background-alert);
   --note-text: var(--color-text-alert);
+  --color-text-code: var(--color-text-alert);
 }
