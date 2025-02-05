@@ -117,7 +117,27 @@ export default function DesignSystemPage() {
           ))}
         </div>
 
-        <Note headline="Note">
+        <Note>
+          Some icons appear twice because they can be animated and need to be rendered separately for each
+          direction.
+        </Note>
+
+        <Note variant="tip">
+          Some icons appear twice because they can be animated and need to be rendered separately for each
+          direction.
+        </Note>
+
+        <Note variant="important">
+          Some icons appear twice because they can be animated and need to be rendered separately for each
+          direction.
+        </Note>
+
+        <Note variant="warning">
+          Some icons appear twice because they can be animated and need to be rendered separately for each
+          direction.
+        </Note>
+
+        <Note variant="caution">
           Some icons appear twice because they can be animated and need to be rendered separately for each
           direction.
         </Note>

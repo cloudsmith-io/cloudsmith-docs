@@ -12,16 +12,20 @@ const codeBlock = cva(styles.root, {
     hideLineNumbers: {
       false: styles.withLineNumbers,
     },
+    hideHeader: {
+      true: styles.hideHeader,
+    },
   },
 });
 
-export async function CodeBlock({ code, lang }: Props) {
+export async function CodeBlock({ code, lang, header }: Props) {
   // Remove trailing newline if present
   let trimmedCode = code;
   if (code.endsWith('\n')) {
     trimmedCode = code.slice(0, -1);
   }
 
+  const hideHeader = !lang || !header;
   const hideLineNumbers = lang === 'bash' || lang === 'text';
   const html = (await getHighlighter()).codeToHtml(trimmedCode, {
     lang,
@@ -33,7 +37,7 @@ export async function CodeBlock({ code, lang }: Props) {
   });
 
   return (
-    <div className={codeBlock({ hideLineNumbers })}>
+    <div className={codeBlock({ hideHeader, hideLineNumbers })}>
       <div className={styles.lang}>
         <div className={styles.langText}>{lang}</div>
         <ClipboardCopy textToCopy={trimmedCode} />
@@ -46,4 +50,5 @@ export async function CodeBlock({ code, lang }: Props) {
 interface Props {
   code: string;
   lang: string;
+  header: boolean;
 }
