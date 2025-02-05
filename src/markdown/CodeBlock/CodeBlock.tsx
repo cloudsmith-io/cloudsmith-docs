@@ -1,7 +1,7 @@
 import { transformerNotationHighlight } from '@shikijs/transformers';
 import { cva } from 'class-variance-authority';
 
-import { highlighter, theme } from '@/lib/highlight';
+import { getHighlighter, theme } from '@/lib/highlight';
 
 import { ClipboardCopy } from './ClipboardCopy';
 
@@ -23,7 +23,7 @@ export async function CodeBlock({ code, lang }: Props) {
   }
 
   const hideLineNumbers = lang === 'bash' || lang === 'text';
-  const html = (await highlighter).codeToHtml(trimmedCode, {
+  const html = (await getHighlighter()).codeToHtml(trimmedCode, {
     lang,
     theme,
     transformers: [

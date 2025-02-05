@@ -1,7 +1,8 @@
 import { loadApiContentInfo } from '@/lib/markdown/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { generateSharedMetadata, generateDefaultMetadata } from '@/lib/metadata/shared';
+import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
+import { TimeAgo } from '@/components';
 
 export const generateStaticParams = async () => {
   return [{}]; // Generate just the root /api route
@@ -12,17 +13,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const mdxInfo = content.find((info) => info.slug === '');
 
   if (mdxInfo) {
-    const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    return generateSharedMetadata(mdxModule, {
+    return withMdxMetadata(mdxInfo.file, {
       defaultTitle: 'API Documentation',
-      templatePrefix: 'Cloudsmith API',
-      filePath: mdxInfo.file,
+      templatePrefix: 'Cloudsmith API Reference',
     });
   }
 
-  return generateDefaultMetadata({
+  return withDefaultMetadata({
     defaultTitle: 'API Documentation',
-    templatePrefix: 'Cloudsmith API',
+    templatePrefix: 'Cloudsmith API Reference',
   });
 }
 
@@ -35,8 +34,16 @@ const Page = async () => {
   const mdxInfo = content.find((info) => info.slug === '');
 
   if (mdxInfo) {
-    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
-    return <Post />;
+    const mdxModule = await import(`@/content/${mdxInfo.file}`);
+    const { default: Post } = mdxModule;
+    const lastUpdated = getLastUpdated(mdxModule);
+
+    return (
+      <>
+        <Post />
+        {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
+      </>
+    );
   }
 
   return notFound();
