@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 import { TimeAgo } from '@/components';
 
+import styles from './[...slug]/page.module.css';
+
 export const generateStaticParams = async () => {
   return [{}]; // Generate just the root /api route
 };
@@ -39,10 +41,10 @@ const Page = async () => {
     const lastUpdated = getLastUpdated(mdxModule);
 
     return (
-      <>
+      <div className={styles.root}>
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
-      </>
+      </div>
     );
   }
 

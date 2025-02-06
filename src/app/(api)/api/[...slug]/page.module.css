@@ -1,3 +1,7 @@
+.root {
+  padding-block: var(--space-xl);
+}
+
 .gridRoot {
   --column-inline-padding: var(--space-m);
   --column-block-padding: var(--space-s);

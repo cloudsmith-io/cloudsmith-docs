@@ -1,11 +1,10 @@
-import { ComponentPropsWithoutRef, Suspense } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
 
 import { Note, Video } from '@/components';
-import { Code, CodeBlock, Heading, HorizontalRule, Link, List, Paragraph } from '@/markdown';
-import { Table } from './markdown/Table/Table';
+import { Code, CodeBlock, Heading, HorizontalRule, Link, List, Paragraph, Table } from '@/components';
 
 type HeadingProps<T extends React.ElementType = 'h1'> = ComponentPropsWithoutRef<T>;
 
@@ -30,11 +29,13 @@ const components = {
     const code = codeProps.children as string;
     const lang = (codeProps.className || '').replace(/language-/, '');
 
-    return (
-      <Suspense>
-        <CodeBlock code={code} lang={lang} {...props} />
-      </Suspense>
-    );
+    // Remove trailing newline created by mdx
+    let trimmedCode = code;
+    if (code.endsWith('\n')) {
+      trimmedCode = code.slice(0, -1);
+    }
+
+    return <CodeBlock code={trimmedCode} lang={lang} {...props} />;
   },
 
   // Disable images in favor of the Image component

@@ -72,6 +72,7 @@
     --color-text-success: var(--base-color-teal-600);
     --color-text-warning: var(--base-color-yellow-800);
     --color-text-premium: var(--base-color-purple-600);
+    --color-text-code: var(--base-color-blue-600);
 
     /* Border */
     --color-border: var(--base-color-grey-300);

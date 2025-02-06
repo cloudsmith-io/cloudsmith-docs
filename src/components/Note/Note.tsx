@@ -1,6 +1,14 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import styles from './Note.module.css';
 
+const defaultHeadings = {
+  note: 'Note',
+  tip: 'Tip',
+  important: 'Important',
+  warning: 'Warning',
+  caution: 'Caution',
+};
+
 const note = cva(styles.root, {
   variants: {
     variant: {
@@ -19,7 +27,7 @@ const note = cva(styles.root, {
 export function Note({ variant, headline, children, ...rest }: NoteProps) {
   return (
     <blockquote className={note({ variant })} {...rest}>
-      {headline && <p className={styles.headline}>{headline}</p>}
+      <p className={styles.headline}>{headline ?? defaultHeadings[variant ?? 'note']}</p>
       {children}
     </blockquote>
   );

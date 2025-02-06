@@ -1,8 +1,7 @@
-import { ApiRequest, ApiResponses, TimeAgo } from '@/components';
+import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
 import { loadApiContentInfo } from '@/lib/markdown/util';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
-import { Heading, Paragraph } from '@/markdown';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
@@ -90,7 +89,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (operation) {
     return (
-      <>
+      <div className={styles.root}>
         <Heading size="h1">{operation.title}</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
 
@@ -106,7 +105,7 @@ const Page = async ({ params }: PageProps) => {
           </Heading>
           <ApiResponses {...operation} />
         </div>
-      </>
+      </div>
     );
   }
 

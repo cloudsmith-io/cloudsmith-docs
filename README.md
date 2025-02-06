@@ -5,6 +5,7 @@ The documentation of the Cloudsmith API; replacement for [Cloudsmith.io/docs](ht
 ## Articles
 
 - [Writing markdown](./docs/markdown.md)
+- [Using snippets](./docs/snippets.md)
 - [Editing menus](./docs/menus.md)
 
 ## Getting started
