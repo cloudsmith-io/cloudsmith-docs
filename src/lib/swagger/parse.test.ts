@@ -7,16 +7,14 @@ describe('lib', () => {
       describe('parseSchema', () => {
         test('it parses the schema', async () => {
           const schema = await parseSchema();
-          expect(schema.openapi).toBe('3.0.3');
-          expect(schema.info.title).toBe('Cloudsmith API');
-          expect(Object.keys(schema.paths).length).toBeGreaterThan(4);
+          expect(schema.openapi).toBe('3.0.0');
+          expect(Object.keys(schema.paths).length).toBeGreaterThan(20);
         });
         test('it resolves refs', async () => {
           const schema = await parseSchema();
-          const responseObject = schema?.paths['/orgs/{org}/policies/']?.get?.responses[
-            '200'
-          ] as OpenAPIV3.ResponseObject;
-          const schemaObject = responseObject?.content?.['application/json'].schema as OpenAPIV3.SchemaObject;
+          const responseObject = schema?.paths['/orgs']?.get?.responses['400'] as OpenAPIV3.ResponseObject;
+          const schemaObject = responseObject?.content?.['application/json']
+            ?.schema as OpenAPIV3.SchemaObject;
           expect(schemaObject.type).toEqual('object');
         });
       });
@@ -28,12 +26,12 @@ describe('lib', () => {
           const result = toOperations(schema);
           expect(result.length).toBeGreaterThan(4);
 
-          const operation = result.find((op) => op.operationId === 'orgs_policies_list');
+          const operation = result.find((op) => op.operationId === 'orgs_list');
           expect(operation).toBeDefined();
-          expect(operation?.menuSegments).toEqual(['Policies', 'List']);
-          expect(operation?.path).toEqual('/orgs/{org}/policies/');
+          expect(operation?.menuSegments).toEqual(['Orgs', 'List']);
+          expect(operation?.path).toEqual('/orgs');
           expect(operation?.method).toEqual('get');
-          expect(operation?.slug).toEqual('policies/list');
+          expect(operation?.slug).toEqual('orgs/list');
           // TODO when summary property is in swagger
           expect(operation?.title).toEqual('Missing headline for endpoint');
         });
@@ -46,16 +44,16 @@ describe('lib', () => {
           const operations = toOperations(schema);
           const result = toMenuItems(operations);
 
-          const parentItem = result[1];
-          const childItem = parentItem.children?.[0];
+          const parentItem = result.find((res) => res.title === 'Formats');
+          const childItem = parentItem?.children?.[0];
 
-          expect(parentItem.title).toBe('Policies');
-          expect(parentItem?.path).toEqual('/api/policies/list'); // Parents always link to the first item
+          expect(parentItem?.title).toBe('Formats');
+          expect(parentItem?.path).toEqual('/api/formats/list'); // Parents always link to the first item
           expect(parentItem?.method).toBeUndefined();
 
           expect(childItem?.title).toEqual('List');
           expect(childItem?.method).toEqual('get');
-          expect(childItem?.path).toEqual('/api/policies/list');
+          expect(childItem?.path).toEqual('/api/formats/list');
         });
       });
     });

@@ -6,17 +6,13 @@ describe('lib', () => {
       describe('loadContentInfo', () => {
         test('it returns slugs for documentation files', async () => {
           const slugs = await loadContentInfo();
+          expect(slugs.length).toBeGreaterThan(20);
           expect(slugs).toEqual(
             expect.arrayContaining([
               {
-                file: 'test/index.mdx',
-                slug: 'test',
-                segments: ['test'],
-              },
-              {
-                file: 'test/another-test.mdx',
-                slug: 'test/another-test',
-                segments: ['test', 'another-test'],
+                file: 'getting-started/api-key.mdx',
+                slug: 'getting-started/api-key',
+                segments: ['getting-started', 'api-key'],
               },
             ]),
           );
