@@ -3,6 +3,7 @@ export type SearchInput = {
   content: string;
   path: string;
   section: string;
+  method?: string;
 };
 
 export type SearchResult = {
@@ -11,4 +12,5 @@ export type SearchResult = {
   path: string;
   section: string;
   score: number;
+  method?: string;
 };

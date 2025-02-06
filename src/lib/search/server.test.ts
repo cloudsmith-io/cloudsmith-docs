@@ -15,6 +15,8 @@ describe('lib', () => {
 
         expect(mdx?.score).toEqual(1);
         expect(api?.score).toEqual(0.8571428571428572);
+
+        expect(api?.method).toEqual('get');
       });
 
       test('searches only documentation', async () => {

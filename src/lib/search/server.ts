@@ -49,6 +49,7 @@ export const performSearch = async (
         content: op.description || 'Default content',
         path: apiOperationPath(op.slug),
         section: 'api',
+        method: op.method,
       });
     }
 
@@ -86,9 +87,7 @@ export const performSearch = async (
         .replace(/ +/, ' ');
 
       return {
-        title: item.title,
-        path: item.path,
-        section: item.section,
+        ...item,
         snippet,
         score: res.score,
       };
