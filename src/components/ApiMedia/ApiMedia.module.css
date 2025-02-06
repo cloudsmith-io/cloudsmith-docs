@@ -24,7 +24,11 @@
 .responseGrid {
   display: grid;
   grid-template-columns: minmax(150px, auto) auto auto minmax(300px, auto) 16px;
-  margin-block-start: var(--column-block-padding);
+  margin-block: var(--column-block-padding) calc(var(--column-block-padding) * -1);
+
+  .responseGrid {
+    margin-block-end: calc(var(--space-s) * -1);
+  }
 }
 
 .responseGridRow {
@@ -50,12 +54,10 @@
   padding-block: var(--column-block-padding);
 }
 
-.responseGridRow:last-child .responseGridColumn {
-  padding-block-end: 0;
-}
-
 .responseGridColumnTitle {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .responseGridColumnType {
@@ -108,12 +110,12 @@
   grid-column: 1 / -1;
   padding-inline-end: 0;
   padding-block: var(--space-xs) var(--space-s);
-  font-size: var(--text-body-xs);
-  line-height: var(--text-body-s);
-  color: var(--color-text-secondary);
 }
 
 .responseGridColumnInner {
   margin: 0;
   max-inline-size: 70ch;
+  font-size: var(--text-body-xs);
+  line-height: var(--text-body-s);
+  color: var(--color-text-secondary);
 }

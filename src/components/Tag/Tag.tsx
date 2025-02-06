@@ -51,6 +51,11 @@ const statusCodes: { [key in Tag.HttpResponseStatusCodes]: Tag.VariantsProps['va
   201: 'green',
   204: 'green',
   400: 'red',
+  401: 'red',
+  403: 'red',
+  404: 'red',
+  417: 'red',
+  422: 'red',
 };
 
 export const Tag = ({ size, type, active, mobileDarkMode, className, ...props }: Tag.Props) => {
@@ -88,7 +93,7 @@ export const Tag = ({ size, type, active, mobileDarkMode, className, ...props }:
 export namespace Tag {
   export type VariantsProps = VariantProps<typeof tagVariants>;
   export type HttpRequestMethods = Lowercase<keyof typeof OpenAPIV3.HttpMethods>;
-  export type HttpResponseStatusCodes = 200 | 201 | 204 | 400; // Supported status codes
+  export type HttpResponseStatusCodes = 200 | 201 | 204 | 400 | 401 | 403 | 404 | 417 | 422; // Supported status codes
 
   type DivElement = React.ComponentPropsWithoutRef<'div'>;
 
