@@ -1,0 +1,42 @@
+# Import NuGet
+
+## Bulk Import of NuGet Packages using the Cloudsmith CLI
+
+Once you have exported all your NuGet packages (.nupkg files) you can upload them to Cloudsmith- yay! 
+
+First make sure you [install the Cloudsmith CLI ](/getting-started/cli#installation).
+
+A folder of NuGet packages, in the .nupkg format, can be published to Cloudsmith using the scripts below in either powershell or bash
+
+```powershell
+# Script to upload all package in a directory into a Cloudsmith repo, using the Cloudsmith CLI
+
+$SourceFolder = '/your/full/path/to/folder/conatining/nupkgs/here'
+$TargetRepo = 'YOUR_CLOUDSMITH_ORG/YOUR_CLOUDSMITH_REPO'
+
+Get-ChildItem -Path $SourceFolder -Filter '*.nupkg'|
+    ForEach-Object {
+        Write-Host -ForegroundColor Green "Pushing package "$_.Name""
+        cloudsmith push nuget $TargetRepo $_.FullName
+    }
+```
+```shell
+#!/bin/bash
+#Script to upload all package in a directory into a Cloudsmith repo, using the Cloudsmith CLI
+
+# How to use:
+# Save this bash script as 'migrate_nuget_to_cs.sh' and give it execute privileges
+# this script tackes in 3 parameters from the command line:
+# $1: '<YOUR_CLOUDSMITH_ORG>/<YOUR_CLOUDSMITH_REPO>' 
+# $2: '</YOUR/FULL/PATH/TO/FOLDER/CONTAINING/NUPKGS/HERE>'
+# $3: '<CLOUDSMITH_API_TOKEN>'
+# To execute the script from the command line and pass in the 3 parameters: 
+# ./migrate_nuget_to_cs.sh <YOUR_CLOUDSMITH_ORG>/<YOUR_CLOUDSMITH_REPO> </YOU/FULLl/PATH/TO/FOLDER/CONTAINING/NUPKGS/HERE> <CLOUDSMITH_API_TOKEN>
+ 
+FILES="."
+for f in "$2/"*.nupkg
+do
+  echo "Processing $f file..."
+  cloudsmith push nuget "$1" $f -k $3
+done
+```

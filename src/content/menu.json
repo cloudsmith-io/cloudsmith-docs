@@ -49,6 +49,42 @@
           {
             "title": "Export from Nexus Sonatype",
             "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
+          },   
+          {
+            "title": "Exporting NuGet",
+            "path": "/migrating-to-cloudsmith/exporting-nuget"
+          },
+          {
+            "title": "Import files from a folder",
+            "path": "/migrating-to-cloudsmith/import-files-from-a-folder"
+          },
+          {
+            "title": "Import Maven",
+            "path": "/migrating-to-cloudsmith/import-maven"
+          },
+          {
+            "title": "Import npm",
+            "path": "/migrating-to-cloudsmith/import-npm"
+          },
+          {
+            "title": "Import NuGet",
+            "path": "/migrating-to-cloudsmith/import-nuget"
+          },
+          {
+            "title": "Import Docker",
+            "path": "/migrating-to-cloudsmith/import-docker"
+          },
+          {
+            "title": "Import Python",
+            "path": "/migrating-to-cloudsmith/import-python"
+          },
+          {
+            "title": "Import Debian",
+            "path": "/migrating-to-cloudsmith/import-debian"
+          },
+          {
+            "title": "Import RPM",
+            "path": "/migrating-to-cloudsmith/import-rpm"
           }
         ]
       },

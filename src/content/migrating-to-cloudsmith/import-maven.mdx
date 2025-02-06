@@ -1,0 +1,71 @@
+# Import Maven
+
+Cloudsmith provides both upstream proxying and caching for Maven packages. Together they mean simpler, more reliable integration of third-party packages into the development process.  
+There is more information about Cloudsmith's Maven repositories [here](/supported-formats/maven-repository)
+
+## Prerequisites
+
+- Maven artifacts exported to a folder. Follow the steps [here](doc:exporting-1) to export your packages. 
+- Create a repository on Cloudsmith using the instructions found [here](doc:create-a-repository) 
+
+## Update settings.xml
+
+Maven is configured using a settings.xml file located under your Maven home directory (typically, this will be /user.home/.m2/settings.xml). Follow the instructions [here](/supported-formats/maven-repository#upload-via-maven) to update your settings.xml file for Maven.
+
+## Update pom.xml
+
+A POM, the Project Object Model, is the XML file that describes all the aspects of your project that relate to building and packaging the source code into a package file. 
+
+You will need to update the distribution and dependency values in the POM for each Maven artifact 
+
+### Retrieve your Maven endpoint for Cloudsmith
+
+The endpoint for the native Maven API is:
+
+```
+https://maven.cloudsmith.io/OWNER/REPOSITORY/
+```
+
+### Update your distributionManagement
+
+To enable the retrieval of Cloudsmith hosted packages via Maven, you will need to update the distributionManagement section of your pom.xml file. 
+
+The distribution repositories define where to push your artifacts. In this case it will be a single repository, but you can configure alternatives. Edit the url tags of distributionManagement to point to your Cloudsmith Maven endpoint like the following to your project `pom.xml` file:
+
+```xml
+<distributionManagement>
+  <snapshotRepository>
+    <id>NAME</id>
+    <url>https://maven.cloudsmith.io/OWNER/REPOSITORY/</url>
+  </snapshotRepository>
+  <repository>
+    <id>NAME</id>
+    <url>https://maven.cloudsmith.io/OWNER/REPOSITORY/</url>
+  </repository>
+</distributionManagement>
+```
+
+### Update your dependencies
+
+The dependencies section of the project pom.xml file may need to be updated for dependencies that were migrated to Cloudsmith. You may not need to update your dependencies if they have the same groupId, artifactId, and version.
+
+The following XML is an example of a depandancy in a pom.xml:
+
+```xml
+<dependency>
+  <groupId>GROUP_ID</groupId>
+  <artifactId>ARTIFACT_ID</artifactId>
+  <version>PACKAGE_VERSION</version>
+</dependency>
+```
+
+### Update your pluginRepository
+
+## Deploy to Cloudsmith
+
+Once you have your pom.xml and settings.xml file all updated with the Cloudsmith information, you just need to package your Maven package and deploy it to Cloudsmith.
+
+```shell
+mvn package
+mvn deploy
+```
