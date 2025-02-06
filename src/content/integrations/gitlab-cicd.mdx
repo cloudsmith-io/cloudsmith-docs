@@ -1,0 +1,59 @@
+import { Note } from '@/components';
+import NoCodeNoteSnippet from '@/snippets/no-code-uploading-note-snippet.mdx';
+
+# GitLab CI/CD
+
+How to integrate GitLab CI/CD with Cloudsmith.
+
+GitLab is an open-source DevOps platform originally built as a Git-based source code management tool but has since expanded into many areas including CI/CD.
+
+<NoCodeNoteSnippet />
+To upload a package to a Cloudsmith repository using a Gitlab CI/CD pipeline, you can either use the [Cloudsmith CLI](/getting-started/cli) or the native package management tooling, such as `gem push` or `cargo publish` (where supported)
+
+In either case, you will need to add your Cloudsmith API Key to your GitLab CI/CD environment
+
+## Adding your API Key to GitLab
+
+Retrieve your [Cloudsmith API Key](/getting-started/api-key).
+
+### API Key use with the Cloudsmith CLI
+
+To use the Cloudsmith CLI with GitLab CI/CD Pipelines, you will need to add your Cloudsmith API Key to your GitLab repository as a CI/CD environment variable named `CLOUDSMITH_API_KEY`.  
+Please see the [GitLab CI/CD environment variables](https://docs.gitlab.com/ee/ci/variables/#create-a-custom-variable-in-the-ui) documentation for further details. 
+
+### API Key use with native package managers
+
+If using native package management tooling to upload your package, you will need to add your Cloudsmith API Key to the credentials file or location that the native tools require.  Please see the documentation for your specific package management tool for further details.
+
+You can then use [GitLab CI/CD file variables](https://docs.gitlab.com/ee/ci/variables/#custom-environment-variables-of-type-file) to securely store your Cloudsmith API Key and create the required credentials file from this file variable during a pipeline run. 
+
+## Examples
+
+### Push a Ruby Package.
+
+To push a Ruby package via `gem push` using GitLab CI/CD, you will need to add the following 
+
+1. An environment variable, called `RUBYGEMS_HOST`, containing the URL for your Cloudsmith repository to your GitLab CD/CD pipeline `.gitlab-ci.yml` file:
+
+```yaml
+variables:
+  RUBYGEMS_HOST: "https://ruby.cloudsmith.io/OWNER/REPOSITORY"
+```
+
+2. A file variable, called `CLOUDSMITH_API_KEY`, to your repository CI/CD settings: 
+
+```
+---
+:rubygem_api_key: Token <YOUR_CLOUDSMITH_API_KEY> 
+```
+
+3. A push stage in your GitLab CI/CD pipeline `.gitlab-ci.yml` file, which will create the required `~/.gem/credentials` file, copy in the contents of the `CLOUDSMITH_API_KEY` file variable and then run the `gem push` command to upload your Ruby package to your Cloudsmith repository
+
+```yaml
+push:
+  stage: push
+  script:
+    - mkdir -p ~/.gem 
+    - mv $CLOUDSMITH_API_KEY ~/.gem/credentials && chmod 0600 ~/.gem/credentials
+    - gem push <YOUR_PACKAGE_NAME>.gem
+```

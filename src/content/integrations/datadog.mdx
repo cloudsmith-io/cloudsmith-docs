@@ -1,0 +1,107 @@
+# Datadog
+
+import { BlockImage } from '@/components';
+import dataDogIntegrationsImage from './images/datadog/48d4b9b-dataDogIntegraions.png';
+import dataDogConfigImage from './images/datadog/3cb2d4b-dataDogConfig.png';
+import dataDogDashboardImage from './images/datadog/b2c12aa-dataDogDash.png';
+import dataDogCSDashboardImage from './images/datadog/b2def6b-dataDogCSDashboard.png';
+import dataDogAuditImage from './images/datadog/dataDogAudit.png';
+
+The Datadog Cloudsmith Integration is a simple and effective visualisation tool for monitoring your token, storage, bandwidth usage, audit logs and vulnerability scanning.
+
+[Datadog](https://www.datadoghq.com/) is an observability service for cloud-scale apps, providing monitoring of servers, databases, tools, and services through a SaaS-based data analytics platform. At Cloudsmith, we are big fans of Datadog and use it to monitor and visualize how our system is performing across a range of services and tools.
+
+The Datadog Cloudsmith integration, allows users to monitor their storage, bandwidth, token usage, audit logs, and vulnerabilities results in Datadog. This [metric data](https://cloudsmith.com/resources/blog/track-your-bandwidth-storage-limits-with-our-quota-api) is crucial in monitoring your consumption and mitigating against getting an unexpected overage bill- the Datadog Cloudsmith integration is another way for you and your team to monitor this, alongside audit logs and security scanning, which ensures that no suspicious activity is going on in your organization and that any suspicious trails can be caught.
+
+## Metrics Available
+
+The following metrics will be tracked by the Datadog Cloudsmith integration:
+
+| Metric Name                      | Metric Type | Description                                      |
+| :------------------------------- | :---------- | :----------------------------------------------- |
+| cloudsmith.storage_used          | percent     | The percentage of storage used                   |
+| cloudsmith.bandwidth_used        | percent     | The percentage of bandwidth used                 |
+| cloudsmith.token_count           | item        | The number of tokens in an organization          |
+| cloudsmith.token_bandwidth_total | byte        | The total bandwidth used by tokens               |
+| cloudsmith.token_download_total  | item        | The total downloads used by tokens               |
+| cloudsmith.audit_log             | event       | Most recent audit logs will appear in the stream |
+| cloudsmith.vulnerabilities       | event       | Most recent security scan results                |
+
+## Install Cloudsmith Datadog Integration
+
+The Cloudsmith integration is a [Community Integration](https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentv721v621)- follow these steps to install and configure your Cloudsmith integration.
+
+### Datadog Agent
+
+First things first, you need to install the Datadog Agent.
+
+The Datadog agent is software that runs on your hosts. It collects events and metrics from hosts and sends them to Datadog, where you can analyze your monitoring and performance data. To install the Datadog agent, follow the steps [here](https://docs.datadoghq.com/agent/).
+
+### Cloudsmith Datadog Integration Installation
+
+The Cloudsmith check is a [Community Integration](https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentv721v621) and is not included in the [Datadog Agent](https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#agent) package, so you need to install it.
+
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Cloudsmith check on your host. Run the following command to install the Cloudsmith Agent integration:
+
+```
+datadog-agent integration install -t datadog-cloudsmith==<INTEGRATION_VERSION>
+```
+
+### Configuration
+
+Configure your integration similar to core integrations. The Cloudsmith integration has 3 configuration values:
+
+| Config Name        | Config Description                                                                         |
+| :----------------- | :----------------------------------------------------------------------------------------- |
+| url                | This is the url to the Cloudsmith API and will not change (https://api.cloudsmith.io/v1) |
+| cloudsmith_api_key | Your Cloudsmith API key                                                                    |
+| organization       | The Cloudsmith [Organization](doc:organisations)  that you are monitoring                  |
+
+Follow these steps to configure your Cloudsmith integration:
+
+1. Edit the **_cloudsmith.d/conf.yaml_** file, in the conf.d/ folder at the root of your Agent's configuration directory to start collecting your Cloudsmith performance data. See the [sample](https://github.com/DataDog/integrations-extras/blob/master/cloudsmith/datadog_checks/cloudsmith/data/conf.yaml.example) **_cloudsmith.d/conf.yaml_** for all available configuration options.
+2. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#start-stop-and-restart-the-agent).
+
+### Validation
+
+[Run the Agent's status subcommand](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#agent-status-and-information) and look for `cloudsmith` under the Checks section.
+
+## View your Cloudsmith Dashboard in Datadog
+
+Datadog dashboards enable you to efficiently monitor your infrastructure and integrations by displaying and tracking key metrics. Once the Agent is installed with the Cloudsmith check, you can use the metrics in any datadog dashboard.
+
+To make life easier for you, the Cloudsmith Datadog Integration comes with it’s own dashboard allowing you to monitor your Cloudsmith accounts storage, bandwidth, and token usage.
+
+## Install the Datadog Integration
+
+Log into [Datadog](https://www.datadoghq.com/) and from the side bar select **_Integrations->integrations_** and select the Cloudsmith integration.
+
+<BlockImage src={dataDogIntegrationsImage} alt="" align="left"></BlockImage>
+
+Open the Configuration tab and select **_Install Integration_**.
+
+<BlockImage src={dataDogConfigImage} alt="" align="left"></BlockImage>
+
+The Cloudsmith Dashboard can be viewed by following these instructions:
+
+1. Follow the instructions in the previous section to install the Cloudsmith integration
+2. From Datadog, select **_Dashboards->Dashboard_** list to view your dashboards.
+
+<BlockImage src={dataDogDashboardImage} alt="" align="left"></BlockImage>
+
+Select your installed Cloudsmith dashboard- it will be listed as **_Cloudsmith Overview_**.
+<BlockImage src={dataDogCSDashboardImage} alt="" align="left"></BlockImage>
+
+The dashboard above tracks tokens and consumption usage in an Organization:
+
+- It tracks the storage and bandwidth usage of your packages in a Cloudsmith organization. If your bandwidth or storage usage is getting close to the limit, your status changes to amber if above 75% and red if your usage is above 85%.
+- Track your entitlement token usage for your organization. View the number of tokens created, the total amount downloaded by all tokens, and the bandwidth used by tokens. Entitlement tokens are read-only tokens used for downloading files and gaining read-only access to repository contents. See [Entitlements](doc:entitlements) for more information.
+<BlockImage src={dataDogAuditImage} alt="" align="left"></BlockImage>
+
+Furthermore, you can also track org-wide audit logs and vulnerability scanning results across your Cloudsmith organization. This allows for _a one-stop-shop_ when it comes to visibility over your current artifacts.
+
+## To Sum it Up
+
+The Datadog Cloudsmith Integration is a simple and effective visualization tool for monitoring your token, storage, bandwidth usage, audit logs, and vulnerability scanning. Never be surprised by an unexpected overage, and give yourself time to change your settings before you reach your limit. If you identify a limit that is approaching a threshold, then you can quickly and easily adjust your [limits](doc:organisations#usage-limits) at any time within the Cloudsmith UI.
+
+If you already use Datadog to monitor your tools and services, this tool is for you!

@@ -1,0 +1,70 @@
+import { Note, BlockImage } from '@/components';
+import NoCodeNoteSnippet from '@/snippets/no-code-uploading-note-snippet.mdx';
+
+import semaphoreSecretsImage from './images/semaphore-ci/73f8db2-semaphore-secrets.png';
+
+
+# Integrating Semaphore CI
+
+How to integrate Semaphore CI with Cloudsmith
+
+Semaphore is a hosted continuous integration and deployment service used for testing and deploying software projects hosted on GitHub and BitBucket.
+
+You can create your workflow and pipelines by writing YAML configuration files and committing them along with your source code, or using the intuitive Visual Builder that Semaphore includes.
+
+- [Semaphore CI](https://semaphoreci.com/): Semaphore Website
+- [Semaphore Docs](https://docs.semaphoreci.com/): Official Semaphore Documentation
+
+<NoCodeNoteSnippet />
+<a target="_blank" href="https://youtu.be/IykYs_VxbG0"><img src="https://files.readme.io/1d8c507-cloudsmith-youtube-play-semaphore-small.png"/></a>
+
+In the following examples:
+
+| Identifier   | Description                                                   |
+| :----------- | :------------------------------------------------------------ |
+| OWNER        | Your Cloudsmith account name or organisation name (namespace) |
+| REPOSITORY   | Your Cloudsmith Repository name (also called "slug")          |
+| FORMAT       | The format of the package, i.e "deb", "maven", "npm" etc      |
+| PACKAGE_FILE | The filename of the package                                   |
+
+## API Key Configuration 
+
+You need to add your Cloudsmith [API Key](https://cloudsmith.io/user/settings/api/) in order to authenticate to Cloudsmith for pushing packages. We recommend storing your Cloudsmith API Key as a [secret in Semaphore](https://docs.semaphoreci.com/essentials/using-secrets/). Secrets in Semaphore are organization-level objects that can contain environment variables or files which you can then access in your build jobs. 
+
+You can add a secret using the Semaphore CLI or the UI:  
+
+<BlockImage src={semaphoreSecretsImage} alt="" align="left"></BlockImage>
+
+## Push Package Example
+
+To Push a package to Cloudsmith from a Semaphore CI Pipeline, you just need to add your Cloudsmith API Key secret and the `cloudsmith push` CLI command to one of the blocks in your pipeline
+
+For example: 
+
+```json
+  - name: Push Package
+    task:
+      secrets:
+        - name: Cloudsmith-API
+      jobs:
+        - name: Push
+          commands:
+            - cache restore package
+            - cloudsmith push FORMAT OWNER/REPOSITORY/ PACKAGE_FILE
+      prologue:
+        commands:
+          - sem-version python 3.7
+          - pip install cloudsmith-cli
+```
+
+<Note variant="note">
+The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb` . Please see the [Cloudsmith CLI](/getting-started/cli) for full details of the push command for other formats and additional help).
+</Note>
+
+In the above example, we use the command executed during the block prologue to install the Cloudsmith CLI, so that the `cloudsmith push` command is available.
+
+ In addition, we also use the `cache restore` command to retrieve the package file that was built in a previous block.  Please see the [Semaphore Cache documentation](https://docs.semaphoreci.com/essentials/caching-dependencies-and-directories/) for more detail on storing and retrieving artifacts using the Semaphore cache
+
+<Note variant="note">
+Where supported, you can also use native publishing commands like `docker push` or `npm publish` instead of using the Cloudsmith CLI, provided you have installed the necessary tooling as part of your pipeline block setup.
+</Note>

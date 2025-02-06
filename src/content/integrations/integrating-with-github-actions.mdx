@@ -1,0 +1,56 @@
+import { Note, BlockImage, Card } from '@/components';
+import NoCodeNoteSnippet from '@/snippets/no-code-uploading-note-snippet.mdx';
+
+# Integrating GitHub Actions
+
+How to integrate GitHub Actions with Cloudsmith
+
+The Cloudsmith GitHub Action allows you to use the Cloudsmith CLI to upload/push packages to Cloudsmith repositories.  It currently supports pushing: 
+
+- [Alpine](https://github.com/cloudsmith-io/action?tab=readme-ov-file#alpine-package-push)
+- [Cargo](https://github.com/cloudsmith-io/action?tab=readme-ov-file#cargo-crate-push)
+- [CocoaPods](https://github.com/cloudsmith-io/action?tab=readme-ov-file#cocoapods-package-push)
+- [Composer](https://github.com/cloudsmith-io/action?tab=readme-ov-file#composer-package-push)
+- [Dart](https://github.com/cloudsmith-io/action?tab=readme-ov-file#dart-package-push)
+- [Debian](https://github.com/cloudsmith-io/action?tab=readme-ov-file#debian-package-push)
+- [Docker](https://github.com/cloudsmith-io/action?tab=readme-ov-file#docker-image-push)
+- [Go](https://github.com/cloudsmith-io/action?tab=readme-ov-file#go-push)
+- [Helm](https://github.com/cloudsmith-io/action?tab=readme-ov-file#helm-chart-push)
+- [Hex](https://github.com/cloudsmith-io/action?tab=readme-ov-file#hex-push)
+- [Maven](https://github.com/cloudsmith-io/action?tab=readme-ov-file#maven-package-push)
+- [npm](https://github.com/cloudsmith-io/action?tab=readme-ov-file#npm-package-push)
+- [NuGet](https://github.com/cloudsmith-io/action?tab=readme-ov-file#nuget-package-push)
+- [Python](https://github.com/cloudsmith-io/action?tab=readme-ov-file#python-package-push)
+- [RedHat/RPM](https://github.com/cloudsmith-io/action?tab=readme-ov-file#redhatrpm-package-push)
+- [Raw](https://github.com/cloudsmith-io/action?tab=readme-ov-file#raw-file-push)
+
+<NoCodeNoteSnippet />
+
+<a href="https://youtu.be/kB6nH3ojx_w" target="_blank"><img src="https://files.readme.io/5ad0eab-cloudsmith-youtube-play-github-actions-small.png" /></a>
+
+<Card
+    title="cloudsmith-github-action"
+    description="Github Action to push to Cloudsmith"
+    href="https://github.com/cloudsmith-io/action"
+    linkText="Github Action to push to Cloudsmith"
+    icon="utility/documentation"
+  />
+
+## Adding your API Key to GitHub
+
+Retrieve your [Cloudsmith API Key](/getting-started/api-key).
+
+You will need to add a secret to your GitHub repository named `CLOUDSMITH_API_KEY`, with the value of your API-Key. Secrets are added through your GitHub repository settings, please see the [Creating and Storing Encrypted Secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) documentation on GitHub for further details. 
+
+Pass your `CLOUDSMITH_API_KEY` secret to the Action as per the examples.
+
+<Note variant="note" headline="OIDC Authentication">
+When using [OIDC](https://help.cloudsmith.io/docs/openid-connect) with GitHub Actions, save the JWT token to an environment variable called `CLOUDSMITH_API_KEY` and **do not** include `api-key` in the `.yaml` push action - the API key will be taken from the environment variable instead.
+</Note>
+
+
+## Examples
+
+Examples for all formats supported are available on the [GitHub README](https://github.com/cloudsmith-io/action?tab=readme-ov-file).
+
+
