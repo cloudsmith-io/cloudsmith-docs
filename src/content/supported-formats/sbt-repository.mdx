@@ -1,0 +1,221 @@
+---
+title: "sbt Repository"
+---
+
+import { Note } from '@/components';
+
+# sbt Repository
+
+Cloudsmith provides public & private repositories for sbt packages (Scala)
+
+
+sbt is an open-source build tool for Scala and Java projects. Its main features are  
+native support for compiling Scala code and integrating with many Scala test frameworks.
+
+For more information on sbt, please see:
+
+- [scala-sbt](https://www.scala-sbt.org/): The official sbt website
+
+<a href="https://youtu.be/1oIZjdKn8jY" target="_blank"><img src="https://files.readme.io/7bbfe0a-cloudsmith-youtube-play-sbt-small.png" /></a>
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                                  |
+| :-------------- | :------------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                                |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                         |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details)    |
+| USERNAME        | Your Cloudsmith username                                                                     |
+| PASSWORD        | Your Cloudsmith password                                                                     |
+| API-KEY         | Your Cloudsmith API Key                                                                      |
+| PACKAGE_VERSION | The version number of your package                                                           |
+| GROUP-ID        | A unique Maven identifier for your project across all projects i.e "com.companyname.project" |
+| ARTIFACT_ID     | The name of the jar without version i.e "project"                                            |
+
+## Upload a Package
+
+### Upload via sbt Publish
+
+The endpoint for the native Maven API is:
+
+```
+https://maven.cloudsmith.io/OWNER/REPOSITORY/
+```
+
+By default, Sbt 1.x uses Maven-style publishing and no other plugins are required to publish to Cloudsmith. If you're using Sbt 0.x then you'll need to use the Maven Wagon integration approach (see the integrations tab within the repository on the Cloudsmith website for further details).
+
+Include a `publishTo` stanza in your `publish.sbt` file as follows:
+
+```scala
+publishTo := { Some("Cloudsmith API" at "https://maven.cloudsmith.io/OWNER/REPOSITORY/") }
+pomIncludeRepository := { x => false }
+```
+
+You then configure a `~/.sbt/.credentials` file with the authentication details of the uploading user as follows:
+
+```
+realm=Cloudsmith API
+host=maven.cloudsmith.io
+user=OWNER
+password=API-KEY
+```
+
+Then refer to the above in your `publish.sbt` file with:
+
+```scala
+credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
+```
+
+<Note variant="note" headline="Note">
+You can also encode your credentials directly (and use an environment variable to pull in the API key).
+</Note>
+
+You can now publish to the native API with:
+
+```shell
+sbt publish
+```
+
+You can find out additional information about Sbt publishing in the [official Sbt documentation](https://www.scala-sbt.org/1.x/docs/Publishing.html).
+
+#### Publishing an sbt plugin
+
+Cloudsmith supports publishing sbt plugins via the Maven publish style. To publish an sbt plugin you need to add the following to your `build.sbt`:
+
+```scala
+lazy val root = (project in file("."))
+    .enablePlugins(SbtPlugin)
+    .settings(
+        name := "PLUGIN_NAME",
+        sbtPlugin := true,
+        publishMavenStyle := true,
+    )
+```
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/upload-via-cloudsmith-cli-api).
+
+The command to upload via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push maven OWNER/REPOSITORY ARTIFACT_ID-PACKAGE_VERSION.jar --pom-file=ARTIFACT_ID-PACKAGE_VERSION.pom
+```
+
+Example:
+
+```shell
+cloudsmith push maven org/repo validation-api-1.0.0.GA.jar --pom-file=validation-api-1.0.0.GA.pom
+```
+
+### Upload via Cloudsmith Website
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+
+## Download / Install a Package
+
+### Setup
+
+#### Public Repositories
+
+To enable the retrieval of packages from a public Cloudsmith repository via sbt, add your repository your `build.sbt` file as follows:
+
+```scala
+resolvers += "NAME" at "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/maven/"
+```
+
+#### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+To enable the retrieval of packages from a private Cloudsmith repository via sbt, add your repository your `build.sbt` file as follows:
+
+```scala Entitlement Token Authentication
+resolvers += "NAME" at "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/maven/"
+```
+```scala HTTP Basic Authentication
+resolvers += "NAME" at "https://dl.cloudsmith.io/basic/OWNER/REPOSITIORY/maven/"
+```
+
+When using Entitlement Token Authentication, no further setup is required.  
+If using HTTP Basic Authentication, you can provide one following three types of credentials: 
+
+- Cloudsmith Username and Password
+- Cloudsmith API Key
+- An Entitlement Token
+
+You should keep these credentials separately in your `~/.sbt/.credentials` file instead of within the `build.sbt` file. When you have your credentials ready, setup your `~/.sbt/.credentials` file as follows:
+
+```text Username & Password
+realm=Private Repository
+host=
+user=USERNAME
+password=PASSWORD
+```
+```text API Key
+realm=Private Repository
+host=
+user=USERNAME
+password=API-KEY
+```
+```text Entitlement Token
+realm=Private Repository
+host=
+user=token
+password=TOKEN
+```
+
+Then add the following to your `build.sbt` file:
+
+```scala
+credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
+```
+
+### Specifying Dependencies
+
+After the repository is added to the `build.sbt` file, and your credentials are added to the `/.sbt/.credentials` file (required for private repositories if using HTTP Basic Authentication), all that is left is to [specify the dependency](https://www.scala-sbt.org/1.0/docs/Library-Dependencies.html) in the dependencies section of the project `build.sbt` file.
+
+```scala
+libraryDependencies += "GROUP_ID" % "ARTIFACT_ID" % "PACKAGE_VERSION"
+```
+
+***
+
+<Note variant="note" headline="Note">
+In sbt 0.13.x (not sbt 1.x or above) an extension point in the dependency resolution to use Maven-style resolvers is required. To enable this plugin add the following to `project/maven.sbt` (or `project/plugin.sbt`): 
+```scala
+addMavenResolverPlugin
+```
+</Note>
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+You can configure upstream repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
+
+Please see our [Upstream Proxying](doc:proxying) documentation for further instructions. 
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Index</span> <span class="cs-tag cs-tag-midnight-blue">Packages</span>
+
+## Troubleshooting
+
+**Q. sbt maintains plain text passwords in settings.xml and credential files. How do we prevent exposure of such passwords?**
+
+The underlying Maven toolchain supports encrypted credentials. You can also use interpolation from environment variables instead so that you don't store them in configuration files. We also support authentication by de-privileged [entitlement tokens](docs:entitlement-tokens) (i.e. read-only specific access) to minimize exposure.
+
+## Still Need Help?
+
+Contact us [here](https://support.cloudsmith.com). We're always happy to help!

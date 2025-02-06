@@ -1,0 +1,170 @@
+---
+title: "Vagrant Repository"
+---
+
+import { Note } from '@/components';
+
+# Vagrant Repository
+
+Cloudsmith provides public & private repositories for Vagrant boxes
+
+Vagrant is an automation tool for building and managing virtual machine environments. Developed by the wizards at Hashicorp it makes setting up environments easier to manage.
+
+For more information on Vagrant, please see:
+
+- [Vagrant](https://www.vagrantup.com/): The official website for Vagrant
+- [Vagrant Docs](https://www.vagrantup.com/docs/index.html): The official docs for Vagrant
+- [Public Vagrant Repository](https://app.vagrantup.com/boxes/search): The official public repository for Vagrant boxes
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier    | Description                                                                               |
+| :------------ | :---------------------------------------------------------------------------------------- |
+| OWNER         | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY    | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN         | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME      | Your Cloudsmith username                                                                  |
+| PASSWORD      | Your Cloudsmith password                                                                  |
+| API-KEY       | Your Cloudsmith API Key                                                                   |
+| BOX_NAME      | The name of your Vagrant box                                                              |
+| BOX_VERSION   | The version number of your Vagrant box                                                    |
+| PROVIDER_NAME | The name of the Vagrant provider (i.e virtualbox, hyperv, vmware_desktop etc)             |
+
+## Upload a Box
+
+To upload, you need to generate your Vagrant box first. You can do this with:
+
+```shell
+vagrant package --output BOX_NAME.box
+```
+
+This generates a box file (.box) like `your-package-1.2.3.box` that you can upload.
+
+<Note variant="note" headline="Note">
+This assumes that you've created a Vagrantfile file for your project and that you have used `vagrant up` at least once. Please see the official [Vagrant docs](https://www.vagrantup.com/intro/getting-started/project_setup.html) for more information.
+</Note>
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/upload-via-cloudsmith-cli-api).
+
+The command to upload an (Objective-C or Swift) CocoaPods package via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push vagrant OWNER/REPOSITORY BOX_NAME.box --provider PROVIDER_NAME --name BOX_NAME --version BOX_VERSION
+```
+
+Example:
+
+```shell
+cloudsmith push vagrant your-account/your-repo awesome.box --provider virtualbox --name awesome --version 1.0
+```
+
+### Upload via Cloudsmith UI
+
+Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+
+## Download / Install a Box
+
+To enable the retrieval of Cloudsmith hosted Vagrant boxes, the box can either be added directly via Vagrant's CLI or the project's Vagrantfile can be updated. 
+
+### Setup
+
+To add the box directly via Vagrant's CLI, execute the following:
+
+#### Public Repositories
+
+```shell
+vagrant box add 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json' \
+  --name 'BOX_NAME' \
+  --box-version 'BOX_VERSION' \
+  --provider 'PROVIDER_NAME'
+```
+
+#### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+```shell Entitlement Token Auth
+vagrant box add 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json' \
+  --name 'BOX_NAME' \
+  --box-version 'BOX_VERSION' \
+  --provider 'PROVIDER_NAME'
+```
+```shell HTTP Basic Auth (User & Pass)
+vagrant box add 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json' \
+  --name 'BOX_NAME' \
+  --box-version 'BOX_VERSION' \
+  --provider 'PROVIDER_NAME'
+```
+```shell HTTP Basic Auth (API Key)
+vagrant box add 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json' \
+  --name 'BOX_NAME' \
+  --box-version 'BOX_VERSION' \
+  --provider 'PROVIDER_NAME'
+```
+```shell HTTP Basic Auth (Token)
+vagrant box add 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json' \
+  --name 'BOX_NAME' \
+  --box-version 'BOX_VERSION' \
+  --provider 'PROVIDER_NAME'
+```
+
+To add the box without having to specify the URL each time, the following must be added to the project's Vagrantfile:
+
+#### Public Repositories
+
+```shell
+config.vm.box = "BOX_NAME"
+config.vm.box_url = "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json"
+```
+
+#### Private Repositories
+
+```shell Entitlement Token Auth
+config.vm.box = "BOX_NAME"
+config.vm.box_url = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json"
+```
+```shell HTTP Basic Auth (User & Pass)
+config.vm.box = "BOX_NAME"
+config.vm.box_url = "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json"
+```
+```shell HTTP Basic Auth (API Key)
+config.vm.box = "BOX_NAME"
+config.vm.box_url = "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json"
+```
+```shell HTTP Basic Auth (Token)
+config.vm.box = "BOX_NAME"
+config.vm.box_url = "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/vagrant/BOX_NAME/metadata.json"
+```
+
+### Install a Box
+
+After you have added a box, Vagrants CLI tool can now be used as normal to install and start a box: 
+
+```shell
+vagrant up
+```
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-blue">GPG</span>
+
+## Troubleshooting
+
+Please see the [Troubleshooting](doc:troubleshooting) page for further help and information.

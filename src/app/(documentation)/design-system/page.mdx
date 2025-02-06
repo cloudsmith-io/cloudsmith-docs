@@ -1,0 +1,326 @@
+import { BlockImage, Button, Card, Flex, Navbar, Note, Video, CodeBlock } from '@/components';
+import horizontalImage from './images/horizontal.png';
+import verticalImage from './images/vertical.png';
+import { Icon, IconName } from '@/icons';
+import { cx } from 'class-variance-authority';
+import { iconRegistry } from '../../../icons/icon-registry';
+
+import styles from './page.module.css';
+
+# Design System
+
+## Lists
+
+- Navigate to Azure Entra Applications:
+  1. Go to Azure Portal.
+  2. Select Azure Active Directory/Entra from the menu.
+  3. Choose App registrations and click New registration.
+- Register the Application:
+  1. Enter a Name (e.g., “Cloudsmith Integration”).
+  2. For Supported account types, select Accounts in this organizational directory only.
+  3. Click Register.
+- Capture Key Details:
+  1. After registration, note the Application (client) ID and Directory (tenant) ID. These will be needed in the pipeline configuration as clientId and tenantId, respectively.
+- Create a Client Secret:
+  1. In your registered app, navigate to Certificates & secrets.
+  2. Under Client secrets, click New client secret.
+  3. Add a Description (e.g., “Cloudsmith Secret”) and set an expiration.
+  4. Click Add and copy the Value. This will be your clientSecret.
+- Configure API Permissions for the Azure Entra App Registration:
+  1. In your Azure Entra App Registration, navigate to the API Permissions blade.
+  2. Click on Add a permission.
+  3. Under Microsoft APIs, select Microsoft Graph.
+  4. Choose Delegated permissions and select User.Read.
+  5. Click Add permissions.
+  6. After adding the permission, click on Grant admin consent for the organization to ensure this permission is granted for all users in the directory.
+- Set App ID URI:
+  1. Navigate to Expose an API in the application’s settings.
+  2. Click Set to define an Application ID URI. You can use the default URI or set one on your own.
+  3. Copy the URI.
+
+## Buttons
+
+### Primary Buttons
+
+<Flex gap="m" align="center">
+  <Button href="/" size="small">
+    Small Button
+  </Button>
+  <Button href="/">Medium Button</Button>
+  <Button href="/" size="large">
+    Large Button
+  </Button>
+  <Button href="/" size="xlarge">
+    XLarge Button
+  </Button>
+</Flex>
+
+### Secondary Buttons
+
+<Flex gap="m" align="center">
+  <Button href="/" variant="secondary" size="small">
+    Small Button
+  </Button>
+  <Button href="/" variant="secondary">
+    Medium Button
+  </Button>
+  <Button href="/" variant="secondary" size="large">
+    Large Button
+  </Button>
+  <Button href="/" variant="secondary" size="xlarge">
+    XLarge Button
+  </Button>
+</Flex>
+
+### Link Buttons
+
+<Flex gap="m" align="center">
+  <Button href="/" variant="link" size="small">
+    Small Link
+  </Button>
+  <Button href="/" variant="link">
+    Medium Link
+  </Button>
+  <Button href="/" variant="link" size="large">
+    Large Link
+  </Button>
+  <Button href="/" variant="link" size="xlarge">
+    XLarge Link
+  </Button>
+</Flex>
+
+### Color Schemes
+
+<Flex gap="m" align="center">
+  <Button href="/" colorScheme="accent">
+    Accent Button
+  </Button>
+  <Button href="/" colorScheme="text">
+    Text Button
+  </Button>
+  <Button href="/" colorScheme="dark">
+    Dark Button
+  </Button>
+  <Button href="/" colorScheme="light">
+    Light Button
+  </Button>
+</Flex>
+
+### With Arrow
+
+<Flex gap="m" align="center">
+  <Button href="/" withArrow>
+    Primary with Arrow
+  </Button>
+  <Button href="/" variant="secondary" withArrow>
+    Secondary with Arrow
+  </Button>
+  <Button href="/" variant="link" withArrow>
+    Link with Arrow
+  </Button>
+</Flex>
+
+### Widths
+
+<Flex gap="m" align="center">
+  <Button href="/" width="small">
+    Small
+  </Button>
+  <Button href="/" width="medium">
+    Medium
+  </Button>
+  <Button href="/" width="large">
+    Large
+  </Button>
+  <Button href="/" width="full">
+    Full Width Button
+  </Button>
+</Flex>
+
+## Icons
+
+<div className={styles.iconGrid}>
+  {Object.keys(iconRegistry).map((iconName) => (
+    <div key={iconName} className={styles.iconWrapper}>
+      <Icon name={iconName} as="svg" title={iconName} width={24} height={24} />
+      <span className={styles.iconName}>{iconName}</span>
+    </div>
+  ))}
+</div>
+
+## Notes
+
+<Note>
+  Some icons appear twice because `const code` they can be animated and need to be rendered separately for
+  each direction.
+</Note>
+
+<Note variant="tip">
+  Some icons appear twice because `const code` they can be animated and need to be rendered separately for
+  each direction.
+</Note>
+
+<Note variant="important">
+  Some icons appear twice because `const code` they can be animated and need to be rendered separately for
+  each direction.
+</Note>
+
+<Note variant="warning">
+  Some icons appear twice because `const code` they can be animated and need to be rendered separately for
+  each direction.
+</Note>
+
+<Note variant="caution">
+  Some icons appear twice because `const code` they can be animated and need to be rendered separately for
+  each direction.
+</Note>
+
+## Code
+
+### No language
+
+```
+; last modified 1 April 2001 by John Doe
+[owner]
+name = John Doe
+organization = Acme Widgets Inc.
+```
+
+### With language
+
+```yaml
+cliVersion: '1.3.1' # Example CLI version
+authMethod: 'apiKey'
+apiKey: '$(CLOUDSMITH_API_KEY)'
+```
+
+### With language and no header
+
+<CodeBlock
+  lang="yaml"
+  header={false}
+  code="cliVersion: '1.3.1' # Example CLI version authMethod: 'apiKey' apiKey: '$(CLOUDSMITH_API_KEY)'"
+/>
+
+## Images
+
+### Full Width
+
+<BlockImage src={horizontalImage} alt="Image alternative text">
+  This is a caption that I would like to show for the image
+</BlockImage>
+
+### Align Left
+
+<BlockImage align="left" src={verticalImage} alt="Image alternative text">
+  This is a caption that I would like to show for the image
+</BlockImage>
+
+### Align Right
+
+<BlockImage align="right" src={verticalImage} alt="Image alternative text">
+  This is a caption that I would like to show for the image
+</BlockImage>
+
+## Videos
+
+A responsive video player that adapts to its container width.
+
+### Default
+
+<Video wistiaId="r5d3j2nz4m" />
+
+### Poster Image
+
+<Video wistiaId="oifkgmxnkb" posterImage="https://i.vimeocdn.com/video/1666844499-1666844499_1280x720.jpg" />
+
+### Resumable
+
+<Video wistiaId="0x8do0ucl8" resumable />
+
+## Cards
+
+<Flex gap="l" align="stretch">
+  <Card
+    title="Getting Started Guide"
+    description="This is a Card with a description and default size (m)"
+    href="/"
+    linkText="Go to guide"
+    icon="utility/documentation"
+  />
+  <Card
+    title="Setting Your Security Policies Guide"
+    description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
+    href="/"
+    linkText="Go to guide"
+    icon="utility/guide"
+  />
+  <Card
+    title="Integrating your preferred package format with Cloudsmith"
+    description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
+    href="/"
+    linkText="Go to documentation"
+    icon="utility/guide"
+  />
+  <Card
+    title="Integrating your preferred package format with Cloudsmith"
+    description="Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
+    href="/"
+    linkText="Go to documentation"
+    icon="utility/guide"
+  />
+</Flex>
+
+### Large
+
+<Flex gap="l" align="stretch">
+  <Card title="Dependencies" href="/" linkText="For Developers" icon="utility/documentation" size="l" />
+  <Card title="Deployment" href="/" linkText="For Operations" icon="utility/guide" size="l" />
+  <Card title="Distribution" href="/" linkText="For Vendors" icon="utility/api" size="l" />
+</Flex>
+
+### Thirds
+
+<Flex gap="l" align="stretch">
+  <Card
+    title="Dependencies"
+    href="/"
+    linkText="For Developers"
+    icon="utility/documentation"
+    size="l"
+    width="third"
+  />
+  <Card title="Deployment" href="/" linkText="For Operations" icon="utility/guide" size="l" width="third" />
+  <Card title="Distribution" href="/" linkText="For Vendors" icon="utility/api" size="l" width="third" />
+</Flex>
+
+### Halves
+
+<Flex gap="l" align="stretch">
+  <Card
+    title="Dependencies"
+    href="/"
+    linkText="For Developers"
+    icon="utility/documentation"
+    size="l"
+    width="half"
+  />
+  <Card title="Deployment" href="/" linkText="For Operations" icon="utility/guide" size="l" width="half" />
+</Flex>
+
+### Full
+
+<Flex gap="l" align="stretch">
+  <Card
+    title="This is a full width card"
+    href="/"
+    linkText="Go to documentation"
+    icon="utility/documentation"
+    size="l"
+    width="full"
+  />
+</Flex>
+
+## Navbar
+
+<Navbar />

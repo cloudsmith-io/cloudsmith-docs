@@ -36,3 +36,34 @@ export const toRouteSegments = (slug: string): string[] => {
 export const toSlug = (routeSegments: string[]): string => {
   return routeSegments.join('/');
 };
+
+/**
+ * Throttle a function to only run at most once every `wait` milliseconds.
+ */
+export const throttle = <T extends unknown[]>(func: (...args: T) => void, wait: number) => {
+  let timeout: ReturnType<typeof setTimeout> | null;
+  return function (...args: T) {
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        func(...args);
+        timeout = null;
+      }, wait);
+    }
+  };
+};
+
+/**
+ * Debounce a function to only run after `wait` milliseconds of the last call
+ */
+export const debounce = <T extends unknown[]>(func: (...args: T) => void, wait: number) => {
+  let timeout: ReturnType<typeof setTimeout> | null;
+  return function (...args: T) {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = timeout = setTimeout(() => {
+      func(...args);
+      timeout = null;
+    }, wait);
+  };
+};

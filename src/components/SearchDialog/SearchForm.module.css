@@ -1,0 +1,15 @@
+.root {
+  flex: 1;
+  padding: var(--space-2xs) 0;
+  border: 1px solid transparent;
+  border-radius: 0;
+  outline: none;
+  background-color: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-m);
+  text-overflow: ellipsis;
+}
+
+.root:focus {
+  border-color: transparent;
+}

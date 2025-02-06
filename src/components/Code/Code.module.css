@@ -1,0 +1,7 @@
+.root {
+  background-color: var(--color-background-code);
+  color: var(--color-text-code);
+  display: inline-block;
+  padding: 0 var(--space-3xs);
+  border-radius: var(--border-radius-s);
+}

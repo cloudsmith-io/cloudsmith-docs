@@ -60,6 +60,7 @@
     --color-background-warning: var(--base-color-yellow-100);
     --color-background-code: var(--base-color-blue-75);
     --color-background-pre: var(--base-color-blue-1000);
+    --color-background-header: var(--base-color-grey-25);
 
     /* Text */
     --color-text-primary: var(--base-color-grey-900);
@@ -71,6 +72,7 @@
     --color-text-success: var(--base-color-teal-600);
     --color-text-warning: var(--base-color-yellow-800);
     --color-text-premium: var(--base-color-purple-600);
+    --color-text-code: var(--base-color-blue-600);
 
     /* Border */
     --color-border: var(--base-color-grey-300);
@@ -79,6 +81,10 @@
     --color-accent-default: var(--base-color-blue-500);
     --color-accent-hover: var(--base-color-blue-600);
     --color-accent-secondary: #eec26f;
+
+    /* Misc color */
+    --color-overlay-dark: rgb(3 28 43 / 75%);
+    --color-dialog-box-shadow: rgba(132 151 162 / 20%);
 
     /* Letter spacings */
     --letter-body: 0.08px;
@@ -164,9 +170,11 @@
     --button-width-l: fluid(168px, 200px);
 
     /* Layers */
+    --layer-hero: 1;
     --layer-navigation-mobile-bg: 11;
     --layer-navigation-mobile: 12;
     --layer-navigation: 10;
+    --layer-overlay: 200;
 
     /* Layout */
     --layout-navbar-height: 60px; /* TODO: Refactor navbar to use fixed height to make it possible to know the height of the navbar */
