@@ -1,0 +1,25 @@
+# Integrating Travis-CI
+
+How to integrate Travis-CI with Cloudsmith
+
+## Using the Cloudsmith CLI
+
+The following guide uses https://github.com/cloudsmith-io/travis-test/ for reference.
+
+```
+dist: trusty
+
+script:
+  - python setup.py bdist_wheel
+
+before_deploy:
+  - pyenv global 3.6
+  - pip install cloudsmith-cli
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: cloudsmith push python --republish cloudsmith/testing-public dist/cloudsmith_python_example-100-py2.py3-none-any.whl
+  on:
+    branch: master
+```
