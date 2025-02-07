@@ -1,0 +1,68 @@
+import { Note, BlockImage } from '@/components';
+import cloudsmithWebhooksExampleImage from './images/microsoft-teams/cloudsmithWebhooksExample.png';
+
+# Integrating Microsoft Teams
+
+How to integrate Microsoft Teams with Cloudsmith
+
+This guide shows you how to post a message like an example below to a Microsoft Teams channel every time a package is successfully uploaded.
+<BlockImage src={cloudsmithWebhooksExampleImage} alt=""></BlockImage>
+
+## Configure Incoming Webhooks on Microsoft Teams
+
+At the time of writing you can configure your Microsoft Teams Channel according to the official [Microsoft Teams Documentation](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
+
+Copy the webhook URL, which looks like:
+
+```
+https://outlook.office.com/webhook/0f7eb16f-f6de-csm1-8272-3028fbf63fdb@1e93d1ef-4a1b-4b18-b2da-50e8cbfabd1e/IncomingWebhook/a13e5467392546e0bbad03ea34559ba7/262349195-a10e-4018-9359-ds5a02y3702b
+```
+
+## Create Webhook on Cloudsmith
+
+1. Open your repository in [Cloudsmith](https://cloudsmith.io) and browse to the 'Webhooks' page using the menu on the left
+2. Choose to 'Create Webhook'
+3. Add the webhook URL from above to the box labeled 'Target Endpoint URL'
+4. Choose 'Handlebars Template' as the 'Payload Format'
+5. Choose 'application/json' as the Content type
+6. Select 'Package Synchronised' from the row of events 
+7. Add your handlebars code; the template below produced the message shown above
+8. Under 'Webhook Event Subscriptions' select  'Send Specific Events (choose)' then check 'Package Synchronised'
+
+```json
+{
+  "text": "New package from _{{ data.uploader }}_",
+  "attachments": [
+    {
+      "fallback": "{{ data.filename }} version {{ data.version }} by {{ data.uploader }}",
+      "text": "{{ data.summary }}",
+      "title": "{{ data.filename }}",
+      "title_link": "https://cloudsmith.io/user/login/?next=/package/ns/{{ data.namespace }}/repos/{{ data.repository }}/packages/detail/{{ data.slug }}",
+      "mrkdwn_in": ["fields"],
+      "color": "good",
+      "fields": [
+        {
+          "title": "Repository",
+          "value": "{{ data.repository }}",
+          "short": true
+        },
+        {
+          "title": "Version",
+          "value": "{{ data.version }}",
+          "short": true
+        },
+        {
+          "title": "Description",
+          "value": "{{ data.description }}",
+          "short": false
+        }
+      ]
+    }
+  ]
+}
+```
+Upload a package and enjoy the awesome automated Microsoft Teams posts!
+
+<Note variant="note" headlinee="Webhook Event Types">
+For more information about the events triggered by the package synchronization process please see [our Webhook documentation.](doc:webhooks#webhook-event-types)
+</Note>
