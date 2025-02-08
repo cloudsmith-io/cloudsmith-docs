@@ -18,10 +18,10 @@ const codeBlock = cva(styles.root, {
   },
 });
 
-export async function CodeBlock({ code, lang, header = true }: Props) {
+export async function CodeBlock({ children, lang, header = true }: Props) {
   const hideHeader = !lang || !header;
   const hideLineNumbers = lang === 'bash' || lang === 'text';
-  const html = (await getHighlighter()).codeToHtml(code, {
+  const html = (await getHighlighter()).codeToHtml(children, {
     lang,
     theme,
     transformers: [
@@ -35,7 +35,7 @@ export async function CodeBlock({ code, lang, header = true }: Props) {
       {!hideHeader && (
         <div className={styles.lang}>
           <div className={styles.langText}>{lang}</div>
-          <ClipboardCopy textToCopy={code} />
+          <ClipboardCopy textToCopy={children} />
         </div>
       )}
       <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
@@ -44,7 +44,7 @@ export async function CodeBlock({ code, lang, header = true }: Props) {
 }
 
 interface Props {
-  code: string;
+  children: string;
   lang: string;
   header?: boolean;
 }
