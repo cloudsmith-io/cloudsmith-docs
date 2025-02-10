@@ -1,4 +1,17 @@
-import { BlockImage, Button, Card, Flex, Navbar, Note, Video, CodeBlock } from '@/components';
+import {
+  BlockImage,
+  Button,
+  Card,
+  Flex,
+  Navbar,
+  Note,
+  Video,
+  CodeBlock,
+  Tabs,
+  TabsContent,
+  TabsTrigger,
+  TabsList,
+} from '@/components';
 import horizontalImage from './images/horizontal.png';
 import verticalImage from './images/vertical.png';
 import { Icon, IconName } from '@/icons';
@@ -201,6 +214,36 @@ apiKey: '$(CLOUDSMITH_API_KEY)'
 authMethod: 'apiKey'
 apiKey: '$(CLOUDSMITH_API_KEY)'`}
 </CodeBlock>
+
+## Tabs
+
+The `Tabs` component comes with a bunch of helpers that make it possible to create tabbed content.
+The `Tabs` component takes any custom component, but is often used for code examples:
+
+<Tabs defaultValue="example1">
+  <TabsList>
+    <TabsTrigger value="example1">Example 1</TabsTrigger>
+    <TabsTrigger value="example2">Example 2</TabsTrigger>
+    <TabsTrigger value="example3">Example 3</TabsTrigger>
+  </TabsList>
+  <TabsContent value="example1">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 1")`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="example2">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 2")`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="example3">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 3")`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
+
+You can use the same syntax for other components by replacing the `CodeBlock` components with your custom component.
 
 ## Images
 
