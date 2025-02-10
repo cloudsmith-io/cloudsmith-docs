@@ -147,6 +147,35 @@ For vertical images, the `BlockImage` component can be floated left or right:
 </BlockImage>;
 ```
 
+## Tabs
+
+This is how you render content within a tab group:
+
+````mdx
+<Tabs defaultValue="example1">
+  <TabsList>
+    <TabsTrigger value="example1">Example 1</TabsTrigger>
+    <TabsTrigger value="example2">Example 2</TabsTrigger>
+    <TabsTrigger value="example3">Example 3</TabsTrigger>
+  </TabsList>
+  <TabsContent value="example1">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 1")`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="example2">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 2")`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="example3">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 3")`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
+``
+
 ## Cards
 
 You can render a row of cards using the `Flex` and `Card` components. You can have as many cards as you want in a flex container, and the `width` property on each card determines how many cards are shown in a row before they go on a new line.
@@ -182,6 +211,7 @@ import { Card, Flex } from '@/components';
   />
 </Flex>;
 ```
+````
 
 Show four cards, two in each row:
 
