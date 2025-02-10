@@ -37,6 +37,17 @@ const Schema = ({ schema, description }: { media?: string; schema: SchemaObject;
     );
   }
 
+  if (schema.type === 'object') {
+    return (
+      <>
+        <p className={styles.responseTypeTitle}>{description || schema.type}</p>
+        <div className={styles.responseTypeContent}>
+          <Properties {...schema} />
+        </div>
+      </>
+    );
+  }
+
   return <Properties {...schema} />;
 };
 
@@ -68,7 +79,7 @@ const Property = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const isRequired = required?.includes(name);
-  const hasDescription = Boolean(property.description) || property.type === 'array';
+  const hasNested = Boolean(property.description) || property.type === 'array' || property.type === 'object';
 
   function toggleDescriptionVisibility() {
     setIsOpen(!isOpen);
@@ -79,7 +90,7 @@ const Property = ({
       <div
         key={name}
         onClick={toggleDescriptionVisibility}
-        className={cx(styles.responseGridRow, { [styles.responseGridRowToggler]: hasDescription })}>
+        className={cx(styles.responseGridRow, { [styles.responseGridRowToggler]: hasNested })}>
         <div className={cx(styles.responseGridColumn, styles.responseGridColumnTitle)}>{name}</div>
         <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
           {property.type === 'array'
@@ -92,10 +103,9 @@ const Property = ({
         </div>
         <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
           <ValidationRules schema={property} />
-          {/* <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre> */}
         </div>
         <div className={cx(styles.responseGridColumn, styles.responseGridColumnIcon)}>
-          {hasDescription && (
+          {hasNested && (
             <ChevronIcon
               title=""
               chevronDirection={isOpen ? 'up' : 'down'}
@@ -106,11 +116,11 @@ const Property = ({
         </div>
       </div>
 
-      {hasDescription && (
+      {hasNested && (
         <div className={cx(styles.responseGridRow, styles.responseGridRowContent)} aria-hidden={!isOpen}>
           <div className={styles.responseGridRowInner}>
             <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
-              {property.type === 'array' && property.items.type === 'object' ? (
+              {property.type === 'array' || property.type === 'object' ? (
                 <Schema schema={property} description={property.description} />
               ) : (
                 <p className={styles.responseGridColumnInner}>{property.description}</p>

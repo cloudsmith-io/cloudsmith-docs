@@ -28,6 +28,10 @@
 
   .responseGrid {
     margin-block-end: calc(var(--space-s) * -1);
+
+    &:not(:has(.responseGrid)) {
+      margin-block-end: var(--space-xs);
+    }
   }
 }
 
