@@ -1,0 +1,163 @@
+import { Note, BlockImage } from '@/components'
+import imgde9f8f5_move_pkg_cli from './images/package-move/de9f8f5-move-pkg-cli.png'
+import imgde9eec2666452f30024836650fcfef18a44cd316214bce3e97112c02aa7c4df9_Screenshot_movepack from './images/package-move/de9eec2666452f30024836650fcfef18a44cd316214bce3e97112c02aa7c4df9-Screenshot-movepack.png'
+import imga2e1c4f74756ea60fafd581bb197784839d892f7b2f340e356da4619fad2b791_movepack2 from './images/package-move/a2e1c4f74756ea60fafd581bb197784839d892f7b2f340e356da4619fad2b791-movepack2.png'
+import imgebdbd46536087745e35c9cf7d21d2e273f2778263f58e6461b3c998f9c392d1f_Screenshot_2024_11_12_at_1_58_44_PM from './images/package-move/ebdbd46536087745e35c9cf7d21d2e273f2778263f58e6461b3c998f9c392d1f-Screenshot_2024-11-12_at_1.58.44_PM.png'
+import img9e0da27_bulk_package_move_ui from './images/package-move/9e0da27-bulk-package-move-ui.png'
+
+# Package Move
+
+---
+We provide two ways to move a package from one repository to another: 
+
+- Move via the API using tools/integrations (such as the Cloudsmith CLI) 
+- Move via the website UI. 
+
+***
+
+## Move via the Cloudsmith CLI
+
+### Identify a Package
+
+To move a package using the Cloudsmith CLI, you first need to identify the package you wish to move.  See [Package Identification](doc:identifying-a-package) for full instructions on identifying packages. 
+
+### Move a Package
+
+Once you have identified the package, you use the `cloudsmith move` command to move it: 
+
+```shell
+cloudsmith move OWNER/SOURCE_REPO/UNIQUE_ID  DESTINATION_REPO
+```
+
+For example: 
+
+```shell
+cloudsmith move demo/examples-repo-public/IGgZrwGFAkyU examples-repo
+```
+
+In the above example, we identified that the package we wished to move had the UniqueID "IGgZrwGFAkyU", and we moved it from the source repository "examples-repo-public" to the destination repository "examples-repo": 
+
+<BlockImage src={imgde9f8f5_move_pkg_cli} alt="Move package CLI example"></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/de9f8f5-move-pkg-cli.png",
+        "move-pkg-cli.png",
+        1196
+      ],
+      "align": "center",
+      "caption": "Move package CLI example"
+    }
+  ]
+}
+[/block]
+ */}
+
+***
+
+## Move via Website UI
+
+You can move a package via the Website UI:
+
+- Via the repository packages list
+- Via the package detail page
+
+### Move via Repositories Packages List
+
+To move a package via the repository packages list, click the traffic light button to the right of the package name, then click "Move" in the dropdown menu:
+
+<BlockImage src={imgde9eec2666452f30024836650fcfef18a44cd316214bce3e97112c02aa7c4df9_Screenshot_movepack} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/de9eec2666452f30024836650fcfef18a44cd316214bce3e97112c02aa7c4df9-Screenshot-movepack.png",
+        "",
+        ""
+      ],
+      "align": "center"
+    }
+  ]
+}
+[/block] */}
+
+
+<br />
+
+<br />
+
+<br />
+
+### Move via Package Detail page
+
+To move a package via the package detail page, click the traffic light button next to the "Use Package" button in the upper right hand corner, then click the "Move" button to the right of the package name:
+
+<BlockImage src={imga2e1c4f74756ea60fafd581bb197784839d892f7b2f340e356da4619fad2b791_movepack2} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/a2e1c4f74756ea60fafd581bb197784839d892f7b2f340e356da4619fad2b791-movepack2.png",
+        "",
+        ""
+      ],
+      "align": "center"
+    }
+  ]
+}
+[/block] */}
+
+
+<br />
+
+After clicking a move button you will be presented with the Move Package form.  Select the destination repository from the drop-down menu and click "Move" to complete the package move: 
+
+<BlockImage src={imgebdbd46536087745e35c9cf7d21d2e273f2778263f58e6461b3c998f9c392d1f_Screenshot_2024_11_12_at_1_58_44_PM} alt=""></BlockImage>
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/ebdbd46536087745e35c9cf7d21d2e273f2778263f58e6461b3c998f9c392d1f-Screenshot_2024-11-12_at_1.58.44_PM.png",
+        "",
+        ""
+      ],
+      "align": "center"
+    }
+  ]
+}
+[/block] */}
+
+
+You will then get an on-screen message confirming the successful package move.
+
+### Bulk Package Move
+
+To move more than one package to another repository, use the checkboxes beside the package names and then click the orange "move package" button that appears at the top of the package list:
+
+<BlockImage src={img9e0da27_bulk_package_move_ui} alt="Bulk Package Move"></BlockImage>
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/9e0da27-bulk-package-move-ui.png",
+        "bulk-package-move-ui.png",
+        1311
+      ],
+      "align": "center",
+      "caption": "Bulk Package Move"
+    }
+  ]
+}
+[/block] */}
+
+
+> 📘 If you have selected a checkbox beside a package name, then package operations under the orange 'tool' button will be disabled as you are now in bulk operation mode.

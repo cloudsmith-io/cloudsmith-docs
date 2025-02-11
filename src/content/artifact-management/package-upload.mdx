@@ -1,0 +1,360 @@
+import { Note, BlockImage } from '@/components'
+import imgPad_Pro_5 from './images/package-upload/20dc72a883f23158ebf13e385388ed19c35c6199a3e27aa1ff6c4c666f5e9964-app.cloudsmith.com_demo_logsiPad_Pro_5.png'
+import imgPad_Pro_7 from './images/package-upload/6ef68d0959c514998f85af03d168b1ccce7021f38b42ea9e1c537215371afe88-app.cloudsmith.com_demo_logsiPad_Pro_7.png'
+import imgPad_Pro_6 from './images/package-upload/c62146aa1eef8a71d61018ac8c799c1ce07466e2a1fe7142899685071bf0a964-app.cloudsmith.com_demo_logsiPad_Pro_6.png'
+import img3798e22_Screenshot_2020_01_02_at_14_25_25 from './images/package-upload/3798e22-Screenshot_2020-01-02_at_14.25.25.png'
+import img2728021_Screenshot_2022_03_28_at_18_05_32 from './images/package-upload/2728021-Screenshot_2022-03-28_at_18.05.32.png'
+import imgfc5e591_Screenshot_2022_03_28_at_18_07_04 from './images/package-upload/fc5e591-Screenshot_2022-03-28_at_18.07.04.png'
+import imgPad_Pro_5_2 from './images/package-upload/cb7081e9eb3d7e1c3712da98163cd36e00165970ee71ee170a05962dca9a74ea-app.cloudsmith.com_demo_logsiPad_Pro_5.png'
+import imgPad_Pro_7_2 from './images/package-upload/5eef910122a211c00271a4edaf8e195ea1bc6217487219667964b37365f906e7-app.cloudsmith.com_demo_logsiPad_Pro_7.png'
+import imgPad_Pro_8 from './images/package-upload/b060eb5a2fde76bc75fefcfac7242484e80d6c91e88170e8a115a4c9b27f6ecd-app.cloudsmith.com_demo_logsiPad_Pro_8.png'
+import imgPad_Pro_9 from './images/package-upload/f16205121dfdbde1528fa0f65b13740aa435ca30df7a59532f0be42e7d0f8af1-app.cloudsmith.com_demo_logsiPad_Pro_9.png'
+
+# Package Upload
+
+Uploading to Cloudsmith is simple. We provide three ways to push your packages/files/assets into your repositories:
+
+- Upload via the package-specific native CLI / tools (where supported).
+- Upload via the API using tools/integrations (such as the official Cloudsmith CLI).
+- Upload directly via the website. 
+
+
+In the following examples: 
+
+| Identifier      | Description                                                   |
+| :-------------- | :------------------------------------------------------------ |
+| OWNER           | Your Cloudsmith account name or organization name (namespace) |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")          |
+| USERNAME        | Your Cloudsmith username                                      |
+| PASSWORD        | Your Cloudsmith password                                      |
+| API-KEY         | Your Cloudsmith API Key                                       |
+| PACKAGE_NAME    | The name of your package                                      |
+| PACKAGE_VERSION | The version number of your package                            |
+| FORMAT          | The package formats e.g. Nuget, Cargo, Raw                    |
+| DISTRO          | Linux distribution                                            |
+
+
+## Upload via Native Tools
+
+Documentation for package-specific native CLI and tooling is available on the website within each repository.  Click the Push/Pull Packages button and select the desired package format. 
+
+<BlockImage src={imgPad_Pro_5} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/20dc72a883f23158ebf13e385388ed19c35c6199a3e27aa1ff6c4c666f5e9964-app.cloudsmith.com_demo_logsiPad_Pro_5.png",
+        "upload-package-ui.png",
+        1309
+      ],
+      "align": "center",
+      "border": true,
+      "caption": "Native CLI / API / Tools tab"
+    }
+  ]
+}
+[/block] */}
+
+<BlockImage src={imgPad_Pro_7} alt=""></BlockImage>
+
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/6ef68d0959c514998f85af03d168b1ccce7021f38b42ea9e1c537215371afe88-app.cloudsmith.com_demo_logsiPad_Pro_7.png",
+        "",
+        "Select your desired package format"
+      ],
+      "align": "center",
+      "border": true,
+      "caption": "Select your desired package format"
+    }
+  ]
+}
+[/block] */}
+
+<BlockImage src={imgPad_Pro_6} alt=""></BlockImage>
+
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/c62146aa1eef8a71d61018ac8c799c1ce07466e2a1fe7142899685071bf0a964-app.cloudsmith.com_demo_logsiPad_Pro_6.png",
+        "",
+        "Native instructions for your package format"
+      ],
+      "align": "center",
+      "border": true,
+      "caption": "Native instructions for your package format"
+    }
+  ]
+}
+[/block] */}
+
+
+***
+
+## Upload via Cloudsmith CLI
+
+To upload a package via the Cloudsmith CLI, use the `cloudsmith push` command: 
+
+```shell
+cloudsmith push <format> OWNER/REPOSITORY <package_file>
+```
+
+For example: 
+
+<BlockImage src={img3798e22_Screenshot_2020_01_02_at_14_25_25} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/3798e22-Screenshot_2020-01-02_at_14.25.25.png",
+        "Screenshot 2020-01-02 at 14.25.25.png",
+        1119
+      ],
+      "align": "center",
+      "sizing": "smart",
+      "caption": "cloudsmith push CLI example"
+    }
+  ]
+}
+[/block] */}
+
+
+Some formats may have additional parameters that need to specified (i.e distribution and version for Debian packages). Further format-specific examples of Cloudsmith CLI commands are available in the [CLI documentation](https://github.com/cloudsmith-io/cloudsmith-cli/blob/master/README.md)
+
+<Note variant="note">
+Context-specific documentation, including copy and paste commands (with the owner/repository already configured) for the Cloudsmith CLI, is available within each repository on the Cloudsmith website. You may also add optional tags to a package when uploading. For example, to upload a Debian package with optional tags, you add the `--tags` parameter to the push command: 
+</Note>
+
+```shell
+cloudsmith push deb OWNER/REPOSITORY/DISTRO/VERSION PACKAGE-NAME.deb --tags TAG1,TAG2 
+```
+
+We also support the optional functionality to tag packages with pre-release components as `latest`. By default this functionality is turned on, however can be turned off in the main settings of a repository with the setting `Apply Latest Tag for Pre-Release Versions?`.
+
+Please see [Package Tags](doc:package-tags) for more information on package tagging
+
+***
+
+## Upload via Cloudsmith API
+
+Uploading a package to Cloudsmith via the URL is a 2 step process
+
+1. A PUT req against the upload URL: 
+
+```
+https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
+```
+
+The response to this PUT req gives you an identifier that you will need for the next stage.
+
+2. A POST req to create package endpoint 
+
+```
+https://api-prd.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/FORMAT/
+```
+
+Postman is an application used for API testing that we can use to illustrate using the API to upload a raw package. You can install Postman [here](https://www.postman.com/)
+
+Lets see how you can upload a raw package using Postman:
+
+#### PUT req against the upload URL using Postman
+
+1. Populate Postman with the PUT request URL (see the image below, highlighted _1_)
+
+```
+https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
+```
+
+2. Switch to the ‘Authorization’ tab and populate your credentials with either Basic Auth or your API Key
+3. Switch to the ‘Body’ tab and upload the file as a binary.
+4. Press send and receive the response.
+5. Read the identifier from the response to use in the next stage (see the image below, highlighted _5_)
+
+<BlockImage src={img2728021_Screenshot_2022_03_28_at_18_05_32} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/2728021-Screenshot_2022-03-28_at_18.05.32.png",
+        "Screenshot 2022-03-28 at 18.05.32.png",
+        1555
+      ],
+      "align": "center",
+      "caption": "Send PUT req to Cloudsmith using Postman (step 1 of 2 to upload a package)"
+    }
+  ]
+}
+[/block] */}
+
+
+#### POST Raw package using Postman
+
+1. Populate Postman with the POST request (see the image below, highlighted _1_): 
+
+```
+https://api-prd.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/raw/
+```
+
+2. Select the ‘Body’ tab and populate it with your JSON:
+
+```json
+{"package_file": "IDENTIFIER", "name": "test-package", "description": "Everything about packaging files.", "summary": "My Package File", "version": "1.0"}
+```
+
+NOTE: the package_file value should be populated with the identifier from the PUT response above.
+
+3. Switch to the ‘Authorization’ tab and populate your credentials with either Basic Auth or your API Key  
+   4. Press send to upload the raw package.
+
+<BlockImage src={imgfc5e591_Screenshot_2022_03_28_at_18_07_04} alt=""></BlockImage>
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/fc5e591-Screenshot_2022-03-28_at_18.07.04.png",
+        "Screenshot 2022-03-28 at 18.07.04.png",
+        1531
+      ],
+      "align": "center",
+      "caption": "Send POST req to Cloudsmith using Postman (step 2 of 2 to upload a package )"
+    }
+  ]
+}
+[/block] */}
+
+
+***
+
+## Upload via Website UI
+
+Select the repository that you would like to upload into and select Push/Pull Packages.
+
+<BlockImage src={imgPad_Pro_5_2} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/cb7081e9eb3d7e1c3712da98163cd36e00165970ee71ee170a05962dca9a74ea-app.cloudsmith.com_demo_logsiPad_Pro_5.png",
+        "upload-package-dropdown.png",
+        1301
+      ],
+      "align": "center",
+      "border": true,
+      "caption": "Push/Pull Packages"
+    }
+  ]
+}
+[/block] */}
+
+
+Select your desired package format.
+
+<BlockImage src={imgPad_Pro_7_2} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/5eef910122a211c00271a4edaf8e195ea1bc6217487219667964b37365f906e7-app.cloudsmith.com_demo_logsiPad_Pro_7.png",
+        "",
+        "Package format selection in the Push/Pull Packages menu"
+      ],
+      "align": "center",
+      "border": true,
+      "caption": "Package format selection in the Push/Pull Packages menu"
+    }
+  ]
+}
+[/block] */}
+
+<BlockImage src={imgPad_Pro_8} alt=""></BlockImage>
+
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/b060eb5a2fde76bc75fefcfac7242484e80d6c91e88170e8a115a4c9b27f6ecd-app.cloudsmith.com_demo_logsiPad_Pro_8.png",
+        "upload-package-form.png",
+        593
+      ],
+      "align": "center",
+      "border": true,
+      "caption": "Package upload form"
+    }
+  ]
+}
+[/block] */}
+
+
+<br />
+
+Click the Upload File button, and find the package you want to upload. Then click the blue update button. You may need to add additional information, depending on the package format you are uploading. 
+
+Once you click on the Upload button, the synchronisation process will begin. After a few seconds your package will be visible in your repository, then available for download.
+
+***
+
+## Frequently Asked Questions
+
+**Q. Is there a maximum file size for upload?**
+
+Yes, the current maximum file size is 5GB.
+
+**Q. While republishing a package with the same version via the Cloudsmith CLI, I get a message - "Republishing was not enabled for this package". Is there any way to "Allow Republishing" for packages ?**
+
+There are two ways to achieve this: 
+
+1. When uploading you can add a `--republish` flag to the CLI command to enable republishing. 
+
+2. You can also set it to be republish enabled by default for all uploads in the settings for your repository (configured via the web app, under each repository's "Miscellaneous Settings"):
+
+<BlockImage src={imgPad_Pro_9} alt=""></BlockImage>
+{/* [block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/f16205121dfdbde1528fa0f65b13740aa435ca30df7a59532f0be42e7d0f8af1-app.cloudsmith.com_demo_logsiPad_Pro_9.png",
+        "republish-package-setting.png",
+        1315
+      ],
+      "align": "center",
+      "border": true,
+      "caption": "Package Republish Setting"
+    }
+  ]
+}
+[/block] */}
+
+
+**Q. Is there a delay until a package is fully available? Our build pipeline publishes a new version of libraries each git commit and triggers changes on the git repository of the applications that are users of such library. Between the time frame of publishing and triggering a new build (that happens only after the publish has finished), we have some build failures. But on repetition they pass.**
+
+Processing for uploads happens asynchronously on Cloudsmith, so yes there's a small delay between pushing an artifact and it being available. Usually, this is around one minute, but can be longer if the system is under extreme load or if your account is uploading many artifacts in parallel.  
+There are a few options to consider to get around this today that are commonly utilised (and we're thinking of others):  
+(a) Add a wait (e.g. 1 minute) and retry mechanism to your jobs, to make them wait for the synchronisation; or  
+(b) Use the repository webhooks to ping your build system to continue after the package has synced; or  
+(c) Use the cloudsmith-cli (via cloudsmith push) to upload packages, since it has wait functionality built into it.
+
+**Q. If we are pushing from CI (multiple branches) - can the tags like "latest" be set to allow us to set the branch or is the expectation that we would encode the branch in the version? e.g. `1.0.0+bugfix`**
+
+Tags are currently created by us automatically, and they wouldn't influence how a tool like `pip` can retrieve packages. So the way to go here would be to encode the information as Metadata into the version.
+
+***
