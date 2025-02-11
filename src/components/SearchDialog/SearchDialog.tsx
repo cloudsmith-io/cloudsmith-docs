@@ -37,7 +37,7 @@ export const SearchDialog = () => {
   const [term, setTerm] = useState('');
   // isWaiting is true when the debounce is active or the search function is actually loading.
   const [isWaiting, setIsWaiting] = useState(false);
-  const [sections] = useState(['documentation', 'guides', 'api']);
+  const [sections, setSections] = useState(['documentation']);
   const [results, setResults] = useState<SearchResult[]>([]);
 
   useEffect(() => {
@@ -48,6 +48,16 @@ export const SearchDialog = () => {
       debouncedSearch(term, sections, setIsWaiting, setResults);
     }
   }, [term, sections, setResults]);
+
+  const setSection = (section: string) => {
+    setSections((prev) => {
+      if (prev.includes(section)) {
+        return prev.filter((s) => s !== section);
+      }
+
+      return [...prev, section];
+    });
+  };
 
   return (
     <RadixDialog.Root>
@@ -71,9 +81,30 @@ export const SearchDialog = () => {
               <div className={styles.filters}>
                 <p className={styles.filtersHeadline}>Search in</p>
                 <div className={styles.filtersList}>
-                  <button className={cx(styles.filter, styles.filterActive)}>Documentation</button>
-                  <button className={styles.filter}>Guides</button>
-                  <button className={styles.filter}>API</button>
+                  <button
+                    className={cx(styles.filter, {
+                      [styles.filterActive]: sections.includes('documentation'),
+                    })}
+                    onClick={() => setSection('documentation')}>
+                    <Icon name="utility/documentation" className={styles.filterIcon} title="" />
+                    Documentation
+                  </button>
+                  <button
+                    className={cx(styles.filter, {
+                      [styles.filterActive]: sections.includes('guides'),
+                    })}
+                    onClick={() => setSection('guides')}>
+                    <Icon name="utility/guide" className={styles.filterIcon} title="" />
+                    Guides
+                  </button>
+                  <button
+                    className={cx(styles.filter, {
+                      [styles.filterActive]: sections.includes('api'),
+                    })}
+                    onClick={() => setSection('api')}>
+                    <Icon name="utility/api" className={styles.filterIcon} title="" />
+                    API
+                  </button>
                 </div>
               </div>
 

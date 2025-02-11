@@ -87,7 +87,6 @@ export const performSearch = async (
         .replace(/[^0-9a-z-A-Z \.\:]/g, '')
         .replace(/ +/, ' ');
 
-
       // TODO: Limit the output of the item to what we actually need
       return {
         ...item,
