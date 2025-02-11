@@ -16,7 +16,7 @@ import styles from './SearchDialog.module.css';
 export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
   { id: 'guides', label: 'Guides', icon: 'utility/guide' },
-  { id: 'api', label: 'API', icon: 'action/api' },
+  { id: 'api', label: 'API Reference', icon: 'action/api' },
 ];
 
 export type Filters = Array<{ id: string; label: string; icon: IconName }>;
