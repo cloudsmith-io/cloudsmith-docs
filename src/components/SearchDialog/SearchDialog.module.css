@@ -13,7 +13,7 @@
   --padding-block: var(--space-m);
   --padding-inline: var(--space-l);
 
-  background-color: white;
+  background-color: var(--base-color-white);
   position: relative;
   width: 100%;
   max-width: 1040px;
