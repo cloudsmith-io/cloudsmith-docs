@@ -149,9 +149,9 @@ For vertical images, the `BlockImage` component can be floated left or right:
 
 ## Tabs
 
-This is how you render content within a tab group:
+The `Tabs` component comes with a bunch of helpers that make it possible to create tabbed content. It can take any custom component, but is often used for code examples:
 
-````mdx
+```mdx
 <Tabs defaultValue="example1">
   <TabsList>
     <TabsTrigger value="example1">Example 1</TabsTrigger>
@@ -174,7 +174,9 @@ This is how you render content within a tab group:
     </CodeBlock>
   </TabsContent>
 </Tabs>
-``
+```
+
+You can use the same syntax for other components by replacing the `CodeBlock` components with your custom component.
 
 ## Cards
 
@@ -211,6 +213,7 @@ import { Card, Flex } from '@/components';
   />
 </Flex>;
 ```
+
 ````
 
 Show four cards, two in each row:
@@ -253,3 +256,4 @@ import { Card, Flex } from '@/components';
   />
 </Flex>;
 ```
+````
