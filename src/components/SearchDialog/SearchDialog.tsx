@@ -1,6 +1,6 @@
 'use client';
 
-import { Icon } from '@/icons';
+import { Icon, IconName } from '@/icons';
 import { performSearch } from '@/lib/search/server';
 import { SearchResult } from '@/lib/search/types';
 import { debounce } from '@/lib/util';
@@ -13,7 +13,7 @@ import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
 
-const filters = [
+export const filters: Array<{ id: string; label: string; icon: IconName }> = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
   { id: 'guides', label: 'Guides', icon: 'utility/guide' },
   { id: 'api', label: 'API', icon: 'action/api' },

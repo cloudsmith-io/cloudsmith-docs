@@ -1,14 +1,11 @@
+import { Icon } from '@/icons';
 import { cx } from 'class-variance-authority';
-import { Icon, IconName } from '@/icons';
+import { filters } from './SearchDialog';
 
 import styles from './FilterButtons.module.css';
 
 export interface FilterButtonsProps {
-  filters: Array<{
-    id: string;
-    label: string;
-    icon: IconName;
-  }>;
+  filters: typeof filters;
   activeSections: Array<string>;
   onFilterChange: (filterId: string) => void;
 }
