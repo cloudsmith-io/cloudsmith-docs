@@ -1,0 +1,6 @@
+.root {
+  display: flex;
+  gap: var(--space-m);
+  margin-block-end: var(--space-s);
+  overflow-x: scroll;
+}

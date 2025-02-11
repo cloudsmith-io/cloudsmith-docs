@@ -21,6 +21,11 @@
 
   &:hover {
     background-color: var(--base-color-blue-50);
+
+    &:where(&:nth-last-child(2)):not(.itemTogglerOpen) {
+      border-bottom-left-radius: var(--border-radius-m);
+      border-bottom-right-radius: var(--border-radius-m);
+    }
   }
 }
 
@@ -32,7 +37,7 @@
   text-transform: uppercase;
   font-family: var(--font-family-mono);
   font-size: var(--text-body-xs);
-  color: var(--color-text-primary);
+  color: var(--base-color-grey-600);
 }
 
 .subItem {
@@ -42,6 +47,7 @@
 
   .header & {
     grid-column: 1 / -1;
+    padding-block: calc(var(--column-block-padding) / 2);
   }
 }
 

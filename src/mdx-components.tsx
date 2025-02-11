@@ -24,7 +24,7 @@ const components = {
 
   code: (props: ComponentPropsWithoutRef<'pre'>) => <Code {...props} />,
   pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => {
-    // This type assertion is necessary because the type of children is not always ReactElement
+    // children is passed as react element, so get the code and language from it
     const codeProps = (children as React.ReactElement).props as React.HTMLProps<HTMLElement>;
     const code = codeProps.children as string;
     const lang = (codeProps.className || '').replace(/language-/, '');
@@ -35,7 +35,11 @@ const components = {
       trimmedCode = code.slice(0, -1);
     }
 
-    return <CodeBlock code={trimmedCode} lang={lang} {...props} />;
+    return (
+      <CodeBlock lang={lang} {...props}>
+        {trimmedCode}
+      </CodeBlock>
+    );
   },
 
   // Disable images in favor of the Image component

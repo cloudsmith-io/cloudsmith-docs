@@ -1,0 +1,12 @@
+.root {
+  padding-bottom: var(--space-xs);
+  border-bottom: 4px solid transparent;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.root[data-state='active'] {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-tabs);
+}

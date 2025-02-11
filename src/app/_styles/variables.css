@@ -59,7 +59,7 @@
     --color-background-success: var(--base-color-teal-100);
     --color-background-warning: var(--base-color-yellow-100);
     --color-background-code: var(--base-color-blue-75);
-    --color-background-pre: var(--base-color-blue-1000);
+    --color-background-pre: var(--base-color-grey-900);
     --color-background-header: var(--base-color-grey-25);
 
     /* Text */
@@ -76,6 +76,7 @@
 
     /* Border */
     --color-border: var(--base-color-grey-300);
+    --color-border-tabs: var(--base-color-blue-500);
 
     /* Accent */
     --color-accent-default: var(--base-color-blue-500);
@@ -117,6 +118,7 @@
     --text-max-width: 780px;
 
     /* Line heights */
+    --line-height-xs: fluid(18px, 22px);
     --line-height-s: fluid(20px, 23px);
     --line-height-m: fluid(22px, 25px);
     --line-height-l: fluid(23px, 28px);

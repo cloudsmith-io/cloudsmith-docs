@@ -61,8 +61,8 @@ const List = ({ items, isExpanded }: ListProps) => {
       transition={openCloseTransition}
       variants={openCloseVariants}>
       <ul className={styles.list}>
-        {items.map((item) => (
-          <Item item={item} key={item.title} />
+        {items.map((item, i) => (
+          <Item item={item} key={`${item.title}-${i}`} />
         ))}
       </ul>
     </motion.div>

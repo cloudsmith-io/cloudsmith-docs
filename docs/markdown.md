@@ -14,11 +14,9 @@ lastUpdated: 2025-01-01
 ---
 ```
 
-## Basic Markdown
-
 The following is a list of components that are supported through pure Markdown.
 
-### Heading
+## Headings
 
 ```md
 # Page title
@@ -32,9 +30,7 @@ Some text here
 ### Heading 2
 ```
 
-`````
-
-### Line separator
+## Line separators
 
 ```md
 Some text
@@ -44,7 +40,7 @@ Some text
 Some text
 ```
 
-### List
+## Lists
 
 ```md
 - Item 1
@@ -62,21 +58,49 @@ Some text
 - Item 2
 ```
 
-### Link
+## Links
 
 ```mdx
 This is [a link](/api/something) for you to click.
 ```
 
-### Note
+## Notes
 
-You can render a simple note using the `>` character in front of your note. This will render a `Note` custom component (see below) with in a `note` variant and without a background.
+You can render a simple note using the `>` character in front of your note.
 
 ```mdx
 > This is a note
 ```
 
-### Code example
+You can render notes in different styles by using the custom `Note` component. The variants map to the GitHub-style admonitions which are `note`, `tip`, `important`, `warning` and `caution`.
+
+A note without any props renders a simple `note` block:
+
+```js
+import { Note } from '@/components';
+
+<Note>This is something I want to say</Note>;
+```
+
+You can change the variant and default heading by using the `variant` and `headline` component props:
+
+```js
+<Note variant="caution" headline="Be careful!">
+  This is something I want to say
+</Note>
+```
+
+## Code examples
+
+You can render a simple code example without syntax highlighting or header by using backticks:
+
+````mdx
+```
+this is some code
+```
+````
+
+If you specify a programming language, the code example is syntax highlighted and a header with the programming language will be shown:
 
 ````mdx
 ```yaml
@@ -84,11 +108,19 @@ cliVersion: '1.3.1' # Example CLI version
 authMethod: 'apiKey'
 apiKey: '$(CLOUDSMITH_API_KEY)'
 ```
-`````
+````
 
-## Custom Components
+For complete control over the code example, use the `CodeBlock` component. Keep in mind that you need to wrap your code in `{''}` in order to preserve the line breaks, as JSX will remove it by default. This is an example of a code example that is syntax highlighted but without a header:
 
-### Images
+```mdx
+<CodeBlock lang="yaml" header={false}>
+  {`cliVersion: '1.3.1' # Example CLI version
+authMethod: 'apiKey'
+apiKey: '$(CLOUDSMITH_API_KEY)'`}
+</CodeBlock>
+```
+
+## Images
 
 We use a custom component for images in order to provide options for different layout mechanisms. Images can be saved anywhere in the repository and should be imported into the `.mdx` file and passed to the `BlockImage` component.
 
@@ -115,27 +147,38 @@ For vertical images, the `BlockImage` component can be floated left or right:
 </BlockImage>;
 ```
 
-### Note
+## Tabs
 
-You can render notes in different styles depending on the needs. The variants map to the GitHub-style admonitions which are `note`, `tip`, `important`, `warning` and `caution`. These variants can be rendered with or without a heading.
+The `Tabs` component comes with a bunch of helpers that make it possible to create tabbed content. It can take any custom component, but is often used for code examples:
 
-A note without any props render a simple `note` block:
-
-```js
-import { Note } from '@/components';
-
-<Note>This is something I want to say</Note>;
+```mdx
+<Tabs defaultValue="example1">
+  <TabsList>
+    <TabsTrigger value="example1">Example 1</TabsTrigger>
+    <TabsTrigger value="example2">Example 2</TabsTrigger>
+    <TabsTrigger value="example3">Example 3</TabsTrigger>
+  </TabsList>
+  <TabsContent value="example1">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 1")`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="example2">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 2")`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="example3">
+    <CodeBlock lang="js" header={false}>
+      {`console.log("Example 3")`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
 ```
 
-You can change the variant and heading by using the `variant` and `heading` component props:
+You can use the same syntax for other components by replacing the `CodeBlock` components with your custom component.
 
-```js
-<Note variant="caution" heading="Be careful!">
-  This is something I want to say
-</Note>
-```
-
-### Cards
+## Cards
 
 You can render a row of cards using the `Flex` and `Card` components. You can have as many cards as you want in a flex container, and the `width` property on each card determines how many cards are shown in a row before they go on a new line.
 
@@ -170,6 +213,8 @@ import { Card, Flex } from '@/components';
   />
 </Flex>;
 ```
+
+````
 
 Show four cards, two in each row:
 
@@ -211,3 +256,4 @@ import { Card, Flex } from '@/components';
   />
 </Flex>;
 ```
+````
