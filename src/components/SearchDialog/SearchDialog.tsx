@@ -1,3 +1,5 @@
+'use client';
+
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
@@ -10,6 +12,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { performSearch } from '@/lib/search/server';
 import { debounce } from '@/lib/util';
 import { SearchResult } from '@/lib/search/types';
+import { cx } from 'class-variance-authority';
 
 /**
  * If the requirements for this become even more sophisticated,
@@ -65,9 +68,19 @@ export const SearchDialog = () => {
               <RadixDialog.Title className={styles.title}>Search</RadixDialog.Title>
             </VisuallyHidden>
             <div className={styles.main}>
+              <div className={styles.filters}>
+                <p className={styles.filtersHeadline}>Search in</p>
+                <div className={styles.filtersList}>
+                  <button className={cx(styles.filter, styles.filterActive)}>Documentation</button>
+                  <button className={styles.filter}>Guides</button>
+                  <button className={styles.filter}>API</button>
+                </div>
+              </div>
+
               {results.map((res) => (
                 <div key={res.path}>{res.title}</div>
               ))}
+
               {!isWaiting && results.length === 0 && term !== '' && <p>No results</p>}
             </div>
           </RadixDialog.Content>
