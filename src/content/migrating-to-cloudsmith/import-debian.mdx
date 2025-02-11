@@ -1,0 +1,57 @@
+# Import Debian
+
+Bulk import your Debian packages to Cloudsmith using a script. There are a few prerequisites that need to be set up prior to importing the packages in order for the script to work, and this can be changed to automate according to your setup.
+
+**Setup:**
+
+1. [Install the Cloudsmith CLI ](/getting-started/cli#installation)
+2. Create a folder to place the script and content into
+3. Create a folder with exactly the same name as your repository name in Cloudsmith
+4. Inside the created (repo) folder, create a distro folder you wish to upload, for a list of available distros, you can run `cloudsmith list distros deb` and use the right side of the table as name for the folder. **PLEASE NOTE** that since the distro/release includes a slash, please create a folder replacing it with a dot (`.`). 
+
+For example, if your distro is `debian/any-version`, the folder should be named `debian.any-version`. In full context: `<project_folder>/<repository_name>/<distro.release>`.
+
+**Example folder structure:**
+
+```text folder_structure
+deb_import/
+├─ config.ini
+├─ credentials.ini
+├─ deb_import.sh
+├─ repo_name_1/
+│  ├─ any-version.any-release/
+│  │  ├─ some_package.deb
+├─ repo_name_2/
+│  ├─ debian.bullseye/
+│  │  ├─ some_package.deb
+```
+
+5. Inside the folder insert all the `.deb` files that will belong to that repository and distro/release. 
+
+Finally, you can run the script below to start uploading files to the selected repository by running `sh deb_import.sh`.
+
+```shell deb_import.sh
+# Check if cloudsmith creds exist, if not run cloudsmith login
+if [ ! -f config.ini ]; then
+    echo "config.ini not found, running cloudsmith login"
+    cloudsmith login
+fi
+
+# set org name and repo
+read -p "Enter the repo name: " repo_name
+read -p "Enter the organization name: " org_name
+
+# get all folder names in repo_name and save to variable as release names
+release_names=$(ls $repo_name)
+
+# loop through release names and upload to cloudsmith
+for release in $release_names; do
+    # create a new veriable for release name and replace dot with slash
+    release_name=$(echo $release | sed 's/\./\//g')
+    
+    # get all .deb files in release and upload to cloudsmith
+    for deb in $(ls $repo_name/$release/*.deb); do
+        cloudsmith push deb $org_name/$repo_name/$release_name $deb --no-wait-for-sync
+    done
+done
+```

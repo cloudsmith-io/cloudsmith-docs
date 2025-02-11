@@ -1,0 +1,132 @@
+import { Note } from '@/components';
+
+# Importing Python
+
+Bulk import your packages from the remote repository to Cloudsmith using a simple Python script and upstream.
+
+## Process
+
+<Note variant="warning" headline="Remote Repository">
+Make sure that the remote repository that you are using doesn't have an upstream configured to a large public distribution (e.g. `https://pypi.org/`) as this will start proxying for all of the packages inside there too.
+</Note>
+
+1. Setup an upstream for your repository:
+
+- Create a new repository that you wish to bulk import your packages to. 
+- Once that's created click `Upstream Proxying`.
+- Create a new Python upstream by pointing your URL at the remote repository (e.g. Artifactory) and fill in any credentials that may be needed.
+- Create the upstream and wait for the indexing to complete.
+
+2. Copy over the following script which will:
+
+- Grab the index of all packages in the setup upstream
+- Download them into a `Downloads` folder where the script is running from.
+- Upload them to your chosen repository.
+
+The script below includes the `main.py` and `requirements.txt` files:
+
+<Note variant="note" headline="Note">
+Please make sure that you have Cloudsmith CLI downloaded. Installation steps can be found [here](/getting-started/cli#installation).
+</Note>
+
+```python main.py
+import requests
+from bs4 import BeautifulSoup
+import urllib.request
+from time import sleep
+import os
+from os.path import exists
+
+org_name = input("Your organization name (Same as on Cloudsmith): ")
+repository = input("Repository that you wish to upload your Python packages to: ")
+
+print(f"Please grab `index-url` from: https://cloudsmith.io/~{org_name}/repos/{repository}/setup/#formats-python")
+url = input("Paste in your `index-url`: ")
+reqs = requests.get(url)
+soup = BeautifulSoup(reqs.text, 'html.parser')
+
+print("Checking for packages...")
+
+# Grab all package names and download links
+urls = []
+for link in soup.find_all('a'):
+    urls.append(link.get('href'))
+urls2 = []
+packages = []
+
+# Project Root
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+download_dir = ROOT_DIR + "/Downloads"
+
+# Create Downloads folder
+if not os.path.exists(download_dir):
+    os.mkdir(download_dir)
+
+# Change to downloads directory
+os.chdir(download_dir)
+
+# Download all of the packages from the URL
+print(f"Found {len(urls)} packages. Downloading...")
+
+for package_name in urls:
+    url2 = url+package_name
+    reqs2 = requests.get(url2)
+    soup2 = BeautifulSoup(reqs2.text, 'html.parser')
+    for package in soup2.find_all('a'):
+        package_name = package.get('href')[6:]
+        packages.append(package_name.split("#")[0])
+        download_url = url[:-7] + package_name
+        urllib.request.urlretrieve(download_url, package_name.split("#")[0])
+
+print("Packages downloaded! Please login to your Cloudsmith account to upload the packages.")
+
+# Login to Cloudsmith if config files are not found
+if not exists("config.ini") and not exists("credentials.ini"):
+    os.system("cloudsmith login")
+    
+# Upload all of the packages to Cloudsmith
+print(f"Uploading to {org_name}/{repository}")
+sleep(5)
+
+# Use Cloudsmith CLI to push the packages
+for package in packages:
+    os.system(f"cloudsmith push python {org_name}/{repository} {package} --no-wait-for-sync")
+```
+```text requirements.txt
+autopep8==1.7.0
+beautifulsoup4==4.11.1
+blessed==1.19.1
+boto3==1.24.59
+botocore==1.27.59
+bs4==0.0.1
+certifi==2022.6.15
+charset-normalizer==2.1.1
+cloudsmith-api==1.142.3
+defusedxml==0.7.1
+gitdb==4.0.9
+GitPython==3.1.27
+gpg==1.18.0
+idna==3.3
+inquirer==2.10.0
+jira==3.4.0
+jmespath==1.0.1
+oauthlib==3.2.0
+packaging==21.3
+pycodestyle==2.9.1
+pyparsing==3.0.9
+python-dateutil==2.8.2
+python-editor==1.0.4
+readchar==4.0.2
+requests==2.28.1
+requests-oauthlib==1.3.1
+requests-toolbelt==0.9.1
+s3transfer==0.6.0
+sh==1.14.3
+six==1.16.0
+smmap==5.0.0
+soupsieve==2.3.2.post1
+toml==0.10.2
+typing_extensions==4.3.0
+urllib3==1.26.12
+wcwidth==0.2.5
+```

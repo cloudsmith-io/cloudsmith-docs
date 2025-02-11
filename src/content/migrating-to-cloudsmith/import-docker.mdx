@@ -1,0 +1,47 @@
+import { Note } from '@/components';
+
+# Import Docker
+
+## Bulk Import of Docker images:
+
+Since Docker can be used in different ways including remote repositories and different naming conventions this documentation will include a guide as to how you can script around bulk-importing your images to a Cloudsmith repository.
+
+### Process:
+
+#### Get image names and tags:
+
+- Get an output of image name+version, this can be achieved by using:
+  - `docker images --format "{{json . }}"`
+  - This will provide a JSON list of all the images and their attributes. We are primarily looking for 2 values, `Repository` and `Tag`. Export the above to a file or assign the output to a dictionary in your script.
+
+- If your organization is using remote repositories you can access this information by utilizing Docker's v2 API, more information can be found [here](https://www.baeldung.com/ops/docker-registry-api-list-images-tags#:~:text=3.%20Docker%20Registry%20API%20V2).
+
+#### Re-tag the images with Cloudsmith URL
+
+<Note variant="note" heading="Custom Domain">
+If you are a Velocity/Ultra customer, you are entitled to a [custom domain](https://help.cloudsmith.io/docs/custom-domains) for your package types including Docker. Before proceeding, if you would like to use a custom domain we highly recommend requesting it first as you will have to re-point the images to your new domain.
+</Note>
+
+<Note variant="caution" heading="Be careful!">
+Before you proceed:
+1. Make sure that you are logged into the Cloudsmith repository you wish to push the images to. More information can be found in our [docs](https://help.cloudsmith.io/docs/docker-registry#publish-via-docker).
+2. The format that we will be tagging the images is as follows: `docker.cloudsmith.io/v2/OWNER/REGISTRY/`
+3. If you are using a custom domain, the URL will change to `<custom-domain>/v2/OWNER/REGISTRY/`
+</Note>
+
+Once all of the images are saved either to variable or file, they now need to be parsed into `docker tag` command to include the new name for the docker image.
+
+1. Configure your script to insert the following: `docker tag old_image:version docker.cloudsmith.io/v2/OWNER/REGISTRY/image_name:version`
+
+2. Then we can use `docker push <new_image_name>:<tag>`
+
+###  Example:
+
+If your images are named the following:  
+`docker.other-registry.com/v2/orgname/repository/redhat:latest` 
+
+Cloudsmith equivalent should look like this:  
+`docker.cloudsmith.io/v2/YourOrgName/YourRepository/redhat:latest`
+
+Finally the push command:
+`docker push docker.cloudsmith.io/v2/YourOrgName/YourRepository/redhat:latest`

@@ -1,6 +1,4 @@
 .root {
-  /* TODO: Decide on theme colors */
-  --theme-bg-color: var(--color-background-pre);
   --theme-clipboard-bg-color: rgb(255 255 255 / 15%);
   --line-color: #818e95;
   --line-bg-color: rgb(255 255 255 / 15%);
@@ -8,7 +6,7 @@
   --line-padding: 20px;
 
   margin-block-end: var(--space-s);
-  line-height: 22px;
+  line-height: var(--line-height-xs);
   overflow: hidden;
 }
 
@@ -19,7 +17,8 @@
 .code :global(pre) {
   margin: 0;
   overflow-x: auto;
-  background-color: var(--theme-bg-color);
+  /* Needed to overwrite Shikit theme */
+  background-color: var(--color-background-pre) !important;
   border-radius: 0 0 12px 12px;
   padding-block: 15px;
 }
@@ -65,8 +64,8 @@
   font-size: 12px;
   padding-block: 5px;
   padding-inline: 21px;
-  background: var(--theme-bg-color) linear-gradient(var(--line-bg-color), var(--line-bg-color) 100%) center
-    bottom / 100% 1px no-repeat;
+  background: var(--color-background-pre) linear-gradient(var(--line-bg-color), var(--line-bg-color) 100%)
+    center bottom / 100% 1px no-repeat;
 }
 
 .hideHeader {
