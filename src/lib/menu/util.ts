@@ -16,32 +16,18 @@ export const getMenuItem = (key: string): MenuItem => {
 };
 
 /**
- * Filter the menu items into two arrays, one with items that have an icon and one without
- * for easier rendering in the navbar
+ * Return multiple top-level menu sections based on the key
  */
-export const getNavBarItems = () => {
-  const primary: NavBarItems = [];
-  const secondary: NavBarItems = [];
-
-  Object.entries(menu).forEach(([key, item]) => {
-    if (!item.path) return;
-
-    if (item.icon) {
-      primary.push([key, item]);
-    } else {
-      secondary.push([key, item]);
-    }
-  });
-
-  return { primary, secondary };
+export const getMenuItems = (keys: string[]): MenuItem[] => {
+  return keys.map((key) => getMenuItem(key));
 };
 
 /**
  * Check if a pathname matches any item in the navigation
  * Returns the matched item or undefined if no match
  */
-export const getActiveItem = (pathname: string, items: NavBarItems) => {
-  return items.find(([, item]) => isItemActive(item, pathname));
+export const getActiveItem = (pathname: string, items: MenuItem[]) => {
+  return items.find((item) => isItemActive(item, pathname));
 };
 
 const isItemActive = (item: MenuItem, pathname: string): boolean => {
@@ -56,5 +42,3 @@ const isItemActive = (item: MenuItem, pathname: string): boolean => {
   // since we might match the api endpoints
   return item.path ? pathname.startsWith(item.path) : false;
 };
-
-type NavBarItems = Array<[string, MenuItem]>;

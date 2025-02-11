@@ -27,6 +27,8 @@ export const Sidenav = ({ items }: SidenavProps) => {
   const isOpen = navigationState === 'sideNav';
   const toggle = () => toggleNavigation('sideNav');
 
+  console.log('sidenav', items);
+
   return (
     <>
       <button type="button" className={styles.toggleButton} onClick={toggle}>

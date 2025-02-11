@@ -1,24 +1,35 @@
 'use client';
 
-import { useNavigation } from '@/app/navigation';
-import { Container, Flex } from '@/components';
-import { LogoSymbol, LogoWordMark } from '@/components/Logo';
-import { Icon } from '@/icons';
-import { getActiveItem, getNavBarItems } from '@/lib/menu/util';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cx } from 'class-variance-authority';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+
+import { useNavigation } from '@/app/navigation';
+import { Container, Flex } from '@/components';
+import { LogoSymbol, LogoWordMark } from '@/components/Logo';
+import { getActiveItem, getMenuItems } from '@/lib/menu/util';
+import { SearchDialog } from '@/components/SearchDialog';
+import { Icon } from '@/icons';
 
 import styles from './Navbar.module.css';
-import { SearchDialog } from '../SearchDialog';
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
-  const { primary, secondary } = getNavBarItems();
-  const primaryActive = getActiveItem(pathname, primary);
+
+  const [documentationItem, guidesItem, apiItem, mobileNavbarItem] = getMenuItems([
+    'documentation',
+    'guides',
+    'api',
+    'mobileNavbar',
+  ]);
+
+  const primary = [documentationItem, guidesItem, apiItem];
+  const secondary = mobileNavbarItem.children;
+
+  const primaryActive = getActiveItem(pathname, primary) ?? documentationItem;
   const toggle = () => toggleNavigation('globalNav');
 
   return (
@@ -32,18 +43,20 @@ export const Navbar = () => {
 
           {primaryActive ? (
             <span className={styles.currentSection}>
-              {primaryActive[1]?.icon && <Icon name={primaryActive[1].icon} title="" />}
-              <span>{primaryActive[1]?.title}</span>
+              {primaryActive?.icon && <Icon name={primaryActive.icon} title="" />}
+              <span>{primaryActive?.title}</span>
             </span>
           ) : null}
 
           <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
             <nav className={styles.nav}>
-              {primary?.map(([key, item]) => (
+              {primary?.map((item, i) => (
                 <Link
-                  key={key}
+                  key={`${item.path}-${i}`}
                   href={item.path!}
-                  className={cx(styles.navLink, { [styles.navLinkActive]: primaryActive?.[0] === key })}>
+                  className={cx(styles.navLink, {
+                    [styles.navLinkActive]: primaryActive?.path === item.path,
+                  })}>
                   <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
                   {item.title}
                 </Link>
@@ -87,8 +100,8 @@ export const Navbar = () => {
 
               {[primary, secondary].map((items, index) => (
                 <ul key={index} className={styles.mobileNav}>
-                  {items?.map(([key, item]) => (
-                    <li key={key}>
+                  {items?.map((item, i) => (
+                    <li key={`${item.path}-${i}`}>
                       <Link href={item.path!} className={styles.mobileNavLink}>
                         {item.icon && (
                           <Icon
