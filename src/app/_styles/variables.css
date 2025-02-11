@@ -76,6 +76,7 @@
 
     /* Border */
     --color-border: var(--base-color-grey-300);
+    --color-border-tabs: var(--base-color-blue-500);
 
     /* Accent */
     --color-accent-default: var(--base-color-blue-500);

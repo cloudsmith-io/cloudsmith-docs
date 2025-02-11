@@ -21,6 +21,7 @@ const codeBlock = cva(styles.root, {
 export async function CodeBlock({ children, lang, header = true }: Props) {
   const hideHeader = !lang || !header;
   const hideLineNumbers = lang === 'bash' || lang === 'text';
+
   const html = (await getHighlighter()).codeToHtml(children, {
     lang,
     theme,
