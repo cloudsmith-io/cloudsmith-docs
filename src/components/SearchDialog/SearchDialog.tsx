@@ -1,18 +1,25 @@
 'use client';
 
+import { Icon } from '@/icons';
+import { performSearch } from '@/lib/search/server';
+import { SearchResult } from '@/lib/search/types';
+import { debounce } from '@/lib/util';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-
-import { Icon } from '@/icons';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { FilterButtons } from './FilterButtons';
 import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { performSearch } from '@/lib/search/server';
-import { debounce } from '@/lib/util';
-import { SearchResult } from '@/lib/search/types';
-import { cx } from 'class-variance-authority';
+
+const filters = [
+  { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
+  { id: 'guides', label: 'Guides', icon: 'utility/guide' },
+  { id: 'api', label: 'API', icon: 'action/api' },
+];
+
+type Section = (typeof filters)[number]['id'];
 
 /**
  * If the requirements for this become even more sophisticated,
@@ -37,7 +44,7 @@ export const SearchDialog = () => {
   const [term, setTerm] = useState('');
   // isWaiting is true when the debounce is active or the search function is actually loading.
   const [isWaiting, setIsWaiting] = useState(false);
-  const [sections, setSections] = useState(['documentation']);
+  const [sections, setSections] = useState<Array<Section>>([filters[0].id]);
   const [results, setResults] = useState<SearchResult[]>([]);
 
   useEffect(() => {
@@ -49,9 +56,14 @@ export const SearchDialog = () => {
     }
   }, [term, sections, setResults]);
 
-  const setSection = (section: string) => {
+  const setSection = (section: Section) => {
     setSections((prev) => {
       if (prev.includes(section)) {
+        // Don't remove if it would leave no sections
+        if (prev.length === 1) {
+          return prev;
+        }
+
         return prev.filter((s) => s !== section);
       }
 
@@ -78,35 +90,7 @@ export const SearchDialog = () => {
               <RadixDialog.Title className={styles.title}>Search</RadixDialog.Title>
             </VisuallyHidden>
             <div className={styles.main}>
-              <div className={styles.filters}>
-                <p className={styles.filtersHeadline}>Search in</p>
-                <div className={styles.filtersList}>
-                  <button
-                    className={cx(styles.filter, {
-                      [styles.filterActive]: sections.includes('documentation'),
-                    })}
-                    onClick={() => setSection('documentation')}>
-                    <Icon name="utility/documentation" className={styles.filterIcon} title="" />
-                    Documentation
-                  </button>
-                  <button
-                    className={cx(styles.filter, {
-                      [styles.filterActive]: sections.includes('guides'),
-                    })}
-                    onClick={() => setSection('guides')}>
-                    <Icon name="utility/guide" className={styles.filterIcon} title="" />
-                    Guides
-                  </button>
-                  <button
-                    className={cx(styles.filter, {
-                      [styles.filterActive]: sections.includes('api'),
-                    })}
-                    onClick={() => setSection('api')}>
-                    <Icon name="utility/api" className={styles.filterIcon} title="" />
-                    API
-                  </button>
-                </div>
-              </div>
+              <FilterButtons activeSections={sections} onFilterChange={setSection} filters={filters} />
 
               {results.map((res) => (
                 <div key={res.path}>{res.title}</div>
