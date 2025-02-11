@@ -19,9 +19,6 @@ export const filters: Filters = [
   { id: 'api', label: 'API Reference', icon: 'action/api' },
 ];
 
-export type Filters = Array<{ id: string; label: string; icon: IconName }>;
-type Section = (typeof filters)[number]['id'];
-
 /**
  * If the requirements for this become even more sophisticated,
  * or we need to implement client-side fetched anywhere else,
@@ -105,3 +102,6 @@ export const SearchDialog = () => {
     </RadixDialog.Root>
   );
 };
+
+export type Filters = Array<{ id: string; label: string; icon: IconName }>;
+type Section = (typeof filters)[number]['id'];
