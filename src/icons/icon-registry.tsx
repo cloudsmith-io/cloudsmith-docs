@@ -16,16 +16,21 @@ import { ActionPlayIcon } from './svgs/action/Play';
 import { ActionCopyIcon } from './svgs/action/Copy';
 import { ActionCheckIcon } from './svgs/action/Check';
 import { ActionErrorIcon } from './svgs/action/Error';
+import { EnterIcon } from './svgs/Enter';
+
 export const iconRegistry = createIconRegistry({
   close: CloseIcon,
   menu: MenuIcon,
   chevron: ChevronIcon,
+  enter: EnterIcon,
   chevronUp: (props) => <ChevronIcon {...props} id="icon-chevron-up" chevronDirection="up" />,
   chevronRight: (props) => <ChevronIcon {...props} id="icon-chevron-right" chevronDirection="right" />,
   chevronDown: (props) => <ChevronIcon {...props} id="icon-chevron-down" chevronDirection="down" />,
   chevronLeft: (props) => <ChevronIcon {...props} id="icon-chevron-left" chevronDirection="left" />,
   arrow: ArrowIcon,
+  arrowUp: (props) => <ArrowIcon {...props} id="icon-arrow-up" arrowDirection="up" />,
   arrowRight: (props) => <ArrowIcon {...props} id="icon-arrow-right" arrowDirection="right" />,
+  arrowDown: (props) => <ArrowIcon {...props} id="icon-arrow-down" arrowDirection="down" />,
   arrowLeft: (props) => <ArrowIcon {...props} id="icon-arrow-left" arrowDirection="left" />,
   search: SearchIcon,
   'utility/documentation': UtilityDocumentationIcon,

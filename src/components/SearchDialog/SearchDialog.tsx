@@ -12,6 +12,7 @@ import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
+import { SearchFooter } from './SearchFooter';
 
 export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
@@ -81,12 +82,14 @@ export const SearchDialog = () => {
               </div>
               <SearchForm value={term} onChange={setTerm} />
             </header>
+
             <VisuallyHidden>
               <RadixDialog.Close asChild>
                 <button>Close</button>
               </RadixDialog.Close>
               <RadixDialog.Title className={styles.title}>Search</RadixDialog.Title>
             </VisuallyHidden>
+
             <div className={styles.main}>
               <FilterButtons activeSections={sections} onFilterChange={setSection} filters={filters} />
 
@@ -96,6 +99,10 @@ export const SearchDialog = () => {
 
               {!isWaiting && results.length === 0 && term !== '' && <p>No results</p>}
             </div>
+
+            <footer className={styles.footer}>
+              <SearchFooter />
+            </footer>
           </RadixDialog.Content>
         </RadixDialog.Overlay>
       </RadixDialog.Portal>

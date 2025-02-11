@@ -47,7 +47,21 @@
 }
 
 .main {
-  padding: var(--padding-block) var(--padding-inline);
+  padding-block: var(--padding-block);
+  padding-inline: var(--padding-inline);
+}
+
+.footer {
+  background-color: var(--base-color-grey-50);
+  padding-block: var(--space-3xs);
+  padding-inline: var(--padding-inline);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (--phablet-down) {
+  .footer {
+    display: none;
+  }
 }
 
 @media (--phablet-up) {
