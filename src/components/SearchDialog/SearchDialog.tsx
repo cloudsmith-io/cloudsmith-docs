@@ -13,12 +13,13 @@ import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
 
-export const filters: Array<{ id: string; label: string; icon: IconName }> = [
+export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
   { id: 'guides', label: 'Guides', icon: 'utility/guide' },
   { id: 'api', label: 'API', icon: 'action/api' },
 ];
 
+export type Filters = Array<{ id: string; label: string; icon: IconName }>;
 type Section = (typeof filters)[number]['id'];
 
 /**
