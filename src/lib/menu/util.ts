@@ -47,8 +47,6 @@ export const getActiveAncestors = (
   items: MenuItem[],
   ancestors: MenuItem[] = [],
 ): MenuItem[] => {
-  console.log(pathname, items);
-
   for (const item of items) {
     // If this item has the exact pathname
     if (item.path === pathname) {
