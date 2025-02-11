@@ -23,14 +23,30 @@
 
 .responseGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin-block-start: var(--column-block-padding);
+  grid-template-columns: minmax(150px, auto) auto auto minmax(300px, auto) 16px;
+  margin-block: var(--column-block-padding) calc(var(--column-block-padding) * -1);
+
+  .responseGrid {
+    margin-block-end: calc(var(--space-s) * -1);
+
+    &:not(:has(.responseGrid)) {
+      margin-block-end: var(--space-xs);
+    }
+  }
 }
 
 .responseGridRow {
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
+}
+
+.responseGridRowToggler {
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--base-color-grey-100);
+  }
 }
 
 .responseGridColumn {
@@ -40,14 +56,12 @@
   line-height: var(--line-height-s);
   padding-inline-end: var(--column-inline-padding);
   padding-block: var(--column-block-padding);
-
-  &:last-child {
-    padding-inline-end: 0;
-  }
 }
 
-.responseGridRow:last-child .responseGridColumn {
-  padding-block-end: 0;
+.responseGridColumnTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .responseGridColumnType {
@@ -64,9 +78,48 @@
   letter-spacing: var(--letter-http-rule);
 }
 
-.responseGridColumnDescription {
-  padding-block-start: 0;
+.responseGridColumnIcon {
+  padding-inline-end: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.responseGridRowInner {
+  overflow: hidden;
   grid-column: 1 / -1;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: subgrid;
+  opacity: 0;
+  transition: opacity var(--transition-default);
+}
+
+.responseGridRowContent {
+  transition: grid-template-rows var(--transition-default);
+  grid-template-rows: 0fr;
+}
+
+.responseGridRowContent[aria-hidden='false'] {
+  grid-template-rows: 1fr;
+}
+
+.responseGridRowContent[aria-hidden='false'] .responseGridRowInner {
+  opacity: 1;
+}
+
+.responseGridColumnDescription {
   border-top: 0;
-  color: var(--base-color-grey-500);
+  grid-column: 1 / -1;
+  padding-inline-end: 0;
+  padding-block: var(--space-xs) var(--space-s);
+}
+
+.responseGridColumnInner {
+  margin: 0;
+  max-inline-size: 70ch;
+  font-size: var(--text-body-xs);
+  line-height: var(--text-body-s);
+  color: var(--color-text-secondary);
 }

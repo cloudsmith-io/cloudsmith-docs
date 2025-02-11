@@ -22,8 +22,13 @@ export const ApiGridRow = ({ children, ...rest }: GridRowStandard) => (
   </div>
 );
 
-export const ApiGridRowToggler = ({ onToggle, children }: GridRowToggler) => (
-  <button type="button" className={cx(styles.item, styles.itemToggler)} onClick={onToggle}>
+export const ApiGridRowToggler = ({ onToggle, children, isOpen }: GridRowToggler) => (
+  <button
+    type="button"
+    onClick={onToggle}
+    className={cx(styles.item, styles.itemToggler, {
+      [styles.itemTogglerOpen]: isOpen,
+    })}>
     {children}
   </button>
 );
@@ -71,6 +76,7 @@ interface GridRowStandard {
 
 interface GridRowToggler {
   onToggle: () => void;
+  isOpen: boolean | undefined;
   children: React.ReactNode;
 }
 

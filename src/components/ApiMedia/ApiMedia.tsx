@@ -1,7 +1,10 @@
+'use client';
+
 import { Tag } from '@/components';
+import { ChevronIcon } from '@/icons/Chevron';
 import { RequestBodyObject, ResponseObject, SchemaObject } from '@/lib/swagger/types';
 import { cx } from 'class-variance-authority';
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './ApiMedia.module.css';
 
@@ -10,10 +13,7 @@ export const ApiMediaResponse = (response: ResponseObject | RequestBodyObject) =
     <>
       {response.content ? (
         <div className={styles.responseType}>
-          <p className={styles.responseTitle}>
-            {response.description || 'Response body'}
-            {` - ${Object.keys(response.content)[0]}`}
-          </p>
+          <p className={styles.responseTitle}>{response.description || 'Response body'}</p>
           <div className={styles.responseTypeContent}>
             {Object.entries(response.content).map(([media, content]) => (
               <Schema key={media} media={media} schema={content.schema as SchemaObject} />
@@ -25,13 +25,24 @@ export const ApiMediaResponse = (response: ResponseObject | RequestBodyObject) =
   );
 };
 
-const Schema = ({ schema }: { media: string; schema: SchemaObject }) => {
+const Schema = ({ schema, description }: { media?: string; schema: SchemaObject; description?: string }) => {
   if (schema.type === 'array') {
     return (
       <>
-        <p className={styles.responseTypeTitle}>array of {`${schema.type}s`}</p>
+        <p className={styles.responseTypeTitle}>{description || `${schema.type} of ${schema.items.type}s`}</p>
         <div className={styles.responseTypeContent}>
           <Properties {...schema.items} />
+        </div>
+      </>
+    );
+  }
+
+  if (schema.type === 'object') {
+    return (
+      <>
+        <p className={styles.responseTypeTitle}>{description || schema.type}</p>
+        <div className={styles.responseTypeContent}>
+          <Properties {...schema} />
         </div>
       </>
     );
@@ -48,32 +59,76 @@ const Properties = ({ properties, required, type }: SchemaObject) => {
       {properties ? (
         <div className={styles.responseGrid}>
           {Object.entries(properties).map(([name, property]) => {
-            const isRequired = required?.includes(name);
-
-            return (
-              <div key={name} className={styles.responseGridRow}>
-                <div className={styles.responseGridColumn}>{name}</div>
-                <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
-                  {property.format || property.type}
-                  {property.nullable && ' | null'}
-                </div>
-                <div className={styles.responseGridColumn}>
-                  <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
-                </div>
-                <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
-                  <ValidationRules schema={property} />
-                  {/* <pre style={{ border: '1px solid red' }}>{JSON.stringify(property, null, 2)}</pre> */}
-                </div>
-                {property.description ? (
-                  <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
-                    {property.description}
-                  </div>
-                ) : null}
-              </div>
-            );
+            return <Property key={name} name={name} property={property} required={required} />;
           })}
         </div>
       ) : null}
+    </>
+  );
+};
+
+const Property = ({
+  name,
+  property,
+  required,
+}: {
+  name: string;
+  property: SchemaObject;
+  required: string[] | undefined;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const isRequired = required?.includes(name);
+  const hasNested = Boolean(property.description) || property.type === 'array' || property.type === 'object';
+
+  function toggleDescriptionVisibility() {
+    setIsOpen(!isOpen);
+  }
+
+  return (
+    <>
+      <div
+        key={name}
+        onClick={toggleDescriptionVisibility}
+        className={cx(styles.responseGridRow, { [styles.responseGridRowToggler]: hasNested })}>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnTitle)}>{name}</div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnType)}>
+          {property.type === 'array'
+            ? `${property.type} of ${property.items?.type}s`
+            : property.format || property.type}
+          {property.nullable && ' | null'}
+        </div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnTag)}>
+          <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
+        </div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
+          <ValidationRules schema={property} />
+        </div>
+        <div className={cx(styles.responseGridColumn, styles.responseGridColumnIcon)}>
+          {hasNested && (
+            <ChevronIcon
+              title=""
+              chevronDirection={isOpen ? 'up' : 'down'}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+              className={styles.togglerIcon}
+            />
+          )}
+        </div>
+      </div>
+
+      {hasNested && (
+        <div className={cx(styles.responseGridRow, styles.responseGridRowContent)} aria-hidden={!isOpen}>
+          <div className={styles.responseGridRowInner}>
+            <div className={cx(styles.responseGridColumn, styles.responseGridColumnDescription)}>
+              {property.type === 'array' || property.type === 'object' ? (
+                <Schema schema={property} description={property.description} />
+              ) : (
+                <p className={styles.responseGridColumnInner}>{property.description}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
@@ -148,7 +203,7 @@ const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
         break;
       case 'uniqueItems':
         if (value === true && !schema.minItems && !schema.maxItems) {
-          acc.push('items must be unique');
+          acc.push('Items must be unique');
         }
         break;
 
@@ -167,13 +222,14 @@ const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
 
       // Validation keywords for any instance type
       case 'enum':
-        acc.push(`allowed values ${value.join(', ')}`);
+        acc.push(`Allowed values: ${value.join(', ')}`);
         break;
       case 'format':
-        acc.push(`${value}`);
+        // TODO: Decide what to do with format
+        // acc.push(`${value}`);
         break;
       case 'default':
-        acc.push(`defaults to ${value}`);
+        acc.push(`Defaults to ${value}`);
         break;
 
       // TODO: What should we render here?
@@ -194,6 +250,11 @@ const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
   }, []);
 
   if (rules.length) {
-    return rules.map((rule, index) => <React.Fragment key={index}>{rule}</React.Fragment>);
+    return rules.map((rule, index) => (
+      <React.Fragment key={index}>
+        {rule}
+        {index < rules.length - 1 ? <br /> : null}
+      </React.Fragment>
+    ));
   }
 };
