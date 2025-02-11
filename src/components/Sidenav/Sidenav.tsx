@@ -12,6 +12,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { Tag } from '../Tag';
+import { getActiveAncestors } from '@/lib/menu/util';
+import { last } from '@/lib/util';
 
 import styles from './Sidenav.module.css';
 
@@ -24,19 +26,18 @@ const openCloseVariants: Variants = {
 
 export const Sidenav = ({ items }: SidenavProps) => {
   const { navigationState, toggleNavigation } = useNavigation();
+  const pathname = usePathname();
+  const activeMenuItems = getActiveAncestors(pathname, items);
+  const activeLabel = last(activeMenuItems)?.title ?? 'Select page';
+
   const isOpen = navigationState === 'sideNav';
   const toggle = () => toggleNavigation('sideNav');
-
-  console.log('sidenav', items);
 
   return (
     <>
       <button type="button" className={styles.toggleButton} onClick={toggle}>
         <ArrowIcon name="arrow" arrowDirection="left" as="svg" title="" className={styles.toggleIconBack} />
-        <span className={styles.toggleButtonText}>
-          {/* TODO: Add current active page name */}
-          Missing current active page name
-        </span>
+        <span className={styles.toggleButtonText}>{activeLabel}</span>
         <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
       </button>
 

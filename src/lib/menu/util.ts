@@ -23,22 +23,46 @@ export const getMenuItems = (keys: string[]): MenuItem[] => {
 };
 
 /**
- * Check if a pathname matches any item in the navigation
- * Returns the matched item or undefined if no match
+ * Finds the active top-level menu item based on the pathname
  */
-export const getActiveItem = (pathname: string, items: MenuItem[]) => {
-  return items.find((item) => isItemActive(item, pathname));
-};
-
-const isItemActive = (item: MenuItem, pathname: string): boolean => {
-  if (item.path === pathname) return true;
-
-  if (item.children) {
-    const hasActiveChild = item.children.some((child) => isItemActive(child, pathname));
-    if (hasActiveChild) return true;
+export const getActiveMenuItem = (pathname: string): MenuItem => {
+  for (const key in menu) {
+    const item = menu[key];
+    if (item.path && pathname.startsWith(item.path)) {
+      return item;
+    }
   }
 
-  // If no exact match and no active children, check if pathname starts with item.path
-  // since we might match the api endpoints
-  return item.path ? pathname.startsWith(item.path) : false;
+  return menu.documentation;
+};
+
+/**
+ * Finds the active nested menu item and its ancestors by comparing
+ * the pathname to its .path property. Returns an array of
+ * all the menu items where the active item is last and
+ * the most top-level ancestor is first.
+ */
+export const getActiveAncestors = (
+  pathname: string,
+  items: MenuItem[],
+  ancestors: MenuItem[] = [],
+): MenuItem[] => {
+  console.log(pathname, items);
+
+  for (const item of items) {
+    // If this item has the exact pathname
+    if (item.path === pathname) {
+      return ancestors.concat([item]);
+    }
+
+    // Otherwise look for exact pathname in its children
+    if (item.children) {
+      const newAncestors = getActiveAncestors(pathname, item.children, ancestors.concat([item]));
+      if (newAncestors.length > ancestors.length) {
+        return newAncestors;
+      }
+    }
+  }
+
+  return [];
 };

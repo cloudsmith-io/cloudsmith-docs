@@ -7,9 +7,9 @@ import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
 
 import { useNavigation } from '@/app/navigation';
-import { Container, Flex } from '@/components';
+import { Container } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
-import { getActiveItem, getMenuItems } from '@/lib/menu/util';
+import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
 
@@ -29,46 +29,50 @@ export const Navbar = () => {
   const primary = [documentationItem, guidesItem, apiItem];
   const secondary = mobileNavbarItem.children;
 
-  const primaryActive = getActiveItem(pathname, primary) ?? documentationItem;
+  const activeMenuItem = getActiveMenuItem(pathname);
+
   const toggle = () => toggleNavigation('globalNav');
 
   return (
     <>
-      <div className={cx(styles.root, { [styles.homeNavbar]: pathname === '/' })}>
+      <div className={cx(styles.root, { [styles.isHome]: pathname === '/' })}>
         <Container className={styles.container}>
-          <Link href="/" className={styles.logo}>
-            <LogoWordMark className={styles.logoWordmark} />
-            <LogoSymbol className={styles.logoSymbol} />
-          </Link>
+          <div className={styles.top}>
+            <div className={styles.left}>
+              <Link href="/" className={styles.logo}>
+                <LogoWordMark className={styles.logoWordmark} />
+                <LogoSymbol className={styles.logoSymbol} />
+              </Link>
 
-          {primaryActive ? (
-            <span className={styles.currentSection}>
-              {primaryActive?.icon && <Icon name={primaryActive.icon} title="" />}
-              <span>{primaryActive?.title}</span>
-            </span>
-          ) : null}
+              {activeMenuItem ? (
+                <span className={styles.currentSection}>
+                  {activeMenuItem.icon && <Icon name={activeMenuItem.icon} title="" />}
+                  <span>{activeMenuItem.title}</span>
+                </span>
+              ) : null}
+            </div>
 
-          <Flex gap="m" justify="between" wrap={false} className={cx(styles.navContainer)}>
-            <nav className={styles.nav}>
-              {primary?.map((item, i) => (
-                <Link
-                  key={`${item.path}-${i}`}
-                  href={item.path!}
-                  className={cx(styles.navLink, {
-                    [styles.navLinkActive]: primaryActive?.path === item.path,
-                  })}>
-                  <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
-                  {item.title}
-                </Link>
-              ))}
-            </nav>
+            <div className={styles.right}>
+              <SearchDialog />
 
-            <SearchDialog />
-
-            <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
-              <Icon name="menu" title="" />
-            </button>
-          </Flex>
+              <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
+                <Icon name="menu" title="" />
+              </button>
+            </div>
+          </div>
+          <nav className={styles.nav}>
+            {primary?.map((item, i) => (
+              <Link
+                key={`${item.path}-${i}`}
+                href={item.path!}
+                className={cx(styles.navLink, {
+                  [styles.navLinkActive]: activeMenuItem === item,
+                })}>
+                <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
+                {item.title}
+              </Link>
+            ))}
+          </nav>
         </Container>
       </div>
 

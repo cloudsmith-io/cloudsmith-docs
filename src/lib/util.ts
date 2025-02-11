@@ -67,3 +67,10 @@ export const debounce = <T extends unknown[]>(func: (...args: T) => void, wait: 
     }, wait);
   };
 };
+
+/**
+ * Return the last item in an array or nothing
+ */
+export const last = (arr: any[]) => {
+  return Array.isArray(arr) && arr.length > 0 ? arr[arr.length - 1] : undefined;
+};

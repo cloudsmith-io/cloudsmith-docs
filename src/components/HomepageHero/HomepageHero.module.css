@@ -3,8 +3,7 @@
   overflow: hidden;
   height: 100%;
 
-  --banner-height: 0px;
-  --offset-top: calc(var(--space-s) + var(--layout-navbar-height) + var(--banner-height));
+  --offset-top: calc(var(--space-xl) + var(--navbar-top-height));
   --hero-illustration-overlap: min(20vh, 150px);
 }
 
@@ -24,7 +23,7 @@
   z-index: var(--layer-hero);
   width: 100%;
   max-width: var(--container-width-s);
-  padding: var(--offset-top) var(--space-m) var(--space-2xl);
+  padding: var(--offset-top) var(--container-margin-home) var(--space-2xl);
   font-family: var(--font-family-body);
 }
 
