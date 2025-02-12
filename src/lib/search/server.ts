@@ -12,7 +12,7 @@ import { extractMdxMetadata } from '../metadata/util';
 
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
 
-const SNIPPET_PADDING = 150;
+const SNIPPET_PADDING = 300;
 
 export const performSearch = async (
   input: string,

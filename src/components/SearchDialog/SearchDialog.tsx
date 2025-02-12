@@ -104,13 +104,16 @@ export const SearchDialog = () => {
                         {res.title}
                         {res.method && <Tag method={res.method} className={styles.resultTag} />}
                       </span>
-                      {/* TODO add <EM> for matching text */}
-                      <span className={styles.resultDescription}>{res.snippet}</span>
+                      <span className={styles.resultDescription}>
+                        {highlightSearchTerm(res.snippet, term)}
+                      </span>
                       <span className={styles.resultEnter}>
                         <Icon name="enter" className={styles.resultEnterIcon} title="" />
                       </span>
                       <Icon name="arrowRight" className={styles.resultArrow} title="" />
                     </Link>
+
+                    {/* <pre>{JSON.stringify(res, null, 2)}</pre> */}
                   </li>
                 ))}
               </ul>
@@ -128,6 +131,16 @@ export const SearchDialog = () => {
       </RadixDialog.Portal>
     </RadixDialog.Root>
   );
+};
+
+const highlightSearchTerm = (text: string, term: string) => {
+  if (!term.trim()) {
+    return text;
+  }
+
+  return text
+    .split(new RegExp(`(${term})`, 'gi'))
+    .map((part, i) => (part.toLowerCase() === term.toLowerCase() ? <u key={i}>{part}</u> : part));
 };
 
 export type Filters = Array<{ id: string; label: string; icon: IconName }>;
