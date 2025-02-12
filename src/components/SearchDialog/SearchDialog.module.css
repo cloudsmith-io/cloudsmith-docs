@@ -88,6 +88,7 @@
   color: var(--color-text-secondary);
 
   &:is(:hover, :focus) {
+    outline: none;
     background-color: var(--base-color-blue-100);
 
     .resultTag {

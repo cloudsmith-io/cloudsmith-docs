@@ -37,8 +37,9 @@
   &:not(.filterDisabled) {
     cursor: pointer;
 
-    &:hover {
+    &:is(:hover, :focus) {
       background-color: var(--base-color-blue-100);
+      outline: none;
     }
   }
 }
@@ -47,7 +48,7 @@
   background-color: var(--base-color-grey-900);
   color: var(--base-color-white);
 
-  &:not(.filterDisabled):hover {
+  &:not(.filterDisabled):is(:hover, :focus) {
     background-color: var(--base-color-grey-700);
   }
 }
