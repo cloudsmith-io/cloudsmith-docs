@@ -4,8 +4,6 @@ import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 import { TimeAgo } from '@/components';
 
-import styles from './[...slug]/page.module.css';
-
 export const generateStaticParams = async () => {
   return [{}]; // Generate just the root /api route
 };
@@ -14,21 +12,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const content = await loadMdxInfo('guides');
   const mdxInfo = content.find((info) => info.slug === '');
 
+  const defaultMeta = {
+    defaultTitle: 'Guides',
+  };
+
   if (mdxInfo) {
-    return withMdxMetadata(mdxInfo.file, {
-      defaultTitle: 'API Documentation',
-      templatePrefix: 'Cloudsmith API Reference',
-    });
+    return withMdxMetadata(mdxInfo.file, defaultMeta);
   }
 
-  return withDefaultMetadata({
-    defaultTitle: 'API Documentation',
-    templatePrefix: 'Cloudsmith API Reference',
-  });
+  return withDefaultMetadata(defaultMeta);
 }
 
 /**
- * This page is needed in order to server api/index.mdx with the API sidebar.
+ * This page is needed in order to serve guides/index.mdx with the guides sidebar.
  * catch-all routes don't serve index files.
  */
 const Page = async () => {
@@ -41,7 +37,7 @@ const Page = async () => {
     const lastUpdated = getLastUpdated(mdxModule);
 
     return (
-      <div className={styles.root}>
+      <div>
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </div>

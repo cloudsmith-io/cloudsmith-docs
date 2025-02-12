@@ -1,0 +1,8 @@
+.root {
+  width: 100%;
+  padding: var(--space-m);
+  background-color: var(--color-background-info);
+  border-radius: var(--border-radius-m);
+  display: flex;
+  justify-content: space-between;
+}

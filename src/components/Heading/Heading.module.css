@@ -32,12 +32,12 @@
   letter-spacing: initial;
   font-size: var(--text-headline-s);
   line-height: fluid(24px, 28px);
-  margin-block: var(--space-m) var(--space-xs);
+  margin-block: var(--space-m) var(--space-s);
 }
 
 .h3 {
   font-size: var(--text-headline-xs);
-  margin-block: var(--space-xs) var(--space-2xs);
+  margin-block: var(--space-s) var(--space-xs);
 }
 
 .h4 {

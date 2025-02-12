@@ -1,4 +1,5 @@
 .root {
+  color: var(--color-text-primary);
   text-decoration: none;
   border-radius: var(--border-radius-2xl);
   background-color: var(--color-background-default);

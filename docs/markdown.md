@@ -64,6 +64,18 @@ Some text
 This is [a link](/api/something) for you to click.
 ```
 
+## Dividers
+
+Dividers are gray lines that can be used to divide sections of content from each other
+
+```mdx
+Content before divider
+
+---
+
+Content after divider
+```
+
 ## Notes
 
 You can render a simple note using the `>` character in front of your note.

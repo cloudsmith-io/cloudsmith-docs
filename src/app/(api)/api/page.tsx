@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * This page is needed in order to server api/index.mdx with the API sidebar.
+ * This page is needed in order to serve api/index.mdx with the API sidebar.
  * catch-all routes don't serve index files.
  */
 const Page = async () => {
