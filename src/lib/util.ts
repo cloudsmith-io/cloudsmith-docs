@@ -67,3 +67,11 @@ export const debounce = <T extends unknown[]>(func: (...args: T) => void, wait: 
     }, wait);
   };
 };
+
+/**
+ * Return the last item in an array or nothing
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const last = (arr: any[]) => {
+  return Array.isArray(arr) && arr.length > 0 ? arr[arr.length - 1] : undefined;
+};

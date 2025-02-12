@@ -4,8 +4,16 @@
 }
 
 .secondaryNav {
-  position: relative;
+  position: sticky;
+  top: var(--navbar-top-height);
+  z-index: var(--layer-navigation);
   background-color: var(--base-color-grey-1000);
+}
+
+@media (--phablet-up) {
+  .secondaryNav {
+    top: var(--navbar-height);
+  }
 }
 
 @media (--laptop-up) {
@@ -14,10 +22,14 @@
   }
 
   .secondaryNav {
+    position: initial;
+    z-index: 0;
+    top: 0;
     flex: 0 0 var(--sidebar-width);
     border-right: 1px solid var(--color-border);
     border-left: 1px solid var(--color-border);
     background-color: var(--color-background-light);
+    min-height: calc(100vh - var(--navbar-height));
   }
 
   .main {

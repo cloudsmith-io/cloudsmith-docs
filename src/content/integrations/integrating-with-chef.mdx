@@ -1,0 +1,143 @@
+# Integrating Chef
+
+How to integrate Chef with Cloudsmith
+
+Chef is a configuration management tool written in Ruby and Erlang. It uses a Ruby DSL for writing "recipes". Chef recipes are then used automate and maintain system configurations. 
+
+- [Chef](https://www.chef.io/) : The Chef website. 
+- [Chef Docs](https://docs.chef.io/) : The Official Chef Documentation
+
+In the following examples: 
+
+| Identifier  | Description                                                                               |
+| :---------- | :---------------------------------------------------------------------------------------- |
+| OWNER       | Your Cloudsmith organisation name (namespace)                                             |
+| REPOSITORY  | Your Cloudsmith Repository identifier (also called "slug")                                |
+| DISTRO      | Your distribution  (i.e el, fedora, debian etc)                                           |
+| VERSION     | Your version name (i.e 7, 29, hardy, buster etc)                                          |
+| ARCH        | The architecture (i.e x86_64)                                                             |
+| FINGERPRINT | The 8 Byte fingerprint of the Public GPG key for the repository                           |
+| TOKEN       | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME    | Your Cloudsmith username                                                                  |
+| PASSWORD    | Your Cloudsmith password                                                                  |
+| API-KEY     | Your Cloudsmith API Key                                                                   |
+
+
+## Adding a RPM repository
+
+To configure a Cloudsmith repository for rpm packages using Chef, you use the Chef [yum_repository](https://docs.chef.io/resources/yum_repository/) resource. 
+
+Example `yum_repository` resource configurations:
+
+**Public Repository**
+
+```ruby
+yum_repository 'Cloudsmith' do
+  description 'Cloudsmith'
+  baseurl 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  gpgcheck 'true'
+  gpgkey 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  action :create
+end
+```
+
+**Private Repository**
+
+```ruby Entitlement Token Auth
+yum_repository 'Cloudsmith' do
+  description 'Cloudsmith'
+  baseurl 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  gpgcheck 'true'
+  gpgkey 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  action :create
+end
+```
+```ruby HTTP Basic Auth (User & Pass)
+yum_repository 'Cloudsmith' do
+  description 'Cloudsmith'
+  baseurl 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  gpgcheck 'true'
+  gpgkey 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  username 'USERNAME'
+  password 'PASSWORD'
+  action :create
+end
+```
+```ruby HTTP Basic Auth (API-Key)
+yum_repository 'Cloudsmith' do
+  description 'Cloudsmith'
+  baseurl 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  gpgcheck 'true'
+  gpgkey 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  username 'USERNAME'
+  password 'API-KEY'
+  action :create
+end
+```
+```ruby HTTP Basic Auth (Token)
+yum_repository 'Cloudsmith' do
+  description 'Cloudsmith'
+  baseurl 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  gpgcheck 'true'
+  gpgkey 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  username 'token'
+  password 'TOKEN'
+  action :create
+end
+```
+## Adding a deb repository
+
+To configure a Cloudsmith repository for deb packages using Chef, you use the Chef [apt_repository](https://docs.chef.io/resources/apt_repository/) resource. 
+
+Example `apt_repository` resource configurations:
+
+**Public Repository**
+
+```ruby
+apt_repository 'Cloudsmith' do
+  uri          'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/deb/DISTRO'
+  arch         'ARCH'
+  distribution 'VERSION'
+  components   ['main']
+  key          'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+end
+```
+
+**Private Repository**
+
+```ruby Entitlement Token Auth
+apt_repository 'Cloudsmith' do
+  uri          'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/deb/DISTRO'
+  arch         'ARCH'
+  distribution 'VERSION'
+  components   ['main']
+  key          'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+end
+```
+```ruby HTTP Basic Auth (User & Pass)
+apt_repository 'Cloudsmith' do
+  uri          'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO'
+  arch         'ARCH'
+  distribution 'VERSION'
+  components   ['main']
+  key          'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+end
+```
+```ruby HTTP Basic Auth (API-Key)
+apt_repository 'Cloudsmith' do
+  uri          'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO'
+  arch         'ARCH'
+  distribution 'VERSION'
+  components   ['main']
+  key          'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+end
+```
+```ruby HTTP Basic Auth (Token)
+apt_repository 'Cloudsmith' do
+  uri          'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO'
+  arch         'ARCH'
+  distribution 'VERSION'
+  components   ['main']
+  key          'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+end
+```

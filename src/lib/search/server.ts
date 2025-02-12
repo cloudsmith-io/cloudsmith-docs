@@ -76,6 +76,7 @@ export const performSearch = async (
   const results = fuzzySearcher.search(input, { returnMatchData: true });
   const filtered: SearchResult[] = results
     .filter((res) => sections.includes(res.item.section))
+    .slice(0, 10) // TODO: Only take first 10 results for now
     .map((res) => {
       const { match, item } = res;
 
@@ -86,6 +87,7 @@ export const performSearch = async (
         .replace(/[^0-9a-z-A-Z \.\:]/g, '')
         .replace(/ +/, ' ');
 
+      // TODO: Limit the output of the item to what we actually need
       return {
         ...item,
         snippet,
