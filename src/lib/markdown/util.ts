@@ -23,21 +23,6 @@ export const loadMdxInfo = async (
 };
 
 /**
- * Returns info for all mdx files in src/content
- * excluding those in src/content/api
- */
-export const loadContentInfo = async (): Promise<SlugDefinition[]> => {
-  return load(['src/content/**/*.mdx', '!src/content/api/**/*']);
-};
-
-/**
- * Returns info for all mdx files inside src/content/api
- */
-export const loadApiContentInfo = async (): Promise<SlugDefinition[]> => {
-  return load(['src/content/api/**/*.mdx'], /^api\/?/);
-};
-
-/**
  * Base helper to load the files and slugs
  */
 export const load = async (pattern: string[], slugReplace?: RegExp): Promise<SlugDefinition[]> => {

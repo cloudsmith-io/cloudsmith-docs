@@ -1,5 +1,5 @@
 import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
-import { loadApiContentInfo } from '@/lib/markdown/util';
+import { loadMdxInfo } from '@/lib/markdown/util';
 import { parseSchema, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const qualifiedSlug = toSlug(slug);
 
   // First check if this is an MDX file
-  const content = await loadApiContentInfo();
+  const content = await loadMdxInfo('guides');
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export const generateStaticParams = async () => {
   // Generate mdx slugs
-  const content = await loadApiContentInfo();
+  const content = await loadMdxInfo('guides');
   const mdxSlugs = content
     .filter((info) => info.slug !== '') // Exclude the root path
     .map((info) => ({ slug: info.segments }));
@@ -66,7 +66,7 @@ const Page = async ({ params }: PageProps) => {
   const qualifiedSlug = toSlug(slug);
 
   // First check if this is an MDX file
-  const content = await loadApiContentInfo();
+  const content = await loadMdxInfo('guides');
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {

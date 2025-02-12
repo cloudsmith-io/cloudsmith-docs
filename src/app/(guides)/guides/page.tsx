@@ -1,4 +1,4 @@
-import { loadApiContentInfo } from '@/lib/markdown/util';
+import { loadMdxInfo } from '@/lib/markdown/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
@@ -11,7 +11,7 @@ export const generateStaticParams = async () => {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const content = await loadApiContentInfo();
+  const content = await loadMdxInfo('guides');
   const mdxInfo = content.find((info) => info.slug === '');
 
   if (mdxInfo) {
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * catch-all routes don't serve index files.
  */
 const Page = async () => {
-  const content = await loadApiContentInfo();
+  const content = await loadMdxInfo('guides');
   const mdxInfo = content.find((info) => info.slug === '');
 
   if (mdxInfo) {
