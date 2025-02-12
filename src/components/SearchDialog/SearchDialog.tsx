@@ -101,10 +101,11 @@ export const SearchDialog = () => {
                   <li key={`${res.path}${res.title}`}>
                     <Link href={res.path} className={styles.resultLink}>
                       <span className={styles.resultTitle}>
-                        {res.title} <Tag method="get" className={styles.resultTag} />
+                        {res.title}
+                        {res.method && <Tag method={res.method} className={styles.resultTag} />}
                       </span>
                       {/* TODO add <EM> for matching text */}
-                      <span className={styles.resultDescription}>Something text here</span>
+                      <span className={styles.resultDescription}>{res.snippet}</span>
                       <span className={styles.resultEnter}>
                         <Icon name="enter" className={styles.resultEnterIcon} title="" />
                       </span>
