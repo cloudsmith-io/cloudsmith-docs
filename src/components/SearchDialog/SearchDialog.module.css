@@ -116,7 +116,7 @@
   color: var(--base-color-grey-900);
   opacity: 0.65;
   font-size: var(--text-body-s);
-  line-height: var(--line-height-s);
+  line-height: var(--line-height-xs);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

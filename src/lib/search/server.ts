@@ -13,6 +13,7 @@ import { extractMdxMetadata } from '../metadata/util';
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
 
 const SNIPPET_PADDING = 300;
+const MAX_RESULTS = 20;
 
 export const performSearch = async (
   input: string,
@@ -76,7 +77,7 @@ export const performSearch = async (
   const results = fuzzySearcher.search(input, { returnMatchData: true });
   const filtered: SearchResult[] = results
     .filter((res) => sections.includes(res.item.section))
-    .slice(0, 10) // TODO: Only take first 10 results for now
+    .slice(0, MAX_RESULTS)
     .map((res) => {
       const { match, item } = res;
 
@@ -87,7 +88,7 @@ export const performSearch = async (
         .replace(/[^0-9a-z-A-Z \.\:]/g, '')
         .replace(/ +/, ' ');
 
-      // TODO: Limit the output of the item to what we actually need
+      // TODO: Limit the output of the item to what we actually need. Maybe content is not needed at all?
       return {
         ...item,
         snippet,

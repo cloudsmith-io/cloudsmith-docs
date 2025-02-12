@@ -112,8 +112,6 @@ export const SearchDialog = () => {
                       </span>
                       <Icon name="arrowRight" className={styles.resultArrow} title="" />
                     </Link>
-
-                    {/* <pre>{JSON.stringify(res, null, 2)}</pre> */}
                   </li>
                 ))}
               </ul>
@@ -121,6 +119,8 @@ export const SearchDialog = () => {
               {!isWaiting && results.length === 0 && term !== '' && (
                 <p className={styles.noResults}>No results</p>
               )}
+
+              {term === '' && <p className={styles.noResults}>Please enter a search term</p>}
             </div>
 
             <footer className={styles.footer}>
