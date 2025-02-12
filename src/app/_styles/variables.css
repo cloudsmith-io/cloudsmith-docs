@@ -87,6 +87,7 @@
     --color-overlay-dark: rgb(3 28 43 / 75%);
     --color-dialog-box-shadow: rgba(132 151 162 / 20%);
     --color-search-result-enter: rgb(255 255 255 / 40%);
+    --color-search-result-filter: rgb(42 111 225 / 25%);
 
     /* Letter spacings */
     --letter-body: 0.08px;
