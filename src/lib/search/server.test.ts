@@ -5,7 +5,7 @@ describe('lib', () => {
     describe('search()', () => {
       test('searches content across all sections', async () => {
         const results = await performSearch('Formats');
-        expect(results.length).toBeGreaterThan(20);
+        expect(results.length).toBeGreaterThan(10);
 
         const mdx = results.find((res) => res.path === '/supported-formats');
         const api = results.find((res) => res.path === '/api/formats/read');

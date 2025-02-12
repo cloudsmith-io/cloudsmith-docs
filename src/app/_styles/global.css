@@ -14,12 +14,7 @@
   }
 
   a {
-    color: var(--color-text-primary);
-    text-decoration: underline;
-    text-decoration-skip: objects;
-
-    &:is(:hover, :focus) {
-      text-decoration: none;
-    }
+    color: var(--color-text-link);
+    text-decoration: none;
   }
 }

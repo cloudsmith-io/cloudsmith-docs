@@ -64,6 +64,26 @@ Some text
 This is [a link](/api/something) for you to click.
 ```
 
+In the Guides section, you can use a special `GuideLink` component to show a solid block link to an internal article:
+
+```mdx
+import { GuideLink } from '@/components';
+
+<GuideLink href="/getting-started/api-bindings">Click me</GuideLink>
+```
+
+## Dividers
+
+Dividers are gray lines that can be used to divide sections of content from each other
+
+```mdx
+Content before divider
+
+---
+
+Content after divider
+```
+
 ## Notes
 
 You can render a simple note using the `>` character in front of your note.

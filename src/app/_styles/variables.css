@@ -65,6 +65,7 @@
     /* Text */
     --color-text-primary: var(--base-color-grey-900);
     --color-text-secondary: var(--base-color-grey-600);
+    --color-text-link: var(--base-color-blue-500);
     --color-text-on-color: var(--base-color-white);
     --color-text-label: var(--base-color-grey-500);
     --color-text-alert: var(--base-color-red-700);
