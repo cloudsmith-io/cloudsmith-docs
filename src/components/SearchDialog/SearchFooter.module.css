@@ -25,7 +25,6 @@
   font-family: var(--font-family-mono);
   font-size: var(--text-body-2xs);
   color: var(--base-color-grey-600);
-
   min-inline-size: 30px;
 
   &:not(:has(+ .data)) {

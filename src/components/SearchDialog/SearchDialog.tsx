@@ -6,13 +6,15 @@ import { SearchResult } from '@/lib/search/types';
 import { debounce } from '@/lib/util';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import Link from 'next/link';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FilterButtons } from './FilterButtons';
+import { SearchFooter } from './SearchFooter';
 import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
-import { SearchFooter } from './SearchFooter';
+import { Tag } from '../Tag';
 
 export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
@@ -73,6 +75,7 @@ export const SearchDialog = () => {
   return (
     <RadixDialog.Root>
       <SearchTrigger />
+
       <RadixDialog.Portal>
         <RadixDialog.Overlay className={styles.overlay}>
           <RadixDialog.Content className={styles.content}>
@@ -93,11 +96,27 @@ export const SearchDialog = () => {
             <div className={styles.main}>
               <FilterButtons activeSections={sections} onFilterChange={setSection} filters={filters} />
 
-              {results.map((res) => (
-                <div key={res.path}>{res.title}</div>
-              ))}
+              <ul className={styles.results}>
+                {results.map((res) => (
+                  <li key={`${res.path}${res.title}`}>
+                    <Link href={res.path} className={styles.resultLink}>
+                      <span className={styles.resultTitle}>
+                        {res.title} <Tag method="get" className={styles.resultTag} />
+                      </span>
+                      {/* TODO add <EM> for matching text */}
+                      <span className={styles.resultDescription}>Something text here</span>
+                      <span className={styles.resultEnter}>
+                        <Icon name="enter" className={styles.resultEnterIcon} title="" />
+                      </span>
+                      <Icon name="arrowRight" className={styles.resultArrow} title="" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
 
-              {!isWaiting && results.length === 0 && term !== '' && <p>No results</p>}
+              {!isWaiting && results.length === 0 && term !== '' && (
+                <p className={styles.noResults}>No results</p>
+              )}
             </div>
 
             <footer className={styles.footer}>
