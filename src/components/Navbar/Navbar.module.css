@@ -1,10 +1,7 @@
-/* TODO: Replace with real styles */
 .root {
   background-color: var(--base-color-grey-1000);
   color: var(--base-color-white);
   font-size: var(--text-body-m);
-  padding-top: var(--space-m);
-  padding-bottom: var(--space-m);
   width: 100%;
   position: sticky;
   top: 0;
@@ -12,27 +9,45 @@
 }
 
 .container {
-  padding: 0 var(--space-m);
+  padding-inline: var(--container-margin);
+}
+
+.isHome .container {
+  padding-inline: var(--container-margin-home);
+}
+
+.top {
+  height: var(--navbar-top-height);
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left,
+.right {
+  display: flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
+.nav {
+  display: none;
+  gap: var(--space-m);
+  height: var(--navbar-bottom-height);
+}
+
 .logo {
-  height: 20px;
   color: var(--base-color-white);
 }
 
 .logoSymbol {
-  display: inline-flex;
-  flex-shrink: 0;
   min-width: 20px;
 }
 
 .logoWordmark {
   display: none;
-  min-width: 132px;
+  width: 150px;
+  height: auto;
 }
 
 .currentSection {
@@ -45,11 +60,6 @@
   margin-left: auto;
   align-items: center;
   gap: var(--space-xs);
-}
-
-.nav {
-  display: none;
-  gap: var(--space-m);
 }
 
 .navLink {
@@ -77,7 +87,7 @@
   height: var(--space-m);
 }
 
-.homeNavbar {
+.isHome {
   background-color: transparent;
   color: var(--color-text-primary);
 
@@ -92,19 +102,14 @@
 
   .logo {
     color: var(--color-text-primary);
-    height: 20px;
-  }
-
-  .logoSymbol {
-    display: none;
   }
 
   .logoWordmark {
-    display: inline-flex;
+    display: block;
   }
 
-  .currentSection,
-  .nav {
+  .logoSymbol,
+  .currentSection {
     display: none;
   }
 }
@@ -169,44 +174,23 @@
     align-items: flex-start;
   }
 
-  .currentSection {
+  .nav {
+    display: flex;
+  }
+
+  .isHome .nav {
     display: none;
   }
 
-  .navContainer {
-    margin-left: unset;
-    align-items: start;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .nav {
-    display: flex;
-    flex-shrink: 0;
-  }
-
-  .logoSymbol {
+  .currentSection,
+  .menuButton,
+  .logoSymbol,
+  .mobileBackground,
+  .mobileNavbar {
     display: none;
   }
 
   .logoWordmark {
-    display: inline-flex;
-  }
-
-  .menuButton {
-    display: none;
-  }
-
-  .homeNavbar {
-    padding-top: var(--space-2xl);
-
-    .navContainer {
-      justify-content: flex-end;
-    }
-  }
-
-  .mobileBackground,
-  .mobileNavbar {
-    display: none;
+    display: block;
   }
 }

@@ -1,7 +1,7 @@
 .section {
   max-width: var(--container-width-xl);
   margin: 0 auto;
-  padding: var(--space-l) var(--space-m);
+  padding: var(--space-l) var(--container-margin-home);
 }
 
 .section:first-of-type {
