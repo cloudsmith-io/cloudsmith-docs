@@ -1,0 +1,92 @@
+# Azure DevOps
+import { BlockImage } from '@/components';
+import azureDevopsVariablesImages from './images/azure-devops/1615f01-Screenshot_2023-02-07_at_11.13.01.png';
+
+
+## Introduction
+
+This document describes the integration of Azure DevOps and Cloudsmith. Azure DevOps is a suite of development tools, services, and features for teams to plan, develop, test, and deliver software. Cloudsmith is a package management and distribution platform. The aim of this integration is to provide a smooth and seamless way to upload your packages in your development pipeline.
+
+## Prerequisites
+
+Before getting started, you need to have the following prerequisites:
+
+- An Azure DevOps account, which can be set up by following the steps in the [Azure DevOps documentation](https://docs.microsoft.com/en-us/azure/devops/user-guide/get-started/?view=azure-devops).
+- A Cloudsmith account, which can be set up by following the steps in the [Cloudsmith documentation](/getting-started/).
+- A Cloudsmith [Service Account](doc:service-accounts) key (recommended) or your personal API key.
+  - When using a Personal API key you will have permissions based on your account level so we don't recommend inserting this key into a pipeline if you have access to crucial repositories within your organisation.
+
+## Steps for Integration
+
+To integrate Azure DevOps and Cloudsmith, follow these steps:
+
+1. In your build pipeline create the following three [environment variables](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml,bash#secret-variable-in-the-ui):  
+   a. ORG  
+   b. REPO  
+   c. CLOUDSMITH_API_KEY
+
+<BlockImage src={azureDevopsVariablesImages} alt="" align="left">
+</BlockImage>
+
+2. In your `azure-pipelines.yml` create a section to install the [cloudsmith cli](/getting-started/cli#installation):
+
+```
+- script: |
+	pip install --upgrade cloudsmith-cli
+  displayName: 'Install Cloudsmith CLI'
+```
+
+3. Once the CLI has been installed we can add an extra step to confirm that everything is working by running `cloudsmith whoami -k $(CLOUDSMITH_API_KEY)` - this ensures that we can authenticate with Cloudsmith and upload packages:
+
+```
+- script: |
+	cloudsmith whoami -k $(CLOUDSMITH_API_KEY)
+  displayName: 'Test Cloudsmith Login'
+```
+
+4. Finally we can upload our package to Cloudsmith, for this example, we will create an empty file called `azure.txt`, insert `Hello World` inside, and push it to our repository on Cloudsmith:
+
+```
+- script: |
+	touch azure.txt
+	echo "Hello World" >> azure.txt
+	cloudsmith push raw $(ORG)/$(REPO) azure.txt -k $(CLOUDSMITH_API_KEY)
+  displayName: 'Upload a raw file to Cloudsmith'
+```
+
+The final `.yaml` file should look like this:
+
+```yaml azure-pipelines.yml
+# Python package
+# Create and upload a raw package to Cloudsmith using Cloudsmith CLI
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+strategy:
+  matrix:
+   Python37:
+      python.version: '3.7'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Use Python $(python.version)'
+
+- script: |
+    pip install --upgrade cloudsmith-cli
+  displayName: 'Install Cloudsmith CLI'
+
+- script: |
+    cloudsmith whoami -k $(CLOUDSMITH_API_KEY)
+  displayName: 'Test Cloudsmith Login'
+
+- script: |
+    touch azure.txt
+    echo "Hello World" >> azure.txt
+    cloudsmith push raw $(ORG)/$(REPO) azure.txt -k $(CLOUDSMITH_API_KEY)
+  displayName: 'Upload a raw file to Cloudsmith'
+```

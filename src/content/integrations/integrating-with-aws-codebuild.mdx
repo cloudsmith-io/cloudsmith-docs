@@ -1,0 +1,93 @@
+import { Note, BlockImage } from '@/components';
+import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
+
+# Integrating AWS CodeBuild
+
+How to integrate AWS CodeBuild with Cloudsmith
+
+Cloudsmith can be used as a target for all the assets created using AWS CodeBuild. This guide shows you how to use the Cloudsmith CLI to upload/push a Debian package to your Cloudsmith repo. 
+
+All formats are supported.
+
+<NoCodeNoteSnippet />
+
+<a target="_blank" href="https://youtu.be/mGDIn3dKF84"><img src="https://files.readme.io/3bf6e54-cloudsmith-youtube-play-aws-codebuild-small.png"/></a>
+
+## Getting Started
+
+Integrating Cloudsmith as part of your AWS CodeBuild project is as simple as installing the Cloudsmith CLI during your build and then using the `cloudsmith push` command to upload the artifacts from your build process to your Cloudsmith repository.
+
+### Adding your API Key to AWS
+
+In order to use the Cloudsmith CLI with AWS CodeBuild, we would recommend that you add your Cloudsmith API-Key as an environment variable for the project.  You can do this using AWS Secrets Manager.  
+
+We do not recommend adding the API-Key itself directly into the `buildspec.yaml` file for the AWS CodeBuild project as it will then be revealed in any resulting logs from the build.  
+
+To reference a secret stored in AWS Secrets Manager in your AWS CodeBuild `buildspec.yaml` file you would use the following syntax: 
+
+```yaml
+env:
+  secrets-manager:
+    CLOUDSMITH_API_KEY: CodeBuild/CloudsmithAPI:CLOUDSMITH_API_KEY
+```
+
+For further details on obtaining your Cloudsmith API-Key see:
+
+- [Retrieve your Cloudsmith API Key](/getting-started/api-key)
+
+For further details on using AWS Secrets Manager with AWS CodeBuild see: 
+
+- [AWS CodeBuild Environment Variables](https://docs.aws.amazon.com/codebuild/latest/APIReference/API_EnvironmentVariable.html)
+- [AWS CodeBuild env/secretsmanager](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#secrets-manager-build-spec)
+
+### Adding the Cloudsmith CLI to your CodeBuild Project
+
+To add the Cloudsmith CLI to your AWS CodeBuild Project, add the following command to the `install` phase of your `buildspec.yaml` file: 
+
+```yaml
+install:
+  commands:
+    - pip install cloudsmith-cli
+```
+
+### Uploading a built artifact to Cloudsmith
+
+To upload an artifact from a build to a Cloudsmith repository, add the `cloudsmith push` command to the `post build` phase of your `buildspec.yaml` file: 
+
+```yaml
+post_build:
+  commands:
+    - cloudsmith push FORMAT OWNER/REPOSITORY FILENAME
+```
+
+Please see the [Cloudsmith CLI](docs:cli) documentation for more details of the syntax of the `cloudsmith push` command and the [Supported Formats](doc:supported-formats) page for examples of the `cloudsmith push` command for each supported format. 
+
+## Example buildspec.yaml
+
+The following is an example of a complete (but minimal) `buildspec.yaml` file (as used in our demo video) that will build a Debian package from a source GitHub repository specified in the AWS console project settings, and then upload it to a Cloudsmith repository: 
+
+```yaml
+version: 0.2
+
+env:
+  secrets-manager:
+    CLOUDSMITH_API_KEY: CodeBuild/CloudsmithAPI:CLOUDSMITH_API_KEY
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+    commands:
+      - apt update
+      - apt-get install ruby ruby-dev rubygems build-essential -y
+      - gem install --no-document fpm
+      - pip install cloudsmith-cli
+  build:
+    commands:
+      - make
+      - fpm -f -s dir -t deb -v 1.0.1 -n cloudsmith-codebuild-test .
+  post_build:
+    commands:
+      - echo "Uploading deb package to Cloudsmith repo"
+      - cloudsmith push deb demo/codebuild-demo/debian/buster cloudsmith-codebuild-test_1.0.1_amd64.deb
+```

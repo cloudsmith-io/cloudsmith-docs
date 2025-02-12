@@ -1,0 +1,166 @@
+# Integrating Puppet
+
+How to integrate Puppet with Cloudsmith
+
+Puppet is open-core software for provisioning, configuration management, and application deployment. Puppet declaratively manages the configuration of Unix-like, macOS and Microsoft Windows systems.
+
+- [Puppet](https://puppet.com/): Puppet Website
+- [Puppet Docs](https://puppet.com/docs/): Official Puppet documentation 
+
+<a target="_blank" href="https://youtu.be/lCmS3omimEM"><img src="https://files.readme.io/cf5b846-cloudsmith-youtube-play-puppet-small.png"/></a>
+
+In the following examples: 
+
+| Identifier       | Description                                                                               |
+| :--------------- | :---------------------------------------------------------------------------------------- |
+| OWNER            | Your Cloudsmith organisation name (namespace)                                             |
+| REPOSITORY       | Your Cloudsmith Repository identifier (also called "slug")                                |
+| DISTRO           | Your distribution  (i.e el, fedora, debian etc)                                           |
+| VERSION          | Your version name (i.e 7, 29, hardy, buster etc)                                          |
+| FINGERPRINT-LONG | The 20 Byte fingerprint of the Public GPG key for the repository                          |
+| FINGERPRINT      | The 8 Byte fingerprint of the Public GPG key for the repository                           |
+| TOKEN            | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME         | Your Cloudsmith username                                                                  |
+| PASSWORD         | Your Cloudsmith password                                                                  |
+| API-KEY          | Your Cloudsmith API Key                                                                   |
+| PACKAGE          | The name of the package                                                                   |
+
+## Debian repository
+
+### Configuration
+
+To add a Cloudsmith repository for Debian packages using Puppet, you would use the Puppet [apt module](https://forge.puppet.com/puppetlabs/apt) .  
+
+Example Puppet Class using apt module:
+
+**Public Repository**
+
+```
+class cloudsmith_repo {
+
+  include apt
+
+  apt::key { 'cloudsmith':
+    id      => 'FINGERPRINT-LONG,
+    source  => 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+  }
+
+  apt::source { 'cloudsmith':
+    comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
+    location => 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/deb/DISTRO',
+    release  => 'VERSION',
+    repos    => 'main',
+    pin      => 500,
+    include  => {
+      'src' => true,
+      'deb' => true,
+    },
+  }
+}
+```
+
+**Private Repository**
+
+```text Entitlement Token Auth
+class cloudsmith_repo {
+
+  include apt
+
+  apt::key { 'cloudsmith':
+    id      => 'FINGERPRINT-LONG,
+    source  => 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+  }
+
+  apt::source { 'cloudsmith':
+    comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
+    location => 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/deb/DISTRO',
+    release  => 'VERSION',
+    repos    => 'main',
+    pin      => 500,
+    include  => {
+      'src' => true,
+      'deb' => true,
+    },
+  }
+}
+```
+```text HTTP Basic Auth (User & Pass)
+class cloudsmith_repo {
+
+  include apt
+
+  apt::key { 'cloudsmith':
+    id      => 'FINGERPRINT-LONG,
+    source  => 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+  }
+
+  apt::source { 'cloudsmith':
+    comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
+    location => 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO',
+    release  => 'VERSION',
+    repos    => 'main',
+    pin      => 500,
+    include  => {
+      'src' => true,
+      'deb' => true,
+    },
+  }
+
+}
+```
+```text HTTP Basic Auth (API-Key)
+class cloudsmith_repo {
+
+  include apt
+
+  apt::key { 'cloudsmith':
+    id      => 'FINGERPRINT-LONG,
+    source  => 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+  }
+
+  apt::source { 'cloudsmith':
+    comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
+    location => 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO',
+    release  => 'VERSION',
+    repos    => 'main',
+    pin      => 500,
+    include  => {
+      'src' => true,
+      'deb' => true,
+    },
+  }
+}
+```
+```text HTTP Basic Auth (Token)
+class cloudsmith_repo {
+
+  include apt
+
+  apt::key { 'cloudsmith':
+    id      => 'FINGERPRINT-LONG,
+    source  => 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+  }
+
+  apt::source { 'cloudsmith':
+    comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
+    location => 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO',
+    release  => 'VERSION',
+    repos    => 'main',
+    pin      => 500,
+    include  => {
+      'src' => true,
+      'deb' => true,
+    },
+  }
+}
+```
+
+### Package Installation
+
+After you have configured the repository, you can then install a package using: 
+
+```
+  package { 'PACKAGE':
+    ensure  => 'latest',
+  }
+```
