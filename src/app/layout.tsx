@@ -12,6 +12,10 @@ export const metadata: Metadata = {
     template: '%s | Cloudsmith Docs',
     default: 'Cloudsmith Documentation',
   },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
