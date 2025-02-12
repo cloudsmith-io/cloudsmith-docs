@@ -1,0 +1,15 @@
+.root {
+  padding-block: var(--space-xl);
+}
+
+.gridRoot {
+  --column-inline-padding: var(--space-m);
+  --column-block-padding: var(--space-s);
+
+  display: grid;
+  grid-template-columns: minmax(100px, min-content) minmax(150px, auto) 1fr;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}

@@ -76,7 +76,7 @@ export const performSearch = async (
   const results = fuzzySearcher.search(input, { returnMatchData: true });
   const filtered: SearchResult[] = results
     .filter((res) => sections.includes(res.item.section))
-    .slice(0, 10) // TODO: Only take first 10 results for now
+    //.slice(0, 10) // TODO: Only take first 10 results for now
     .map((res) => {
       const { match, item } = res;
 
