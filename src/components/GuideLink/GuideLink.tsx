@@ -7,7 +7,7 @@ export const GuideLink = (props: GuideLinkProps) => {
   const { children, ...rest } = props;
 
   return (
-    <Link {...props} className={styles.root}>
+    <Link {...rest} className={styles.root}>
       {children}
       <ArrowIcon name="arrow" arrowDirection="right" as="svg" title="" />
     </Link>
