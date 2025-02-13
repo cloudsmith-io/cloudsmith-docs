@@ -153,14 +153,12 @@ import styles from './page.module.css';
 ## Icons
 
 <div className={styles.iconGrid}>
-  {Object.keys(iconRegistry)
-    .filter((iconName) => !iconName.includes('format'))
-    .map((iconName) => (
-      <div key={iconName} className={styles.iconWrapper}>
-        <Icon name={iconName} as="svg" title={iconName} width={24} height={24} />
-        <span className={styles.iconName}>{iconName}</span>
-      </div>
-    ))}
+  {Object.keys(iconRegistry).map((iconName) => (
+    <div key={iconName} className={styles.iconWrapper}>
+      <Icon name={iconName} as="svg" title={iconName} width={24} height={24} />
+      <span className={styles.iconName}>{iconName}</span>
+    </div>
+  ))}
 </div>
 
 ## Notes
