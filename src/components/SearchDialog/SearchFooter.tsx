@@ -16,10 +16,10 @@ export const SearchFooter = () => {
         <dd className={styles.data}>
           <Icon name="enter" title="Enter" className={styles.icon} />
         </dd>
-        <dt className={styles.title}>Open search</dt>
+        {/* <dt className={styles.title}>Open search</dt>
         <dd className={styles.data}>
           <kbd>/</kbd>
-        </dd>
+        </dd> */}
         <dt className={styles.title}>Close</dt>
         <dd className={styles.data}>
           <kbd>esc</kbd>

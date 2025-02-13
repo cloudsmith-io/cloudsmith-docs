@@ -4,8 +4,9 @@ import styles from './SearchForm.module.css';
 
 export const SearchForm = ({ value, events }: SearchFormProps) => {
   const ref = useHotkeys<HTMLDivElement>(
-    ['up', 'down', 'enter'],
+    ['up', 'down', 'enter', 'home', 'end'],
     (_, handler) => {
+      console.log(123, handler.keys);
       switch (handler.keys?.join('')) {
         case 'up':
           events.goUp();
@@ -15,6 +16,12 @@ export const SearchForm = ({ value, events }: SearchFormProps) => {
           break;
         case 'enter':
           events.goToResult();
+          break;
+        case 'home':
+          events.goToStart();
+          break;
+        case 'end':
+          events.goToEnd();
           break;
       }
     },
@@ -49,5 +56,7 @@ type SearchFormProps = {
     goUp: () => void;
     goDown: () => void;
     goToResult: () => void;
+    goToStart: () => void;
+    goToEnd: () => void;
   };
 };

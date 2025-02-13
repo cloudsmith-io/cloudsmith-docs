@@ -17,6 +17,7 @@ import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
@@ -46,6 +47,7 @@ const debouncedSearch = debounce(
 );
 
 export const SearchDialog = () => {
+  const [open, setOpen] = useState(false);
   const [term, setTerm] = useState('');
   // isWaiting is true when the debounce is active or the search function is actually loading.
   const [isWaiting, setIsWaiting] = useState(false);
@@ -53,6 +55,8 @@ export const SearchDialog = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
   const router = useRouter();
+
+  useHotkeys('/', () => setOpen(true));
 
   useEffect(() => {
     if (term === '') {
@@ -104,8 +108,16 @@ export const SearchDialog = () => {
     }
   };
 
+  const goToStart = () => {
+    setFocusedIndex(0);
+  };
+
+  const goToEnd = () => {
+    setFocusedIndex(results.length - 1);
+  };
+
   return (
-    <RadixDialog.Root>
+    <RadixDialog.Root open={open} onOpenChange={setOpen}>
       <SearchTrigger />
 
       <RadixDialog.Portal>
@@ -115,7 +127,10 @@ export const SearchDialog = () => {
               <div className={styles.iconWrapper}>
                 <Icon name="search" className={styles.icon} title="" />
               </div>
-              <SearchForm value={term} events={{ onChange: setTerm, goUp, goDown, goToResult }} />
+              <SearchForm
+                value={term}
+                events={{ onChange: setTerm, goUp, goDown, goToResult, goToStart, goToEnd }}
+              />
             </header>
 
             <VisuallyHidden>
@@ -139,6 +154,7 @@ export const SearchDialog = () => {
                       ref={
                         index === focusedIndex ? (el) => el?.scrollIntoView({ block: 'nearest' }) : undefined
                       }
+                      // onMouseEnter={() => setFocusedIndex(index)}
                       className={cx(styles.resultLink, { [styles.resultLinkFocus]: index === focusedIndex })}>
                       <span className={styles.resultTitle}>
                         {res.title}
@@ -156,11 +172,13 @@ export const SearchDialog = () => {
                 ))}
               </ul>
 
+              {isWaiting && <p className={styles.noResults}>Loading...</p>}
+
+              {!isWaiting && term === '' && <p className={styles.noResults}>Please enter a search term</p>}
+
               {!isWaiting && results.length === 0 && term !== '' && (
                 <p className={styles.noResults}>No results</p>
               )}
-
-              {term === '' && <p className={styles.noResults}>Please enter a search term</p>}
             </div>
 
             <footer className={styles.footer}>
