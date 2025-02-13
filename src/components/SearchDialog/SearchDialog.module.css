@@ -87,17 +87,17 @@
   text-decoration: none;
   color: var(--color-text-secondary);
 
-  &:is(:hover, :focus) {
+  &:is(:hover, :focus, .resultLinkFocus) {
     outline: none;
     background-color: var(--base-color-blue-100);
 
     .resultTag {
       outline: 1px solid var(--base-color-blue-75);
     }
+  }
 
-    .resultEnter {
-      visibility: visible;
-    }
+  &.resultLinkFocus .resultEnter {
+    visibility: visible;
   }
 }
 

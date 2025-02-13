@@ -6,15 +6,17 @@ import { SearchResult } from '@/lib/search/types';
 import { debounce } from '@/lib/util';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { cx } from 'class-variance-authority';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Tag } from '../Tag';
 import { FilterButtons } from './FilterButtons';
 import { SearchFooter } from './SearchFooter';
 import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
-import { Tag } from '../Tag';
 
 export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
@@ -33,10 +35,12 @@ const debouncedSearch = debounce(
     sections: string[],
     setIsWaiting: Dispatch<SetStateAction<boolean>>,
     setResults: Dispatch<SetStateAction<SearchResult[]>>,
+    setFocusedIndex: Dispatch<SetStateAction<number>>,
   ) => {
     const results = await performSearch(term, sections);
     setIsWaiting(false);
     setResults(results);
+    setFocusedIndex(0);
   },
   300,
 );
@@ -47,13 +51,15 @@ export const SearchDialog = () => {
   const [isWaiting, setIsWaiting] = useState(false);
   const [sections, setSections] = useState<Array<Section>>([filters[0].id]);
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [focusedIndex, setFocusedIndex] = useState<number>(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (term === '') {
       setResults([]);
     } else {
       setIsWaiting(true);
-      debouncedSearch(term, sections, setIsWaiting, setResults);
+      debouncedSearch(term, sections, setIsWaiting, setResults, setFocusedIndex);
     }
   }, [term, sections, setResults]);
 
@@ -72,6 +78,32 @@ export const SearchDialog = () => {
     });
   };
 
+  const goUp = () => {
+    setFocusedIndex((prev) => {
+      if (prev === 0) {
+        return results.length - 1;
+      }
+
+      return prev - 1;
+    });
+  };
+
+  const goDown = () => {
+    setFocusedIndex((prev) => {
+      if (prev === results.length - 1) {
+        return 0;
+      }
+
+      return prev + 1;
+    });
+  };
+
+  const goToResult = () => {
+    if (focusedIndex !== -1) {
+      router.push(results[focusedIndex].path);
+    }
+  };
+
   return (
     <RadixDialog.Root>
       <SearchTrigger />
@@ -83,7 +115,7 @@ export const SearchDialog = () => {
               <div className={styles.iconWrapper}>
                 <Icon name="search" className={styles.icon} title="" />
               </div>
-              <SearchForm value={term} onChange={setTerm} />
+              <SearchForm value={term} events={{ onChange: setTerm, goUp, goDown, goToResult }} />
             </header>
 
             <VisuallyHidden>
@@ -91,15 +123,23 @@ export const SearchDialog = () => {
                 <button>Close</button>
               </RadixDialog.Close>
               <RadixDialog.Title className={styles.title}>Search</RadixDialog.Title>
+              <RadixDialog.Description>
+                Search for documentation, guides, and API reference.
+              </RadixDialog.Description>
             </VisuallyHidden>
 
             <div className={styles.main}>
               <FilterButtons activeSections={sections} onFilterChange={setSection} filters={filters} />
 
               <ul className={styles.results}>
-                {results.map((res) => (
+                {results.map((res, index) => (
                   <li key={`${res.path}${res.title}`}>
-                    <Link href={res.path} className={styles.resultLink}>
+                    <Link
+                      href={res.path}
+                      ref={
+                        index === focusedIndex ? (el) => el?.scrollIntoView({ block: 'nearest' }) : undefined
+                      }
+                      className={cx(styles.resultLink, { [styles.resultLinkFocus]: index === focusedIndex })}>
                       <span className={styles.resultTitle}>
                         {res.title}
                         {res.method && <Tag method={res.method} className={styles.resultTag} />}
