@@ -3,6 +3,7 @@ import { createIcon, SpecificIconProps } from '../../util/create-icon';
 export const FormatGradleIcon = createIcon<SpecificIconProps>(
   'format/gradle',
   ({ width = 54, height = 41, ...props }) => ({
+    ...props,
     width,
     height,
     viewBox: '0 0 54 41',

@@ -78,6 +78,7 @@ export const iconRegistry = createIconRegistry({
   'format/conan': FormatConanIcon,
   'format/cran': FormatCranIcon,
   'format/dart': FormatDartIcon,
+  'format/deb': FormatDebIcon,
   'format/debian': FormatDebianIcon,
   'format/docker': FormatDockerIcon,
   'format/go': FormatGoIcon,
