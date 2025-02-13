@@ -10,6 +10,7 @@ import { cx } from 'class-variance-authority';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { Tag } from '../Tag';
 import { FilterButtons } from './FilterButtons';
 import { SearchFooter } from './SearchFooter';
@@ -17,7 +18,6 @@ import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
 
 import styles from './SearchDialog.module.css';
-import { useHotkeys } from 'react-hotkeys-hook';
 
 export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
@@ -49,14 +49,19 @@ const debouncedSearch = debounce(
 export const SearchDialog = () => {
   const [open, setOpen] = useState(false);
   const [term, setTerm] = useState('');
-  // isWaiting is true when the debounce is active or the search function is actually loading.
   const [isWaiting, setIsWaiting] = useState(false);
   const [sections, setSections] = useState<Array<Section>>([filters[0].id]);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
+  const [isKeyboardNav, setIsKeyboardNav] = useState(false);
   const router = useRouter();
 
-  useHotkeys('/', () => setOpen(true));
+  useHotkeys(['meta+k'], () => setOpen(true));
+
+  // Reset keyboard nav when results change
+  useEffect(() => {
+    setIsKeyboardNav(false);
+  }, [results]);
 
   useEffect(() => {
     if (term === '') {
@@ -82,22 +87,28 @@ export const SearchDialog = () => {
     });
   };
 
+  const scrollIntoViewIfNeeded = (element: HTMLElement | null) => {
+    if (isKeyboardNav && element) {
+      element.scrollIntoView({ block: 'nearest' });
+    }
+  };
+
   const goUp = () => {
+    setIsKeyboardNav(true);
     setFocusedIndex((prev) => {
       if (prev === 0) {
         return results.length - 1;
       }
-
       return prev - 1;
     });
   };
 
   const goDown = () => {
+    setIsKeyboardNav(true);
     setFocusedIndex((prev) => {
       if (prev === results.length - 1) {
         return 0;
       }
-
       return prev + 1;
     });
   };
@@ -105,14 +116,17 @@ export const SearchDialog = () => {
   const goToResult = () => {
     if (focusedIndex !== -1) {
       router.push(results[focusedIndex].path);
+      setOpen(false);
     }
   };
 
   const goToStart = () => {
+    setIsKeyboardNav(true);
     setFocusedIndex(0);
   };
 
   const goToEnd = () => {
+    setIsKeyboardNav(true);
     setFocusedIndex(results.length - 1);
   };
 
@@ -146,15 +160,20 @@ export const SearchDialog = () => {
             <div className={styles.main}>
               <FilterButtons activeSections={sections} onFilterChange={setSection} filters={filters} />
 
-              <ul className={styles.results}>
+              <ul
+                className={styles.results}
+                onMouseMove={() => {
+                  if (isKeyboardNav) {
+                    setIsKeyboardNav(false);
+                  }
+                }}>
                 {results.map((res, index) => (
-                  <li key={`${res.path}${res.title}`}>
+                  <li key={`${res.path}${res.title}${index}`}>
                     <Link
                       href={res.path}
-                      ref={
-                        index === focusedIndex ? (el) => el?.scrollIntoView({ block: 'nearest' }) : undefined
-                      }
-                      // onMouseEnter={() => setFocusedIndex(index)}
+                      ref={index === focusedIndex ? scrollIntoViewIfNeeded : undefined}
+                      onMouseEnter={() => !isKeyboardNav && setFocusedIndex(index)}
+                      onClick={() => setOpen(false)}
                       className={cx(styles.resultLink, { [styles.resultLinkFocus]: index === focusedIndex })}>
                       <span className={styles.resultTitle}>
                         {res.title}
