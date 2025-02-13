@@ -12,7 +12,7 @@ export const FormatNpmIcon = createIcon<SpecificIconProps>(
       <>
         <path
           fillRule="evenodd"
-          clip-rule="evenodd"
+          clipRule="evenodd"
           d="M20 4H4V20H20V4ZM16.8 6.8H7.2V17.2H12V9.2H14.4V17.2H16.8V6.8Z"
           fill="currentColor"
         />
