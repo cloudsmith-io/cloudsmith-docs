@@ -30,6 +30,7 @@
     "next": "15.1.7",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-hotkeys-hook": "^4.6.1",
     "react-player": "^2.16.0",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^5.0.0"
