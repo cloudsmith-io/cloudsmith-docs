@@ -153,12 +153,14 @@ import styles from './page.module.css';
 ## Icons
 
 <div className={styles.iconGrid}>
-  {Object.keys(iconRegistry).map((iconName) => (
-    <div key={iconName} className={styles.iconWrapper}>
-      <Icon name={iconName} as="svg" title={iconName} width={24} height={24} />
-      <span className={styles.iconName}>{iconName}</span>
-    </div>
-  ))}
+  {Object.keys(iconRegistry)
+    .filter((iconName) => !iconName.includes('format'))
+    .map((iconName) => (
+      <div key={iconName} className={styles.iconWrapper}>
+        <Icon name={iconName} as="svg" title={iconName} width={24} height={24} />
+        <span className={styles.iconName}>{iconName}</span>
+      </div>
+    ))}
 </div>
 
 ## Notes
@@ -322,19 +324,17 @@ A responsive video player that adapts to its container width.
   <Card title="Distribution" href="/" linkText="For Vendors" icon="utility/api" size="l" />
 </Flex>
 
-### Thirds
+### Full
 
 <Flex gap="l" align="stretch">
   <Card
-    title="Dependencies"
+    title="This is a full width card"
     href="/"
-    linkText="For Developers"
+    linkText="Go to documentation"
     icon="utility/documentation"
     size="l"
-    width="third"
+    width="full"
   />
-  <Card title="Deployment" href="/" linkText="For Operations" icon="utility/guide" size="l" width="third" />
-  <Card title="Distribution" href="/" linkText="For Vendors" icon="utility/api" size="l" width="third" />
 </Flex>
 
 ### Halves
@@ -351,19 +351,298 @@ A responsive video player that adapts to its container width.
   <Card title="Deployment" href="/" linkText="For Operations" icon="utility/guide" size="l" width="half" />
 </Flex>
 
-### Full
+### Thirds
 
 <Flex gap="l" align="stretch">
   <Card
-    title="This is a full width card"
+    title="Dependencies"
     href="/"
-    linkText="Go to documentation"
+    linkText="For Developers"
     icon="utility/documentation"
     size="l"
-    width="full"
+    width="third"
   />
+  <Card title="Deployment" href="/" linkText="For Operations" icon="utility/guide" size="l" width="third" />
+  <Card title="Distribution" href="/" linkText="For Vendors" icon="utility/api" size="l" width="third" />
+</Flex>
+
+### Quarters
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Dependencies"
+    href="/"
+    linkText="Link Text"
+    icon="utility/documentation"
+    size="m"
+    width="quarter"
+  />
+  <Card title="Deployment" href="/" linkText="Link Text" icon="utility/guide" size="m" width="quarter" />
+  <Card title="Distribution" href="/" linkText="Link Text" icon="utility/api" size="m" width="quarter" />
+  <Card
+    title="Dependencies"
+    href="/"
+    linkText="Link Text"
+    icon="utility/documentation"
+    size="m"
+    width="quarter"
+  />
+</Flex>
+
+### Fifths
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Dependencies"
+    href="/"
+    linkText="Link Text"
+    icon="utility/documentation"
+    size="s"
+    width="fifth"
+  />
+  <Card title="Deployment" href="/" linkText="Link Text" icon="utility/guide" size="s" width="fifth" />
+  <Card title="Distribution" href="/" linkText="Link Text" icon="utility/api" size="s" width="fifth" />
+  <Card
+    title="Dependencies"
+    href="/"
+    linkText="Link Text"
+    icon="utility/documentation"
+    size="s"
+    width="fifth"
+  />
+  <Card title="Deployment" href="/" linkText="Link Text" icon="utility/guide" size="s" width="fifth" />
 </Flex>
 
 ## Navbar
 
 <Navbar />
+
+## Format Icons Grid
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Alpine Linux"
+    href="/"
+    icon="format/alpine"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Cargo"
+    href="/"
+    icon="format/cargo"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Chocolatey"
+    href="/"
+    icon="format/chocolatey"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 154, height: 138, viewBox: '0 0 154 138' }}
+  />
+  <Card
+    title="Cocoapods"
+    href="/"
+    icon="format/cocoapods"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Composer"
+    href="/"
+    icon="format/composer"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Conan"
+    href="/"
+    icon="format/conan"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+
+  <Card
+    title="CRAN"
+    href="/"
+    icon="format/cran"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Dart"
+    href="/"
+    icon="format/dart"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Debian"
+    href="/"
+    icon="format/debian"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Docker"
+    href="/"
+    icon="format/docker"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Go"
+    href="/"
+    icon="format/go"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Gradle"
+    href="/"
+    icon="format/gradle"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 54, height: 41, viewBox: '0 0 54 41' }}
+  />
+  <Card
+    title="Helm"
+    href="/"
+    icon="format/helm"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Hex"
+    href="/"
+    icon="format/hex"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="LuaRocks"
+    href="/"
+    icon="format/luarocks"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Maven"
+    href="/"
+    icon="format/maven"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 26, height: 26, viewBox: '0 0 26 26' }}
+  />
+  <Card
+    title="npm"
+    href="/"
+    icon="format/npm"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="NuGet"
+    href="/"
+    icon="format/nuget"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="PowerShell"
+    href="/"
+    icon="format/powershell"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 802, height: 603, viewBox: '0 0 802 603' }}
+  />
+  <Card
+    title="Python"
+    href="/"
+    icon="format/python"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Raw"
+    href="/"
+    icon="format/raw"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Red Hat"
+    href="/"
+    icon="format/redhat"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 75, height: 56, viewBox: '0 0 75 56' }}
+  />
+  <Card
+    title="Ruby"
+    href="/"
+    icon="format/ruby"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="SBT"
+    href="/"
+    icon="format/sbt"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 257, height: 147, viewBox: '0 0 257 147' }}
+  />
+  <Card
+    title="Swift"
+    href="/"
+    icon="format/swift"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Terraform"
+    href="/"
+    icon="format/terraform"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+  <Card
+    title="Unity"
+    href="/"
+    icon="format/unity"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 264, height: 97, viewBox: '0 0 264 97' }}
+  />
+  <Card
+    title="Vagrant"
+    href="/"
+    icon="format/vagrant"
+    size="xs"
+    width="quarter"
+    iconProps={{ width: 24, height: 24, viewBox: '0 0 24 24' }}
+  />
+</Flex>
