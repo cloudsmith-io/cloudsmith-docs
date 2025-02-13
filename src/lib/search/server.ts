@@ -13,7 +13,6 @@ import { extractMdxMetadata } from '../metadata/util';
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
 
 const SNIPPET_PADDING = 300;
-const MAX_RESULTS = 20;
 
 export const performSearch = async (
   input: string,
@@ -91,7 +90,6 @@ export const performSearch = async (
   const results = fuzzySearcher.search(input, { returnMatchData: true });
   const filtered: SearchResult[] = results
     .filter((res) => sections.includes(res.item.section))
-    // .slice(0, MAX_RESULTS)
     .map((res) => {
       const { match, item } = res;
 

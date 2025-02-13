@@ -6,7 +6,6 @@ export const SearchForm = ({ value, events }: SearchFormProps) => {
   const ref = useHotkeys<HTMLDivElement>(
     ['up', 'down', 'enter', 'home', 'end'],
     (_, handler) => {
-      console.log(123, handler.keys);
       switch (handler.keys?.join('')) {
         case 'up':
           events.goUp();
