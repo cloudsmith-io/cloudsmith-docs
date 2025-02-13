@@ -1,18 +1,24 @@
-import { createIcon } from '../../util/create-icon';
+import { createIcon, SpecificIconProps } from '../../util/create-icon';
 
-export const FormatRubyIcon = createIcon('format/ruby', (props) => ({
-  ...props,
-  fill: 'none',
-  children: (
-    <>
-      <path
-        d="M8.77595 8.83285L8.76567 8.82283L6.48808 11.0428L12.018 16.4227L14.2956 14.2127L17.5479 11.0428L15.2703 8.82289V8.81281H8.76561L8.77595 8.83285Z"
-        fill="currentColor"
-      />
-      <path
-        d="M11.9975 2.90277L3.94371 7.40269V16.4026L11.9975 20.9025L20.0513 16.4026V7.40269L11.9975 2.90277ZM18.5123 15.5426L11.9975 19.2026L5.48258 15.5426V8.24271L11.9975 4.58275L18.5123 8.24271V15.5426Z"
-        fill="currentColor"
-      />
-    </>
-  ),
-}));
+export const FormatRubyIcon = createIcon<SpecificIconProps>(
+  'format/ruby',
+  ({ width = 24, height = 24, ...props }) => ({
+    ...props,
+    width,
+    height,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    children: (
+      <>
+        <path
+          d="M8.77595 8.83285L8.76567 8.82283L6.48808 11.0428L12.018 16.4227L14.2956 14.2127L17.5479 11.0428L15.2703 8.82289V8.81281H8.76561L8.77595 8.83285Z"
+          fill="currentColor"
+        />
+        <path
+          d="M11.9975 2.90277L3.94371 7.40269V16.4026L11.9975 20.9025L20.0513 16.4026V7.40269L11.9975 2.90277ZM18.5123 15.5426L11.9975 19.2026L5.48258 15.5426V8.24271L11.9975 4.58275L18.5123 8.24271V15.5426Z"
+          fill="currentColor"
+        />
+      </>
+    ),
+  }),
+);
