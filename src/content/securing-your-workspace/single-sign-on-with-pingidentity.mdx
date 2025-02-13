@@ -1,0 +1,107 @@
+import { BlockImage } from '@/components'
+import img46c256b_image from './images/single-sign-on-with-pingidentity/46c256b-image.png'
+import img7b732ce_image from './images/single-sign-on-with-pingidentity/7b732ce-image.png'
+import img3ee4f20_image from './images/single-sign-on-with-pingidentity/3ee4f20-image.png'
+import img369108b_image from './images/single-sign-on-with-pingidentity/369108b-image.png'
+import imgcd3fbde_image from './images/single-sign-on-with-pingidentity/cd3fbde-image.png'
+import imgf51a2c5_image from './images/single-sign-on-with-pingidentity/f51a2c5-image.png'
+import img9d8334a_image from './images/single-sign-on-with-pingidentity/9d8334a-image.png'
+import imga994b78_image from './images/single-sign-on-with-pingidentity/a994b78-image.png'
+import img037b994_image from './images/single-sign-on-with-pingidentity/037b994-image.png'
+
+# Single Sign-On with PingIdentity
+
+This guide provides step-by-step instructions on setting up [PingIdentity](https://www.pingidentity.com/) as a SAML IdP for your Cloudsmith Organization.
+
+## Add Cloudsmith Application
+
+Login to your PingIdentity account and select the environment that you will be managing, then click "manage environment". Under the `Applications`heading on the left-hand menu, select "Applications", then the "Add application" plus icon on the top of the page.
+
+<BlockImage src={img46c256b_image} alt=""></BlockImage>
+
+You can use the following settings:
+
+- Application name: Cloudsmith
+- Application Type: SAML Application
+
+Then click "Configure" and choose "Manually Enter" for `Provide Application Metadata`. Use the following details:
+
+- `ACS URLS`:   `https://cloudsmith.io/orgs/<your organization slug>/saml/acs/`
+- `ENTITY ID`: `https://cloudsmith.io/orgs/<your organization slug>/saml/acs/`
+
+Click Save.  Click on the new application and select the "Configuration" tab. Use the following details to complete configuration.
+
+- Ensure `Sign Assertion` is selected under the `Signing Key` section
+- Set `Subject Nameid Format` to be emailAddress, `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`
+
+Click Save again. Next go to the "Attribute Mappings" tab and use the following attributes:
+
+<BlockImage src={img7b732ce_image} alt=""></BlockImage>
+
+<br />
+
+| Cloudsmith   | PingOne       |
+| :----------- | :------------ |
+| saml_subject | Email Address |
+| FirstName    | Given Name    |
+| LastName     | Family Name   |
+| groups       | Group IDs     |
+| username     | Username      |
+
+## Add a group
+
+Under the `Directory` heading in the left hand menu, select "Groups" then the "Add group" plus icon at the top of the page.
+
+<BlockImage src={img3ee4f20_image} alt=""></BlockImage>
+
+Enter your Group Name and click Save.
+
+Under your application, select the "Access" tab and click the edit button.
+
+<BlockImage src={img369108b_image} alt=""></BlockImage>
+
+Check the box next to your newly created group and click Save.
+
+## Add your users
+
+Under the `Directory` heading in the left hand menu, select "Users" then the "Add user" plus icon at the top of the page.
+
+<BlockImage src={imgcd3fbde_image} alt=""></BlockImage>
+
+Enter the Given Name and Family Name of the new user. the `Username` and `Email` fields should match the details in Cloudsmith. Once completed click save.
+
+Next, click on the newly created user and browse to the "Groups" tab. Click the edit icon and check the box next to the group that you created previously. Click save and the user will now be a part of that group.
+
+<BlockImage src={imgf51a2c5_image} alt=""></BlockImage>
+
+<br />
+
+# Cloudsmith configuration
+
+## SAML authentication
+
+Under the `SAML Authentication` setup in your Cloudsmith organization settings, you will need to configure `SAML Metadata URL` and `SAML Metadata XML`. The values for these can be found in your Cloudsmith application in PingIdentity.
+
+Under the `Applications` heading in the left hand menu of PingIdentity, choose "Applications" and then click on your application, then select the Configuration tab.
+
+<BlockImage src={img9d8334a_image} alt=""></BlockImage>
+
+Copy the `IDP Metadata URL` and paste that into the `SAML Metadata URL` field in the SAML authentication configuration page of Cloudsmith.
+
+Click the `Download Metadata` button to download an XML file containing details of the application. Save this file somewhere and open it up in a text editor (or other application like Firefox that will allow you to copy the text within). Copy all of the text and paste that into the `SAML Metadata XML` field in Cloudsmith. Ensure the `Enable SAML Authentication (and Signup)` checkbox is ticked and save the configuration.
+
+<BlockImage src={imga994b78_image} alt=""></BlockImage>
+
+<br />
+
+## SAML Group Sync
+
+Under the `SAML Group Sync` setup in your Cloudsmith organization settings, click on the `Create Group Sync Mapping` button. You will need to provide the `Attribute Key`, `Attribute value` and the team that this configuration will act against.
+
+The `Attribute Key` will be what was mapped for the `Group IDs` attribute in your applications attribute mappings within PingIdentity. In the example above, this is `groups`, but can be found by navigating to your application and checking the `Attribute mappings` tab.
+
+The `Attribute value` will be the `Group ID` of the group within PingIdentity. This can be found by navigating to your group and checking the `Overview` tab.
+
+<BlockImage src={img037b994_image} alt=""></BlockImage>
+
+Once this is configured, select the Role within Cloudsmith that this will apply to (either Member or Manager) and click save. The next time a user logs in to Cloudsmith and is attached to this group within PingIdentity, they should be automatically provisioned for the selected teams within Cloudsmith.
