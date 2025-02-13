@@ -16,45 +16,51 @@ export const getMenuItem = (key: string): MenuItem => {
 };
 
 /**
- * Filter the menu items into two arrays, one with items that have an icon and one without
- * for easier rendering in the navbar
+ * Return multiple top-level menu sections based on the key
  */
-export const getNavBarItems = () => {
-  const primary: NavBarItems = [];
-  const secondary: NavBarItems = [];
-
-  Object.entries(menu).forEach(([key, item]) => {
-    if (!item.path) return;
-
-    if (item.icon) {
-      primary.push([key, item]);
-    } else {
-      secondary.push([key, item]);
-    }
-  });
-
-  return { primary, secondary };
+export const getMenuItems = (keys: string[]): MenuItem[] => {
+  return keys.map((key) => getMenuItem(key));
 };
 
 /**
- * Check if a pathname matches any item in the navigation
- * Returns the matched item or undefined if no match
+ * Finds the active top-level menu item based on the pathname
  */
-export const getActiveItem = (pathname: string, items: NavBarItems) => {
-  return items.find(([, item]) => isItemActive(item, pathname));
-};
-
-const isItemActive = (item: MenuItem, pathname: string): boolean => {
-  if (item.path === pathname) return true;
-
-  if (item.children) {
-    const hasActiveChild = item.children.some((child) => isItemActive(child, pathname));
-    if (hasActiveChild) return true;
+export const getActiveMenuItem = (pathname: string): MenuItem => {
+  for (const key in menu) {
+    const item = menu[key];
+    if (item.path && pathname.startsWith(item.path)) {
+      return item;
+    }
   }
 
-  // If no exact match and no active children, check if pathname starts with item.path
-  // since we might match the api endpoints
-  return item.path ? pathname.startsWith(item.path) : false;
+  return menu.documentation;
 };
 
-type NavBarItems = Array<[string, MenuItem]>;
+/**
+ * Finds the active nested menu item and its ancestors by comparing
+ * the pathname to its .path property. Returns an array of
+ * all the menu items where the active item is last and
+ * the most top-level ancestor is first.
+ */
+export const getActiveAncestors = (
+  pathname: string,
+  items: MenuItem[],
+  ancestors: MenuItem[] = [],
+): MenuItem[] => {
+  for (const item of items) {
+    // If this item has the exact pathname
+    if (item.path === pathname) {
+      return ancestors.concat([item]);
+    }
+
+    // Otherwise look for exact pathname in its children
+    if (item.children) {
+      const newAncestors = getActiveAncestors(pathname, item.children, ancestors.concat([item]));
+      if (newAncestors.length > ancestors.length) {
+        return newAncestors;
+      }
+    }
+  }
+
+  return [];
+};

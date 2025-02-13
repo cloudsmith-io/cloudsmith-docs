@@ -2,18 +2,24 @@ import glob from 'fast-glob';
 import { toRouteSegments } from '../util';
 
 /**
- * Returns info for all mdx files in src/content
- * excluding those in src/content/api
+ * Returns info for mdx files within a certain section
  */
-export const loadContentInfo = async (): Promise<SlugDefinition[]> => {
-  return load(['src/content/**/*.mdx', '!src/content/api/**/*']);
-};
+export const loadMdxInfo = async (
+  section: 'documentation' | 'guides' | 'api' = 'documentation',
+): Promise<SlugDefinition[]> => {
+  if (section === 'documentation') {
+    return load(['src/content/**/*.mdx', '!src/content/api/**/*', '!src/content/guides/**/*']);
+  }
 
-/**
- * Returns info for all mdx files inside src/content/api
- */
-export const loadApiContentInfo = async (): Promise<SlugDefinition[]> => {
-  return load(['src/content/api/**/*.mdx'], /^api\/?/);
+  if (section === 'guides') {
+    return load(['src/content/guides/**/*.mdx'], /^guides\/?/);
+  }
+
+  if (section === 'api') {
+    return load(['src/content/api/**/*.mdx'], /^api\/?/);
+  }
+
+  throw 'Wrong section set';
 };
 
 /**

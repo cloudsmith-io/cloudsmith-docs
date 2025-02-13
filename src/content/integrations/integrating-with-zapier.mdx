@@ -1,0 +1,70 @@
+import { Note, BlockImage, Card } from '@/components';
+import NoCodeUploadingSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
+import zapierCsmApiKeyImage from './images/zapier/zapier_csm_api_key.png'
+import zapierCreateTokenImage from './images/zapier/zapier_create_token.png'
+import zapierDisableTokenImage from './images/zapier/zapier_disable_token.png'
+
+# Integrating Zapier
+
+How to integrate Zapier with Cloudsmith
+
+Cloudsmith provides a [Zapier](https://zapier.com/) integration to manage your entitlement codes; allowing you to hook up almost any shopping cart to enable Cloudsmith as your digital asset distribution provider.
+
+<NoCodeUploadingSnippet />
+
+<a target="_blank" href="https://youtu.be/Y9UyMwYi4G8"><img src="https://files.readme.io/2bec4b6-cloudsmith-youtube-play-zapier-small.png"/></a>
+
+
+## Setup
+
+The Cloudsmith Zapier Integration uses your Cloudsmith API Key for authentication: 
+
+<BlockImage src={zapierCsmApiKeyImage} alt="Zapier Cloudsmith API Key setup"></BlockImage>
+
+You can get your Cloudsmith API key from your user [settings](https://cloudsmith.io/user/settings/account/) page when you have logged into the Cloudsmith website, or by using the [Cloudsmith CLI](https://github.com/cloudsmith-io/cloudsmith-cli) `cloudsmith login` command.
+
+## Actions
+
+The Cloudsmith Zapier Integration currently provides two actions: 
+
+- Create Entitlement Token
+- Disable Entitlement Token
+
+Please see [Entitlements](doc:entitlements) for more information on Cloudsmith Entitlement Tokens.
+
+## Create Entitlement Token
+
+The Create Entitlement Token action has three required fields: 
+
+<BlockImage src={zapierCreateTokenImage} alt="Zapier Create Entitlement Token Fields"></BlockImage>
+
+**Fields**
+
+|Field Name|Description|Required|
+|:--|:--|:--|
+|Token Name|A name for the Token within the repository|Yes|
+|Repository Owner|The username or organisation name that owns the repository|Yes|
+|Repository|The repository identifier (also called the slug)|Yes|
+|Token String|A string for the token itself. If one is not provided, a random string will be generated.|No|
+|Is Active|A boolean defines if the token is enabled or disabled|No|
+|Valid From|The start date that the token is valid from|No|
+|Valid To|The end date that the token is valid until|No|
+|Limit Number of Downloads|The maximum number of downloads that the Token allows|No|
+|Limit Number of Clients|The maximum number of clients (Unique IP addresses) allowed by the token|No|
+|Limit Package Query|The package-based search query to apply to restrict downloads. See Searching / Filtering for further details.|No|
+|Limit Path Query|The path-based search query to apply to restrict downloads.The path evaluated does not include the domain name, the namespace, the entitlement code used, the package format, etc. and it always starts with a forward slash.|No|
+
+## Disable Entitlement Token
+
+The Disable Entitlement Token action has three required fields: 
+
+<BlockImage src={zapierDisableTokenImage} alt="Zapier Delete Entitlement Token Fields"></BlockImage>
+
+**Fields**
+
+|Field Name|Description|Required|
+|:--|:--|:--|
+|Repository Owner|The username or organisation name that owns the repository|Yes|
+|Repository|The repository identifier (also called the slug)|Yes|
+|Entitlement Identifier|The unique identifier for a token within a repository (see [Entitlements](doc:entitlements) for further information on tokens and identifiers)|Yes|
+

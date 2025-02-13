@@ -27,7 +27,7 @@
           {
             "title": "API Bindings",
             "path": "/getting-started/api-bindings"
-          },          
+          },
           {
             "title": "Command Line Interface",
             "path": "/getting-started/cli"
@@ -49,7 +49,7 @@
           {
             "title": "Export from Nexus Sonatype",
             "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
-          },   
+          },
           {
             "title": "Exporting NuGet",
             "path": "/migrating-to-cloudsmith/exporting-nuget"
@@ -87,10 +87,6 @@
             "path": "/migrating-to-cloudsmith/import-rpm"
           }
         ]
-      },
-      {
-        "title": "Community",
-        "path": "/developer-community"
       },
       {
         "title": "Supported Formats",
@@ -137,91 +133,133 @@
             "path": "/supported-formats/debian-repository"
           },
           {
-              "title": "Docker Registry",
-              "path": "/supported-formats/docker-registry"
+            "title": "Docker Registry",
+            "path": "/supported-formats/docker-registry"
           },
           {
-              "title": "Go Registry",
-              "path": "/supported-formats/go-registry"
+            "title": "Go Registry",
+            "path": "/supported-formats/go-registry"
           },
           {
-              "title": "Gradle Repository",
-              "path": "/supported-formats/gradle-repository"
+            "title": "Gradle Repository",
+            "path": "/supported-formats/gradle-repository"
           },
           {
             "title": "Helm Chart Repository",
             "path": "/supported-formats/helm-chart-repository"
           },
           {
-              "title": "Hex Repository",
-              "path": "/supported-formats/hex-repository"
+            "title": "Hex Repository",
+            "path": "/supported-formats/hex-repository"
           },
           {
-              "title": "LuaRocks Repository",
-              "path": "/supported-formats/luarocks-repository"
+            "title": "LuaRocks Repository",
+            "path": "/supported-formats/luarocks-repository"
           },
           {
-              "title": "Maven Repository",
-              "path": "/supported-formats/maven-repository"
+            "title": "Maven Repository",
+            "path": "/supported-formats/maven-repository"
           },
           {
-              "title": "npm Registry",
-              "path": "/supported-formats/npm-registry"
+            "title": "npm Registry",
+            "path": "/supported-formats/npm-registry"
           },
           {
-              "title": "NuGet Feed",
-              "path": "/supported-formats/nuget-feed",
-              "children": [
-                {
-                  "title": "NuGet Symbol Server",
-                  "path": "/supported-formats/nuget-symbol-server"
-                }
-              ]
+            "title": "NuGet Feed",
+            "path": "/supported-formats/nuget-feed",
+            "children": [
+              {
+                "title": "NuGet Symbol Server",
+                "path": "/supported-formats/nuget-symbol-server"
+              }
+            ]
           },
           {
-              "title": "PowerShell Modules Repository",
-              "path": "/supported-formats/powershell-modules-repository"
+            "title": "PowerShell Modules Repository",
+            "path": "/supported-formats/powershell-modules-repository"
           },
           {
-              "title": "Python Repository",
-              "path": "/supported-formats/python-repository"
+            "title": "Python Repository",
+            "path": "/supported-formats/python-repository"
           },
           {
-              "title": "Raw Repository",
-              "path": "/supported-formats/raw-repository"
+            "title": "Raw Repository",
+            "path": "/supported-formats/raw-repository"
           },
           {
-              "title": "RedHat Repository",
-              "path": "/supported-formats/redhat-repository"
+            "title": "RedHat Repository",
+            "path": "/supported-formats/redhat-repository"
           },
           {
             "title": "Ruby Repository",
             "path": "/supported-formats/ruby-repository"
           },
           {
-              "title": "sbt Repository",
-              "path": "/supported-formats/sbt-repository"
+            "title": "sbt Repository",
+            "path": "/supported-formats/sbt-repository"
           },
           {
-              "title": "Swift Registry",
-              "path": "/supported-formats/swift-registry"
+            "title": "Swift Registry",
+            "path": "/supported-formats/swift-registry"
           },
           {
-              "title": "Terraform Modules Repository",
-              "path": "/supported-formats/terraform-modules-repository"
+            "title": "Terraform Modules Repository",
+            "path": "/supported-formats/terraform-modules-repository"
           },
           {
-              "title": "Unity Registry",
-              "path": "/supported-formats/unity-registry"
+            "title": "Unity Registry",
+            "path": "/supported-formats/unity-registry"
           },
           {
-              "title": "Vagrant Repository",
-              "path": "/supported-formats/vagrant-repository"
+            "title": "Vagrant Repository",
+            "path": "/supported-formats/vagrant-repository"
           },
           {
             "title": "OCI Repository",
             "path": "/supported-formats/oci-repository"
           }
+        ]
+      },
+      {
+        "title": "Integrations",
+        "path": "/integrations",
+        "children": [
+          { "title": "Integrating Ansible", "path": "/integrations/integrating-with-ansible" },
+          { "title": "Integrating ArgoCD", "path": "/integrations/integrating-with-argocd" },
+          { "title": "Integrating AWS CodeBuild", "path": "/integrations/integrating-with-aws-codebuild" },
+          { "title": "Integrating Azure DevOps", "path": "/integrations/integrating-with-azure-devops" },
+          {
+            "title": "Integrating Bitbucket Pipelines",
+            "path": "/integrations/integrating-with-bitbucket-pipelines"
+          },
+          { "title": "Integrating Buildkite", "path": "/integrations/integrating-with-buildkite" },
+          {
+            "title": "Integrating Chainguard Images",
+            "path": "/integrations/integrating-with-chainguard-images"
+          },
+          { "title": "Integrating Chef", "path": "/integrations/integrating-with-chef" },
+          { "title": "Integrating CircleCI", "path": "/integrations/integrating-with-circleci" },
+          { "title": "Integrating Codefresh", "path": "/integrations/integrating-with-codefresh" },
+          { "title": "Integrating Datadog", "path": "/integrations/integrating-with-datadog" },
+          { "title": "Integrating Dependabot", "path": "/integrations/integrating-with-dependabot" },
+          { "title": "Integrating Docker Hub", "path": "/integrations/integrating-with-docker-hub" },
+          { "title": "Integrating Drone CI", "path": "/integrations/integrating-with-drone-ci" },
+          { "title": "Integrating GitHub Actions", "path": "/integrations/integrating-with-github-actions" },
+          { "title": "Integrating GitLab CI/CD", "path": "/integrations/integrating-with-gitlab-cicd" },
+          { "title": "Integrating Harness CD", "path": "/integrations/integrating-with-harness" },
+          { "title": "Integrating Jenkins", "path": "/integrations/integrating-with-jenkins" },
+          {
+            "title": "Integrating Microsoft Teams",
+            "path": "/integrations/integrating-with-microsoft-teams"
+          },
+          { "title": "Integrating Octopus Deploy", "path": "/integrations/integrating-with-octopus-deploy" },
+          { "title": "Integrating Puppet", "path": "/integrations/integrating-with-puppet" },
+          { "title": "Integrating Roadie", "path": "/integrations/integrating-with-roadie" },
+          { "title": "Integrating Semaphore CI", "path": "/integrations/integrating-with-semaphore-ci" },
+          { "title": "Integrating Slack", "path": "/integrations/integrating-with-slack" },
+          { "title": "Integrating Terraform Provider", "path": "/integrations/integrating-with-terraform" },
+          { "title": "Integrating Travis-CI", "path": "/integrations/integrating-with-travis-ci" },
+          { "title": "Integrating Zapier", "path": "/integrations/integrating-with-zapier" }
         ]
       },
       {
@@ -240,15 +278,11 @@
     "icon": "action/guide",
     "children": [
       {
-        "title": "General",
+        "title": "A Section",
         "children": [
           {
-            "title": "Article 1",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "Article 2",
-            "path": "/does-not-exist"
+            "title": "Test Guide",
+            "path": "/guides/test-guide"
           }
         ]
       }
@@ -282,28 +316,33 @@
       }
     ]
   },
-  "home": {
-    "title": "Home",
-    "path": "/"
-  },
-  "blog": {
-    "title": "Blog",
-    "path": "#"
-  },
-  "support": {
-    "title": "Support",
-    "path": "#"
-  },
-  "signUp": {
-    "title": "Sign Up",
-    "path": "#"
-  },
-  "changelog": {
-    "title": "Changelog",
-    "path": "#"
-  },
-  "goToApp": {
-    "title": "Go to App",
-    "path": "#"
+  "mobileNavbar": {
+    "title": "Other",
+    "children": [
+      {
+        "title": "Home",
+        "path": "/"
+      },
+      {
+        "title": "Blog",
+        "path": "https://cloudsmith.com/blog"
+      },
+      {
+        "title": "Support",
+        "path": "https://cloudsmith.com/company/contact-us"
+      },
+      {
+        "title": "Sign Up",
+        "path": "https://app.cloudsmith.com/"
+      },
+      {
+        "title": "Changelog",
+        "path": "https://changelog.cloudsmith.com/en"
+      },
+      {
+        "title": "Go to App",
+        "path": "https://app.cloudsmith.com/"
+      }
+    ]
   }
 }

@@ -7,7 +7,7 @@ import { FullOptions, Searcher } from 'fast-fuzzy';
 import { SearchInput, SearchResult } from './types';
 import { parseSchema, toOperations } from '../swagger/parse';
 import { apiOperationPath } from '../swagger/util';
-import { contentPath, loadApiContentInfo, loadContentInfo } from '../markdown/util';
+import { contentPath, loadMdxInfo } from '../markdown/util';
 import { extractMdxMetadata } from '../metadata/util';
 
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
@@ -23,7 +23,7 @@ export const performSearch = async (
     const items: SearchInput[] = [];
 
     // Documentation MDX
-    const docFiles = await loadContentInfo();
+    const docFiles = await loadMdxInfo();
     const docContents = await Promise.all(
       docFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
     );
@@ -38,7 +38,21 @@ export const performSearch = async (
       });
     }
 
-    // TODO: Guides
+    // Guides
+    const guidesFiles = await loadMdxInfo('api');
+    const guidesContents = await Promise.all(
+      guidesFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
+    );
+    for (let i = 0; i < guidesFiles.length; i++) {
+      const info = guidesFiles[i];
+      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
+      items.push({
+        title,
+        content: guidesContents[i],
+        path: contentPath(info.slug),
+        section: 'guides',
+      });
+    }
 
     // API swagger
     const schema = await parseSchema();
@@ -55,7 +69,7 @@ export const performSearch = async (
     }
 
     // API MDX
-    const apiFiles = await loadApiContentInfo();
+    const apiFiles = await loadMdxInfo('api');
     const apiContents = await Promise.all(
       apiFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
     );
@@ -77,7 +91,7 @@ export const performSearch = async (
   const results = fuzzySearcher.search(input, { returnMatchData: true });
   const filtered: SearchResult[] = results
     .filter((res) => sections.includes(res.item.section))
-    .slice(0, MAX_RESULTS)
+    // .slice(0, MAX_RESULTS)
     .map((res) => {
       const { match, item } = res;
 

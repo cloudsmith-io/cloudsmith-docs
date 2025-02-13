@@ -65,6 +65,7 @@
     /* Text */
     --color-text-primary: var(--base-color-grey-900);
     --color-text-secondary: var(--base-color-grey-600);
+    --color-text-link: var(--base-color-blue-500);
     --color-text-on-color: var(--base-color-white);
     --color-text-label: var(--base-color-grey-500);
     --color-text-alert: var(--base-color-red-700);
@@ -130,7 +131,7 @@
     --line-height-snug: 1.222;
     --line-height-normal: 1.444;
 
-    /* Spacing */
+    /* General Spacing */
     --space-5xs: fluid(1px, 2px);
     --space-4xs: fluid(2px, 4px);
     --space-3xs: fluid(4px, 6px);
@@ -143,6 +144,10 @@
     --space-2xl: fluid(48px, 64px);
     --space-3xl: fluid(64px, 96px);
     --space-4xl: fluid(96px, 118px);
+
+    /* Specific spacing */
+    --container-margin: var(--space-s);
+    --container-margin-home: var(--space-s);
 
     /* Border Radius */
     --border-radius-xs: 2px;
@@ -160,9 +165,9 @@
     --transition-slow: 400ms var(--transition-easing-default);
 
     /* Container widths */
-    --container-width-xxs: 320px;
+    --container-width-2xs: 320px;
     --container-width-xs: 480px;
-    --container-width-s: 640px;
+    --container-width-s: 740px;
     --container-width-m: 960px;
     --container-width-l: 1400px;
     --container-width-xl: 1512px;
@@ -180,11 +185,18 @@
     --layer-navigation: 10;
     --layer-overlay: 200;
 
-    /* Layout */
-    --layout-navbar-height: 60px; /* TODO: Refactor navbar to use fixed height to make it possible to know the height of the navbar */
+    /* Specific measurements */
+    --navbar-top-height: 50px;
+    --navbar-bottom-height: 50px;
+    --navbar-height: calc(var(--navbar-top-height) + var(--navbar-bottom-height));
 
-    @media (--tablet-up) {
-      --layout-navbar-height: 105px;
+    @media (--phablet-up) {
+      --navbar-top-height: 80px;
+      --container-margin-home: var(--space-l);
+    }
+
+    @media (--laptop-up) {
+      --container-margin-home: var(--space-2xl);
     }
   }
 }

@@ -27,6 +27,8 @@ export async function getHighlighter() {
         'xml',
         'scala',
         'python',
+        'scss', 
+        'ruby'
       ],
     });
   }

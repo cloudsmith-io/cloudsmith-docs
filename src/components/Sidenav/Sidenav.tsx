@@ -12,6 +12,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { Tag } from '../Tag';
+import { getActiveAncestors } from '@/lib/menu/util';
+import { last } from '@/lib/util';
 
 import styles from './Sidenav.module.css';
 
@@ -24,6 +26,10 @@ const openCloseVariants: Variants = {
 
 export const Sidenav = ({ items }: SidenavProps) => {
   const { navigationState, toggleNavigation } = useNavigation();
+  const pathname = usePathname();
+  const activeMenuItems = getActiveAncestors(pathname, items);
+  const activeLabel = last(activeMenuItems)?.title ?? 'Select page';
+
   const isOpen = navigationState === 'sideNav';
   const toggle = () => toggleNavigation('sideNav');
 
@@ -31,10 +37,7 @@ export const Sidenav = ({ items }: SidenavProps) => {
     <>
       <button type="button" className={styles.toggleButton} onClick={toggle}>
         <ArrowIcon name="arrow" arrowDirection="left" as="svg" title="" className={styles.toggleIconBack} />
-        <span className={styles.toggleButtonText}>
-          {/* TODO: Add current active page name */}
-          Missing current active page name
-        </span>
+        <span className={styles.toggleButtonText}>{activeLabel}</span>
         <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
       </button>
 
@@ -72,8 +75,7 @@ const List = ({ items, isExpanded }: ListProps) => {
 const Item = ({ item }: ItemProps) => {
   const pathname = usePathname();
   const isCurrentPageActive = item.path === pathname && !item.children;
-  const isActive = isDescendantOrSelfActive(item, pathname);
-  const [isExpanded, setIsExpanded] = useState(!item.path ? true : isActive);
+  const [isExpanded, setIsExpanded] = useState(isExpandedByDefault(item, pathname));
 
   function toggleExpand(event: React.MouseEvent<HTMLAnchorElement>) {
     // Mobile will always link to the clicked item
@@ -108,7 +110,7 @@ const Item = ({ item }: ItemProps) => {
             <ChevronIcon
               chevronDirection={isExpanded ? 'down' : 'right'}
               as="svg"
-              title={isActive ? 'Expand icon' : 'Collapse icon'}
+              title={isExpanded ? 'Expand icon' : 'Collapse icon'}
               className={styles.linkIcon}
               transition={openCloseTransition}
             />
@@ -123,7 +125,7 @@ const Item = ({ item }: ItemProps) => {
   );
 };
 
-function isDescendantOrSelfActive(item: MenuItem, pathname: string) {
+const isExpandedByDefault = (item: MenuItem, pathname: string) => {
   // Sections are always active/open
   if (!item.path) {
     return true;
@@ -135,7 +137,7 @@ function isDescendantOrSelfActive(item: MenuItem, pathname: string) {
   }
 
   return false;
-}
+};
 
 interface SidenavProps {
   items: MenuItem[];

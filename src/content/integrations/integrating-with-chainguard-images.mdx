@@ -1,0 +1,42 @@
+# Integrating with Chainguard Images
+
+[Chainguard](chainguard.dev), a Docker Verified Publisher, offers Chainguard Images which are a collection of minimal, hardened Docker container images featuring:
+
+- Zero CVEs
+- Includes SBOMs and signatures
+- Minimal, containing only the application and its runtime dependencies
+
+You can retrieve these images through Cloudsmith by enabling the upstream to Chainguard.
+
+Chainguard offers both a Public Registry (cgr.dev/chainguard) containing developer images and a Private/Dedicated Registry (cgr.dev/chainguard-private) which includes all versioned tags of an image and special images not available in the public registry (including FIPS images and other custom builds).
+
+## Adding Chainguard as an Upstream
+
+Here's how you can integrate the Chainguard Registry into your Cloudsmith account:
+
+1. **Configure Upstream Proxying**  
+   In your Cloudsmith repository, go to the Upstream Proxying settings.  
+   Click the green "Create Upstream" button and select the Docker format.  
+   Provide a descriptive name for the upstream, e.g., Chainguard Public, and specify the URL for the Chainguard Registry.  
+   Enter the Chainguard Registry URL:
+   - For Chainguard's public images: https://cgr.dev
+   - For Chainguard's Private/Dedicated Registry: https://cgr.dev/chainguard-private
+     Set the desired priority.  
+     Select Cache and Proxy.
+2. **Configure SSL Certificate Verification**  
+   Ensure SSL certificates are verified for added security, especially for public sources.
+3. **Authentication and Headers**  
+   If you are using the private URL, Chainguard requires authentication or additional headers; provide them in the respective fields.
+
+## Pull a Chainguard Image with Docker Native Tooling
+
+Here's an example of how you would pull the nginx Chainguard Docker image into Cloudsmith after you've configured your Cloudsmith upstream for Chainguard:
+
+1. **Configure your Cloudsmith upstream** for Chainguard using the instructions above.
+2. **Ensure Docker is installed** on your system. If not, go [here](https://docs.docker.com/engine/install/) to get started with Docker.
+3. **Open a terminal.**
+4. **Login to Docker** with your Cloudsmith username and token, with the command: docker login docker.cloudsmith.io
+5. **Pull the latest Chainguard nginx image** by running:  
+   docker pull docker.cloudsmith.io/ORGANIZATION/REPOSITORY/chainguard/nginx:latest  
+   Note: Replace ORGANIZATION and REPOSITORY with your Cloudsmith organization and repository, respectively.
+6. **Check your Cloudsmith repository** to find the newly added Chainguard nginx image.

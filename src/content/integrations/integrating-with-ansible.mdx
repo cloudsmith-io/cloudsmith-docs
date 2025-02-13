@@ -1,0 +1,207 @@
+# Integrating Ansible
+
+How to integrate Ansible with Cloudsmith
+
+
+Ansible is open-source software for provisioning, configuration management, and application deployment. 
+
+- [Ansible](https://www.ansible.com/): Ansible Website
+- [Ansible Docs](https://docs.ansible.com/): Official Ansible documentation 
+
+<a target="_blank" href="https://youtu.be/kvkaWVCQwQ0"><img src="https://files.readme.io/94f9b17-cloudsmith-youtube-play-ansible-small.png"/></a>
+<br/>
+
+In the following examples: 
+
+| Identifier  | Description                                                                               |
+| :---------- | :---------------------------------------------------------------------------------------- |
+| OWNER       | Your Cloudsmith organisation name (namespace)                                             |
+| REPOSITORY  | Your Cloudsmith Repository identifier (also called "slug")                                |
+| DISTRO      | Your distribution  (i.e el, fedora, debian etc)                                           |
+| VERSION     | Your version name (i.e 7, 29, hardy, buster etc)                                          |
+| FINGERPRINT | The 8 Byte fingerprint of the Public GPG key for the repository                           |
+| TOKEN       | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| USERNAME    | Your Cloudsmith username                                                                  |
+| PASSWORD    | Your Cloudsmith password                                                                  |
+| API-KEY     | Your Cloudsmith API Key                                                                   |
+
+## Adding a RPM repository
+
+To add a Cloudsmith repository for RPM packages using Ansible, you would use the Ansible [yum_repository](https://docs.ansible.com/ansible/latest/modules/yum_repository_module.html) module.  The `yum_repository` module can add or remove YUM repositories in RPM-based Linux distributions.
+
+Example `yum_repository` task:
+
+**Public Repository**
+
+```yaml
+- name: Add Cloudsmith Repository
+  yum_repository:
+    name: cloudsmith
+    description: Cloudsmith
+    file: cloudsmith
+    baseurl: https://dl.cloudsmith.io/public/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    repo_gpgcheck: yes
+    gpgkey: https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    enabled: yes
+  become: true
+```
+
+**Private Repository**
+
+```yaml Entitlement Token Auth
+- name: Add Cloudsmith Repository
+  yum_repository:
+    name: cloudsmith
+    description: Cloudsmith
+    file: cloudsmith
+    baseurl: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    repo_gpgcheck: yes
+    gpgkey: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    enabled: yes 
+  become: true
+```
+```yaml HTTP Basic Auth (User & Pass)
+- name: Add Cloudsmith Repository
+  yum_repository:
+    name: cloudsmith
+    description: Cloudsmith
+    file: cloudsmith
+    baseurl: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    repo_gpgcheck: yes
+    gpgkey: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    username: USERNAME
+    password: PASSWORD
+    enabled: yes
+  become: true
+```
+```yaml HTTP Basic Auth (API-Key)
+- name: Add Cloudsmith Repository
+  yum_repository:
+    name: cloudsmith
+    description: Cloudsmith
+    file: cloudsmith
+    baseurl: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    repo_gpgcheck: yes
+    gpgkey: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    username: USERNAME
+    password: API-KEY
+    enabled: yes
+  become: true
+```
+```yaml HTTP Basic Auth (Token)
+- name: Add Cloudsmith Repository
+  yum_repository:
+    name: cloudsmith
+    description: Cloudsmith
+    file: cloudsmith
+    baseurl: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    repo_gpgcheck: yes
+    gpgkey: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    username: token
+    password: TOKEN
+    enabled: yes
+  become: true
+```
+
+### Install a package
+
+To install a RPM package via Ansible, you use the Ansible [yum module](https://docs.ansible.com/ansible/2.3/yum_module.html):
+
+```yaml
+- name: Install a package
+  yum:
+    name: PACKAGE_NAME
+    state: present
+    update_cache: yes
+  become: true
+```
+
+## Adding a Debian repository
+
+To add a Cloudsmith repository for Debian packages using Ansible, you would use the Ansible [apt_key](https://docs.ansible.com/ansible/latest/modules/apt_key_module.html) module and the [apt_repository](https://docs.ansible.com/ansible/latest/modules/apt_repository_module.html) module.  
+
+Example `apt_key` and `apt_repository` tasks:
+
+**Public Repository**
+
+```yaml
+- name: Import Cloudsmith Repository GPG key
+  apt_key:
+    url: https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    state: present
+  become: true
+
+- name: Add Cloudsmith Repository
+  apt_repository:
+    repo: deb https://dl.cloudsmith.io/public/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    state: present
+  become: true
+```
+
+**Private Repository**
+
+```yaml Entitlement Token Auth
+- name: Import Cloudsmith Repository GPG key
+  apt_key:
+    url: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    state: present
+  become: true
+
+- name: Add Cloudsmith Repository
+  apt_repository:
+    repo: deb https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    state: present
+  become: true
+```
+```yaml HTTP Basic Auth (User & Pass)
+- name: Import Cloudsmith Repository GPG key
+  apt_key:
+    url: https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    state: present
+  become: true
+
+- name: Add Cloudsmith Repository
+  apt_repository:
+    repo: deb https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    state: present
+  become: true
+```
+```yaml HTTP Basic Auth (API-Key)
+- name: Import Cloudsmith Repository GPG key
+  apt_key:
+    url: https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    state: present
+  become: true
+
+- name: Add Cloudsmith Repository
+  apt_repository:
+    repo: deb https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    state: present
+  become: true
+```
+```yaml HTTP Basic Auth (Token)
+- name: Import Cloudsmith Repository GPG key
+  apt_key:
+    url: https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    state: present
+  become: true
+
+- name: Add Cloudsmith Repository
+  apt_repository:
+    repo: deb https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    state: present
+  become: true
+```
+
+### Install a package
+
+To install a Debian package via Ansible, you use the Ansible [apt module](https://docs.ansible.com/ansible/2.3/apt_module.html):
+
+```yaml
+- name: Install a package
+  apt:
+    name: PACKAGE_NAME
+    state: present
+    update_cache: yes
+  become: true
+```

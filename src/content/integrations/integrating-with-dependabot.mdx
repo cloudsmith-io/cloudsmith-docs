@@ -1,0 +1,97 @@
+import { BlockImage } from '@/components';
+
+import dependabotSecretsImage from './images/dependabot/dependabot-secrets.png';
+import enableDependabotImage from './images/dependabot/enable-dependabot.png';
+import veryfiyConnectionImage from './images/dependabot/verify-connection.png';
+
+# Integrating Dependabot
+
+How to integrate Github Dependabot with Cloudsmith
+
+
+
+[Github Dependabot](https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide) can be used to automatically check for newer versions of your dependencies and update vulnerable dependencies. This guide will walk you through the process of integrating Github Dependabot with Cloudsmith.
+
+For this example, we will set it up for a Maven project, but the instructions will work for all supported formats.
+
+## Add Cloudsmith API Token to GitHub Secrets
+
+1. Copy your API key from Cloudsmith using the instructions [here](https://help.cloudsmith.io/docs/api-key).
+2. Navigate to your repository on GitHub.
+3. Select `Settings`.
+4. Select `Secrets and variables`. 
+5. Select `Dependabot`. You will see the UI below. 
+6. Add your Cloudsmith API key details here:
+   1. `Cloudsmith API Key`. For this example we use`CLOUDSMITH_API_KEY  `.
+   2. `Cloudsmith Username`. For this example we use`CLOUDSMITH_USER_NAME`.
+
+<BlockImage src={dependabotSecretsImage} alt=""></BlockImage>
+
+
+## Enable Dependabot in GitHub
+
+To receive Dependabot alerts, you must first enable Dependabot alerts in this repository’s settings.
+
+1. Navigate to your repository on GitHub.
+2. Click on`Security` from the repository menu.
+3. Select the`Enable` button in the `Dependabot alerts` section.
+4. Once Dependabot has been enabled, click on `Create a config file`. ​​​​​​​This will create a `./github/dependabot.yml` for your repository (Learn more about [configuring a Dependabot configuration file here](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates)). 
+
+<BlockImage src={enableDependabotImage} alt=""></BlockImage>
+
+
+## Configure the Dependabot Configuration file
+
+For Dependabot to connect to Cloudsmith, you will need to specify the Cloudsmith connection details in `./github/dependabot.yml`.
+
+Open the ./github/dependabot.yml file and configure it as follows:
+
+- `package-ecosystem` Specify the[ package ecosystem](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem) you are using. For example, if you are using Maven, set the `package-ecosystem` to `maven`. 
+- `registries` You will need to include the `registries` setting in 2 places in the `dependabot.yml file`.
+  - At the top level, add the `registries` section to define the Cloudsmith repository you are using. This section should include the following: 
+    - `type`: The type of repository e.g. maven-repository or  
+    - `url` The URL of the Cloudsmith repository.
+    - `username` and `password`: Cloudsmith supports authentication using username and password. These credentials should be stored in the `Dependabot` tab of your repositories `Secrets and variables`settings (see above for more details).
+    - `replaces-base`. This setting is optional and works hand in hand with Cloudsmith upstream [Upstream Proxying](doc:upstream-proxying-caching). If the `replaces-base` setting is set to `true`, Dependabot will use the specified Cloudsmith URL as the primary source for dependencies instead of the default public repository for that package ecosystem. This means you should configure a corresponding Cloudsmith upstream to ensure Dependabot checks Cloudsmith first for dependencies. 
+  - Within the updates blocks, where you can use `registries: "*"` to tell Dependabot to use any or all of the registries you defined at the top level.
+- `directory` specify the directory where your package manifest is located. This is usually the root directory of your project.
+- `schedule`Configure the schedule to define how often Dependabot should check for updates. You can set the interval to daily, weekly, or monthly.
+
+Here is a complete example with a maven project:  
+Replace `YOUR-ORG/YOUR-REPO` with the name of your organization and repository.
+
+```text shell
+version: 2
+registries:
+  cloudsmith:
+    type: maven-repository
+    url: https://dl.cloudsmith.io/basic/YOUR-ORG/YOUR-REPO/maven/
+    username: "${{ secrets.CLOUDSMITH_USER_NAME }}"
+    password: "${{ secrets.CLOUDSMITH_API_KEY }}"
+    replaces-base: true
+
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    registries:
+      - cloudsmith
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 10
+```
+
+More detailed information on the Dependabot configuration file can be found [here](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file).
+
+## Verify the Connection
+
+​​​​​To verify that Dependabot can successfully connect to Cloudsmith:
+
+1. Navigate to your repository’s settings.
+2. Go to `Insights->Dependency Graph -> Dependabot`
+3. Check for updates. You will find any errors here.
+
+<BlockImage src={veryfiyConnectionImage} alt=""></BlockImage>
+
+By following these steps, you can ensure that Dependabot will check for and update dependencies via Cloudsmith, ensuring your dependencies are always up-to-date and secure.

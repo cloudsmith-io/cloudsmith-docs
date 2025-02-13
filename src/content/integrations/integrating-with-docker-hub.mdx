@@ -1,0 +1,40 @@
+import { BlockImage } from '@/components';
+import cloudsmithDemoRepoUpstreamsImage from './images/docker-hub/cloudsmithDemoRepoUpstreams.png';
+import cloudsmithRepoAddCredentialsImage from './images/docker-hub/cloudsmithRepoAddCredentials.png';
+
+# Integrating with Docker Hub
+
+Retrieve Container Images from Docker Hub using Cloudsmith
+
+
+[Docker Hub](https://hub.docker.com/) is the official registry (provided by [Docker, Inc.](https://www.docker.com/)) that allows you to find and share Docker-format container images.
+
+> It's the world's largest repository of container images with an array of content sources including container community developers, open source projects, and independent software vendors (ISV) building and distributing their code in containers.
+
+You can retrieve these images through Cloudsmith by enabling an upstream to Docker Hub to proxy and cache images.
+
+## Adding Docker Hub as an Upstream
+
+Here's how you can integrate the Docker Hub Registry into your Cloudsmith account to begin proxying and caching images from Docker Hub:
+
+1. **Add a new Upstream Proxy**  
+   In your Cloudsmith repository, go to "Upstreams" and select "Add Upstream Proxy".
+
+<BlockImage src={cloudsmithDemoRepoUpstreamsImage} alt="" align="left"></BlockImage>
+
+2. **Configure the Upstream URL and mode**  
+   Provide a descriptive name for the upstream, e.g., Docker Hub, and specify the URL for Docker Hub: https://index.docker.io.  
+   Set the desired priority.  
+   Select Cache and Proxy.
+3. **Provide authentication credentials**  
+   Docker Hub currently requires authentication. Please select a Method of "Username and Password" and add your Docker Hub account credentials.  
+   If you need help creating a Docker Hub account, see [here](https://docs.docker.com/docker-id/).
+
+<BlockImage src={cloudsmithRepoAddCredentialsImage} alt="" align="left"></BlockImage>
+
+**Note:** For Docker Hub, Username & Password are currently required, not optional.
+
+3. **Configure SSL Certificate Verification**  
+   Ensure SSL certificates are verified for added security, especially for public sources.
+
+Once configured, your account is now set up to proxy and cache images from Docker Hub through Cloudsmith.

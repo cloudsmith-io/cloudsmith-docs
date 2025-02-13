@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  max-width: var(--container-width-xxs);
+  max-width: var(--container-width-2xs);
   gap: var(--space-2xs);
   font-size: var(--text-body-s);
   cursor: pointer;
@@ -28,8 +28,8 @@
   .root {
     background-color: var(--base-color-white);
     color: var(--base-color-grey-500);
-    max-width: var(--container-width-xxs);
-    width: 100%;
+    max-width: var(--container-width-2xs);
+    width: 400px;
     border: 1px solid var(--base-color-grey-300);
   }
 
@@ -47,10 +47,4 @@
     flex-direction: row;
     width: 100%;
   }
-
-  /* This should be added inside home navbar. Props should be passed in. 
-  .root {
-    min-width: var(--container-width-xxs);
-    border: 1px solid var(--base-color-grey-500);
-  } */
 }
