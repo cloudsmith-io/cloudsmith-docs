@@ -1,14 +1,8 @@
----
-title: Command-Line Interface
----
+import { Note } from '@/components'
 
 # Command-Line Interface
 
 The Cloudsmith Command Line Interface (CLI) is a Py2/Py3 text-based interface to the <a href="https://api.cloudsmith.io">API</a>. This allows users, machines and other services to access and integrate smoothly with Cloudsmith without requiring explicit plugins or tools.
-
-
-{/* <div class=\"row cs-box-row\">\n  <div class=\"cs-box cs-box-66 cs-box-green\">\n    <div class=\"cs-box-title cs-box-title-green\">Open source</div><p>\n    The Cloudsmith CLI is built as open source allowing the community to contribute.\n    <p> \n    Source Code available on <a href=\"https://github.com/cloudsmith-io/cloudsmith-cli\">GitHub</a><br>\n    </p>\n</div>\n  <div class=\"cs-box cs-box-33 cs-center-all cs-box-grey\">\n    <a href=\"https://youtu.be/R-g8ZhDwTKk\" target=\"_blank\">\n      <img src=\"https://files.readme.io/851d406-cloudsmith-youtube-play-cli-small.png\" alt=\"A Walkthrough of the Cloudsmith CLI\" /></a>\n  </div>\n</div>" */}
-
 
 ## Installation
 
@@ -61,13 +55,9 @@ Go to the [API Key](https://cloudsmith.io/user/settings/api/) page in your user 
 
 **2. via the Cloudsmith CLI**
 
-> 📘 SAML Single Sign On Users
-> 
-> If you login to Cloudsmith via SAML, you will not be able to retrieve your API-Key via the Cloudsmith CLI, as you will not have a password associated with your Cloudsmith Account.  You will need to retrieve your API-Key via the Cloudsmith Website as described above, and then [configure the CLI](#configuration--setup) with your API-Key. 
-> 
-> We are working on improving this via SSO integration with the CLI
-
-With the CLI this is simple to do. You can retrieve your API key using the cloudsmith login command:
+<Note variant="note" headline="SAML Single Sign On Users">
+If you login to Cloudsmith via SAML, you will not be able to retrieve your API-Key via the Cloudsmith CLI, as you will not have a password associated with your Cloudsmith Account.  You will need to retrieve your API-Key via the Cloudsmith Website as described above, and then [configure the CLI](#configuration--setup) with your API-Key. We are working on improving this via SSO integration with the CLI. With the CLI this is simple to do. You can retrieve your API key using the cloudsmith login command:
+</Note>
 
 ```
 cloudsmith login
