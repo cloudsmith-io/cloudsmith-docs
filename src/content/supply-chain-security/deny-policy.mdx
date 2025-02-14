@@ -45,30 +45,6 @@ You are then presented with the “Create Package Deny Policy” form:
 |**Package Query**|A search query that you can use to target this policy at a specific repository, package format or package name. See [Searching / Filtering](doc:search-packages) for more details on the available fields you can filter on.<br/><br/>The query string box (limited to 256 chars in length) to specify a search-query string to match packages against. Matched packages will then be blocked across the org.<br/><br/>TIP:  To ensure your search query will block the packages you want to block from download, test your search query first, using the "Search all packages..." box at the top of the Repositories page.  Make sure the results of your query are the packages that you intend to block.|
 |**Enabled**|You can disable a rule temporarily, without deleting the rule.|
 
-{/* [block:parameters]
-{
-  "data": {
-    "h-0": "",
-    "h-1": "",
-    "0-0": "**Policy Name**",
-    "0-1": "A display name for the Deny Policy. This name will be visible to users who view a package that violates this policy, as a reason for the violation.",
-    "1-0": "**Description**",
-    "1-1": "A description of the Deny Policy.  This description will be visible to users who view a package that violates this policy, as a reason for the violation.",
-    "2-0": "**Package Query**",
-    "2-1": "A search query that you can use to target this policy at a specific repository, package format or package name. See [Searching / Filtering](doc:search-packages) for more details on the available fields you can filter on.  \n  \nThe query string box (limited to 256 chars in length) to specify a search-query string to match packages against. Matched packages will then be blocked across the org.  \n  \nTIP:  To ensure your search query will block the packages you want to block from download, test your search query first, using the \"Search all packages...\" box at the top of the Repositories page.  Make sure the results of your query are the packages that you intend to block.",
-    "3-0": "**Enabled**",
-    "3-1": "You can disable a rule temporarily, without deleting the rule."
-  },
-  "cols": 2,
-  "rows": 4,
-  "align": [
-    "left",
-    "left"
-  ]
-}
-[/block] */}
-
-
 ## Propagating a Newly Created Deny Policy
 
 When a new Deny Policy is created, Cloudsmith runs the policy against all packages in all repositories in your organization. This can take some time, depending on how many artifacts are stored in your repositories.  
