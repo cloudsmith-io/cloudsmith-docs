@@ -27,7 +27,7 @@ In order to publish your changes, you will need to submit a Pull Request on GitH
 
 1. Create a new git branch with `git checkout -b my-branch-name`
 2. Make edits to the files
-3. Commit your files to the git branch with `git add .` and `git commit -S -m 'message'`. Note that the `-S` option for [signing commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) is required for all commits in the Cloudsmith GitHub repository.
+3. Commit your files to the git branch. Make sure that your [commits are signed](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) since it's a requirement for all repositories in the Cloudsmith GitHub organization.
 4. Push your changes to GitHub with `git push origin my-branch-name`
 5. Go to github.com to submit a Pull Request
 
