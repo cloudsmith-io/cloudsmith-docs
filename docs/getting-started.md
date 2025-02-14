@@ -27,7 +27,8 @@ In order to publish your changes, you will need to submit a Pull Request on GitH
 
 1. Create a new git branch with `git checkout -b my-branch-name`
 2. Make edits to the files
-3. Push your changes to GitHub with `git push origin my-branch-name`
-4. Go to github.com to submit a Pull Request
+3. Commit your files to the git branch with `git add .` and `git commit -S -m 'message'`. Note that the `-S` option for [signing commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) is required for all commits in the Cloudsmith GitHub repository.
+4. Push your changes to GitHub with `git push origin my-branch-name`
+5. Go to github.com to submit a Pull Request
 
 When you submit a Pull Request, a deploy preview will be generated and inserted as a comment in the Pull Request. This is a great way to preview any changes to the documentation in a shareable link before merging the Pull Request.
