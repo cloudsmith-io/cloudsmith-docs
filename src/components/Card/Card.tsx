@@ -6,11 +6,14 @@ import styles from './Card.module.css';
 const card = cva(styles.root, {
   variants: {
     size: {
+      xs: styles.sizeXSmall,
       s: styles.sizeSmall,
       m: styles.sizeMedium,
       l: styles.sizeLarge,
     },
     width: {
+      fifth: styles.widthFifth,
+      quarter: styles.widthQuarter,
       third: styles.widthThird,
       half: styles.widthHalf,
       full: styles.widthFull,
@@ -28,6 +31,7 @@ export function Card({
   href,
   linkText,
   icon,
+  iconProps,
   backgroundImage,
   size,
   width,
@@ -45,7 +49,7 @@ export function Card({
       )}
 
       <div className={styles.icon}>
-        <Icon name={icon} title="" />
+        <Icon name={icon} title="" {...iconProps} />
       </div>
 
       <div className={styles.content}>
@@ -53,7 +57,7 @@ export function Card({
         {description && <p className={styles.description}>{description}</p>}
 
         <div className={styles.link}>
-          <span className={styles.linkText}>{linkText}</span>
+          <span className={styles.linkText}>{linkText || title}</span>
           <Icon name="arrow" title="" />
         </div>
       </div>
@@ -65,8 +69,9 @@ type CardBaseProps = {
   title: string;
   description?: string;
   href: string;
-  linkText: string;
+  linkText?: string;
   icon: IconName;
+  iconProps?: React.ComponentProps<typeof Icon>;
   backgroundImage?: string;
   className?: string;
 };
