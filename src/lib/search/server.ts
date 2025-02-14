@@ -70,7 +70,9 @@ export const performSearch = async (
         .replace(/[^0-9a-z-A-Z \.\:]/g, '')
         .replace(/ +/, ' ');
 
-      const { content: _, ...rest } = item;
+      // Return everything but the content attribute
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { content, ...rest } = item;
 
       return {
         ...rest,
