@@ -3,6 +3,12 @@ import { performSearch } from './server';
 describe('lib', () => {
   describe('search', () => {
     describe('search()', () => {
+      test('does not return content of file', async () => {
+        const results = await performSearch('Formats');
+        const res = results[0];
+        expect(res?.content).toBeUndefined();
+      });
+
       test('searches content across all sections', async () => {
         const results = await performSearch('Formats');
         expect(results.length).toBeGreaterThan(10);
