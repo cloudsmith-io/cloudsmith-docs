@@ -1,0 +1,47 @@
+import { Note, BlockImage } from '@/components'
+import img_geo_ip from './images/geoip-rules/7db8ecc08970c411e06b95777f2aaf91696b86bb56ea3310c3dc52e327749abd-geo-ip.png'
+import img_deny from './images/geoip-rules/e8863e507acdbb76d14a4e9d8f4b6ae999a7514d3062a46a79f0d8ce85421c95-deny.png'
+import img_allow from './images/geoip-rules/4b6b01d9fffd38045967936f8210bf46d78b91d7bfc4bc31530ccee19638804a-allow.png'
+import img_ip from './images/geoip-rules/12bf091cf4e477f57c73cb0220d6a9d87244af384a7dc51101c442be081babdf-ip.png'
+
+# Geo/IP Rules
+
+If you need to add physical location security to your package management, then Geo/IP Restriction is what you need. You can restrict or grant access to your packages based on geographical location, IP ranges or specific IP addresses. 
+
+You could, for example, use these restrictions to only allow access from your organization VPN IP address(es) or from specific organization locations/sites. 
+
+## Enabling and Configuring Geo / IP Restrictions
+<Note variant="warning">
+  These restrictions only apply to downloads-based traffic and do not apply to web-based traffic.
+
+- The deny lists are applied before the allow lists and therefore take precedence. 
+- Geo-based restrictions are also applied before IP-based restrictions. 
+- The first rule matching the incoming traffic is applied.
+
+To enable IP restrictions for uploads please see [API-Key](/getting-started/api-key)
+</Note>
+
+
+To enable Geo / IP restrictions, select "Geo/IP Rules" from the left menu on a repository detail page, then click the green "Enable Geo /IP" button on the right side. 
+
+<BlockImage src={img_geo_ip} alt="Geo / IP Restrictions configuration page"></BlockImage>
+
+## Geo-based Restrictions
+
+Use the "Deny" or "Allow" fields under "Geo-based Restrictions" to specify the geographic regions/countries that you wish to block or allow respectively.  When you start to type the name of a region or country in these fields you will be offered a matching selection from the drop-down list. You can add multiple regions/countries to block or allow: 
+
+<BlockImage src={img_deny} alt=""></BlockImage>
+
+<BlockImage src={img_allow} alt=""></BlockImage>
+
+<Note variant="note">
+  If the region/country can't be resolved from an IP address (e.g for an internal or private IP), then setting this will have no effect.
+</Note>
+
+***
+
+## IP-based Restrictions
+
+Use the "Deny" or "Allow" fields under "IP-based restrictions" to specify the IP addresses / CIDRs that you wish to block or allow.  You can enter multiple IP addresses / CIDRs in each field: 
+
+<BlockImage src={img_ip} alt="IP-based restrictions - IP address / CIDR entry"></BlockImage>

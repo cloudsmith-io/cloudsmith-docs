@@ -1,0 +1,109 @@
+import { Note, BlockImage } from '@/components'
+import img_eula_screenshot3 from './images/eula/87440dc4f9654eb141ec73f1190357b45e34452393a9dc6f9e4e0d4d40e9d0bd-eula-screenshot3.png'
+import img_eula_screenshot2 from './images/eula/60a8289951c9e94e5a6660b67ac68726bca282d98f98ac9cc7faa2d6f939eab1-eula-screenshot2.png'
+import img_eula_screenshot3_enabled from './images/eula/dbdbb053bfbe5b77f1da3e07f1e8b2b82812a986d054bc5f9722691ccb6594ed-eula-screenshot3_enabled.png'
+import img284e980_AcceptPage from './images/eula/284e980-AcceptPage.png'
+import img_eula_screenshot from './images/eula/cf7a357b49606a83822f5c7ca437119ff1e873f7e9037ce3b2fc16aa4154e7b9-eula-screenshot.png'
+
+# EULA Enforcement
+
+Cloudsmith provides the ability for all Raw format files, if enabled, to require End-User License Agreement (EULA) when a user attempts to download it.
+
+<a target="_blank" href="https://www.youtube.com/watch?v=5ljGKSPzIxg"><img src="https://files.readme.io/18a06f6-cloudsmith-youtube-play-eula-small.png"/></a>
+
+## Create a EULA
+
+To create a EULA, navigate to the repository and select "Settings" -> "EULA enforcement." Click the blue "Create Revision" button:
+
+<BlockImage src={img_eula_screenshot3} alt=""></BlockImage>
+
+You will then be presented with the Create EULA Revision form, where you can add the content/terms that you wish to display to the user before they can download the file:
+
+<BlockImage src={img_eula_screenshot2} alt=""></BlockImage>
+
+You then click the blue "Create Revision" button to create the EULA. You can repeat this process if you need to create subsequent revisions of the EULA.
+
+To require a user to accept the EULA before downloading Raw files in the repository, EULA enforcement must be set to "Enabled."
+
+<BlockImage src={img_eula_screenshot3_enabled} alt=""></BlockImage>
+
+## How do users view and accept a EULA?
+
+### View and accept via WebsiteUI
+
+The first time a user attempts to download a raw package using a download link, they will instead see the EULA:
+
+<BlockImage src={img284e980_AcceptPage} alt=""></BlockImage>
+
+Once the user has clicked the "Yes, I Agree + Download File" button, the download will start. 
+
+### Accept via URL / Command Line
+
+If a user wishes to accept the EULA without visiting the HTML page, `?accept_eula=1` can be suffixed onto the URL link for the raw package (which would otherwise display the EULA) to accept it. The number appended to the `accept_eula` parameter specifies the revision of the EULA that is being accepted:
+
+```shell
+curl https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/files/FILENAME.zip?accept_eula=1
+```
+
+Where:
+
+| Identifier | Description                                                                               |
+| :--------- | :---------------------------------------------------------------------------------------- |
+| TOKEN      | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| OWNER      | Your Cloudsmith account name or organisation name (namespace)                             |
+| REPOSITORY | Your Cloudsmith Repository name (also called "slug")                                      |
+| FILENAME   | The name of the raw file                                                                  |
+
+For Example:
+
+```shell
+curl https://dl.cloudsmith.io/uy7de6tvI8O9/cloudsmith/demo/raw/files/test.zip?accept_eula=3
+```
+
+## EULA for Entitlement Tokens
+
+<Note variant="note">
+  EULA for Entitlement Tokens is currently in Early Access. If you'd like to be included in early access to this feature please [contact us](https://help.cloudsmith.io/docs/contact-us).
+</Note>
+
+You can specify that a EULA must be accepted before an [Entitlement Token](doc:entitlements) can be used.  This will allow you to enforce EULA acceptance for any package format, as Entitlement Tokens are used to provide controlled, read-only access to any artifact in a repository. 
+
+To require EULA acceptance for an Entitlement Token, you need to select the option when editing an Entitlement Token: 
+
+<BlockImage src={img_eula_screenshot} alt=""></BlockImage>
+
+If checked, then a client will be compelled to go to the token-based URL for EULA acceptance, before they are able to use the token to download files. Note that this also requires EULA enforcement to be enabled on the repository.
+
+## How do I track what my customers have downloaded?
+
+You can see them in "Download Logs" within a repository. These are processed asynchronously so they don't appear immediately after a download happens, but within a short-time (usually within 5 minutes). If EULA enforcement is enabled, then each Raw package file has gone through the EULA acceptance before download. In other words, it's not possible to download without accepting the latest revision of the EULA.
+
+Hovering over the EULA icon provides detail on which revision was accepted for it, and clicking it brings you to the EULA overview. It will show the name of the entitlement token you've created for that specific customer (or group of customers). E.g. "Microsoft (Token)" if a customer at Microsoft had downloaded it. In summary, we show which customer downloaded which file, when, and having accepted what EULA revision to do so.
+
+## Can you change a EULA?
+
+Once a EULA has been created, you (a person with privileges) has exactly one hour to make modifications, then it gets locked. Afterwards you'll no longer be able to edit the EULA revision again. It's only possible to edit the most recent EULA revision within this one hour window. Any previous EULA revisions are never editable.
+
+## How do you prevent EULA entities from being lost or deleted?
+
+Any EULAs are covered by the same strong guarantees for data sanctity as the rest of the system; as described in our Security Policy. You cannot directly delete a EULA revision.
+
+## How long are EULA entities stored in database?
+
+Permanently until the repository or account is deleted; this can only be done by _Admin_ of a repository, or an _Owner_ of the account. See RBAC question later.
+
+## What happens if I unsubscribe?
+
+As per the Privacy Policy we'll keep your data in-tact for a period of time, "Cloudsmith will retain Personally Identifiable Information on your behalf whilst either a) valid grounds for processing exist; or b) a maximum of seven (7) years following termination of your account.". Usually we don't delete customer information early unless specifically requested by you (as the data owner), or for some legal reason.
+
+## Will we still be able to have access to the data?
+
+If you want to export your data out of the system, we are happy to help with that. We don't believe in vendor lock-in or restricting the portability of customers. :)
+
+## How do you ensure that only authorised persons can manage EULA?
+
+Only users (or users in a team) with _Admin_ access on a repository, or _Owner_ access on the account, can modify EULA revisions. As mentioned previously, they can't edit or delete earlier EULA revisions. What they can do: Add a new EULA revision, enable/disable EULA enforcement for that repository.
+
+## Is it possible to restrict access to EULA to certain roles?
+
+As above, EULA are restricted to specific roles already, but it's possible to define your own roles (as such) by creating Teams with the appropriate privileges. For example, you could create a team of users that specifically has _Admin_ access to the repositories (to manage the repository), and then another one that has _Write_ access (for adding new packages). Our recommendation would be to ensure that only appropriate employees have the _Admin_ access, and to greatly restrict who has _Owner_ access on the account itself.
