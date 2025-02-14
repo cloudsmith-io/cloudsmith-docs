@@ -1,21 +1,61 @@
+import { useHotkeys } from 'react-hotkeys-hook';
+
 import styles from './SearchForm.module.css';
 
-export const SearchForm = ({ value, onChange }: SearchFormProps) => {
+export const SearchForm = ({ value, events }: SearchFormProps) => {
+  const ref = useHotkeys<HTMLDivElement>(
+    ['up', 'down', 'enter', 'home', 'end'],
+    (_, handler) => {
+      switch (handler.keys?.join('')) {
+        case 'up':
+          events.goUp();
+          break;
+        case 'down':
+          events.goDown();
+          break;
+        case 'enter':
+          events.goToResult();
+          break;
+        case 'home':
+          events.goToStart();
+          break;
+        case 'end':
+          events.goToEnd();
+          break;
+      }
+    },
+    {
+      enableOnFormTags: true,
+    },
+  );
+
   return (
     <input
       className={styles.root}
+      name="search"
       type="text"
       autoFocus
       placeholder="Search"
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(event) => events.onChange(event.target.value)}
       required
       data-vertical-key="true"
+      autoComplete="off"
+      autoCorrect="off"
+      spellCheck="false"
+      ref={ref}
     />
   );
 };
 
 type SearchFormProps = {
   value: string;
-  onChange: (value: string) => void;
+  events: {
+    onChange: (value: string) => void;
+    goUp: () => void;
+    goDown: () => void;
+    goToResult: () => void;
+    goToStart: () => void;
+    goToEnd: () => void;
+  };
 };

@@ -12,7 +12,7 @@ import { extractMdxMetadata } from '../metadata/util';
 
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
 
-const SNIPPET_PADDING = 30;
+const SNIPPET_PADDING = 300;
 
 export const performSearch = async (
   input: string,
@@ -21,39 +21,25 @@ export const performSearch = async (
   if (!fuzzySearcher) {
     const items: SearchInput[] = [];
 
-    // Documentation MDX
-    const docFiles = await loadMdxInfo();
-    const docContents = await Promise.all(
-      docFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
-    );
-    for (let i = 0; i < docFiles.length; i++) {
-      const info = docFiles[i];
-      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
-      items.push({
-        title,
-        content: docContents[i],
-        path: contentPath(info.slug),
-        section: 'documentation',
-      });
+    // MDX
+    for (const section of sections) {
+      const files = await loadMdxInfo();
+      const contents = await Promise.all(
+        files.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
+      );
+      for (let i = 0; i < files.length; i++) {
+        const info = files[i];
+        const { title } = await extractMdxMetadata(info.file, '', contents[i]);
+        items.push({
+          title,
+          content: contents[i],
+          path: contentPath(info.slug),
+          section,
+        });
+      }
     }
 
-    // Guides
-    const guidesFiles = await loadMdxInfo('api');
-    const guidesContents = await Promise.all(
-      guidesFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
-    );
-    for (let i = 0; i < guidesFiles.length; i++) {
-      const info = guidesFiles[i];
-      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
-      items.push({
-        title,
-        content: guidesContents[i],
-        path: contentPath(info.slug),
-        section: 'guides',
-      });
-    }
-
-    // API swagger
+    // OpenApi
     const schema = await parseSchema();
     const operations = toOperations(schema);
     for (let i = 0; i < operations.length; i++) {
@@ -67,22 +53,6 @@ export const performSearch = async (
       });
     }
 
-    // API MDX
-    const apiFiles = await loadMdxInfo('api');
-    const apiContents = await Promise.all(
-      apiFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
-    );
-    for (let i = 0; i < apiFiles.length; i++) {
-      const info = apiFiles[i];
-      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
-      items.push({
-        title,
-        content: apiContents[i],
-        path: contentPath(info.slug),
-        section: 'api',
-      });
-    }
-
     fuzzySearcher = new Searcher(items, { keySelector: (item) => item.content });
   }
 
@@ -90,7 +60,6 @@ export const performSearch = async (
   const results = fuzzySearcher.search(input, { returnMatchData: true });
   const filtered: SearchResult[] = results
     .filter((res) => sections.includes(res.item.section))
-    //.slice(0, 10) // TODO: Only take first 10 results for now
     .map((res) => {
       const { match, item } = res;
 
@@ -101,9 +70,10 @@ export const performSearch = async (
         .replace(/[^0-9a-z-A-Z \.\:]/g, '')
         .replace(/ +/, ' ');
 
-      // TODO: Limit the output of the item to what we actually need
+      const { ...rest } = item;
+
       return {
-        ...item,
+        ...rest,
         snippet,
         score: res.score,
       };

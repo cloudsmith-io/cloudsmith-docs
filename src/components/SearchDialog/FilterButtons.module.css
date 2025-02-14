@@ -15,6 +15,7 @@
 
 .filtersList {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2xs);
 }
 
@@ -27,16 +28,18 @@
   padding-block: var(--space-3xs);
   padding-inline: var(--space-xs);
   border-radius: var(--border-radius-m);
-  border: 1px solid rgb(42 111 225 / 25%);
+  border: 1px solid var(--color-search-result-filter);
   background-color: var(--base-color-blue-50);
   color: var(--base-color-grey-900);
-  font-size: var(--text-fixed-xs);
+  font-size: var(--text-body-s);
+  white-space: nowrap;
 
   &:not(.filterDisabled) {
     cursor: pointer;
 
-    &:hover {
+    &:is(:hover, :focus) {
       background-color: var(--base-color-blue-100);
+      outline: none;
     }
   }
 }
@@ -45,12 +48,13 @@
   background-color: var(--base-color-grey-900);
   color: var(--base-color-white);
 
-  &:not(.filterDisabled):hover {
+  &:not(.filterDisabled):is(:hover, :focus) {
     background-color: var(--base-color-grey-700);
   }
 }
 
 .filterIcon {
+  flex-shrink: 0;
   width: 16px;
   height: 16px;
 }
