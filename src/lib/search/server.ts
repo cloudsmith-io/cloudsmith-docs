@@ -21,39 +21,25 @@ export const performSearch = async (
   if (!fuzzySearcher) {
     const items: SearchInput[] = [];
 
-    // Documentation MDX
-    const docFiles = await loadMdxInfo();
-    const docContents = await Promise.all(
-      docFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
-    );
-    for (let i = 0; i < docFiles.length; i++) {
-      const info = docFiles[i];
-      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
-      items.push({
-        title,
-        content: docContents[i],
-        path: contentPath(info.slug),
-        section: 'documentation',
-      });
+    // MDX
+    for (const section of sections) {
+      const files = await loadMdxInfo();
+      const contents = await Promise.all(
+        files.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
+      );
+      for (let i = 0; i < files.length; i++) {
+        const info = files[i];
+        const { title } = await extractMdxMetadata(info.file, '', contents[i]);
+        items.push({
+          title,
+          content: contents[i],
+          path: contentPath(info.slug),
+          section,
+        });
+      }
     }
 
-    // Guides
-    const guidesFiles = await loadMdxInfo('api');
-    const guidesContents = await Promise.all(
-      guidesFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
-    );
-    for (let i = 0; i < guidesFiles.length; i++) {
-      const info = guidesFiles[i];
-      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
-      items.push({
-        title,
-        content: guidesContents[i],
-        path: contentPath(info.slug),
-        section: 'guides',
-      });
-    }
-
-    // API swagger
+    // OpenApi
     const schema = await parseSchema();
     const operations = toOperations(schema);
     for (let i = 0; i < operations.length; i++) {
@@ -64,22 +50,6 @@ export const performSearch = async (
         path: apiOperationPath(op.slug),
         section: 'api',
         method: op.method,
-      });
-    }
-
-    // API MDX
-    const apiFiles = await loadMdxInfo('api');
-    const apiContents = await Promise.all(
-      apiFiles.map((info) => readFile(path.join('src', 'content', info.file), 'utf8')),
-    );
-    for (let i = 0; i < apiFiles.length; i++) {
-      const info = apiFiles[i];
-      const { title } = await extractMdxMetadata(info.file, '', docContents[i]);
-      items.push({
-        title,
-        content: apiContents[i],
-        path: contentPath(info.slug),
-        section: 'api',
       });
     }
 
@@ -100,9 +70,10 @@ export const performSearch = async (
         .replace(/[^0-9a-z-A-Z \.\:]/g, '')
         .replace(/ +/, ' ');
 
-      // TODO: Limit the output of the item to what we actually need. Maybe content is not needed at all?
+      const { ...rest } = item;
+
       return {
-        ...item,
+        ...rest,
         snippet,
         score: res.score,
       };

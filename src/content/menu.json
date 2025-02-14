@@ -298,7 +298,7 @@
         "children": [
           {
             "title": "Introduction",
-            "path": "/does-not-exist"
+            "path": "/api/introduction"
           },
           {
             "title": "Endpoints / Versioning",
