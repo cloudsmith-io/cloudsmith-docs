@@ -2,7 +2,13 @@
 
 The documentation of the Cloudsmith API; replacement for [Cloudsmith.io/docs](https://help.cloudsmith.io/docs)
 
-## Articles
+## Getting Started
+
+If you are first getting started, please read the following guide:
+
+- [Getting Started](./docs/getting-started.md)
+
+Then refer to the following guides on how to manage the content of the website:
 
 - [Writing markdown](./docs/markdown.md)
 - [Using snippets](./docs/snippets.md)
