@@ -18,6 +18,36 @@ import { ActionCheckIcon } from './svgs/action/Check';
 import { ActionErrorIcon } from './svgs/action/Error';
 import { EnterIcon } from './svgs/Enter';
 
+import { FormatAlpineIcon } from './svgs/format/Alpine';
+import { FormatCargoIcon } from './svgs/format/Cargo';
+import { FormatChocolateyIcon } from './svgs/format/Chocolatey';
+import { FormatCocoapodsIcon } from './svgs/format/Cocoapods';
+import { FormatComposerIcon } from './svgs/format/Composer';
+import { FormatConanIcon } from './svgs/format/Conan';
+import { FormatCranIcon } from './svgs/format/Cran';
+import { FormatDartIcon } from './svgs/format/Dart';
+import { FormatDebIcon } from './svgs/format/Deb';
+import { FormatDebianIcon } from './svgs/format/Debian';
+import { FormatDockerIcon } from './svgs/format/Docker';
+import { FormatGoIcon } from './svgs/format/Go';
+import { FormatGradleIcon } from './svgs/format/Gradle';
+import { FormatHelmIcon } from './svgs/format/Helm';
+import { FormatHexIcon } from './svgs/format/Hex';
+import { FormatLuarocksIcon } from './svgs/format/Luarocks';
+import { FormatMavenIcon } from './svgs/format/Maven';
+import { FormatNpmIcon } from './svgs/format/Npm';
+import { FormatNugetIcon } from './svgs/format/Nuget';
+import { FormatPowershellIcon } from './svgs/format/Powershell';
+import { FormatPythonIcon } from './svgs/format/Python';
+import { FormatRawIcon } from './svgs/format/Raw';
+import { FormatRedhatIcon } from './svgs/format/Redhat';
+import { FormatRubyIcon } from './svgs/format/Ruby';
+import { FormatSbtIcon } from './svgs/format/Sbt';
+import { FormatSwiftIcon } from './svgs/format/Swift';
+import { FormatTerraformIcon } from './svgs/format/Terraform';
+import { FormatUnityIcon } from './svgs/format/Unity';
+import { FormatVagrantIcon } from './svgs/format/Vagrant';
+
 export const iconRegistry = createIconRegistry({
   close: CloseIcon,
   menu: MenuIcon,
@@ -44,4 +74,33 @@ export const iconRegistry = createIconRegistry({
   'action/copy': ActionCopyIcon,
   'action/check': ActionCheckIcon,
   'action/error': ActionErrorIcon,
+  'format/alpine': FormatAlpineIcon,
+  'format/cargo': FormatCargoIcon,
+  'format/chocolatey': FormatChocolateyIcon,
+  'format/cocoapods': FormatCocoapodsIcon,
+  'format/composer': FormatComposerIcon,
+  'format/conan': FormatConanIcon,
+  'format/cran': FormatCranIcon,
+  'format/dart': FormatDartIcon,
+  'format/deb': FormatDebIcon,
+  'format/debian': FormatDebianIcon,
+  'format/docker': FormatDockerIcon,
+  'format/go': FormatGoIcon,
+  'format/gradle': FormatGradleIcon,
+  'format/helm': FormatHelmIcon,
+  'format/hex': FormatHexIcon,
+  'format/luarocks': FormatLuarocksIcon,
+  'format/maven': FormatMavenIcon,
+  'format/npm': FormatNpmIcon,
+  'format/nuget': FormatNugetIcon,
+  'format/powershell': FormatPowershellIcon,
+  'format/python': FormatPythonIcon,
+  'format/raw': FormatRawIcon,
+  'format/redhat': FormatRedhatIcon,
+  'format/ruby': FormatRubyIcon,
+  'format/sbt': FormatSbtIcon,
+  'format/swift': FormatSwiftIcon,
+  'format/terraform': FormatTerraformIcon,
+  'format/unity': FormatUnityIcon,
+  'format/vagrant': FormatVagrantIcon,
 });

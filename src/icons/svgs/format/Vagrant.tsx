@@ -1,0 +1,20 @@
+import { createIcon, SpecificIconProps } from '../../util/create-icon';
+
+export const FormatVagrantIcon = createIcon<SpecificIconProps>(
+  'format/vagrant',
+  ({ width = 24, height = 24, ...props }) => ({
+    ...props,
+    width,
+    height,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    children: (
+      <>
+        <path
+          d="M18.3095 3.02863L14.3895 5.29182V6.68456L12 12.3032L9.61041 6.68456V5.29182L5.69053 3.02863L3.30377 4.40732V6.00785L8.6164 19.0171L12 20.9714L15.3835 19.0171L20.6962 6.00785V4.40732L18.3095 3.02863Z"
+          fill="currentColor"
+        />
+      </>
+    ),
+  }),
+);
