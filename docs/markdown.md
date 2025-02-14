@@ -202,8 +202,6 @@ You can use the same syntax for other components by replacing the `CodeBlock` co
 
 You can render a row of cards using the `Flex` and `Card` components. You can have as many cards as you want in a flex container, and the `width` property on each card determines how many cards are shown in a row before they go on a new line.
 
-**Note: We still haven't created proper spacings for these components. Go ahead and use the following code below, and then we'll tweak the syntax and spacings so the cards are easy to use**
-
 Show three cards in a row:
 
 ```js
@@ -233,8 +231,6 @@ import { Card, Flex } from '@/components';
   />
 </Flex>;
 ```
-
-````
 
 Show four cards, two in each row:
 
@@ -276,4 +272,16 @@ import { Card, Flex } from '@/components';
   />
 </Flex>;
 ```
-````
+
+The repository has icons for all package formats, so you can easily create a card grid of package formats:
+
+```js
+import { Card, Flex } from '@/components';
+
+<Flex gap="s" align="stretch">
+  <Card title="Alpine Linux" href="/" icon="format/alpine" size="xs" width="quarter" />
+  <Card title="Cargo" href="/" icon="format/cargo" size="xs" width="quarter" />
+  <Card title="Chocolatey" href="/" icon="format/chocolatey" size="xs" width="quarter" />
+  ...
+</Flex>;
+```
