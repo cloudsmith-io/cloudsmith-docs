@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   // First check if this is an MDX file
   const content = await loadMdxInfo('api');
-  const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
+  const mdxInfo = content.filter((info) => info.slug !== '').find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
     return withMdxMetadata(mdxInfo.file, {

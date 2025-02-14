@@ -9,7 +9,7 @@ export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
   const content = await loadMdxInfo('guides');
-  const mdxSlugs = content.map((info) => ({ slug: info.segments }));
+  const mdxSlugs = content.filter((info) => info.slug !== '').map((info) => ({ slug: info.segments }));
   return mdxSlugs;
 };
 

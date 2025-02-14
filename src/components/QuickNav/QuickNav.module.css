@@ -1,6 +1,6 @@
 .root {
   position: sticky;
-  top: var(--space-m);
+  top: calc(var(--space-l) + var(--navbar-height));
   font-size: var(--text-body-s);
 }
 
