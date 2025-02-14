@@ -14,7 +14,9 @@ export const ArrowIcon = createIcon<ArrowIconProps>('arrow', ({ arrowDirection =
 }));
 
 const rotate: Rotate = {
+  up: '-90deg',
   right: '0deg',
+  down: '90deg',
   left: '180deg',
 };
 
@@ -22,7 +24,7 @@ interface ArrowIconProps extends SpecificIconProps {
   arrowDirection?: Direction;
 }
 
-type Direction = 'right' | 'left';
+type Direction = 'right' | 'left' | 'up' | 'down';
 
 type Rotate = {
   [key in Direction]: `${number}deg`;
