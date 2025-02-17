@@ -1,7 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
 import { ApiOperation } from './types';
-import { isHttpMethod, createSlug, parseMenuSegments, apiOperationPath } from './util';
+import { isHttpMethod, createSlug, parseMenuSegments, apiOperationPath, createTitle } from './util';
 import { MenuItem } from '../menu/types';
 
 /**
@@ -39,8 +39,7 @@ export const toOperations = (schema: OpenAPIV3.Document): ApiOperation[] => {
           path,
           menuSegments,
           slug,
-          // TODO when summary property is in swagger
-          title: 'Missing headline for endpoint',
+          title: createTitle(menuSegments),
         });
       }
     }
