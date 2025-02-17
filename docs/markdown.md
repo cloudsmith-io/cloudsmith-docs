@@ -140,6 +140,22 @@ apiKey: '$(CLOUDSMITH_API_KEY)'`}
 </CodeBlock>
 ```
 
+## Icons
+
+You can render icons in content with the `Icon` component.
+
+```mdx
+import { Icon } from '@/icons';
+
+This is an icon: <Icon name="action/check" width={24} height={24} />
+```
+
+You can set the color of the icon by using any of the CSS variables in `variables.css` and passing in as a style attribute:
+
+```mdx
+<Icon name="action/check" style={{ color: 'var(--base-color-blue-500)' }} width={24} height={24} />
+```
+
 ## Images
 
 We use a custom component for images in order to provide options for different layout mechanisms. Images can be saved anywhere in the repository and should be imported into the `.mdx` file and passed to the `BlockImage` component.
