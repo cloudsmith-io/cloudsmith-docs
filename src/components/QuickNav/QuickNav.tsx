@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
 import { cx } from 'class-variance-authority';
+import { usePathname } from 'next/navigation';
 
 const headingsToObserve = ':scope > :is(h2, h3, h4, h5, h6)';
 
