@@ -19,7 +19,7 @@ If you need to create an icon with a different size, you can set the custom size
 ```js
 import { Icon } from '@/icons';
 
-<Icon name="close" title="Close icon" />;
+<Icon name="action/close" title="Close icon" />;
 ```
 
 Outputs:
@@ -34,7 +34,7 @@ Outputs:
 **As symbol**
 
 ```js
-<Icon name="close" as="symbol" title="Close" />
+<Icon name="action/close" as="symbol" title="Close" />
 ```
 
 Outputs:
@@ -51,7 +51,7 @@ Outputs:
 **As use**
 
 ```js
-<Icon name="close" as="use" title="Close" />
+<Icon name="action/close" as="use" title="Close" />
 ```
 
 Outputs:

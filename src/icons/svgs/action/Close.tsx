@@ -1,6 +1,6 @@
-import { createIcon } from '../util/create-icon';
+import { createIcon } from '../../util/create-icon';
 
-export const CloseIcon = createIcon('close', (props) => ({
+export const CloseIcon = createIcon('action/close', ({ ...props }) => ({
   ...props,
   fill: 'none',
   children: (
