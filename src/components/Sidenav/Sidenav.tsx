@@ -36,7 +36,6 @@ export const Sidenav = ({ items }: SidenavProps) => {
   return (
     <>
       <button type="button" className={styles.toggleButton} onClick={toggle}>
-        <ArrowIcon name="arrow" arrowDirection="left" as="svg" title="" className={styles.toggleIconBack} />
         <span className={styles.toggleButtonText}>{activeLabel}</span>
         <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
       </button>
