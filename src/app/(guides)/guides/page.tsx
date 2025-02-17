@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 import { TimeAgo } from '@/components';
+import WithQuicknav from '@/components/WithQuickNav';
 
 export const generateStaticParams = async () => {
   return [{}]; // Generate just the root /api route
@@ -37,10 +38,10 @@ const Page = async () => {
     const lastUpdated = getLastUpdated(mdxModule);
 
     return (
-      <div>
+      <WithQuicknav>
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
-      </div>
+      </WithQuicknav>
     );
   }
 

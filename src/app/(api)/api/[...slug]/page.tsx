@@ -5,6 +5,7 @@ import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
+import WithQuicknav from '@/components/WithQuickNav';
 
 import styles from './page.module.css';
 
@@ -75,10 +76,10 @@ const Page = async ({ params }: PageProps) => {
     const lastUpdated = getLastUpdated(mdxModule);
 
     return (
-      <>
+      <WithQuicknav>
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
-      </>
+      </WithQuicknav>
     );
   }
 
