@@ -32,8 +32,7 @@ describe('lib', () => {
           expect(operation?.path).toEqual('/orgs');
           expect(operation?.method).toEqual('get');
           expect(operation?.slug).toEqual('orgs/list');
-          // TODO when summary property is in swagger
-          expect(operation?.title).toEqual('Missing headline for endpoint');
+          expect(operation?.title).toEqual('Orgs List');
         });
       });
 

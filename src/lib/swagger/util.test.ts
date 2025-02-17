@@ -1,4 +1,4 @@
-import { createSlug, parseMenuSegments } from './util';
+import { createSlug, createTitle, parseMenuSegments } from './util';
 
 describe('lib', () => {
   describe('swagger', () => {
@@ -26,6 +26,19 @@ describe('lib', () => {
           ];
           for (const item of mapping) {
             expect(createSlug(item.from)).toEqual(item.to);
+          }
+        });
+      });
+      describe('createTItle', () => {
+        test('it creates proper slug', async () => {
+          const mapping = [
+            { from: ['Audit', 'Log', 'Namespace', 'List'], to: 'Audit Log Namespace List' },
+            { from: ['Badges', 'Version', 'List'], to: 'Badges Version List' },
+            { from: ['Billing', 'Account', 'Status'], to: 'Billing Account Status' },
+            { from: ['Billing', 'Invoices'], to: 'Billing Invoices' },
+          ];
+          for (const item of mapping) {
+            expect(createTitle(item.from)).toEqual(item.to);
           }
         });
       });
