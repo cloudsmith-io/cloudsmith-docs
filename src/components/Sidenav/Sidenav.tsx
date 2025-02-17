@@ -2,7 +2,6 @@
 
 import { useNavigation } from '@/app/navigation';
 import { Icon } from '@/icons';
-import { ArrowIcon } from '@/icons/Arrow';
 import { ChevronIcon } from '@/icons/Chevron';
 import { MenuItem } from '@/lib/menu/types';
 import { cx } from 'class-variance-authority';
