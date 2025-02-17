@@ -1,0 +1,44 @@
+import { BlockImage } from '@/components'
+import img_scim_steps from './images/scim-with-okta/039ea4c884315e862a79be98f12717b08e6d8092fc23f79beb23dfc7c4cc2550-scim-steps.png'
+import imgae20261_Screenshot_2022_11_15_at_10_00_08 from './images/scim-with-okta/ae20261-Screenshot_2022-11-15_at_10.00.08.png'
+import imga4625db_Provisioning from './images/scim-with-okta/a4625db-Provisioning.png'
+import img93fc9ed_To_app from './images/scim-with-okta/93fc9ed-To_app.png'
+
+# SCIM with Okta
+
+SCIM, or System for Cross-domain Identity Management, is an open standard designed to manage user identity information. Cloudsmith is SCIM 2.0-compliant. With Cloudsmith's support for SCIM, you can automatically provision new users, de-provision existing users, and update existing users' profile information based on changes within your Identity Provider (IdP).
+
+To begin using SCIM, you need to enable the SCIM functionality in the [Cloudsmith Workspace Settings](https://help.cloudsmith.io/docs/organisations#scim)
+
+Follow these steps:
+
+1. Navigate to the Cloudsmith Workspace settings
+2. Navigate to Authentication >> SCIM settings and enable the SCIM functionality by selecting "Allow SCIM."
+
+<BlockImage src={img_scim_steps} alt=""></BlockImage>
+
+Once SCIM functionality is allowed in Cloudsmith, you then enable SCIM for the Cloudsmith application in Okta on the "General" tab:
+
+<BlockImage src={imgae20261_Screenshot_2022_11_15_at_10_00_08} alt=""></BlockImage>
+
+You then use the "Provisioning" tab to configure SCIM as follows: 
+
+<BlockImage src={imga4625db_Provisioning} alt=""></BlockImage>
+
+|||
+|:---|:---|
+|SCIM Connector base URL|https://api.cloudsmith.io/scim/v2|
+|Unique Identifier for users|email|
+|Supported provisioning actions|Push New Users Push<br />Profile Updates|
+|Authentication Mode|Basic Auth|
+|Basic Auth Username|token|
+|Basic Auth Password|Please see your [Organization Account Settings](https://help.cloudsmith.io/docs/organisations#scim) on Cloudsmith for your SCIM password.|
+
+Then test and save the configuration. 
+
+Once saved, you can then enable the "Create Users", "Update User Attributes" and "Deactivate Users" functionality via the "Provisioning" > "To App" tab: 
+
+<BlockImage src={img93fc9ed_To_app} alt=""></BlockImage>
+
+
+Okta is now configured to provision, update and de-provision users from your Cloudsmith organization.

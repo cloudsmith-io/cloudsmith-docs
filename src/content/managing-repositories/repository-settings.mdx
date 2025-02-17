@@ -1,0 +1,139 @@
+import { Note, BlockImage } from '@/components'
+import img_rpm_cloudsmith_rpm_example_1_0_1_COhhH8fjPOlhiPad_Pro_2 from './images/repository-settings/5f1d2af67e122e069635226dcf071ba5ee9f2d3f07791b1df09776a34af1b3ce-app.cloudsmith.com_demo_product-b_rpm_cloudsmith-rpm-example_1.0-1_COhhH8fjPOlhiPad_Pro_2.png'
+import img_repo_settingsiPad_Pro from './images/repository-settings/1502bb19617cd22e2d99ddc9fa939b9277a70d734a873d547c5efa8bf6c8d1b4-app.cloudsmith.com_demo_examples-repo_settingsiPad_Pro.png'
+import img_repo_settingsiPad_Pro_1 from './images/repository-settings/32fd74ae6dcff4f8d1a4b6b673cd140762961c549b7abdf99da9a92d54c7df3e-app.cloudsmith.com_demo_examples-repo_settingsiPad_Pro_1.png'
+import img_repo_settingsiPad_Pro_1_2 from './images/repository-settings/7f03773cfbd0a4312bd325b6ae48f05903d82c4707f3e96c3733bd915721e50a-app.cloudsmith.com_demo_examples-repo_settingsiPad_Pro_1_2.png'
+import img_repo_settingsiPad_Pro_2 from './images/repository-settings/a5b356e11c9ad0d3ff02db63dad097428f8f5fa2409b33e5d89573e30ca83d0a-app.cloudsmith.com_demo_examples-repo_settingsiPad_Pro_2.png'
+import img_repo_settingsiPad_Pro_3 from './images/repository-settings/751782b2e9b2b313056137fec7e3e98f5e9c21a9038fca5d77b0ebc49d74c385-app.cloudsmith.com_demo_examples-repo_settingsiPad_Pro_3.png'
+
+# Repository Settings
+
+<Note variant="note">
+  When changing or modifying any repository settings please be sure to click the blue "Update Settings" button to apply your changes.
+</Note>
+
+## Repository Name and Description
+
+<BlockImage src={img_rpm_cloudsmith_rpm_example_1_0_1_COhhH8fjPOlhiPad_Pro_2} alt="Repository Name and Description"></BlockImage>
+
+You can change the name or description of a repository at any time. 
+
+Please be aware that the name is just a descriptive name, it is not the repository slug / identifier.  Changing the name of the repository will not result in breaking any configurations used by client programs or other users.
+
+To change the repository slug / identifier, see the section on [Potentially Unsafe Actions](https://help.cloudsmith.io/docs/repository-settings#potentially-unsafe-actions).
+
+***
+
+## Repository Privileges
+
+<BlockImage src={img_repo_settingsiPad_Pro} alt="Repository Privileges"></BlockImage>
+
+Repository privileges allow you to configure what permissions are required to perform actions on the repository.  
+
+You assign a permission level to a Team or User when you grant them access to the repository (see [Access Controls](doc:access-controls) for information on granting access to a repository), and then you can set precisely what actions that permission level can perform using the repository privileges
+
+For Example:  
+If you wanted a Team or User to only be able to set or use Entitlement Tokens, then you could set the permission level required for **Set/Use Entitlements** to **Read**, and set all other action to **Write** or above.  
+
+Then in the repository [Access Controls](doc:access-controls), you would set the Team or User to only have **Read** permissions on the repository.  As a result, they would be able to set or use Entitlement Tokens, but would not have permission for any other repository actions.
+
+***
+
+## User / Self Privileges
+
+<BlockImage src={img_repo_settingsiPad_Pro_1} alt="Repository User / Self Privileges"></BlockImage>
+
+**User Entitlements Enabled**  
+If checked, users can use and manage their own user-specific entitlement token for the repository (if the repository is a private repository).  
+If not checked, user-specific entitlement tokens are disabled for all users.
+
+**Copy / Move / Delete / Resync**  
+If checked, users can copy/move/delete and resync packages that they have uploaded. This assumes that they still have **write** privileges for the repository. These override the repository privilege level setting for the repository. 
+
+## Miscellaneous Settings
+
+<BlockImage src={img_repo_settingsiPad_Pro_1_2} alt="Miscellaneous Repository Settings"></BlockImage>
+
+**Use/Configure NoArch Packages**  
+Enables noarch packages (if supported by the package type) in installations/configurations. A noarch package is one that is not tied to a specific system architecture (like i686) 
+
+**Use/Configure Source Packages**  
+If checked, source packages (if supported) are enabled in installations/configurations. A source package is one that contains source code rather than built binaries.
+
+**Index Package File Contents**  
+Enables the indexing of files within a package. This will increase the synchronization time for a package but it is recommended to keep this enabled unless synchronization time is significantly impacted. 
+
+**Replace Packages By Default**  
+Enables uploaded packages to overwrite/replace any others with the same attributes (e.g version) by default. This only applies if the user has the required privilege for republishing AND has the required privilege to delete packages that they do not own. 
+
+**Contextual Authentication Realm**  
+If checked, missing credentials for this repository where basic authentication is required shall present an enriched value in the 'WWW-Authenticate' header containing the namespace and repository. This can be useful for tools such as SBT, where the authentication realm is used to distinguish and disambiguate credentials.
+
+**Strict Npm Validation**  
+Enables strict validation of npm packages to ensure that they match the specification. If you have packages that are old or slightly off-spec, you can disable this, but we can't guarantee that the packages will work with the npm CLI or other tooling.
+
+**Serve index for raw packages**  
+Enables the generation of HTML and JSON indexes that list all available raw packages in the repository
+
+**Display generated GPG signatures for the raw package index**  
+If checked, the HTML and JSON indexes will display raw package GPG signatures alongside the index packages. 
+
+**Docker Auth Refresh Enabled**  
+Enables the issuing of refresh tokens in addition to access tokens for Docker authentication. This allows unlimited extension of the lifetime of access tokens.
+
+**Use Debian Labels**  
+Enables a 'Label' field in Debian-based repositories. It will contain a string that identifies the entitlement token used to authenticate the repository in the form of `source=t-<identifier>`; or `source=none` if no token was used. You can use this to help with pinning.
+
+**Scan for Vulnerabilities**  
+If checked, vulnerability scanning will be enabled for all supported packages within this repository.
+
+**Use crates.io as default Cargo upstream**  
+Enables the assumption that Cargo crates which do not set an explicit value for 'registry' will be available from crates.io. If not enabled, dependencies with unspecified 'registry' values will be assumed to be available in the registry being uploaded to. Disable this if you want to ensure that dependencies are only ever installed from Cloudsmith unless explicitly specified as belonging to another registry.
+
+**Apply Latest Tag for Pre-Release Versions**  
+If checked, packages pushed with a pre-release component on that version will be marked with the 'latest' tag. Please note, if unchecked, a repository containing ONLY pre-release versions will have no version marked latest which may cause incompatibility with native tools.
+
+## Custom GPG Signing Key
+
+You can specify a custom GPG key for signing repository metadata and packages. We will automatically derive the public key and fingerprint for any custom GPG key specified.  
+
+If your custom GPG key is encrypted, please also provide the passphrase for it. 
+
+## Custom RSA Signing Key
+
+You can specify a custom RSA key for signing repository metadata and packages. We will automatically derive the public key and fingerprint for any custom RSA key specified.  The private key must be in PKCS8 format.
+
+If your custom RSA key is encrypted, please also provide the passphrase for it. 
+
+<Note variant="note">
+  Adding a custom GPG or RSA key will take effect immediately, but will not affect any existing packages that were signed with the previous key.  Packages signed with the previous key will still be available and the previous key can still be fetched.
+</Note>
+
+
+## Potentially Unsafe Actions
+
+<BlockImage src={img_repo_settingsiPad_Pro_2} alt="Potentially Unsafe Actions"></BlockImage>
+
+## Dangerous Actions
+
+<Note variant="caution" headline="Dangerous Actions">
+  The following actions are marked as dangerous.
+</Note>
+
+The following actions are marked as dangerous as initiating can affect a user's or customer's ability to access a repository.   
+
+For example, a Repository Transfer will require the repository users to update their configuration and may require coordination with your user base. Alternatively, a Repository Delete is irreversible will prevent exiting users from accessing it. In both situations, it's worth considering your users' impact and what communication is required before using these actions.
+
+<BlockImage src={img_repo_settingsiPad_Pro_3} alt="Dangerous Actions"></BlockImage>
+
+### Transferring a repository
+
+A repository transfer is initiated from within the repository settings of the repository you wish to transfer. The action to perform the transfer is listed under "Actions (Danger)".
+
+When you initiate a repository transfer, the owner of the destination account/namespace will be notified that there is a transfer pending approval, and they then need to confirm that the transfer is accepted on the receiving repository.
+
+Once the destination account/namespace has accepted the transfer, the repository will then be transferred to the destination account/namespace immediately. 
+
+The repository storage size will immediately count towards the storage limits for the destination account/namespace. Any Entitlement Tokens associated with the repository will also be transferred. 
+
+Collaborators for the repository will be reset and any existing clients of the repository will need to update their URIs to point to the new location.

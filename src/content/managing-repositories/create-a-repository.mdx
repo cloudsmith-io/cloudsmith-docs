@@ -1,0 +1,119 @@
+import { Note, BlockImage } from '@/components'
+import img12b8126_repo_create from './images/create-a-repository/12b8126-repo-create.png'
+import img_create_repository from './images/create-a-repository/5c579b6db69372fc661ddbee38b30cf4908cbfe1bf51f6eb3b859e745905eb08-create-repository.png'
+import img_create_a_new_repo from './images/create-a-repository/92ff99444bad9c24826e2964901365d3286245ff96bfbcfa403ddd544f279cee-create-a-new-repo.png'
+import img_repo_settings from './images/create-a-repository/28d77d9f603f2f346671ced886d5f1f537f6580dd709b46fa1fb57acec3542c3-repo-settings.png'
+
+# Create a Repository
+
+You can create a new repository in three ways: 
+
+- Via the Cloudsmith CLI
+- Via the Website UI
+- Via the Cloudsmith API
+
+## Via the Cloudsmith CLI
+
+In the following examples:
+
+|Identifier|Description|
+|:---|:---|
+|OWNER|A Cloudsmith organization / workspace / namespace account name|
+|REPO-NAME|A name for your repository. Maximum 50 characters.|
+|REPO-DESC|Description for your Repository|
+|REPO-TYPE|The type of repository - "Public" or "Private"|
+|REPO-IDENTIFIER|(Optional) A unique identifier for the repository, also referred to as a 'slug'. This will form part of the URI for your repository. It can only contain lowercase alphanumeric characters, hyphens, and underscores and must be a minimum of 2 characters.|
+
+<Note variant="note">
+  If you do not specify a repository identifier, we will generate one for you. We will try to base this on the repository name where possible but may also append some characters to it. If you require a specific repository identifier, we recommend that you do specify one.
+</Note>
+
+Create a `REPO-CONFIG.json` file with the following: 
+
+```json
+{
+    "name": "REPO-NAME",
+    "description": "REPO-DESC",
+    "repository_type_str": "REPO-TYPE",
+    "slug": "REPO-IDENTIFIER"
+}
+```
+
+You can create then a repository via the [Cloudsmith CLI](/getting-started/cli) using the following command: 
+
+```
+cloudsmith repos create OWNER REPO-CONFIG.json
+```
+
+### Example
+
+`example-repo-config.json` file:
+
+```json
+{
+    "name": "Example Repository",
+    "description": "Example packages repository",
+    "repository_type_str": "Private",
+    "slug": "example-repo1"
+}
+```
+
+Create repository command: 
+
+```shell
+cloudsmith repos create demo example-repo-config.json
+```
+
+<BlockImage src={img12b8126_repo_create} alt="cloudsmith repos create command"></BlockImage>
+
+## Via the Website UI
+
+You can create a repository by navigating to the Repositories overview and clicking the "New repository" button.
+
+<BlockImage src={img_create_repository} alt=""></BlockImage>
+
+That will take you to the "Create a new Repository" form:
+
+<BlockImage src={img_create_a_new_repo} alt=""></BlockImage>
+
+Here, you simply name your repository and click "Create Repository," and you will create a new private repository. 
+
+<Note variant="note" headline="Multi-Format Repositories">
+  All Cloudsmith repositories are multi-format. This means you can store artifacts of different formats in the same logical grouping. A Maven package can sit beside a Debian package, a Ruby Gem or a Python package!
+</Note>
+
+You can manage your Repository by navigating to your new repository and selecting Settings. 
+
+<BlockImage src={img_repo_settings} alt=""></BlockImage>
+
+From there, you can manage:
+
+- General settings
+- Access control
+- Retention rules
+- EULA enforcement
+- GEO / IP rules
+- Key management
+- Webhooks
+
+<Note variant="note" headline="Changing Repository Settings">
+  The good thing about Cloudsmith is that you can change everything later. The name, slug, description, repository type can all be changed if necessary. Although once shared, if you change the settings or naming you may need to communicate this to all interested parties.
+</Note>
+
+### Private Repositories
+
+All paid accounts come with unlimited Private repositories.
+
+Private repositories are private. If required, external access to any files in a private repository is controlled by our Entitlement system. See "[How To: Sharing a Private Package](/artifact-management/sharing-a-private-package)" for more details.
+
+### Broadcasts
+
+Cloudsmith Broadcasts lets you distribute packages to the public. You can enable broadcasting during repository creation, which will make the packages in the repository available for download without authentication. 
+
+## Via the Cloudsmith API
+
+For details on how to create a repository via the Cloudsmith API, please see the "Create a Repository" section of the [API Reference](https://help.cloudsmith.io/reference#repos_create), including an interactive sandbox where you can test your API Calls.
+
+<Note variant="note">
+  It is not currently possible to create Open Source repositories via the Cloudsmith API.
+</Note>

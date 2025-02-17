@@ -1,0 +1,42 @@
+import { BlockImage } from '@/components'
+import img from './images/support/NQA_ISO_27001_Logo.jpg'
+
+# Security at Cloudsmith
+Security is paramount and we are actively engaged in continuous security and always improving the security of our processes and services. If you need more information than provided here, please [contact us](/contact-us).
+
+Cloudsmith has been independently audited and verified against [ASVS 4.0, Level 2](https://owasp.org/www-project-application-security-verification-standard/). To accomplish this, we built-in security measures at each stage of architecting the Cloudsmith cloud-native platform and use best-in-class security tools and practices to maintain a high level of security focus.
+
+[View Security Policy](/supply-chain-security/security-policy)
+
+
+## Encryption of sensitive data and communication
+
+All data is encrypted in transit, through all layers of our application and processing. Typically this is [TLS1.2+](https://en.wikipedia.org/wiki/Transport_Layer_Security) but supporting TLS1.1 for compatibility. 
+
+All data is encrypted at rest. This is a combination of [AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) and AWS-based [KMS](https://aws.amazon.com/kms/) for packages, and [Fernet](https://cryptography.io/en/latest/fernet/) based (plus others) for "sensitive data" in relational data.
+
+Encryption keys are either [HSM](https://en.wikipedia.org/wiki/Hardware_security_module) (Hardware Security Module), KMS (Key Management Service) or via environment (symmetric with rotations) depending on what's been accessed. Rotation is handled internally.
+
+## Vulnerability disclosure and Bug Bounty program
+
+Security issues are considered a higher priority than all other issues, and the team will investigate and respond to any reported vulnerability in scope. We request that you do not publicly disclose the issue until it has been identified and resolved by Cloudsmith.
+
+We understand the hard work and knowledge required to identify viable security issues. We offer a reward program for responsibly disclosed vulnerabilities in scope to show our appreciation.
+
+Details of our active, open-ended bug bounty program [are available here](https://help.cloudsmith.io/docs/bug-bounty-programme).
+
+You can see some of the exploit categories [identified and fixed here](https://help.cloudsmith.io/docs/exploits-hall-of-fame).
+
+## Security Certifications
+
+<BlockImage src={img} alt=""></BlockImage>
+
+Cloudsmith is certified (certificate: GB21/969278) under the Information Security Management Systems standard ISO27001:2013, also known as ISO27001. The current certification was conducted by [NQA](https://www.nqa.com).
+
+ISO27001 certification details the requirements for implementing an Information Security Management System (ISMS) within organizations to ensure that the information assets they possess are more secure. Designed to cover much more than just IT, it is a complete end-to-end framework of policies and procedures that includes people, processes, and controls at all levels of the business.
+
+ISO27001 certification demonstrates Cloudsmith's commitment to security and privacy.
+
+The ISO27001 cert can be downloaded [here](https://dl.cloudsmith.io/public/cloudsmith/cloudsmith-documentation/raw/files/CloudsmithLtd-ISMS2K22.pdf).
+
+For any information about our ISO27001 certification contact us at [support@cloudsmith.io](mailto:support@cloudsmith.io).

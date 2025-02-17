@@ -1,0 +1,57 @@
+import { Note, BlockImage } from '@/components'
+import imgdd89322_licence_compliance from './images/license-compliance/dd89322-licence-compliance.png'
+import img26d0615_licence_details from './images/license-compliance/26d0615-licence-details.png'
+
+# License Compliance
+
+---
+License Compliance provides you with an overall view of the state of licenses for the repository as a whole and gives you at-a-glance statistics on what licenses you are currently using. It also allows you to edit/change the license associated with a package held within Cloudsmith. 
+
+If you're interested in restricting the use of packages with certain licenses, please review our [License Policy documentation](/supply-chain-security/license-policy) to learn how to use policies to automatically quarantine packages and ensure organizational compliance.  
+
+## Overview
+
+<BlockImage src={imgdd89322_licence_compliance} alt="License Compliance Overview"></BlockImage>
+
+The License Compliance page shows a breakdown of the license associated with each package stored in the repository. It provides basic statistics on overall license usage and coverage for the repository. 
+
+**Total Packages Chart**  
+The total packages chart shows the number of packages of each format in the repository
+
+**Licensed Packages Chart**  
+The licensed packages chart shows the number of each license type in the repository
+
+**Licensed / Unlicensed Chart**  
+The licensed / unlicensed chart shows the total number of licensed versus unlicensed packages in the repository
+
+<Note variant="note" headline="Dependencies">
+  Cloudsmith currently provides License data for the packages it knows about or has access to. A package might have a dependency on another package with a different license which is unknown and therefore not reported.
+</Note>
+
+## Edit a License
+
+The license defined within a package's metadata is automatically matched as accurately as possible to the SPDX License List.
+
+The SPDX License List is a list of commonly found licenses and exceptions used in free and open source and other collaborative software or documentation. The purpose of the SPDX License List is to enable easy and efficient identification of such licenses and exceptions in an SPDX document, in source files or elsewhere. The SPDX License List includes a standardized short identifier, full name, vetted license text including matching guidelines markup as appropriate, and a canonical permanent URL for each license and exception.
+
+When a license is matched automatically, a description is provided of the license as defined within the package's metadata, a confidence percentage of how accurate the match is, and the new license that has been applied. You will see a description like the following on the edit page for any license that has been automatically applied:
+
+_The Apache 2.0 license provided within this package's metadata is a 97% match to a Apache License 2.0 License SPDX license and was automatically added to this package_
+
+Anytime the match is not accurate to a high percentage (less than 75%), the parsed license is greater than 60 characters, or the license is not supplied, we leave the license empty for you to decide how you want to resolve it.
+
+Click the blue "Edit" button on the package that you wish to change / edit the license for. You are then presented with the Edit License form: 
+
+<BlockImage src={img26d0615_licence_details} alt="Edit License form"></BlockImage>
+
+You can then select a license from the drop-down menu.  In addition, you can enter a URL for the license, and any notes that you require. 
+
+You can also add a license override, where you can mark a package as "ignored" or "purchased".
+
+Click the green "Edit" button to apply your changes and return to the license overview page.
+
+Please Note: Currently editing the License changes the Cloudsmith held metadata. It does not write the new License to the package itself.
+
+## Disclaimer
+
+Cloudsmith will not be held accountable for any package or dependency used that has an undesirable license or affects your IP rights in any way.

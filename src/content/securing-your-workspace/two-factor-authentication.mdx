@@ -1,0 +1,25 @@
+import { BlockImage } from '@/components'
+import img_Screenshot_2024_10_18_at_22_37_36 from './images/two-factor-authentication/771f8628256acdf27eb960109eada54ac2515497fe27feb4b512a3be169253d5-Screenshot_2024-10-18_at_22.37.36.png'
+import img_Screenshot_2024_10_18_at_22_39_03 from './images/two-factor-authentication/24f0bbc76e7cafb2884c549324b3afc3de9b9ebccb6fec9cef8f4dd3cbe64bd4-Screenshot_2024-10-18_at_22.39.03.png'
+import img_Screenshot_2024_10_18_at_22_41_19 from './images/two-factor-authentication/18eba4db98546831e2b0ff8daf7f41b058b27c656b6fc8b417973d037b40fcd0-Screenshot_2024-10-18_at_22.41.19.png'
+
+# Two-Factor Authentication
+
+Two times the security. Twice as secure. Right? Well, that only matters if the base level of security is strong, to begin with. At Cloudsmith, security is one of our most paramount concerns. We utilize our collective years across different disciplines, such as financial technology and Internet startups, to apply this to package management. You can see this in the architectural DNA of the service, such as how we process packages away from the front-end, through the utilization of front-end security techniques, such as the use of Content Security Policy (CSP), HTTP Strict Transport Security (HSTS), etc.
+
+We provide support for two-factor authentication via a TOTP (Time-based One-time Password Algorithm) device, such as Google Authenticator, LastPass Authenticator, etc.:  
+
+<BlockImage src={img_Screenshot_2024_10_18_at_22_37_36} alt=""></BlockImage>
+
+Once you've completed enrolment (i.e. registration of your device with us), you will be challenged to authenticate via the device after social or password-based login. You do this by entering a 6-digit pin that your device presents. If you forget your 6-digit pin, we also offer a recovery service using disposable tokens.
+
+If you're a member of an organization with "Owner" permissions, you can also force **Enforce Enrolment** of Two-Factor for everyone in the organization: 
+
+<BlockImage src={img_Screenshot_2024_10_18_at_22_39_03} alt=""></BlockImage>
+
+A flag that denotes 2fa within the organization members' list will tell you if the member has two-factor enabled or not: 
+
+<BlockImage src={img_Screenshot_2024_10_18_at_22_41_19} alt=""></BlockImage>
+
+If you enforce enrolment and a User hasn't yet enrolled, they will not be able to access any of the pages for the organization (e.g. they can't view or manipulate packages). If you are security conscious, please consider enabling this.
+

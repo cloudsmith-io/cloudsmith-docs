@@ -1,0 +1,104 @@
+import { BlockImage } from '@/components'
+import imgec90d62_Screenshot_2022_09_01_at_14_11_13 from './images/security-scanning/ec90d62-Screenshot_2022-09-01_at_14.11.13.png'
+import img40fd4c3_Screenshot_2022_09_01_at_14_21_34 from './images/security-scanning/40fd4c3-Screenshot_2022-09-01_at_14.21.34.png'
+import imgb5651a5_Screenshot_2022_09_01_at_14_02_51 from './images/security-scanning/b5651a5-Screenshot_2022-09-01_at_14.02.51.png'
+import img783596c_Screenshot_2022_09_01_at_14_03_52 from './images/security-scanning/783596c-Screenshot_2022-09-01_at_14.03.52.png'
+
+# Security Scanning
+
+Cloudsmith Security Scanning will automatically scan supported package types for CVEs upon upload of a package. You can also trigger subsequent scans manually via the Web UI, and via the Cloudsmith API. 
+
+You can use the results of a Cloudsmith Security Scan to drive other actions such as to [quarantine a package](doc:package-quarantine), or as part of a package promotion workflow. 
+
+Scan results are available via the [Web UI](https://help.cloudsmith.io/docs/security-scanning#scan-results-via-the-cloudsmith-web-ui), the [Cloudsmith API](https://help.cloudsmith.io/reference/vulnerabilities_list) or even as a [Webhook](doc:webhooks).
+
+## Supported Formats
+
+Cloudsmith's Security Scanning feature is available for the following package formats:
+
+- [Cargo](/supported-formats/cargo-registry) 
+- [Composer](/supported-formats/composer-repository) 
+- [Conan](/supported-formats/conan-repository)
+- [Dart](/supported-formats/dart-repository)
+- [Docker](/supported-formats/docker-registry) 
+- [GoLang](/supported-formats/go-registry)
+- [Hex](/supported-formats/hex-repository)
+- [Maven](/supported-formats/maven-repository)
+- [npm](/supported-formats/npm-registry) 
+- [NuGet](/supported-formats/nuget-feed) 
+- [Python](/supported-formats/python-repository) 
+- [Ruby](/supported-formats/ruby-repository) 
+- [Swift](/supported-formats/swift-registry)
+
+## Data Sources
+
+| Language / Framework | Source                                                                                                                                                                                     |
+| :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C, C++               | 1. [GitLab Advisories Community](https://gitlab.com/gitlab-org/advisories-community)                                                                                                       |
+| Dart                 | 1. [GitHub Advisory Database](https://github.com/advisories?query=ecosystem%3Apub)                                                                                                         |
+| Go                   | 1. [GitLab Security Advisories](https://gitlab.com/gitlab-org/advisories-community) 2. [Go Vulnerability Database](https://pkg.go.dev/vuln/)                                               |
+| Hex                  | 1. [GitHub Advisory Database](https://github.com/advisories?query=ecosystem%3Aerlang)                                                                                                      |
+| Java                 | 1. [GitHub Maven Security Advisories](https://github.com/advisories?query=ecosystem%3Amaven) 2. [GitLab Security Advisories](https://gitlab.com/gitlab-org/advisories-community)           |
+| .NET                 | 1. [GitHub .NET Security Advisories](https://github.com/advisories?query=ecosystem%3Anuget)                                                                                                |
+| Node.js              | 1. [GitHub NodeJS Security Advisories](https://github.com/advisories?query=ecosystem%3Anpm) 2. [NodeJS Ecosystem Security Working Group](https://github.com/nodejs/security-wg)            |
+| PHP                  | 1. [GitHub PHP Security Advisories](https://github.com/advisories?query=ecosystem%3Acomposer) 2. [Friends of PHP Security Advisories](https://github.com/FriendsOfPHP/security-advisories) |
+| Python               | 1. [GitHub Python Security Advisories](https://github.com/advisories?query=ecosystem%3Apip) 2. [Safety DB](https://github.com/pyupio/safety-db)                                            |
+| Ruby                 | 1. [GitHub Ruby Security Advisories](https://github.com/advisories?query=ecosystem%3Arubygems) 2. [Ruby Advisory Database](https://github.com/rubysec/ruby-advisory-db)                    |
+| Rust                 | 1. [RustSec Advisory Database](https://github.com/RustSec/advisory-db)                                                                                                                     |
+| Swift                | 1. [GitHub Advisory Database](https://github.com/advisories?query=ecosystem%3Aswift)                                                                                                       |
+
+### NVD
+
+| Name                            | Source                          |
+| :------------------------------ | :------------------------------ |
+| National Vulnerability Database | 1. [NVD](https://nvd.nist.gov/) |
+
+If an advisory does not provide severity information, it falls back to NVD's CVSS scoring.
+
+## Security Scan Results
+
+The results of a security scan are available from the Cloudsmith Web UI, the Cloudsmith API and also via a Webhook. 
+
+### Scan results via the Cloudsmith Web UI
+
+You can find an overview of all the packages that have been scanned, or are awaiting an additional scan via the "Security Scanning" page in any repository: 
+
+<BlockImage src={imgec90d62_Screenshot_2022_09_01_at_14_11_13} alt=""></BlockImage>
+
+The Security Scanning page shows a breakdown of the number of packages scanned/not scanned, the age of scans (how long ago they were performed) and the pass/fail count overall. 
+
+For each listed package, you can also see the number of vulnerabilities found and the maximum severity of those found. 
+
+For more information and details, you can view the individual vulnerabilities found on the "Scans" tab on any package detail page: 
+
+<BlockImage src={img40fd4c3_Screenshot_2022_09_01_at_14_21_34} alt=""></BlockImage>
+
+### Scan results via the Cloudsmith API
+
+You can use the Cloudsmith [Vulnerabilities API endpoints](https://help.cloudsmith.io/reference/vulnerabilities_namespace_list) to return the scan results for an entire organization account, a specific repository, an individual package or just a single scan id. 
+
+### Scan results via Webhook.
+
+Please see our [Webhooks](doc:webhooks) documentation for details of how to create a webhook and the full range of package events that are supported. 
+
+## Performing additional security scans
+
+You can perform additional security scans after the scan that is performed when the package is uploaded using the Cloudsmith UI or API. 
+
+### Additional security scans via the Cloudsmith Web UI
+
+You can select one or more packages that you wish to security scan in the packages list in any repository:
+
+<BlockImage src={imgb5651a5_Screenshot_2022_09_01_at_14_02_51} alt=""></BlockImage>
+
+You can also scan an individual package from the package details page: 
+
+<BlockImage src={img783596c_Screenshot_2022_09_01_at_14_03_52} alt=""></BlockImage>
+
+### Additional security scans via the Cloudsmith API
+
+You can request an additional security scan for a package using the [packages_scan API endpoint](https://help.cloudsmith.io/reference/packages_scan).
+
+### Early Access: Recurring security scans
+
+You can now also set up security scans to occur on a recurring basis. This feature is currently in Early Access. To set up recurring security scans for your workspace, contact us to be added to Early Access.
