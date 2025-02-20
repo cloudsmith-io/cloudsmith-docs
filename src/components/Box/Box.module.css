@@ -1,0 +1,14 @@
+.root {
+  background-color: var(--base-color-blue-75);
+  padding: var(--space-l);
+  border-radius: var(--border-radius-l);
+  flex: 1;
+}
+
+.root > :is(h2, h3, h4, h5, h6):first-child {
+  margin-block-start: 0;
+}
+
+.root p:last-child {
+  margin-block-end: 0;
+}

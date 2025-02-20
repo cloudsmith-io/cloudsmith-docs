@@ -1,4 +1,5 @@
 export * from './AppShell';
+export * from './Box';
 export * from './BlockImage';
 export * from './Container';
 export * from './Tag';

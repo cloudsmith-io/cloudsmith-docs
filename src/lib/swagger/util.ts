@@ -37,6 +37,13 @@ export const createSlug = (menuSegments: string[]): string => {
 };
 
 /**
+ * Turns the menu segments into a single title for the operation page.
+ */
+export const createTitle = (menuSegments: string[]): string => {
+  return menuSegments.join(' ');
+};
+
+/**
  * Turns an operation slug into a fully qualified local path to use in links
  */
 export const apiOperationPath = (slug: string): string => {

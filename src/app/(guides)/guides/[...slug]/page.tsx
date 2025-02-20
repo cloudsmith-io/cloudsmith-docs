@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 import { TimeAgo } from '@/components';
+import WithQuicknav from '@/components/WithQuickNav';
 
 export const dynamicParams = false;
 
@@ -44,10 +45,10 @@ const Page = async ({ params }: PageProps) => {
     const lastUpdated = getLastUpdated(mdxModule);
 
     return (
-      <>
+      <WithQuicknav>
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
-      </>
+      </WithQuicknav>
     );
   }
 

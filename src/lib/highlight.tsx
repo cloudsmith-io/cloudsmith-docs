@@ -28,7 +28,8 @@ export async function getHighlighter() {
         'scala',
         'python',
         'scss', 
-        'ruby'
+        'ruby',
+        'csv'
       ],
     });
   }

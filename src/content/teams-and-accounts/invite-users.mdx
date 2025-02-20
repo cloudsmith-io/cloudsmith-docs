@@ -1,0 +1,35 @@
+import { Note, BlockImage } from '@/components'
+import img_invite_users_button from './images/invite-users/cce8732ea52a7f4c9099fb779a25f8963fbacdd631fb71c648155cf47d20cd09-invite-users-button.png'
+import img_invite_users_form from './images/invite-users/67b2a8ef4d084add3452112fc9a9cbf07192977f00e0f6fc8b90512fa167b26f-invite-users-form.png'
+
+
+
+# Invite Users
+
+To invite people to your organization: 
+
+1. Click on the "Accounts" Tab 
+2. Click the blue "Invite Users" button
+
+<BlockImage src={img_invite_users_button} alt="Invite Users button"></BlockImage>
+
+You will then be presented with the "Invite user(s)" form:
+
+<BlockImage src={img_invite_users_form} alt="Invite New Users form"></BlockImage>
+
+To invite new users, enter one (or more) complete email addresses for the user(s) you wish to invite. To save time, you can bulk invite new users however they must share the same Organization role
+
+## Roles
+
+When inviting users, you specify a role that all invited users will assume when they join the organization. These roles are:
+
+| Organization Role | Description                                                                                                                                               |
+| :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Owner             | Can manage organization administration and settings and have all permissions implicitly. They can manage other owners and delete the account              |
+| Manager           | Can manage organization settings, teams and non-manager user roles (excluding owners), and inherit privileges from the organization and team memberships. |
+| Member            | Can see other members and visible teams, and inherit privileges from teams they belong to.                                                                |
+| Collaborator      | Can only see other team members and inherit privileges from teams they belong to.                                                                         |
+
+<Note variant="">
+  Owners are the "superusers" of the organization. Managers have access to organization settings, can manage the organization itself and can join teams, but managers have to join teams explicitly to get access to repositories due to the principle of least privilege.
+</Note>

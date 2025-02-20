@@ -27,10 +27,9 @@
 }
 
 .toggleButtonText {
-  margin-inline: var(--space-xs) 6px;
+  margin-inline-end: 6px;
 }
 
-.toggleIconBack,
 .toggleIconDown {
   --svg-path-fill: var(--base-color-grey-100);
 
@@ -63,6 +62,7 @@
   list-style: none;
 
   .list {
+    row-gap: var(--space-2xs);
     padding-block: var(--space-2xs);
     padding-inline-start: var(--space-s);
     font-size: var(--text-body-s);

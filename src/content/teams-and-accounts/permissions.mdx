@@ -1,0 +1,56 @@
+import { BlockImage } from '@/components'
+import img_Screenshot_2024_11_08_at_3_16_55_PM from './images/permissions/bc6f261a2f932151f6a2a6bb8d94e73de2b80e00cc46ff07c8395d99259fb1b3-Screenshot_2024-11-08_at_3.16.55_PM.png'
+import img_Screenshot_2024_11_08_at_3_15_38_PM from './images/permissions/47511f8f4786d93637ca175abeac2302a095445c08f920e372ed8f46be5aad48-Screenshot_2024-11-08_at_3.15.38_PM.png'
+import img_Screenshot_2024_11_08_at_3_23_22_PM from './images/permissions/f4f44e27835b8beb5a43d7449911bebc1b9aa683dcae63758c8d0fbb42ec495a-Screenshot_2024-11-08_at_3.23.22_PM.png'
+import img_Screenshot_2024_11_08_at_3_28_38_PM from './images/permissions/1de80b5c1dc03f980a51b68ec131b64c7a6a31bab83a8785a8357a3cdb08e828-Screenshot_2024-11-08_at_3.28.38_PM.png'
+
+# Permissions
+
+Setting up an _Organization_ in Cloudsmith allows you to set up clear access to teams, individuals and machines that map to your company's organizational structure.
+
+Building security and resilience into managing teams and workflows is essential in today's ecosystem. Below is a quick start guide to the powerful permission system within Cloudsmith. 
+
+Permissions are divided into three levels: Organization, Team and Repository-specific.
+
+The best way to see what the permissions can do (at a broad level) is to navigate to the "Accounts" tab in Cloudsmith, then hover your mouse over the question mark icon. When inviting a user to your Cloudsmith organization, select the permission level dropdown in the views (described/shown below).
+
+## Organization Permissions
+
+Privileges for a member within an Organization:
+
+<BlockImage src={img_Screenshot_2024_11_08_at_3_16_55_PM} alt=""></BlockImage>
+
+
+<BlockImage src={img_Screenshot_2024_11_08_at_3_15_38_PM} alt=""></BlockImage>
+
+<br />
+
+<br />
+
+An "Owner" is the "root" of the organization, and is the only user that can manage other users or delete the organization.
+
+All members inherit some permissions from the Organization that determine what they can and can't do (e.g. create repositories).
+
+In addition to that, you can give a "standard" level of repository privilege to members (this is "None" by default).
+
+## Team Permissions
+
+Privileges for a member of a team can be viewed by hovering your mouse over the question mark icon next to the selected role. 
+
+<BlockImage src={img_Screenshot_2024_11_08_at_3_23_22_PM} alt=""></BlockImage>
+
+## Repository Permissions
+
+Privileges on repositories given to teams or users can be found within your repository settings. Hover your mouse over the question mark icon to view the repository permissions for each privilege. 
+
+<BlockImage src={img_Screenshot_2024_11_08_at_3_28_38_PM} alt=""></BlockImage>
+
+<br />
+
+## Getting Started!
+
+The normal setup for customers is to invite all employees/staff as members to the Organization.
+
+Then add them to teams based on their roles/function/software (e.g. "operations", or maybe "frontend").
+
+Then add teams to the repositories with the relevant permissions depending on what they need (e.g. "operations" might have "Admin" access on the "production" repository).

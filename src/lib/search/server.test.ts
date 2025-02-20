@@ -38,7 +38,7 @@ describe('lib', () => {
         const results = await performSearch('Lists audit log entries for a specific namespace', ['api']);
         expect(results[0].path).toEqual('/api/audit/log/namespace/list');
         // This will not test MDX frontmatter because of Jest mock
-        expect(results[0].title).toEqual('Missing headline for endpoint');
+        expect(results[0].title).toEqual('Audit Log Namespace List');
         expect(results[0].section).toEqual('api');
         expect(results[0].score).toEqual(1);
       });

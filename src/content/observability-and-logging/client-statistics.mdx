@@ -1,0 +1,48 @@
+import { BlockImage } from '@/components'
+import img255b8e3_client_statistics from './images/client-statistics/255b8e3-client-statistics.png'
+import img5b18a8e_metrics_packages from './images/client-statistics/5b18a8e-metrics-packages.png'
+
+# Client Statistics
+
+The statistics page shows per month statistics of all access to the repository:  
+
+<BlockImage src={img255b8e3_client_statistics} alt="Statistics Page"></BlockImage>
+
+You can move to the previous or next month using the navigation links at the top left and top right of the page. Data available in this view includes: 
+
+- Download / Upload Counts and Bandwidth
+- Downloads / Uploads by Package Format (package type) 
+
+## Statistics via the CLI
+
+You can query the number of active (has been downloaded) and inactive (has not been downloaded) packages via the Cloudsmith CLI with the `cloudsmith metrics packages` command: 
+
+```shell
+cloudsmith metrics packages OWNER/REPOSITORY
+```
+
+Example: 
+
+```shell
+cloudsmith metrics packages demo/examples-repo 
+```
+
+<BlockImage src={img5b18a8e_metrics_packages} alt="cloudsmith metrics packages"></BlockImage>
+
+You can also query package activity during a specific time range using the `--start` and `--finish` parameters and ISO 8601 formatted datetimes.
+
+Example: 
+
+```shell
+cloudsmith metrics packages demo/examples-repo --start=2019-01-01T00:00:00Z --finish=2019-12-31T00:00:00Z
+```
+
+### Specific Packages 
+
+You can query one or more specific packages by adding the `--packages` flag with package identifiers as a comma-separated list  (See [Package Identification](/artifact-management/identifying-a-package) for more information).
+
+Example:
+
+```shell
+cloudsmith metrics packages demo/examples-repo --packages=ZGCV58VqT8Sl
+```

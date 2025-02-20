@@ -1,6 +1,6 @@
 # Writing Markdown
 
-Most of the content on the website is written in Markdown. We use the `.mdx` file format to extend Markdown's syntax to support custom React components.
+Most of the content on the website is written in Markdown. We use the `.mdx` file format to extend Markdown's syntax to support custom React components. To see some of the components below in action, please refer to the `/src/app/(documentation)/design-system/page.mdx` page, which can be found on the path `/design-system`.
 
 ## Meta data
 
@@ -284,4 +284,39 @@ import { Card, Flex } from '@/components';
   <Card title="Chocolatey" href="/" icon="format/chocolatey" size="xs" width="quarter" />
   ...
 </Flex>;
+```
+
+## Boxes
+
+The `Box` component can be used to group any markdown content inside a box with a slight blue background. The most important thing to note about this component is that the markdown content inside will need to start and end with a blank line for the markdown parsing to work.
+
+```mdx
+<Box>
+
+## This is a heading
+
+You can put any markdown content here
+
+</Box>
+```
+
+Box components can also be used with the `Flex` component, here with two boxes next to each other:
+
+```mdx
+<Flex gap="l" align="stretch">
+<Box>
+
+## This is a heading
+
+You can put any markdown content here
+
+</Box>
+<Box>
+
+## This is a heading
+
+You can put any markdown content here
+
+</Box>
+</Flex>
 ```
