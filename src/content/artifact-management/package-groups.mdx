@@ -1,0 +1,27 @@
+import { BlockImage } from '@/components'
+import img841ea19_package_groups from './images/package-groups/841ea19-package-groups.png'
+import img245de19_package_groups_detail from './images/package-groups/245de19-package-groups-detail.png'
+
+# Package Groups
+
+---
+Package Groups provides a per package view of a repository, as opposed to the default view for a repository which shows each individual version of every package.   This can be useful to give you an overview of the packages contained within your repository, especially if you have a large number of versions for each package. 
+
+The Package Groups view groups packages by package format and package name: 
+
+<BlockImage src={img841ea19_package_groups} alt="Package Groups"></BlockImage>
+
+Where:
+
+| Information | Description                                                            |
+| :---------- | :--------------------------------------------------------------------- |
+| Format      | The format of the package                                              |
+| Count       | The total number of versions of the package                            |
+| Name        | The package name                                                       |
+| Downloads   | The total number of downloads for all versions of the package          |
+| Size        | The size of the Package                                                |
+| Last Push   | The date / time of the most recent upload of the package to Cloudsmith |
+
+Clicking on any package name will take you to the default list view for the repository, but filtered to show only versions of that specific package.  For example, if you clicked on the _cloudsmith-maven-example_ package name above, you will then see: 
+
+<BlockImage src={img245de19_package_groups_detail} alt="Package Group Details"></BlockImage>

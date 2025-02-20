@@ -1,0 +1,47 @@
+import { BlockImage } from '@/components'
+import imged522fd6ab43d9abced7a801732c40c9a29869e465c20ea305d13e9ec0a5dd59_create_entitlement_token_button from './images/sharing-a-private-package/ed522fd6ab43d9abced7a801732c40c9a29869e465c20ea305d13e9ec0a5dd59-create-entitlement-token-button.png'
+import img10943100632c8efccde4ea5173b8900f22b275ff3b58a913658956becc40446e_create_token_form from './images/sharing-a-private-package/10943100632c8efccde4ea5173b8900f22b275ff3b58a913658956becc40446e-create-token-form.png'
+import imgd78b6589d3fc9dc9251e98f23bfb4cbc80d051037072be4a427403160189ed5f_create_token_complete from './images/sharing-a-private-package/d78b6589d3fc9dc9251e98f23bfb4cbc80d051037072be4a427403160189ed5f-create-token-complete.png'
+import imgaf3864e_download_select_token from './images/sharing-a-private-package/af3864e-download-select-token.png'
+import imga9ed4b8_download_select_token_detail_page from './images/sharing-a-private-package/a9ed4b8-download-select-token-detail-page.png'
+
+
+# Private Package Sharing
+
+Now that you have created a private repository and uploaded your package: What happens when you want to share that file with someone else?
+
+Cloudsmith Package has an in-built entitlement system allowing you full control over your private repositories. It allows you to share files with third-parties through a token based system (don't panic - we generate all the tokens for you!) and gives you the power to revoke a token at any time without disruption to your repository/package. Cool eh?
+
+It's very simple. Say you want to give one of your customers - let's call him Arnold - a file that you have in one of your private repositories. To do this you can create Arnold a token called say "arnolds-token" and assign it to that file. Cloudsmith will prompt you with the URL embedded with the new super secret token allowing only those with the URL to access the file (you and Arnold).
+
+## 1. Create an Entitlement Token
+
+In a repository; click the "Settings" tab then click "Entitlement Tokens". This will take you to the Entitlements management page where you will see the Entitlement Tokens for the repository. If you have not previously created any Entitlement Tokens, you will only see the Default token for the repository. This is created for you as standard and will always be there (you can refresh it but not delete it!)
+
+Click the blue "Create New Token" button (top-right): 
+
+<BlockImage src={imged522fd6ab43d9abced7a801732c40c9a29869e465c20ea305d13e9ec0a5dd59_create_entitlement_token_button} alt=""></BlockImage>
+
+A form will be displayed asking for a name for the token - the name is inconsequential but a good name will help you track it later. Type in "arnolds-token" and click the "Create Token" button. 
+
+<BlockImage src={img10943100632c8efccde4ea5173b8900f22b275ff3b58a913658956becc40446e_create_token_form} alt="Create Entitlement Token Form"></BlockImage>
+
+You will now see the new token under the Default token.
+
+<BlockImage src={imgd78b6589d3fc9dc9251e98f23bfb4cbc80d051037072be4a427403160189ed5f_create_token_complete} alt="Entitlement Token List"></BlockImage>
+
+## 2. Assign Entitlement Token to a Package
+
+Navigate back to the private repository packages list page.
+
+You will notice that there is an arrow beside the download icon on the download button on the right hand side. Click the arrow and you'll be given the option to download the file with a particular token. If you just want to send the url; right-click with the token of choice and using the browser's "Copy Link Address" feature you can copy the url to your clipboard (for pasting into a chat window or email).
+
+<BlockImage src={imgaf3864e_download_select_token} alt="Token Selection for Download"></BlockImage>
+
+Alternatively from the package details page you'll see a larger version of the button described above (top-right) - it works the same as the smaller version on the repository package listing page.
+
+<BlockImage src={imga9ed4b8_download_select_token_detail_page} alt=""></BlockImage>
+
+## 3. Revoke Entitlement Token
+
+If you decide you no longer want Arnold to have access to the file you can simply revoke his token. Go to the Entitlement management page - you can either delete the token entirely, disable the token, or Refresh the token - which will regenerate a new token code but still assigned to that name. Anyone with the previous code will no longer have access.

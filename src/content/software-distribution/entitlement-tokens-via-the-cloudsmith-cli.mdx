@@ -1,0 +1,278 @@
+import { Note, BlockImage } from '@/components'
+import img554186d_ents_list from './images/entitlement-tokens-via-the-cloudsmith-cli/554186d-ents-list.png'
+import img060fd20_ents_list_show_tokens from './images/entitlement-tokens-via-the-cloudsmith-cli/060fd20-ents-list-show_tokens.png'
+import imgb989057_ents_create from './images/entitlement-tokens-via-the-cloudsmith-cli/b989057-ents-create.png'
+import img0e2a0b4_ents_create_string_show from './images/entitlement-tokens-via-the-cloudsmith-cli/0e2a0b4-ents-create-string-show.png'
+import img0061338_ents_delete from './images/entitlement-tokens-via-the-cloudsmith-cli/0061338-ents-delete.png'
+import img842d68e_ents_refresh from './images/entitlement-tokens-via-the-cloudsmith-cli/842d68e-ents-refresh.png'
+import img462ea4b_ents_update_name from './images/entitlement-tokens-via-the-cloudsmith-cli/462ea4b-ents-update-name.png'
+import img5d828ee_ents_update_token from './images/entitlement-tokens-via-the-cloudsmith-cli/5d828ee-ents-update-token.png'
+import imgf63b9f9_ents_sync from './images/entitlement-tokens-via-the-cloudsmith-cli/f63b9f9-ents-sync.png'
+import img90429e4_ents_sync_examples from './images/entitlement-tokens-via-the-cloudsmith-cli/90429e4-ents-sync-examples.png'
+import imgb6b7442_ents_sync_demo from './images/entitlement-tokens-via-the-cloudsmith-cli/b6b7442-ents-sync-demo.png'
+import img902c9e6_metrics_tokens from './images/entitlement-tokens-via-the-cloudsmith-cli/902c9e6-metrics-tokens.png'
+import img542ebc1_metrics_per_token from './images/entitlement-tokens-via-the-cloudsmith-cli/542ebc1-metrics-per-token.png'
+import img86d8def_metrics_token_date from './images/entitlement-tokens-via-the-cloudsmith-cli/86d8def-metrics-token-date.png'
+
+# Entitlement Tokens via the CLI
+
+In the following examples:
+
+|Identifier|Description|
+|:---|:---|
+|OWNER|Your Cloudsmith account name or organization name (namespace)|
+|REPOSITORY|Your Cloudsmith Repository name (also called "slug")|
+|IDENTIFIER|The unique identifier for an Entitlement Token|
+|TOKEN-NAME|The name of an Entitlement Token|
+|TOKEN-STRING|The token itself - It must only contain alphanumerics, dashes, dots or underscores and it must begin with an alphanumeric.|
+
+## Listing Entitlement Tokens
+
+To view all entitlement tokens for a repository, you use the `cloudsmith ents list` command:
+
+```shell
+cloudsmith ents list OWNER/REPOSITORY
+```
+
+Example: 
+
+```shell
+cloudsmith ents list demo/examples-repo
+```
+
+This will show all the tokens associated with a repository and their creation / updated date and identifier.  The token identifier is unique to each individual entitlement token and is quite important, as you use it with other entitlement commands (such as delete)
+
+<BlockImage src={img554186d_ents_list} alt="ents list command"></BlockImage>
+
+Note that by default, the token itself is not shown.  To see the token, you must add the `--show-tokens` option to the command. For example:  
+
+```shell
+cloudsmith ents list demo/examples-repo --show-tokens
+```
+<BlockImage src={img060fd20_ents_list_show_tokens} alt="Entitlements list"></BlockImage>
+
+## Creating Entitlement Tokens
+
+To create an entitlement token via the Cloudsmith CLI, you use the `cloudsmith ents` command: 
+
+```shell
+cloudsmith ents create OWNER/REPOSITORY --name=TOKEN-NAME
+```
+
+Example:
+
+```shell
+cloudsmith ents create demo/examples-repo --name=TestToken
+```
+
+The entitlement token identifier is shown in the output of the `cloudsmith create` command: 
+
+<BlockImage src={imgb989057_ents_create} alt="Entitlements create command"></BlockImage>
+
+Additionally, you can manually specify the token itself (rather than have Cloudsmith create it for you) using the `--token=TOKEN-STRING` option: 
+
+```shell
+cloudsmith ents create demo/examples-repo --name=TestToken --token=abcdef123456
+```
+<BlockImage src={img0e2a0b4_ents_create_string_show} alt="ents-create-string-show"></BlockImage>
+
+<Note variant="note">
+  If you manually specify a token, it must be between 8 - 48 characters in length. It must only contain alphanumerics, dashes, dots or underscores and it must begin with an alphanumeric.
+</Note>
+
+### Batch Create Example
+
+If you wanted to create a batch of Entitlement Tokens at once, you could script it with a loop using the Cloudsmith CLI:
+
+```shell bash
+for I in $(seq 1 10); do
+  cloudsmith ents create OWNER/REPOSITORY --name "Customer $I"
+done
+```
+
+You could then retrieve a list of all entitlements, plus their tokens with:
+
+```shell
+cloudsmith ents ls OWNER/REPOSITORY --show-tokens -F json | jq -r '.data[] | "\(.name) = \(.token)"'
+```
+
+## Deleting Entitlement Tokens
+
+Before you can delete an entitlement token, you need to get the identifier for the entitlement token. This can be obtained from the `cloudsmith ents list` command or from the `cloudsmith ents create` command. 
+
+To delete an entitlement token, you use the `cloudsmith ents delete` command:
+
+```shell
+cloudsmith ents delete OWNER/REPOSITORY/IDENTIFIER
+```
+
+Example:
+
+```shell
+cloudsmith ents delete demo/example-repo/Ym4xadpEU4YS
+```
+
+<BlockImage src={img0061338_ents_delete} alt="Cloudsmith Entitlements delete"></BlockImage>
+
+<Note variant="note">
+  A deleted token will still be able to be used for static assets (that are cached at the Package Delivery Network) for approximately 10 minutes until the PDN has to re-authenticate once its cache expires
+</Note>
+
+## Refreshing Entitlement Tokens
+
+Refreshing an entitlement token generates a new token, but retains any permissions granted by the token.  This has the effect of invalidating the current token.  
+
+You can refresh an entitlement token using the `cloudsmith ents refresh` command: 
+
+```shell
+cloudsmith ents refresh OWNER/REPOSITORY/IDENTIFIER
+```
+
+Example: 
+
+```shell
+cloudsmith ents refresh demo/examples-repo/RJol6tyAIssl
+```
+
+<BlockImage src={img842d68e_ents_refresh} alt="Entitlements refresh command"></BlockImage>
+
+The example above shows the **TestToken** before and after using the `cloudsmith ents refresh` command.
+
+
+## Updating Entitlement Tokens
+
+To modify a token name or the token itself, you use the `cloudsmith ents update` command: 
+
+```shell
+cloudsmith ents update OWNER/REPOSITORY/IDENTIFIER --name=TOKEN-NAME --token=TOKEN-STRING
+```
+
+Examples: 
+
+```shell
+cloudsmith ents update demo/examples-repo/RJol6tyAIssl --name=NewTestToken
+```
+
+<BlockImage src={img462ea4b_ents_update_name} alt="Entitlements update"></BlockImage>
+
+```shell
+cloudsmith ents update demo/examples-repo/RJol6tyAIssl --token=abcedf123456
+```
+
+<BlockImage src={img5d828ee_ents_update_token} alt="Entitlements update token"></BlockImage>
+
+<Note variant="note">
+  A refreshed token will still be able to be used for static assets (that are cached at the Package Delivery Network) for approximately 10 minutes until the PDN has to re-authenticate once its cache expires
+</Note>
+
+## Synchronising Tokens
+
+You can synchronise all of the entitlement tokens from one Repository to another Repository using the `cloudsmith ents sync` command: 
+
+```shell
+cloudsmith ents sync OWNER/TARGET-REPO  SOURCE-REPO
+```
+
+Example:
+
+```shell
+cloudsmith ents sync demo/demo-repo examples-repo
+```
+
+This example synchronises all the entitlement tokens from the **examples-repo** repository to the **demo-repo** repository: 
+
+<BlockImage src={imgf63b9f9_ents_sync} alt="Cloudsmith Entitlements sync command"></BlockImage>
+
+If we now list the entitlement tokens in each of these repositories, we can see that they contain the same entitlement tokens: 
+
+<BlockImage src={img90429e4_ents_sync_examples} alt=""></BlockImage>
+
+<BlockImage src={imgb6b7442_ents_sync_demo} alt="Cloudsmith Entitlements list demo repo"></BlockImage>
+
+<Note variant="note">
+  The token identifiers are still unique to each token, the token names and any associated permissions that the tokens grant are synchronised.
+</Note>
+
+## Token Restrictions
+
+You can add usage restrictions to a token with the `cloudsmith ents restrict` command:
+
+```shell
+cloudsmith ents restrict OWNER/REPOSITORY/IDENTIFIER <restriction-flags>
+```
+
+The available flags that you can add to set restrictions are: 
+
+|Restrict Command Flag|Description|
+|:---|:---|
+|--limit-bandwidth|The maximum download bandwidth allowed for the token.  Please note that since downloads are calculated asynchronously (after the download happens), the limit may not be imposed immediately but at a later point.|
+|--limit-bandwidth-unit|The unit of bandwidth to limit by. Note that 1GB = 1000000000 Bytes.|
+|--limit-num-clients|The maximum number of unique clients allowed for the token. Please note that since clients are calculated asynchronously (after the download happens), the limit may not be imposed immediately but at a later point.|
+|--limit-num-downloads|The maximum number of downloads allowed for the token. Please note that since downloads are calculated asynchronously (after the download happens), the limit may not be imposed immediately but at a later point.|
+|--limit-package-query|The package-based search query to apply to restrict downloads to. This uses the same syntax as the standard search used for repositories (see [Searching / Filtering](/artifact-management/search-packages) for more details). This will still allow access to non-package files, such as metadata. For package formats that support dynamic metadata indexes, the contents of the metadata will also be filtered.|
+|--limit-path-query|The path-based search query to apply to restrict downloads to. This supports boolean logic operators such as OR/AND/NOT and parentheses for grouping. The path evaluated does not include the domain name, the namespace, the entitlement code used, the package format, etc. and it always starts with a forward slash.|
+|--limit-date-range-from|The starting date/time (UTC) that the token is allowed to be used from.|
+|--limit-date-range-to|The ending date/time (UTC) that the token is allowed to be used until.|
+|--refresh-token|The reset period used will be used to automatically trigger a reset of the token limits. Available options are daily, weekly, fortnightly, monthly, bi-monthly, quarterly and annual|
+
+For Example: 
+
+```shell
+cloudsmith entitlements restrict demo/examples-repo/GYwg00eEElKs \
+        --limit-bandwidth=1 \
+        --limit-bandwidth-unit=gigabyte \
+        --limit-num-clients=10 \
+        --limit-num-downloads=1000 \
+        --limit-package-query="package-darwin-amd64"  \
+        --limit-path-query=tag:latest \
+        --limit-date-range-from=2020-01-01T00:00:00Z \
+        --limit-date-range-to=2077-01-01T00:00:00Z \
+        --refresh-token=daily
+```
+
+## Token Usage Metrics
+
+You can check the bandwidth usage and token metrics for a repository with the `cloudsmith metrics` command: 
+
+### Repository Usage
+
+You can check the total bandwidth usage for a repository with the `cloudsmith metrics tokens` command: 
+
+```shell
+cloudsmith metrics tokens OWNER/REPOSITORY
+```
+
+Example:
+
+```shell
+cloudsmith metrics tokens demo/examples-repo
+```
+
+<BlockImage src={img902c9e6_metrics_tokens} alt="Metrics Tokens"></BlockImage>
+
+### Specific Token Usage
+
+To check the bandwidth used by a specific token you add the `--tokens` parameter and the token identifier, or a comma-separated list of token identifiers, to the `cloudsmith metrics tokens` command:
+
+```shell
+cloudsmith metrics tokens OWNER/REPOSITORY --tokens=IDENTIFIER
+```
+
+Example: 
+
+```
+cloudsmith metrics tokens demo/examples-repo --tokens=YcLoVS7BsLHf
+```
+
+<BlockImage src={img542ebc1_metrics_per_token} alt="Metrics per token"></BlockImage>
+
+In addition, you can add the `--start` and `--finish` parameters, to display usage for a specific time period: 
+
+Example: 
+
+```shell
+cloudsmith metrics tokens demo/examples-repo --tokens=YcLoVS7BsLHf \
+--start=2020-04-01T00:00:00Z --finish=2020-09-07T00:00:00Z
+```
+
+<BlockImage src={img86d8def_metrics_token_date} alt="Metrics Token Data"></BlockImage>

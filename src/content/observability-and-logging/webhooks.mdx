@@ -1,0 +1,374 @@
+import { BlockImage } from '@/components'
+import img_repo_create_webhook from './images/webhooks/a34f5f079f0a7fb662a35f9e5b2a43721183085ad063fce09aa15e923f9d4854-repo-create-webhook.png'
+import img_repo_create_webhook_form from './images/webhooks/6adb4ba1d613130b189d51b01a8f4c822c4736ff2b5adfb21e9bd06bbac194fb-repo-create-webhook-form.png'
+import img_repo_webhook_package_query from './images/webhooks/7f726346decc16da9b7ca0d8b0002086c1e3b8d8c5ab2f8a8ee69fca211bbc6d-repo-webhook-package-query.png'
+import img_repo_webhook_example from './images/webhooks/9e4de38851049e47068ce50d0a291af3d6c961bb11a105f044ce644648743925-repo-webhook-example.png'
+import img_mission_successful from './images/webhooks/e34a6a7-mission_successful.jpg'
+
+# Webhooks
+
+Webhooks are great for driving automation by pushing data to your pipelines, or by integrating with your chat tools to provide slick ChatOps.
+
+Cloudsmith webhooks support events that occur in a repository, such as when packages have been uploaded, are synchronising, have synchronised or have failed.
+
+## Pipeline Automation
+
+For pipeline automation, you might utilise webhooks to instruct a CI/CD service, such as [CircleCI](https://circleci.com) or [Spinnaker](https://spinnaker.io), that it is time to deploy when a synchronised package is moved to your production repository. In this way, you can control the flow from development to production by limiting who (or what) has the authority to move packages to the production repository, and thus, to deploy publicly.
+
+## ChatOps
+
+For ChatOps, you can utilise webhooks to [send a message to a chat tool such as Slack](/integrations/integrating-with-slack) when each type of event occurs. You'll format this in such a way so as to present critical information to your team, such as what the package is, where it is located, who uploaded it, and how to access it, etc. If you're really fancy, you'll have a Slack integration that lets users interact with Cloudsmith via slash commands, for super slick bi-directional DevOps goodness.
+
+## Create a Webhook
+
+Creating a webhook is simple and only requires an endpoint to send it to. 
+
+<BlockImage src={img_repo_create_webhook} alt="Create Webhook Button"></BlockImage>
+
+<BlockImage src={img_repo_create_webhook_form} alt="Create Webhook Form"></BlockImage>
+
+For testing webhooks, we recommend either [Webhook Tester](https://webhook.site) or [RequestCatcher](https://requestcatcher.com). 
+
+## Webhook Payload Formats
+
+Cloudsmith supports multiple payload formats for webhooks. Plus a templating format, using the [handlebars](https://handlebarsjs.com/) language, for the ultimate in flexibility. You can find more details on that, later in this guide.
+
+The payload formats supported are:
+
+|Payload Format|Description|Example|
+|:--|:--|:--|
+|JSON Object|The payload is encoded as a singular JSON Object at the root-level.|`{ "data": {"foo": bar"} }`|
+|JSON Array|The payload is encoded as a JSON Array at the root-level.|`[{ "data": {"foo": bar"} }]`|
+|Form Encoded JSON Object|The payload is encoded as a singular JSON Object at the root-level.|`payload=%22%7B%5C%22data%5C%22%.....`|
+|Handlebars Template|The payload is encoded in a format determined by the template that you create.|`data:` <br /> `- foo: bar`|
+
+See below for more information on how to construct/use handlebars templates.
+
+## Webhook Event Types / Subscriptions
+
+Cloudsmith splits repository-level webhooks into several different event types. When you create a webhook, you subscribe to a subset of event types. When an event occurs, if your webhook is subscribed, you'll get a notification in the payload format you chose previously.
+
+Each type of webhook event occurs for a different reason and may have a varying structure to the payload. However, each `Package` event will always have the package that caused the event.
+
+The event types are:
+
+| Event                     | Identifier                 | Description                                                                                                       | Content Type |
+| :------------------------ | :------------------------- | :---------------------------------------------------------------------------------------------------------------- | :----------- |
+| Ping                  | `ping`                     | Sent when a new webhook is created or when requested to test an endpoint.                                         | `Ping`       |
+| Package Created       | `package.created`          | Sent when a package has first been uploaded but not yet processed.                                                | `Package`    |
+| Package Deleted       | `package.deleted`          | Sent when a package has been deleted.                                                                             | `Package`    |
+| Package Failed        | `package.failed`           | Sent when a package has failed to process.                                                                        | `Package`    |
+| Package Quarantined   | `package.quarantined`      | Sent when a package is quarantined.                                                                               | `Package`    |
+| Package Released      | `package.released`         | Sent when a package is released from quarantine.                                                                  | `Package`    |
+| Package Restored      | `package.restored`         | Sent when a package is restored from deletion.                                                                    | `Package`    |
+| Package Scanned       | `package.security_scanned` | Sent when a package security scan has been completed (which makes new vulnerabilities for the package available). | `Package`    |
+| Package Syncronised   | `package.synced`           | Sent when a package has been fully processed (i.e., synchronized) and is available for download.                  | `Package`    |
+| Package Synchronising | `package.syncing`          | Sent when a package has started to be processed (i.e., synchronizing state).                                      | `Package`    |
+| Package Tags Changed  | `package.tags_updated`     | Sent when the tags for a package have changed.                                                                    | `Package`    |
+
+### Package Query Filter
+
+You can also add a package search query to webhooks. This uses the same [search syntax](doc:search-packages) supported elsewhere for searching. If present, packages that emit events need to match the search query provided. In this way, you could filter webhooks for only certain types of packages, in addition to specific events.
+
+For example, to send `Package Synced` events for `my-web-app` packages that have the `release` tag, you can define the query as `name:my-web-app AND tag:release`.
+
+As shown below:
+
+<BlockImage src={img_repo_webhook_package_query} alt="Using the Package Query Filter"></BlockImage>
+
+## Webhook Security
+
+### Secret Header / Value
+
+If you need a way of authenticating a webhook at the receiver, and you don't want to use the HMAC-based verification outlined later below, you can use the **Secret Header** and **Secret Value** fields. These are values that will be sent with every webhook sent, that allow you to perform some form of authentication on the receiver side. Typically useful if the webhook is otherwise open to the world, but you want to authenticate before enacting on the webhook. Cloudsmith stores the **Secret Value** encrypted internally.
+
+### Validating Webhooks
+
+If you're super paranoid about security, and you should be (of course), you can validate that webhooks originated from Cloudsmith, unaltered. To do this, each message that is sent from Cloudsmith calculates an [HMAC Digest](https://en.wikipedia.org/wiki/HMAC) of the contents. This HMAC, which stands for Hash-based Message Authentication Code, is generated using a cryptographic method for describing the contents of a message, verifiable by the receiver.
+
+To start, you'll need to either provide or make note of the **HMAC Signature Key**. This is used to generate the HMAC, and you'll need it on the receiver side to be able to validate messages. After a webhook is created, you'll be able to supply new values for the signature key, but you won't be able to retrieve the old one anymore. The value is stored encrypted in Cloudsmith.
+
+When enabled, Cloudsmith will send the `HMAC` in the `X-Cloudsmith-Signature` header of every message. The algorithm used for the calculation is `HMAC-SHA1`. With the secret, you can then verify this against the payload (contents of the message) using the following method (Python-like pseudo-code):
+
+```python
+hmac_received = message_headers["X-Cloudsmith-Signature"]
+hmac_calculated = hmac_sha1("my-secret-key", message_body)
+hmac_validated = (hmac_received == hmac_calculated)
+if not hmac_validated:
+  bailout()
+```
+
+Where:
+
+- `hmac_sha1` is a function that takes a secret key, and the payload, and returns an HMAC.
+- `message_headers` is the headers received from Cloudsmith in the HTTP request.
+- `message_body` is the body/payload of the webhook received from Cloudsmith in the HTTP request.
+- `"my-secret-key"` is the secret key from the **HMAC Signature Key** field in the webhook form.
+- `bailout` is a function that cancels everything, alerts your team, and stops bad things from happening.
+
+### Verifying SSL Certificates
+
+You can choose to not verify SSL certificates when webhooks are sent. You'll need this if the destination endpoint is using a self-signed certificate. However, please be aware that it opens you to attacks where the endpoint is replaced by a malicious user. Use with care.
+
+## Webhook Templates (Handlebars)
+
+[Handlebars](https://handlebarsjs.com/) is a minimal templating language, normally used in Javascript-based applications, for constructing messages based on variables and limited conditional flow.  This means you can drive all kinds of external services, without needing an intermediate "translation" service in-between, such as [IFTTT](https://ifttt.com) or [Zapier](https://zapier.com). Of course, you can still use those to achieve some [powerfully dynamic integrations](/integrations/integrating-with-zapier).
+
+### Template Format
+
+When creating templates, you can choose the overall **Template Format** that you'd like to emit. This primarily changes the `Content-Type` that is sent with the webhook but also determines the syntax highlighting in the editor, and the validation of the content. You can also override the exact **Content Type** you'd like to send if you want to be more specific.
+
+### Event Templates
+
+For each of the event types, you can write a different template. If you provide a specific template for a specific event, that template will be chosen first. Otherwise, it will use the **Default** template. In this way, you can process the events in different ways, depending on which fired but send them all to the same endpoint.
+
+### Handlebars Syntax
+
+The Handlebars [Basic Usage](https://handlebarsjs.com/guide/expressions.html#basic-usage) is a good first reference for how to construct a template. An example of some of the constructs you'll use are interpolation (getting data from the webhook payload), functions (manipulating the data), and conditionals (doing different thing depending on the data content):
+
+- Interpolation: Use `{{data.name}}`, to get `name` from the `data` object.
+- Functions: Use `{{concat data.name "-test"}}`, to concatenation `data.name` and `"-test"` together.
+- Conditionals: Use `{{#if (gt data.downloads 0)}foo{{/if}}` to output `foo` if `data.downloads` is greater-than zero.
+
+### Payloads
+
+You will be acting upon the JSON data from a webhook payload (which you can see later on in the "Webhook Payloads") section. 
+
+### Helper Functions
+
+In addition to the [builtin helpers](https://handlebarsjs.com/guide/builtin-helpers.html#each), we have a number of additional helper functions that extend the base handlebars syntax. You can call a helper function using the Handlebars syntax of `{{func arg1 arg2}}` for emitting values, and `{{#if (func arg1 arg2)}}` in conditionals.
+
+The functions supported are shown below. Function types are either Unary (1 argument) or Binary (2 arguments):
+
+|Function|Type|Description|Example|
+|:---|:---|:---|:---|
+|`neg`|Unary|Arithmetic Negation|`{{neg 10}}` = `-10`|
+|`not`|Unary|Logical Negation|`{{neg false}}` = `true`|
+|`truth`|Unary|Truth Test|`{{truth 1}}` = `true`|
+|`tojson`|Unary|Convert to JSON|`{{tojson data.some.object}}`|
+|`add`|Binary|Arithmetic Addition|`{{add 5 5}}` = `10`|
+|`concat`|Binary|Concatenation|`{{concat "foo" "bar"}}` = `foobar`|
+|`div`|Binary|Arithmetic Floating Division|`{{div 5 2}}` = `2.5`|
+|`floordiv`|Binary|Arithmetic Integer Division|`{{floordiv 5 2}}` = `2`|
+|`and`|Binary|Logical/Bitwise And|`{{and true true}}` = `true` <br /> `{{and true false}}` = `true`|
+|`or`|Binary|Logical/Bitwise Or|`{{or true true}}` = `true` <br /> `{{or true false}}` = `true`|
+|`xor`|Binary|Logical/Bitwise Exclusive Or|`{{xor true true}}` = `true` <br /> `{{xor true false}}` = `false`|
+|`mod`|Binary|Arithmetic Modulo|`{{mod 5 2}}` = `1`|
+|`mul`|Binary|Arithmetic Multiplication|`{{mul 5 5}}` = `25`|
+|`sub`|Binary|Arithmetic Subtraction|`{{sub 10 5}}` = `5`|
+|`lt`|Binary|Relational Less-Than|`{{lt 5 10}}` = `true` <br /> `{{lt 5 5}}` = `false`|
+|`lte`|Binary|Relational Less-Than or Equal-To|`{{lte 5 10}}` = `true` <br /> `{{lte 5 5}}` = `true`|
+|`gt`|Binary|Relational Greater-Than|`{{gt 10 5}}` = `true` <br /> `{{gt 5 5}}` = `false`|
+|`gte`|Binary|Relational Greater-Than or Equal-To|`{{gte 10 5}}` = `true` <br /> `{{gte 5 5}}` = `true`|
+|`eq`|Binary|Relational Equality|`{{eq 10 5}}` = `false` <br /> `{{eq 5 5}}` = `true`|
+|`ne`|Binary|Relational Inequality|`{{ne 10 5}}` = `true` <br /> `{{ne 5 5}}` = `false`|
+|`contains`|Binary|Needle (arg1) contained in Stack (arg2)|`{{contains ""foo"" ""foobar""}} `= `true` <br /> `{{contains ""baz"" ""foobar""}}` = `false`|
+|`startswith`|Binary|Needle (arg1) is at start of Stack (arg2)|`{{startswith ""foo"" ""foobar""}}` = `true` <br /> `{{startswith ""bar"" ""foobar""}}` = `false`|
+|`endswith`|Binary|Needle (arg1) is at end of Stack (arg2)|`{{endswith ""bar"" ""foobar""}}` = `true` <br/> `{{endswith ""foo"" ""foobar""}}` = `false`|
+|`join`|Binary|Join Elements (arg2) by Delimiter (arg1)|`{{join ";" ["a", "b"]}}` = `a;b`|
+|`split`|Binary|Split String (arg2) by Delimiter (arg1)|`{{split ";" "a;b"}}` = `["a", "b"]`|
+
+## Example Template
+
+The following is a short worked example of how you might use templates:
+
+Sheila, a Senior DevOps engineer at WhyObi Ltd, is setting up alerts for ChatOps. She'd like to get a notification for when a specific package has been synchronised (is available for download) and would like to output the download URL for it in a special Slack channel. If the package has a tag labelled "hotfix" tag, she'd also like to call this out in bold as part of the message.
+
+To start with, Sheila creates a new webhook. This is a Slack webhook, and according to the [Slack documentation for incoming webhooks](https://api.slack.com/messaging/webhooks), it needs to have a content type of `application/json`. So Sheila enters the new webhook endpoint, chooses `Handlebars Template` as the **Payload Format**, and picks `JSON (application/json)` as the **Template Format**.
+
+She's only interested in packages that have synchronised, so she selects `Send Specific Events (choose)` in **Event Subscriptions**, and then ticks the `Package Synchronised` checkbox. Going back to the **Payload Templates**, she clicks on the `Package Synchronised` tab to start a new template for that type of event.
+
+Now, for the fun part, to meet her requirements Sheila writes out the following template using the Handlebars language, but constructs it to make a Slack-compatible payload:
+
+```json
+{
+  "username": "cloudsmith-bot",
+  "icon_emoji": ":cloud:",
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "The <{{data.self_html_url}}|{{data.name}}{{#if (truth data.version)}} ({{data.version}}){{/if}}> {{data.format}} package is ready for download."
+      }
+    },
+    {{#each data.tags.info}}
+     {{#if (eq this "hotfix")}}
+       {
+         "type": "section",
+         "text": {
+           "type": "mrkdwn",
+           "text": "*HOTFIX*: Warning, this is an non-standard release."
+          }
+       },
+     {{/if}}
+    {{/each}}
+    {{#each data.files}}
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "Download File: <{{this.cdn_url}}|{{this.filename}}>"
+      }
+    }{{#if (not @last)}},{{/if}}
+    {{/each}}
+  ]
+}
+```
+
+Also, to make the **Ping** event (for testing the endpoint) compatible with Slack, she also fills in the template for that too but makes it a simple one:
+
+```json
+{
+  "username": "cloudsmith-bot",
+  "icon_emoji": ":cloud:",
+  "text": "Ping? Ping!"
+}
+```
+
+Putting this together, the final form looks like:
+
+<BlockImage src={img_repo_webhook_example} alt=""></BlockImage>
+
+She tests the integration by uploading a package called `genesis`, at version `1.0.3`, and assigns it the `hotfix` tag. When Cloudsmith has synchronised the content, she receives a ChatOps alert in her Slack channel where she created the incoming webhook:
+
+<BlockImage src={img_mission_successful} alt=""></BlockImage>
+
+Mission. Success! Now her team has a way of being informed directly in Slack of packages that are uploaded. Along with an easy link to the UI for the package, and a download link for the file. She's also informed if the package was labelled as a hot fix release.
+
+## Webhook Payloads
+
+### Common Structure
+
+All webhooks sent from Cloudsmith have the following structure (in `JSON Object` format):
+
+```json
+{
+  "context": object,
+  "data": object,
+  "meta": {
+    "attempt_at": string,
+    "event_at": string,
+    "event_id": string,
+    "trigger_id": string,
+    "webhook_id": integer
+  }
+}
+```
+
+With the following definitions:
+
+| Field (Path)       | Type    | Description                                                                                                      | Required | Example                                            |
+| :----------------- | :------ | :--------------------------------------------------------------------------------------------------------------- | :------- | :------------------------------------------------- |
+| `.context`         | Object  | An object for the event context if available (e.g. "old_tags" and "new_tags" for "Package Tags Changed" events). | No       | `{   "old_tags": ["foo"],   "new_tags": ["bar"] }` |
+| `.data`            | Object  | An object for the event, usually a `Package` model.                                                              | Yes      | See **Example Package Payload** below.             |
+| `.meta.attempt_at` | String  | An ISO 8601 datetime string, representing when the webhook was sent at.                                          | Yes      | `"2020-07-07T17:30:34.342167+00:00"`               |
+| `.meta.event_at`   | String  |                                                                                                                  | Yes      | `"2020-07-07T17:30:34.296482+00:00"`               |
+| `.meta.event_id`   | String  |                                                                                                                  | Yes      | `"package.synced"`                                 |
+| `.meta.trigger_id` | String  | A **globally** (as in, all of Cloudsmith) unique identifier for the trigger.                                     | Yes      | `"c0e2b63e-3d84-4d54-bd62-ae7d0b2764a7"`           |
+| `.meta.webhook_id` | Integer | A sequential id for the source webhook. Unique per repository.                                                   | Yes      | `1`                                                |
+
+## Example Package Payload
+
+An example of a `Package` payload, sent for webhooks emitted by packages:
+
+```json
+{
+  "data": {
+    "architectures": [],
+    "cdn_url": "https://dl.cloudsmith.io/basic/my-org/my-repo/raw/files/my-file.deb",
+    "checksum_md5": "f64c6c0eb95e8455d0d5b248e988b4ff",
+    "checksum_sha1": "4d10412ec6c66b5e2bfd28fbda893a9d7c8fd1a4",
+    "checksum_sha256": "82ee34b2ee3715e055f58a5825799b5d763e8517bc2d5da80a8ac5c59d9940d3",
+    "checksum_sha512": "b6075cb64564ab9048c28426ebb1345aef52f0a65f2ff1dcf5caba1b228be85e29775c419a6dc36ac0b455888544e2948f6182ef38064bebebc349e2851027e1",
+    "description": "My Awesome Package",
+    "distro": null,
+    "distro_version": null,
+    "downloads": 0,
+    "epoch": null,
+    "extension": ".deb",
+    "filename": "my-file.deb",
+    "files": [
+      {
+        "cdn_url": "https://dl.cloudsmith.io/basic/my-org/my-repo/raw/files/my-file.deb",
+        "checksum_md5": "f64c6c0eb95e8455d0d5b248e988b4ff",
+        "checksum_sha1": "4d10412ec6c66b5e2bfd28fbda893a9d7c8fd1a4",
+        "checksum_sha256": "82ee34b2ee3715e055f58a5825799b5d763e8517bc2d5da80a8ac5c59d9940d3",
+        "checksum_sha512": "b6075cb64564ab9048c28426ebb1345aef52f0a65f2ff1dcf5caba1b228be85e29775c419a6dc36ac0b455888544e2948f6182ef38064bebebc349e2851027e1",
+        "downloads": 0,
+        "filename": "my-file.deb",
+        "is_downloadable": true,
+        "is_primary": true,
+        "is_synchronised": true,
+        "size": 2204,
+        "slug_perm": "8m7hRtzW7Ylq",
+        "tag": "pkg"
+      }
+    ],
+    "format": "raw",
+    "format_url": "http://api.cloudsmith.io/formats/raw/",
+    "identifier_perm": "xKYgfsOsboz6",
+    "indexed": true,
+    "is_sync_awaiting": false,
+    "is_sync_completed": true,
+    "is_sync_failed": false,
+    "is_sync_in_flight": false,
+    "is_sync_in_progress": false,
+    "license": null,
+    "name": "my-file.deb",
+    "namespace": "my-org",
+    "namespace_url": "https://api.cloudsmith.io/namespaces/my-org/",
+    "num_files": 0,
+    "package_type": 1,
+    "release": null,
+    "repository": "testo2",
+    "repository_url": "https://api.cloudsmith.io/repos/my-org/my-repo/",
+    "self_html_url": "https://cloudsmith.io/~my-org/repos/my-repo/packages/detail/my-package/",
+    "self_url": "https://api.cloudsmith.io/packages/my-org/my-repo/xKYgfsOsboz6/",
+    "size": 2204,
+    "slug": "my-package",
+    "slug_perm": "xKYgfsOsboz6",
+    "stage": 9,
+    "stage_str": "Fully Synchronised",
+    "stage_updated_at": "2020-07-06T21:00:50.635246Z",
+    "status": 4,
+    "status_reason": null,
+    "status_str": "Completed",
+    "status_updated_at": "2020-07-06T21:00:50.635221Z",
+    "status_url": "https://api.cloudsmith.io/packages/my-org/my-repo/xKYgfsOsboz6/status/",
+    "subtype": "file",
+    "summary": null,
+    "sync_finished_at": "2020-07-06T21:00:50.635239Z",
+    "sync_progress": 100,
+    "tags": {
+      "version": [
+        "latest"
+      ]
+    },
+    "tags_immutable": {},
+    "type_display": "file",
+    "uploaded_at": "2020-07-06T18:57:07.199040Z",
+    "uploader": "my-user",
+    "uploader_url": "https://api.cloudsmith.io/users/profile/my-user/",
+    "version": null,
+    "version_orig": null
+  },
+  "meta": {
+    "attempt_at": "2020-07-07T17:30:34.342167+00:00",
+    "event_at": "2020-07-07T17:30:34.296482+00:00",
+    "event_id": "package.synced",
+    "trigger_id": "c0e2b63e-3d84-4d54-bd62-ae7d0b2764a7",
+    "webhook_id": 1
+  }
+}
+```
+
+## Webhook Origin IP Addresses
+
+The webhooks can originate from the following IP addresses: 
+
+- 34.252.163.216
+- 52.208.86.0
+- 108.129.59.129
+
+These are not guaranteed to remain static forever. For an updated list, please [contact us today](/contact-us)!
