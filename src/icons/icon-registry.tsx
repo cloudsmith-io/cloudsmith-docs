@@ -1,6 +1,5 @@
 import { createIconRegistry } from './util/create-icon-registry';
 
-import { CloseIcon } from './svgs/Close';
 import { MenuIcon } from './svgs/Menu';
 import { ChevronIcon } from './svgs/Chevron';
 import { ArrowIcon } from './svgs/Arrow';
@@ -8,6 +7,8 @@ import { SearchIcon } from './svgs/Search';
 import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
 import { UtilityGuideIcon } from './svgs/utility/Guide';
 import { UtilityApiIcon } from './svgs/utility/Api';
+
+import { CloseIcon } from './svgs/action/Close';
 import { ActionDocumentationIcon } from './svgs/action/Documentation';
 import { ActionGuideIcon } from './svgs/action/Guide';
 import { ActionApiIcon } from './svgs/action/Api';
@@ -49,7 +50,6 @@ import { FormatUnityIcon } from './svgs/format/Unity';
 import { FormatVagrantIcon } from './svgs/format/Vagrant';
 
 export const iconRegistry = createIconRegistry({
-  close: CloseIcon,
   menu: MenuIcon,
   chevron: ChevronIcon,
   enter: EnterIcon,
@@ -66,6 +66,7 @@ export const iconRegistry = createIconRegistry({
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,
   'utility/api': UtilityApiIcon,
+  'action/close': CloseIcon,
   'action/documentation': ActionDocumentationIcon,
   'action/guide': ActionGuideIcon,
   'action/api': ActionApiIcon,

@@ -99,7 +99,7 @@ export const Navbar = () => {
               exit={{ translateX: '50%', opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}>
               <button className={styles.closeButton} onClick={toggle}>
-                <Icon name="close" title="" className={styles.closeIcon} />
+                <Icon name="action/close" title="" className={styles.closeIcon} />
               </button>
 
               {[primary, secondary].map((items, index) => (
