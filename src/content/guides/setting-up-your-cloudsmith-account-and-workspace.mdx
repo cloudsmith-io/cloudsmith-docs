@@ -1,15 +1,173 @@
-import { GuideLink, Note } from '@/components';
+import { GuideLink, Note, BlockImage } from '@/components';
+import { Icon, IconName } from '@/icons';
+import { iconRegistry } from '../../icons/icon-registry';
+import styles from './page.module.css';
+import userAccountSignupImage from './images/guide1/user-account-signup.png'
+import logInWithAccountDetails from './images/guide1/log-in-with-account-details.png'
+import createWorkspace from './images/guide1/create-workspace.png'
+import createRepository from './images/guide1/create-repository.png'
+import repositoryOverview from './images/guide1/repository-overview-view.png'
+import addPackageType from './images/guide1/add-package-type.png'
+import upstreamsMenuItem from './images/guide1/upstreams-menu-item.png'
+import upstreamList from './images/guide1/upstream-list.png'
+import upstreamAdded from './images/guide1/upstream-added.png'
+import myAccountMenu from './images/guide1/my-account-menu.png'
+import personalApiKey from './images/guide1/personal-api-key.png'
+import addAPackage from './images/guide1/add-a-package.png'
+import examplePackagePull from './images/guide1/example-package-pull.png'
 
-# Setting up your Cloudsmith account and workspace
+# Setting up your Cloudsmith account and adding a package
 
-This guide will help you to set up your Cloudsmith account, and create a workspace, create your first repository and downlaod some packages.
+This guide will help you get started with Cloudsmith. Using this guide you will:
+- Sign up for your Cloudsmith account.
+- Create your Workspace.
+- Create your first repository.
+- Create an Upstream for your repository.
+- Add a package to your repository.
 
-## Sign up with your email address.
+{/* <div className={styles.iconGrid}>
+  {Object.keys(iconRegistry).map((iconName) => (
+    <div key={iconName} className={styles.iconWrapper}>
+      <Icon name={iconName} as="svg" title={iconName} width={24} height={24} />
+      <span className={styles.iconName}>{iconName}</span>
+    </div>
+  ))}
+</div> */}
 
-## Confirm your email address
+## Step 1: Creating your Cloudsmith account
+To create your Cloudsmith account, firstly navigate to the Cloudsmith [account sign up](https://app.cloudsmith.com/signup) page. Enter your email address, and click "Continue".
 
-## Create your Workspace. 
+On the next screen, enter your details, password and password confirmation and ensure you have accepted the service terms and conditions.
+Once these fields are complete click "Continue".
 
-<Note variant="note" headline="Workspace name">Your Workspace name will form part of any URLs</Note>
+<BlockImage src={userAccountSignupImage}></BlockImage>
 
-jfjffj
+### Step 1.1: Email verification and Log in
+A verification email containing a special link will be sent to the email address used for account sign up. Open this email and click the special link to complete the account sign up process. 
+This link will take you to the account log in page. Enter your email and password and click "Continue" to log into your Cloudsmith account:
+<BlockImage src={logInWithAccountDetails}></BlockImage>
+
+## Step 2: Create your Workspace 
+
+When logging in to your account for the first time, you are prompted to create your Workspace. Enter the name for your Workspace (this can be changed later if required), and click "Continue".
+
+<BlockImage src={createWorkspace}></BlockImage>
+
+## Step 3: Creating your first repository
+
+You are now asked to create a repository. Enter the name of your repository (this can be changed later if required) and click "Continue".
+
+<BlockImage src={createRepository}></BlockImage>
+
+### Repository overview view
+Once you have created your repository, the repository overview will be shown:
+
+<BlockImage src={repositoryOverview}></BlockImage>
+
+## Step 4: Adding an Upstream proxy
+
+TODO :  WHY UPSTREAM?? NOT UPLOAD
+
+Before a package can be added to your repository, you first need to add an Upstream. In this example, we will add an upstream for npm (the package manager for Node.JS), but the steps are broadly similar for all upstreams.
+
+Click the "Upstreams" menu item to open the Upstreams view.
+
+<BlockImage src={upstreamsMenuItem}></BlockImage>
+
+<Note variant="note" headline="Adding Upstreams">
+  For security reasons you may be required to re-enter your credentials when adding an Upstream.
+</Note>
+
+The Upstreams view presents a list of the most common Upstream proxies. Select the Upstream you wish to add, or if you can't see the required Upstream from the list provided, click the "Add Upstream Proxy" button to show the full list of available Upstreams.
+
+<BlockImage src={upstreamList}></BlockImage>
+
+Once the Upstream is added it will read as `Configured`. In the example below, the `NPMJS.com` upstream has been added for the repository.
+All enabled Upstreams will be displayed in the Upstream Proxying table below the list, providing the ability to disable or delete Upstreams as required.
+
+<BlockImage src={upstreamAdded}></BlockImage>
+
+## Step 5: Generating an API Key
+
+<Note variant="note" headline="Private repositories">
+  By default repositories are private when created. This means that they are not publicly accessible and authentication is required to add or remove packages from them.
+</Note>
+
+By default repositories are private, and authentication is required to add or remove packages to/from a repository. 
+There are a number of ways to authenticate these actions, and for this example we will use a personal API Key.
+
+
+Before a package can be added to the repository from an enabled Upstream, an personal API key must be generated.
+
+### To generate an API Key:
+1. Select your User Profile icon in the top right hand corner, and select "Personal API Keys" from the menu:
+
+<BlockImage src={myAccountMenu}></BlockImage>
+
+2. In the API Keys view, Click the "Create API Key" button.
+4. The generated API Key will be displayed. This API Key must be stored securely, as it will not be possible to retrieve this once the pop up has been closed.
+
+<BlockImage src={personalApiKey}></BlockImage>
+
+## Step 6: Adding a package to your repository
+
+<Note variant="note" headline="Repository Package Formats">
+  Repositories are multi-format - you can add packages from multiple formats (Upstreams) to a single repository.
+</Note>
+
+Return to your repository view by clicking the Cloudsmith Icon in the top left hand corner, selecting your Workspace from the Workspace list, clicking on the "Repositories" menu item and then selecting your repository.
+
+To add a package, click either the "Add a Package" or "Push/Pull Packages" buttons.
+
+<BlockImage src={addAPackage}></BlockImage>
+
+
+### The Package Format selection view
+The Package format selection view is now shown, displaying a list of package formats that you can add to your repository.
+If your preferred format is not shown, click "Show all formats" to show the complete list of package formats that can be added to a repository. 
+<BlockImage src={addPackageType}></BlockImage>
+
+
+### Package format specific instructions
+
+Clicking the relevant Package format will present package format-specific set up instructions. An example for `NPM` is shown below:
+
+<BlockImage src={examplePackagePull}>Testing</BlockImage>
+
+<div className={styles.iconGrid}>
+    <div key={'format/deb'} className={styles.iconWrapper}>
+        <Icon name={'format/deb'} as="svg" title="Test" width={24} height={24} />
+    <a href=""><span>Debian</span></a>
+    </div>
+</div>
+
+
+  'format/alpine': FormatAlpineIcon,
+  'format/cargo': FormatCargoIcon,
+  'format/chocolatey': FormatChocolateyIcon,
+  'format/cocoapods': FormatCocoapodsIcon,
+  'format/composer': FormatComposerIcon,
+  'format/conan': FormatConanIcon,
+  'format/cran': FormatCranIcon,
+  'format/dart': FormatDartIcon,
+  'format/deb': FormatDebIcon,
+  'format/debian': FormatDebianIcon,
+  'format/docker': FormatDockerIcon,
+  'format/go': FormatGoIcon,
+  'format/gradle': FormatGradleIcon,
+  'format/helm': FormatHelmIcon,
+  'format/hex': FormatHexIcon,
+  'format/luarocks': FormatLuarocksIcon,
+  'format/maven': FormatMavenIcon,
+  'format/npm': FormatNpmIcon,
+  'format/nuget': FormatNugetIcon,
+  'format/powershell': FormatPowershellIcon,
+  'format/python': FormatPythonIcon,
+  'format/raw': FormatRawIcon,
+  'format/redhat': FormatRedhatIcon,
+  'format/ruby': FormatRubyIcon,
+  'format/sbt': FormatSbtIcon,
+  'format/swift': FormatSwiftIcon,
+  'format/terraform': FormatTerraformIcon,
+  'format/unity': FormatUnityIcon,
+  'format/vagrant': FormatVagrantIcon,
