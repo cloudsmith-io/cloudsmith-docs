@@ -16,6 +16,14 @@ import personalApiKey from './images/guide1/personal-api-key.png'
 import addAPackage from './images/guide1/add-a-package.png'
 import examplePackagePull from './images/guide1/example-package-pull.png'
 
+
+<Note variant="warning" headline="Todo">
+  - Add all package specific format icons
+  - Add note re: differences between manual package upload and upstream proxying
+  - Add image(s) for API key creation
+  - Add image and overview for successful package pull
+</Note>
+
 # Setting up your Cloudsmith account and adding a package
 
 This guide will help you get started with Cloudsmith. Using this guide you will:
@@ -34,6 +42,10 @@ This guide will help you get started with Cloudsmith. Using this guide you will:
   ))}
 </div> */}
 
+<Note variant="note" headline="Package Formats">
+  This guide uses the `npm` package manager as an example, but the steps below are applicable for all supported [package formats](/supported-formats). Format-specific instructions are available within the Cloudsmith web app.
+</Note>
+
 ## Step 1: Creating your Cloudsmith account
 To create your Cloudsmith account, firstly navigate to the Cloudsmith [account sign up](https://app.cloudsmith.com/signup) page. Enter your email address, and click "Continue".
 
@@ -43,7 +55,7 @@ Once these fields are complete click "Continue".
 <BlockImage src={userAccountSignupImage}></BlockImage>
 
 ### Step 1.1: Email verification and Log in
-A verification email containing a special link will be sent to the email address used for account sign up. Open this email and click the special link to complete the account sign up process. 
+A verification email containing a log in link will be sent to the email address used for account sign up. Open this email and click the link to complete the account sign up process. 
 This link will take you to the account log in page. Enter your email and password and click "Continue" to log into your Cloudsmith account:
 <BlockImage src={logInWithAccountDetails}></BlockImage>
 
@@ -130,19 +142,40 @@ If your preferred format is not shown, click "Show all formats" to show the comp
 
 ### Package format specific instructions
 
-Clicking the relevant Package format will present package format-specific set up instructions. An example for `NPM` is shown below:
+Clicking your required Package format will present the relevant package format-specific set up instructions. Follow these instructions to pull down your first package. An example for `NPM` is shown below:
 
-<BlockImage src={examplePackagePull}>Testing</BlockImage>
+<BlockImage src={examplePackagePull}>Format specific set up instructions</BlockImage>
 
+Format specific instructions can also be viewed below:
 <div className={styles.iconGrid}>
-    <div key={'format/deb'} className={styles.iconWrapper}>
-        <Icon name={'format/deb'} as="svg" title="Test" width={24} height={24} />
-    <a href=""><span>Debian</span></a>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/alpine'} as="svg" title="Test" width={24} height={24} />
+        <a href=""><span>Alpine</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'format/cargo'} as="svg" title="Test" width={24} height={24} />
+        <a href=""><span>Cargo</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/chocolatey'} as="svg" title="Test" width={24} height={24} />
+        <a href=""><span>Chocolatey</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/cocoapods'} as="svg" title="Test" width={24} height={24} />
+        <a href=""><span>Cocoapods</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/composer'} as="svg" title="Test" width={24} height={24} />
+        <a href=""><span>Composer</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/conan'} as="svg" title="Test" width={24} height={24} />
+        <a href=""><span>Conan</span></a>
     </div>
 </div>
 
 
-  'format/alpine': FormatAlpineIcon,
+  {/* 'format/alpine': FormatAlpineIcon,
   'format/cargo': FormatCargoIcon,
   'format/chocolatey': FormatChocolateyIcon,
   'format/cocoapods': FormatCocoapodsIcon,
@@ -170,4 +203,4 @@ Clicking the relevant Package format will present package format-specific set up
   'format/swift': FormatSwiftIcon,
   'format/terraform': FormatTerraformIcon,
   'format/unity': FormatUnityIcon,
-  'format/vagrant': FormatVagrantIcon,
+  'format/vagrant': FormatVagrantIcon, */}
