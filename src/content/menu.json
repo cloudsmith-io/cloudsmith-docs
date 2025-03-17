@@ -370,11 +370,28 @@
     "icon": "action/guide",
     "children": [
       {
-        "title": "A Section",
+        "title": "Securing your Software Supply Chain",
         "children": [
           {
-            "title": "Test Guide",
-            "path": "/guides/test-guide"
+            "title": "Achieving S2C2F Maturity Levels with Cloudsmith",
+            "path": "/guides/achieving-s2c2f-maturity-levels-with-cloudsmith"
+          },
+          {
+            "title": "Best practices for secure artifact management",
+            "path": "/guides/best-practices-for-secure-artifact-management"
+          }
+        ]
+      },
+      {
+        "title": "Compliance",
+        "children": [
+          {
+            "title": "SLSA Compliance with Cloudsmith",
+            "path": "/guides/slsa-compliance-with-cloudsmith"
+          },
+          {
+            "title": "How Cloudsmith Helps You Become FedRAMP-Compliant",
+            "path": "/guides/how-cloudsmith-helps-you-become-fedramp-compliant"
           }
         ]
       }
