@@ -5,6 +5,24 @@
     "icon": "action/documentation",
     "children": [
       {
+        "title": "Cloudsmith Overview",
+        "path": "/cloudsmith-overview/what-is-cloud-native-artifact-management",
+        "children": [
+          {
+            "title": "What is cloud-native artifact management",
+            "path": "/cloudsmith-overview/what-is-cloud-native-artifact-management"
+          },
+          {
+            "title": "Concepts and components",
+            "path": "/cloudsmith-overview/concepts-and-components"
+          },
+          {
+            "title": "Common use cases",
+            "path": "/cloudsmith-overview/common-use-cases"
+          }
+        ]
+      },
+      {
         "title": "Getting Started",
         "path": "/getting-started",
         "children": [
