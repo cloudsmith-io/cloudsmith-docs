@@ -243,6 +243,120 @@
         ]
       },
       {
+        "title": "Integrations",
+        "path": "/integrations",
+        "children": [
+          {
+            "title": "Integrating Ansible",
+            "path": "/integrations/integrating-with-ansible"
+          },
+          {
+            "title": "Integrating ArgoCD",
+            "path": "/integrations/integrating-with-argocd"
+          },
+          {
+            "title": "Integrating AWS CodeBuild",
+            "path": "/integrations/integrating-with-aws-codebuild"
+          },
+          {
+            "title": "Integrating Azure DevOps",
+            "path": "/integrations/integrating-with-azure-devops"
+          },
+          {
+            "title": "Integrating Bitbucket Pipelines",
+            "path": "/integrations/integrating-with-bitbucket-pipelines"
+          },
+          {
+            "title": "Integrating Buildkite",
+            "path": "/integrations/integrating-with-buildkite"
+          },
+          {
+            "title": "Integrating Chainguard Images",
+            "path": "/integrations/integrating-with-chainguard-images"
+          },
+          {
+            "title": "Integrating Chef",
+            "path": "/integrations/integrating-with-chef"
+          },
+          {
+            "title": "Integrating CircleCI",
+            "path": "/integrations/integrating-with-circleci"
+          },
+          {
+            "title": "Integrating Codefresh",
+            "path": "/integrations/integrating-with-codefresh"
+          },
+          {
+            "title": "Integrating Datadog",
+            "path": "/integrations/integrating-with-datadog"
+          },
+          {
+            "title": "Integrating Dependabot",
+            "path": "/integrations/integrating-with-dependabot"
+          },
+          {
+            "title": "Integrating Docker Hub",
+            "path": "/integrations/integrating-with-docker-hub"
+          },
+          {
+            "title": "Integrating Drone CI",
+            "path": "/integrations/integrating-with-drone-ci"
+          },
+          {
+            "title": "Integrating GitHub Actions",
+            "path": "/integrations/integrating-with-github-actions"
+          },
+          {
+            "title": "Integrating GitLab CI/CD",
+            "path": "/integrations/integrating-with-gitlab-cicd"
+          },
+          {
+            "title": "Integrating Harness CD",
+            "path": "/integrations/integrating-with-harness"
+          },
+          {
+            "title": "Integrating Jenkins",
+            "path": "/integrations/integrating-with-jenkins"
+          },
+          {
+            "title": "Integrating Microsoft Teams",
+            "path": "/integrations/integrating-with-microsoft-teams"
+          },
+          {
+            "title": "Integrating Octopus Deploy",
+            "path": "/integrations/integrating-with-octopus-deploy"
+          },
+          {
+            "title": "Integrating Puppet",
+            "path": "/integrations/integrating-with-puppet"
+          },
+          {
+            "title": "Integrating Roadie",
+            "path": "/integrations/integrating-with-roadie"
+          },
+          {
+            "title": "Integrating Semaphore CI",
+            "path": "/integrations/integrating-with-semaphore-ci"
+          },
+          {
+            "title": "Integrating Slack",
+            "path": "/integrations/integrating-with-slack"
+          },
+          {
+            "title": "Integrating Terraform Provider",
+            "path": "/integrations/integrating-with-terraform"
+          },
+          {
+            "title": "Integrating Travis-CI",
+            "path": "/integrations/integrating-with-travis-ci"
+          },
+          {
+            "title": "Integrating Zapier",
+            "path": "/integrations/integrating-with-zapier"
+          }
+        ]
+      },
+      {
         "title": "Artifact Management",
         "path": "/artifact-management",
         "children": [
@@ -503,120 +617,6 @@
           {
             "title": "License Compliance",
             "path": "/supply-chain-security/license-compliance"
-          }
-        ]
-      },
-      {
-        "title": "Integrations",
-        "path": "/integrations",
-        "children": [
-          {
-            "title": "Integrating Ansible",
-            "path": "/integrations/integrating-with-ansible"
-          },
-          {
-            "title": "Integrating ArgoCD",
-            "path": "/integrations/integrating-with-argocd"
-          },
-          {
-            "title": "Integrating AWS CodeBuild",
-            "path": "/integrations/integrating-with-aws-codebuild"
-          },
-          {
-            "title": "Integrating Azure DevOps",
-            "path": "/integrations/integrating-with-azure-devops"
-          },
-          {
-            "title": "Integrating Bitbucket Pipelines",
-            "path": "/integrations/integrating-with-bitbucket-pipelines"
-          },
-          {
-            "title": "Integrating Buildkite",
-            "path": "/integrations/integrating-with-buildkite"
-          },
-          {
-            "title": "Integrating Chainguard Images",
-            "path": "/integrations/integrating-with-chainguard-images"
-          },
-          {
-            "title": "Integrating Chef",
-            "path": "/integrations/integrating-with-chef"
-          },
-          {
-            "title": "Integrating CircleCI",
-            "path": "/integrations/integrating-with-circleci"
-          },
-          {
-            "title": "Integrating Codefresh",
-            "path": "/integrations/integrating-with-codefresh"
-          },
-          {
-            "title": "Integrating Datadog",
-            "path": "/integrations/integrating-with-datadog"
-          },
-          {
-            "title": "Integrating Dependabot",
-            "path": "/integrations/integrating-with-dependabot"
-          },
-          {
-            "title": "Integrating Docker Hub",
-            "path": "/integrations/integrating-with-docker-hub"
-          },
-          {
-            "title": "Integrating Drone CI",
-            "path": "/integrations/integrating-with-drone-ci"
-          },
-          {
-            "title": "Integrating GitHub Actions",
-            "path": "/integrations/integrating-with-github-actions"
-          },
-          {
-            "title": "Integrating GitLab CI/CD",
-            "path": "/integrations/integrating-with-gitlab-cicd"
-          },
-          {
-            "title": "Integrating Harness CD",
-            "path": "/integrations/integrating-with-harness"
-          },
-          {
-            "title": "Integrating Jenkins",
-            "path": "/integrations/integrating-with-jenkins"
-          },
-          {
-            "title": "Integrating Microsoft Teams",
-            "path": "/integrations/integrating-with-microsoft-teams"
-          },
-          {
-            "title": "Integrating Octopus Deploy",
-            "path": "/integrations/integrating-with-octopus-deploy"
-          },
-          {
-            "title": "Integrating Puppet",
-            "path": "/integrations/integrating-with-puppet"
-          },
-          {
-            "title": "Integrating Roadie",
-            "path": "/integrations/integrating-with-roadie"
-          },
-          {
-            "title": "Integrating Semaphore CI",
-            "path": "/integrations/integrating-with-semaphore-ci"
-          },
-          {
-            "title": "Integrating Slack",
-            "path": "/integrations/integrating-with-slack"
-          },
-          {
-            "title": "Integrating Terraform Provider",
-            "path": "/integrations/integrating-with-terraform"
-          },
-          {
-            "title": "Integrating Travis-CI",
-            "path": "/integrations/integrating-with-travis-ci"
-          },
-          {
-            "title": "Integrating Zapier",
-            "path": "/integrations/integrating-with-zapier"
           }
         ]
       },
