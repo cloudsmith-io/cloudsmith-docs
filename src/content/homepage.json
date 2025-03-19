@@ -1,6 +1,6 @@
 {
   "hero": {
-    "title": "Welcome to Cloudsmith's documentation site.",
+    "title": "Cloudsmith Documentation",
     "description": "Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies.",
     "buttons": [
       {
