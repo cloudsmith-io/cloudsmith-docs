@@ -13,8 +13,26 @@
             "path": "/cloudsmith-overview/what-is-cloud-native-artifact-management"
           },
           {
-            "title": "Concepts and components",
-            "path": "/cloudsmith-overview/concepts-and-components"
+            "title": "Core concepts and components",
+            "path": "/cloudsmith-overview/concepts-and-components",
+            "children": [
+              {
+                "title": "Upstream Proxying",
+                "path": "/"
+              },
+              {
+                "title": "Packages",
+                "path": "/"
+              },
+              {
+                "title": "Repositories",
+                "path": "/"
+              },
+              {
+                "title": "Workspaces",
+                "path": "/"
+              }
+            ]
           },
           {
             "title": "Common use cases",
@@ -27,36 +45,24 @@
         "path": "/getting-started",
         "children": [
           {
-            "title": "Package Managers",
-            "path": "/getting-started/package-managers"
+            "title": "Creating an Account",
+            "path": "/"
           },
           {
-            "title": "Dependencies for Developers",
-            "path": "/getting-started/dependencies-for-developers"
+            "title": "Generating an API Key",
+            "path": "/getting-started/api-key"
           },
           {
-            "title": "What Is Package Management",
-            "path": "/getting-started/what-is-package-management"
-          },
-          {
-            "title": "Packages",
-            "path": "/getting-started/repository-packages"
-          },
-          {
-            "title": "API Bindings",
-            "path": "/getting-started/api-bindings"
+            "title": "Integrate your preferred package format",
+            "path": "/"
           },
           {
             "title": "Command Line Interface",
             "path": "/getting-started/cli"
           },
           {
-            "title": "Custom Domains",
-            "path": "/getting-started/custom-domains"
-          },
-          {
-            "title": "API Key",
-            "path": "/getting-started/api-key"
+            "title": "API Bindings",
+            "path": "/getting-started/api-bindings"
           }
         ]
       },
@@ -65,11 +71,11 @@
         "path": "/migrating-to-cloudsmith",
         "children": [
           {
-            "title": "Export from JFrog Artifactory",
+            "title": "Migrating from JFrog Artifactory",
             "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory"
           },
           {
-            "title": "Export from Nexus Sonatype",
+            "title": "Migrating from Nexus Sonatype",
             "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
           },
           {
@@ -111,7 +117,7 @@
         ]
       },
       {
-        "title": "Supported Formats",
+        "title": "Package Formats",
         "path": "/supported-formats/",
         "children": [
           {
@@ -243,7 +249,7 @@
         ]
       },
       {
-        "title": "Integrations",
+        "title": "CI/CD Integrations",
         "path": "/integrations",
         "children": [
           {
@@ -319,10 +325,6 @@
             "path": "/integrations/integrating-with-jenkins"
           },
           {
-            "title": "Integrating Microsoft Teams",
-            "path": "/integrations/integrating-with-microsoft-teams"
-          },
-          {
             "title": "Integrating Octopus Deploy",
             "path": "/integrations/integrating-with-octopus-deploy"
           },
@@ -339,10 +341,6 @@
             "path": "/integrations/integrating-with-semaphore-ci"
           },
           {
-            "title": "Integrating Slack",
-            "path": "/integrations/integrating-with-slack"
-          },
-          {
             "title": "Integrating Terraform Provider",
             "path": "/integrations/integrating-with-terraform"
           },
@@ -357,7 +355,7 @@
         ]
       },
       {
-        "title": "Artifact Management",
+        "title": "Managing Artifacts",
         "path": "/artifact-management",
         "children": [
           {
@@ -423,17 +421,14 @@
           {
             "title": "Package Groups",
             "path": "/artifact-management/package-groups"
-          },
-          {
-            "title": "Signing Keys",
-            "path": "/artifact-management/signing-keys"
           }
         ]
       },
       {
-        "title": "Workspaces",
-        "path": "/getting-started/workspaces",
-        "children": [
+        "title": "Managing Workspaces",
+        "path": "/getting-started/workspaces"
+      },
+
           {
             "title": "Managing Repositories",
             "path": "/managing-repositories",
@@ -447,98 +442,12 @@
                 "path": "/managing-repositories/manage-a-repository"
               },
               {
-                "title": "Main Settings",
+                "title": "Repository Settings",
                 "path": "/managing-repositories/repository-settings"
               },
               {
                 "title": "Custom Storage Regions",
                 "path": "/managing-repositories/custom-storage-regions"
-              }
-            ]
-          },
-          {
-            "title": "Authentication",
-            "path": "/securing-your-workspace",
-            "children": [
-              {
-                "title": "Single Sign-On",
-                "path": "/securing-your-workspace/single-sign-on"
-              },
-              {
-                "title": "Setup GitHub Actions to authenticate to Cloudsmith using OIDC",
-                "path": "/securing-your-workspace/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
-              },
-              {
-                "title": "SCIM with JumpCloud",
-                "path": "/securing-your-workspace/scim-with-jumpcloud"
-              },
-              {
-                "title": "SCIM with Google",
-                "path": "/securing-your-workspace/scim-with-google"
-              },
-              {
-                "title": "SCIM",
-                "path": "/securing-your-workspace/scim"
-              },
-              {
-                "title": "Two-Factor Authentication",
-                "path": "/securing-your-workspace/two-factor-authentication"
-              },
-              {
-                "title": "API Key Policy",
-                "path": "/securing-your-workspace/api-key-policy"
-              },
-              {
-                "title": "Single Sign-On with JumpCloud",
-                "path": "/securing-your-workspace/single-sign-on-with-jumpcloud"
-              },
-              {
-                "title": "Single Sign-On with PingIdentity",
-                "path": "/securing-your-workspace/single-sign-on-with-pingidentity"
-              },
-              {
-                "title": "Single Sign-On with Google",
-                "path": "/securing-your-workspace/single-sign-on-with-google-g-suite"
-              },
-              {
-                "title": "Signing artifacts with Cosign",
-                "path": "/securing-your-workspace/signing-a-package-with-cosign"
-              },
-              {
-                "title": "SCIM with PingFederate",
-                "path": "/securing-your-workspace/scim-with-pingfederate"
-              },
-              {
-                "title": "Single Sign-On with OneLogin",
-                "path": "/securing-your-workspace/single-sign-on-with-onelogin"
-              },
-              {
-                "title": "OpenID Connect",
-                "path": "/securing-your-workspace/openid-connect"
-              },
-              {
-                "title": "SCIM with OneLogin",
-                "path": "/securing-your-workspace/scim-with-onelogin"
-              },
-              {
-                "title": "SCIM with Okta",
-                "path": "/securing-your-workspace/scim-with-okta"
-              },
-              {
-                "title": "SCIM with Microsoft Entra ID (previously Azure Active Directory)",
-                "path": "/securing-your-workspace/scim-with-microsoft-entra-id"
-              },
-              {
-                "title": "API Key Policy",
-                "path": "/securing-your-workspace/api-key-policy"
-              },
-              {
-                "title": "Single Sign-On with Okta",
-                "path": "/securing-your-workspace/single-sign-on-with-okta"
-              },
-              {
-                "title": "Single Sign-On with Azure AD",
-                "path": "/securing-your-workspace/single-sign-on-with-azure-ad"
               }
             ]
           },
@@ -575,17 +484,91 @@
                 "path": "/teams-and-accounts/teams"
               }
             ]
-          }
-        ]
-      },
+          },
+          {
+            "title": "Authentication",
+            "path": "/securing-your-workspace",
+            "children": [
+              {
+                "title": "Single Sign-On",
+                "path": "/securing-your-workspace/single-sign-on",
+                "children": [
+                  {
+                    "title": "Single Sign-On with Azure AD",
+                    "path": "/securing-your-workspace/single-sign-on-with-azure-ad"
+                  },
+                  {
+                    "title": "Single Sign-On with Google",
+                    "path": "/securing-your-workspace/single-sign-on-with-google-g-suite"
+                  },
+                  {
+                    "title": "Single Sign-On with JumpCloud",
+                    "path": "/securing-your-workspace/single-sign-on-with-jumpcloud"
+                  },
+                  {
+                    "title": "Single Sign-On with PingIdentity",
+                    "path": "/securing-your-workspace/single-sign-on-with-pingidentity"
+                  },
+                  {
+                    "title": "Single Sign-On with Okta",
+                    "path": "/securing-your-workspace/single-sign-on-with-okta"
+                  },
+                  {
+                    "title": "Single Sign-On with OneLogin",
+                    "path": "/securing-your-workspace/single-sign-on-with-onelogin"
+                  }
+                ]
+              },
+              {
+                "title": "SCIM",
+                "path": "/securing-your-workspace/scim",
+                "children": [
+                  {
+                    "title": "SCIM with JumpCloud",
+                    "path": "/securing-your-workspace/scim-with-jumpcloud"
+                  },
+                  {
+                    "title": "SCIM with Google",
+                    "path": "/securing-your-workspace/scim-with-google"
+                  },
+                  {
+                    "title": "SCIM with PingFederate",
+                    "path": "/securing-your-workspace/scim-with-pingfederate"
+                  },
+                  {                "title": "SCIM with OneLogin",
+                  "path": "/securing-your-workspace/scim-with-onelogin"
+                },
+                {
+                  "title": "SCIM with Okta",
+                  "path": "/securing-your-workspace/scim-with-okta"
+                },
+                {
+                  "title": "SCIM with Microsoft Entra ID (previously Azure Active Directory)",
+                  "path": "/securing-your-workspace/scim-with-microsoft-entra-id"
+                }
+                  
+                ]
+              },
+              {
+                "title": "OpenID Connect",
+                "path": "/securing-your-workspace/openid-connect",
+                "children": [
+                  {
+                    "title": "Setup GitHub Actions to authenticate to Cloudsmith using OIDC",
+                    "path": "/securing-your-workspace/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
+                  }
+                ]
+              },
+              {
+                "title": "Two-Factor Authentication",
+                "path": "/securing-your-workspace/two-factor-authentication"
+              }
+            ]
+          },
       {
-        "title": "Securing your Software supply chain",
+        "title": "Policies and Security",
         "path": "/supply-chain-security",
         "children": [
-          {
-            "title": "Security Policy",
-            "path": "/supply-chain-security/security-policy"
-          },
           {
             "title": "Vulnerability Policy",
             "path": "/supply-chain-security/vulnerability-policy"
@@ -595,16 +578,12 @@
             "path": "/supply-chain-security/deny-policy"
           },
           {
-            "title": "EULA Enforcement",
-            "path": "/supply-chain-security/eula"
+            "title": "API Key Policy",
+            "path": "/securing-your-workspace/api-key-policy"
           },
           {
             "title": "Security Scanning",
             "path": "/supply-chain-security/security-scanning"
-          },
-          {
-            "title": "Policy Management",
-            "path": "/supply-chain-security/policy-management"
           },
           {
             "title": "License Policy",
@@ -617,6 +596,28 @@
           {
             "title": "License Compliance",
             "path": "/supply-chain-security/license-compliance"
+          },
+          {
+            "title": "Enterprise Policy Management"
+          },
+          {
+            "title": "Getting Started with Enterprise Policy Management",
+            "path": "/"
+          },
+          {
+            "title": "Enterprise Policy Management Rego Recipes",
+            "path": "/"
+          },
+          {
+            "title": "Keys and Signing"
+          },
+          {
+            "title": "Signing Keys",
+            "path": "/artifact-management/signing-keys"
+          },
+          {
+            "title": "Signing artifacts with Cosign",
+            "path": "/securing-your-workspace/signing-a-package-with-cosign"
           }
         ]
       },
@@ -661,8 +662,19 @@
             "path": "/observability-and-logging/analyzing-s3-download-logs"
           },
           {
+            "title": "Notifications"
+          },
+          {
             "title": "Webhooks",
             "path": "/observability-and-logging/webhooks"
+          },
+          {
+            "title": "Integrating Slack",
+            "path": "/integrations/integrating-with-slack"
+          },
+          {
+            "title": "Integrating Microsoft Teams",
+            "path": "/integrations/integrating-with-microsoft-teams"
           }
         ]
       },
@@ -672,29 +684,40 @@
         "children": [
           {
             "title": "Entitlements",
-            "path": "/software-distribution/entitlement-tokens"
+            "path": "/software-distribution/entitlement-tokens",
+            "children": [
+              {
+                "title": "Entitlements via the API",
+                "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-api"
+              },
+              {
+                "title": "Entitlements via the CLI",
+                "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-cli"
+              },
+              {
+                "title": "Entitlements via the UI",
+                "path": "/software-distribution/entitlement-tokens-via-the-website-ui"
+              }
+            ]
+          },
+          
+          {
+            "title": "EULA Enforcement",
+            "path": "/supply-chain-security/eula"
           },
           {
-            "title": "Entitlements via the API",
-            "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-api"
-          },
-          {
-            "title": "Entitlements via the CLI",
-            "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-cli"
-          },
-          {
-            "title": "Entitlements via the UI",
-            "path": "/software-distribution/entitlement-tokens-via-the-website-ui"
-          },
-          {
-            "title": "Distribution (for Vendors)",
-            "path": "/software-distribution/distribution-for-vendors"
+            "title": "Broadcasts",
+            "path": "/"
           }
         ]
       },
       {
         "title": "Developer Community",
         "path": "/developer-community"
+      },
+      {
+        "title": "Custom Domains",
+        "path": "/getting-started/custom-domains"
       },
       {
         "title": "Contact Us",
