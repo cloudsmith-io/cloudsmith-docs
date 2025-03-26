@@ -46,6 +46,33 @@
       ]
     },
     {
+      "heading": "Setting up users and teams",
+      "type": "cards",
+      "cards": [
+        {
+          "title": "Adding Users",
+          "description": "Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+          "href": "/",
+          "linkText": "Go to guide",
+          "icon": "utility/documentation"
+        },
+        {
+          "title": "Creating Teams",
+          "description": "Cillum eiusmod sint laboris incididunt proident laboris. Minim nostrud irure nostrud incididunt consequat laborum.",
+          "href": "/",
+          "linkText": "Go to guide",
+          "icon": "utility/documentation"
+        },
+        {
+          "title": "Permissions",
+          "description": "Anim ipsum eiusmod occaecat duis ullamco reprehenderit sint do sunt irure veniam ullamco mollit in. Veniam Lorem amet culpa ullamco voluptate ad anim esse officia.",
+          "href": "/",
+          "linkText": "Go to guide",
+          "icon": "utility/documentation"
+        }
+      ]
+    },
+    {
       "heading": "Integrating Cloudsmith with your CI/CD Platform",
       "type": "cards",
       "cards": [

@@ -355,7 +355,7 @@
         ]
       },
       {
-        "title": "Managing Artifacts",
+        "title": "Artifacts",
         "path": "/artifact-management",
         "children": [
           {
@@ -425,12 +425,12 @@
         ]
       },
       {
-        "title": "Managing Workspaces",
+        "title": "Workspaces",
         "path": "/getting-started/workspaces"
       },
 
           {
-            "title": "Managing Repositories",
+            "title": "Repositories",
             "path": "/managing-repositories",
             "children": [
               {
@@ -452,7 +452,7 @@
             ]
           },
           {
-            "title": "Managing Teams and Accounts",
+            "title": "Teams and Accounts",
             "path": "/teams-and-accounts",
             "children": [
               {
