@@ -1,0 +1,126 @@
+import { GuideLink, Note, BlockImage } from '@/components';
+import { Icon, IconName } from '@/icons';
+import { iconRegistry } from '../icons/icon-registry';
+import styles from '../app/(documentation)/design-system/page.module.css';
+
+
+# Package Formats
+
+Cloudsmith supports the following package formats: 
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/alpine'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/alpine-repository"><span>Alpine</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'format/cargo'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/cargo-registry"><span>Cargo</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/chocolatey'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/chocolatey-repository"><span>Chocolatey</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/cocoapods'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/cocoapods-repository"><span>Cocoapods</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/composer'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/composer-repository"><span>Composer</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/conan'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/conan-repository"><span>Conan</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/python'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/conda-repository"><span>Conda</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'format/cran'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/cran-repository"><span>CRAN</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/dart'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/dart-repository"><span>Dart</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/debian'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/debian-repository"><span>Debian</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/docker'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/docker-registry"><span>Docker</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/go'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/go-registry"><span>Go</span></a>
+    </div>
+
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/gradle'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/gradle-repository"><span>Gradle</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'format/helm'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/helm-chart-repository"><span>Helm</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/hex'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/hex-repository"><span>Hex</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/luarocks'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/luarocks-repository"><span>Lua Rocks</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/maven'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/maven-repository"><span>Maven</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/npm'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/npm-registry"><span>npm</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/nuget'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/nuget-feed"><span>NuGet</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'format/powershell'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/powershell-modules-repository"><span>Powershell Modules</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/python'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/python-repository"><span>Python</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/raw'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/raw-repository"><span>Raw</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/redhat'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/redhat-repository"><span>Red Hat</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/sbt'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/sbt-repository"><span>sbt</span></a>
+    </div>
+
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/swift'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/swift-registry"><span>Swift</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'format/terraform'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/terraform-modules-repository"><span>Terraform</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/unity'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/unity-registry"><span>Unity</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'format/vagrant'} as="svg" title="Test" width={24} height={24} />
+        <a href="/package-formats/vagrant-repository"><span>Vagrant</span></a>
+    </div>
+</div>
