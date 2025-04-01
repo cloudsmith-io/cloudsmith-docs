@@ -31,7 +31,7 @@ In the following examples:
 | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
 | OWNER           | Your Cloudsmith account name or organization name (namespace)                                                                       |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                                                                |
-| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details)                                           |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/distributing-your-software/entitlement-tokens) for more details)                                           |
 | USERNAME        | Your Cloudsmith username                                                                                                            |
 | PASSWORD        | Your Cloudsmith password                                                                                                            |
 | API-KEY         | Your Cloudsmith API Key                                                                                                             |
@@ -132,7 +132,7 @@ cloudsmith push maven org/repo validation-api-1.0.0.GA.jar --pom-file=validation
 
 ### Upload via Cloudsmith Website
 
-Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+Please see [Upload a Package](/artifacts/package-upload) for details of how to upload via the Website UI.
 
 ### Example Project
 
@@ -288,14 +288,14 @@ mvn install
 ## Security Scanning
 
 <span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](doc:security-scanning) documentation for further information.
+Please see our [Security Scanning](/policies-and-security/security-scanning) documentation for further information.
 
 ## Upstream Proxying / Caching
 
 <span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
 You can configure upstream Maven repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](doc:proxying) documentation for further instructions. 
+Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
 
 ## Key Signing Support
 
@@ -305,7 +305,7 @@ Please see our [Upstream Proxying](doc:proxying) documentation for further instr
 
 **Q. Maven maintains plain text passwords in settings.xml and credential files. How do we prevent exposure of such passwords?**
 
-The Maven tooling chain supports encrypted credentials. You can also use interpolation from environment variables instead so that you don't store them in configuration files. We also support authentication by de-privileged [entitlement tokens](docs:entitlement-tokens) (i.e. read-only specific access) to minimise exposure.
+The Maven tooling chain supports encrypted credentials. You can also use interpolation from environment variables instead so that you don't store them in configuration files. We also support authentication by de-privileged [entitlement tokens](/distributing-your-software/entitlement-tokens) (i.e. read-only specific access) to minimise exposure.
 
 ***
 

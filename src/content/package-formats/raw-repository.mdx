@@ -31,7 +31,7 @@ In the following examples:
 | :--------- | :---------------------------------------------------------------------------------------- |
 | OWNER      | Your Cloudsmith account name or organization name (namespace)                             |
 | REPOSITORY | Your Cloudsmith Repository name (also called "slug")                                      |
-| TOKEN      | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| TOKEN      | Your Cloudsmith Entitlement Token (see [Entitlements](/distributing-your-software/entitlement-tokens) for more details) |
 | USERNAME   | Your Cloudsmith username                                                                  |
 | PASSWORD   | Your Cloudsmith password                                                                  |
 | API-KEY    | Your Cloudsmith API Key                                                                   |
@@ -42,7 +42,7 @@ In the following examples:
 ## Upload a File
 
 <Note variant="note" headline="Note">
-When you upload raw package, you can specify a package name with `--name` via the CLI, or via the Web UI upload form. If you specify a name that exactly matches the package filename, this is treated as if a name was not specified and the resulting [download links](https://help.cloudsmith.io/docs/raw-repository#download-via-command-line) will follow the format for a package that was uploaded without a name.
+When you upload raw package, you can specify a package name with `--name` via the CLI, or via the Web UI upload form. If you specify a name that exactly matches the package filename, this is treated as if a name was not specified and the resulting [download links](/package-formats/raw-repository#download-via-command-line) will follow the format for a package that was uploaded without a name.
 </Note>
 
 ### Upload via the Cloudsmith CLI
@@ -63,7 +63,7 @@ cloudsmith push raw your-account/your-repo file.zip
 
 ### Upload via Cloudsmith Website
 
-Please see [upload a package](https://help.cloudsmith.io/docs/upload-package) for details of how to upload via the Website UI.
+Please see [upload a package](/artifacts/package-upload) for details of how to upload via the Website UI.
 
 ## Download a Package
 
@@ -190,7 +190,7 @@ curl -1sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/versions/VERS
 
 ## HTML / JSON Indexes
 
-Cloudsmith supports serving Apache-style HTML and JSON formatted indexes of raw package files in the repository.  You can enable index generation in the [Repository Settings](doc:repository-settings).
+Cloudsmith supports serving Apache-style HTML and JSON formatted indexes of raw package files in the repository.  You can enable index generation in the [Repository Settings](/repositories/repository-settings).
 
 When enabled, the HTML index is available at: 
 

@@ -54,8 +54,8 @@ Codefresh does not support OIDC for Docker integrations natively. You can use OI
 
 Set up **Codefresh as an OIDC provider** for Cloudsmith. This allows your Codefresh pipelines to request Cloudsmith API tokens dynamically, without manual credential management.
 
-1. **Create a [Service Account](doc:service-accounts)** in Cloudsmith (required for OIDC to work with Cloudsmith).
-2. **Configure [OpenID Connect](doc:openid-connect) in Cloudsmith**:
+1. **Create a [Service Account](/teams-and-accounts/service-accounts)** in Cloudsmith (required for OIDC to work with Cloudsmith).
+2. **Configure [OpenID Connect](/authentication/openid-connect) in Cloudsmith**:
    - Provider URL: `https://oidc.codefresh.io`
    - Claims: For example add your **Codefresh account ID** to restrict access. For more information on claims consult the [Codefresh documentation](https://codefresh.io/docs/docs/integrations/oidc-pipelines/#claims--conditions).
    - Assign the **service account** you created earlier.
@@ -74,7 +74,7 @@ obtain_id_token:
   type: obtain-oidc-id-token
 ```
 
-For more details, refer to the [Cloudsmith OIDC documentation](https://help.cloudsmith.io/docs/openid-connect) and [Codefresh OIDC documentation](https://codefresh.io/docs/docs/integrations/oidc-pipelines/). 
+For more details, refer to the [Cloudsmith OIDC documentation](/authentication/openid-connect) and [Codefresh OIDC documentation](https://codefresh.io/docs/docs/integrations/oidc-pipelines/). 
 
 #### Example Pipeline: Publish a Python Package to Cloudsmith
 
@@ -171,6 +171,6 @@ Cloudsmith Documentation:
 
 - [Helm Chart Repository](/package-formats/helm-chart-repository)
 - [Docker Registry](/package-formats/docker-registry)
-- [OpenID Connect](doc:openid-connect)
+- [OpenID Connect](/authentication/openid-connect)
 - [ArgoCD](/integrations/argocd)
 - [Octopus Deploy](/integrations/integrating-octopus-deploy)

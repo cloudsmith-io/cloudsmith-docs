@@ -8,27 +8,27 @@ import img783596c_Screenshot_2022_09_01_at_14_03_52 from './images/security-scan
 
 Cloudsmith Security Scanning will automatically scan supported package types for CVEs upon upload of a package. You can also trigger subsequent scans manually via the Web UI, and via the Cloudsmith API. 
 
-You can use the results of a Cloudsmith Security Scan to drive other actions such as to [quarantine a package](doc:package-quarantine), or as part of a package promotion workflow. 
+You can use the results of a Cloudsmith Security Scan to drive other actions such as to [quarantine a package](/artifacts/package-quarantine), or as part of a package promotion workflow. 
 
-Scan results are available via the [Web UI](https://help.cloudsmith.io/docs/security-scanning#scan-results-via-the-cloudsmith-web-ui), the [Cloudsmith API](https://help.cloudsmith.io/reference/vulnerabilities_list) or even as a [Webhook](doc:webhooks).
+Scan results are available via the [Web UI](/policies-and-security/security-scanning#scan-results-via-the-cloudsmith-web-ui), the [Cloudsmith API](https://help.cloudsmith.io/reference/vulnerabilities_list) or even as a [Webhook](/observability-and-logging/webhooks).
 
 ## Supported Formats
 
 Cloudsmith's Security Scanning feature is available for the following package formats:
 
-- [Cargo](/supported-formats/cargo-registry) 
-- [Composer](/supported-formats/composer-repository) 
-- [Conan](/supported-formats/conan-repository)
-- [Dart](/supported-formats/dart-repository)
-- [Docker](/supported-formats/docker-registry) 
-- [GoLang](/supported-formats/go-registry)
-- [Hex](/supported-formats/hex-repository)
-- [Maven](/supported-formats/maven-repository)
-- [npm](/supported-formats/npm-registry) 
-- [NuGet](/supported-formats/nuget-feed) 
-- [Python](/supported-formats/python-repository) 
-- [Ruby](/supported-formats/ruby-repository) 
-- [Swift](/supported-formats/swift-registry)
+- [Cargo](/package-formats/cargo-registry) 
+- [Composer](/package-formats/composer-repository) 
+- [Conan](/package-formats/conan-repository)
+- [Dart](/package-formats/dart-repository)
+- [Docker](/package-formats/docker-registry) 
+- [GoLang](/package-formats/go-registry)
+- [Hex](/package-formats/hex-repository)
+- [Maven](/package-formats/maven-repository)
+- [npm](/package-formats/npm-registry) 
+- [NuGet](/package-formats/nuget-feed) 
+- [Python](/package-formats/python-repository) 
+- [Ruby](/package-formats/ruby-repository) 
+- [Swift](/package-formats/swift-registry)
 
 ## Data Sources
 
@@ -79,7 +79,7 @@ You can use the Cloudsmith [Vulnerabilities API endpoints](https://help.cloudsmi
 
 ### Scan results via Webhook.
 
-Please see our [Webhooks](doc:webhooks) documentation for details of how to create a webhook and the full range of package events that are supported. 
+Please see our [Webhooks](/observability-and-logging/webhooks) documentation for details of how to create a webhook and the full range of package events that are supported. 
 
 ## Performing additional security scans
 
