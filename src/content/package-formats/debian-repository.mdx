@@ -25,7 +25,7 @@ In the following examples:
 | DISTRO            | Your distribution (i.e debian, ubuntu).  You can also use "any-distro" if your package is compatible with more than more distribution |
 | VERSION           | Your version name (i.e xenial, buster). You can also use "any-version" if your package is compatible with more than more version      |
 | FINGERPRINT       | The 8 Byte fingerprint of the Public GPG key for the repository                                                                       |
-| TOKEN             | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details)                                             |
+| TOKEN             | Your Cloudsmith Entitlement Token (see [Entitlements](/distributing-your-software/entitlement-tokens) for more details)                                             |
 | USERNAME          | Your Cloudsmith username                                                                                                              |
 | PASSWORD          | Your Cloudsmith password                                                                                                              |
 | API-KEY           | Your Cloudsmith API Key                                                                                                               |
@@ -47,7 +47,7 @@ fpm -f -s dir -t deb -n PACKAGE_NAME -v PACKAGE_VERSION .
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and set up the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/cli).
+For full details of how to install and set up the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
 
 #### Binary Packages
 
@@ -129,7 +129,7 @@ done
 
 ### Upload via Cloudsmith Website
 
-Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-package#upload-via-website-ui) for details of how to upload via the Website UI.
+Please see [Upload a Package](/artifacts/package-upload#upload-via-website-ui) for details of how to upload via the Website UI.
 
 
 ## Download / Install a Package
@@ -299,7 +299,7 @@ apt-get update
 <span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
 You can configure upstream Debian repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](doc:proxying) documentation for further instructions. 
+Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
 
 ## Key Signing Support
 
@@ -307,4 +307,4 @@ Please see our [Upstream Proxying](doc:proxying) documentation for further instr
 
 ## Troubleshooting
 
-Please see the [Troubleshooting](doc:troubleshooting) page for further help and information.
+Please see the [Troubleshooting](/troubleshooting) page for further help and information.

@@ -19,12 +19,12 @@ Since Docker can be used in different ways including remote repositories and dif
 #### Re-tag the images with Cloudsmith URL
 
 <Note variant="note" heading="Custom Domain">
-If you are a Velocity/Ultra customer, you are entitled to a [custom domain](https://help.cloudsmith.io/docs/custom-domains) for your package types including Docker. Before proceeding, if you would like to use a custom domain we highly recommend requesting it first as you will have to re-point the images to your new domain.
+If you are a Velocity/Ultra customer, you are entitled to a [custom domain](/getting-started/custom-domains) for your package types including Docker. Before proceeding, if you would like to use a custom domain we highly recommend requesting it first as you will have to re-point the images to your new domain.
 </Note>
 
 <Note variant="caution" heading="Be careful!">
 Before you proceed:
-1. Make sure that you are logged into the Cloudsmith repository you wish to push the images to. More information can be found in our [docs](https://help.cloudsmith.io/docs/docker-registry#publish-via-docker).
+1. Make sure that you are logged into the Cloudsmith repository you wish to push the images to. More information can be found in our [docs](/package-formats/docker-registry#publish-via-docker).
 2. The format that we will be tagging the images is as follows: `docker.cloudsmith.io/v2/OWNER/REGISTRY/`
 3. If you are using a custom domain, the URL will change to `<custom-domain>/v2/OWNER/REGISTRY/`
 </Note>

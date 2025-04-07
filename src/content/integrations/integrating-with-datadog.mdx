@@ -55,7 +55,7 @@ Configure your integration similar to core integrations. The Cloudsmith integrat
 | :----------------- | :----------------------------------------------------------------------------------------- |
 | url                | This is the url to the Cloudsmith API and will not change (https://api.cloudsmith.io/v1) |
 | cloudsmith_api_key | Your Cloudsmith API key                                                                    |
-| organization       | The Cloudsmith [Organization](doc:organisations)  that you are monitoring                  |
+| organization       | The Cloudsmith [Organization](/getting-started/workspaces)  that you are monitoring                  |
 
 Follow these steps to configure your Cloudsmith integration:
 
@@ -95,13 +95,13 @@ Select your installed Cloudsmith dashboard- it will be listed as **_Cloudsmith O
 The dashboard above tracks tokens and consumption usage in an Organization:
 
 - It tracks the storage and bandwidth usage of your packages in a Cloudsmith organization. If your bandwidth or storage usage is getting close to the limit, your status changes to amber if above 75% and red if your usage is above 85%.
-- Track your entitlement token usage for your organization. View the number of tokens created, the total amount downloaded by all tokens, and the bandwidth used by tokens. Entitlement tokens are read-only tokens used for downloading files and gaining read-only access to repository contents. See [Entitlements](doc:entitlements) for more information.
+- Track your entitlement token usage for your organization. View the number of tokens created, the total amount downloaded by all tokens, and the bandwidth used by tokens. Entitlement tokens are read-only tokens used for downloading files and gaining read-only access to repository contents. See [Entitlements](/distributing-your-software/entitlement-tokens) for more information.
 <BlockImage src={dataDogAuditImage} alt="" align="left"></BlockImage>
 
 Furthermore, you can also track org-wide audit logs and vulnerability scanning results across your Cloudsmith organization. This allows for _a one-stop-shop_ when it comes to visibility over your current artifacts.
 
 ## To Sum it Up
 
-The Datadog Cloudsmith Integration is a simple and effective visualization tool for monitoring your token, storage, bandwidth usage, audit logs, and vulnerability scanning. Never be surprised by an unexpected overage, and give yourself time to change your settings before you reach your limit. If you identify a limit that is approaching a threshold, then you can quickly and easily adjust your [limits](doc:organisations#usage-limits) at any time within the Cloudsmith UI.
+The Datadog Cloudsmith Integration is a simple and effective visualization tool for monitoring your token, storage, bandwidth usage, audit logs, and vulnerability scanning. Never be surprised by an unexpected overage, and give yourself time to change your settings before you reach your limit. If you identify a limit that is approaching a threshold, then you can quickly and easily adjust your [limits](/getting-started/workspaces#usage-limits) at any time within the Cloudsmith UI.
 
 If you already use Datadog to monitor your tools and services, this tool is for you!

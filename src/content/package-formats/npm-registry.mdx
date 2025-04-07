@@ -21,7 +21,7 @@ The Cloudsmith npm registry has been fully tested with the following:
 - `node` version: v6.11.3
 - `yarn` version: v1.9.4
 
-It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](doc:contact-us).
+It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](/contact-us).
 
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -34,7 +34,7 @@ In the following examples:
 | :-------------- | :---------------------------------------------------------------------------------------- |
 | OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
-| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/distributing-your-software/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
 | PASSWORD        | Your Cloudsmith password                                                                  |
 | API-KEY         | Your Cloudsmith API Key                                                                   |
@@ -97,7 +97,7 @@ For more details on `npm publish` see the official [npm documentation](https://d
 
 ## Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
 
 To upload via the Cloudsmith CLI / API, you'll need to generate your package first. You can do this with:
 
@@ -125,7 +125,7 @@ cloudsmith push npm your-account/your-repo cloudsmithjs-1.0.0.tgz
 
 ## Upload via Cloudsmith Website
 
-Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-package#upload-via-website-ui) for details of how to upload via the Website UI.
+Please see [Upload a Package](/artifacts/package-upload#upload-via-website-ui) for details of how to upload via the Website UI.
 
 ## Scoped Packages
 
@@ -143,7 +143,7 @@ To scope packages when publishing, add the scope to the name in your `package.js
 Replace `@SCOPE` with your own scope name
 </Note>
 
-You can then [publish the package](https://help.cloudsmith.io/docs/npm-registry#upload-a-package) directly using `npm publish`, or generate the package with `npm pack` and then push via the Cloudsmith CLI or Website UI
+You can then [publish the package](/package-formats/npm-registry#upload-a-package) directly using `npm publish`, or generate the package with `npm pack` and then push via the Cloudsmith CLI or Website UI
 
 You can find further information in the npm documentation on [scoped packages](https://docs.npmjs.com/misc/scope) (external link)
 
@@ -317,7 +317,7 @@ npm audit
 ```
 
 <Note variant="note" headline="Note">
-To use `npm audit`, you must authenticate using a Cloudsmith [API-Key](https://help.cloudsmith.io/docs/cli#getting-your-api-key), not an [Entitlement Token](https://help.cloudsmith.io/docs/entitlements).
+To use `npm audit`, you must authenticate using a Cloudsmith [API-Key](/getting-started/cli#getting-your-api-key), not an [Entitlement Token](/distributing-your-software/entitlement-tokens).
 </Note>
 
 You can find out more about [security auditing](https://docs.npmjs.com/getting-started/running-a-security-audit) in the npm documentation (external link).
@@ -341,14 +341,14 @@ Additionally, any search terms used are not passed to upstream repositories and 
 ## Security Scanning
 
 <span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](doc:security-scanning) documentation for further information.
+Please see our [Security Scanning](/policies-and-security/security-scanning) documentation for further information.
 
 ## Upstream Proxying / Caching
 
 <span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
 You can configure upstream NPM repositories you wish to use as additional package sources for your Cloudsmith repository. You can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](doc:proxying) documentation for further instructions
+Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions
 
 ## Key Signing Support
 
@@ -356,4 +356,4 @@ Please see our [Upstream Proxying](doc:proxying) documentation for further instr
 
 ## Troubleshooting
 
-Please see the [Troubleshooting](doc:troubleshooting) page for further help and information.
+Please see the [Troubleshooting](/troubleshooting) page for further help and information.

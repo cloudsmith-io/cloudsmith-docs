@@ -27,7 +27,7 @@ In the following examples:
 | :-------------- | :---------------------------------------------------------------------------------------- |
 | OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
-| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](doc:entitlements) for more details) |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/distributing-your-software/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
 | PASSWORD        | Your Cloudsmith password                                                                  |
 | API-KEY         | Your Cloudsmith API Key                                                                   |
@@ -97,7 +97,7 @@ cd cli_util
 tar --exclude='.dart_tool' -czvf cli_util_0.1.3.tar.gz ./*
 ```
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](https://help.cloudsmith.io/docs/upload-via-cloudsmith-cli-api).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
 
 The command to upload a Dart package via the Cloudsmith CLI is: 
 
@@ -113,7 +113,7 @@ cloudsmith push dart org/repo your-package-1.0.0.tgz
 
 ### Upload via Cloudsmith Website
 
-Please see [Upload a Package](https://help.cloudsmith.io/docs/upload-via-website-ui) for details of how to upload via the Website UI.
+Please see [Upload a Package](/artifacts/package-upload) for details of how to upload via the Website UI.
 
 ***
 
@@ -125,7 +125,7 @@ Instaling packages from this repository varies, depending on the version of the 
 
 **Public Repositories** 
 
-No further setup is required when using Dart SDK >= 2.15 with public repositories, you can add a dependency from this repository to your package `pubspec.yaml` automatically with `dart pub`. See [Installing a Package](https://help.cloudsmith.io/docs/dart-repository#sdk-version--215)
+No further setup is required when using Dart SDK >= 2.15 with public repositories, you can add a dependency from this repository to your package `pubspec.yaml` automatically with `dart pub`. See [Installing a Package](/package-formats/dart-repository)
 
 **Private Repositories**
 
@@ -288,14 +288,14 @@ Please also see the [pubspec docs](https://dart.dev/tools/pub/pubspec) for furth
 
 <span class="cs-tag cs-tag-dark-green">Supported</span> 
 
-Please see our [Security Scanning](doc:security-scanning) documentation for further information.
+Please see our [Security Scanning](/policies-and-security/security-scanning) documentation for further information.
 
 ## Upstream Proxying / Caching
 
 <span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
 You can configure upstream Dart repositories that you wish to use for packages that are not available in your Cloudsmith repository. Proxied Dart packages cannot currently be cached.
 
-Please see our [Upstream Proxying](doc:proxying) documentation for further instructions. 
+Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
 
 ## Key Signing Support
 
@@ -303,4 +303,4 @@ Please see our [Upstream Proxying](doc:proxying) documentation for further instr
 
 ## Troubleshooting
 
-Please see the [Troubleshooting](doc:troubleshooting) page for further help and information.
+Please see the [Troubleshooting](/troubleshooting) page for further help and information.

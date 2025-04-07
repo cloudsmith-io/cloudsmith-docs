@@ -411,7 +411,7 @@
             "path": "/artifacts/recycle-bin"
           },
           {
-            "title": "Artifact Lifecycle",
+            "title": "Retention Lifecycle",
             "path": "/artifacts/retention-lifecycle"
           },
           {
@@ -609,7 +609,7 @@
           },
           {
             "title": "Signing Keys",
-            "path": "/artifacts/signing-keys"
+            "path": "/policies-and-security/signing-keys"
           },
           {
             "title": "Signing artifacts with Cosign",

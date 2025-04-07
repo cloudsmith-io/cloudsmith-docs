@@ -24,28 +24,28 @@ Cloudsmith will automatically match licenses for the following package formats:
 
 |Format|<div class="cs-center">License Support </div>|
 |:---|:---|
-|[Alpine](/supported-formats/alpine-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Cargo](/supported-formats/cargo-registry)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Cocoapods](/supported-formats/cocoapods-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Composer](/supported-formats/composer-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Conan](/supported-formats/conan-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Conda](/supported-formats/conda-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[CRAN](/supported-formats/cran-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Dart](/supported-formats/dart-repository)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
-|[Debian](/supported-formats/debian-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Docker](/supported-formats/docker-registry)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
-|[Go](/supported-formats/go-registry)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Helm](/supported-formats/helm-chart-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Hex](/supported-formats/hex-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[LuaRocks](/supported-formats/luarocks-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Maven](/supported-formats/maven-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[npm](/supported-formats/npm-registry)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[NuGet](/supported-formats/nuget-feed)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Python](/supported-formats/python-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[RPM](/supported-formats/redhat-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Ruby](/supported-formats/ruby-repository) (Beta)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
-|[Terraform](/supported-formats/terraform-modules-repository)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
-|[Vagrant](/supported-formats/vagrant-repository)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
+|[Alpine](/package-formats/alpine-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Cargo](/package-formats/cargo-registry)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Cocoapods](/package-formats/cocoapods-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Composer](/package-formats/composer-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Conan](/package-formats/conan-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Conda](/package-formats/conda-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[CRAN](/package-formats/cran-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Dart](/package-formats/dart-repository)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
+|[Debian](/package-formats/debian-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Docker](/package-formats/docker-registry)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
+|[Go](/package-formats/go-registry)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Helm](/package-formats/helm-chart-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Hex](/package-formats/hex-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[LuaRocks](/package-formats/luarocks-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Maven](/package-formats/maven-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[npm](/package-formats/npm-registry)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[NuGet](/package-formats/nuget-feed)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Python](/package-formats/python-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[RPM](/package-formats/redhat-repository)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Ruby](/package-formats/ruby-repository) (Beta)|<BlockImage src={img006a7b5_tick_green} alt=""></BlockImage>|
+|[Terraform](/package-formats/terraform-modules-repository)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
+|[Vagrant](/package-formats/vagrant-repository)|<BlockImage src={img2fe13f1_cross_red} alt=""></BlockImage>|
 
 ## View License Policies
 
@@ -105,7 +105,7 @@ Here you can define the following:
 
 Once saved, the policy is enabled across your workspace and the policy compliance check will be performed automatically during the package synchronisation process. This process occurs when a package is uploaded, moved, copied, or cached (such as in upstream caching).
 
-You can also manually trigger a synchronisation of a package using the resync functionality. See [Package Resynchronization](https://help.cloudsmith.io/docs/resync-a-package) for instructions on how to do this. 
+You can also manually trigger a synchronisation of a package using the resync functionality. See [Package Resynchronization](/artifacts/resync-a-package) for instructions on how to do this. 
 
 ## Policy Violations
 
@@ -118,7 +118,7 @@ You can also search for policy violations using `policy_violated:true`.
 <BlockImage src={img_search_policy_violations} alt="violated policy search"></BlockImage>
 
 <Note variant="note">
-  You can view this violation list at any time using our package search [(link)](https://help.cloudsmith.io/docs/search-packages#searching-packages-via-the-website-ui) feature and setting the filter to `policy_violated:true` for all policy violations, or `license_policy_violated:true` to only return license policy violations.
+  You can view this violation list at any time using our package search [(link)](/artifacts/search-packages#searching-packages-via-the-website-ui) feature and setting the filter to `policy_violated:true` for all policy violations, or `license_policy_violated:true` to only return license policy violations.
 </Note>
 
 ## Policy Violation Identifiers
@@ -155,8 +155,8 @@ It's important to note that packages cannot be restored from quarantine if they 
 
 To remove a package from quarantine, you have four options: 
 
-- Change the package license to an allowed license via the [license compliance](https://help.cloudsmith.io/docs/license-compliance#edit-a-license) section of the package's repository.
-- Apply a manual license override of "ignored" or "purchased" via the [license compliance](https://help.cloudsmith.io/docs/license-compliance#edit-a-license) section of the package's repository.
+- Change the package license to an allowed license via the [license compliance](/policies-and-security/license-compliance#edit-a-license) section of the package's repository.
+- Apply a manual license override of "ignored" or "purchased" via the [license compliance](/policies-and-security/license-compliance#edit-a-license) section of the package's repository.
 - Edit the license policy to remove the license from the deny list.
 - Edit the license policy to set **Quarantine on violation** to "No".
 
@@ -164,4 +164,4 @@ If you change the package license, the package will be resynchronized and automa
 
 If you update the policy to remove the license from the deny list or set **Quarantine on violation** set to "No", the package can be manually removed from quarantine.
 
-See [Package Quarantine](https://help.cloudsmith.io/docs/package-quarantine#release-from-quarantine) for instructions on restoring a package from quarantine.
+See [Package Quarantine](/artifacts/package-quarantine#release-from-quarantine) for instructions on restoring a package from quarantine.
