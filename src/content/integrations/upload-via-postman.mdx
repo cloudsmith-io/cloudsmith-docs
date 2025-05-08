@@ -23,7 +23,7 @@ Uploading a raw package to Cloudsmith via the URL is a 2 step process:
 
 1. A PUT req against the upload URL: https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME.  
    The response to this PUT req gives you an identifier that you will need for the next stage.
-2. A POST req to https://help.cloudsmith.io/reference/packages_upload_raw 
+2. A POST req to the API method [`Upload Raw Packages`](/api/packages/upload/raw). 
 
 Postman is an application used for API testing. You can install Postman [here](https://www.postman.com/)
 

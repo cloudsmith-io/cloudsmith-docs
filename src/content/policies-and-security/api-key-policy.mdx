@@ -95,7 +95,7 @@ If the API policy is enabled and "Enforce automatic API key refresh" is set, use
 
 For service accounts, the creator of the service account will receive an email notification informing them of the upcoming expiration of the service's API key. The email also provides a URL that the user can use to reset the API key. Additionally, when the creator logs into the application's user interface, they receive a warning message.
 
-If a service account has been created by another service account, no email notification will be sent for an upcoming API key expiration. In this scenario, with the API Key Policy enabled, you can use the [Get a list of all services within a workspace](https://help.cloudsmith.io/reference/orgs_services_list) REST API call to retrieve your services, and find each respective key expiry in the `key_expires_at` field.
+If a service account has been created by another service account, no email notification will be sent for an upcoming API key expiration. In this scenario, with the API Key Policy enabled, you can use the [Get a list of all services within a workspace](/api/services/list) REST API call to retrieve your services, and find each respective key expiry in the `key_expires_at` field.
 
 ## Audit Logs
 

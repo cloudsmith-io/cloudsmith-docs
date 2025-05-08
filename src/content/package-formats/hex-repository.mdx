@@ -59,7 +59,7 @@ export CLOUDSMITH_REPOSITORY='OWNER/REPOSITORY'
 
 While documented as optional, it's necessary to obtain the repository's fingerprint via Cloudsmith's API. This fingerprint ensures secure communication between your project and Cloudsmith.
 
-Use the command below to Cloudsmith's API to [retrieve the active RSA key](https://help.cloudsmith.io/reference/repos_rsa_list) (aka its fingerprint) for the Cloudsmith Repository: 
+Use the command below to Cloudsmith's API to [retrieve the active RSA key](/api/repos/rsa/list) (aka its fingerprint) for the Cloudsmith Repository: 
 
 ```shell
 export FINGERPRINT=$(curl -s -H "X-Api-Key: ${CLOUDSMITH_API_KEY}" ${CLOUDSMITH_API_HOST}/v1/repos/${CLOUDSMITH_REPOSITORY}/rsa/ | jq -r '.ssh_fingerprint')

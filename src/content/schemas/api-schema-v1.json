@@ -6,7 +6,7 @@
     "termsOfService": "https://help.cloudsmith.io",
     "contact": {
       "name": "Cloudsmith Support",
-      "url": "https://help.cloudsmith.io",
+      "url": "https://support.cloudsmith.com/",
       "email": "support@cloudsmith.io"
     },
     "license": { "name": "MIT", "url": "https://opensource.org/licenses/MIT" },
@@ -330,6 +330,14 @@
             "required": false,
             "type": "boolean",
             "default": false
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "A field for sorting objects in ascending or descending order. Use `-` prefix for descending order (e.g., `-name`). Available options: name.",
+            "required": false,
+            "type": "string",
+            "default": "name"
           }
         ],
         "responses": {
@@ -1924,6 +1932,22 @@
             "required": false,
             "type": "boolean",
             "default": false
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search term for querying of members within an Organization.Available options are: email, org, user, userslug, inactive, user_name, role",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "A field for sorting objects in ascending or descending order. Use `-` prefix for descending order (e.g., `-user_name`). Available options: user_name, role.",
+            "required": false,
+            "type": "string",
+            "default": "user_name"
           }
         ],
         "responses": {
@@ -1950,6 +1974,31 @@
         "summary": "Get the details for a specific organization member.",
         "description": "Get the details for a specific organization member.",
         "parameters": [],
+        "responses": {
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/OrganizationMembership" } },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["orgs"]
+      },
+      "patch": {
+        "operationId": "orgs_members_partial_update",
+        "summary": "Views for working with organization members.",
+        "description": "Views for working with organization members.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/OrganizationMembershipRequestPatch" }
+          }
+        ],
         "responses": {
           "200": { "description": "OK", "schema": { "$ref": "#/definitions/OrganizationMembership" } },
           "400": {
@@ -2038,6 +2087,74 @@
         { "name": "member", "in": "path", "required": true, "type": "string" }
       ]
     },
+    "/orgs/{org}/members/{member}/update-role/": {
+      "patch": {
+        "operationId": "orgs_members_update_role",
+        "summary": "Update a member's role in the organization.",
+        "description": "Update a member's role in the organization.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/OrganizationMembershipRoleUpdateRequestPatch" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/OrganizationMembershipRoleUpdate" }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["orgs"]
+      },
+      "parameters": [
+        { "name": "org", "in": "path", "required": true, "type": "string" },
+        { "name": "member", "in": "path", "required": true, "type": "string" }
+      ]
+    },
+    "/orgs/{org}/members/{member}/update-visibility/": {
+      "patch": {
+        "operationId": "orgs_members_update_visibility",
+        "summary": "Update a member's visibility in the organization.",
+        "description": "Update a member's visibility in the organization.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/OrganizationMembershipVisibilityUpdateRequestPatch" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/OrganizationMembershipVisibilityUpdate" }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["orgs"]
+      },
+      "parameters": [
+        { "name": "org", "in": "path", "required": true, "type": "string" },
+        { "name": "member", "in": "path", "required": true, "type": "string" }
+      ]
+    },
     "/orgs/{org}/openid-connect/": {
       "get": {
         "operationId": "orgs_openid-connect_list",
@@ -2057,6 +2174,22 @@
             "description": "Number of results to return per page.",
             "required": false,
             "type": "integer"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search term for querying of OpenID Connect (OIDC) provider settings.Available options are: name, provider_url, service_account",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "A field for sorting objects in ascending or descending order. Use `-` prefix for descending order (e.g., `-name`). Available options: name.",
+            "required": false,
+            "type": "string",
+            "default": "name"
           }
         ],
         "responses": {
@@ -2483,6 +2616,22 @@
             "description": "Number of results to return per page.",
             "required": false,
             "type": "integer"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search term for querying of services within an Organization.Available options are: name, role",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "A field for sorting objects in ascending or descending order. Use `-` prefix for descending order (e.g., `-created_at`). Available options: created_at, name, role.",
+            "required": false,
+            "type": "string",
+            "default": "created_at"
           }
         ],
         "responses": {
@@ -2663,6 +2812,30 @@
             "description": "Number of results to return per page.",
             "required": false,
             "type": "integer"
+          },
+          {
+            "name": "for_user",
+            "in": "query",
+            "description": "Filter for teams that you are a member of.",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search term for querying of teams within an Organization.Available options are: name, slug, user, userslug",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "A field for sorting objects in ascending or descending order. Use `-` prefix for descending order (e.g., `-name`). Available options: name, members.",
+            "required": false,
+            "type": "string",
+            "default": "name"
           }
         ],
         "responses": {
@@ -3238,6 +3411,81 @@
           "200": {
             "description": "Retrieved the list of packages",
             "schema": { "type": "array", "items": { "$ref": "#/definitions/Package" } }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["packages"]
+      },
+      "parameters": [
+        { "name": "owner", "in": "path", "required": true, "type": "string" },
+        { "name": "repo", "in": "path", "required": true, "type": "string" }
+      ]
+    },
+    "/packages/{owner}/{repo}/groups/": {
+      "get": {
+        "operationId": "packages_groups_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "description": "A field to group packages by. Available options: name, backend_kind.",
+            "required": false,
+            "type": "string",
+            "default": "name"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search term for querying names, filenames, versions, distributions, architectures, formats, or statuses of packages.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "A field for sorting objects in ascending or descending order. Use `-` prefix for descending order (e.g., `-name`). Available options: name, count, num_downloads, size, last_push, backend_kind.",
+            "required": false,
+            "type": "string",
+            "default": "name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved the list of package groups.",
+            "schema": {
+              "required": ["results"],
+              "type": "object",
+              "properties": {
+                "results": { "type": "array", "items": { "$ref": "#/definitions/PackageGroup" } }
+              }
+            }
+          },
+          "404": {
+            "description": "Owner namespace or repository not found",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
           },
           "400": {
             "description": "Request could not be processed (see detail).",
@@ -6084,7 +6332,7 @@
             "schema": { "$ref": "#/definitions/ErrorDetail" }
           },
           "404": {
-            "description": "Organizaition/Repository does not exist, or you do not have permissions.",
+            "description": "Organization/Repository does not exist, or you do not have permissions.",
             "schema": { "$ref": "#/definitions/ErrorDetail" }
           },
           "422": {
@@ -7104,6 +7352,166 @@
         "operationId": "repos_upstream_docker_delete",
         "summary": "Delete a Docker upstream config for this repository.",
         "description": "Delete a Docker upstream config for this repository.",
+        "parameters": [],
+        "responses": {
+          "204": { "description": "No Content" },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "parameters": [
+        { "name": "owner", "in": "path", "required": true, "type": "string" },
+        { "name": "identifier", "in": "path", "required": true, "type": "string" },
+        { "name": "slug_perm", "in": "path", "required": true, "type": "string" }
+      ]
+    },
+    "/repos/{owner}/{identifier}/upstream/go/": {
+      "get": {
+        "operationId": "repos_upstream_go_list",
+        "summary": "List Go upstream configs for this repository.",
+        "description": "List Go upstream configs for this repository.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "array", "items": { "$ref": "#/definitions/GoUpstream" } }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "post": {
+        "operationId": "repos_upstream_go_create",
+        "summary": "Create a Go upstream config for this repository.",
+        "description": "Create a Go upstream config for this repository.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/GoUpstreamRequest" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Created", "schema": { "$ref": "#/definitions/GoUpstream" } },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "parameters": [
+        { "name": "owner", "in": "path", "required": true, "type": "string" },
+        { "name": "identifier", "in": "path", "required": true, "type": "string" }
+      ]
+    },
+    "/repos/{owner}/{identifier}/upstream/go/{slug_perm}/": {
+      "get": {
+        "operationId": "repos_upstream_go_read",
+        "summary": "Retrieve a Go upstream config for this repository.",
+        "description": "Retrieve a Go upstream config for this repository.",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/GoUpstream" } },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "put": {
+        "operationId": "repos_upstream_go_update",
+        "summary": "Update a Go upstream config for this repository.",
+        "description": "Update a Go upstream config for this repository.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/GoUpstreamRequest" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/GoUpstream" } },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "patch": {
+        "operationId": "repos_upstream_go_partial_update",
+        "summary": "Partially update a Go upstream config for this repository.",
+        "description": "Partially update a Go upstream config for this repository.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/GoUpstreamRequestPatch" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/GoUpstream" } },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "delete": {
+        "operationId": "repos_upstream_go_delete",
+        "summary": "Delete a Go upstream config for this repository.",
+        "description": "Delete a Go upstream config for this repository.",
         "parameters": [],
         "responses": {
           "204": { "description": "No Content" },
@@ -8564,6 +8972,60 @@
         { "name": "slug_perm", "in": "path", "required": true, "type": "string" }
       ]
     },
+    "/repos/{owner}/{identifier}/x509-ecdsa/": {
+      "get": {
+        "operationId": "repos_x509_ecdsa_list",
+        "summary": "Retrieve the active X.509 ECDSA certificate for the Repository.",
+        "description": "Retrieve the active X.509 ECDSA certificate for the Repository.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Retrieved the active X.509 ECDSA Certificate.",
+            "schema": { "$ref": "#/definitions/RepositoryX509EcdsaCertificate" }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "parameters": [
+        { "name": "owner", "in": "path", "required": true, "type": "string" },
+        { "name": "identifier", "in": "path", "required": true, "type": "string" }
+      ]
+    },
+    "/repos/{owner}/{identifier}/x509-rsa/": {
+      "get": {
+        "operationId": "repos_x509_rsa_list",
+        "summary": "Retrieve the active X.509 RSA certificate for the Repository.",
+        "description": "Retrieve the active X.509 RSA certificate for the Repository.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Retrieved the active X.509 RSA Certificate.",
+            "schema": { "$ref": "#/definitions/RepositoryX509RsaCertificate" }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["repos"]
+      },
+      "parameters": [
+        { "name": "owner", "in": "path", "required": true, "type": "string" },
+        { "name": "identifier", "in": "path", "required": true, "type": "string" }
+      ]
+    },
     "/repos/{owner}/{repo}/retention/": {
       "get": {
         "operationId": "repo_retention_read",
@@ -8763,8 +9225,8 @@
     "/user/token/": {
       "post": {
         "operationId": "user_token_create",
-        "summary": "Retrieve/Create API key/token for the authenticated user.",
-        "description": "Retrieve/Create API key/token for the authenticated user.",
+        "summary": "Create or retrieve API token for a user.",
+        "description": "Handles both:\n- Users authenticating with basic credentials to get a token\n- Two-factor authentication flow",
         "parameters": [
           {
             "name": "data",
@@ -8792,6 +9254,100 @@
         "security": [{ "basic": [] }]
       },
       "parameters": []
+    },
+    "/user/tokens/": {
+      "get": {
+        "operationId": "user_tokens_list",
+        "summary": "Retrieve the API key assigned to the user that is currently authenticated.",
+        "description": "Retrieve the API key assigned to the user that is currently authenticated.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved the API key for the user that is currently authenticated.",
+            "schema": {
+              "required": ["results"],
+              "type": "object",
+              "properties": {
+                "results": { "type": "array", "items": { "$ref": "#/definitions/UserAuthenticationToken" } }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["user"]
+      },
+      "post": {
+        "operationId": "user_tokens_create",
+        "summary": "Create an API key for the user that is currently authenticated.",
+        "description": "Create an API key for the user that is currently authenticated.",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created an API key for the user that is currently authenticated.",
+            "schema": { "$ref": "#/definitions/UserAuthenticationToken" }
+          },
+          "400": {
+            "description": "User has already created an API key.",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["user"]
+      },
+      "parameters": []
+    },
+    "/user/tokens/{slug_perm}/refresh/": {
+      "put": {
+        "operationId": "user_tokens_refresh",
+        "summary": "Refresh the specified API key for the user that is currently authenticated.",
+        "description": "Refresh the specified API key for the user that is currently authenticated.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successfully refreshed the API key.",
+            "schema": { "$ref": "#/definitions/UserAuthenticationToken" }
+          },
+          "404": {
+            "description": "The specified API key cannot be found.",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "schema": { "$ref": "#/definitions/ErrorDetail" }
+          }
+        },
+        "tags": ["user"]
+      },
+      "parameters": [{ "name": "slug_perm", "in": "path", "required": true, "type": "string" }]
     },
     "/users/profile/{slug}/": {
       "get": {
@@ -9131,6 +9687,12 @@
           "description": "An extended message for the response.",
           "type": "string",
           "minLength": 1
+        },
+        "fields": {
+          "title": "Fields",
+          "description": "A Dictionary of related errors where key: Field and value: Array of Errors related to that field",
+          "type": "object",
+          "additionalProperties": { "type": "array", "items": { "type": "string", "minLength": 1 } }
         }
       }
     },
@@ -10203,7 +10765,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["Username and Password", "Token"],
+            "enum": ["Username and Password", "Token", "Certificate and Key"],
             "default": "Username and Password"
           }
         },
@@ -10933,6 +11495,107 @@
           "type": "string",
           "enum": ["Public", "Private"],
           "readOnly": true,
+          "default": "Public"
+        }
+      }
+    },
+    "OrganizationMembershipRequestPatch": { "type": "object", "properties": {} },
+    "OrganizationMembershipRoleUpdateRequestPatch": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": ["Owner", "Manager", "Member", "Collaborator"],
+          "default": "Owner"
+        }
+      }
+    },
+    "OrganizationMembershipRoleUpdate": {
+      "type": "object",
+      "properties": {
+        "email": { "title": "Email", "type": "string", "readOnly": true, "minLength": 1 },
+        "has_two_factor": { "title": "Has two factor", "type": "boolean", "readOnly": true },
+        "joined_at": { "title": "Joined at", "type": "string", "format": "date-time", "readOnly": true },
+        "last_login_at": {
+          "title": "Last login at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "last_login_method": {
+          "title": "Last login method",
+          "type": "string",
+          "enum": ["Unknown", "Password", "Social", "SAML"],
+          "readOnly": true,
+          "default": "Unknown"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": ["Owner", "Manager", "Member", "Collaborator"],
+          "default": "Owner"
+        },
+        "user": { "title": "User", "type": "string", "readOnly": true, "minLength": 1 },
+        "user_id": { "title": "User id", "type": "string", "readOnly": true, "minLength": 1 },
+        "user_name": { "title": "User name", "type": "string", "readOnly": true, "minLength": 1 },
+        "user_url": { "title": "User url", "type": "string", "format": "uri", "readOnly": true },
+        "visibility": {
+          "title": "Visibility",
+          "type": "string",
+          "enum": ["Public", "Private"],
+          "readOnly": true,
+          "default": "Public"
+        }
+      }
+    },
+    "OrganizationMembershipVisibilityUpdateRequestPatch": {
+      "type": "object",
+      "properties": {
+        "visibility": {
+          "title": "Visibility",
+          "type": "string",
+          "enum": ["Public", "Private"],
+          "default": "Public"
+        }
+      }
+    },
+    "OrganizationMembershipVisibilityUpdate": {
+      "type": "object",
+      "properties": {
+        "email": { "title": "Email", "type": "string", "readOnly": true, "minLength": 1 },
+        "has_two_factor": { "title": "Has two factor", "type": "boolean", "readOnly": true },
+        "joined_at": { "title": "Joined at", "type": "string", "format": "date-time", "readOnly": true },
+        "last_login_at": {
+          "title": "Last login at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "last_login_method": {
+          "title": "Last login method",
+          "type": "string",
+          "enum": ["Unknown", "Password", "Social", "SAML"],
+          "readOnly": true,
+          "default": "Unknown"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": ["Owner", "Manager", "Member", "Collaborator"],
+          "readOnly": true,
+          "default": "Owner"
+        },
+        "user": { "title": "User", "type": "string", "readOnly": true, "minLength": 1 },
+        "user_id": { "title": "User id", "type": "string", "readOnly": true, "minLength": 1 },
+        "user_name": { "title": "User name", "type": "string", "readOnly": true, "minLength": 1 },
+        "user_url": { "title": "User url", "type": "string", "format": "uri", "readOnly": true },
+        "visibility": {
+          "title": "Visibility",
+          "type": "string",
+          "enum": ["Public", "Private"],
           "default": "Public"
         }
       }
@@ -11699,12 +12362,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -11843,7 +12526,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -11927,6 +12610,18 @@
         }
       }
     },
+    "PackageGroup": {
+      "required": ["count", "last_push", "num_downloads", "size"],
+      "type": "object",
+      "properties": {
+        "backend_kind": { "title": "Backend kind", "type": "integer" },
+        "count": { "title": "Count", "type": "integer", "x-nullable": true },
+        "last_push": { "title": "Last push", "type": "string", "format": "date-time", "x-nullable": true },
+        "name": { "title": "Name", "type": "string", "minLength": 1 },
+        "num_downloads": { "title": "Num downloads", "type": "integer", "x-nullable": true },
+        "size": { "title": "Size", "type": "integer", "x-nullable": true }
+      }
+    },
     "AlpinePackageUploadRequest": {
       "required": ["distribution", "package_file"],
       "type": "object",
@@ -12007,12 +12702,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -12151,7 +12866,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -12308,12 +13023,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -12452,7 +13187,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -12609,12 +13344,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -12753,7 +13508,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -12917,12 +13672,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -13061,7 +13836,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -13282,12 +14057,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -13426,7 +14221,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -13583,12 +14378,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -13727,7 +14542,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -13898,12 +14713,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -14050,7 +14885,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -14207,12 +15042,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -14351,7 +15206,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -14537,12 +15392,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -14681,7 +15556,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -14838,12 +15713,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -14982,7 +15877,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -15139,12 +16034,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -15283,7 +16198,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -15447,12 +16362,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -15591,7 +16526,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -15748,12 +16683,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -15892,7 +16847,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -16049,12 +17004,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -16193,7 +17168,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -16285,6 +17260,12 @@
           "description": "The ID of the artifact.",
           "type": "string",
           "minLength": 1,
+          "x-nullable": true
+        },
+        "extra_files": {
+          "description": "Extra files to include in the package. This can be a single file or multiple files.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
           "x-nullable": true
         },
         "group_id": {
@@ -16422,6 +17403,19 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "group_id": {
           "title": "Group id",
           "description": "Artifact's group ID.",
@@ -16435,6 +17429,13 @@
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -16582,7 +17583,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -16747,12 +17748,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -16891,7 +17912,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -17055,12 +18076,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -17199,7 +18240,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -17356,12 +18397,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -17500,7 +18561,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -17657,12 +18718,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -17801,7 +18882,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -17994,12 +19075,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -18138,7 +19239,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -18301,12 +19402,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -18445,7 +19566,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -18602,12 +19723,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -18746,7 +19887,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -18969,12 +20110,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -19140,7 +20301,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -19296,12 +20457,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -19440,7 +20621,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -19616,12 +20797,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -19765,7 +20966,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -19908,12 +21109,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -20058,7 +21279,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -20259,12 +21480,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -20409,7 +21650,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -20557,12 +21798,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -20694,7 +21955,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -20827,12 +22088,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -20971,7 +22252,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -21077,7 +22358,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -21200,12 +22481,32 @@
         "files": { "type": "array", "items": { "$ref": "#/definitions/PackageFile" }, "readOnly": true },
         "format": { "title": "Format", "type": "string", "readOnly": true, "minLength": 1 },
         "format_url": { "title": "Format url", "type": "string", "format": "uri", "readOnly": true },
+        "freeable_storage": {
+          "title": "Freeable storage",
+          "description": "Amount of storage that will be freed if this package is deleted",
+          "type": "integer",
+          "readOnly": true
+        },
+        "fully_qualified_name": {
+          "title": "Fully qualified name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
         "identifier_perm": {
           "title": "Identifier perm",
           "description": "Unique and permanent identifier for the package.",
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Return a map of identifier field names and their values.",
+          "type": "object",
+          "additionalProperties": { "type": "string", "x-nullable": true },
+          "readOnly": true
         },
         "indexed": { "title": "Indexed", "type": "boolean", "readOnly": true },
         "is_cancellable": { "title": "Is cancellable", "type": "boolean", "readOnly": true },
@@ -21350,7 +22651,7 @@
           "title": "Stage",
           "description": "The synchronisation (in progress) stage of the package.",
           "type": "integer",
-          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           "readOnly": true
         },
         "stage_str": { "title": "Stage str", "type": "string", "readOnly": true },
@@ -21733,6 +23034,11 @@
           "enum": ["Admin", "Write", "Read"],
           "default": "Read"
         },
+        "cosign_signing_enabled": {
+          "title": "Cosign Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) OCI packages and artifacts will be signed using cosign with the repository's ECDSA key. This generates a distinct cosign signature artifact per artifact.",
+          "type": "boolean"
+        },
         "created_at": { "title": "Created at", "type": "string", "format": "date-time", "readOnly": true },
         "default_privilege": {
           "title": "Default privilege",
@@ -21846,6 +23152,11 @@
           "type": "string",
           "format": "uri",
           "readOnly": true
+        },
+        "nuget_native_signing_enabled": {
+          "title": "Nuget Native Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) nuget packages and artifacts will be signed using the repository's X.509 RSA certificate. Additionally, the nuget RepositorySignature index will list all of the repository's signing certificates including the ones from configured upstreams.",
+          "type": "boolean"
         },
         "num_downloads": {
           "title": "Num downloads",
@@ -22097,6 +23408,11 @@
           "enum": ["Admin", "Write", "Read"],
           "default": "Read"
         },
+        "cosign_signing_enabled": {
+          "title": "Cosign Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) OCI packages and artifacts will be signed using cosign with the repository's ECDSA key. This generates a distinct cosign signature artifact per artifact.",
+          "type": "boolean"
+        },
         "default_privilege": {
           "title": "Default privilege",
           "description": "This defines the default level of privilege that all of your organization members have for this repository. This does not include collaborators, but applies to any member of the org regardless of their own membership role (i.e. it applies to owners, managers and members). Be careful if setting this to admin, because any member will be able to change settings.",
@@ -22173,6 +23489,11 @@
           "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
           "maxLength": 50,
           "minLength": 1
+        },
+        "nuget_native_signing_enabled": {
+          "title": "Nuget Native Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) nuget packages and artifacts will be signed using the repository's X.509 RSA certificate. Additionally, the nuget RepositorySignature index will list all of the repository's signing certificates including the ones from configured upstreams.",
+          "type": "boolean"
         },
         "open_source_license": {
           "title": "Open source license",
@@ -22358,6 +23679,11 @@
           "enum": ["Admin", "Write", "Read"],
           "default": "Read"
         },
+        "cosign_signing_enabled": {
+          "title": "Cosign Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) OCI packages and artifacts will be signed using cosign with the repository's ECDSA key. This generates a distinct cosign signature artifact per artifact.",
+          "type": "boolean"
+        },
         "created_at": { "title": "Created at", "type": "string", "format": "date-time", "readOnly": true },
         "default_privilege": {
           "title": "Default privilege",
@@ -22471,6 +23797,11 @@
           "type": "string",
           "format": "uri",
           "readOnly": true
+        },
+        "nuget_native_signing_enabled": {
+          "title": "Nuget Native Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) nuget packages and artifacts will be signed using the repository's X.509 RSA certificate. Additionally, the nuget RepositorySignature index will list all of the repository's signing certificates including the ones from configured upstreams.",
+          "type": "boolean"
         },
         "num_downloads": {
           "title": "Num downloads",
@@ -22720,6 +24051,11 @@
           "enum": ["Admin", "Write", "Read"],
           "default": "Read"
         },
+        "cosign_signing_enabled": {
+          "title": "Cosign Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) OCI packages and artifacts will be signed using cosign with the repository's ECDSA key. This generates a distinct cosign signature artifact per artifact.",
+          "type": "boolean"
+        },
         "default_privilege": {
           "title": "Default privilege",
           "description": "This defines the default level of privilege that all of your organization members have for this repository. This does not include collaborators, but applies to any member of the org regardless of their own membership role (i.e. it applies to owners, managers and members). Be careful if setting this to admin, because any member will be able to change settings.",
@@ -22796,6 +24132,11 @@
           "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
           "maxLength": 50,
           "minLength": 1
+        },
+        "nuget_native_signing_enabled": {
+          "title": "Nuget Native Signing Enabled?",
+          "description": "When enabled, all pushed (or pulled from upstream) nuget packages and artifacts will be signed using the repository's X.509 RSA certificate. Additionally, the nuget RepositorySignature index will list all of the repository's signing certificates including the ones from configured upstreams.",
+          "type": "boolean"
         },
         "open_source_license": {
           "title": "Open source license",
@@ -23967,7 +25308,7 @@
           "title": "Mode",
           "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
           "type": "string",
-          "enum": ["Proxy Only"],
+          "enum": ["Proxy Only", "Cache and Proxy"],
           "default": "Proxy Only"
         },
         "name": {
@@ -24081,7 +25422,7 @@
           "title": "Mode",
           "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
           "type": "string",
-          "enum": ["Proxy Only"],
+          "enum": ["Proxy Only", "Cache and Proxy"],
           "default": "Proxy Only"
         },
         "name": {
@@ -24179,7 +25520,7 @@
           "title": "Mode",
           "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
           "type": "string",
-          "enum": ["Proxy Only"],
+          "enum": ["Proxy Only", "Cache and Proxy"],
           "default": "Proxy Only"
         },
         "name": {
@@ -24708,7 +26049,7 @@
           "title": "Auth mode",
           "description": "The authentication mode to use when accessing this upstream. ",
           "type": "string",
-          "enum": ["None", "Username and Password"],
+          "enum": ["None", "Username and Password", "Certificate and Key"],
           "default": "None"
         },
         "auth_secret": {
@@ -24837,11 +26178,23 @@
       "required": ["name", "upstream_url"],
       "type": "object",
       "properties": {
+        "auth_certificate": {
+          "title": "Auth certificate",
+          "description": "X.509 Certificate to use for mTLS authentication against the upstream",
+          "type": "string",
+          "minLength": 1
+        },
+        "auth_certificate_key": {
+          "title": "Auth certificate key",
+          "description": "Certificate key to use for mTLS authentication against the upstream",
+          "type": "string",
+          "minLength": 1
+        },
         "auth_mode": {
           "title": "Auth mode",
           "description": "The authentication mode to use when accessing this upstream. ",
           "type": "string",
-          "enum": ["None", "Username and Password"],
+          "enum": ["None", "Username and Password", "Certificate and Key"],
           "default": "None"
         },
         "auth_secret": {
@@ -24935,6 +26288,250 @@
     "DockerUpstreamRequestPatch": {
       "type": "object",
       "properties": {
+        "auth_certificate": {
+          "title": "Auth certificate",
+          "description": "X.509 Certificate to use for mTLS authentication against the upstream",
+          "type": "string",
+          "minLength": 1
+        },
+        "auth_certificate_key": {
+          "title": "Auth certificate key",
+          "description": "Certificate key to use for mTLS authentication against the upstream",
+          "type": "string",
+          "minLength": 1
+        },
+        "auth_mode": {
+          "title": "Auth mode",
+          "description": "The authentication mode to use when accessing this upstream. ",
+          "type": "string",
+          "enum": ["None", "Username and Password", "Certificate and Key"],
+          "default": "None"
+        },
+        "auth_secret": {
+          "title": "Secret",
+          "description": "Secret to provide with requests to upstream.",
+          "type": "string",
+          "maxLength": 4096,
+          "x-nullable": true
+        },
+        "auth_username": {
+          "title": "Username",
+          "description": "Username to provide with requests to upstream.",
+          "type": "string",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_header_1": {
+          "title": "Header #1",
+          "description": "The key for extra header #1 to send to upstream.",
+          "type": "string",
+          "pattern": "^[-\\w]+$",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_header_2": {
+          "title": "Header #2",
+          "description": "The key for extra header #2 to send to upstream.",
+          "type": "string",
+          "pattern": "^[-\\w]+$",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_value_1": {
+          "title": "Value #1",
+          "description": "The value for extra header #1 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+          "type": "string",
+          "pattern": "^[^\\n\\r]+$",
+          "maxLength": 128,
+          "x-nullable": true
+        },
+        "extra_value_2": {
+          "title": "Value #2",
+          "description": "The value for extra header #2 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+          "type": "string",
+          "pattern": "^[^\\n\\r]+$",
+          "maxLength": 128,
+          "x-nullable": true
+        },
+        "is_active": {
+          "title": "Is active",
+          "description": "Whether or not this upstream is active and ready for requests.",
+          "type": "boolean"
+        },
+        "mode": {
+          "title": "Mode",
+          "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
+          "type": "string",
+          "enum": ["Proxy Only", "Cache and Proxy"],
+          "default": "Proxy Only"
+        },
+        "name": {
+          "title": "Name",
+          "description": "A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.",
+          "type": "string",
+          "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "priority": {
+          "title": "Priority",
+          "description": "Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.",
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 1
+        },
+        "upstream_url": {
+          "title": "Upstream URL",
+          "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
+          "type": "string",
+          "format": "uri",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "verify_ssl": {
+          "title": "Verify SSL Certificates",
+          "description": "If enabled, SSL certificates are verified when requests are made to this upstream. It's recommended to leave this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. Please note this only applies to HTTPS upstreams.",
+          "type": "boolean"
+        }
+      }
+    },
+    "GoUpstream": {
+      "required": ["name", "upstream_url"],
+      "type": "object",
+      "properties": {
+        "auth_mode": {
+          "title": "Auth mode",
+          "description": "The authentication mode to use when accessing this upstream. ",
+          "type": "string",
+          "enum": ["None", "Username and Password"],
+          "default": "None"
+        },
+        "auth_secret": {
+          "title": "Secret",
+          "description": "Secret to provide with requests to upstream.",
+          "type": "string",
+          "maxLength": 4096,
+          "x-nullable": true
+        },
+        "auth_username": {
+          "title": "Username",
+          "description": "Username to provide with requests to upstream.",
+          "type": "string",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "description": "The datetime the upstream source was created.",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "disable_reason": {
+          "title": "Disable reason",
+          "type": "string",
+          "enum": [
+            "N/A",
+            "Upstream points to its own repository",
+            "Missing upstream source",
+            "Upstream was disabled by request of user"
+          ],
+          "readOnly": true,
+          "default": "N/A"
+        },
+        "extra_header_1": {
+          "title": "Header #1",
+          "description": "The key for extra header #1 to send to upstream.",
+          "type": "string",
+          "pattern": "^[-\\w]+$",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_header_2": {
+          "title": "Header #2",
+          "description": "The key for extra header #2 to send to upstream.",
+          "type": "string",
+          "pattern": "^[-\\w]+$",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_value_1": {
+          "title": "Value #1",
+          "description": "The value for extra header #1 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+          "type": "string",
+          "pattern": "^[^\\n\\r]+$",
+          "maxLength": 128,
+          "x-nullable": true
+        },
+        "extra_value_2": {
+          "title": "Value #2",
+          "description": "The value for extra header #2 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+          "type": "string",
+          "pattern": "^[^\\n\\r]+$",
+          "maxLength": 128,
+          "x-nullable": true
+        },
+        "is_active": {
+          "title": "Is active",
+          "description": "Whether or not this upstream is active and ready for requests.",
+          "type": "boolean"
+        },
+        "mode": {
+          "title": "Mode",
+          "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
+          "type": "string",
+          "enum": ["Proxy Only"],
+          "default": "Proxy Only"
+        },
+        "name": {
+          "title": "Name",
+          "description": "A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.",
+          "type": "string",
+          "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "pending_validation": {
+          "title": "Pending validation",
+          "description": "When true, this upstream source is pending validation.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "priority": {
+          "title": "Priority",
+          "description": "Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.",
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 1
+        },
+        "slug_perm": {
+          "title": "Slug perm",
+          "type": "string",
+          "format": "slug",
+          "pattern": "^[-a-zA-Z0-9_]+$",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "updated_at": { "title": "Updated at", "type": "string", "format": "date-time", "readOnly": true },
+        "upstream_url": {
+          "title": "Upstream URL",
+          "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
+          "type": "string",
+          "format": "uri",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "verify_ssl": {
+          "title": "Verify SSL Certificates",
+          "description": "If enabled, SSL certificates are verified when requests are made to this upstream. It's recommended to leave this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. Please note this only applies to HTTPS upstreams.",
+          "type": "boolean"
+        }
+      }
+    },
+    "GoUpstreamRequest": {
+      "required": ["name", "upstream_url"],
+      "type": "object",
+      "properties": {
         "auth_mode": {
           "title": "Auth mode",
           "description": "The authentication mode to use when accessing this upstream. ",
@@ -24997,7 +26594,105 @@
           "title": "Mode",
           "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
           "type": "string",
-          "enum": ["Proxy Only", "Cache and Proxy"],
+          "enum": ["Proxy Only"],
+          "default": "Proxy Only"
+        },
+        "name": {
+          "title": "Name",
+          "description": "A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.",
+          "type": "string",
+          "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "priority": {
+          "title": "Priority",
+          "description": "Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.",
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 1
+        },
+        "upstream_url": {
+          "title": "Upstream URL",
+          "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
+          "type": "string",
+          "format": "uri",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "verify_ssl": {
+          "title": "Verify SSL Certificates",
+          "description": "If enabled, SSL certificates are verified when requests are made to this upstream. It's recommended to leave this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. Please note this only applies to HTTPS upstreams.",
+          "type": "boolean"
+        }
+      }
+    },
+    "GoUpstreamRequestPatch": {
+      "type": "object",
+      "properties": {
+        "auth_mode": {
+          "title": "Auth mode",
+          "description": "The authentication mode to use when accessing this upstream. ",
+          "type": "string",
+          "enum": ["None", "Username and Password"],
+          "default": "None"
+        },
+        "auth_secret": {
+          "title": "Secret",
+          "description": "Secret to provide with requests to upstream.",
+          "type": "string",
+          "maxLength": 4096,
+          "x-nullable": true
+        },
+        "auth_username": {
+          "title": "Username",
+          "description": "Username to provide with requests to upstream.",
+          "type": "string",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_header_1": {
+          "title": "Header #1",
+          "description": "The key for extra header #1 to send to upstream.",
+          "type": "string",
+          "pattern": "^[-\\w]+$",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_header_2": {
+          "title": "Header #2",
+          "description": "The key for extra header #2 to send to upstream.",
+          "type": "string",
+          "pattern": "^[-\\w]+$",
+          "maxLength": 64,
+          "x-nullable": true
+        },
+        "extra_value_1": {
+          "title": "Value #1",
+          "description": "The value for extra header #1 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+          "type": "string",
+          "pattern": "^[^\\n\\r]+$",
+          "maxLength": 128,
+          "x-nullable": true
+        },
+        "extra_value_2": {
+          "title": "Value #2",
+          "description": "The value for extra header #2 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+          "type": "string",
+          "pattern": "^[^\\n\\r]+$",
+          "maxLength": 128,
+          "x-nullable": true
+        },
+        "is_active": {
+          "title": "Is active",
+          "description": "Whether or not this upstream is active and ready for requests.",
+          "type": "boolean"
+        },
+        "mode": {
+          "title": "Mode",
+          "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
+          "type": "string",
+          "enum": ["Proxy Only"],
           "default": "Proxy Only"
         },
         "name": {
@@ -28172,6 +29867,134 @@
         }
       }
     },
+    "RepositoryX509EcdsaCertificate": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "title": "Active",
+          "description": "If selected this is the active key for this repository.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "certificate": {
+          "title": "Certificate",
+          "description": "The issued certificate.",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "certificate_chain": {
+          "title": "Certificate chain",
+          "description": "Base64 encoded CA certificate chain.",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "certificate_chain_fingerprint": {
+          "title": "Certificate chain fingerprint",
+          "type": "string",
+          "readOnly": true
+        },
+        "certificate_chain_fingerprint_short": {
+          "title": "Certificate chain fingerprint short",
+          "type": "string",
+          "readOnly": true
+        },
+        "certificate_fingerprint": {
+          "title": "Certificate fingerprint",
+          "description": "The SHA-256 long identifier used",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "certificate_fingerprint_short": {
+          "title": "Certificate fingerprint short",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": { "title": "Created at", "type": "string", "format": "date-time", "readOnly": true },
+        "default": {
+          "title": "Default",
+          "description": "If selected this is the default key for this repository.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "issuing_status": {
+          "title": "Issuing status",
+          "type": "string",
+          "enum": [
+            "Certificate is pending to be issued",
+            "Certificate successfully issued",
+            "Error issuing certificate"
+          ],
+          "default": "Certificate is pending to be issued"
+        }
+      }
+    },
+    "RepositoryX509RsaCertificate": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "title": "Active",
+          "description": "If selected this is the active key for this repository.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "certificate": {
+          "title": "Certificate",
+          "description": "The issued certificate.",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "certificate_chain": {
+          "title": "Certificate chain",
+          "description": "Base64 encoded CA certificate chain.",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "certificate_chain_fingerprint": {
+          "title": "Certificate chain fingerprint",
+          "type": "string",
+          "readOnly": true
+        },
+        "certificate_chain_fingerprint_short": {
+          "title": "Certificate chain fingerprint short",
+          "type": "string",
+          "readOnly": true
+        },
+        "certificate_fingerprint": {
+          "title": "Certificate fingerprint",
+          "description": "The SHA-256 long identifier used",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "certificate_fingerprint_short": {
+          "title": "Certificate fingerprint short",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": { "title": "Created at", "type": "string", "format": "date-time", "readOnly": true },
+        "default": {
+          "title": "Default",
+          "description": "If selected this is the default key for this repository.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "issuing_status": {
+          "title": "Issuing status",
+          "type": "string",
+          "enum": [
+            "Certificate is pending to be issued",
+            "Certificate successfully issued",
+            "Error issuing certificate"
+          ],
+          "default": "Certificate is pending to be issued"
+        }
+      }
+    },
     "RepositoryRetentionRules": {
       "type": "object",
       "properties": {
@@ -28302,7 +30125,7 @@
           "description": "The current version for the Cloudsmith service.",
           "type": "string",
           "readOnly": true,
-          "default": "1.566.10",
+          "default": "1.685.1",
           "minLength": 1
         }
       }
@@ -28379,6 +30202,12 @@
           "description": "Password to authenticate with",
           "type": "string",
           "minLength": 1
+        },
+        "totp_token": {
+          "title": "Two-factor code",
+          "description": "Two-factor authentication code",
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -28391,6 +30220,43 @@
           "type": "string",
           "readOnly": true,
           "minLength": 1
+        },
+        "two_factor_required": {
+          "title": "Two factor required",
+          "description": "Flag indicating whether a 2FA code is required to complete authentication",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "two_factor_token": {
+          "title": "Two factor token",
+          "description": "Token to use when providing 2FA code",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        }
+      }
+    },
+    "UserAuthenticationToken": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "title": "Created",
+          "description": "The time at which the API key was created.",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "key": {
+          "title": "Key",
+          "description": "The unique API key used for authentication. This will be obfuscated on read-only HTTP methods.",
+          "type": "string",
+          "readOnly": true
+        },
+        "slug_perm": {
+          "title": "Slug perm",
+          "description": "The slug_perm for token.",
+          "type": "string",
+          "readOnly": true
         }
       }
     },
@@ -28402,7 +30268,7 @@
         "first_name": { "title": "First name", "type": "string", "maxLength": 120, "minLength": 1 },
         "job_title": { "title": "Job title", "type": "string", "maxLength": 64, "x-nullable": true },
         "joined_at": { "title": "Joined at", "type": "string", "format": "date-time" },
-        "last_name": { "title": "Last name", "type": "string", "maxLength": 30, "minLength": 1 },
+        "last_name": { "title": "Last name", "type": "string", "maxLength": 120, "minLength": 1 },
         "name": { "title": "Name", "type": "string", "readOnly": true, "minLength": 1 },
         "slug": { "title": "Slug", "type": "string", "readOnly": true },
         "slug_perm": { "title": "Slug perm", "type": "string", "readOnly": true },
@@ -28507,7 +30373,7 @@
       }
     },
     "VulnerabilityScanResults": {
-      "required": ["identifier", "package", "scan", "scan_id"],
+      "required": ["identifier", "package", "scan_id", "scans"],
       "type": "object",
       "properties": {
         "created_at": {
@@ -28532,13 +30398,13 @@
         },
         "num_vulnerabilities": { "title": "Num vulnerabilities", "type": "integer", "default": 0 },
         "package": { "$ref": "#/definitions/PackageVulnerability" },
-        "scan": { "$ref": "#/definitions/VulnerabilityScan" },
         "scan_id": {
           "title": "Scan id",
           "description": "Deprecated (23-05-15): Please use 'identifier' instead. Previously: A monotonically increasing number that identified a scan within a repository.",
           "type": "integer",
           "x-nullable": true
-        }
+        },
+        "scans": { "type": "array", "items": { "$ref": "#/definitions/VulnerabilityScan" } }
       }
     },
     "WebhookTemplate": {
