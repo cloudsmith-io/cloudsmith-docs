@@ -28,6 +28,7 @@
     "fast-glob": "^3.3.3",
     "motion": "^12.4.2",
     "next": "15.1.7",
+    "next-validate-link": "^1.5.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-hotkeys-hook": "^4.6.1",
