@@ -9,5 +9,5 @@ printErrors(
   await validateFiles(await fg('content/**/*.{md,mdx}'), {
     scanned,
   }),
-  true, // exit with code 1 if errors detected
+  true, // exit with code 1 if errors detected 
 );
