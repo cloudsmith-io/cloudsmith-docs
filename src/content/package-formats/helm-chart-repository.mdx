@@ -64,7 +64,7 @@ Starting Helm v3.8.0 OCI-compliant registries can now be used to store and share
 Before you can push your chart you need to login to Cloudsmith's registry.
 
 ```shell Entitlement Token Auth
-helm registry login docker.cloudsmith.io -u token -p TOKEN
+helm registry login docker.cloudsmith.io -u OWNER/REPOSITORY -p TOKEN
 ```
 ```shell HTTP Basic Auth (User & Pass)
 helm registry login docker.cloudsmith.io -u USERNAME -p PASSWORD
@@ -118,7 +118,7 @@ OCI support is currently in Early Access. Helm Charts uploaded via OCI will show
 Assuming you have Helm v3.8.0 already installed, before you can pull a chart you need to login to Cloudsmith's registry.
 
 ```shell Entitlement Token Auth
-helm registry login docker.cloudsmith.io -u token -p TOKEN
+helm registry login docker.cloudsmith.io -u OWNER/REPOSITORY -p TOKEN
 ```
 ```shell HTTP Basic Auth (User & Pass)
 helm registry login docker.cloudsmith.io -u USERNAME -p PASSWORD
