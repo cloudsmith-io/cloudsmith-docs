@@ -293,9 +293,9 @@ To ensure Yarn compatibility, enable **always-auth** by adding it to your user o
 
 🔹 Yarn v1
 
-Yarn v1 uses the same .npmrc format as npm:
+Yarn v1 uses the same `.npmrc` format as npm:
 
-```text .npmrc
+```ini
 registry=https://npm.cloudsmith.io/ORG/REPO/
 //npm.cloudsmith.io/ORG/REPO/:_authToken=KEY
 always-auth=true
@@ -303,9 +303,9 @@ always-auth=true
 
 🔹 Yarn v2 and later (Berry)
 
-Yarn 2+ (also known as Berry) manages registries through .yarnrc.yml instead of .npmrc:
+Yarn 2+ (*also known as Berry*) manages registries through `.yarnrc.yml` instead of `.npmrc`:
 
-```Text .yarnrc.yml
+```yaml
 npmRegistryServer: "https://npm.cloudsmith.io/ORG/REPO/"
 npmAlwaysAuth: true
 npmAuthIdent: "AUTHKEY"
@@ -313,7 +313,7 @@ npmAuthIdent: "AUTHKEY"
 
 The Auth key should be in base64, which you can get by running:
 
-```
+```shell
 echo -n 'User:APIKEY' | base64
 ```
 
