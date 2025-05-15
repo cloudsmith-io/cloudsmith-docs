@@ -57,7 +57,7 @@ export function Card({
         {description && <p className={styles.description}>{description}</p>}
 
         <div className={styles.link}>
-          <span className={styles.linkText}>{linkText || title}</span>
+          <span className={styles.linkText}>{linkText || description}</span>
           <Icon name="arrow" title="" />
         </div>
       </div>
