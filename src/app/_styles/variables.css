@@ -121,7 +121,8 @@
     --text-max-width: 780px;
 
     /* Line heights */
-    --line-height-xs: fluid(18px, 22px);
+    --line-height-2xs: fluid(12px, 14px);
+    --line-height-xs: fluid(15px, 18px);
     --line-height-s: fluid(20px, 23px);
     --line-height-m: fluid(22px, 25px);
     --line-height-l: fluid(23px, 28px);
