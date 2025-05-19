@@ -212,25 +212,29 @@
         "title": "Artifact management",
         "path": "/artifact-management",
         "children": [
-          {
-            "title": "Searching and filtering",
-            "path": "/artifact-management/search-filter-sort-packages"
+           {
+            "title": "Uploading packages",
+            "path": "/artifact-management/package-upload"
           },
           {
-            "title": "Package Quarantine",
-            "path": "/artifact-management/package-quarantine"
-          },
-          {
-            "title": "Private Package Sharing",
-            "path": "/artifact-management/sharing-a-private-package"
-          },
-          {
-            "title": "Package Identification",
+            "title": "Identifying packages",
             "path": "/artifact-management/identifying-a-package"
           },
           {
             "title": "Package Tags",
             "path": "/artifact-management/package-tags"
+          },
+          {
+            "title": "Searching and filtering",
+            "path": "/artifact-management/search-filter-sort-packages"
+          },
+          {
+            "title": "Quarantining a package",
+            "path": "/artifact-management/package-quarantine"
+          },
+          {
+            "title": "Private Package Sharing",
+            "path": "/artifact-management/sharing-a-private-package"
           },
           {
             "title": "Package Copy",
@@ -249,16 +253,8 @@
             "path": "/artifact-management/package-move"
           },
           {
-            "title": "Package Upload",
-            "path": "/artifact-management/package-upload"
-          },
-          {
             "title": "Package Download",
             "path": "/artifact-management/download-a-package"
-          },
-          {
-            "title": "Sorting",
-            "path": "/artifact-management/sorting-packages"
           },
           {
             "title": "Recycle Bin",
