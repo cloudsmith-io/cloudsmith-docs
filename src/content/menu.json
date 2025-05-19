@@ -195,19 +195,15 @@
             "path": "/repositories",
             "children": [
               {
-                "title": "Create a Repository",
+                "title": "Create a repository",
                 "path": "/repositories/create-a-repository"
               },
               {
-                "title": "Repositories",
-                "path": "/repositories/manage-a-repository"
-              },
-              {
-                "title": "Repository Settings",
+                "title": "Repository settings",
                 "path": "/repositories/repository-settings"
               },
               {
-                "title": "Custom Storage Regions",
+                "title": "Custom storage regions",
                 "path": "/repositories/custom-storage-regions"
               }
             ]
@@ -310,11 +306,11 @@
           "children": [
            {
             "title": "Continuous security",
-            "path": "/policy-management/continuous-security"
+            "path": "/supply-chain-security/continuous-security"
           },  
           {
             "title": "Malware scanning",
-            "path": "/policy-management/continuous-security"
+            "path": "/supply-chain-security/malware-scanning"
           },  
           {
             "title": "Package signing",
