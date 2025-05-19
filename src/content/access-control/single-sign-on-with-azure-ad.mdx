@@ -105,7 +105,7 @@ Once configured as above, you'll need to provide metadata to Cloudsmith to conne
 
 Go back to the **Single sign-on** tab in the sidebar, you should see, in section **3 (SAML Signing Certificate)** a link that provides metadata for dynamic configuration, it is labelled **App Federation Metadata Url**.
 
-Copy this link and add it to your SAML configuration in your [Cloudsmith organization settings](/authentication/single-sign-on#enable-saml)
+Copy this link and add it to your SAML configuration in your [Cloudsmith organization settings](/access-control/single-sign-on#enable-saml)
 
 <BlockImage src={imgfc07a79_cloudsmith_azure_ad_12} alt=""></BlockImage>
 
@@ -153,7 +153,7 @@ Now when a user re-logs with SAML, they will be placed in the assigned group bas
 
 You can use SCIM to automatically de-provision users from your Cloudsmith organization whenever you remove a user assignment for the Cloudsmith application in Azure AD.
 
-General documentation on how SAML group sync works can be found [here](/authentication/single-sign-on#saml-group-sync).
+General documentation on how SAML group sync works can be found [here](/access-control/single-sign-on#saml-group-sync).
 
 To set this up, you need to add an "Enterprise application" to your Active Directory on Azure:
 

@@ -113,7 +113,7 @@ Changes will be applied immediately.
 
 - There is [an extra step](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#updating-your-actions-for-oidc) to generate an OpenID Token compared to CircleCI - this needs to be done before sending the token to us.
 - Because the keys used to verify the token are shared across all GitHub Actions for all organizations, at least one claim verification is _strongly_ encouraged so that only jobs from your GitHub organization can authenticate. If only one claim is being configured, then the audience claim (`aud`) is probably best for this as it scopes it to your GitHub organization's requests.
-- See [Setup GitHub Actions to authenticate to Cloudsmith using OIDC](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) for a step-by-step guide.
+- See [Setup GitHub Actions to authenticate to Cloudsmith using OIDC](/access-control/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) for a step-by-step guide.
 
 ## OIDC Requests
 
@@ -196,7 +196,7 @@ jobs:
           echo "OIDC token from Cloudsmith: $jwt"
 ```
 
-For further details on configuring Github Actions for OIDC see the guide [here](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions).
+For further details on configuring Github Actions for OIDC see the guide [here](/access-control/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions).
 
 #### CircleCI Example
 

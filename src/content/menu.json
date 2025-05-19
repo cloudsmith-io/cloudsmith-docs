@@ -275,7 +275,7 @@
             "path": "/teams-and-accounts",
             "children": [
               {
-                "title": "Access Controls",
+                "title": "Access controls",
                 "path": "/teams-and-accounts/access-controls"
               },
               {
@@ -296,6 +296,87 @@
               }
             ]
           },
+                    {
+            "title": "Access control",
+            "path": "/access-control/",
+            "children": [
+              {
+                "title": "Single Sign-On",
+                "path": "/access-control/single-sign-on",
+                "children": [
+                  {
+                    "title": "SSO with Azure AD",
+                    "path": "/access-control/single-sign-on-with-azure-ad"
+                  },
+                  {
+                    "title": "SSO with Google",
+                    "path": "/access-control/single-sign-on-with-google-g-suite"
+                  },
+                  {
+                    "title": "SSO with JumpCloud",
+                    "path": "/access-control/single-sign-on-with-jumpcloud"
+                  },
+                  {
+                    "title": "SSO with PingIdentity",
+                    "path": "/access-control/single-sign-on-with-pingidentity"
+                  },
+                  {
+                    "title": "SSO with Okta",
+                    "path": "/access-control/single-sign-on-with-okta"
+                  },
+                  {
+                    "title": "SSO with OneLogin",
+                    "path": "/access-control/single-sign-on-with-onelogin"
+                  }
+                ]
+              },
+              {
+                "title": "SCIM",
+                "path": "/access-control/scim",
+                "children": [
+                  {
+                    "title": "SCIM with JumpCloud",
+                    "path": "/access-control/scim-with-jumpcloud"
+                  },
+                  {
+                    "title": "SCIM with Google",
+                    "path": "/access-control/scim-with-google"
+                  },
+                  {
+                    "title": "SCIM with PingFederate",
+                    "path": "/access-control/scim-with-pingfederate"
+                  },
+                  {
+                  "title": "SCIM with OneLogin",
+                  "path": "/access-control/scim-with-onelogin"
+                },
+                {
+                  "title": "SCIM with Okta",
+                  "path": "/access-control/scim-with-okta"
+                },
+                {
+                  "title": "SCIM with Microsoft Entra ID (previously Azure Active Directory)",
+                  "path": "/access-control/scim-with-microsoft-entra-id"
+                }
+                  
+                ]
+              },
+              {
+                "title": "OpenID Connect",
+                "path": "/access-control/openid-connect",
+                "children": [
+                  {
+                    "title": "Setup GitHub Actions to authenticate to Cloudsmith using OIDC",
+                    "path": "/access-control/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
+                  }
+                ]
+              },
+              {
+                "title": "Two-Factor Authentication",
+                "path": "/access-control/two-factor-authentication"
+              }
+            ]
+          },
           {
           "title": "Supply chain security",
           "path": "/supply-chain-security",
@@ -313,87 +394,6 @@
             "path": "/software-supply-chain-security/signing-keys"
           }
           ]
-          },
-          {
-            "title": "Authentication",
-            "path": "/authentication",
-            "children": [
-              {
-                "title": "Single Sign-On",
-                "path": "/authentication/single-sign-on",
-                "children": [
-                  {
-                    "title": "Single Sign-On with Azure AD",
-                    "path": "/authentication/single-sign-on-with-azure-ad"
-                  },
-                  {
-                    "title": "Single Sign-On with Google",
-                    "path": "/authentication/single-sign-on-with-google-g-suite"
-                  },
-                  {
-                    "title": "Single Sign-On with JumpCloud",
-                    "path": "/authentication/single-sign-on-with-jumpcloud"
-                  },
-                  {
-                    "title": "Single Sign-On with PingIdentity",
-                    "path": "/authentication/single-sign-on-with-pingidentity"
-                  },
-                  {
-                    "title": "Single Sign-On with Okta",
-                    "path": "/authentication/single-sign-on-with-okta"
-                  },
-                  {
-                    "title": "Single Sign-On with OneLogin",
-                    "path": "/authentication/single-sign-on-with-onelogin"
-                  }
-                ]
-              },
-              {
-                "title": "SCIM",
-                "path": "/authentication/scim",
-                "children": [
-                  {
-                    "title": "SCIM with JumpCloud",
-                    "path": "/authentication/scim-with-jumpcloud"
-                  },
-                  {
-                    "title": "SCIM with Google",
-                    "path": "/authentication/scim-with-google"
-                  },
-                  {
-                    "title": "SCIM with PingFederate",
-                    "path": "/authentication/scim-with-pingfederate"
-                  },
-                  {
-                  "title": "SCIM with OneLogin",
-                  "path": "/authentication/scim-with-onelogin"
-                },
-                {
-                  "title": "SCIM with Okta",
-                  "path": "/authentication/scim-with-okta"
-                },
-                {
-                  "title": "SCIM with Microsoft Entra ID (previously Azure Active Directory)",
-                  "path": "/authentication/scim-with-microsoft-entra-id"
-                }
-                  
-                ]
-              },
-              {
-                "title": "OpenID Connect",
-                "path": "/authentication/openid-connect",
-                "children": [
-                  {
-                    "title": "Setup GitHub Actions to authenticate to Cloudsmith using OIDC",
-                    "path": "/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
-                  }
-                ]
-              },
-              {
-                "title": "Two-Factor Authentication",
-                "path": "/authentication/two-factor-authentication"
-              }
-            ]
           },
       {
         "title": "Policy management",
