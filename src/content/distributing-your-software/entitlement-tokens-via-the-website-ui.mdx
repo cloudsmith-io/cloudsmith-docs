@@ -52,7 +52,7 @@ When filtering/searching Entitlement Tokens, you can use the following search cr
 
 ## Creating Entitlement Tokens
 
-You can create and configure Entitlement Tokens via the Website UI by clicking the "Settings" tab in a repository, then click "Entitlement token", the click the blue "Create New Token" button: 
+You can create and configure Entitlement Tokens via the Cloudsmith web app by clicking the "Settings" tab in a repository, then click "Entitlement token", the click the blue "Create New Token" button: 
 
 <BlockImage src={img_create_entitlement_token_button} alt="Create Token Button"></BlockImage>
 
@@ -83,7 +83,7 @@ You can add usage limits restrictions to a token which will control how the toke
 |**Unit of Bandwidth**|The selected unit of bandwidth to apply to the Maximum Bandwidth restriction. **Please Note** 1GB = 1000000000 (1000^3) Bytes, not 1073741824 (1024^3) Bytes.|
 
 <Note variant="note">
-  Please see [Sharing a Private Package](/artifact-management/sharing-a-private-package) for an example of configuring an Entitlement Token using the Website UI.
+  Please see [Sharing a Private Package](/artifact-management/sharing-a-private-package) for an example of configuring an Entitlement Token using the Cloudsmith web app.
 </Note>
 
 ### Additional Metadata
@@ -120,7 +120,7 @@ You are then presented with the Edit Entitlement Token form where you can make a
 
 When you create an Entitlement Token, we generate a random string for the token secret itself and it is this secret that will be used in configuration files that use the token.  
 
-The token is not displayed in the Website UI but can be copied using the copy button beside the secret: 
+The token is not displayed in the Cloudsmith web app but can be copied using the copy button beside the secret: 
 
 <BlockImage src={img_entitlement_token_secret} alt="Token Field"></BlockImage>
 
@@ -182,7 +182,7 @@ When you have confirmed the current repository slug/identifier and selected the 
 
 ## Deleting Entitlement Tokens
 
-You can delete an Entitlement Token via the Website UI.  This is a soft-delete, in that the token will no longer be available for use but the history of the token will be retained for logging/auditing purposes.
+You can delete an Entitlement Token via the Cloudsmith web app.  This is a soft-delete, in that the token will no longer be available for use but the history of the token will be retained for logging/auditing purposes.
 
 To delete an Entitlement Token click the dots to the right of the token and then click "Delete token":
 

@@ -1,9 +1,9 @@
 import { Note, BlockImage } from '@/components'
-import img_package_search_6_edited from './images/search-packages/97075343a9a33ef4bbc6957a18556c5b6cdd8e7b22ef88370bdd70f23d3e2902-package-search-6-edited.png'
-import img_package_search_3_edited from './images/search-packages/58be45141bb3dd355135c9535b94b4433d28a8a7b064b0d619157a717592a59b-package-search-3-edited.png'
-import img1aa0913_search_pkgs_cli_format from './images/search-packages/1aa0913-search_pkgs_cli_format.png'
-import imga2f0d45_search_pkgs_cli_tag_and from './images/search-packages/a2f0d45-search_pkgs_cli_tag_and.png'
-import imgac51e3f_search_pkgs_cli_size_dls from './images/search-packages/ac51e3f-search_pkgs_cli_size_dls.png'
+import img_package_search_6_edited from './images/search-filter-sort-packages/97075343a9a33ef4bbc6957a18556c5b6cdd8e7b22ef88370bdd70f23d3e2902-package-search-6-edited.png'
+import img_package_search_3_edited from './images/search-filter-sort-packages/58be45141bb3dd355135c9535b94b4433d28a8a7b064b0d619157a717592a59b-package-search-3-edited.png'
+import img1aa0913_search_pkgs_cli_format from './images/search-filter-sort-packages/1aa0913-search_pkgs_cli_format.png'
+import imga2f0d45_search_pkgs_cli_tag_and from './images/search-filter-sort-packages/a2f0d45-search_pkgs_cli_tag_and.png'
+import imgac51e3f_search_pkgs_cli_size_dls from './images/search-filter-sort-packages/ac51e3f-search_pkgs_cli_size_dls.png'
 
 # Searching Packages
 
@@ -90,7 +90,7 @@ To bring the query down, we added the following parts:
 - `AND` - We want to search for both the name and version together. Both must match for the results.
 - `version:~=1.0` - Find package versions that are at-least 1.0, upto the next incompatible version (2.0).
 
-## Searching Packages via the Website UI
+## Searching Packages via the Cloudsmith web app
 
 At the top of every page is the search box:
 
@@ -139,3 +139,96 @@ cloudsmith list packages cloudsmith/examples -q "format:python AND downloads:>50
 ```
 
 <BlockImage src={imgac51e3f_search_pkgs_cli_size_dls} alt=""></BlockImage>
+
+# Sorting Packages
+
+---
+## Sorting Packages via the Cloudsmith web app
+
+At the top of each repository packages page is the sorting dropdown:
+
+
+The available sorting options are: 
+
+- Name (A-Z)
+- Name (Z-A) 
+- Uploaded At (Oldest FIrst) 
+- Uploaded At (Newest First)
+- Size (Smallest First) 
+- Size (Biggest First) 
+- Total Downloads (Ascending) 
+- Total Downloads (Descending)
+
+Note that currently, the UI only supports sorting by one field at a time.
+
+## Sorting Packages via the Cloudsmith API
+
+Please see the Cloudsmith [API reference](/api/packages/list).
+
+Sorting search results is simple with Cloudsmith. A collection of one or more fields can be supplied in CSV (comma-separated value) format, and the results will be sorted based on the order of the fields provided. 
+
+## Sort Fields
+
+| Sort By                            | Sort Field Example                                                    |
+| :--------------------------------- | :-------------------------------------------------------------------- |
+| Name (`name`)                      | `-name` (sort by name alphabetically)                                 |
+| Format (`format`)                  | `-format` (sort by format alphabetically e.g. alphine, maven, python) |
+| Version - String-based (`version`) | `-version` (sort by version, greatest first e.g. 1.2.1, 1.2.0, 1.1.0) |
+| Status (`status`)                  |                                                                       |
+| Size in Bytes (`size`)             | `-size` (sort by size in bytes, largest package first)                |
+| Downloads (`downloads`)            | `downloads` (sort by downloads ascending e.g. 0, 10, 50, 1,000)       |
+| Date (`date`)                      | `-date` (sort by uploaded time, most recent first)                    |
+
+**For all fields you can use:**  
+`-` to sort by descending order. (Example: `-date`, `-version`)
+
+## A Short Worked Example
+
+Suppose that you had the following packages:
+
+| Name                   | Format | Size | Version | Downloads |
+| :--------------------- | :----- | :--- | :------ | :-------- |
+| cloudsmith-example-cli | Python | 722  | 1.2.0   | 500       |
+| cloudsmith-example-cli | Python | 719  | 1.1.5   | 1000      |
+| cloudsmith-java-app    | Maven  | 6910 | 1.0.0   | 2500      |
+| cloudsmith-example-pdf | Raw    | 309  | 2.0.0   | 100       |
+
+**To sort packages by size descending, your sort query would be:**
+
+```
+-size
+```
+
+Which would provide the following results
+
+- cloudsmith-java-app, Size: 6910 bytes
+- cloudsmith-example-cli, Size: 722 bytes
+- cloudsmith-example-cli, Size: 719 bytes
+- cloudsmith-example-pdf, Size: 309 bytes
+
+**To sort packages by format alphabetically, with version descending, your sort query would be:**
+
+```
+-format,-version
+```
+
+Which would provide the following results:
+
+- cloudsmith-java-app, Format: Maven, Version: 1.0.0
+- cloudsmith-example-cli, Format: Python, Version: 1.2.0
+- cloudsmith-example-cli, Format: Python, Version: 1.1.5
+- cloudsmith-example-pdf, Format: Raw, Version: 1.1.0
+
+## Sorting combined with Searching
+
+Sorting can also be combined with querying. If you wanted to sort by most downloaded Python packages, your query and sort would be:
+
+```
+query=format:python&sort=-downloads
+```
+
+Which would provide the following results:
+
+- cloudsmith-example-cli, Format: Python, Version: 1.2.0, Downloads: 1000
+- cloudsmith-example-cli, Format: Python, Version: 1.2.0, Downloads: 500
+

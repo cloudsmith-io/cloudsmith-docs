@@ -15,7 +15,7 @@ import img73d6a1bab060a26c5b9b9c9a9d83591ad9fd64e0e58ef49aa529b71f6a7b4373_Scree
 There are two basic ways to download a package from a Cloudsmith repository: 
 
 - via a native package manager
-- via the Website UI
+- via the Cloudsmith web app
 
 You cannot download a package directly using the API or CLI. However, you can use the API to obtain a URL that you can then use to download a package.
 
@@ -47,7 +47,7 @@ There you are presented with contextual instructions for how to use a package:
 <BlockImage src={img28159e2cca9d71bd9e49fdabc2838cbcdec26ee290e7498cc5177fafd8e8190e_Screenshot_2024_10_18_at_17_57_56} alt="nstructions for using a package"></BlockImage>
 
 
-## Download via Website UI
+## Download via Cloudsmith web app
 
 You can download a package directly from the Cloudsmith Website. 
 
@@ -73,7 +73,7 @@ See [Entitlements](/software-distribution/entitlement-tokens) and [Sharing a Pri
 
 ## Bulk Package Download
 
-You cannot bulk download packages using the Website UI, but you can do it with a little scripting using the Cloudsmith CLI. The Cloudsmith CLI is Python-based, so it needs Python (2 or 3) installed, and is available via `pip` (`pip install cloudsmith-cli`).
+You cannot bulk download packages using the Cloudsmith web app, but you can do it with a little scripting using the Cloudsmith CLI. The Cloudsmith CLI is Python-based, so it needs Python (2 or 3) installed, and is available via `pip` (`pip install cloudsmith-cli`).
 
 The basic premise of these examples is that you use the Cloudsmith CLI to list the contents of the repository, extract the download URL for each package, and then download each package.
 

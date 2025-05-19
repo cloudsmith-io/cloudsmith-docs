@@ -213,8 +213,8 @@
         "path": "/artifact-management",
         "children": [
           {
-            "title": "Searching / Filtering",
-            "path": "/artifact-management/search-packages"
+            "title": "Searching and filtering",
+            "path": "/artifact-management/search-filter-sort-packages"
           },
           {
             "title": "Package Quarantine",
@@ -237,7 +237,7 @@
             "path": "/artifact-management/copy-a-package"
           },
           {
-            "title": "Package Resynchronization",
+            "title": "Package Resync",
             "path": "/artifact-management/resync-a-package"
           },
           {
