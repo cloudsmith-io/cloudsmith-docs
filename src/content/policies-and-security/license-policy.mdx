@@ -105,7 +105,7 @@ Here you can define the following:
 
 Once saved, the policy is enabled across your workspace and the policy compliance check will be performed automatically during the package synchronisation process. This process occurs when a package is uploaded, moved, copied, or cached (such as in upstream caching).
 
-You can also manually trigger a synchronisation of a package using the resync functionality. See [Package Resynchronization](/artifacts/resync-a-package) for instructions on how to do this. 
+You can also manually trigger a synchronisation of a package using the resync functionality. See [Package Resynchronization](/artifact-management/resync-a-package) for instructions on how to do this. 
 
 ## Policy Violations
 
@@ -118,7 +118,7 @@ You can also search for policy violations using `policy_violated:true`.
 <BlockImage src={img_search_policy_violations} alt="violated policy search"></BlockImage>
 
 <Note variant="note">
-  You can view this violation list at any time using our package search [(link)](/artifacts/search-packages#searching-packages-via-the-website-ui) feature and setting the filter to `policy_violated:true` for all policy violations, or `license_policy_violated:true` to only return license policy violations.
+  You can view this violation list at any time using our package search [(link)](/artifact-management/search-packages#searching-packages-via-the-website-ui) feature and setting the filter to `policy_violated:true` for all policy violations, or `license_policy_violated:true` to only return license policy violations.
 </Note>
 
 ## Policy Violation Identifiers
@@ -164,4 +164,4 @@ If you change the package license, the package will be resynchronized and automa
 
 If you update the policy to remove the license from the deny list or set **Quarantine on violation** set to "No", the package can be manually removed from quarantine.
 
-See [Package Quarantine](/artifacts/package-quarantine#release-from-quarantine) for instructions on restoring a package from quarantine.
+See [Package Quarantine](/artifact-management/package-quarantine#release-from-quarantine) for instructions on restoring a package from quarantine.

@@ -68,7 +68,7 @@ The event types are:
 
 ### Package Query Filter
 
-You can also add a package search query to webhooks. This uses the same [search syntax](/artifacts/search-packages) supported elsewhere for searching. If present, packages that emit events need to match the search query provided. In this way, you could filter webhooks for only certain types of packages, in addition to specific events.
+You can also add a package search query to webhooks. This uses the same [search syntax](/artifact-management/search-packages) supported elsewhere for searching. If present, packages that emit events need to match the search query provided. In this way, you could filter webhooks for only certain types of packages, in addition to specific events.
 
 For example, to send `Package Synced` events for `my-web-app` packages that have the `release` tag, you can define the query as `name:my-web-app AND tag:release`.
 

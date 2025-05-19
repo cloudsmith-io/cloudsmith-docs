@@ -5,7 +5,7 @@
     "icon": "action/documentation",
     "children": [
       {
-        "title": "Getting Started",
+        "title": "Getting started",
         "path": "/getting-started",
         "children": [
           {
@@ -24,26 +24,34 @@
             "title": "Signing-in",
             "path": "/getting-started/sign-in"
           },
+                                        {
+            "title": "Your workspace",
+            "path": "/getting-started/workspaces"
+          },
                               {
             "title": "Pulling your first package",
             "path": "/getting-started/first-package-pull"
           },
           {
-            "title": "Generating an API Key",
+            "title": "Generating an API key",
             "path": "/getting-started/api-key"
           },
           {
-            "title": "Command Line Interface",
+            "title": "Command line interface",
             "path": "/getting-started/cli"
           },
           {
             "title": "API Bindings",
             "path": "/getting-started/api-bindings"
-          }
+          },      
+          {
+        "title": "Custom domains",
+        "path": "/getting-started/using-custom-domains"
+      }
         ]
       },
       {
-        "title": "Supported Formats",
+        "title": "Supported formats",
         "path": "/formats/",
         "children": [
           {
@@ -174,183 +182,6 @@
           }
         ]
       },
-      {
-        "title": "Integrations",
-        "path": "/integrations/",
-        "children": [
-          {
-            "title": "Ansible",
-            "path": "/integrations/integrating-with-ansible"
-          },
-          {
-            "title": "ArgoCD",
-            "path": "/integrations/integrating-with-argocd"
-          },
-          {
-            "title": "AWS CodeBuild",
-            "path": "/integrations/integrating-with-aws-codebuild"
-          },
-          {
-            "title": "Azure DevOps",
-            "path": "/integrations/integrating-with-azure-devops"
-          },
-          {
-            "title": "Bitbucket Pipelines",
-            "path": "/integrations/integrating-with-bitbucket-pipelines"
-          },
-          {
-            "title": "Buildkite",
-            "path": "/integrations/integrating-with-buildkite"
-          },
-          {
-            "title": "Chainguard Images",
-            "path": "/integrations/integrating-with-chainguard-images"
-          },
-          {
-            "title": "Chef",
-            "path": "/integrations/integrating-with-chef"
-          },
-          {
-            "title": "CircleCI",
-            "path": "/integrations/integrating-with-circleci"
-          },
-          {
-            "title": "Codefresh",
-            "path": "/integrations/integrating-with-codefresh"
-          },
-          {
-            "title": "Datadog",
-            "path": "/integrations/integrating-with-datadog"
-          },
-          {
-            "title": "Dependabot",
-            "path": "/integrations/integrating-with-dependabot"
-          },
-          {
-            "title": "Docker Hub",
-            "path": "/integrations/integrating-with-docker-hub"
-          },
-          {
-            "title": "Drone CI",
-            "path": "/integrations/integrating-with-drone-ci"
-          },
-          {
-            "title": "GitHub Actions",
-            "path": "/integrations/integrating-with-github-actions"
-          },
-          {
-            "title": "GitLab CI/CD",
-            "path": "/integrations/integrating-with-gitlab-cicd"
-          },
-          {
-            "title": "Harness CD",
-            "path": "/integrations/integrating-with-harness"
-          },
-          {
-            "title": "Jenkins",
-            "path": "/integrations/integrating-with-jenkins"
-          },
-          {
-            "title": "Octopus Deploy",
-            "path": "/integrations/integrating-with-octopus-deploy"
-          },
-          {
-            "title": "Puppet",
-            "path": "/integrations/integrating-with-puppet"
-          },
-          {
-            "title": "Roadie",
-            "path": "/integrations/integrating-with-roadie"
-          },
-          {
-            "title": "Semaphore CI",
-            "path": "/integrations/integrating-with-semaphore-ci"
-          },
-          {
-            "title": "Terraform Provider",
-            "path": "/integrations/integrating-with-terraform"
-          },
-          {
-            "title": "Travis-CI",
-            "path": "/integrations/integrating-with-travis-ci"
-          },
-          {
-            "title": "Zapier",
-            "path": "/integrations/integrating-with-zapier"
-          }
-        ]
-      },
-      {
-        "title": "Artifacts",
-        "path": "/artifacts",
-        "children": [
-          {
-            "title": "Searching / Filtering",
-            "path": "/artifacts/search-packages"
-          },
-          {
-            "title": "Package Quarantine",
-            "path": "/artifacts/package-quarantine"
-          },
-          {
-            "title": "Private Package Sharing",
-            "path": "/artifacts/sharing-a-private-package"
-          },
-          {
-            "title": "Package Identification",
-            "path": "/artifacts/identifying-a-package"
-          },
-          {
-            "title": "Package Tags",
-            "path": "/artifacts/package-tags"
-          },
-          {
-            "title": "Package Copy",
-            "path": "/artifacts/copy-a-package"
-          },
-          {
-            "title": "Package Resynchronization",
-            "path": "/artifacts/resync-a-package"
-          },
-          {
-            "title": "Package Delete",
-            "path": "/artifacts/delete-a-package"
-          },
-          {
-            "title": "Package Move",
-            "path": "/artifacts/package-move"
-          },
-          {
-            "title": "Package Upload",
-            "path": "/artifacts/package-upload"
-          },
-          {
-            "title": "Package Download",
-            "path": "/artifacts/download-a-package"
-          },
-          {
-            "title": "Sorting",
-            "path": "/artifacts/sorting-packages"
-          },
-          {
-            "title": "Recycle Bin",
-            "path": "/artifacts/recycle-bin"
-          },
-          {
-            "title": "Retention Lifecycle",
-            "path": "/artifacts/retention-lifecycle"
-          },
-          {
-            "title": "Package Groups",
-            "path": "/artifacts/package-groups"
-          }
-        ]
-      },
-      {
-        "title": "Workspaces",
-        "path": "/getting-started/workspaces"
-      },
-
           {
             "title": "Repositories",
             "path": "/repositories",
@@ -373,8 +204,74 @@
               }
             ]
           },
+                {
+        "title": "Artifact management",
+        "path": "/artifact-management",
+        "children": [
           {
-            "title": "Teams and Accounts",
+            "title": "Searching / Filtering",
+            "path": "/artifact-management/search-packages"
+          },
+          {
+            "title": "Package Quarantine",
+            "path": "/artifact-management/package-quarantine"
+          },
+          {
+            "title": "Private Package Sharing",
+            "path": "/artifact-management/sharing-a-private-package"
+          },
+          {
+            "title": "Package Identification",
+            "path": "/artifact-management/identifying-a-package"
+          },
+          {
+            "title": "Package Tags",
+            "path": "/artifact-management/package-tags"
+          },
+          {
+            "title": "Package Copy",
+            "path": "/artifact-management/copy-a-package"
+          },
+          {
+            "title": "Package Resynchronization",
+            "path": "/artifact-management/resync-a-package"
+          },
+          {
+            "title": "Package Delete",
+            "path": "/artifact-management/delete-a-package"
+          },
+          {
+            "title": "Package Move",
+            "path": "/artifact-management/package-move"
+          },
+          {
+            "title": "Package Upload",
+            "path": "/artifact-management/package-upload"
+          },
+          {
+            "title": "Package Download",
+            "path": "/artifact-management/download-a-package"
+          },
+          {
+            "title": "Sorting",
+            "path": "/artifact-management/sorting-packages"
+          },
+          {
+            "title": "Recycle Bin",
+            "path": "/artifact-management/recycle-bin"
+          },
+          {
+            "title": "Retention Lifecycle",
+            "path": "/artifact-management/retention-lifecycle"
+          },
+          {
+            "title": "Package Groups",
+            "path": "/artifact-management/package-groups"
+          }
+        ]
+      },
+          {
+            "title": "Teams and accounts",
             "path": "/teams-and-accounts",
             "children": [
               {
@@ -488,7 +385,7 @@
             ]
           },
       {
-        "title": "Policies and Security",
+        "title": "Policy management",
         "path": "/policies-and-security",
         "children": [
           {
@@ -544,92 +441,197 @@
         ]
       },
       {
-        "title": "Observability and Logging",
+        "title": "Logs & observability",
         "path": "/observability-and-logging",
         "children": [
           {
             "title": "Client Statistics",
-            "path": "/observability-and-logging/client-statistics"
+            "path": "/logs-and-observability/client-statistics"
           },
           {
             "title": "Client Logs",
-            "path": "/observability-and-logging/client-logs"
+            "path": "/logs-and-observability/client-logs"
           },
           {
             "title": "Repository Audit Logs",
-            "path": "/observability-and-logging/repo-audit-logs"
+            "path": "/logs-and-observability/repo-audit-logs"
           },
           {
             "title": "Log Exports to Azure",
-            "path": "/observability-and-logging/exports-to-azure"
+            "path": "/logs-and-observability/exports-to-azure"
           },
           {
             "title": "Log Exports to S3",
-            "path": "/observability-and-logging/access-log-exports-to-s3"
+            "path": "/logs-and-observability/access-log-exports-to-s3"
           },
           {
             "title": "Audit Logs",
-            "path": "/observability-and-logging/audit-logs"
+            "path": "/logs-and-observability/audit-logs"
           },
           {
             "title": "Package Logs",
-            "path": "/observability-and-logging/package-logs"
+            "path": "/logs-and-observability/package-logs"
           },
           {
             "title": "Client Logs",
-            "path": "/observability-and-logging/download-logs"
+            "path": "/logs-and-observability/download-logs"
           },
           {
             "title": "Analyzing Client Logs with Athena",
-            "path": "/observability-and-logging/analyzing-s3-download-logs"
+            "path": "/logs-and-observability/analyzing-s3-download-logs"
           },
           {
             "title": "Notifications"
           },
           {
             "title": "Webhooks",
-            "path": "/observability-and-logging/webhooks"
+            "path": "/logs-and-observability/webhooks"
           },
           {
             "title": "Slack",
-            "path": "/observability-and-logging/integrating-with-slack"
+            "path": "/logs-and-observability/integrating-with-slack"
           },
           {
             "title": "Microsoft Teams",
-            "path": "/observability-and-logging/integrating-with-microsoft-teams"
+            "path": "/logs-and-observability/integrating-with-microsoft-teams"
           }
         ]
       },
       {
-        "title": "Distributing your software",
+        "title": "Software distribution",
         "path": "/distributing-your-software",
         "children": [
           {
-            "title": "Entitlements",
-            "path": "/distributing-your-software/entitlement-tokens",
+            "title": "Broadcasts",
+            "path": "/"
+          },
+          {
+            "title": "Entitlement tokens",
+            "path": "/software-distribution/entitlement-tokens",
             "children": [
               {
-                "title": "Entitlements via the API",
-                "path": "/distributing-your-software/entitlement-tokens-via-the-cloudsmith-api"
+                "title": "Entitlement tokens via the API",
+                "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-api"
               },
               {
-                "title": "Entitlements via the CLI",
-                "path": "/distributing-your-software/entitlement-tokens-via-the-cloudsmith-cli"
+                "title": "Entitlement tokens via the CLI",
+                "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-cli"
               },
               {
-                "title": "Entitlements via the UI",
-                "path": "/distributing-your-software/entitlement-tokens-via-the-website-ui"
+                "title": "Entitlement tokens via web app",
+                "path": "/software-distribution/entitlement-tokens-via-the-website-ui"
               }
             ]
           },
-          
           {
-            "title": "EULA Enforcement",
-            "path": "/distributing-your-software/eula"
+            "title": "EULA enforcement",
+            "path": "/software-distribution/eula"
+          }
+        ]
+      },
+            {
+        "title": "Integrations",
+        "path": "/integrations/",
+        "children": [
+          {
+            "title": "Ansible",
+            "path": "/integrations/integrating-with-ansible"
           },
           {
-            "title": "Broadcasts",
-            "path": "/"
+            "title": "ArgoCD",
+            "path": "/integrations/integrating-with-argocd"
+          },
+          {
+            "title": "AWS CodeBuild",
+            "path": "/integrations/integrating-with-aws-codebuild"
+          },
+          {
+            "title": "Azure DevOps",
+            "path": "/integrations/integrating-with-azure-devops"
+          },
+          {
+            "title": "Bitbucket Pipelines",
+            "path": "/integrations/integrating-with-bitbucket-pipelines"
+          },
+          {
+            "title": "Buildkite",
+            "path": "/integrations/integrating-with-buildkite"
+          },
+          {
+            "title": "Chainguard Images",
+            "path": "/integrations/integrating-with-chainguard-images"
+          },
+          {
+            "title": "Chef",
+            "path": "/integrations/integrating-with-chef"
+          },
+          {
+            "title": "CircleCI",
+            "path": "/integrations/integrating-with-circleci"
+          },
+          {
+            "title": "Codefresh",
+            "path": "/integrations/integrating-with-codefresh"
+          },
+          {
+            "title": "Datadog",
+            "path": "/integrations/integrating-with-datadog"
+          },
+          {
+            "title": "Dependabot",
+            "path": "/integrations/integrating-with-dependabot"
+          },
+          {
+            "title": "Docker Hub",
+            "path": "/integrations/integrating-with-docker-hub"
+          },
+          {
+            "title": "Drone CI",
+            "path": "/integrations/integrating-with-drone-ci"
+          },
+          {
+            "title": "GitHub Actions",
+            "path": "/integrations/integrating-with-github-actions"
+          },
+          {
+            "title": "GitLab CI/CD",
+            "path": "/integrations/integrating-with-gitlab-cicd"
+          },
+          {
+            "title": "Harness CD",
+            "path": "/integrations/integrating-with-harness"
+          },
+          {
+            "title": "Jenkins",
+            "path": "/integrations/integrating-with-jenkins"
+          },
+          {
+            "title": "Octopus Deploy",
+            "path": "/integrations/integrating-with-octopus-deploy"
+          },
+          {
+            "title": "Puppet",
+            "path": "/integrations/integrating-with-puppet"
+          },
+          {
+            "title": "Roadie",
+            "path": "/integrations/integrating-with-roadie"
+          },
+          {
+            "title": "Semaphore CI",
+            "path": "/integrations/integrating-with-semaphore-ci"
+          },
+          {
+            "title": "Terraform Provider",
+            "path": "/integrations/integrating-with-terraform"
+          },
+          {
+            "title": "Travis-CI",
+            "path": "/integrations/integrating-with-travis-ci"
+          },
+          {
+            "title": "Zapier",
+            "path": "/integrations/integrating-with-zapier"
           }
         ]
       },
@@ -685,15 +687,11 @@
       },
 
       {
-        "title": "Developer Community",
+        "title": "Developer community",
         "path": "/developer-community"
       },
       {
-        "title": "Custom Domains",
-        "path": "/getting-started/custom-domains"
-      },
-      {
-        "title": "Contact Us",
+        "title": "Contact us",
         "path": "https://cloudsmith.com/company/contact-us"
       }
     ]
