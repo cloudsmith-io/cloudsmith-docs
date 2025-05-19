@@ -305,6 +305,24 @@
             ]
           },
           {
+          "title": "Supply chain security",
+          "path": "/supply-chain-security",
+          "children": [
+           {
+            "title": "Continuous security",
+            "path": "/policy-management/continuous-security"
+          },  
+          {
+            "title": "Malware scanning",
+            "path": "/policy-management/continuous-security"
+          },  
+          {
+            "title": "Package signing",
+            "path": "/software-supply-chain-security/signing-keys"
+          }
+          ]
+          },
+          {
             "title": "Authentication",
             "path": "/authentication",
             "children": [
@@ -354,7 +372,8 @@
                     "title": "SCIM with PingFederate",
                     "path": "/authentication/scim-with-pingfederate"
                   },
-                  {                "title": "SCIM with OneLogin",
+                  {
+                  "title": "SCIM with OneLogin",
                   "path": "/authentication/scim-with-onelogin"
                 },
                 {
@@ -386,63 +405,53 @@
           },
       {
         "title": "Policy management",
-        "path": "/policies-and-security",
+        "path": "/policy-management/",
         "children": [
           {
-            "title": "Vulnerability Policy",
-            "path": "/policies-and-security/vulnerability-policy"
-          },
+            "title":"Classic policies",
+            "children":[          
           {
+            "title": "Vulnerability Policy",
+            "path": "/policy-management/vulnerability-policy"
+          },
+                    {
             "title": "Deny Policy",
-            "path": "/policies-and-security/deny-policy"
+            "path": "/policy-management/deny-policy"
           },
           {
             "title": "API Key Policy",
-            "path": "/policies-and-security/api-key-policy"
-          },
-          {
-            "title": "Security Scanning",
-            "path": "/policies-and-security/security-scanning"
-          },
+            "path": "/policy-management/api-key-policy"
+          },                  
           {
             "title": "License Policy",
-            "path": "/policies-and-security/license-policy"
+            "path": "/policy-management/license-policy"
           },
           {
             "title": "Geo/IP Rules",
-            "path": "/policies-and-security/geoip-rules"
+            "path": "/policy-management/geoip-rules"
           },
           {
             "title": "License Compliance",
-            "path": "/policies-and-security/license-compliance"
+            "path": "/policy-management/license-compliance"
+          }
+          ]
           },
           {
-            "title": "Enterprise Policy Management"
+            "title": "Enterprise Policies"
           },
           {
-            "title": "Getting Started with Enterprise Policy Management",
+            "title": "Getting started",
             "path": "/"
           },
           {
-            "title": "Enterprise Policy Management Rego Recipes",
+            "title": "Rego Recipes",
             "path": "/"
-          },
-          {
-            "title": "Keys and Signing"
-          },
-          {
-            "title": "Signing Keys",
-            "path": "/policies-and-security/signing-keys"
-          },
-          {
-            "title": "Signing artifacts with Cosign",
-            "path": "/policies-and-security/signing-a-package-with-cosign"
           }
         ]
       },
       {
         "title": "Logs & observability",
-        "path": "/observability-and-logging",
+        "path": "/logs-and-observability/",
         "children": [
           {
             "title": "Client Statistics",
