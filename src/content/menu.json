@@ -9,8 +9,8 @@
         "path": "/getting-started",
         "children": [
           {
-            "title": "Core concepts",
-            "path": "/getting-started/core-concepts"
+            "title": "Key concepts",
+            "path": "/getting-started/key-concepts"
           },
           {
             "title": "Common use cases",
@@ -25,8 +25,12 @@
             "path": "/getting-started/sign-in"
           },
                                         {
-            "title": "Your workspace",
+            "title": "Your new workspace",
             "path": "/getting-started/workspaces"
+          },
+          {
+            "title": "Joining a workspace",
+            "path": "/getting-started/joining-a-workspace"
           },
                               {
             "title": "Pulling your first package",
