@@ -216,12 +216,16 @@
             "title": "Uploading packages",
             "path": "/artifact-management/package-upload"
           },
+                    {
+            "title": "Downloading package",
+            "path": "/artifact-management/download-a-package"
+          },
           {
             "title": "Identifying packages",
             "path": "/artifact-management/identifying-a-package"
           },
           {
-            "title": "Package Tags",
+            "title": "Tagging packages",
             "path": "/artifact-management/package-tags"
           },
           {
@@ -237,24 +241,20 @@
             "path": "/artifact-management/sharing-a-private-package"
           },
           {
-            "title": "Package Copy",
+            "title": "Copying a package",
             "path": "/artifact-management/copy-a-package"
           },
           {
-            "title": "Package Resync",
+            "title": "Resync a package",
             "path": "/artifact-management/resync-a-package"
           },
           {
-            "title": "Package Delete",
+            "title": "Deleting a package",
             "path": "/artifact-management/delete-a-package"
           },
           {
-            "title": "Package Move",
+            "title": "Moving a package",
             "path": "/artifact-management/package-move"
-          },
-          {
-            "title": "Package Download",
-            "path": "/artifact-management/download-a-package"
           },
           {
             "title": "Recycle Bin",
