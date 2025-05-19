@@ -279,7 +279,7 @@
             "path": "/upstream-proxying-and-caching/upstream-priorities"
               },
                             {
-            "title": "Failures scenarios",
+            "title": "Failure scenarios",
             "path": "/upstream-proxying-and-caching/failure-scenarios"
               }
             ]
@@ -386,7 +386,7 @@
                 ]
               },
               {
-                "title": "Two-Factor Authentication",
+                "title": "2FA",
                 "path": "/access-control/two-factor-authentication"
               }
             ]
@@ -405,7 +405,7 @@
           },  
           {
             "title": "Package signing",
-            "path": "/software-supply-chain-security/signing-keys"
+            "path": "/supply-chain-security/signing-keys"
           }
           ]
           },
