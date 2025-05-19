@@ -446,54 +446,44 @@
         "path": "/logs-and-observability/",
         "children": [
           {
-            "title": "Client Statistics",
-            "path": "/logs-and-observability/client-statistics"
+            "title": "Client logs",
+            "path": "/logs-and-observability/client-logs"
           },
           {
-            "title": "Client Logs",
-            "path": "/logs-and-observability/client-logs"
+            "title": "Audit logs",
+            "path": "/logs-and-observability/audit-logs"
           },
           {
             "title": "Repository Audit Logs",
             "path": "/logs-and-observability/repo-audit-logs"
           },
           {
-            "title": "Log Exports to Azure",
+            "title": "Exporting logs to Azure",
             "path": "/logs-and-observability/exports-to-azure"
           },
           {
-            "title": "Log Exports to S3",
+            "title": "Exporting logs to S3",
             "path": "/logs-and-observability/access-log-exports-to-s3"
           },
+
           {
-            "title": "Audit Logs",
-            "path": "/logs-and-observability/audit-logs"
-          },
-          {
-            "title": "Package Logs",
+            "title": "Package logs",
             "path": "/logs-and-observability/package-logs"
           },
           {
-            "title": "Client Logs",
-            "path": "/logs-and-observability/download-logs"
-          },
-          {
-            "title": "Analyzing Client Logs with Athena",
+            "title": "Analyzing logs with Athena",
             "path": "/logs-and-observability/analyzing-s3-download-logs"
           },
           {
-            "title": "Notifications"
-          },
-          {
-            "title": "Webhooks",
+            "title": "Using Webhooks",
             "path": "/logs-and-observability/webhooks"
           },
           {
-            "title": "Slack",
+            "title": "Integrating with Slack",
             "path": "/logs-and-observability/integrating-with-slack"
           },
           {
-            "title": "Microsoft Teams",
+            "title": "Integrating with Teams",
             "path": "/logs-and-observability/integrating-with-microsoft-teams"
           }
         ]
