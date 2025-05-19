@@ -5,56 +5,32 @@
     "icon": "action/documentation",
     "children": [
       {
-        "title": "Cloudsmith Overview",
-        "path": "/cloudsmith-overview/what-is-cloud-native-artifact-management",
-        "children": [
-          {
-            "title": "What is cloud-native artifact management",
-            "path": "/cloudsmith-overview/what-is-cloud-native-artifact-management"
-          },
-          {
-            "title": "Core concepts and components",
-            "path": "/cloudsmith-overview/concepts-and-components",
-            "children": [
-              {
-                "title": "Upstream Proxying",
-                "path": "/"
-              },
-              {
-                "title": "Packages",
-                "path": "/"
-              },
-              {
-                "title": "Repositories",
-                "path": "/"
-              },
-              {
-                "title": "Workspaces",
-                "path": "/"
-              }
-            ]
-          },
-          {
-            "title": "Common use cases",
-            "path": "/cloudsmith-overview/common-use-cases"
-          }
-        ]
-      },
-      {
         "title": "Getting Started",
         "path": "/getting-started",
         "children": [
           {
-            "title": "Creating an Account",
-            "path": "/"
+            "title": "Core concepts",
+            "path": "/getting-started/core-concepts"
+          },
+          {
+            "title": "Common use cases",
+            "path": "/getting-started/common-use-cases"
+          },
+          {
+            "title": "Signing-up",
+            "path": "/getting-started/sign-up"
+          },
+                    {
+            "title": "Signing-in",
+            "path": "/getting-started/sign-in"
+          },
+                              {
+            "title": "Pulling your first package",
+            "path": "/getting-started/first-package-pull"
           },
           {
             "title": "Generating an API Key",
             "path": "/getting-started/api-key"
-          },
-          {
-            "title": "Integrate your preferred package format",
-            "path": "/"
           },
           {
             "title": "Command Line Interface",
@@ -63,6 +39,244 @@
           {
             "title": "API Bindings",
             "path": "/getting-started/api-bindings"
+          }
+        ]
+      },
+      {
+        "title": "Supported Formats",
+        "path": "/formats/",
+        "children": [
+          {
+            "title": "Alpine Repository",
+            "path": "/formats/alpine-repository"
+          },
+          {
+            "title": "Cargo Registry",
+            "path": "/formats/cargo-registry"
+          },
+          {
+            "title": "Chocolatey Repository",
+            "path": "/formats/chocolatey-repository"
+          },
+          {
+            "title": "Cocoapods Repository",
+            "path": "/formats/cocoapods-repository"
+          },
+          {
+            "title": "Composer Repository",
+            "path": "/formats/composer-repository"
+          },
+          {
+            "title": "Conan Repository",
+            "path": "/formats/conan-repository"
+          },
+          {
+            "title": "Conda Repository",
+            "path": "/formats/conda-repository"
+          },
+          {
+            "title": "CRAN Repository",
+            "path": "/formats/cran-repository"
+          },
+          {
+            "title": "Dart Repository",
+            "path": "/formats/dart-repository"
+          },
+          {
+            "title": "Debian Repository",
+            "path": "/formats/debian-repository"
+          },
+          {
+            "title": "Docker Registry",
+            "path": "/formats/docker-registry"
+          },
+          {
+            "title": "Go Registry",
+            "path": "/formats/go-registry"
+          },
+          {
+            "title": "Gradle Repository",
+            "path": "/formats/gradle-repository"
+          },
+          {
+            "title": "Helm Chart Repository",
+            "path": "/formats/helm-chart-repository"
+          },
+          {
+            "title": "Hex Repository",
+            "path": "/formats/hex-repository"
+          },
+          {
+            "title": "LuaRocks Repository",
+            "path": "/formats/luarocks-repository"
+          },
+          {
+            "title": "Maven Repository",
+            "path": "/formats/maven-repository"
+          },
+          {
+            "title": "npm Registry",
+            "path": "/formats/npm-registry"
+          },
+          {
+            "title": "NuGet Feed",
+            "path": "/formats/nuget-feed",
+            "children": [
+              {
+                "title": "NuGet Symbol Server",
+                "path": "/formats/nuget-symbol-server"
+              }
+            ]
+          },
+          {
+            "title": "PowerShell Modules Repository",
+            "path": "/formats/powershell-modules-repository"
+          },
+          {
+            "title": "Python Repository",
+            "path": "/formats/python-repository"
+          },
+          {
+            "title": "Raw Repository",
+            "path": "/formats/raw-repository"
+          },
+          {
+            "title": "RedHat Repository",
+            "path": "/formats/redhat-repository"
+          },
+          {
+            "title": "Ruby Repository",
+            "path": "/formats/ruby-repository"
+          },
+          {
+            "title": "sbt Repository",
+            "path": "/formats/sbt-repository"
+          },
+          {
+            "title": "Swift Registry",
+            "path": "/formats/swift-registry"
+          },
+          {
+            "title": "Terraform Modules Repository",
+            "path": "/formats/terraform-modules-repository"
+          },
+          {
+            "title": "Unity Registry",
+            "path": "/formats/unity-registry"
+          },
+          {
+            "title": "Vagrant Repository",
+            "path": "/formats/vagrant-repository"
+          },
+          {
+            "title": "OCI Repository",
+            "path": "/formats/oci-repository"
+          }
+        ]
+      },
+      {
+        "title": "Integrations",
+        "path": "/integrations/",
+        "children": [
+          {
+            "title": "Ansible",
+            "path": "/integrations/integrating-with-ansible"
+          },
+          {
+            "title": "ArgoCD",
+            "path": "/integrations/integrating-with-argocd"
+          },
+          {
+            "title": "AWS CodeBuild",
+            "path": "/integrations/integrating-with-aws-codebuild"
+          },
+          {
+            "title": "Azure DevOps",
+            "path": "/integrations/integrating-with-azure-devops"
+          },
+          {
+            "title": "Bitbucket Pipelines",
+            "path": "/integrations/integrating-with-bitbucket-pipelines"
+          },
+          {
+            "title": "Buildkite",
+            "path": "/integrations/integrating-with-buildkite"
+          },
+          {
+            "title": "Chainguard Images",
+            "path": "/integrations/integrating-with-chainguard-images"
+          },
+          {
+            "title": "Chef",
+            "path": "/integrations/integrating-with-chef"
+          },
+          {
+            "title": "CircleCI",
+            "path": "/integrations/integrating-with-circleci"
+          },
+          {
+            "title": "Codefresh",
+            "path": "/integrations/integrating-with-codefresh"
+          },
+          {
+            "title": "Datadog",
+            "path": "/integrations/integrating-with-datadog"
+          },
+          {
+            "title": "Dependabot",
+            "path": "/integrations/integrating-with-dependabot"
+          },
+          {
+            "title": "Docker Hub",
+            "path": "/integrations/integrating-with-docker-hub"
+          },
+          {
+            "title": "Drone CI",
+            "path": "/integrations/integrating-with-drone-ci"
+          },
+          {
+            "title": "GitHub Actions",
+            "path": "/integrations/integrating-with-github-actions"
+          },
+          {
+            "title": "GitLab CI/CD",
+            "path": "/integrations/integrating-with-gitlab-cicd"
+          },
+          {
+            "title": "Harness CD",
+            "path": "/integrations/integrating-with-harness"
+          },
+          {
+            "title": "Jenkins",
+            "path": "/integrations/integrating-with-jenkins"
+          },
+          {
+            "title": "Octopus Deploy",
+            "path": "/integrations/integrating-with-octopus-deploy"
+          },
+          {
+            "title": "Puppet",
+            "path": "/integrations/integrating-with-puppet"
+          },
+          {
+            "title": "Roadie",
+            "path": "/integrations/integrating-with-roadie"
+          },
+          {
+            "title": "Semaphore CI",
+            "path": "/integrations/integrating-with-semaphore-ci"
+          },
+          {
+            "title": "Terraform Provider",
+            "path": "/integrations/integrating-with-terraform"
+          },
+          {
+            "title": "Travis-CI",
+            "path": "/integrations/integrating-with-travis-ci"
+          },
+          {
+            "title": "Zapier",
+            "path": "/integrations/integrating-with-zapier"
           }
         ]
       },
@@ -113,244 +327,6 @@
           {
             "title": "Import RPM",
             "path": "/migrating-to-cloudsmith/import-rpm"
-          }
-        ]
-      },
-      {
-        "title": "Package Formats",
-        "path": "/package-formats/",
-        "children": [
-          {
-            "title": "Alpine Repository",
-            "path": "/package-formats/alpine-repository"
-          },
-          {
-            "title": "Cargo Registry",
-            "path": "/package-formats/cargo-registry"
-          },
-          {
-            "title": "Chocolatey Repository",
-            "path": "/package-formats/chocolatey-repository"
-          },
-          {
-            "title": "Cocoapods Repository",
-            "path": "/package-formats/cocoapods-repository"
-          },
-          {
-            "title": "Composer Repository",
-            "path": "/package-formats/composer-repository"
-          },
-          {
-            "title": "Conan Repository",
-            "path": "/package-formats/conan-repository"
-          },
-          {
-            "title": "Conda Repository",
-            "path": "/package-formats/conda-repository"
-          },
-          {
-            "title": "CRAN Repository",
-            "path": "/package-formats/cran-repository"
-          },
-          {
-            "title": "Dart Repository",
-            "path": "/package-formats/dart-repository"
-          },
-          {
-            "title": "Debian Repository",
-            "path": "/package-formats/debian-repository"
-          },
-          {
-            "title": "Docker Registry",
-            "path": "/package-formats/docker-registry"
-          },
-          {
-            "title": "Go Registry",
-            "path": "/package-formats/go-registry"
-          },
-          {
-            "title": "Gradle Repository",
-            "path": "/package-formats/gradle-repository"
-          },
-          {
-            "title": "Helm Chart Repository",
-            "path": "/package-formats/helm-chart-repository"
-          },
-          {
-            "title": "Hex Repository",
-            "path": "/package-formats/hex-repository"
-          },
-          {
-            "title": "LuaRocks Repository",
-            "path": "/package-formats/luarocks-repository"
-          },
-          {
-            "title": "Maven Repository",
-            "path": "/package-formats/maven-repository"
-          },
-          {
-            "title": "npm Registry",
-            "path": "/package-formats/npm-registry"
-          },
-          {
-            "title": "NuGet Feed",
-            "path": "/package-formats/nuget-feed",
-            "children": [
-              {
-                "title": "NuGet Symbol Server",
-                "path": "/package-formats/nuget-symbol-server"
-              }
-            ]
-          },
-          {
-            "title": "PowerShell Modules Repository",
-            "path": "/package-formats/powershell-modules-repository"
-          },
-          {
-            "title": "Python Repository",
-            "path": "/package-formats/python-repository"
-          },
-          {
-            "title": "Raw Repository",
-            "path": "/package-formats/raw-repository"
-          },
-          {
-            "title": "RedHat Repository",
-            "path": "/package-formats/redhat-repository"
-          },
-          {
-            "title": "Ruby Repository",
-            "path": "/package-formats/ruby-repository"
-          },
-          {
-            "title": "sbt Repository",
-            "path": "/package-formats/sbt-repository"
-          },
-          {
-            "title": "Swift Registry",
-            "path": "/package-formats/swift-registry"
-          },
-          {
-            "title": "Terraform Modules Repository",
-            "path": "/package-formats/terraform-modules-repository"
-          },
-          {
-            "title": "Unity Registry",
-            "path": "/package-formats/unity-registry"
-          },
-          {
-            "title": "Vagrant Repository",
-            "path": "/package-formats/vagrant-repository"
-          },
-          {
-            "title": "OCI Repository",
-            "path": "/package-formats/oci-repository"
-          }
-        ]
-      },
-      {
-        "title": "CI/CD Integrations",
-        "path": "/integrations",
-        "children": [
-          {
-            "title": "Integrating Ansible",
-            "path": "/integrations/integrating-with-ansible"
-          },
-          {
-            "title": "Integrating ArgoCD",
-            "path": "/integrations/integrating-with-argocd"
-          },
-          {
-            "title": "Integrating AWS CodeBuild",
-            "path": "/integrations/integrating-with-aws-codebuild"
-          },
-          {
-            "title": "Integrating Azure DevOps",
-            "path": "/integrations/integrating-with-azure-devops"
-          },
-          {
-            "title": "Integrating Bitbucket Pipelines",
-            "path": "/integrations/integrating-with-bitbucket-pipelines"
-          },
-          {
-            "title": "Integrating Buildkite",
-            "path": "/integrations/integrating-with-buildkite"
-          },
-          {
-            "title": "Integrating Chainguard Images",
-            "path": "/integrations/integrating-with-chainguard-images"
-          },
-          {
-            "title": "Integrating Chef",
-            "path": "/integrations/integrating-with-chef"
-          },
-          {
-            "title": "Integrating CircleCI",
-            "path": "/integrations/integrating-with-circleci"
-          },
-          {
-            "title": "Integrating Codefresh",
-            "path": "/integrations/integrating-with-codefresh"
-          },
-          {
-            "title": "Integrating Datadog",
-            "path": "/integrations/integrating-with-datadog"
-          },
-          {
-            "title": "Integrating Dependabot",
-            "path": "/integrations/integrating-with-dependabot"
-          },
-          {
-            "title": "Integrating Docker Hub",
-            "path": "/integrations/integrating-with-docker-hub"
-          },
-          {
-            "title": "Integrating Drone CI",
-            "path": "/integrations/integrating-with-drone-ci"
-          },
-          {
-            "title": "Integrating GitHub Actions",
-            "path": "/integrations/integrating-with-github-actions"
-          },
-          {
-            "title": "Integrating GitLab CI/CD",
-            "path": "/integrations/integrating-with-gitlab-cicd"
-          },
-          {
-            "title": "Integrating Harness CD",
-            "path": "/integrations/integrating-with-harness"
-          },
-          {
-            "title": "Integrating Jenkins",
-            "path": "/integrations/integrating-with-jenkins"
-          },
-          {
-            "title": "Integrating Octopus Deploy",
-            "path": "/integrations/integrating-with-octopus-deploy"
-          },
-          {
-            "title": "Integrating Puppet",
-            "path": "/integrations/integrating-with-puppet"
-          },
-          {
-            "title": "Integrating Roadie",
-            "path": "/integrations/integrating-with-roadie"
-          },
-          {
-            "title": "Integrating Semaphore CI",
-            "path": "/integrations/integrating-with-semaphore-ci"
-          },
-          {
-            "title": "Integrating Terraform Provider",
-            "path": "/integrations/integrating-with-terraform"
-          },
-          {
-            "title": "Integrating Travis-CI",
-            "path": "/integrations/integrating-with-travis-ci"
-          },
-          {
-            "title": "Integrating Zapier",
-            "path": "/integrations/integrating-with-zapier"
           }
         ]
       },
@@ -665,11 +641,11 @@
             "path": "/observability-and-logging/webhooks"
           },
           {
-            "title": "Integrating Slack",
+            "title": "Slack",
             "path": "/observability-and-logging/integrating-with-slack"
           },
           {
-            "title": "Integrating Microsoft Teams",
+            "title": "Microsoft Teams",
             "path": "/observability-and-logging/integrating-with-microsoft-teams"
           }
         ]
