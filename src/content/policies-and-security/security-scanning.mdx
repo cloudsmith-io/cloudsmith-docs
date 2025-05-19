@@ -10,7 +10,7 @@ Cloudsmith Security Scanning will automatically scan supported package types for
 
 You can use the results of a Cloudsmith Security Scan to drive other actions such as to [quarantine a package](/artifacts/package-quarantine), or as part of a package promotion workflow. 
 
-Scan results are available via the [Web UI](/policies-and-security/security-scanning#scan-results-via-the-cloudsmith-web-ui), the [Cloudsmith API](https://help.cloudsmith.io/reference/vulnerabilities_list) or even as a [Webhook](/observability-and-logging/webhooks).
+Scan results are available via the [Web UI](/policies-and-security/security-scanning#scan-results-via-the-cloudsmith-web-ui), the [Cloudsmith API](/api/vulnerabilities/read) or even as a [Webhook](/observability-and-logging/webhooks).
 
 ## Supported Formats
 
@@ -75,7 +75,7 @@ For more information and details, you can view the individual vulnerabilities fo
 
 ### Scan results via the Cloudsmith API
 
-You can use the Cloudsmith [Vulnerabilities API endpoints](https://help.cloudsmith.io/reference/vulnerabilities_namespace_list) to return the scan results for an entire organization account, a specific repository, an individual package or just a single scan id. 
+You can use the Cloudsmith [Vulnerabilities API endpoints](/api/vulnerabilities/namespace/list) to return the scan results for an entire organization account, a specific repository, an individual package or just a single scan id. 
 
 ### Scan results via Webhook.
 
@@ -97,7 +97,7 @@ You can also scan an individual package from the package details page:
 
 ### Additional security scans via the Cloudsmith API
 
-You can request an additional security scan for a package using the [packages_scan API endpoint](https://help.cloudsmith.io/reference/packages_scan).
+You can request an additional security scan for a package using the [packages_scan API endpoint](/api/packages/scan).
 
 ### Early Access: Recurring security scans
 

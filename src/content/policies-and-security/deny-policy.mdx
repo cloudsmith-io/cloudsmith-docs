@@ -49,7 +49,7 @@ You are then presented with the “Create Package Deny Policy” form:
 
 When a new Deny Policy is created, Cloudsmith runs the policy against all packages in all repositories in your organization. This can take some time, depending on how many artifacts are stored in your repositories.  
 
-You can check the status of a newly created Deny Policy via our [Get a package deny policy](https://help.cloudsmith.io/reference/orgs_deny-policy_read) REST API call, which will return a `status` of "Pending" while the new policy is being propagated; the `status` will change to "Complete" when the policy is fully implemented across your organization.  (You'll need to get the slug_perm identifier for your newly created Deny Policy first - use the [Get a list of all package deny policies](https://help.cloudsmith.io/reference/orgs_deny-policy_list) REST API call for this.)
+You can check the status of a newly created Deny Policy via our [Get a package deny policy](/api/deny-policy/list) REST API call, which will return a `status` of "Pending" while the new policy is being propagated; the `status` will change to "Complete" when the policy is fully implemented across your organization.  (You'll need to get the slug_perm identifier for your newly created Deny Policy first - use the [Get a list of all package deny policies](/api/deny-policy/list) REST API call for this.)
 
 Even after a new Deny Policy is fully propagated, a user who has recently downloaded a package may still be able to download it again for a short period of time, due to CDN caching.  You can still confirm that your Deny Policy has been successfully applied to a package by confirming the policy violation identifier appears on that package (see below).
 
