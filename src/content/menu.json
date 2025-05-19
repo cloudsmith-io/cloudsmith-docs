@@ -55,47 +55,47 @@
         "path": "/formats/",
         "children": [
           {
-            "title": "Alpine Repository",
+            "title": "Alpine",
             "path": "/formats/alpine-repository"
           },
           {
-            "title": "Cargo Registry",
+            "title": "Cargo",
             "path": "/formats/cargo-registry"
           },
           {
-            "title": "Chocolatey Repository",
+            "title": "Chocolatey",
             "path": "/formats/chocolatey-repository"
           },
           {
-            "title": "Cocoapods Repository",
+            "title": "Cocoapods",
             "path": "/formats/cocoapods-repository"
           },
           {
-            "title": "Composer Repository",
+            "title": "Composer",
             "path": "/formats/composer-repository"
           },
           {
-            "title": "Conan Repository",
+            "title": "Conan",
             "path": "/formats/conan-repository"
           },
           {
-            "title": "Conda Repository",
+            "title": "Conda",
             "path": "/formats/conda-repository"
           },
           {
-            "title": "CRAN Repository",
+            "title": "CRAN",
             "path": "/formats/cran-repository"
           },
           {
-            "title": "Dart Repository",
+            "title": "Dart",
             "path": "/formats/dart-repository"
           },
           {
-            "title": "Debian Repository",
+            "title": "Debian",
             "path": "/formats/debian-repository"
           },
           {
-            "title": "Docker Registry",
+            "title": "Docker",
             "path": "/formats/docker-registry"
           },
           {
@@ -103,27 +103,27 @@
             "path": "/formats/go-registry"
           },
           {
-            "title": "Gradle Repository",
+            "title": "Gradle",
             "path": "/formats/gradle-repository"
           },
           {
-            "title": "Helm Chart Repository",
+            "title": "Helm Chart",
             "path": "/formats/helm-chart-repository"
           },
           {
-            "title": "Hex Repository",
+            "title": "Hex",
             "path": "/formats/hex-repository"
           },
           {
-            "title": "LuaRocks Repository",
+            "title": "LuaRocks",
             "path": "/formats/luarocks-repository"
           },
           {
-            "title": "Maven Repository",
+            "title": "Maven",
             "path": "/formats/maven-repository"
           },
           {
-            "title": "npm Registry",
+            "title": "NPM",
             "path": "/formats/npm-registry"
           },
           {
@@ -137,47 +137,47 @@
             ]
           },
           {
-            "title": "PowerShell Modules Repository",
+            "title": "PowerShell Modules",
             "path": "/formats/powershell-modules-repository"
           },
           {
-            "title": "Python Repository",
+            "title": "Python",
             "path": "/formats/python-repository"
           },
           {
-            "title": "Raw Repository",
+            "title": "Raw",
             "path": "/formats/raw-repository"
           },
           {
-            "title": "RedHat Repository",
+            "title": "RedHat",
             "path": "/formats/redhat-repository"
           },
           {
-            "title": "Ruby Repository",
+            "title": "Ruby",
             "path": "/formats/ruby-repository"
           },
           {
-            "title": "sbt Repository",
+            "title": "sbt",
             "path": "/formats/sbt-repository"
           },
           {
-            "title": "Swift Registry",
+            "title": "Swift",
             "path": "/formats/swift-registry"
           },
           {
-            "title": "Terraform Modules Repository",
+            "title": "Terraform Modules",
             "path": "/formats/terraform-modules-repository"
           },
           {
-            "title": "Unity Registry",
+            "title": "Unity",
             "path": "/formats/unity-registry"
           },
           {
-            "title": "Vagrant Repository",
+            "title": "Vagrant",
             "path": "/formats/vagrant-repository"
           },
           {
-            "title": "OCI Repository",
+            "title": "OCI",
             "path": "/formats/oci-repository"
           }
         ]
