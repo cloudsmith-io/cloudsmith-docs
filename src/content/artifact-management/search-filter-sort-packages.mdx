@@ -103,8 +103,34 @@ Additional help and examples are available by hovering over the "? Search syntax
 
 ## Searching Packages via the Cloudsmith API
 
-Please see the Cloudsmith API [interactive sandbox](https://api-prd.cloudsmith.io/v1/#!/packages/packages_list) and the full API [reference](/api/packages/list).
+Please see the Cloudsmith full API reference to learn how to:
+- List all of the packages in a [Workspace](/api/packages/org/list) (Organization).
+- List all of the packages in a [Repository](/api/packages/list).
 
+Then, you can use the `query` field in the URL request to search a package by any of the next fields:
+- `name`
+- `filename`
+- `version`
+- `distribution`
+- `architecture`
+- `format`
+- `status`
+
+For example, to retrieve all packages named `ms`:
+
+```bash
+curl -sL --request GET \
+  --url "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/<MY_REPO>/?query=name:ms" \
+  --header 'Authorization: Bearer <MY_API_TOKEN>'
+```
+
+Alternatively, you can use `jq` to search for a package in a repository by using **any of the fields** available in the `json` returned by the request. For example:
+
+```bash
+curl -sL "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/<MY_REPO>/" \
+  --header 'Authorization: Bearer <MY_API_TOKEN>' \
+  | jq '.[] | select(.name == "requests")'
+```
 
 ## Searching Packages via the Cloudsmith CLI
 
@@ -163,7 +189,19 @@ Note that currently, the UI only supports sorting by one field at a time.
 
 ## Sorting Packages via the Cloudsmith API
 
-Please see the Cloudsmith [API reference](/api/packages/list).
+Please see the Cloudsmith full API reference to learn how to:
+- List all of the packages in a [Workspace](/api/packages/org/list) (Organization).
+- List all of the packages in a [Repository](/api/packages/list).
+
+Then, use the `sort` option to rank the result by any or many or the sort fields listed in the next section.
+
+For example, to retrieve all of the packages of the workspace `<MY_WORKSPACE>` organized by ascending number of downloads:
+
+```bash
+curl -sL --request GET \
+  --url "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/?sort=downloads" \
+  --header 'Authorization: Bearer <MY_API_TOKEN>'
+```
 
 Sorting search results is simple with Cloudsmith. A collection of one or more fields can be supplied in CSV (comma-separated value) format, and the results will be sorted based on the order of the fields provided. 
 
