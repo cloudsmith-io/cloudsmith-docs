@@ -28,24 +28,28 @@
             "title": "Your new workspace",
             "path": "/getting-started/workspaces"
           },
+                                                  {
+            "title": "Your profile",
+            "path": "/getting-started/profile"
+          },
           {
             "title": "Joining a workspace",
             "path": "/getting-started/joining-a-workspace"
-          },
-                              {
-            "title": "Pulling your first package",
-            "path": "/getting-started/first-package-pull"
           },
           {
             "title": "Generating an API key",
             "path": "/getting-started/api-key"
           },
           {
-            "title": "Command line interface",
+            "title": "Pulling your first package",
+            "path": "/getting-started/first-package-pull"
+          },
+          {
+            "title": "Using the Cloudsmith CLI",
             "path": "/getting-started/cli"
           },
           {
-            "title": "API Bindings",
+            "title": "API bindings",
             "path": "/getting-started/api-bindings"
           },      
           {
@@ -283,20 +287,12 @@
                 "path": "/teams-and-accounts/access-controls"
               },
               {
-                "title": "Service Accounts",
-                "path": "/teams-and-accounts/service-accounts"
-              },
-              {
-                "title": "Accounts",
-                "path": "/teams-and-accounts/accounts"
-              },
-              {
-                "title": "Users",
+                "title": "Member accounts",
                 "path": "/teams-and-accounts/invite-users"
               },
               {
-                "title": "Email Management",
-                "path": "/teams-and-accounts/email-management"
+                "title": "Service accounts",
+                "path": "/teams-and-accounts/service-accounts"
               },
               {
                 "title": "Permissions",
