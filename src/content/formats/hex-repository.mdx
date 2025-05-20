@@ -1,0 +1,222 @@
+---
+title: "Hex Repository"
+---
+
+import { Note } from '@/components';
+
+# Hex Repository
+
+Cloudsmith provides public and private repositories for Hex
+
+Hex is a package manager for the BEAM ecosystem, any language that compiles to run on the BEAM VM, such as [elixir](https://elixir-lang.org/) and [Erlang](https://www.erlang.org/), can be used to build Hex packages.
+
+With Hex, developers can create, share, and manage packages for their projects.
+
+For more information on Hex, please see:
+
+- [Hex](https://hex.pm/): Public repository for hosting and managing Hex packages
+- [HexDocs](https://hexdocs.pm/): HexDoxs is where Hex packages host their documentation.
+- [Publishing a Hex package](https://hex.pm/docs/publish): How to Publish a Hex package.
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                               |
+| :-------------- | :---------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
+| USERNAME        | Your Cloudsmith username                                                                  |
+| PASSWORD        | Your Cloudsmith password                                                                  |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
+| PACKAGE_NAME    | The name of your package                                                                  |
+| PACKAGE_VERSION | The version number of your package                                                        |
+
+
+## Upload a Package
+
+Publishing a Hex package to Cloudsmith involves several steps, including adding Cloudsmith to your project's repository list, configuring metadata in the mix.exs file, and finally, using the Mix client to publish the package.
+
+
+<Note variant="note" headline="Mix">
+Mix is a build tool that ships with Elixir. For an introduction on Elixir and Mix, see [introduction to Mix](https://hexdocs.pm/elixir/introduction-to-mix.html). You can also read about how hex packages work with mix at [Hex Mix Usage](https://hex.pm/docs/usage).
+</Note>
+
+Assuming you have mix already installed, it is straightforward to add a Cloudsmith-based hex repository. 
+
+### Add and Configure a Cloudsmith Repository
+
+First, you'll need to set some environment variables to assist in the process, replacing OWNER with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository:
+
+```shell
+export CLOUDSMITH_API_KEY='YOUR-API-KEY'
+export CLOUDSMITH_API_HOST='https://api.cloudsmith.io'
+export CLOUDSMITH_REPOSITORY='OWNER/REPOSITORY'
+```
+
+While documented as optional, it's necessary to obtain the repository's fingerprint via Cloudsmith's API. This fingerprint ensures secure communication between your project and Cloudsmith.
+
+Use the command below to Cloudsmith's API to [retrieve the active RSA key](/api/repos/rsa/list) (aka its fingerprint) for the Cloudsmith Repository: 
+
+```shell
+export FINGERPRINT=$(curl -s -H "X-Api-Key: ${CLOUDSMITH_API_KEY}" ${CLOUDSMITH_API_HOST}/v1/repos/${CLOUDSMITH_REPOSITORY}/rsa/ | jq -r '.ssh_fingerprint')
+```
+
+Next, use Mix's `hex.repo add` command to add your Cloudsmith repository:
+
+```shell
+mix hex.repo add REPOSITORY https://hex.cloudsmith.io/${CLOUDSMITH_REPOSITORY} --auth-key $CLOUDSMITH_API_KEY --fetch-public-key SHA256:${FINGERPRINT}
+```
+
+Replace REPOSITORY with the name of your Cloudsmith repository. 
+
+
+<Note variant="note" headline="Install hex task">
+Note: If you get the error 'The task "hex.repo" could not be found' you will first need to install the hex task in mix. (For more information, see the Hex usage documentation.) Run: `mix local.hex`
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+### Configure the HEX Package
+
+To configure your Hex package for publishing to your Cloudsmith repository, follow these steps:
+
+1. Open `mix.exs`: Locate and open the `mix.exs` file of the Hex package you intend to publish to Cloudsmith.
+2. Add defp Function: Within the `mix.exs` file, add a `defp` function to define the Cloudsmith repository. This function specifies the repository URL and authentication details.
+3. Here's an example of how to add the `defp` function:
+
+```shell
+defp hex do
+    [
+      api_url: "https://hex.cloudsmith.io/hex/OWNER/REPOSITORY",
+      api_key: "API-KEY"
+    ]
+  end
+```
+
+Replace OWNER with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository. Additionally, replace API-KEY with your Cloudsmith API key.
+
+Next, integrate with Mix Tasks: After adding the defp function, the project function needs to have the hex and project variables defined. 
+
+1. Open `mix.exs`: Locate and open the `mix.exs` file of the Hex package you intend to publish to Cloudsmith.
+2. Locate the `project` function and populate the hex and package variables. Here's an example of what to add to the project function:
+
+```shell
+def project do
+  [
+    ...
+    package: package(),
+    hex: hex()
+    ...
+  ]
+end
+```
+
+### Publish your HEX package
+
+Once you've configured your Hex package to publish to your Cloudsmith repository, you can proceed with the publishing process. Follow these steps to publish your HEX package:
+
+1. Navigate to Your Package Folder: Open a terminal or command prompt and navigate to the top-level directory of your package.
+   ```shell
+   cd /path/to/your/package
+   ```
+2. Execute the Publish Command: Use the mix hex.publish package command to initiate the publishing process. This command automatically packages your project and publishes it to the configured Cloudsmith repository.
+   ```shell
+   mix hex.publish package
+   ```
+3. Follow On-screen Instructions: Follow any on-screen prompts or instructions to complete the publishing process.  
+   These prompts may include confirming the package details and agreeing to publish.
+
+By following these steps, you'll successfully publish your HEX package to your Cloudsmith repository. Remember to review the published package on your Cloudsmith dashboard to verify its availability and correctness.
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+
+The command to upload a Hex package via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push hex OWNER/REPOSITORY PACKAGE_NAME.tar
+```
+
+Replace OWNER with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository.
+
+### Upload via Cloudsmith web app
+
+Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
+
+### Example Project
+
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later but otherwise, just ask - we're here to help!
+
+
+## Download or Installing a Package
+
+### Setup
+
+Before you can install modules from your Cloudsmith repository you'll need to add the repository. Follow the steps above "Add and Configure a Cloudsmith Repository". Your entitlement token can be used as the API key. 
+
+### Download a Package
+
+You can download a package by using mix's fetch command:
+
+```shell
+mix hex.package fetch PACKAGE-NAME PACKAGE-VERSION --repo REPOSITORY
+```
+
+Replace REPOSITORY with the name of your Cloudsmith repository.
+
+For example, to download version 1.0.0 of the 'jason' module:
+
+```shell
+mix hex.package fetch jason 1.0.0 --repo REPOSITORY
+```
+
+Replace REPOSITORY with the name of your Cloudsmith repository.
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+### Adding a Cloudsmith Package as a Dependency
+
+To incorporate a package hosted on Cloudsmith into your project, you need to modify your `mix.exs` file. Follow these steps to add the Cloudsmith repository as a dependency:
+
+1. Locate and open the mix.exs file of your Hex project in a text editor.
+2. Edit the Dependencies Function: Within the deps function of mix.exs, add an entry for your Cloudsmith package. Ensure to replace PACKAGE_NAME, VERSION, and REPOSITORY with your specific details.
+   ```shell
+   defp deps do
+       [ 
+         {:PACKAGE_NAME, "~> VERSION", repo: "REPOSITORY"},
+      ]
+     end
+   ```
+3. Run the mix publish command and it will pull in the dependencies
+   ```shell
+   mix hex.publish package
+   ```
+
+## Security Scanning
+
+<span class="cs-tag cs-tag-dark-green">Supported</span>  
+Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+You can configure upstream Hex repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
+
+Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions.
+
+<Note variant="note" headline="Hex upstreams">
+Hex upstreams are in Early Access.
+</Note>
+
+## Troubleshooting
+
+Please see the [Troubleshooting](/troubleshooting) page for further help and information.
