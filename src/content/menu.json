@@ -26,7 +26,7 @@
           },
                                         {
             "title": "Your new workspace",
-            "path": "/getting-started/workspaces"
+            "path": "/getting-started/workspace-overview"
           },
                                                   {
             "title": "Your profile",
@@ -190,6 +190,10 @@
           }
         ]
       },
+      {
+            "title": "Workspaces",
+            "path": "/workspaces/"
+      },
           {
             "title": "Repositories",
             "path": "/repositories",
@@ -286,27 +290,27 @@
       },
           {
             "title": "Teams and accounts",
-            "path": "/teams-and-accounts",
+            "path": "/accounts-and-teams",
             "children": [
               {
                 "title": "Access controls",
-                "path": "/teams-and-accounts/access-controls"
+                "path": "/accounts-and-teams/access-controls"
               },
               {
                 "title": "Member accounts",
-                "path": "/teams-and-accounts/invite-users"
+                "path": "/accounts-and-teams/invite-users"
               },
               {
                 "title": "Service accounts",
-                "path": "/teams-and-accounts/service-accounts"
+                "path": "/accounts-and-teams/service-accounts"
               },
               {
                 "title": "Permissions",
-                "path": "/teams-and-accounts/permissions"
+                "path": "/accounts-and-teams/permissions"
               },
               {
                 "title": "Teams",
-                "path": "/teams-and-accounts/teams"
+                "path": "/accounts-and-teams/teams"
               }
             ]
           },
