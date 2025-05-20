@@ -1,0 +1,120 @@
+# Analyzing S3 Download Logs 
+
+Analysis on package downloads via client logs can provide valuable insights into the usage patterns of your users.
+
+In this guide, we'll explore how to export client logs to S3 and use AWS Athena to extract valuable insights about package downloads, as well as preparing the data for consumption by other applications.
+
+## Why Client Logs are Important
+
+Client logs are a record of every package downloaded by your users, along with information about the download such as the date and time, the user agent, and the IP address. 
+
+By analyzing these logs, you can gain valuable insights into how your users are interacting with your product. For example, you can identify the most popular packages, track download trends by country, and monitor usage by package versions. 
+
+This information can be used to optimize your product development, improve your marketing efforts, and identify potential security threats.
+
+## Exporting Client Logs to S3
+
+Head over to our [help documentation on access log exports to S3](/logs-and-observability/access-log-exports-to-s3)
+
+Once configured to export client logs to S3, you will start receiving new log files at the specified interval. These log files will contain detailed information about each download event that takes place in your repositories.
+
+## Analysing Client Logs with AWS Athena
+
+Athena is an interactive query service that makes it easy to analyze data in S3 using standard SQL. 
+
+Here's how to use Athena to analyze your client logs:
+
+Create an Athena table that matches the schema of your client logs.
+
+This can be done using a CREATE TABLE statement that specifies the location of the log files in S3 and the table properties. The exact SERDE settings and properties will depend on the format your logs are exported in, the below shows an example for CSV-formatted logs.
+
+```sql
+CREATE EXTERNAL TABLE IF NOT EXISTS my_repository_downloads (
+  `datetime` STRING,
+  `repository` STRING,
+  `status` INT,
+  `method` STRING,
+  `uri` STRING,
+  `host` STRING,
+  `ip_address` STRING,
+  `bytes` INT,
+  `city` STRING,
+  `country` STRING,
+  `edge` STRING,
+  `format` STRING,
+  `package` STRING,
+  `package_tags` STRING,
+  `recorded` STRING,
+  `referer` STRING,
+  `request_id` STRING,
+  `token` STRING,
+  `user` STRING,
+  `user_agent` STRING,
+  `eula` STRING
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "quoteChar"     = "\"",
+  "escapeChar"    = "\\"
+) 
+LOCATION 's3://bucketname/repositoryname/'
+TBLPROPERTIES ("skip.header.line.count"="1", "serialization.encoding"="UTF-8")
+
+```
+
+Once the table is created, you can start querying the data using standard SQL statements. For example, you can write a query to identify your most active tokens:
+
+```sql
+SELECT count(*) as num_downloads, token 
+FROM my_repository_downloads
+GROUP BY token 
+ORDER BY count(*) desc
+LIMIT 10
+```
+
+## Examples of Insights
+
+Here are some examples of the types of insights that can be gained from analyzing client logs:
+
+**Most popular packages:** By counting the number of downloads for each package, you can identify the most popular packages and prioritize their development and marketing.
+
+**Download trends by country:** By filtering the data by country, you can identify where your product is most popular and adjust your marketing efforts accordingly.
+
+**Usage by package versions:** By filtering the data by package version, you can identify which versions are most widely used and prioritize bug fixes and feature improvements.
+
+## Aggregation and export
+
+While it's great to have all of your client logs in one place on S3, sometimes you want to be able to quickly answer high-level questions about usage. 
+
+This is where rolled-up views come in. By aggregating the data in different ways, you can create summary tables that can be queried or exported into other systems more quickly and easily than the raw logs.
+
+Here's an example of how you could use Athena to create a summary table that shows the total number of downloads per IP Address.
+
+```sql
+CREATE TABLE package_downloads_per_ip_address
+WITH (
+  format = 'PARQUET',
+  external_location = 's3://my-bucket/package_downloads_per_ip_address/'
+) AS
+SELECT
+  ip_address,
+  COUNT(*) AS downloads
+FROM
+  my_repository_downloads
+GROUP BY
+  ip_address
+
+```
+
+In this example, we're creating a new table called package_downloads_per_ip_address. The table is stored in Parquet format and partitioned by package to make querying more efficient. The SELECT statement does the actual aggregation using the GROUP BY clause to group downloads by IP Address.
+
+Once you have this rolled-up view, you can ETL it into your application database to make these insights available to end users. You can also create additional views that roll up the data in different ways, depending on the questions you want to answer.
+
+## Conclusion
+
+Whether you use Cloudsmith for internal development or for distributing software to customers, understanding how your users interact with your product is essential. 
+
+By taking advantage of the rich data provided by client logs, you can gain a deeper understanding of your users and optimize your product and workflows accordingly.
+
+We hope this guide has been helpful in showing you how to generate insights and track usage with client logs exported to S3. If you have any questions or feedback, please let us know in the comments below.

@@ -1,0 +1,210 @@
+import { Note, Video } from '@/components';
+
+# Composer Repository
+
+Cloudsmith provides public & private repositories for Composer (PHP)
+
+<Video wistiaId="x8h72d4jxd"></Video>
+
+Composer is a dependency management tool for PHP.
+
+For more information on Composer, please see:
+
+- [Composer](https://getcomposer.org/): The official website for Composer
+- [Composer Documentation](https://getcomposer.org/doc/): The official docs for Composer
+
+<Note variant="note" headline="Contextual Documentation">
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                               |
+| :-------------- | :---------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
+| USERNAME        | Your Cloudsmith username                                                                  |
+| PASSWORD        | Your Cloudsmith password                                                                  |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
+| PACKAGE_NAME    | The name of your package                                                                  |
+| PACKAGE_VERSION | The version number of your package                                                        |
+
+## Upload a Package
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+
+The command to upload a Composer package via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push composer OWNER/REPOSITORY PACKAGE_NAME.phar
+```
+
+Example:
+
+```shell
+cloudsmith push composer org/repo your-package.phar
+```
+
+### Upload via Cloudsmith web app
+
+Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
+
+## Download / Install a Package
+
+To enable the retrieval of Cloudsmith hosted packages via Composer, the first step is to add your repository to the repositories section of your `composer.json` file.  How you add your repository to your `composer.json` file differs if the repository is private or public.
+
+### Public Repositories
+
+Add the following JSON snippet to your `composer.json` file: 
+
+```json
+"repositories": [
+  {
+    "type": "composer",
+    "url": "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/composer/",
+    "options": {
+    }
+  }
+]
+```
+
+### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+Add one of the following JSON snippets to your project `composer.json` file:
+
+```json Entitlemet Token Auth
+"repositories": [
+  {
+    "type": "composer",
+    "url": "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/composer/",
+    "options": {
+    }
+  }
+]
+```
+```json HTTP Basic Auth
+"repositories": [
+  {
+    "type": "composer",
+    "url": "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/composer/",
+    "options": {
+    }
+  }
+]
+```
+
+<Note variant="note" headline="Note">
+When using HTTP Basic Authentication you'll probably want to keep your credentials separately in your `auth.json` file instead of within the `composer.json` file. When you have your credentials ready, add one of the following JSON snippets to your `auth.json` file:
+</Note>
+
+```json Username + Password
+{
+  "http-basic": {
+    "dl.cloudsmith.io": {
+      "username": "USERNAME",
+      "password": "PASSWORD"
+    }
+  }
+}
+```
+```json Username + API-Key
+{
+  "http-basic": {
+    "dl.cloudsmith.io": {
+      "username": "USERNAME",
+      "password": "API-KEY"
+    }
+  }
+}
+```
+```json Entitlement Token
+{
+  "http-basic": {
+    "dl.cloudsmith.io": {
+      "username": "token",
+      "password": "TOKEN"
+    }
+  }
+}
+```
+
+### Specifying Dependencies
+
+After the repository is added to your `composer.json` file, you then specify the dependency in the **require** section of your `composer.json` file or using the `composer require` command: 
+
+#### via composer.json file
+
+Add the following JSON snippet to your project `composer.json` file:
+
+```json
+{
+  "require": {
+    "PACKAGE_NAME": "PACKAGE_VERSION"
+  }
+}
+```
+
+#### via composer require
+
+Use the following command: 
+
+```shell
+composer require PACKAGE_NAME:PACKAGE_VERSION
+```
+
+### Installing a Package
+
+To install the dependencies listed in your `composer.json` file use the command: 
+
+```shell
+composer install
+```
+
+Composer will then resolve all dependencies listed in your `composer.json` file and download them into the `vendor` directory in your project.
+
+### Configuration Example
+
+The following is an example of a complete (but minimal) `composer.json` file with a public cloudsmith repository and a single dependency: 
+
+```json
+{
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://dl.cloudsmith.io/public/org/repo/composer/",
+      "options": {}
+    }
+  ],
+  "require": {
+    "cloudsmith/cloudsmith-composer-example": "1.0.157954077030330"
+  }
+}
+```
+
+## Security Scanning
+
+<span class="cs-tag cs-tag-dark-green">Supported</span>  
+Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-blue">GPG</span>
+
+## Troubleshooting
+
+Please see the [Troubleshooting](/troubleshooting) page for further help and information.

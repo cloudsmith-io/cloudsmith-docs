@@ -1,0 +1,43 @@
+import { BlockImage } from '@/components'
+import img40d3d19_UniqueID_CLI from './images/identifying-a-package/40d3d19-UniqueID-CLI.png'
+import img63d5fd8_CLi_Slug_Perm_JQ from './images/identifying-a-package/63d5fd8-CLi-Slug-Perm-JQ.png'
+import imgc40c783_CLI_Push_slug_perm from './images/identifying-a-package/c40c783-CLI-Push-slug-perm.png'
+import imge67ff4591a7b7a30a40c3086a0965c3db3812b09e8a5d82729604d5e2ccd6d04_package_identification from './images/identifying-a-package/e67ff4591a7b7a30a40c3086a0965c3db3812b09e8a5d82729604d5e2ccd6d04-package-identification.png'
+
+# Package Identification
+
+To identify a package, you need to obtain the Unique ID for the package (also called `slug_perm` for backward compatibility reasons).
+
+You can get this either via the CLI or the Cloudsmith web app. 
+
+## Obtaining Unique ID from the Cloudsmith CLI
+
+You can get the Unique ID from the JSON output of the `cloudsmith list packages` command: 
+
+```shell
+cloudsmith list packages OWNER/REPOSITORY -F pretty_json
+```
+
+The JSON output from this command includes the field `slug_perm` (Unique ID) 
+
+<BlockImage src={img40d3d19_UniqueID_CLI} alt="list packages JSON output"></BlockImage>
+
+You can use the `-q` flag to filter for a format or filename and pipe the output to a tool such as `jq` to further filter the fields from the JSON output. 
+
+Example:
+
+```shell
+ cloudsmith list packages demo/examples-repo -F pretty_json -q "format:cargo" | jq -r ".data[].filename, .data[].slug_perm"
+```
+
+<BlockImage src={img63d5fd8_CLi_Slug_Perm_JQ} alt="Using jq to filter JSON output"></BlockImage>
+
+The Unique ID for a package is also displayed as part of the output when pushing a package to a repository using the `cloudsmith push` command:
+
+<BlockImage src={imgc40c783_CLI_Push_slug_perm} alt="Unique ID as part of cloudsmith push command output"></BlockImage>
+
+## Obtaining Unique ID from the Cloudsmith web app
+
+The Unique ID is also available in the Package information section of the package detail page. 
+
+<BlockImage src={imge67ff4591a7b7a30a40c3086a0965c3db3812b09e8a5d82729604d5e2ccd6d04_package_identification} alt=""></BlockImage>

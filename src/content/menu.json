@@ -5,64 +5,656 @@
     "icon": "action/documentation",
     "children": [
       {
-        "title": "Cloudsmith Overview",
-        "path": "/cloudsmith-overview/what-is-cloud-native-artifact-management",
+        "title": "Getting started",
+        "path": "/getting-started",
         "children": [
           {
-            "title": "What is cloud-native artifact management",
-            "path": "/cloudsmith-overview/what-is-cloud-native-artifact-management"
+            "title": "Key concepts",
+            "path": "/getting-started/key-concepts"
           },
           {
-            "title": "Core concepts and components",
-            "path": "/cloudsmith-overview/concepts-and-components",
+            "title": "Common use cases",
+            "path": "/getting-started/common-use-cases"
+          },
+          {
+            "title": "Signing-up",
+            "path": "/getting-started/sign-up"
+          },
+                    {
+            "title": "Signing-in",
+            "path": "/getting-started/sign-in"
+          },
+                                        {
+            "title": "Your new workspace",
+            "path": "/getting-started/workspaces"
+          },
+                                                  {
+            "title": "Your profile",
+            "path": "/getting-started/profile"
+          },
+          {
+            "title": "Joining a workspace",
+            "path": "/getting-started/joining-a-workspace"
+          },
+          {
+            "title": "Generating an API key",
+            "path": "/getting-started/api-key"
+          },
+          {
+            "title": "Pulling your first package",
+            "path": "/getting-started/first-package-pull"
+          },
+          {
+            "title": "Using the Cloudsmith CLI",
+            "path": "/getting-started/cli"
+          },
+          {
+            "title": "API bindings",
+            "path": "/getting-started/api-bindings"
+          },      
+          {
+        "title": "Custom domains",
+        "path": "/getting-started/custom-domains"
+      }
+        ]
+      },
+      {
+        "title": "Supported formats",
+        "path": "/formats/",
+        "children": [
+          {
+            "title": "Alpine",
+            "path": "/formats/alpine-repository"
+          },
+          {
+            "title": "Cargo",
+            "path": "/formats/cargo-registry"
+          },
+          {
+            "title": "Chocolatey",
+            "path": "/formats/chocolatey-repository"
+          },
+          {
+            "title": "Cocoapods",
+            "path": "/formats/cocoapods-repository"
+          },
+          {
+            "title": "Composer",
+            "path": "/formats/composer-repository"
+          },
+          {
+            "title": "Conan",
+            "path": "/formats/conan-repository"
+          },
+          {
+            "title": "Conda",
+            "path": "/formats/conda-repository"
+          },
+          {
+            "title": "CRAN",
+            "path": "/formats/cran-repository"
+          },
+          {
+            "title": "Dart",
+            "path": "/formats/dart-repository"
+          },
+          {
+            "title": "Debian",
+            "path": "/formats/debian-repository"
+          },
+          {
+            "title": "Docker",
+            "path": "/formats/docker-registry"
+          },
+          {
+            "title": "Go Registry",
+            "path": "/formats/go-registry"
+          },
+          {
+            "title": "Gradle",
+            "path": "/formats/gradle-repository"
+          },
+          {
+            "title": "Helm Chart",
+            "path": "/formats/helm-chart-repository"
+          },
+          {
+            "title": "Hex",
+            "path": "/formats/hex-repository"
+          },
+          {
+            "title": "LuaRocks",
+            "path": "/formats/luarocks-repository"
+          },
+          {
+            "title": "Maven",
+            "path": "/formats/maven-repository"
+          },
+          {
+            "title": "NPM",
+            "path": "/formats/npm-registry"
+          },
+          {
+            "title": "NuGet Feed",
+            "path": "/formats/nuget-feed",
             "children": [
               {
-                "title": "Upstream Proxying",
-                "path": "/"
-              },
-              {
-                "title": "Packages",
-                "path": "/"
-              },
-              {
-                "title": "Repositories",
-                "path": "/"
-              },
-              {
-                "title": "Workspaces",
-                "path": "/"
+                "title": "NuGet Symbol Server",
+                "path": "/formats/nuget-symbol-server"
               }
             ]
           },
           {
-            "title": "Common use cases",
-            "path": "/cloudsmith-overview/common-use-cases"
+            "title": "PowerShell Modules",
+            "path": "/formats/powershell-modules-repository"
+          },
+          {
+            "title": "Python",
+            "path": "/formats/python-repository"
+          },
+          {
+            "title": "Raw",
+            "path": "/formats/raw-repository"
+          },
+          {
+            "title": "RedHat",
+            "path": "/formats/redhat-repository"
+          },
+          {
+            "title": "Ruby",
+            "path": "/formats/ruby-repository"
+          },
+          {
+            "title": "sbt",
+            "path": "/formats/sbt-repository"
+          },
+          {
+            "title": "Swift",
+            "path": "/formats/swift-registry"
+          },
+          {
+            "title": "Terraform Modules",
+            "path": "/formats/terraform-modules-repository"
+          },
+          {
+            "title": "Unity",
+            "path": "/formats/unity-registry"
+          },
+          {
+            "title": "Vagrant",
+            "path": "/formats/vagrant-repository"
+          },
+          {
+            "title": "OCI",
+            "path": "/formats/oci-repository"
+          }
+        ]
+      },
+          {
+            "title": "Repositories",
+            "path": "/repositories",
+            "children": [
+              {
+                "title": "Create a repository",
+                "path": "/repositories/create-a-repository"
+              },
+              {
+                "title": "Repository settings",
+                "path": "/repositories/repository-settings"
+              },
+              {
+                "title": "Custom storage regions",
+                "path": "/repositories/custom-storage-regions"
+              }
+            ]
+          },
+                {
+        "title": "Artifact management",
+        "path": "/artifact-management",
+        "children": [
+           {
+            "title": "Uploading packages",
+            "path": "/artifact-management/package-upload"
+          },
+                    {
+            "title": "Downloading package",
+            "path": "/artifact-management/download-a-package"
+          },
+          {
+            "title": "Identifying packages",
+            "path": "/artifact-management/identifying-a-package"
+          },
+          {
+            "title": "Tagging packages",
+            "path": "/artifact-management/package-tags"
+          },
+          {
+            "title": "Searching and filtering",
+            "path": "/artifact-management/search-filter-sort-packages"
+          },
+          {
+            "title": "Quarantining a package",
+            "path": "/artifact-management/package-quarantine"
+          },
+          {
+            "title": "Private Package Sharing",
+            "path": "/artifact-management/sharing-a-private-package"
+          },
+          {
+            "title": "Copying a package",
+            "path": "/artifact-management/copy-a-package"
+          },
+          {
+            "title": "Resync a package",
+            "path": "/artifact-management/resync-a-package"
+          },
+          {
+            "title": "Deleting a package",
+            "path": "/artifact-management/delete-a-package"
+          },
+          {
+            "title": "Moving a package",
+            "path": "/artifact-management/package-move"
+          },
+          {
+            "title": "Recycle Bin",
+            "path": "/artifact-management/recycle-bin"
+          },
+          {
+            "title": "Retention Lifecycle",
+            "path": "/artifact-management/retention-lifecycle"
+          },
+          {
+            "title": "Package Groups",
+            "path": "/artifact-management/package-groups"
           }
         ]
       },
       {
-        "title": "Getting Started",
-        "path": "/getting-started",
+            "title": "Upstream proxying",
+            "path": "/upstream-proxying-and-caching",
+            "children": [
+              {
+            "title": "Upstream prioritisation",
+            "path": "/upstream-proxying-and-caching/upstream-priorities"
+              },
+                            {
+            "title": "Failure scenarios",
+            "path": "/upstream-proxying-and-caching/failure-scenarios"
+              }
+            ]
+      },
+          {
+            "title": "Teams and accounts",
+            "path": "/teams-and-accounts",
+            "children": [
+              {
+                "title": "Access controls",
+                "path": "/teams-and-accounts/access-controls"
+              },
+              {
+                "title": "Member accounts",
+                "path": "/teams-and-accounts/invite-users"
+              },
+              {
+                "title": "Service accounts",
+                "path": "/teams-and-accounts/service-accounts"
+              },
+              {
+                "title": "Permissions",
+                "path": "/teams-and-accounts/permissions"
+              },
+              {
+                "title": "Teams",
+                "path": "/teams-and-accounts/teams"
+              }
+            ]
+          },
+                    {
+            "title": "Access control",
+            "path": "/access-control/",
+            "children": [
+              {
+                "title": "Single Sign-On",
+                "path": "/access-control/single-sign-on",
+                "children": [
+                  {
+                    "title": "SSO with Azure AD",
+                    "path": "/access-control/single-sign-on-with-azure-ad"
+                  },
+                  {
+                    "title": "SSO with Google",
+                    "path": "/access-control/single-sign-on-with-google-g-suite"
+                  },
+                  {
+                    "title": "SSO with JumpCloud",
+                    "path": "/access-control/single-sign-on-with-jumpcloud"
+                  },
+                  {
+                    "title": "SSO with PingIdentity",
+                    "path": "/access-control/single-sign-on-with-pingidentity"
+                  },
+                  {
+                    "title": "SSO with Okta",
+                    "path": "/access-control/single-sign-on-with-okta"
+                  },
+                  {
+                    "title": "SSO with OneLogin",
+                    "path": "/access-control/single-sign-on-with-onelogin"
+                  }
+                ]
+              },
+              {
+                "title": "SCIM",
+                "path": "/access-control/scim",
+                "children": [
+                  {
+                    "title": "SCIM with JumpCloud",
+                    "path": "/access-control/scim-with-jumpcloud"
+                  },
+                  {
+                    "title": "SCIM with Google",
+                    "path": "/access-control/scim-with-google"
+                  },
+                  {
+                    "title": "SCIM with PingFederate",
+                    "path": "/access-control/scim-with-pingfederate"
+                  },
+                  {
+                  "title": "SCIM with OneLogin",
+                  "path": "/access-control/scim-with-onelogin"
+                },
+                {
+                  "title": "SCIM with Okta",
+                  "path": "/access-control/scim-with-okta"
+                },
+                {
+                  "title": "SCIM with Microsoft",
+                  "path": "/access-control/scim-with-microsoft-entra-id"
+                }
+                  
+                ]
+              },
+              {
+                "title": "OpenID Connect",
+                "path": "/access-control/openid-connect",
+                "children": [
+                  {
+                    "title": "Setup GitHub Actions to authenticate to Cloudsmith using OIDC",
+                    "path": "/access-control/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
+                  }
+                ]
+              },
+              {
+                "title": "2FA",
+                "path": "/access-control/two-factor-authentication"
+              }
+            ]
+          },
+          {
+          "title": "Supply chain security",
+          "path": "/supply-chain-security",
+          "children": [
+           {
+            "title": "Continuous security",
+            "path": "/supply-chain-security/continuous-security"
+          },  
+          {
+            "title": "Malware scanning",
+            "path": "/supply-chain-security/malware-scanning"
+          },  
+          {
+            "title": "Package signing",
+            "path": "/supply-chain-security/signing-keys"
+          }
+          ]
+          },
+      {
+        "title": "Policy management",
+        "path": "/policy-management/",
         "children": [
           {
-            "title": "Creating an Account",
+            "title":"Classic policies",
+            "children":[          
+          {
+            "title": "Vulnerability Policy",
+            "path": "/policy-management/vulnerability-policy"
+          },
+                    {
+            "title": "Deny Policy",
+            "path": "/policy-management/deny-policy"
+          },
+          {
+            "title": "API Key Policy",
+            "path": "/policy-management/api-key-policy"
+          },                  
+          {
+            "title": "License Policy",
+            "path": "/policy-management/license-policy"
+          },
+          {
+            "title": "Geo/IP Rules",
+            "path": "/policy-management/geoip-rules"
+          },
+          {
+            "title": "License Compliance",
+            "path": "/policy-management/license-compliance"
+          }
+          ]
+          },
+          {
+            "title": "Enterprise Policies"
+          },
+          {
+            "title": "Getting started",
             "path": "/"
           },
           {
-            "title": "Generating an API Key",
-            "path": "/getting-started/api-key"
-          },
-          {
-            "title": "Integrate your preferred package format",
+            "title": "Rego Recipes",
             "path": "/"
+          }
+        ]
+      },
+      {
+        "title": "Logs & observability",
+        "path": "/logs-and-observability/",
+        "children": [
+          {
+            "title": "Client logs",
+            "path": "/logs-and-observability/client-logs"
           },
           {
-            "title": "Command Line Interface",
-            "path": "/getting-started/cli"
+            "title": "Audit logs",
+            "path": "/logs-and-observability/audit-logs"
           },
           {
-            "title": "API Bindings",
-            "path": "/getting-started/api-bindings"
+            "title": "Repository Audit Logs",
+            "path": "/logs-and-observability/repo-audit-logs"
+          },
+          {
+            "title": "Exporting logs to Azure",
+            "path": "/logs-and-observability/exports-to-azure"
+          },
+          {
+            "title": "Exporting logs to S3",
+            "path": "/logs-and-observability/access-log-exports-to-s3"
+          },
+
+          {
+            "title": "Package logs",
+            "path": "/logs-and-observability/package-logs"
+          },
+          {
+            "title": "Analyzing logs with Athena",
+            "path": "/logs-and-observability/analyzing-s3-download-logs"
+          },
+          {
+            "title": "Using Webhooks",
+            "path": "/logs-and-observability/webhooks"
+          },
+          {
+            "title": "Integrating with Slack",
+            "path": "/logs-and-observability/integrating-with-slack"
+          },
+          {
+            "title": "Integrating with Teams",
+            "path": "/logs-and-observability/integrating-with-microsoft-teams"
+          }
+        ]
+      },
+      {
+        "title": "Software distribution",
+        "path": "/software-distribution",
+        "children": [
+          {
+            "title": "Cloudsmith Broadcasts",
+            "path": "/software-distribution/broadcasts",
+            "children":[
+
+                    {
+            "title": "Public Broadcasts",
+            "path": "/software-distribution/public-broadcasts"
+          },
+                              {
+            "title": "OSS Broadcasts",
+            "path": "/software-distribution/oss-broadcasts"
+          },
+          {
+            "title": "Customization",
+            "path": "/software-distribution/broadcasts-customization"
+          },
+          {
+            "title": "Custom domains",
+            "path": "/software-distribution/broadcasts-custom-domain"
+          }]
+          },
+          {
+            "title": "Entitlement tokens",
+            "path": "/software-distribution/entitlement-tokens",
+            "children": [
+              {
+                "title": "Entitlement tokens via the API",
+                "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-api"
+              },
+              {
+                "title": "Entitlement tokens via the CLI",
+                "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-cli"
+              },
+              {
+                "title": "Entitlement tokens via web app",
+                "path": "/software-distribution/entitlement-tokens-via-the-website-ui"
+              }
+            ]
+          },
+          {
+            "title": "EULA enforcement",
+            "path": "/software-distribution/eula"
+          }
+        ]
+      },
+            {
+        "title": "Integrations",
+        "path": "/integrations/",
+        "children": [
+          {
+            "title": "Ansible",
+            "path": "/integrations/integrating-with-ansible"
+          },
+          {
+            "title": "ArgoCD",
+            "path": "/integrations/integrating-with-argocd"
+          },
+          {
+            "title": "AWS CodeBuild",
+            "path": "/integrations/integrating-with-aws-codebuild"
+          },
+          {
+            "title": "Azure DevOps",
+            "path": "/integrations/integrating-with-azure-devops"
+          },
+          {
+            "title": "Bitbucket Pipelines",
+            "path": "/integrations/integrating-with-bitbucket-pipelines"
+          },
+          {
+            "title": "Buildkite",
+            "path": "/integrations/integrating-with-buildkite"
+          },
+          {
+            "title": "Chainguard Images",
+            "path": "/integrations/integrating-with-chainguard-images"
+          },
+          {
+            "title": "Chef",
+            "path": "/integrations/integrating-with-chef"
+          },
+          {
+            "title": "CircleCI",
+            "path": "/integrations/integrating-with-circleci"
+          },
+          {
+            "title": "Codefresh",
+            "path": "/integrations/integrating-with-codefresh"
+          },
+          {
+            "title": "Datadog",
+            "path": "/integrations/integrating-with-datadog"
+          },
+          {
+            "title": "Dependabot",
+            "path": "/integrations/integrating-with-dependabot"
+          },
+          {
+            "title": "Docker Hub",
+            "path": "/integrations/integrating-with-docker-hub"
+          },
+          {
+            "title": "Drone CI",
+            "path": "/integrations/integrating-with-drone-ci"
+          },
+          {
+            "title": "GitHub Actions",
+            "path": "/integrations/integrating-with-github-actions"
+          },
+          {
+            "title": "GitLab CI/CD",
+            "path": "/integrations/integrating-with-gitlab-cicd"
+          },
+          {
+            "title": "Harness CD",
+            "path": "/integrations/integrating-with-harness"
+          },
+          {
+            "title": "Jenkins",
+            "path": "/integrations/integrating-with-jenkins"
+          },
+          {
+            "title": "Octopus Deploy",
+            "path": "/integrations/integrating-with-octopus-deploy"
+          },
+          {
+            "title": "Puppet",
+            "path": "/integrations/integrating-with-puppet"
+          },
+          {
+            "title": "Roadie",
+            "path": "/integrations/integrating-with-roadie"
+          },
+          {
+            "title": "Semaphore CI",
+            "path": "/integrations/integrating-with-semaphore-ci"
+          },
+          {
+            "title": "Terraform Provider",
+            "path": "/integrations/integrating-with-terraform"
+          },
+          {
+            "title": "Travis-CI",
+            "path": "/integrations/integrating-with-travis-ci"
+          },
+          {
+            "title": "Zapier",
+            "path": "/integrations/integrating-with-zapier"
           }
         ]
       },
@@ -116,608 +708,14 @@
           }
         ]
       },
-      {
-        "title": "Package Formats",
-        "path": "/package-formats/",
-        "children": [
-          {
-            "title": "Alpine Repository",
-            "path": "/package-formats/alpine-repository"
-          },
-          {
-            "title": "Cargo Registry",
-            "path": "/package-formats/cargo-registry"
-          },
-          {
-            "title": "Chocolatey Repository",
-            "path": "/package-formats/chocolatey-repository"
-          },
-          {
-            "title": "Cocoapods Repository",
-            "path": "/package-formats/cocoapods-repository"
-          },
-          {
-            "title": "Composer Repository",
-            "path": "/package-formats/composer-repository"
-          },
-          {
-            "title": "Conan Repository",
-            "path": "/package-formats/conan-repository"
-          },
-          {
-            "title": "Conda Repository",
-            "path": "/package-formats/conda-repository"
-          },
-          {
-            "title": "CRAN Repository",
-            "path": "/package-formats/cran-repository"
-          },
-          {
-            "title": "Dart Repository",
-            "path": "/package-formats/dart-repository"
-          },
-          {
-            "title": "Debian Repository",
-            "path": "/package-formats/debian-repository"
-          },
-          {
-            "title": "Docker Registry",
-            "path": "/package-formats/docker-registry"
-          },
-          {
-            "title": "Go Registry",
-            "path": "/package-formats/go-registry"
-          },
-          {
-            "title": "Gradle Repository",
-            "path": "/package-formats/gradle-repository"
-          },
-          {
-            "title": "Helm Chart Repository",
-            "path": "/package-formats/helm-chart-repository"
-          },
-          {
-            "title": "Hex Repository",
-            "path": "/package-formats/hex-repository"
-          },
-          {
-            "title": "LuaRocks Repository",
-            "path": "/package-formats/luarocks-repository"
-          },
-          {
-            "title": "Maven Repository",
-            "path": "/package-formats/maven-repository"
-          },
-          {
-            "title": "npm Registry",
-            "path": "/package-formats/npm-registry"
-          },
-          {
-            "title": "NuGet Feed",
-            "path": "/package-formats/nuget-feed",
-            "children": [
-              {
-                "title": "NuGet Symbol Server",
-                "path": "/package-formats/nuget-symbol-server"
-              }
-            ]
-          },
-          {
-            "title": "PowerShell Modules Repository",
-            "path": "/package-formats/powershell-modules-repository"
-          },
-          {
-            "title": "Python Repository",
-            "path": "/package-formats/python-repository"
-          },
-          {
-            "title": "Raw Repository",
-            "path": "/package-formats/raw-repository"
-          },
-          {
-            "title": "RedHat Repository",
-            "path": "/package-formats/redhat-repository"
-          },
-          {
-            "title": "Ruby Repository",
-            "path": "/package-formats/ruby-repository"
-          },
-          {
-            "title": "sbt Repository",
-            "path": "/package-formats/sbt-repository"
-          },
-          {
-            "title": "Swift Registry",
-            "path": "/package-formats/swift-registry"
-          },
-          {
-            "title": "Terraform Modules Repository",
-            "path": "/package-formats/terraform-modules-repository"
-          },
-          {
-            "title": "Unity Registry",
-            "path": "/package-formats/unity-registry"
-          },
-          {
-            "title": "Vagrant Repository",
-            "path": "/package-formats/vagrant-repository"
-          },
-          {
-            "title": "OCI Repository",
-            "path": "/package-formats/oci-repository"
-          }
-        ]
-      },
-      {
-        "title": "CI/CD Integrations",
-        "path": "/integrations",
-        "children": [
-          {
-            "title": "Integrating Ansible",
-            "path": "/integrations/integrating-with-ansible"
-          },
-          {
-            "title": "Integrating ArgoCD",
-            "path": "/integrations/integrating-with-argocd"
-          },
-          {
-            "title": "Integrating AWS CodeBuild",
-            "path": "/integrations/integrating-with-aws-codebuild"
-          },
-          {
-            "title": "Integrating Azure DevOps",
-            "path": "/integrations/integrating-with-azure-devops"
-          },
-          {
-            "title": "Integrating Bitbucket Pipelines",
-            "path": "/integrations/integrating-with-bitbucket-pipelines"
-          },
-          {
-            "title": "Integrating Buildkite",
-            "path": "/integrations/integrating-with-buildkite"
-          },
-          {
-            "title": "Integrating Chainguard Images",
-            "path": "/integrations/integrating-with-chainguard-images"
-          },
-          {
-            "title": "Integrating Chef",
-            "path": "/integrations/integrating-with-chef"
-          },
-          {
-            "title": "Integrating CircleCI",
-            "path": "/integrations/integrating-with-circleci"
-          },
-          {
-            "title": "Integrating Codefresh",
-            "path": "/integrations/integrating-with-codefresh"
-          },
-          {
-            "title": "Integrating Datadog",
-            "path": "/integrations/integrating-with-datadog"
-          },
-          {
-            "title": "Integrating Dependabot",
-            "path": "/integrations/integrating-with-dependabot"
-          },
-          {
-            "title": "Integrating Docker Hub",
-            "path": "/integrations/integrating-with-docker-hub"
-          },
-          {
-            "title": "Integrating Drone CI",
-            "path": "/integrations/integrating-with-drone-ci"
-          },
-          {
-            "title": "Integrating GitHub Actions",
-            "path": "/integrations/integrating-with-github-actions"
-          },
-          {
-            "title": "Integrating GitLab CI/CD",
-            "path": "/integrations/integrating-with-gitlab-cicd"
-          },
-          {
-            "title": "Integrating Harness CD",
-            "path": "/integrations/integrating-with-harness"
-          },
-          {
-            "title": "Integrating Jenkins",
-            "path": "/integrations/integrating-with-jenkins"
-          },
-          {
-            "title": "Integrating Octopus Deploy",
-            "path": "/integrations/integrating-with-octopus-deploy"
-          },
-          {
-            "title": "Integrating Puppet",
-            "path": "/integrations/integrating-with-puppet"
-          },
-          {
-            "title": "Integrating Roadie",
-            "path": "/integrations/integrating-with-roadie"
-          },
-          {
-            "title": "Integrating Semaphore CI",
-            "path": "/integrations/integrating-with-semaphore-ci"
-          },
-          {
-            "title": "Integrating Terraform Provider",
-            "path": "/integrations/integrating-with-terraform"
-          },
-          {
-            "title": "Integrating Travis-CI",
-            "path": "/integrations/integrating-with-travis-ci"
-          },
-          {
-            "title": "Integrating Zapier",
-            "path": "/integrations/integrating-with-zapier"
-          }
-        ]
-      },
-      {
-        "title": "Artifacts",
-        "path": "/artifacts",
-        "children": [
-          {
-            "title": "Searching / Filtering",
-            "path": "/artifacts/search-packages"
-          },
-          {
-            "title": "Package Quarantine",
-            "path": "/artifacts/package-quarantine"
-          },
-          {
-            "title": "Private Package Sharing",
-            "path": "/artifacts/sharing-a-private-package"
-          },
-          {
-            "title": "Package Identification",
-            "path": "/artifacts/identifying-a-package"
-          },
-          {
-            "title": "Package Tags",
-            "path": "/artifacts/package-tags"
-          },
-          {
-            "title": "Package Copy",
-            "path": "/artifacts/copy-a-package"
-          },
-          {
-            "title": "Package Resynchronization",
-            "path": "/artifacts/resync-a-package"
-          },
-          {
-            "title": "Package Delete",
-            "path": "/artifacts/delete-a-package"
-          },
-          {
-            "title": "Package Move",
-            "path": "/artifacts/package-move"
-          },
-          {
-            "title": "Package Upload",
-            "path": "/artifacts/package-upload"
-          },
-          {
-            "title": "Package Download",
-            "path": "/artifacts/download-a-package"
-          },
-          {
-            "title": "Sorting",
-            "path": "/artifacts/sorting-packages"
-          },
-          {
-            "title": "Recycle Bin",
-            "path": "/artifacts/recycle-bin"
-          },
-          {
-            "title": "Retention Lifecycle",
-            "path": "/artifacts/retention-lifecycle"
-          },
-          {
-            "title": "Package Groups",
-            "path": "/artifacts/package-groups"
-          }
-        ]
-      },
-      {
-        "title": "Workspaces",
-        "path": "/getting-started/workspaces"
-      },
 
-          {
-            "title": "Repositories",
-            "path": "/repositories",
-            "children": [
-              {
-                "title": "Create a Repository",
-                "path": "/repositories/create-a-repository"
-              },
-              {
-                "title": "Repositories",
-                "path": "/repositories/manage-a-repository"
-              },
-              {
-                "title": "Repository Settings",
-                "path": "/repositories/repository-settings"
-              },
-              {
-                "title": "Custom Storage Regions",
-                "path": "/repositories/custom-storage-regions"
-              }
-            ]
-          },
-          {
-            "title": "Teams and Accounts",
-            "path": "/teams-and-accounts",
-            "children": [
-              {
-                "title": "Access Controls",
-                "path": "/teams-and-accounts/access-controls"
-              },
-              {
-                "title": "Service Accounts",
-                "path": "/teams-and-accounts/service-accounts"
-              },
-              {
-                "title": "Accounts",
-                "path": "/teams-and-accounts/accounts"
-              },
-              {
-                "title": "Users",
-                "path": "/teams-and-accounts/invite-users"
-              },
-              {
-                "title": "Email Management",
-                "path": "/teams-and-accounts/email-management"
-              },
-              {
-                "title": "Permissions",
-                "path": "/teams-and-accounts/permissions"
-              },
-              {
-                "title": "Teams",
-                "path": "/teams-and-accounts/teams"
-              }
-            ]
-          },
-          {
-            "title": "Authentication",
-            "path": "/authentication",
-            "children": [
-              {
-                "title": "Single Sign-On",
-                "path": "/authentication/single-sign-on",
-                "children": [
-                  {
-                    "title": "Single Sign-On with Azure AD",
-                    "path": "/authentication/single-sign-on-with-azure-ad"
-                  },
-                  {
-                    "title": "Single Sign-On with Google",
-                    "path": "/authentication/single-sign-on-with-google-g-suite"
-                  },
-                  {
-                    "title": "Single Sign-On with JumpCloud",
-                    "path": "/authentication/single-sign-on-with-jumpcloud"
-                  },
-                  {
-                    "title": "Single Sign-On with PingIdentity",
-                    "path": "/authentication/single-sign-on-with-pingidentity"
-                  },
-                  {
-                    "title": "Single Sign-On with Okta",
-                    "path": "/authentication/single-sign-on-with-okta"
-                  },
-                  {
-                    "title": "Single Sign-On with OneLogin",
-                    "path": "/authentication/single-sign-on-with-onelogin"
-                  }
-                ]
-              },
-              {
-                "title": "SCIM",
-                "path": "/authentication/scim",
-                "children": [
-                  {
-                    "title": "SCIM with JumpCloud",
-                    "path": "/authentication/scim-with-jumpcloud"
-                  },
-                  {
-                    "title": "SCIM with Google",
-                    "path": "/authentication/scim-with-google"
-                  },
-                  {
-                    "title": "SCIM with PingFederate",
-                    "path": "/authentication/scim-with-pingfederate"
-                  },
-                  {                "title": "SCIM with OneLogin",
-                  "path": "/authentication/scim-with-onelogin"
-                },
-                {
-                  "title": "SCIM with Okta",
-                  "path": "/authentication/scim-with-okta"
-                },
-                {
-                  "title": "SCIM with Microsoft Entra ID (previously Azure Active Directory)",
-                  "path": "/authentication/scim-with-microsoft-entra-id"
-                }
-                  
-                ]
-              },
-              {
-                "title": "OpenID Connect",
-                "path": "/authentication/openid-connect",
-                "children": [
-                  {
-                    "title": "Setup GitHub Actions to authenticate to Cloudsmith using OIDC",
-                    "path": "/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
-                  }
-                ]
-              },
-              {
-                "title": "Two-Factor Authentication",
-                "path": "/authentication/two-factor-authentication"
-              }
-            ]
-          },
       {
-        "title": "Policies and Security",
-        "path": "/policies-and-security",
-        "children": [
-          {
-            "title": "Vulnerability Policy",
-            "path": "/policies-and-security/vulnerability-policy"
-          },
-          {
-            "title": "Deny Policy",
-            "path": "/policies-and-security/deny-policy"
-          },
-          {
-            "title": "API Key Policy",
-            "path": "/policies-and-security/api-key-policy"
-          },
-          {
-            "title": "Security Scanning",
-            "path": "/policies-and-security/security-scanning"
-          },
-          {
-            "title": "License Policy",
-            "path": "/policies-and-security/license-policy"
-          },
-          {
-            "title": "Geo/IP Rules",
-            "path": "/policies-and-security/geoip-rules"
-          },
-          {
-            "title": "License Compliance",
-            "path": "/policies-and-security/license-compliance"
-          },
-          {
-            "title": "Enterprise Policy Management"
-          },
-          {
-            "title": "Getting Started with Enterprise Policy Management",
-            "path": "/"
-          },
-          {
-            "title": "Enterprise Policy Management Rego Recipes",
-            "path": "/"
-          },
-          {
-            "title": "Keys and Signing"
-          },
-          {
-            "title": "Signing Keys",
-            "path": "/policies-and-security/signing-keys"
-          },
-          {
-            "title": "Signing artifacts with Cosign",
-            "path": "/policies-and-security/signing-a-package-with-cosign"
-          }
-        ]
-      },
-      {
-        "title": "Observability and Logging",
-        "path": "/observability-and-logging",
-        "children": [
-          {
-            "title": "Client Statistics",
-            "path": "/observability-and-logging/client-statistics"
-          },
-          {
-            "title": "Client Logs",
-            "path": "/observability-and-logging/client-logs"
-          },
-          {
-            "title": "Repository Audit Logs",
-            "path": "/observability-and-logging/repo-audit-logs"
-          },
-          {
-            "title": "Log Exports to Azure",
-            "path": "/observability-and-logging/exports-to-azure"
-          },
-          {
-            "title": "Log Exports to S3",
-            "path": "/observability-and-logging/access-log-exports-to-s3"
-          },
-          {
-            "title": "Audit Logs",
-            "path": "/observability-and-logging/audit-logs"
-          },
-          {
-            "title": "Package Logs",
-            "path": "/observability-and-logging/package-logs"
-          },
-          {
-            "title": "Client Logs",
-            "path": "/observability-and-logging/download-logs"
-          },
-          {
-            "title": "Analyzing Client Logs with Athena",
-            "path": "/observability-and-logging/analyzing-s3-download-logs"
-          },
-          {
-            "title": "Notifications"
-          },
-          {
-            "title": "Webhooks",
-            "path": "/observability-and-logging/webhooks"
-          },
-          {
-            "title": "Integrating Slack",
-            "path": "/observability-and-logging/integrating-with-slack"
-          },
-          {
-            "title": "Integrating Microsoft Teams",
-            "path": "/observability-and-logging/integrating-with-microsoft-teams"
-          }
-        ]
-      },
-      {
-        "title": "Distributing your software",
-        "path": "/distributing-your-software",
-        "children": [
-          {
-            "title": "Entitlements",
-            "path": "/distributing-your-software/entitlement-tokens",
-            "children": [
-              {
-                "title": "Entitlements via the API",
-                "path": "/distributing-your-software/entitlement-tokens-via-the-cloudsmith-api"
-              },
-              {
-                "title": "Entitlements via the CLI",
-                "path": "/distributing-your-software/entitlement-tokens-via-the-cloudsmith-cli"
-              },
-              {
-                "title": "Entitlements via the UI",
-                "path": "/distributing-your-software/entitlement-tokens-via-the-website-ui"
-              }
-            ]
-          },
-          
-          {
-            "title": "EULA Enforcement",
-            "path": "/distributing-your-software/eula"
-          },
-          {
-            "title": "Broadcasts",
-            "path": "/"
-          }
-        ]
-      },
-      {
-        "title": "Developer Community",
+        "title": "Developer community",
         "path": "/developer-community"
       },
       {
-        "title": "Custom Domains",
-        "path": "/getting-started/custom-domains"
-      },
-      {
-        "title": "Contact Us",
-        "path": "/contact-us"
+        "title": "Contact us",
+        "path": "https://cloudsmith.com/company/contact-us"
       }
     ]
   },
