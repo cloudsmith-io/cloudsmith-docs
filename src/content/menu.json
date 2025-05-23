@@ -741,9 +741,7 @@
             "path": "/guides/setting-up-your-cloudsmith-account-and-workspace"
           }
         ]
-      }
-    ]
-  },
+      },
   "api": {
     "title": "API Reference",
     "path": "/api",
