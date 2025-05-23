@@ -287,12 +287,34 @@ Installing packages with a scope then requires putting the scope before the name
 npm install @SCOPE/PACKAGE_NAME
 ```
 
-### Yarn Compatibility
+### Using Yarn with Cloudsmith
 
-To ensure Yarn compatibility, enable **always-auth** by adding it to your user or project `.npmrc` file:
+To ensure Yarn compatibility, enable **always-auth** by adding it to your user or project `.npmrc` or `.yarnrc.yml` file as shared below.
 
-```text
-always-auth
+🔹 Yarn v1
+
+Yarn v1 uses the same `.npmrc` format as npm:
+
+```ini
+registry=https://npm.cloudsmith.io/ORG/REPO/
+//npm.cloudsmith.io/ORG/REPO/:_authToken=KEY
+always-auth=true
+```
+
+🔹 Yarn v2 and later (Berry)
+
+Yarn 2+ (*also known as Berry*) manages registries through `.yarnrc.yml` instead of `.npmrc`:
+
+```yaml
+npmRegistryServer: "https://npm.cloudsmith.io/ORG/REPO/"
+npmAlwaysAuth: true
+npmAuthIdent: "AUTHKEY"
+```
+
+The Auth key should be in base64, which you can get by running:
+
+```shell
+echo -n 'User:APIKEY' | base64
 ```
 
 ## Transparent Upstream Proxying
