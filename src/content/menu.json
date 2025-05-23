@@ -283,6 +283,10 @@
           {
             "title": "Test Guide",
             "path": "/guides/test-guide"
+          },
+                    {
+            "title": "Getting started",
+            "path": "/guides/setting-up-your-cloudsmith-account-and-workspace"
           }
         ]
       }
