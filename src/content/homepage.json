@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Welcome to Cloudsmith's documentation site.",
-    "description": "Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies.",
+    "title": "Cloudsmith Documentation",
+    "description": "Cloudsmith is a fully-managed artifact management, software supply chain security, and software distribution platform. ",
     "buttons": [
       {
         "label": "Documentation",
@@ -19,85 +19,59 @@
   },
   "sections": [
     {
-      "heading": "Getting your Cloudsmith account up and running",
+      "heading": "Getting started with Cloudsmith",
       "type": "cards",
       "cards": [
         {
-          "title": "Getting Started Guide",
+          "title": "Key concepts",
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
-          "href": "/",
+          "href": "/getting-started/key-concepts/",
+          "linkText": "Read the doc",
+          "icon": "utility/documentation"
+        },
+        {
+          "title": "Quickstart guide",
+          "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
+          "href": "/guides/cloudsmith-quickstart-guide/",
           "linkText": "Go to guide",
           "icon": "utility/guide"
-        },
+        }
+        ,
         {
-          "title": "Setting Your Security Policies Guide",
-          "description": "Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-          "href": "/",
+          "title": "Evaluating Cloudsmith",
+          "description": "If you're considering Cloudsmith, we've compiled a guide covering steps typically taken by customers during an evaluation.",
+          "href": "/guides/evaluating-cloudsmith/",
           "linkText": "Go to guide",
-          "icon": "utility/api"
-        },
-        {
-          "title": "Integrating your preferred package format with Cloudsmith",
-          "description": "Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-          "href": "/",
-          "linkText": "Go to documentation",
-          "icon": "utility/documentation"
+          "icon": "utility/guide"
         }
       ]
     },
     {
-      "heading": "Security and Compliance",
+      "type":"divider"
+    },
+    {
+      "heading": "Managing accounts and teams",
       "type": "cards",
       "cards": [
         {
-          "title": "A descriptive title Guide",
-          "description": "Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-          "href": "/",
-          "linkText": "Go to guide",
+          "title": "Adding users",
+          "description": "Cloudsmith helps people work together. Here's how to invite new members.",
+          "href": "/accounts-and-teams/invite-users/",
+          "linkText": "Read the doc",
           "icon": "utility/documentation"
         },
         {
-          "title": "A title describing the documentation article",
-          "description": "Cillum eiusmod sint laboris incididunt proident laboris. Minim nostrud irure nostrud incididunt consequat laborum.",
-          "href": "/",
-          "linkText": "Go to guide",
+          "title": "Creating teams",
+          "description": "Grouping member and services togehter as teams gives you another layer of control. Here's how to manage teams.",
+          "href": "/accounts-and-teams/teams",
+          "linkText": "Read the doc",
           "icon": "utility/documentation"
         },
         {
-          "title": "A title describing the documentation article",
+          "title": "Setting permissions",
           "description": "Anim ipsum eiusmod occaecat duis ullamco reprehenderit sint do sunt irure veniam ullamco mollit in. Veniam Lorem amet culpa ullamco voluptate ad anim esse officia.",
-          "href": "/",
-          "linkText": "Go to guide",
-          "icon": "utility/documentation"
-        }
-      ]
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "heading": "Get started with our other products",
-      "type": "cards",
-      "cards": [
-        {
-          "title": "Get started with Public Broadcasts",
-          "description": "Ut quis fugiat sunt occaecat nisi nulla. Nostrud reprehenderit consectetur enim eiusmod laborum.",
-          "href": "/",
-          "linkText": "Go to guide",
-          "icon": "utility/documentation"
-        },
-        {
-          "title": "Getting Started Guide",
-          "description": "Anim sunt et sint nostrud ad eiusmod nisi fugiat. Excepteur aliquip eiusmod est deserunt labore nulla non enim.",
-          "href": "/",
-          "linkText": "Go to guide",
-          "icon": "utility/documentation"
-        },
-        {
-          "title": "Getting Started Guide",
-          "description": "Cupidatat excepteur elit do. Anim in mollit est cillum consequat esse.",
-          "href": "/",
-          "linkText": "Go to guide",
+          "href": "/accounts-and-teams/permissions",
+          "linkText": "Read the doc",
           "icon": "utility/documentation"
         }
       ]

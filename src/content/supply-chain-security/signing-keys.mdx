@@ -1,0 +1,35 @@
+# Package signing
+
+Cloudsmith uses GPG or RSA signatures (where applicable) in addition to package checksums to detect tampering. 
+
+We calculate a signature for every file that is uploaded, but only some of the package formats make it available or use it. Only some of the formats also offer metadata signing.
+
+For increased trust, you can also provide your own [GPG key](/repositories/repository-settings#custom-gpg-signing-key) or [RSA key](/repositories/repository-settings#custom-rsa-signing-key) for signing.
+
+## Key Support by Package Format
+
+|Package Format|Key Type|Key Use|
+|:--|:--|:--|
+|[Alpine](/formats/alpine-repository)|RSA|Index|
+|[Cargo](/formats/cargo-registry)||Not Supported by Format|
+|[CocoaPods](/formats/cocoapods-repository)||Not Supported by Format|
+|[Composer](/formats/composer-repository)|GPG||
+|[Conan](/formats/conan-repository)||Not Supported by Format|
+|[CRAN](/formats/cran-repository)|||
+|[Dart](/formats/dart-repository)||Not Supported by Format|
+|[Debian](/formats/debian-repository)|GPG|Index|
+|[Docker](/formats/docker-registry)|RSA|Index|
+|[Go](/formats/go-registry)|||
+|[Gradle](/formats/gradle-repository)|GPG|Index Packages|
+|[Helm Charts](/formats/helm-chart-repository)|GPG||
+|[LuaRocks](/formats/luarocks-repository)|||
+|[Maven](/formats/maven-repository)|GPG|Index Packages|
+|[npm](/formats/npm-registry)|GPG||
+|[NuGet](/formats/nuget-feed/)|||
+|[Python](/formats/python-repository)|GPG||
+|[Raw](/formats/raw-repository)|GPG||
+|[RPM](/formats/redhat-repository)|GPG|Index Packages|
+|[sbt](/formats/sbt-repository)|GPG|Index Packages|
+|[Terraform Modules](/formats/terraform-modules-repository)||Not Supported by Format|
+|[Unity](/formats/unity-registry)|GPG||
+|[Vagrant](/formats/vagrant-repository)|GPG||

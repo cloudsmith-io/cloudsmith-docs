@@ -16,7 +16,7 @@ Uploading to Cloudsmith is simple. We provide three ways to push your packages/f
 
 - Upload via the package-specific native CLI / tools (where supported).
 - Upload via the API using tools/integrations (such as the official Cloudsmith CLI).
-- Upload directly via the website. 
+- Upload directly via the Cloudsmith web app. 
 
 
 In the following examples: 
@@ -68,7 +68,7 @@ cloudsmith push deb OWNER/REPOSITORY/DISTRO/VERSION PACKAGE-NAME.deb --tags TAG1
 
 We also support the optional functionality to tag packages with pre-release components as `latest`. By default this functionality is turned on, however can be turned off in the main settings of a repository with the setting `Apply Latest Tag for Pre-Release Versions?`.
 
-Please see [Package Tags](doc:package-tags) for more information on package tagging
+Please see [Package Tags](/artifact-management/package-tags) for more information on package tagging
 
 ## Upload via Cloudsmith API
 
@@ -85,7 +85,7 @@ The response to this PUT req gives you an identifier that you will need for the 
 2. A POST req to create package endpoint 
 
 ```
-https://api-prd.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/FORMAT/
+https://api.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/FORMAT/
 ```
 
 Postman is an application used for API testing that we can use to illustrate using the API to upload a raw package. You can install Postman [here](https://www.postman.com/)
@@ -112,7 +112,7 @@ https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
 1. Populate Postman with the POST request (see the image below, highlighted _1_): 
 
 ```
-https://api-prd.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/raw/
+https://api.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/raw/
 ```
 
 2. Select the ‘Body’ tab and populate it with your JSON:
@@ -128,7 +128,7 @@ NOTE: the package_file value should be populated with the identifier from the PU
 
 <BlockImage src={imgfc5e591_Screenshot_2022_03_28_at_18_07_04} alt=""></BlockImage>
 
-## Upload via Website UI
+## Upload via Cloudsmith web app
 
 Select the repository that you would like to upload into and select Push/Pull Packages.
 

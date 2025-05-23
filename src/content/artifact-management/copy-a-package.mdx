@@ -10,13 +10,13 @@ import img0824a39_bulk_package_copy_ui from './images/copy-a-package/0824a39-bul
 We provide two ways to copy a package from one repository to another: 
 
 - Copy via the API using tools/integrations (such as the Cloudsmith CLI) 
-- Copy via the Website UI.
+- Copy via the Cloudsmith web app.
 
 ## Copy via the Cloudsmith CLI
 
 ### Identify a Package
 
-To copy a package using the Cloudsmith CLI, you first need to identify the package.  See [Package Identification](doc:identifying-a-package) for full instructions on identifying packages. 
+To copy a package using the Cloudsmith CLI, you first need to identify the package.  See [Package Identification](/artifact-management/identifying-a-package) for full instructions on identifying packages. 
 
 ### Copy a Package
 
@@ -47,7 +47,7 @@ cloudsmith ls pkg OWNER/SOURCE_REPO -q 'YOUR-QUERY'/
 | xargs -Ipackage cloudsmith copy package DESTINATION_REPO
 ```
 
-for the `-q` query you can use any terms that you would use when searching for a package (see [Search / Filter Packages](doc:search-filter-packages) for full details). For example: 
+for the `-q` query you can use any terms that you would use when searching for a package (see [Search / Filter Packages](/artifact-management/search-packages) for full details). For example: 
 
 `-q 'format:maven AND name:cloudsmith-api AND version:^0.21'` 
 
@@ -57,9 +57,9 @@ You can remove the query to target all packages. The only downside to this appro
 
 ***
 
-## Copy via the Website UI
+## Copy via the Cloudsmith web app
 
-You can copy a package using the Website UI:
+You can copy a package using the Cloudsmith web app:
 
 - Via the repository packages list
 - Via the package detail page

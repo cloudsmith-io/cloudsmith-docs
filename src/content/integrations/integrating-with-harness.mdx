@@ -13,7 +13,7 @@ Harness is a self-service Continuous Delivery platform that allows engineers and
 - [Harness.io](https://harness.io/): Harness Website
 - [Harness Docs](https://docs.harness.io/): Official Harness Documentation
 
-Harness also provides Continuous Integration through [Drone CI](doc:integrating-with-drone-ci)
+Harness also provides Continuous Integration through [Drone CI](/integrations/integrating-with-drone-ci)
 
 ## Adding authentication to Harness CD
 
@@ -27,7 +27,7 @@ You can obtain your [Cloudsmith API Key](/getting-started/api-key) from using th
 
 ### Cloudsmith Entitlement Token
 
-Please see the [Entitlements](doc:entitlements) documentation for details of how to create and retrieve Entitlement Tokens via the Cloudsmith CLI or the Cloudsmith Website.
+Please see the [Entitlements](/software-distribution/entitlement-tokens) documentation for details of how to create and retrieve Entitlement Tokens via the Cloudsmith CLI or the Cloudsmith Website.
 
 ## Deploying a Docker Image with Harness CD
 
@@ -42,7 +42,7 @@ Cloudsmith Repositories are added to Harness as an Artifact Server.  At a minimu
 | Type                      | The type of Artifact Server, select "Docker Registry".                                                                                                                                                           |
 | Display Name              | A name for the Artifact Server within Harness.  You can use any name that you wish here.                                                                                                                         |
 | Docker Registry URL       | The URL for your Cloudsmith Repository. Enter https://docker.cloudsmith.io/v2/ or your own docker [Custom Domain](/getting-started/custom-domains) (if enabled in your Cloudsmith Account)                                  |
-| Username                  | The Cloudsmith Username, or an Entitlement Token name that you wish to authenticate with Please see the Cloudsmith [Docker Registry](/supported-formats/docker-registry) documentation for details of authentication methods.   |
+| Username                  | The Cloudsmith Username, or an Entitlement Token name that you wish to authenticate with Please see the Cloudsmith [Docker Registry](/formats/docker-registry) documentation for details of authentication methods.   |
 | Select Encrypted Password | The Encrypted Secret that you wish to use for Authentication. Please see the [Harness documentation](https://docs.harness.io/article/au38zpufhr-secret-management) for further information on Encrypted Secrets. |
 
 ### Declaring a Docker Image to be deployed

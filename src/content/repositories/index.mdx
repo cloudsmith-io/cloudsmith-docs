@@ -1,0 +1,42 @@
+import { Note, BlockImage } from '@/components'
+import img_Screenshot_2024_10_18_at_22_21_48 from './images/managing-repositories/c70462e33e7074bce138a83187c3c99f7a05025268e34d0eb09522c76714285c-Screenshot_2024-10-18_at_22.21.48.png'
+
+# Repositories
+
+A Repository, or repo, is a storage location for software packages and containers.
+
+Cloudsmith provides polyglot repositories that can contain packages of all support types. You can create an unlimited number of repositories; providing you with the flexibility to suit any use-case.
+
+<Note variant="note">
+  At Cloudsmith we use "repository" as a general term. We also refer to "registry" and "feed" in line with the format's specific nomenclature.
+</Note>
+
+## Repository Controls
+
+Cloudsmith provides comprehensive controls to allow you to secure, monitor and control the packages inside each repository. 
+
+Use the top menu items to access the controls available:
+
+<BlockImage src={img_Screenshot_2024_10_18_at_22_21_48} alt="Repository Settings"></BlockImage>
+
+|Control|Description|
+|:---|:---|
+|[Packages](/package-formats)|A list of all uploaded packages and artifacts.|
+|[Package Groups](/artifact-management/package-groups)|A list of grouped packages by name (ignoring version/distro info)|
+|[Audit Logs](/logs-and-observability/repo-audit-logs)  (Beta)|A log of repository events|
+|[Client Logs](/logs-and-observability/download-logs)|View access logs for this repository|
+|[Client Statistics](/logs-and-observability/client-statistics)|See all the statistics gathered about your packages - downloads, bandwidth usage, etc.|
+|[License Compliance](/policy-management/license-compliance)|View and edit all licenses for packages in the repository|
+|[Package Logs](/logs-and-observability/package-logs)|View logs of package events for this repository|
+|[Security Scanning](/policy-management/security-scanning)|Security Scanning for artifacts and Docker images|
+|[Signing Keys](/policy-management/signing-keys)|GPG and RSA signing keys|
+|[Main Settings](/repositories/repository-settings)|Change the Name, Permissions, Visibility and if needed, delete the repository.|
+|[Access Controls](/access-controls)|Manage teams and user access to this repository|
+|[Custom Domains](/getting-started/custom-domains)|Setup domain configuration to support your named endpoint. [Contact us](/contact-us) for help!|
+|[Edge Caching](/tbc/upstream-proxying-and-caching)|Configure and manage edge caching rules|
+|[Entitlement Tokens](/software-distribution/entitlement-tokens)|Manage entitlement tokens for external, read-only access to private repositories.|
+|[EULA Enforcement](/software-distribution/eula)|Manage End-User License Agreement enforcement|
+|[Geo/IP Rules](/policy-management/geoip-rules)|Manage download permissions by IP and/or Geographic area|
+|[Retention Rules](/artifact-management/retention-lifecycle)|Manage the size of your repositories with retention settings|
+|[Upstream Proxying](/tbc/upstream-proxying-and-caching)|Configure upstream sources for this repository|
+|[Webhooks](/logs-and-observability/webhooks)|Create and configure webhooks to allow external tools/systems to see your Cloudsmith events|

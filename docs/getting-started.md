@@ -1,4 +1,4 @@
-# Gettting Started
+# Getting Started
 
 The Cloudsmith documentation website is a static website created with Next.js using two different types of content:
 
