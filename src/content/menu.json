@@ -737,7 +737,7 @@
             "path": "/guides/test-guide"
           },
                     {
-            "title": "Getting started",
+            "title": "Getting started (legacy)",
             "path": "/guides/setting-up-your-cloudsmith-account-and-workspace"
           }
         ]
