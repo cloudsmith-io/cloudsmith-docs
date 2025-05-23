@@ -1,0 +1,166 @@
+import { Note, Video } from '@/components';
+
+# CocoaPods Repository
+
+Cloudsmith provides public & private repositories for CocoaPods (Swift & Objective-C)
+
+<Video wistiaId="0i4u9z5seg"></Video>
+
+CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects.  
+For more information on Cocoapods, please see: 
+
+- [Cocoapods.org](https://cocoapods.org/): Official Cocoapods public repository and documentation
+
+<Note variant="note" headline="Contextual Documentation">
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                               |
+| :-------------- | :---------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
+| USERNAME        | Your Cloudsmith username                                                                  |
+| PASSWORD        | Your Cloudsmith password                                                                  |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
+| PACKAGE_NAME    | The name of your package                                                                  |
+| PACKAGE_VERSION | The version number of your package                                                        |
+
+## Upload a Package
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command-Line Interface](/getting-started/cli)  
+The command to upload an (Objective-C or Swift) CocoaPods package via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push cocoapods OWNER/REPOSITORY PACKAGE_NAME.tar.gz
+```
+
+Example:
+
+```shell
+cloudsmith push cocoapods org/repo your-package.tar.gz
+```
+
+### Upload via Cloudsmith web app
+
+Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
+
+## Download / Install a Package
+
+Before you can install packages from your Cloudsmith repository you'll need to add your repository to your project's Podfile. This can be done using the `source` keyword in your project's Podfile. The `source` keyword is a URL to a git repository with the metadata index of all of your repository's private pods.
+
+To add the repository to your project's Podfile, add the following:
+
+### Public Repositories
+
+```shell
+source 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cocoapods/index.git'
+```
+
+### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+<Note variant="warning" headline="Warning">
+When using HTTP basic authentication, you'll need to configure Git with the proper credentials. Git's standard authentication mechanisms are used by CocoaPods and can be configured in the normal way. For example, you could use git's per-user credential store like so:
+ 
+`git config --global credential.helper store`  
+`echo "https://USERNAME:PASSWORD@dl.cloudsmith.io" > ~/.git-credentials`
+</Note>
+
+```shell Entitlement Token Auth
+source 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cocoapods/index.git'
+```
+```shell HTTP Basic Auth (User & Pass)
+source 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+```
+```shell HTTP Basic Auth (API Key)
+source 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+```
+```shell HTTP Basic Auth (Token)
+source 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+```
+
+### Specifying Dependencies
+
+Add the latest version of a package to your Podfile using the syntax outlined by [CocoaPods](https://guides.cocoapods.org/using/the-podfile.html):
+
+#### Public Repositories
+
+```shell
+source 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cocoapods/index.git'
+target 'MyApp' do
+  pod 'PACKAGE_NAME', '~> PACKAGE_VERSION'
+end
+```
+
+#### Private Repositories
+
+```shell Entitlement Token Auth
+source 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cocoapods/index.git'
+target 'MyApp' do
+  pod 'PACKAGE_NAME', '~> PACKAGE_VERSION'
+end
+```
+```shell HTTP Basic Auth
+source 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+target 'MyApp' do
+  pod 'PACKAGE_NAME', '~> PACKAGE_VERSION'
+end
+```
+
+### Installing a Package
+
+Once added, the cocoapods tool will download the dependency to the Pods directory in your project, and update the `Podfile.lock` after running following command:
+
+```shell
+pod install
+```
+
+<Note variant="warning" headline="Warning">
+When a dependency is added to the Podfile and retrieved via `pod install`, it gets the new dependency, along with any of its transitive dependencies. However, the cocoapods tool won’t change the versions of any already-acquired dependencies unless that’s necessary to get the new dependency.
+
+The cocoapods tool also stores a cache of the index on your machine, so in order to receive the most up to date version of the index it may be necessary to use the `--repo-update` flag to force a repository update before installing your project's pods.
+</Note>
+
+### Configuration Example
+
+Here is a complete (but minimal) `Podfile` using entitlement token authentication: 
+
+```shell
+source 'https://dl.cloudsmith.io/abcedef1234567/org/repo/cocoapods/index.git'
+
+workspace 'cocoapods-install-example.xcworkspace'
+
+target 'cocoapods-install-example' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for cocoapods-install-example
+  pod 'cloudsmith-cocoapods-example', '~> 1.0.158207047536418'
+
+end
+```
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported by Format</span>
+
+## Troubleshooting
+
+Please see the [Troubleshooting](/troubleshooting) page for further help and information.

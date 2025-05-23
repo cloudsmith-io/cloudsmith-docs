@@ -1,0 +1,147 @@
+import { Note, Video } from '@/components';
+
+# Terraform Modules Repository
+
+Cloudsmith provides public & private repositories for Terraform Modules
+
+<Video wistiaId="k7d0n349st"></Video>
+
+Terraform is an infrastructure-as-code tool to provision and manage any cloud, infrastructure, or service by the awesome folks over at [Hashicorp](https://www.hashicorp.com/). 
+
+For more information on Terraform, please see:
+
+- [Terraform](https://www.terraform.io/): The official website for Terraform
+- [Terraform Documentation](https://www.terraform.io/docs/index.html): The official docs for Terraform
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                               |
+| :-------------- | :---------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
+| USERNAME        | Your Cloudsmith username                                                                  |
+| PASSWORD        | Your Cloudsmith password                                                                  |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
+| MODULE_PROVIDER | The provider for your Terraform Module                                                    |
+| MODULE_NAME     | The name of your Terraform Module                                                         |
+| MODULE_VERSION  | The version number of your Terraform Module                                               |
+
+## Upload a Module
+
+### Upload via the Cloudsmith CLI or Website
+
+To upload via the Cloudsmith API/CLI, you'll need to generate a module first. While we expect the tooling in this area to improve over time, currently the process is a manual one, and can be a little tricky.
+
+You can build a package with standard command-line tooling like `tar.` To illustrate the process we'll use the [terraform vault module](https://github.com/hashicorp/terraform-aws-vault) for AWS as an example:
+
+First, check out the version of the module we want to pack (0.13.6 for example purposes):
+
+```shell
+git clone git@github.com:hashicorp/terraform-aws-vault.git
+cd terraform-aws-vault
+git checkout 0.13.6
+```
+
+Next, create an archive using: 
+
+```shell
+tar --exclude='.terraform' --exclude='*.tfstate*' --exclude='*_override.tf*' -czvf terraform-aws-vault-0.13.6.tar.gz .
+```
+
+<Note variant="note" headline="Note">
+Only lowercase alphanumeric characters, underscores and hyphens are supported for the module name. Please see the official [Terraform documentation](https://www.terraform.io/docs/modules/index.html) for more information on building your own modules.
+</Note>
+
+#### Upload via Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+
+The command to upload a Terraform Module via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push terraform OWNER/REPOSITORY terraform-MODULE_PROVIDER-MODULE_NAME-MODULE_VERSION.tar.gz
+```
+
+Example:
+
+```shell
+cloudsmith push terraform demo/examples-repo terraform-aws-vault-0.13.6.tar.gz
+```
+
+#### Upload via Cloudsmith web app
+
+Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
+
+## Download / Install a Module
+
+### Setup
+
+Assuming you have Terraform already installed (if not, see the official docs), it is straightforward to add a Cloudsmith-based Terraform module.
+
+First, the namespace, repository and credentials must be added to your `.terraformrc` or `terraform.rc` file. The token must contain the name of the organization which owns the module, the repository containing the module and the credentials required to authenticate with the API, delimited by a `/`:
+
+```shell Entitlement Token Auth
+credentials "terraform.cloudsmith.io" {
+  token = "OWNER/REPOSITORY/TOKEN"
+}
+```
+```shell API Key Auth
+credentials "terraform.cloudsmith.io" {
+  token = "OWNER/REPOSITORY/API-KEY"
+}
+```
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code or expose them in any logs.
+</Note>
+
+### Install a Module
+
+Once configured as above, your module can then depend on a module from your registry by specifying the module's source in your Terraform file(s) using the syntax as outlined by [Terraform](https://www.terraform.io/docs/registry/modules/use.html#private-registry-module-sources):
+
+```
+module "my_module" {
+  source = "terraform.cloudsmith.io/REPOSITORY/MODULE_NAME/local"
+  version = "MODULE_VERSION"
+}
+```
+
+Example:
+
+```
+module "my_module" {
+  source = "terraform.cloudsmith.io/examples-repo/terraform-aws-vault-v0136targz/local"
+  version = "v0.13.6"
+}
+```
+
+Once added, terraform will download the module to your project's `.terraform` directory after running:
+
+```shell
+terraform init
+```
+
+You can install the latest version of this crate by removing the version variable from its declaration in your source code.
+
+You can upgrade to the most recent version of this module matching your version constraints by running:
+
+```shell
+terraform init -upgrade=true
+```
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported by Format</span>
+
+## Troubleshooting
+
+Please see the [Troubleshooting](/troubleshooting) page for further help and information.

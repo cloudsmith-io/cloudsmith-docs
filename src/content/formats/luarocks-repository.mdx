@@ -1,0 +1,164 @@
+import { Note, Video } from '@/components';
+
+# LuaRocks Repository
+
+Cloudsmith provides public & private repositories for Lua Modules
+
+<Video wistiaId="42a07opavi"></Video>
+
+LuaRocks is the package manager for Lua modules. It allows you to create and install Lua modules as self-contained packages called rocks. Cloudsmith is proud to support fully-featured repositories for managing your own private and public Lua rocks.
+
+For more information on Lua, please see:
+
+- [Lua](https://www.lua.org/): The official website for Lua
+- [LuaRocks](https://luarocks.org/): The official website for LuaRocks
+
+<Note variant="note" headline="Contextual Documentation">
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier     | Description                                                                               |
+| :------------- | :---------------------------------------------------------------------------------------- |
+| OWNER          | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY     | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN          | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
+| USERNAME       | Your Cloudsmith username                                                                  |
+| PASSWORD       | Your Cloudsmith password                                                                  |
+| API-KEY        | Your Cloudsmith API Key                                                                   |
+| MODULE_NAME    | The name of your Lua Module                                                               |
+| MODULE_VERSION | The version number of your Lua Module                                                     |
+
+
+## Upload a Module
+
+To upload, you need to generate a module first (rockspec, source and binary can all be uploaded). You can do this with the [luarocks CLI](https://github.com/luarocks/luarocks/wiki/pack):
+
+```shell
+luarocks pack {<rockspec> | <name> [<version>]}
+```
+
+This generates a `.rock` file like `MODULE_NAME-MODULE_VERSION.src.rock` that you can upload. It is also possible to upload a `.rockspec` file directly, without packing. In this case, luarocks will pull the sources from the upstream location and build a package automatically at install time.
+
+Please see the [official LuaRocks documentation](https://github.com/luarocks/luarocks/wiki/Creating-a-rock) for more information on building your own rocks.
+
+<Note variant="note" headline="Note">
+The `luarocks upload` command currently only supports uploading modules to the official public rocks repository.  To upload your modules to Cloudsmith, you can use the Web UI, the Cloudsmith CLI or the Cloudsmith API.
+</Note>
+
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+
+The command to upload a Lua module via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push luarocks OWNER/REPOSITORY MODULE_NAME-MODULE_VERSION.src.rock
+```
+
+Example: 
+
+```shell
+cloudsmith push luarocks org/repo your-module-1.0.0-1.src.rock
+```
+
+### Upload via Cloudsmith web app
+
+Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
+
+### Example Project
+
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). 
+
+## Download / Install a Module
+
+You can install modules directly by using the `--server` command-line flag when executing a luarocks command.
+
+#### Public Repositories
+
+```shell
+luarocks install MODULE_NAME MODULE_VERSION --server https://dl.cloudsmith.io/public/OWNER/REPOSITORY/luarocks/
+```
+
+#### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+```shell Entitlement Token Auth
+luarocks install MODULE_NAME MODULE_VERSION --server https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/luarocks/
+```
+```shell HTTP Basic Auth (User & Pass)
+luarocks install MODULE_NAME MODULE_VERSION --server https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/
+```
+```shell HTTP Basic Auth (API-Key)
+luarocks install MODULE_NAME MODULE_VERSION --server https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/
+```
+```shell HTTP Basic Auth (Token)
+luarocks install MODULE_NAME MODULE_VERSION --server https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/
+```
+
+<Note variant="note" headline="Note">
+To search only your Cloudsmith repository for modules use the `--only-server` command-line flag. This will force luarocks to search only the Cloudsmith repository and will result in luarocks not being able to install public modules that your private module may depend on.
+</Note>
+
+For most use cases, users will probably want to persist their repository settings and not specify them every time. luarocks provides a configuration file that can be modified to persist settings, see the [luarocks config file documentation](https://github.com/luarocks/luarocks/wiki/Config-file-format) for full details of available options and the location of the file for your platform.
+
+To add your private repository, adjust the `rocks_servers` section of your config file.  
+**Note** - if you still want to be able to install packages from [luarocks.org](https://luarocks.org/) you should leave the default value in place and **add** your repository, otherwise you can replace the value entirely:
+
+#### Public Repositories
+
+```json
+rocks_servers = {
+  "http://luarocks.org/repositories/rocks",
+  "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/luarocks/"
+}
+```
+
+#### Private Repositories
+
+```json Entitlement Token Auth
+rocks_servers = {
+  "http://luarocks.org/repositories/rocks",
+  "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/luarocks/"
+}
+```
+```json HTTP Basic Auth (User & Pass)
+rocks_servers = {
+  "http://luarocks.org/repositories/rocks",
+  "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/"
+}
+```
+```json HTTP Basic Auth (API-Key)
+rocks_servers = {
+  "http://luarocks.org/repositories/rocks",
+  "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/"
+}
+```
+```json HTTP Basic Auth (Token)
+rocks_servers = {
+  "http://luarocks.org/repositories/rocks",
+  "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/"
+}
+```
+
+***
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+
+***
+
+## Troubleshooting
+
+Please see the [Troubleshooting](/troubleshooting-overview) page for further help and information.
