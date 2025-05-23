@@ -4,7 +4,7 @@ Once you have exported all your npm packages you can upload them to Cloudsmith- 
 
 First make sure you [install the Cloudsmith CLI ](/getting-started/cli#installation) and export your token. 
 
-A folder of packages in the correct format can be published to Cloudsmith using the script below. We support over 28+ format types. The supported formats can be found [here](/supported-formats).  
+A folder of packages in the correct format can be published to Cloudsmith using the script below. We support over 28+ format types. The supported formats can be found [here](/package-formats).  
 Create the bash script below and call it `migrate_npm_to_cs.sh` and give it execute privileges.  
 cd into the folder. 
 
@@ -18,7 +18,7 @@ do
 done
 ```
 
-Execute the `migrate_npm_to_cs.sh` file passing the path of `<CLOUDSMITH_ORG>/<CLOUDSMITH_REPO>` and the [format type](/supported-formats).
+Execute the `migrate_npm_to_cs.sh` file passing the path of `<CLOUDSMITH_ORG>/<CLOUDSMITH_REPO>` and the [format type](/package-formats).
 
 ```shell
 ./migrate_npm_to_cs.sh cloudsmith_org/cloudsmith_repo python

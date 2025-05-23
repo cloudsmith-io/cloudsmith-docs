@@ -1,0 +1,237 @@
+import { Note, Video } from '@/components';
+
+# Cargo Registry
+
+Cloudsmith provides public & private registries for Cargo (Rust)
+
+<Video wistiaId="6j1x45h87p"></Video>
+
+For more information on Rust, please see:
+
+- [Rust](https://www.rust-lang.org/): The official website for Rust language
+- [Cargo](https://doc.rust-lang.org/cargo/index.html): The official documentation for Cargo - the Rust package manager
+- [Crates Public Registry](https://crates.io/): The official Rust community's crate registry
+
+
+
+<Note variant="note" headline="Contextual Documentation">
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+</Note>
+
+In the following examples: 
+
+| Identifier      | Description                                                                               |
+| :-------------- | :---------------------------------------------------------------------------------------- |
+| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
+| TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
+| USERNAME        | Your Cloudsmith username                                                                  |
+| PASSWORD        | Your Cloudsmith password                                                                  |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
+| REGISTRY_NAME   | A name for the Cargo registry                                                             |
+| PACKAGE_NAME    | The name of your package                                                                  |
+| PACKAGE_VERSION | The version number of your package                                                        |
+| PROJECT_NAME    | The name of your Rust project                                                             |
+
+## Upload a Package
+
+### Upload via Cargo Publish
+
+A name and URL for the registry must be added to your `.cargo/config` file as follows:
+
+### Public Repositories
+
+```toml
+[registries]
+REGISTRY_NAME = { index = "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cargo/index.git" }
+```
+
+### Private Repositories
+
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
+
+```text Entitlement Token Auth
+[registries]
+REGISTRY_NAME = { index = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/index.git" }
+```
+```toml HTTP Basic Auth
+[registries]
+REGISTRY_NAME = { index = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cargo/index.git" }
+```
+
+If using HTTP basic authentication, you'll need to configure Git with credentials. Git's standard authentication mechanisms are used by Cargo and can be configured in the normal way. For example, you could use git's per-user credential store as follows: 
+
+```shell HTTP Basic Auth (User & Pass)
+git config --global credential.helper store
+echo "https://USERNAME:PASSWORD@dl.cloudsmith.io" > ~/.git-credentials
+```
+```shell HTTP Basic Auth (API-Key)
+git config --global credential.helper store
+echo "https://USERNAME:API-KEY@dl.cloudsmith.io" > ~/.git-credentials
+```
+```shell HTTP Basic Auth (Token)
+git config --global credential.helper store
+echo "https://token:TOKEN@dl.cloudsmith.io" > ~/.git-credentials
+```
+
+For further details or other configuration options, see the [Official Git Documentation](https://git-scm.com/docs/gitcredentials).
+
+In order to authenticate for publishing via cargo, you can either enter your credentials using the command: 
+
+```shell
+cargo login --registry REGISTRY_NAME
+```
+
+Or, add your credentials to your `.cargo/credentials` file:
+
+```toml
+[registries.REGISTRY_NAME]
+token = API-KEY
+```
+
+### Publish
+
+To publish a crate, you can do so from your project directory using cargo publish as follows:
+
+```shell
+cargo publish --registry REGISTRY_NAME
+```
+
+If you haven't specified credentials using one of the methods above, you'll be asked to provide them using `cargo login`.
+
+You can also set the following environment variables:  
+`CARGO_REGISTRIES_<REGISTRY_NAME>_INDEX` - instead of setting the registry URL in `~/.cargo/config`  
+`CARGO_REGISTRIES_<REGISTRY_NAME>_TOKEN` - instead of providing credentials via `cargo login` or writing them to `~/.cargo/credentials`:
+
+### Upload via the Cloudsmith CLI
+
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+
+The command to upload a cargo crate via the Cloudsmith CLI is: 
+
+```shell
+cloudsmith push cargo OWNER/REPOSITORY PACKAGE_NAME.crate
+```
+
+Example:
+
+```shell
+cloudsmith push cargo org/repo your-package.crate
+```
+
+### Upload via Cloudsmith Website
+
+Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
+
+## Download a Package
+
+### Registry Setup
+
+It is easy to add a Cloudsmith-based Cargo registry.
+
+<Note variant="note" headline="Cargo Sparse Registry">
+Cargo Sparse Registries are a new addition to Cargo as of v1.68.0, and are the recommended way to interact with your Cloudsmith Repositories - they offer significant performance advantages over the old Git-based registries, such as reducing the bandwidth used and improving dependency resolution times.
+</Note>
+
+First, the name and config for the registry must be added to your `.cargo/config.toml` or `.cargo/config` file as follows:
+
+### Cargo >= v1.74 (HTTP Sparse Registry)
+
+```toml API Key Auth
+[registries.OWNER-REPOSITORY]
+index = "sparse+https://cargo.cloudsmith.io/OWNER/REPOSITORY/"
+token = "Token API-KEY"
+credential-provider = "cargo:token"
+```
+```toml Entitlement Token Auth
+[registries.OWNER-REPOSITORY]
+index = "sparse+https://cargo.cloudsmith.io/OWNER/REPOSITORY/"
+token = "Token TOKEN"
+credential-provider = "cargo:token"
+```
+
+### Cargo \< v1.74 (HTTP Sparse Registry)
+If you are using Cargo version `< 1.74`, the only way to authenticate with a private sparse registry is using Cloudsmith's URL-based authentication.
+
+```toml Entitlement Token Auth
+[registries.OWNER-REPOSITORY]
+index = "sparse+https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/"
+```
+
+### Cargo < v1.68 (Legacy Git Registry)
+
+```toml HTTP Basic Auth (API-Key)
+[registries]
+OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cargo/index.git" }
+```
+```toml URL Auth (Entitlement Token)
+[registries]
+OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/index.git" }
+```
+
+## Registry Authentication
+
+You must configure Git with the proper credentials to clone the registry when using HTTP basic authentication. Git's standard authentication mechanisms are used by Cargo and can be configured normally. For example, you could use git's per-user credential store like so:
+
+```shell
+git config --global credential.helper store
+echo "https://USERNAME:API-KEY@dl.cloudsmith.io" > ~/.git-credentials
+```
+
+When using URL-based authentication, no further configuration is required, you're all set up and ready to go.
+
+### Install a Package
+
+Once you have configured a registry using one of the methods described above, a crate can then depend on a crate from your registry by specifying the registry key and a value of the registry's name in that dependency's entry in `Cargo.toml`:
+
+```toml
+[package]
+name = "PROJECT_NAME"
+version = "0.1.0"
+[dependencies]
+PACKAGE_NAME = { version = "PACKAGE_VERSION", registry = "REGISTRY_NAME" }
+```
+
+You can also install a crate directly by specifying the registry on the command line:
+
+```shell
+cargo install PACKAGE_NAME --registry REGISTRY_NAME`
+```
+
+## Security Scanning
+
+<span class="cs-tag cs-tag-dark-green">Supported</span>  
+Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+
+## Upstream Proxying / Caching
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+
+<Note variant="note" headline="Note">
+When you install a Cargo package, `cargo` will assume that all dependencies are available in your Cloudsmith repository. You can configure your Cloudsmith repository to fetch any dependencies from crates.io that are not already present. See the repository [Main Settings](/repositories/repository-settings) for further information.
+</Note>
+
+## Key Signing Support
+
+<span class="cs-tag cs-tag-dark-grey">Not Supported by Format</span>
+
+## Troubleshooting
+
+**Q. It's not working...**  
+Cargo's cache can become corrupted. If this happens, you can often fix the issue by manually deleting the cache directories. The folders to remove are:
+
+- `~/.cargo/registry`
+- `~/.cargo/git`
+
+If you previously set an override for `$CARGO_HOME`, the cache may be in a non-standard location.
+
+## Still Need Help?
+
+Contact us [here](https://support.cloudsmith.com). We're always happy to help!

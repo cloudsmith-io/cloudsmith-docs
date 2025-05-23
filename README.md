@@ -1,6 +1,6 @@
 # Cloudsmith Docs
 
-The documentation of the Cloudsmith API; replacement for [Cloudsmith.io/docs](https://help.cloudsmith.io/docs)
+The documentation of Cloudsmith.
 
 ## Getting Started
 

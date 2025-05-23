@@ -1,0 +1,52 @@
+import { BlockImage } from '@/components'
+import imgiPad_Pro from './images/audit-logs/994c519bd88edbe5071aaad9001e81f2626ecfa673691f5c78e04b699643a5e1-app.cloudsmith.com_demo_logsiPad_Pro.png'
+import imgiPad_Pro_1 from './images/audit-logs/4e9356d46f85b38b0939a0b3a5a19fbe4f3b2fe65e6850633f172f1a482b503c-app.cloudsmith.com_demo_logsiPad_Pro_1.png'
+
+# Audit Logs
+
+Audit Logs provide a log of events across your organization, such as [creating](/repositories/create-a-repository)/[deleting](ref:repos_delete) a repository or modifications to repository settings/configuration. 
+
+<BlockImage src={imgiPad_Pro} alt="Audit Logs"></BlockImage>
+
+## Key Concepts
+
+Clicking on a row in your audit log will expand to show more details.
+
+<BlockImage src={imgiPad_Pro_1} alt="Expanded log entry"></BlockImage>
+
+Each entry in the log represents an event or a state change and consists of four main components.
+
+- **Actor**: The object that performed the Action, such as a User, Service Account or System
+- **Verb**: The verb (phrase) identifying "what_happened", such as `login`, `retention_settings_changed` or `token_created`
+- **Action Object**: The object which was created, deleted or updated by the action.
+- **Target**: (Optional) The object within which the Action was performed, such as a repository or account
+
+## Searching / Filtering
+
+You can Search and Filter the Audit Log using the search box at the top. You can also use boolean logic (e.g. AND/OR/NOT) for complex search queries.
+
+### Search Terms
+
+|Search By|Search Terms Example|
+|:--|:--|
+|Actor|`actor:some-user`|
+|Actor Kind|`actor_kind:user` (user) <br />`actor_kind:service_account` (service account) <br />`actor_kind:system`|"
+|Event Time|`event_at:>"1 day ago"` <br /> `event_at:<"June 21, 2022 EST"`|
+|Event Kind|`event_kind:action` (action) <br /> `event_kind:create` (create) <br />`event_kind:read` (read) <br />`event_kind:update` (update) <br />`event_kind:delete` (delete) <br />|
+|Event (Fuzzy)|`event:api_key` (api key events) <br />`event:entitlement` (entitlement events) <br />`event:login `(login events) <br />`event:package` (package events) <br />`event:retention` (retention events) <br />`event:service_account` (service account events)|
+
+#### Field type modifiers (depending on the type, you can influence behaviour)
+
+- For all queries, you can use:  
+  `~foo` for negation
+
+- For string queries, you can use:  
+  `^foo` to anchor to start of term  
+  `foo$` to anchor to end of term  
+  `foo*bar` for fuzzy matching
+
+- For number/date queries, you can use:  
+  `>foo` for values greater than  
+  `>=foo` for values greater / equal  
+  `<foo` for values less than  
+  `<=foo` for values less / equal

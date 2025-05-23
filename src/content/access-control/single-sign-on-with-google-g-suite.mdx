@@ -1,0 +1,82 @@
+import { BlockImage } from '@/components'
+import img4cd854e_google_saml_1 from './images/single-sign-on-with-google-g-suite/4cd854e-google_saml_1.png'
+import imgcefc6ab_google_saml_2 from './images/single-sign-on-with-google-g-suite/cefc6ab-google_saml_2.png'
+import img6a3220e_google_saml_3 from './images/single-sign-on-with-google-g-suite/6a3220e-google_saml_3.png'
+import img3ba9431_google_saml_4 from './images/single-sign-on-with-google-g-suite/3ba9431-google_saml_4.png'
+import img203582c_google_saml_5 from './images/single-sign-on-with-google-g-suite/203582c-google_saml_5.png'
+import imgeefccf6_google_saml_6 from './images/single-sign-on-with-google-g-suite/eefccf6-google_saml_6.png'
+import imgf9643b3_google_saml_7 from './images/single-sign-on-with-google-g-suite/f9643b3-google_saml_7.png'
+import img728af64_google_saml_8 from './images/single-sign-on-with-google-g-suite/728af64-google_saml_8.png'
+import img0a5217f_google_saml_10 from './images/single-sign-on-with-google-g-suite/0a5217f-google_saml_10.png'
+
+# Single Sign-On with Google
+
+---
+This guide provides step-by-step instructions on setting up Google (G-Suite) as a SAML IdP for your Cloudsmith Organization.
+
+## Adding Cloudsmith to Google (G-Suite)
+
+Cloudsmith is not yet an integrated application in [Google (G-Suite)](https://google.com). You'll have to add Cloudsmith manually so you can configure SSO.
+
+### Step 1
+
+Log into the Google (G-Suite) [Admin Console](https://admin.google.com) and click _Apps_:
+
+<BlockImage src={img4cd854e_google_saml_1} alt=""></BlockImage>
+
+### Step 2
+Click on the _SAML apps_ panel:
+
+<BlockImage src={imgcefc6ab_google_saml_2} alt=""></BlockImage>
+
+### Step 3
+Click the _yellow plus (+) button_ in the bottom right to add a new SAML application:
+
+<BlockImage src={img6a3220e_google_saml_3} alt=""></BlockImage>
+
+You should then see a modal window pop up where we can begin to enter our application's details.
+
+### Step 4
+A new modal dialog pops up. In Step 1, _Enable SSO for SAML Application_, click on _SETUP MY OWN CUSTOM APP_ at the bottom:
+
+<BlockImage src={img3ba9431_google_saml_4} alt=""></BlockImage>
+
+### Step 5
+In Step 2, _Google IdP Information_, click on the _DOWNLOAD_ button beside _IDP metadata_ and save this file, then click _NEXT_:
+
+<BlockImage src={img203582c_google_saml_5} alt=""></BlockImage>
+
+### Step 6
+In Step 3, _Basic information for your Custom App_, enter "Cloudsmith" (without quotes) as the _Application Name_. (You can optionally add the Cloudsmith logo too for easier visibility, you can find hi-res versions of the logo [here](https://cloudsmith.io/branding/)):
+
+<BlockImage src={imgeefccf6_google_saml_6} alt=""></BlockImage>
+
+### Step 7
+
+In Step 4, _Service Provider Details_, enter: "https://cloudsmith.io/orgs/MY_ORG_NAME/saml/acs/" (without quotes) as the _ACS URL_ and _Entity ID_, where "MY_ORG_NAME" is replaced with your organization's slug (i.e. what your normally see in the URL bar for your organization).
+
+Leave the _Signed Response_ checkbox _unchecked_ (this is very important). Then for the _Name ID Format_, ensure that "EMAIL" is chosen from the dropdown list. Then click on _NEXT_ on the bottom right:
+
+<BlockImage src={imgf9643b3_google_saml_7} alt=""></BlockImage>
+
+### Step 8
+Next, we'll configure Google (G-Suite) to also send name details to Cloudsmith. Create two mappings. The first is "FirstName" as the value, mapped from _Basic Information_ / _First Name_. The second is "LastName" as the value, mapped from _Basic Information_ / _Last Name_. Then click on _FINISH_:
+
+<BlockImage src={img728af64_google_saml_8} alt=""></BlockImage>
+
+### Step 9
+Finally, you'll need to enable the Cloudsmith SAML application for all or some member's of your Google (G-Suite) organization. Go back to the SAML apps dashboard (as in step 2). Then, click the three dots to the right of the _Cloudsmith_ application, and select either _ON for everyone_ (to enable for all users), or _ON for some_ (to enable for a subset of users):
+
+<BlockImage src={img0a5217f_google_saml_10} alt=""></BlockImage>
+
+### Step 10
+Your application is now configured on Google (G-Suite)! Google states that it may take upto 24 hours before the application is active on your domain, but in our experience it takes much less than this.
+
+## Adding SAML configuration to Cloudsmith
+
+Once configured as above, you'll need to add the IdP Metadata XML to the [SAML Settings](/access-control/single-sign-on#enable-saml) for your Cloudsmith organization. 
+
+When you have added your IdP Metadata XML to your organization SAML settings and enabled SAML Authentication, you will be able to access the landing page of your organization at the following URL:  
+https://cloudsmith.io/orgs/ORG/saml/login/
+
+Where _ORG_ is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).
