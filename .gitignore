@@ -32,5 +32,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-package-lock.json
 .vscode/launch.json
