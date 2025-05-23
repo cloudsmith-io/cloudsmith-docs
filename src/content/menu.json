@@ -733,11 +733,15 @@
             "path": "/guides/getting-started"
           },
           {
-            "title": "Dependency firewall",
-            "path": "/guides/building-a-dependency-firewall"
+            "title": "Test Guide",
+            "path": "/guides/test-guide"
+          },
+                    {
+            "title": "Getting started (legacy)",
+            "path": "/guides/setting-up-your-cloudsmith-account-and-workspace"
           }
-    ]
-  },
+        ]
+      },
   "api": {
     "title": "API Reference",
     "path": "/api",
