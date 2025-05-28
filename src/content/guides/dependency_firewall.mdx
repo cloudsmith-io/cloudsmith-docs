@@ -1,0 +1,117 @@
+# DOCS: Guide: Building a dependency firewall
+
+
+/* GOALs
+
+Super important to:
+- keep it simple
+- relate to the product features, strenghs, where do we do it better?
+- add examples to each topic!! clarity.
+- try to make it as much hands-on as possible
+
+*/
+
+
+
+
+Highlight key cloudsmith functionality. including; security scanning, deny policies, block-until-scanned, vulnerability policies
+
+/*  INTRO / PROBLEM STATEMENT
+
+ Why/Purpose
+1. set the context for the problem, what things can happen when you don't have a dependency firewall?
+2. Define a clear list of negative consequences.
+*/
+
+## Intro: _The Hidden Risks in Your Software Supply Chain: Why Dependency Control is No Longer Optional_
+
+In today's fast-paced development landscape, the ability to leverage open-source and third-party packages is a cornerstone of rapid innovation and efficiency. Teams can assemble sophisticated applications at unprecedented speeds, standing on the shoulders of a global community of developers. However, this reliance on external code introduces a complex and often underestimated set of risks.
+
+Imagine a bustling construction site where materials arrive from countless suppliers, each uninspected. While this might accelerate the initial building phase, it also dramatically increases the chances of incorporating substandard, insecure, or even dangerously flawed components. Similarly, software development teams frequently pull in dozens, if not hundreds, of external dependencies without rigorous scrutiny. This can unknowingly expose their organizations to a barrage of potential problems: crippling security vulnerabilities hidden within a transitive dependency, restrictive licensing terms that create legal nightmares, or deprecated packages that lead to operational instability and ballooning maintenance costs.
+
+The pressure to deliver quickly can often overshadow the critical need for due diligence, leaving companies vulnerable. As software supply chain attacks become increasingly sophisticated and common, and as regulatory landscapes tighten, the laissez-faire approach to dependency management is no longer sustainable. Businesses are now grappling with the urgent need to gain visibility and control over what enters their development pipelines, paving the way for solutions designed to safeguard their software and their reputation.
+
+/*  SUGGEST OVERVIEW OF SOLUTION
+
+3. Stablish ground for a solution, how we can avoid this with Cloudsmith and other benefits. 
+*/
+
+If this sounds familiar to you, keep reading. In this guide we'll cover how you can build a dependency firawall using Cloudsmith.
+
+
+
+
+4. explanation of what a dependency firewall is: 
+	Dependency Firewall consists of a set of features that allow you to exercise and implement controls over what packages can be consumed by developers and build processes.
+
+5. why it's important to implement, link back to the pain points mentioned in #1.
+
+
+## Index
+
+
+## Who's this guide for?
+
+If you use or craft software, this guide is for you.
+No matter if you are a Cloudsmith customer or not, this guide has been created with a vendor-neutral approach that will help you understand the basics of setting up your own dependency firewall and understand why this is important for you.
+
+
+
+## how / guide
+
+- step-by-step guide to configuring (2-3 pages max)
+
+
+Steps
+
+
+The Dependency Firewall is composed of the following features: 
+
+1. single source of truth (all formats)
+	1.1. Observability and control
+	1.2. Enforcement, more on point 3 & 4.
+	
+2. Upstream proxy and caching 
+	2.1. dependency caching: once they've cached the dependency the first time, they will always get served the same one. This is not guaranteed in a public repo. Why? they can manipulate the versioning by deleting and reuploading on a public repo... unless you store the checksum or signing info - there's no guarantee when you download thor 1.2.3 from pypi you'll get the same one you did a month ago.
+
+3. Vulnerability Scanning and Policies 
+4. License Scanning and Policies
+5. Package Deny Rules 
+6. Package Quarantine 
+
+
+
+Ensure your teams are only pulling from Cloudsmith - which means setting up your teams and pipelines to point at Cloudsmith
+
+Connect Cloudsmith to upstream registries 
+
+Bonus step: Create a policy (Licence policy, vulnerability policy)
+
+Bonus step: Activate "block until scanned"
+
+
+
+
+
+what are the features that allow you to build the firewall
+
+
+what are the (different) approaches you could use to implement the firewall & pros/cons
+- promotion workflow
+- strict dependency blocking
+
+
+
+@alan topics\
+- secure isolated plane
+  - 
+  - logs
+  - signing verification
+  - 
+  - oidc access
+
+
+
+
+
+
