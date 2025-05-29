@@ -49,7 +49,7 @@ The Client Logs area displays the following information:
 | :--------------------- | :---------- |
 | Filters | A Filter menu in the left to scope your search by any Target or Actor parameters. Learn more about fields available in [Fields and filters](./#Filters). |
 | Time-graph | An interactive time-frame graph in the top of the screen to visualize how events distribute across the time-frame selected. Use this visualization to zoom into your data. |
-| Events view | A list of events result from applying the filters to the search. Here you can visualize every single package downloaded from your workspace. |
+| Log details | A list of events result from applying the filters to the search. Here you can visualize every single package downloaded from your workspace. You can review a detailed sample entry [here](/logs-and-observability/client-logs#analyzing-a-specific-entry). |
 | Actions | Two action buttons in the top right corner to fetch new data or download a report of events with your selected scope. |
 
 ### Filters
@@ -65,6 +65,10 @@ There are two main categories:
 | Package Format | _Maven_, _Python_, _Docker_... you name it. Cloudsmith supports 30 different [formats](/formats). | IP Address | IP address of the download request | User Type | User or Service. |
 | Repository Type | Public, Private, or OSS. | Users | Name, determined by the owner of the _API Token_ used. |
 | Repository | the name of your repo. | Entitlement Token | Name of the service or non-human agent that downloaded the package. |
+
+<Note variant="note" headline="About search limits">
+  Some of these fields (for example, IP Address, Users and Entitlement Token) could potentially return many thousands of results in a dropdown. A 1k limit is applied, displaying the first 1k results ordered by descending most results.
+</Note>
 
 #### Using the time filters
 
@@ -177,6 +181,10 @@ This section provides information about the entity (user or token) that initiate
 ## Reporting
 
 Once you have found what you were looking for, click in the top right corner download button and then confirm the **Download** to get a report of all the download actions in CSV format.
+
+<Note variant="note" headline="Log entries limit">
+  Currently, the system imposes a limit of 500 log entries for download operations.
+</Note>
 
 ## FAQs and troubleshooting
 
