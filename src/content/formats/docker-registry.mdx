@@ -175,7 +175,8 @@ Entitlement Tokens, Service Tokens, User Credentials and API-Keys should be trea
 </Note>
 You need to authenticate via `docker login` to pull images: 
 
-```shell Entitlement Token Auth
+```shell 
+# Entitlement Token Auth
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: TOKEN
@@ -183,7 +184,8 @@ Password: TOKEN
 Login Succeeded
 ```
 
-```Text Service Token Auth
+```shell 
+# Service Token Auth
 docker login docker.cloudsmith.io
 Username: SERVICE_NAME
 Password: TOKEN
@@ -191,7 +193,8 @@ Password: TOKEN
 Login Succeeded
 ```
 
-```shell HTTP Basic Auth (User & Pass)
+```shell 
+# HTTP Basic Auth (User & Pass)
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: PASSWORD
@@ -199,7 +202,8 @@ Password: PASSWORD
 Login Succeeded
 ```
 
-```shell HTTP Basic Auth (API-Key)
+```shell
+# HTTP Basic Auth (API-Key)
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: API-KEY
@@ -207,7 +211,8 @@ Password: API-KEY
 Login Succeeded
 ```
 
-```shell HTTP Basic Auth (Token)
+```shell
+# HTTP Basic Auth (Token)
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: TOKEN
