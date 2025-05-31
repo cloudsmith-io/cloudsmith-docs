@@ -1,20 +1,20 @@
----
-title: Getting Started
----
+import { Note, BlockImage } from '@/components'
 
-# What is Package Management
+<Note variant="note">
+Expand based on SE docs & alphabetise. Strip out hyperbole / jargon. Link to various sections. Incorporate https://cloudsmith.com/blog/6-essential-features-for-your-next-artifact-manager
+</Note>
 
-Package management is the process of handling the many and varied dependencies and artifacts for your servers, applications, and developers. These are the archives, binaries, libraries, tools, scripts, modules, snippets, metadata, assets and even datasets that power your processes, products, and solutions.
+## Artifact Management
+
+Artifat management, sometimes called package management, is the process of handling the many and varied dependencies and artifacts for your servers, applications, and developers. These are the archives, binaries, libraries, tools, scripts, modules, snippets, metadata, assets and even datasets that power your processes, products, and solutions.
 
 A binary package manager centralises these dependencies and artifacts, acting as a glue layer within the DevOps toolchain to provide easier interaction between development, operations, build, and release. 
 
 Package management reduces the friction between different functions within DevOps, and the process of delivering from developer to customer is accelerated.
 
-## What is Cloudsmith?
+## Cloudsmith
 
-A single source of truth for your software assets. All your packages, in any format, are in one location and accessible across the organization. Cloudsmith is package management the way it should be done, supporting modern DevOps practices and accelerating software delivery pipelines.
-
-Our mission is to provide package management that leverages the cloud's best capabilities and specifically build it around customers that want better software dependencies, better software distribution, and better automation of their DevOps pipelines and platforms. We believe that modern infrastructure and applications require modern tooling and that package management is the quintessential modern tool for DevOps.
+Cloudsmith supports modern engineering workflows by acting as a single source of truth for your software artifacts. All your packages, in any format, are in one location and accessible across the organization. 
 
 ## Control
 
@@ -55,3 +55,21 @@ Cloudsmith allows you to synchronize workflow and process with colleagues, other
 ## Total Cost of Ownership
 
 Cloudsmith is cheaper than planning it, coding it, maintaining it, upgrading it, and worrying about it, yourself; so you can concentrate on building and deploying your awesome products instead.
+
+## Multi-format repositories
+
+Cloudsmith supports storing multiple package types and container images in the same repository while still providing support for the native package management tooling for each format. 
+ 
+* Repositories can be provisioned via UI, API or the Cloudsmith Terraform Provider.
+* Unified Access controls, visibility and reporting.
+* All artifacts are served through the Cloudsmith Package Delivery Network
+
+
+## Upstream Proxying & Caching
+Cloudsmith repositories support configuration of multiple upstream sources. 
+
+Can be configured via UI, API or the Cloudsmith Terraform Provider.
+Requests for packages that are not present in the repository will be served from an upstream source.
+Packages can be proxied, or cached for subsequent requests.
+Upstreams can be configured for resolution priority. 
+Packages fetched from upstreams are tagged
