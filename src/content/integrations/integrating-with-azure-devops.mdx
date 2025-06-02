@@ -60,7 +60,7 @@ To enable OIDC authentication, create an Azure AD (Azure Entra) application that
    2. Click Set to define an Application ID URI. You can use the default URI or set one on your own.
    3. Copy the URI.
 
-<Note>📘 This URI will be used as the appIdUri in the pipeline configuration with /.default appended to the URI. Example: api://mydomain/myapp/.default.</Note>;
+<Note>📘 This URI will be used as the appIdUri in the pipeline configuration with /.default appended to the URI. Example: api://mydomain/myapp/.default.</Note>
 
 ### Step 2: Install the Cloudsmith CLI Extension in Azure DevOps
 
@@ -96,12 +96,12 @@ apiKey: '$(CLOUDSMITH_API_KEY)'
 
 To set up OIDC authentication, configure the following parameters:
 
-1. **clientId:** The Application (client) ID from Azure AD.
-2. **clientSecret:** The Client Secret created in Azure AD.
-3. **tenantId: **The Directory (tenant) ID from Azure AD.
-4. **appIdUri: **The Application ID URI from Azure AD.
-5. **oidcNamespace:** Your Cloudsmith organization namespace.
-6. **oidcServiceSlug:** The specific Cloudsmith service account slug.
+1. **clientId**: The Application (client) ID from Azure AD.
+2. **clientSecret**: The Client Secret created in Azure AD.
+3. **tenantId**: The Directory (tenant) ID from Azure AD.
+4. **appIdUri**: The Application ID URI from Azure AD.
+5. **oidcNamespace**: Your Cloudsmith organization namespace.
+6. **oidcServiceSlug**: The specific Cloudsmith service account slug.
 
 Example configuration:
 
@@ -133,7 +133,7 @@ oidcServiceSlug: '$(YOUR_SERVICE_SLUG)'
    4. Under Service Accounts, select the appropriate service account(s) that this provider can authenticate with. For example, you might select a service account like “ado-user” as shown in the image above.
    5. Click Create Settings to save the configuration.
 
-   <Note>📘 This configuration allows Cloudsmith to authenticate requests from Azure DevOps using OIDC, provided the token claims match.</Note>;
+   <Note>📘 This configuration allows Cloudsmith to authenticate requests from Azure DevOps using OIDC, provided the token claims match.</Note>
 
 <BlockImage src={azureDevopsProviderSettings} alt=""></BlockImage>
 
@@ -176,7 +176,7 @@ steps:
 
 With all the configurations in place, you’re now set up to use Cloudsmith CLI commands in your pipeline without additional setup steps. This means you can perform any Cloudsmith-related operations—such as pushing packages, pulling packages, or managing repositories—directly from the pipeline.
 
-<Note>📘 Ensure that the above configuration steps run on the same pipeline runner along with the Cloudsmith CLI tasks.</Note>;
+<Note>📘 Ensure that the above configuration steps run on the same pipeline runner along with the Cloudsmith CLI tasks.</Note>
 
 ---
 
