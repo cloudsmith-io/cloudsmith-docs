@@ -561,6 +561,10 @@
         "path": "/integrations/",
         "children": [
           {
+            "title": "Aikido",
+            "path": "/integrations/integrating-with-aikido"
+          },
+          {
             "title": "Ansible",
             "path": "/integrations/integrating-with-ansible"
           },

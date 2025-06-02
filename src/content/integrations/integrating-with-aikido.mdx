@@ -1,0 +1,68 @@
+import { Video, BlockImage, Note } from '@/components'
+
+import aikido_auth from './images/aikido/aikido_auth.png';
+import aikido_linkImages from './images/aikido/aikido_linkImages.png';
+import aikido_scan from './images/aikido/aikido_scan.png';
+
+# Integrating with Aikido
+
+_How to integrate Aikido with Cloudsmith._
+
+---
+
+Enhance your security posture by integrating Cloudsmith’s container registry with Aikido for comprehensive vulnerability scanning. This integration enables Cloudsmith users to scan their container images for known vulnerabilities directly within Aikido, helping you stay secure and compliant
+
+- [Aikido](https://www.aikido.dev/): Aikido Website
+- [Aikido Docs](https://help.aikido.dev/doc): Official Aikido documentation 
+- [Install Cloudsmith Integration](https://integrations.aikido.dev/integrations/cloudsmith): Official Cloudsmith x Aikido installation
+
+## Overview
+
+The Cloudsmith-Aikido integration provides the following capabilities:
+
+- **Vulnerability Scanning**: Scan your container images stored in Cloudsmith for known vulnerabilities with Aikido’s advanced scanning tools.
+- **Enhanced Analysis (Optional)**: Link containers to a code repository in Aikido to reduce false positives and better deduplicate findings.
+- **Free Forever Version**: Aikido offers a free plan that enables Cloudsmith users to scan container images for vulnerabilities. For users who require additional features or advanced functionality, paid plans are also available.
+
+## Setup Instructions
+
+### Step 1: Enable the Aikido Integration for Cloudsmith
+
+1. Sign in to your Aikido account or sign up if you don’t already have an account.
+2. Navigate to the Integrations section and search for “Cloudsmith.”
+3. Select the Cloudsmith integration to start the configuration.
+
+### Step 2: Connect Your Cloudsmith Container Registry to Aikido
+
+1. In Aikido, you will be prompted to enter the API credentials for Cloudsmith.
+2. Enter your Cloudsmith Username, API key along with the Namespace to authenticate.
+3. Once authenticated, select the specific Cloudsmith repositories you want to integrate with Aikido for vulnerability scanning.
+
+<BlockImage src={aikido_auth} alt=""></BlockImage>
+
+<Note>📘 Ensure you use API keys or Entitlement token with appropriate permissions for accessing and scanning container images.</Note>
+
+### Step 3: Select Container Repositories:
+
+1. Once authenticated, select the Cloudsmith container repositories that you’d like to monitor.
+2. (Optional) Link each container images to its relevant code repository for better analysis and deduplication.
+
+<BlockImage src={aikido_linkImages} alt="aikido_linkImages"></BlockImage>
+
+### Step 4: Start Scanning Your Containers
+
+Aikido will now automatically scan your selected repositories for vulnerabilities. You can view detailed reports, including severity levels and remediation steps.
+
+<BlockImage src={aikido_scan} alt=""></BlockImage>
+
+## Best Practices and Recommendations
+
+- **Enable Regular Scans:** Schedule regular scans within Aikido to ensure continuous monitoring of your container images.
+- **Use Code Linking for Enhanced Deduplication**: By linking your images to the relevant code repositories, you can reduce duplicate findings and gain a more accurate vulnerability report.
+- **Review Permissions Carefully**: Ensure that API keys and other credentials have the appropriate access levels to allow for vulnerability scanning and reporting.
+
+## Troubleshooting
+
+If you experience any issues, consult the [Aikido Help Documentation ](https://help.aikido.dev/doc/container-scanning-for-cloudsmith-container-registry/doccCvCzEUb5)or contact Aikido support.
+
+Integrating Aikido with Cloudsmith ensures that your container images remain secure and up-to-date with the latest vulnerability assessments. Get started today to enhance your container security strategy with Aikido.
