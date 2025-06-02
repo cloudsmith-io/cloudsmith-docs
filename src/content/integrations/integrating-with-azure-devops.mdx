@@ -1,92 +1,202 @@
 # Azure DevOps
-import { BlockImage } from '@/components';
-import azureDevopsVariablesImages from './images/azure-devops/1615f01-Screenshot_2023-02-07_at_11.13.01.png';
 
+import { BlockImage } from '@/components';
+import { Note } from '@/components';
+import azureDevopsProviderSettings from './images/azure-devops/azure-devops_config.png';
+import azureDevopsCLIinstall from './images/azure-devops/azure-devops_CLI_install.png';
+
+_Effortlessly integrate Cloudsmith with Azure DevOps to securely manage artifacts and automate deployments._
 
 ## Introduction
 
-This document describes the integration of Azure DevOps and Cloudsmith. Azure DevOps is a suite of development tools, services, and features for teams to plan, develop, test, and deliver software. Cloudsmith is a package management and distribution platform. The aim of this integration is to provide a smooth and seamless way to upload your packages in your development pipeline.
+Integrate Cloudsmith with Azure DevOps to automate the management of your artifacts securely and efficiently. This guide help you set up Azure DevOps pipelines to interact directly with Cloudsmith repositories, with options for both API Key and OIDC authentication.
 
-## Prerequisites
+## What You’ll Need
 
 Before getting started, you need to have the following prerequisites:
 
-- An Azure DevOps account, which can be set up by following the steps in the [Azure DevOps documentation](https://docs.microsoft.com/en-us/azure/devops/user-guide/get-started/?view=azure-devops).
-- A Cloudsmith account, which can be set up by following the steps in the [Cloudsmith documentation](/getting-started/).
-- A Cloudsmith [Service Account](/accounts-and-teams/service-accounts) key (recommended) or your personal API key.
-  - When using a Personal API key you will have permissions based on your account level so we don't recommend inserting this key into a pipeline if you have access to crucial repositories within your organisation.
+- An Azure DevOps account with pipeline permissions, which can be set up by following the steps in the [Azure DevOps documentation](https://learn.microsoft.com/en-us/azure/devops/user-guide/sign-up-invite-teammates?view=azure-devops&tabs=microsoft-account).
+- A Cloudsmith account, which can be set up by following the steps in the [Cloudsmith documentation](https://help.cloudsmith.io/docs/welcome-to-cloudsmith-docs).
+- Azure Entra (formerly Azure Active Directory) App registration capabilities if using OIDC.
 
-## Steps for Integration
+## Integration Features
 
-To integrate Azure DevOps and Cloudsmith, follow these steps:
+- **Automatic Cloudsmith CLI Setup**: Install and configure Cloudsmith CLI in your ADO pipeline.
+- **Flexible Authentication**: Choose between API Key and OIDC authentication.
+- **Cross-Platform Compatibility**: Works on Windows, Ubuntu, and Mac ADO agents.
 
-1. In your build pipeline create the following three [environment variables](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml,bash#secret-variable-in-the-ui):  
-   a. ORG  
-   b. REPO  
-   c. CLOUDSMITH_API_KEY
+---
 
-<BlockImage src={azureDevopsVariablesImages} alt="" align="left">
-</BlockImage>
+## Step-by-Step Guide
 
-2. In your `azure-pipelines.yml` create a section to install the [cloudsmith cli](/getting-started/cli#installation):
+### Step 1: Set Up an Azure AD Application in Azure Entra (for OIDC Authentication)
 
+To enable OIDC authentication, create an Azure AD (Azure Entra) application that will allow Azure DevOps to interact securely with Cloudsmith.
+
+1. **Navigate to Azure Entra Applications:**
+   1. Go to [Azure Portal](https://portal.azure.com/#home).
+   2. Select Azure Active Directory/Entra from the menu.
+   3. Choose App registrations and click New registration.
+2. **Register the Application:**
+   1. Enter a Name (e.g., “Cloudsmith Integration”).
+   2. For Supported account types, select Accounts in this organizational directory only.
+   3. Click Register.
+3. **Capture Key Details:**
+   1. After registration, note the Application (client) ID and Directory (tenant) ID. These will be needed in the pipeline configuration as `clientId` and `tenantId`, respectively.
+4. **Create a Client Secret:**
+   1. In your registered app, navigate to Certificates & secrets.
+   2. Under Client secrets, click New client secret.
+   3. Add a Description (e.g., “Cloudsmith Secret”) and set an expiration.
+   4. Click Add and copy the Value. This will be your `clientSecret`.
+5. **Configure API Permissions for the Azure Entra App Registration:**
+   1. In your Azure Entra App Registration, navigate to the API Permissions blade.
+   2. Click on Add a permission.
+   3. Under Microsoft APIs, select Microsoft Graph.
+   4. Choose Delegated permissions and select `User.Read`.
+   5. Click Add permissions.
+   6. After adding the permission, click on **Grant admin consent for the organization** to ensure this permission is granted for all users in the directory.
+6. **Set App ID URI:**
+   1. Navigate to Expose an API in the application’s settings.
+   2. Click Set to define an Application ID URI. You can use the default URI or set one on your own.
+   3. Copy the URI.
+
+<Note>📘 This URI will be used as the appIdUri in the pipeline configuration with /.default appended to the URI. Example: api://mydomain/myapp/.default.</Note>;
+
+### Step 2: Install the Cloudsmith CLI Extension in Azure DevOps
+
+Go to the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/). Search for [Cloudsmith CLI Setup & Authenticate](https://marketplace.visualstudio.com/items?itemName=Cloudsmith.CloudsmithCliSetupAndAuthenticate) and install it in your DevOps organization.
+
+### Step 3: Add the Cloudsmith CLI Setup & Authenticate Task in Your Pipeline
+
+1. In your Azure DevOps project, navigate to Pipelines and open the pipeline where you want to integrate the Cloudsmith CLI.
+2. In the pipeline editor, add the Cloudsmith CLI Setup & Authenticate task.
+3. To use a specific CLI version, set `cliVersion` in your pipeline. Leave it blank to use the latest.
+4. Configure the task based on your preferred authentication method:
+   1. For API Key Authentication: Enter your Cloudsmith API key.(Check step 3 for more information).
+   2. For OIDC Authentication: Enter the required OIDC Namespace and OIDC Service Account Slug along with the Client ID, Client Secret, Tenant ID, and App ID URI as needed.(Check step 3 for more information).
+
+### Step 4: Configure Authentication in Your Azure DevOps Pipeline
+
+This integration supports both API Key and OIDC authentication.
+
+**API Key Authentication**
+
+1. Set **authMethod** to `apiKey`.
+2. Provide `CLOUDSMITH_API_KEY` as a secret variable in your pipeline configuration.
+
+Example configuration:
+
+```yaml
+cliVersion: '1.3.1'  # Example CLI version
+authMethod: 'apiKey'
+apiKey: '$(CLOUDSMITH_API_KEY)'
 ```
-- script: |
-	pip install --upgrade cloudsmith-cli
-  displayName: 'Install Cloudsmith CLI'
+
+**OIDC Authentication**
+
+To set up OIDC authentication, configure the following parameters:
+
+1. **clientId:** The Application (client) ID from Azure AD.
+2. **clientSecret:** The Client Secret created in Azure AD.
+3. **tenantId: **The Directory (tenant) ID from Azure AD.
+4. **appIdUri: **The Application ID URI from Azure AD.
+5. **oidcNamespace:** Your Cloudsmith organization namespace.
+6. **oidcServiceSlug:** The specific Cloudsmith service account slug.
+
+Example configuration:
+
+```yaml
+cliVersion: '1.3.1'  # Example CLI version
+authMethod: 'oidc'
+clientId: '$(YOUR_CLIENT_ID)'
+clientSecret: '$(YOUR_CLIENT_SECRET)'
+tenantId: '$(YOUR_TENANT_ID)'
+appIdUri: '$(YOUR_APP_ID_URI)'
+oidcNamespace: '$(YOUR_CLOUDSMITH_NAMESPACE)'
+oidcServiceSlug: '$(YOUR_SERVICE_SLUG)'
 ```
 
-3. Once the CLI has been installed we can add an extra step to confirm that everything is working by running `cloudsmith whoami -k $(CLOUDSMITH_API_KEY)` - this ensures that we can authenticate with Cloudsmith and upload packages:
+### Step 5: Create an OIDC Provider Configuration in Cloudsmith(In case of OIDC)
 
-```
-- script: |
-	cloudsmith whoami -k $(CLOUDSMITH_API_KEY)
-  displayName: 'Test Cloudsmith Login'
-```
+1. In your Cloudsmith account, navigate to Settings and select OpenID Connect (OIDC).
+2. Click create and fill out the following fields:
+   1. **Provider Name**: Enter a unique name for your provider (e.g., “ado”).
+   2. **Provider URL**: Set this to `<https://sts.windows.net/your-tenant-id>`, replacing `your-tenant-id` with your Azure AD Tenant ID.
+   3. **Required OpenID Token Claims**: Ensure at least aud claim is configured. You need to include:
 
-4. Finally we can upload our package to Cloudsmith, for this example, we will create an empty file called `azure.txt`, insert `Hello World` inside, and push it to our repository on Cloudsmith:
+      ```json
+      {
+        "aud": "<appIdUri_value>"
+      }
+      ```
+      Replace \<appIdUri_value> with the Application ID URI of your Azure AD application.
+   4. Under Service Accounts, select the appropriate service account(s) that this provider can authenticate with. For example, you might select a service account like “ado-user” as shown in the image above.
+   5. Click Create Settings to save the configuration.
 
-```
-- script: |
-	touch azure.txt
-	echo "Hello World" >> azure.txt
-	cloudsmith push raw $(ORG)/$(REPO) azure.txt -k $(CLOUDSMITH_API_KEY)
-  displayName: 'Upload a raw file to Cloudsmith'
-```
+   <Note>📘 This configuration allows Cloudsmith to authenticate requests from Azure DevOps using OIDC, provided the token claims match.</Note>;
 
-The final `.yaml` file should look like this:
+<BlockImage src={azureDevopsProviderSettings} alt=""></BlockImage>
 
-```yaml azure-pipelines.yml
-# Python package
-# Create and upload a raw package to Cloudsmith using Cloudsmith CLI
+### Step 6: Verify CLI Installation and Authentication
 
+Save and run your pipeline to complete the setup. After running the pipeline, the extension will install the Cloudsmith CLI, authenticate based on the chosen method, and validate the setup by running `cloudsmith whoami`. You can check the logs to see the authentication details.
+
+<BlockImage src={azureDevopsCLIinstall} alt=""></BlockImage>
+
+### Start Using Cloudsmith CLI Seamlessly in Your Pipeline
+
+This example `azure-pipelines.yml` configuration file demonstrates how to set up an Azure DevOps pipeline that uses the Cloudsmith CLI extension with OIDC authentication to push a package to Cloudsmith.
+
+```yaml 
 trigger:
-- master
+  branches:
+    include:
+      - main  # Trigger pipeline on changes to the main branch
 
 pool:
-  vmImage: ubuntu-latest
-strategy:
-  matrix:
-   Python37:
-      python.version: '3.7'
+  vmImage: 'ubuntu-latest'
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+  - task: CloudsmithCliSetupAndAuthenticate
+    inputs:
+      authMethod: 'oidc'                     # Use OIDC authentication
+      clientId: '$(your-client-id)'           # Client ID from your Azure Entra app registration
+      clientSecret: '$(your-client-secret)'   # Client Secret from your Azure Entra app registration
+      appIdUri: '$(your-app-id-uri)'          # Application ID URI of your Azure Entra app
+      tenantId: '$(your-tenant-id)'           # Tenant ID of your Azure AD tenant
+      oidcNamespace: '$(your-namespace)'      # OIDC namespace for Cloudsmith
+      oidcServiceSlug: '$(your-service-slug)' # Service account slug for Cloudsmith
+      cliVersion: 'latest'                    # Specify CLI version (leave empty for latest)
 
-- script: |
-    pip install --upgrade cloudsmith-cli
-  displayName: 'Install Cloudsmith CLI'
-
-- script: |
-    cloudsmith whoami -k $(CLOUDSMITH_API_KEY)
-  displayName: 'Test Cloudsmith Login'
-
-- script: |
-    touch azure.txt
-    echo "Hello World" >> azure.txt
-    cloudsmith push raw $(ORG)/$(REPO) azure.txt -k $(CLOUDSMITH_API_KEY)
-  displayName: 'Upload a raw file to Cloudsmith'
+  # Task to push a raw package to Cloudsmith
+  - script: |
+     	cloudsmith push raw $(CLOUDSMITH_ORG)/$(CLOUDSMITH_REPO) my-package.zip
+    displayName: 'Push package to Cloudsmith
 ```
+
+With all the configurations in place, you’re now set up to use Cloudsmith CLI commands in your pipeline without additional setup steps. This means you can perform any Cloudsmith-related operations—such as pushing packages, pulling packages, or managing repositories—directly from the pipeline.
+
+<Note>📘 Ensure that the above configuration steps run on the same pipeline runner along with the Cloudsmith CLI tasks.</Note>;
+
+---
+
+## Best Practices
+
+- **Use OIDC**: Use OIDC authentication instead of API keys for enhanced security.
+- **Use Secure Variables:** Ensure all sensitive information, like clientId, clientSecret, apiKey, and tenantId, are stored securely as secrets in Azure DevOps rather than hardcoded in your pipeline.
+- **Use Latest CLI Versions:** Keep the Cloudsmith CLI updated to leverage the latest features and security patches. If specific versions are required, specify them explicitly in your configuration.
+
+## Troubleshooting
+
+- **Authentication Issues: **
+  - Ensure all authentication variables are correctly set and valid for either API Key or OIDC.
+  - Verify that the correct service account is selected in Cloudsmith for the OIDC provider.
+- **Permission Errors:** Verify that the ADO pipeline worker has appropriate permissions to download and install the CLI on the agent(in case of self-hosted agents).
+- **OIDC authentication failures**: Ensure the Provider URL and aud claim are set correctly, and verify all Azure Entra app configurations.
+- **PATH Issues with Cloudsmith CLI:** Ensure you’re using the same runner for all steps, as switching runners may lose CLI installation and configuration.
+- **OIDC Authentication Failures (401/422 Errors):**
+  - Ensure that the Provider URL is set to `<https://sts.windows.net/>\<TENANT_ID>` in Cloudsmith and that it matches the configuration in Azure AD.
+  - Double-check the aud (audience) claim in the token claims section to ensure it matches the Application ID URI configured in Azure Entra (Azure AD).
+  - If you encounter invalid_scope errors, make sure the appIdUri is correct.
+  - Ensure that the application is properly registered in Azure Entra (Azure AD) with the correct permissions.
+  - Client ID, Client Secret, and Tenant ID, verify that these values are correctly entered in your pipeline configuration. Even a minor typo can result in failed authentication.
