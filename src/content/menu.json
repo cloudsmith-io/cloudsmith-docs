@@ -733,6 +733,10 @@
             "path": "/guides/getting-started"
           },
           {
+            "title": "Dependency Firewall with Cloudsmith",
+            "path": "/guides/dependency_firewall"
+          },
+          {
             "title": "Test Guide",
             "path": "/guides/test-guide"
           },

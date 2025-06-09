@@ -1,117 +1,273 @@
 # DOCS: Guide: Building a dependency firewall
 
 
-/* GOALs
-
+{/* GOALS
 Super important to:
 - keep it simple
 - relate to the product features, strenghs, where do we do it better?
 - add examples to each topic!! clarity.
-- try to make it as much hands-on as possible
-
-*/
-
+- try to make it as much hands-on as possible 
+*/}
 
 
 
 Highlight key cloudsmith functionality. including; security scanning, deny policies, block-until-scanned, vulnerability policies
 
-/*  INTRO / PROBLEM STATEMENT
+{/*  INTRO / PROBLEM STATEMENT
 
  Why/Purpose
 1. set the context for the problem, what things can happen when you don't have a dependency firewall?
-2. Define a clear list of negative consequences.
-*/
+2. Define a clear list of negative consequences. 
+*/}
 
 ## Intro: _The Hidden Risks in Your Software Supply Chain: Why Dependency Control is No Longer Optional_
 
-In today's fast-paced development landscape, the ability to leverage open-source and third-party packages is a cornerstone of rapid innovation and efficiency. Teams can assemble sophisticated applications at unprecedented speeds, standing on the shoulders of a global community of developers. However, this reliance on external code introduces a complex and often underestimated set of risks.
+In today's fast-paced development landscape, the ability to leverage open-source and third-party packages is a key component of shipping fast. Teams can assemble sophisticated applications at unprecedented speeds, standing on the shoulders of a global community of developers. However, this reliance on external code introduces a complex and often underestimated set of risks.
 
-Imagine a bustling construction site where materials arrive from countless suppliers, each uninspected. While this might accelerate the initial building phase, it also dramatically increases the chances of incorporating substandard, insecure, or even dangerously flawed components. Similarly, software development teams frequently pull in dozens, if not hundreds, of external dependencies without rigorous scrutiny. This can unknowingly expose their organizations to a barrage of potential problems: crippling security vulnerabilities hidden within a transitive dependency, restrictive licensing terms that create legal nightmares, or deprecated packages that lead to operational instability and ballooning maintenance costs.
+Imagine a bustling construction site where materials arrive from countless suppliers, without any kind of suppervision or trazability. While this might accelerate the initial building phase, it also dramatically increases the chances of incorporating substandard, insecure, or even dangerously flawed components. Similarly, software development teams frequently pull in dozens, if not hundreds, of external dependencies without rigorous scrutiny. This can unknowingly expose their organizations to a myriad of potential problems: crippling security vulnerabilities hidden within a transitive dependency, restrictive licensing terms that create legal nightmares, or deprecated packages that lead to operational instability and ballooning maintenance costs.
 
 The pressure to deliver quickly can often overshadow the critical need for due diligence, leaving companies vulnerable. As software supply chain attacks become increasingly sophisticated and common, and as regulatory landscapes tighten, the laissez-faire approach to dependency management is no longer sustainable. Businesses are now grappling with the urgent need to gain visibility and control over what enters their development pipelines, paving the way for solutions designed to safeguard their software and their reputation.
 
+{/* 
 /*  SUGGEST OVERVIEW OF SOLUTION
 
 3. Stablish ground for a solution, how we can avoid this with Cloudsmith and other benefits. 
-*/
 
-If this sounds familiar to you, keep reading. In this guide we'll cover how you can build a dependency firawall using Cloudsmith.
+*/}
 
+If this challenges sound familiar to you, keep reading. In this guide we'll cover how you can build a dependency firewall with Cloudsmith. You'll be creating a layer of protection between your systems and threats imported from public open source repositories.
 
-
-
-4. explanation of what a dependency firewall is: 
-	Dependency Firewall consists of a set of features that allow you to exercise and implement controls over what packages can be consumed by developers and build processes.
-
-5. why it's important to implement, link back to the pain points mentioned in #1.
-
-
-## Index
+A dependency Firewall consists of a set of features that allow you to exercise and implement controls over what packages can be consumed by developers and build processes.
 
 
 ## Who's this guide for?
 
-If you use or craft software, this guide is for you.
-No matter if you are a Cloudsmith customer or not, this guide has been created with a vendor-neutral approach that will help you understand the basics of setting up your own dependency firewall and understand why this is important for you.
+If you use or craft software, this guide is for you. This content might also be helpful for Security and Operation teams.
+No matter if you are a Cloudsmith customer or not, you can [sign-up for a trial account]() and follow this guide to understand the basics of setting up your own dependency firewall.
+
+## Building a Dependency Firewall
+
+In the next section we'll show a step by step guide with different actions you can take to build your own dependency firewall with Cloudsmith.
+
+Here's an overview of the different areas we'll cover:
+1. Control of Dependencies
+2. Upstream Proxying and Caching
+3. Artifact Advisories
+4. Policies
+5. 
+
+---
+
+### 1. Control of dependencies
+
+For most organizations, there's a common ausence of visibility over OSS software used in most of their Software Development Life Cicle (SDLC). Everything is allowed to ship new features in time. This leads to a point in which it is almost impossible to track which packages have been running in your infra, with the consequent increase in risk. The first step to take control is to increase visibility: you can't control what you don't see.
+
+Cloudsmith is your single pane of glass for all kind of artifacts. With an extensive [support of 30 different package formats](),
+Cloudsmith provides an easy to manage but yet advanced platform that support all the native tooling your developers use.
+
+Let's [create a repository](). Browse to your Cloudsmith workspace and click on **+ New Repository**. Type a  (for example: `dev-env`, select a region (default to `Dublin`), and click on **+ Create Repository**. Your new repo has been created!
+
+Depending on your use cases or how you want to distribute your software, you have different visibility options for your repositories: Public, Private, and OSS. By default, new repositories are private. You can browse to [Settings](https://app.cloudsmith.com/<workspace>/<repo>/settings) and click on **Make repository public**. Private repositories can be accessed via Entitlement Tokens. For this example, let's make it public.
+
+Now we'll get some hands-on practice pushing and pulling artifacts from this repo. But first, let's define some variables in our terminal to reuse during this demo guide:
+
+```bash
+export CLOUDSMITH_USERNAME=<USER> # Available in user settings
+export CLOUDSMITH_API_TOKEN=<API_TOKEN> # Available in user settings
+export CLOUDSMITH_WORKSPACE_NAME=<WORKSPACE_NAME>
+export CLOUDSMITH_REPOSITORY=<REPO_NAME>
+export CLOUDSMITH_REPOSITORY_IS_PRIVATE=yes
+```
+
+You can use this repo to upload any kind of asset: from _Python_ or _Golang_ packages to _Docker containers_. For example, let's upload a _Helm chart_:
+
+```
+# add and update a helm repo + download a sample chart
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm pull ingress-nginx/ingress-nginx
+
+# list the chart
+ls ingress-nginx-4.12.3.tgz
+
+# Login to your OCI-compliant Helm repository in Cloudsmith
+helm registry login helm.oci.cloudsmith.io -u $CLOUDSMITH_USERNAME -P $API_TOKEN
+
+# Push the chart
+helm push ingress-nginx-4.12.3.tgz oci://helm.oci.cloudsmith.io/$CLOUDSMITH_API_TOKEN/$REPO_NAME
+```
+
+Once completed, browse to [your repository](https://app.cloudsmith.com/<workspace>/<repo>) and observe the new package. 
+
+<Note>📘 Cloudsmith provides full controls to define who can view or make changes to your repos. Learn more about it [here]().</Note>
+
+Now, you can upload any other artifact you might want to test. Explore all the formats supported, and play with those more familiar to you. Alternatively, use this project https://github.com/cloudsmith-io/cloudsmith-examples to populate your new repository with some more examples for this demo:
+
+```bash
+git clone https://github.com/cloudsmith-io/cloudsmith-examples.git
+cd cloudsmith-examples
+./bin/run-examples
+```
+
+Once it's running, browse again to the repository and see the first packages being uploaded: Maven, Debian, npm, Rust, and other different assets are being created in your repo. Cloudsmith is your control plane for universal artifact management. Al different formats supported in one location.
+
+Now that we pushed some artifacts to the repo, let's try to pull some of them to our local machine.Cloudsmith support all the native tooling you use for your artifacts. For each of them, contextual instructions are provided within the product. Also, instructions to learn how to configure your CLI tools or projects to pull images directly from Cloudsmith.
+
+<Note>
+📘 An important part of building a Dependency Firewall is blocking any source of artifacts that we don't allow within our org. There are different approaches to tackle this:
+- **Network Controls**: Implement firewall rules, proxy configurations, and egress filtering to block direct access to external public repositories like Docker Hub, Maven Central, PyPI, or public Helm chart repositories. Allow only traffic to your internal artifact repository.
+- **Configuration management**: For example, configure the Docker daemon on developer machines and build servers to use your internal registry as a mirror. This way, if an image is requested, Docker will first check your internal registry. If not found, it will still try the public registry unless you block it at the network level.
+
+For example: 
+
+```json
+{
+  "registry-mirrors": ["https://my-internal-registry.company.com"]
+}
+```
+
+Reach out to our [Support team]() to learn more about all of the alternatives we provide.
+</Note>
+
+Cloudsmith provides a CLI and support for all major native tooling for your packages. It also includes instructions to configure your new repository as the only source of artifacts for your developers. As we'll see later, Cloudsmith allows you to enforce which software is allowed within your organization.
+
+{/* Ensure your teams are only pulling from Cloudsmith - which means setting up your teams and pipelines to point at Cloudsmith.
+    Talk about teams, accounts, services, workspace members. */}
+
+#### Retention Rules
+
+#### Actively blocking external no-compliant repositories
+
+#### Observability and Logging
+
+As part of the visibility features, Cloudsmith provides different observability functions to understand how dependencies are being used within your organization. Browse to your repo and click Logs.
+
+The Client Logs are presented. Here you can see an overview of all of the different artifact files downloaded within your organization. This will give you insights about when, how, and by whom your packages are being used.
+
+Most importantly, Cloudsmith provide an Audit logs panel to track the actions of every single organizational member. Every package that is uploaded or deleted, entitlement tokens creation, logings, creation of new upstreams and every single action within your repository are registered so you can have a full audit of what happened.
+
+Cloudsmith is the **single source of truth** for all your package formats.
+
+### 2. Upstream Proxying and Caching
+
+There are no risks in empty repositories, but there's also no use from it for developers. What if you could merge all the flexibility from public upstreams with the control of Cloudsmith? 
+
+Learn how to configure different upstreams to proxy and cache the sources of software you already use within Cloudsmith.
+To connect your repository to different Upstreams, you only need to enable each of them. Browse to your repository and click in **Upstreams**.
+Click in Upstreams and use the quick configure wizard. Just click on PyPi Official and your upstream will be configured.
+
+See the upstream configured, the status icon provides information about the progress: "Upstream is caching proxied packages to this repository".
+
+Test it using `numpy`:
+
+```
+pip install numpy --index-url https://dl.cloudsmith.io/ig64XkSDAqedAZWL/demo-docs/awesome-repo/python/simple/
+```
+
+Reliability of Public Repositories: Public repositories don’t provide any guarantees that a package that was there yesterday, and that you now depend on, will still be there today. The repositories themselves also don’t offer SLAs and may suffer downtime.
+
+Positive side-effect: dependency caching. once they've cached the dependency the first time, they will always get served the same one. This is not guaranteed in a public repo. Why? they can manipulate the versioning by deleting and reuploading on a public repo... unless you store the checksum or signing info - there's no guarantee when you download thor 1.2.3 from pypi you'll get the same one you did a month ago.
+
+Adding to this, you'll get another benefit from storing your dependencies in Cloudsmith. You are safe from outages. If the upstream registry is down, you'll still have access to your assets via Cloudsmith registries.
+
+
+### 3. Artifact Advisories
+
+
+Advisories, what are they?
+
+
+#### 3.1. Malware
+#### 3.2. Vulnerabilities
+
+
+Recurrent scans. New vulnerabilities are discovered every single day.
+
+#### 3.1. Malware
+
+buscar ejemplo de imagen con malware.
 
 
 
-## how / guide
+### 4. Policies
 
-- step-by-step guide to configuring (2-3 pages max)
+EPM
+Improving your security posture is a long-run effort that goes beyond visibility and control: it requires stablishing and enforcing policies across your whole organization.
 
-
-Steps
-
-
-The Dependency Firewall is composed of the following features: 
-
-1. single source of truth (all formats)
-	1.1. Observability and control
-	1.2. Enforcement, more on point 3 & 4.
-	
-2. Upstream proxy and caching 
-	2.1. dependency caching: once they've cached the dependency the first time, they will always get served the same one. This is not guaranteed in a public repo. Why? they can manipulate the versioning by deleting and reuploading on a public repo... unless you store the checksum or signing info - there's no guarantee when you download thor 1.2.3 from pypi you'll get the same one you did a month ago.
-
-3. Vulnerability Scanning and Policies 
-4. License Scanning and Policies
-5. Package Deny Rules 
-6. Package Quarantine 
+There's a multitude of security solutions that are great providing new findings, but fall short taking action.
 
 
 
-Ensure your teams are only pulling from Cloudsmith - which means setting up your teams and pipelines to point at Cloudsmith
+### 5. 
 
-Connect Cloudsmith to upstream registries 
+------------
 
-Bonus step: Create a policy (Licence policy, vulnerability policy)
-
-Bonus step: Activate "block until scanned"
+Defense in deepth: multiple layers, onion. Not only checking incoming vulnerabilities, but also the result of our pipelines. Talk about GH integration.
 
 
 
 
 
-what are the features that allow you to build the firewall
+4. Licenses
+
+License Compliance Risks: Open source software can contain a dizzying variety of licenses.  Inadvertently introducing new types of OSS licensing can create a threat to legal compliance and alter the legal status of your software, exposing you to litigation.
+
+5. Package Deny Rules
+6. Package Quarantine
+7. Block Until Scanned
+
+8. Observability and Logging: esto igual mejor meterlo en punto 1.
+
+Talk here about the different features available:
+- client logs: observe how packages are being consumed
+- package logs:
+- audit logs: 
+
+features here.
+
+No tengo nada sobre tema entitlement tokens, pero podria ser parte de la solucion. No solo de entrada sino salida.
+
 
 
 what are the (different) approaches you could use to implement the firewall & pros/cons
 - promotion workflow
 - strict dependency blocking
 
+aqui estaria bien comparar cada una de las alternativas y ver como se comportan la una con la otra. pros y contras de las mismas.
 
 
+
+
+{/* 
 @alan topics\
 - secure isolated plane
   - 
-  - logs
   - signing verification
   - 
-  - oidc access
+  - oidc access 
+  */}
 
 
 
 
 
 
+
+How it works:
+Early Vulnerability Detection:
+The dependency firewall identifies potential issues like security vulnerabilities and license violations at the dependency declaration stage, before they are added to your project.
+Blocking Malicious or Risky Packages:
+It can block the download of malicious or unsafe open-source packages, preventing them from being integrated into your codebase.
+Blocking Vulnerable Builds:
+It can prevent the creation of builds that contain high-severity CVEs, operational risks, or other security threats.
+Integration with SDLC:
+The Cloudsmith Security features are integrated into various SDLC stages, including artifact repositories, CI/CD pipelines, and even IDEs. 
+Benefits of using the dependency firewall:
+Improved Security:
+By preventing the entry of vulnerabilities, you reduce the risk of attacks and security incidents.
+Enhanced Compliance:
+The feature helps ensure compliance with licensing requirements and other regulatory standards.
+Reduced Risk:
+By blocking builds with high-severity vulnerabilities, you mitigate the risk of introducing security weaknesses into your applications.
+Simplified Management:
+The Cloudsmith solutions simplify the management of dependencies and make it easier to maintain a secure software supply chain. 

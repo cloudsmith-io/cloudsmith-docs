@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Content Relationship Graph</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column; /* Changed to column for file input */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars unless necessary for the graph */
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1rem; /* rounded corners */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            width: 95%; /* Fluid width */
+            max-width: 1200px; /* Max width for larger screens */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 90vh; /* Occupy most of the viewport height */
+        }
+        h1 {
+            color: #1a202c;
+            margin-bottom: 1rem;
+            font-size: 1.5rem; /* Responsive font size */
+            text-align: center;
+        }
+        .file-input-container {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .file-input-container input[type="file"] {
+            padding: 0.5rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.5rem;
+            background-color: #f8fafc;
+            cursor: pointer;
+        }
+        .file-input-container label {
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+        .graph-container {
+            flex-grow: 1; /* Allow graph to take available space */
+            width: 100%;
+            overflow: auto; /* Enable scrolling for large graphs */
+            border-radius: 0.75rem;
+            background-color: #e2e8f0;
+        }
+        .node circle {
+            fill: #6366f1; /* Node color */
+            stroke: steelblue;
+            stroke-width: 1.5px;
+            cursor: pointer;
+        }
+        .node text {
+            font-size: 0.75rem; /* Smaller font for node labels */
+            fill: #1a202c;
+            text-anchor: middle;
+            pointer-events: none; /* Allow clicks to pass through text to circle */
+        }
+        .link {
+            fill: none;
+            stroke: #9ca3af; /* Link color */
+            stroke-opacity: 0.6;
+            stroke-width: 1.5px;
+        }
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                height: 95vh;
+            }
+            h1 {
+                font-size: 1.25rem;
+            }
+            .node text {
+                font-size: 0.65rem;
+            }
+        }
+        .error-message {
+            color: #dc2626; /* Red color for error messages */
+            font-weight: bold;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JSON Content Relationship Graph</h1>
+        <div class="file-input-container">
+            <label for="jsonFileInput" class="text-gray-700">Select your `menu.json` file:</label>
+            <input type="file" id="jsonFileInput" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+        </div>
+        <div id="graph" class="graph-container"></div>
+        <div id="error-message" class="error-message hidden"></div>
+    </div>
+
+    <script>
+        // Initialize a counter for node IDs
+        let i = 0;
+
+        // Configure your base URL here.
+        // This is the domain/port where your web server is running.
+        // For example, if your local server is at http://localhost:3000, use that.
+        const baseURL = 'http://localhost:3000'; 
+
+        // Function to transform JSON data into a D3-friendly hierarchical format
+        function transformData(data) {
+            const root = {
+                title: "Root", // A virtual root to encompass all top-level categories
+                children: []
+            };
+
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    root.children.push(data[key]);
+                }
+            }
+            return root;
+        }
+
+        // Function to display error messages
+        function displayError(message) {
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.textContent = 'Error: ' + message;
+            errorMessageElement.classList.remove('hidden');
+        }
+
+        // Function to render the graph with provided JSON data
+        function renderGraph(jsonData) {
+            const treeData = transformData(jsonData);
+
+            // Set the dimensions and margins of the diagram
+            const margin = { top: 50, right: 90, bottom: 50, left: 90 };
+            let width = document.getElementById('graph').clientWidth - margin.left - margin.right;
+            let height = document.getElementById('graph').clientHeight - margin.top - margin.bottom;
+
+            // Clear any existing SVG to prevent duplicates on resize/re-render
+            d3.select("#graph svg").remove();
+
+            // Append the svg object to the body of the page
+            const svg = d3.select("#graph").append("svg")
+                .attr("width", width + margin.right + margin.left)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            // Declares a tree layout and assigns the size
+            const treemap = d3.tree().size([height, width]);
+
+            // Assigns parent, children, height, depth
+            const root = d3.hierarchy(treeData, function(d) { return d.children; });
+            root.x0 = height / 2;
+            root.y0 = 0;
+
+            // Collapse after the first level
+            if (root.children) {
+                root.children.forEach(collapse);
+            }
+
+            update(root);
+
+            // Collapse the node and all its children
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+
+            function update(source) {
+                // Assigns the x and y position for the nodes
+                const treeData = treemap(root);
+
+                // Compute the new tree layout.
+                const nodes = treeData.descendants();
+                const links = treeData.descendants().slice(1);
+
+                // Normalize for fixed-depth.
+                nodes.forEach(function(d) { d.y = d.depth * 180; }); // Adjust spacing between levels
+
+                // ****************** Nodes section ******************
+
+                // Update the nodes
+                const node = svg.selectAll('g.node')
+                    .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+                // Enter any new nodes at the parent's previous position.
+                const nodeEnter = node.enter().append('g')
+                    .attr('class', 'node')
+                    .attr("transform", function(d) {
+                        return "translate(" + source.y0 + "," + source.x0 + ")";
+                    })
+                    .on('click', click); // Attach click handler here
+
+                // Add Circle for the nodes
+                nodeEnter.append('circle')
+                    .attr('class', 'node')
+                    .attr('r', 1e-6)
+                    .style("fill", function(d) {
+                        return d._children ? "#6366f1" : "#fff";
+                    });
+
+                // Add labels for the nodes
+                nodeEnter.append('text')
+                    .attr("dy", ".35em")
+                    .attr("x", function(d) {
+                        return d.children || d._children ? -13 : 13;
+                    })
+                    .attr("text-anchor", function(d) {
+                        return d.children || d._children ? "end" : "start";
+                    })
+                    .text(function(d) { return d.data.title; });
+
+                // UPDATE
+                const nodeUpdate = nodeEnter.merge(node);
+
+                // Transition to the proper position for the node
+                nodeUpdate.transition()
+                    .duration(750)
+                    .attr("transform", function(d) {
+                        return "translate(" + d.y + "," + d.x + ")";
+                    });
+
+                // Update the node attributes and style
+                nodeUpdate.select('circle.node')
+                    .attr('r', 10)
+                    .style("fill", function(d) {
+                        return d._children ? "#6366f1" : "#fff";
+                    })
+                    .attr('cursor', 'pointer');
+
+                // Remove any exiting nodes
+                const nodeExit = node.exit().transition()
+                    .duration(750)
+                    .attr("transform", function(d) {
+                        return "translate(" + source.y + "," + source.x + ")";
+                    })
+                    .remove();
+
+                // On exit reduce the node circles size to 0
+                nodeExit.select('circle')
+                    .attr('r', 1e-6);
+
+                // On exit reduce the opacity of text labels
+                nodeExit.select('text')
+                    .style('fill-opacity', 1e-6);
+
+                // ****************** Links section ******************
+
+                // Update the links
+                const link = svg.selectAll('path.link')
+                    .data(links, function(d) { return d.id; });
+
+                // Enter any new links at the parent's previous position.
+                const linkEnter = link.enter().insert('path', "g")
+                    .attr("class", "link")
+                    .attr('d', function(d) {
+                        const o = { x: source.x0, y: source.y0 };
+                        return diagonal(o, o);
+                    });
+
+                // UPDATE
+                const linkUpdate = linkEnter.merge(link);
+
+                // Transition back to the parent element position
+                linkUpdate.transition()
+                    .duration(750)
+                    .attr('d', function(d) { return diagonal(d, d.parent); });
+
+                // Remove any exiting links
+                link.exit().transition()
+                    .duration(750)
+                    .attr('d', function(d) {
+                        const o = { x: source.x, y: source.y };
+                        return diagonal(o, o);
+                    })
+                    .remove();
+
+                // Store the old positions for transition.
+                nodes.forEach(function(d) {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+
+                // Creates a curved (diagonal) path from parent to the child nodes
+                function diagonal(s, d) {
+                    const path = `M ${s.y} ${s.x}
+                            C ${(s.y + d.y) / 2} ${s.x},
+                              ${(s.y + d.y) / 2} ${d.x},
+                              ${d.y} ${d.x}`;
+                    return path;
+                }
+
+                // Toggle children on click and open file for leaf nodes
+                function click(event, d) {
+                    event.stopPropagation(); // Prevent event from bubbling up to parent nodes
+
+                    if (d.children) {
+                        // If node has children, collapse them
+                        d._children = d.children;
+                        d.children = null;
+                    } else if (d._children) {
+                        // If node has collapsed children, expand them
+                        d.children = d._children;
+                        d._children = null;
+                    } else {
+                        // This is a leaf node (no children or collapsed children)
+                        // Attempt to open the file referenced by its path
+                        if (d.data.path) {
+                            // Construct the full URL using the base URL and the path from JSON
+                            const fullPath = baseURL + d.data.path;
+                            console.log("Attempting to open URL:", fullPath);
+                            window.open(fullPath, '_blank');
+                        } else {
+                            console.warn("Leaf node clicked, but no 'path' property found:", d.data.title);
+                        }
+                    }
+                    update(d); // Update the graph after click action
+                }
+            }
+
+            // Handle window resize to make the graph responsive
+            window.addEventListener('resize', () => {
+                width = document.getElementById('graph').clientWidth - margin.left - margin.right;
+                height = document.getElementById('graph').clientHeight - margin.top - margin.bottom;
+
+                svg.attr("width", width + margin.right + margin.left)
+                   .attr("height", height + margin.top + margin.bottom);
+
+                treemap.size([height, width]);
+                update(root);
+            });
+        }
+
+        // Event listener for the file input
+        document.getElementById('jsonFileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        document.getElementById('error-message').classList.add('hidden'); // Hide any previous errors
+                        renderGraph(jsonData);
+                    } catch (error) {
+                        console.error('Error parsing JSON from file:', error);
+                        displayError('Invalid JSON file. Please ensure the selected file contains valid JSON. Error: ' + error.message);
+                    }
+                };
+                reader.onerror = function(e) {
+                    console.error('Error reading file:', e);
+                    displayError('Error reading the file. Please try again.');
+                };
+                reader.readAsText(file);
+            } else {
+                displayError('No file selected.');
+            }
+        });
+
+        // Initial message to prompt user to select a file
+        window.onload = () => {
+            displayError('Please select your "menu.json" file using the input above.');
+        };
+    </script>
+</body>
+</html>
