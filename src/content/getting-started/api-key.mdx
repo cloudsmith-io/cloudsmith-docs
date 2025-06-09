@@ -22,7 +22,7 @@ There are two ways to retrieve your API Key:
 
 ### Via the Cloudsmith web app
 
-Go to the [API Key](https://app.cloudsmith.com/settings/api-keys) page in your user settings to view the API Key.
+On the top right corner, click on your user icon, then click on [Personal API Keys](https://app.cloudsmith.com/settings/api-keys) and click **Refresh** to view the API Key. Refreshing the API key will permanently disable the current API key. Make sure you store it in a proper secret management tool to access it later.
 
 <BlockImage src={apiKeyImage} alt="Edit provider settings"></BlockImage>
 
@@ -43,9 +43,8 @@ Repeat for confirmation: PASSWORD
 
 By default, you can use your API-Key from anywhere. 
 
-If you wish to restrict the use of your API-Key to a specific IP address or range, you can add the CIDR address/mask to the Allow List: 
+If you wish to restrict the use of your API-Key to a specific IP address or range, you can add the CIDR address/mask to the Allow List in the [API Key Restrictions](https://app.cloudsmith.com/settings/api-keys/restrictions) tab: 
 
 <BlockImage src={apiIpRestrictions} alt=""></BlockImage>
 
-
-One you have added your CIDR address/mask, just click the green "Update" button to apply your restriction.
+One you have added your CIDR address/mask, just click the "+ Add" button to apply your restriction.
