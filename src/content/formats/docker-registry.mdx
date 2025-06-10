@@ -166,37 +166,53 @@ For public registries, no further setup is needed as authentication is not requi
 #### Private Registries
 
 <Note variant="note" headline="Private Repositories">
-Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+Private Registries require authentication.  You can choose between three types of authentication, Entitlement Token Authentication, Service Token Authentication or HTTP Basic Authentication. 
 The setup method will differ depending on what authentication type you choose to use.
 </Note>
 
 <Note variant="warning" headline="Warning">
-Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+Entitlement Tokens, Service Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
 </Note>
 You need to authenticate via `docker login` to pull images: 
 
-```shell Entitlement Token Auth
+```shell 
+# Entitlement Token Auth
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: TOKEN
 
 Login Succeeded
 ```
-```shell HTTP Basic Auth (User & Pass)
+
+```shell 
+# Service Token Auth
+docker login docker.cloudsmith.io
+Username: SERVICE_NAME
+Password: TOKEN
+
+Login Succeeded
+```
+
+```shell 
+# HTTP Basic Auth (User & Pass)
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: PASSWORD
 
 Login Succeeded
 ```
-```shell HTTP Basic Auth (API-Key)
+
+```shell
+# HTTP Basic Auth (API-Key)
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: API-KEY
 
 Login Succeeded
 ```
-```shell HTTP Basic Auth (Token)
+
+```shell
+# HTTP Basic Auth (Token)
 docker login docker.cloudsmith.io
 Username: OWNER/REGISTRY
 Password: TOKEN

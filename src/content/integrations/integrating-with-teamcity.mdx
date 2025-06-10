@@ -1,16 +1,19 @@
 
 import { BlockImage, Note } from '@/components';
-import addApiKeyParameter from './images/teamcity/addApiKeyParameter.png';
-import enabledVersionedSettings from './images/teamcity/enabledVersionedSettings.png';
 import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
 
-# Integrating with TeamCity
+import teamCityParameters from './images/teamcity/teamCityParameters.png';
+import teamCityBuildConfig from './images/teamcity/teamCityBuildConfig.png';
 
-How to integrate TeamCity with Cloudsmith
+# TeamCity
+
+_How to integrate TeamCity with Cloudsmith_
 
 Integrating TeamCity with Cloudsmith enables seamless management of your software packages within your CI/CD pipelines. This integration allows you to push build artifacts directly to Cloudsmith repositories from TeamCity, leveraging TeamCity’s build pipelines for efficient artifact publishing.
 
-<NoCodeNoteSnippet />
+<Note variant="note">
+The Cloudsmith CLI gives you full control when connecting to any CI/CD process; allowing you to upload any of our support formats or query your repositories. Just configure your API Key, install the CLI, and you'll be all set.
+</Note>
 
 ## Prerequisites
 
@@ -21,31 +24,36 @@ Before proceeding, ensure you have the following:
 3. **API Key**: A Cloudsmith API key for authentication, obtainable from your Cloudsmith account under Account > API Settings.
 4. **Build Agent**: A configured build agent to execute TeamCity builds.
 
+***
+
 ## Integration Steps
 
-**Go to Project Build Configuration in TeamCity and add the following build steps:**
+Go to Project Build Configuration in TeamCity and add the following build steps:
 
 ### Step 1: Install Python
 
 - Runner Type: Command Line
 - Custom Script: 
-  ```
+
+  ```bash
   apt-get update -y
   apt-get install -y python3 python3-pip
   ```
 - Execution Policy: If all previous steps finished successfully.
 
 <Note variant="note">
-You can skip this step if the build agent is consistent as Python installation is a one-time setup
+📘 You can skip this step if the build agent is consistent as Python installation is a one-time setup.
 </Note>
 
 ### Step 2: Install Cloudsmith CLI
 
 - Runner Type: Command Line
 - Custom Script: 
-  ```
+
+  ```bash
   pip install cloudsmith-cli
   ```
+
 - Execution Policy: If all previous steps finished successfully.
 
 ### Step 3: Add Cloudsmith API Key Parameter
@@ -57,26 +65,25 @@ You can skip this step if the build agent is consistent as Python installation i
    - **Value Type**:  Password (to ensure security).
    - **Value**: Your Cloudsmith API key.
 
-<BlockImage src={addApiKeyParameter} alt=""></BlockImage>
+<BlockImage src={teamCityParameters} alt="teamCityParameters"></BlockImage>
 
 ### Step 4: Push Your Artifacts
 
 - Runner Type: Command Line
 - Custom Script: 
-  ```
+
+  ```bash
   cloudsmith push raw <owner>/<your-repository> <artifact-path> 
   ```
 - Replace `<owner>/<your-repository>` and `<artifact-path>` with:
   - Replace `<owner>` with your Cloudsmith Organisation name.
-  - **Your Cloudsmith Repository Name**: For example, my-repository.
-  - **Artifact Path**: Artifact path, such as ./example-artifact.tar.gz.
+  - **Your Cloudsmith Repository Name**: For example, `my-repository`.
+  - **Artifact Path**: Artifact path, such as `./example-artifact.tar.gz`.
 - Execution Policy: If all previous steps finished successfully.
 
 ## Enable Versioned Settings in TeamCity
 
-<Note variant="note">
-Optional: If you want to track build configuration in your VCS.
-</Note>
+<Note>📘 Optional: execute the next step only if you want to track build configuration in your VCS.</Note>
 
 1. In Project Settings, navigate to Versioned Settings.
 2. Configure the following options:
@@ -89,7 +96,7 @@ Optional: If you want to track build configuration in your VCS.
 3. Apply the changes to ensure your build configuration is tracked in the version control system (VCS).
 4. Allow it to complete and then hit Commit current project settings button and TeamCity will commit the build configuration to your VCS.
 
-<BlockImage src={enabledVersionedSettings} alt=""></BlockImage>
+<BlockImage src={teamCityBuildConfig} alt="Build config"></BlockImage>
 
 **Here's a Kotlin Snip for You Reference**
 
