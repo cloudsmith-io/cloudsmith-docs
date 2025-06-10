@@ -657,6 +657,9 @@
             "path": "/integrations/integrating-with-terraform"
           },
           {
+            "title": "TeamCity",
+            "path": "/integrations/integrating-with-teamcity"
+          },          {
             "title": "Travis-CI",
             "path": "/integrations/integrating-with-travis-ci"
           },
