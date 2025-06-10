@@ -1,4 +1,11 @@
 import { BlockImage } from '@/components'
+
+
+import deny_create from './images/deny-policy/deny_create.png'
+import deny_violation from './images/deny-policy/deny_violation.png'
+import search_deny_true from './images/deny-policy/search_deny_true.png'
+import audit_policy from './images/deny-policy/audit_policies.png'
+
 import img_Screenshot_2024_10_18_at_22_01_26 from './images/deny-policy/7e404fe4ae434d837861b82fad3c4df7775eb56d406b516be996572e5130e70b-Screenshot_2024-10-18_at_22.01.26.png'
 import imgb4a0b04_Screenshot_2024_02_21_at_17_58_56 from './images/deny-policy/b4a0b04-Screenshot_2024-02-21_at_17.58.56.png'
 import img_Screenshot_2024_10_18_at_21_59_36 from './images/deny-policy/4acb1661a774dc4b8ce3d71812838f65f1e1efd02fdd766e1e42b70e23ddce6e-Screenshot_2024-10-18_at_21.59.36.png'
@@ -28,15 +35,11 @@ To view the license policies in your organization, go to your organization's “
 
 ## Create Deny Policies
 
-To create a new Deny Policy, go to your organization's "Settings" page and select "Package Deny Policies" from the left side menu. Then click the "Create new policy" button.
+To create a new Deny Policy, go to your organization's "Settings" page and select "Package Deny Policies" from the left side menu. Then click the "Create new policy" button. You are then presented with the “Create Package Deny Policy” form:
 
-<BlockImage src={imgb4a0b04_Screenshot_2024_02_21_at_17_58_56} alt=""></BlockImage>
+<BlockImage src={deny_create} alt=""></BlockImage>
 
-You are then presented with the “Create Package Deny Policy” form:
-
-<BlockImage src={img_Screenshot_2024_10_18_at_21_59_36} alt="Create Vulnerability Policy Form"></BlockImage>
-
-<br />
+The following fields and options are available:
 
 |||
 |:---|:---|
@@ -59,23 +62,23 @@ Download requests are blocked for a specific package (or version of a package, i
 
 ## Policy Violation Identifiers
 
-When local packages are blocked by a deny rule, it’s available in the application as a red-flag, and the download link on the right-hand-side is faded-out and will not click.
+When local packages are blocked by a deny rule, it's available in the application as a red-flag, and the download link on the right-hand-side is faded-out and will not click.
 
-<BlockImage src={imgb93756e_Screenshot_2024_02_28_at_16_38_16} alt=""></BlockImage>
+<BlockImage src={deny_violation} alt=""></BlockImage>
 
-When you click into the package itself, you'll be able to see which deny rule is blocking the package.
+{/* When you click into the package itself, you'll be able to see which deny rule is blocking the package.
 
-<BlockImage src={imgddee1fe_Screenshot_2024_02_28_at_16_36_01} alt=""></BlockImage>
+<BlockImage src={imgddee1fe_Screenshot_2024_02_28_at_16_36_01} alt=""></BlockImage> */}
 
 You can use the `deny_policy_violated:true` search facet to see all packages that have been denied by Deny Policies.
 
-<BlockImage src={imge5e20db_image} alt=""></BlockImage>
+<BlockImage src={search_deny_true} alt=""></BlockImage>
 
 ## Audit Logs
 
 There are also audit logs for whenever users configure (create, update or delete) Deny Policies:
 
-<BlockImage src={img23ec126_Screenshot_2024_02_28_at_16_27_36} alt=""></BlockImage>
+<BlockImage src={audit_policy} alt=""></BlockImage>
 
 ## Unblock a package that violates a policy
 
