@@ -317,19 +317,6 @@ The Auth key should be in base64, which you can get by running:
 echo -n 'User:APIKEY' | base64
 ```
 
-## Transparent Upstream Proxying
-
-Cloudsmith supports transparent proxying of install requests to/from npmjs.com.  
-When enabled, requests for packages that don't exist in the registry will be automatically proxied.
-
-With admin access to the registry, you can disable transparent upstream proxying by going to the settings page, unchecking the **Proxy npm Packages?** option, and then clicking Update:
-
-<BlockImage src={npmImage} alt="npm Proxy Settings"></BlockImage>
-
-<Note variant="note" headline="Note">
-If transparent upstream proxying is disabled for the registry then you will need to fetch all dependencies of your packages manually. These can then be published into the registry, or you can bundle them with `bundleDependencies`.
-</Note>
-
 ## Security Auditing
 
 Cloudsmith supports proxying of npm audit requests to detect vulnerabilities in dependencies, you just need to execute:
