@@ -317,6 +317,11 @@ The Auth key should be in base64, which you can get by running:
 echo -n 'User:APIKEY' | base64
 ```
 
+## Upstream Proxying / Caching
+Configurable Proxying Caching. Please see [Upstream Proxying](https://docs.cloudsmith.com/tbc/upstream-proxying-and-caching) for more details.
+
+Upstreams provide a way to blend multiple external repositories into a single repository. This allows your single Cloudsmith repository to serve packages from multiple 'upstream' repositories.
+
 ## Security Auditing
 
 Cloudsmith supports proxying of npm audit requests to detect vulnerabilities in dependencies, you just need to execute:
