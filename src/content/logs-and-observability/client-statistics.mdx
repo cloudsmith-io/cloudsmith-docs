@@ -1,17 +1,88 @@
 import { BlockImage } from '@/components'
-import img255b8e3_client_statistics from './images/client-statistics/255b8e3-client-statistics.png'
+import overview from './images/client-statistics/client-statistics-overview.gif'
+import overview_usage from './images/client-statistics/overview_usage.png'
+import delivery_summary from './images/client-statistics/delivery_summary.png'
+import package_downloads from './images/client-statistics/package_downloads.png'
+import package_delivery from './images/client-statistics/package_delivery.png'
+import artifact_data from './images/client-statistics/artifact_data.png'
+import packages from './images/client-statistics/packages.png'
+import container_images from './images/client-statistics/container_images.png'
 import img5b18a8e_metrics_packages from './images/client-statistics/5b18a8e-metrics-packages.png'
 
 # Client Statistics
 
-The statistics page shows per month statistics of all access to the repository:  
+To access this feature, click on **Usage** on the top right corner of your Workspace/Repository Overview page.
 
-<BlockImage src={img255b8e3_client_statistics} alt="Statistics Page"></BlockImage>
+The Client Statistics page shows usage information of all access to your Workspace or Repositories. It includes the next areas:
+- Overview of usage
+- Delivery Summary
+- Package Downloads
+- Package Delivery
+- Artifact Data
+- Packages
+- Container images
+- Open Source Delivery
 
-You can move to the previous or next month using the navigation links at the top left and top right of the page. Data available in this view includes: 
+<BlockImage src={overview} alt="Statistics Page"></BlockImage>
 
-- Download / Upload Counts and Bandwidth
-- Downloads / Uploads by Package Format (package type) 
+### Overview of usage
+
+The total amount accumulated during the Current Billing Cycle for:
+- Package Delivery.
+- Artifact Data.
+- Packages.
+- Container images.
+- Open Source Delivery.
+
+When applicable, it also includes a comparative with the previous comparable cycle.
+
+<BlockImage src={overview_usage} alt="Statistics Page"></BlockImage>
+
+
+### Delivery Summary
+
+Displays a list of all of the package bandwidth for the selected time scope. Can be grouped by package or repository, and displays the trend compared with the previous comparable time scope.
+
+Each of the entries in the list links to its [client logs](./client-logs).
+
+<BlockImage src={delivery_summary} alt="Statistics Page"></BlockImage>
+
+
+### Package Downloads
+
+- Time scope selection
+- Aggregate: _how you want to quantify or summarize the package download activity_. Options:
+  - Bytes Downloaded Average
+  - Bytes Downloaded Sum
+  - IP Address Count Unique
+  - Request Count
+  - Time Taken (Avg, Max, P50, P75, P90, P95, P99, Sum)
+- Interval: bucket size for which the "Aggregate" calculation is performed.
+
+<BlockImage src={package_downloads} alt="Statistics Page"></BlockImage>
+
+### Package Delivery
+
+<BlockImage src={package_delivery} alt="Statistics Page"></BlockImage>
+
+### Artifact Data
+
+Total amount of Artifact data stored within the Workspace/Repository.
+
+<BlockImage src={artifact_data} alt="Statistics Page"></BlockImage>
+
+### Packages
+
+<BlockImage src={packages} alt="Statistics Page"></BlockImage>
+
+### Container images
+
+<BlockImage src={container_images} alt="Statistics Page"></BlockImage>
+
+### Open Source Delivery
+
+Usage for open source repositories is displayed in this section.
+
 
 ## Statistics via the CLI
 
