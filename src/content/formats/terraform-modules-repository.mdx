@@ -21,7 +21,7 @@ In the following examples:
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| OWNER           | Your Cloudsmith Workspace Name                         |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -125,8 +125,6 @@ Once added, terraform will download the module to your project's `.terraform` di
 ```shell
 terraform init
 ```
-
-You can install the latest version of this crate by removing the version variable from its declaration in your source code.
 
 You can upgrade to the most recent version of this module matching your version constraints by running:
 
