@@ -1,0 +1,215 @@
+import { BlockImage, Note } from '@/components'
+
+import img_Screenshot_2024_10_18_at_22_01_26 from './images/deny-policy/7e404fe4ae434d837861b82fad3c4df7775eb56d406b516be996572e5130e70b-Screenshot_2024-10-18_at_22.01.26.png'
+
+
+# Getting Started with Enterprise Policy Management
+
+_An introduction to creating Enterprise policy management policies and actions._
+
+---
+
+This guide offers an introduction to creating Enterprise policy management policies and actions. Using this guide, you will:
+
+- Create policy matching logic using the Rego language to match packages above a specified vulnerability threshold.
+- Create a policy via the API that employs this matching logic.
+- Create actions to quarantine and tag matched packages, and assign these actions to the created policy.
+- Use the policy simulator to simulate this policy running without impacting any live packages or data.
+
+<Note>📘 **Policy Creation** 
+You must have administrator permissions within your Workspace to create or update a policy.</Note>
+
+## Step 1: Creating policy matching logic with rego
+
+Let's create a policy in Rego. This policy will:
+
+- Check if any vulnerabilities in the package exceed a CVSS (Common Vulnerability Scoring System) value of 4.
+- Check if the vulnerability detected was published 10 or more days ago.
+- Check if there is a patch available for the vulnerability.
+- Ignore a specified list of CVEs.
+
+If all these criteria are met on policy evaluation, and the CVE has not been included on the specific ignore list, the package will be matched (the exported `match` variable will be `true`), and any actions associated with the policy will be run against the package.
+
+This policy matching logic is shown below:
+
+```
+package cloudsmith
+import rego.v1
+
+default match := false
+
+# Define minimum CVSS score threshold
+max_cvss_score := 4
+
+# Define time-based policy threshold (Vulnerabilities older than 10 days)
+older_than_days := -10
+
+# Define CVEs to ignore
+ignored_cves := {"CVE-2023-45853", "CVE-2024-12345"}
+
+match if {
+  # some vulnerability in input.v0.security_scan.Vulnerabilities (Deprecated)
+    some target in input.v0.security_scan
+    some vulnerability in target.Vulnerabilities
+
+    not ignored_cve(vulnerability)
+    vulnerability.FixedVersion
+    vulnerability.Status == "fixed"
+
+    some _, val in vulnerability.CVSS
+    val.V3Score >= max_cvss_score
+
+    t := time.add_date(time.now_ns(), 0, 0, older_than_days)
+    published_date := time.parse_rfc3339_ns(vulnerability.PublishedDate)
+    published_date <= t
+}
+
+ignored_cve(vulnerability) if {
+    vulnerability.VulnerabilityID in ignored_cves
+}
+```
+
+## Step 2: Create a policy using the API
+
+<Note>📘 **Placeholder Values**
+The example API requests in this guide below make use of placeholder variables for consistency and brevity.</Note>
+
+It is advised to export the following variables such that they can be used in any example requests:
+
+```shell
+export CLOUDSMITH_API_KEY=<YOUR_CLOUDSMITH_API_KEY>  
+export CLOUDSMITH_WORKPLACE-<YOUR_CLOUDSMITH_WORKSPACE>
+```
+
+Save the Rego policy created in Step 1 to a file named `policy.rego`. Then use the script below to create a JSON request body which includes the Rego content in the `rego` field:
+
+```shell
+escaped_policy=$(jq -Rs . < policy.rego)
+
+cat <<EOF > payload.json
+{
+  "name": "cvss_gt_4",
+  "description": "Policy to quarantine and tag CVSS > 4",
+  "rego": $escaped_policy,
+  "enabled": false,
+  "is_terminal": false,
+  "precedence": 1
+}
+EOF
+
+```
+
+<Note>📘 **Policy testing**
+When creating a policy via the API, setting the `enabled` field to `false` prevents the policy from being triggered, but still allows it to be tested via the Simulation API.</Note>
+
+Policies are created using the [orgs_policies_create](https://api.cloudsmith.io/v2/redoc/#tag/orgs/operation/orgs_policies_create) REST API method. The following curl command makes a request to this method, providing in the request the `payload.json` payload created above:
+
+```shell
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d @payload.json
+```
+
+A successful request will return an HTTP `201` response, indicating the policy was created. 
+
+### Retrieving a policy's unique identifier
+
+When a policy is created via the API, the unique identifier for the policy will be provided in the `slug_perm` field in the response body. This identifier will be required, for example, if you need to update the policy or add actions to it. This identifier can be retrieved by directly extracting it from the policy creation response (as in the example below):
+
+```shell
+POLICY_SLUG=$(curl ... | jq -r '.slug_perm')
+```
+
+Or alternatively, the policy identifier can be retrieved via the [orgs_policies_actions_list](https://api.cloudsmith.io/v2/redoc/#tag/orgs/operation/orgs_policies_actions_list) REST API method.
+
+## Step 3: Adding actions to a policy
+
+After a policy is created, actions can be assigned to it via the [orgs_policies_actions_create](https://api.cloudsmith.io/v2/redoc/#tag/orgs/operation/orgs_policies_actions_create) REST API method.  
+
+In this example, two actions will need to be added to the policy:
+
+1. An action to quarantine a package matched by the matching logic.
+2. An action to tag a packages matched by the matching logic.
+
+### Adding an action to quarantine a package
+
+To create an action to quarantine a package, use the curl command below. This example request specifies the required `action_type`, sets the quarantined package state via the `package_state` field, and provides an action `precedence` value of `1`:
+
+A successful request will return a HTTP `201` response, with the unique identifier of the action returned in the `slug_perm` field.
+
+```shell
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/{POLICY_SLUG}/actions/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d '{
+    "action_type": "SetPackageState",
+    "precedence": 1,
+
+```
+
+### Adding an action to tag a package
+
+Similarly, the following curl command can be used to create an action to tag a matched package. This request specifies the required `action_type`, the relevant tag in the `tags` array, and a `precedence` value of `32767`.
+
+```shell
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/{POLICY_SLUG}/actions/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d '{
+    "action_type": "AddPackageTags",
+    "precedence": 32767,
+    "tags": ["policy-violated"]
+  }'
+
+```
+
+## Step 4: Simulating the policy
+
+The policy referenced in Step 2 was not enabled when it was created. It is possible to test a policy, even if not enabled, using the simulator [orgs_policies_simulate_list](https://api.cloudsmith.io/v2/redoc/#tag/orgs/operation/orgs_policies_simulate_list) REST API method.
+
+The response contains a list of tested packages, whether or not there was a `match` for each page, any reason messages, and the actions that would be taken if the policy is enabled.
+
+## Step 5: Enabling or disabling a policy
+
+Once you confirm the policy works as expected, you can enable it via a PATCH request. Enabling the policy means it will run matching logic against packages and apply any associated actions (in this example, quarantining and tagging) to packages that are matched.
+
+```shell
+curl -X PATCH "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/{POLICY_SLUG}/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d '{"enabled": true}'
+```
+
+Similarly, if a policy needs to be disabled, a PATCH request can be sent for the relevant policy specifying an `enabled` value of `false`.
+
+## Step 6: Pushing a package to trigger the policy
+
+Once enabled, if you wish to test the policy against an actual package, you can trigger this policy by:
+
+1. Uploading a vulnerable package to the required repository.
+2. Wait for the vulnerability scan to complete. The policy will run at the end of package synchronization. 
+3. Confirm the package's status and tags in Cloudsmith.
+
+## Checking Decision Logs
+
+<Note>📘 **Decision Logs**
+Decision log entries are not added when a policy is simulated via the simulator.</Note>
+
+When a package is scanned or triggers the policy, EPM creates a decision log entry. These logs can be viewed via the decision_logs_list REST API method. An example request to this method is shown below (this filters logs to a specific policy using the`?policy=$POLICY_SLUG` query parameter.)
+
+```shell
+curl -X GET \
+  "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/decision_logs/?policy=$POLICY_SLUG" \
+  -H "Accept: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
+```
+
+The following will be provided within these logs:
+
+- `started_at`/ `ended_at`: Times the policy evaluation started and ended.
+- `policy_input`: The exact data used to evaluate the policy.
+- `policy_output`: The results (match or not, partial rule states).
+- `actions`: The actions invoked against the package.
+
+For more information on building common matching criteria in Rego, please see the [Enterprise Policy Management Rego Recipes guide](epm/rego).

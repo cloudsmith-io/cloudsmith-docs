@@ -323,8 +323,8 @@
                 "path": "/access-control/single-sign-on",
                 "children": [
                   {
-                    "title": "SSO with Azure AD",
-                    "path": "/access-control/single-sign-on-with-azure-ad"
+                    "title": "SSO with Microsoft Entra ID",
+                    "path": "/access-control/single-sign-on-with-microsoft-entra-id"
                   },
                   {
                     "title": "SSO with Google",
@@ -419,6 +419,7 @@
         "children": [
           {
             "title":"Classic policies",
+            "path": "/policy-management/classic",
             "children":[          
           {
             "title": "Vulnerability Policy",
@@ -447,15 +448,18 @@
           ]
           },
           {
-            "title": "Enterprise Policies"
-          },
-          {
-            "title": "Getting started",
-            "path": "/"
-          },
-          {
-            "title": "Rego Recipes",
-            "path": "/"
+            "title": "Enterprise Policy Management",
+            "path": "/policy-management/epm/",
+            "children": [
+              {
+                "title": "Getting started",
+                "path": "/policy-management/epm/getting-started"
+              },
+              {
+                "title": "Rego Recipes",
+                "path": "/policy-management/epm/rego"
+              }
+            ] 
           }
         ]
       },

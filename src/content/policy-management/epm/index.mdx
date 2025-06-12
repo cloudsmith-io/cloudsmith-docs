@@ -1,0 +1,63 @@
+import { BlockImage, Note } from '@/components'
+
+
+## Enterprise Policy Management
+
+_An overview of Enterprise Policy Management._
+
+<Note>📘 **Early Access Feature**
+Enterprise Policy Management is in early access; if you would like to try this feature, please [Contact Us](https://cloudsmith.com/company/contact-us).</Note>
+
+## Enterprise Policy Management Overview
+
+Enterprise policy management provides a way for Workspaces (previously known as Organizations) to define policies that can match and act on packages within Cloudsmith. Enterprise policy management is implemented on top of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), a general-purpose and widely adopted policy evaluation engine. OPA provides a high-level declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) to define policies as code.
+
+### OPA and Enterprise Policy Management
+
+Enterprise policy management allows you to create an OPA policy that triggers when certain events occur within Cloudsmith, ensuring your policies are consistently enforced. When a policy is triggered, Cloudsmith provides the policy evaluation engine with package metadata (input data). Through the rego-based policies, a set of actions associated with the policy (called policy actions) act on the package if the policy is matched.
+
+At a high level, the Enterprise policy management policy evaluation workflow is as follows:
+
+1. An event within Cloudsmith triggers a policy evaluation (for example, completing a package security scan).
+2. Package metadata and your rego-based policy are provided to the policy evaluation engine.
+3. The policy evaluation engine determines if the policy "matches" the package, based on the logic/criteria provided in your policy.
+4. If the policy matches the package, the action(s) associated with the policy are then applied to the package.
+
+An example policy, explained in more detail below, quarantines a package following a security scan if vulnerabilities of a certain severity are found within the package.
+
+## Policies Overview - Key Concepts
+
+### Policy Triggers
+
+Cloudsmith policies are continuously evaluated, so we detect changes in your security posture in near real time. Certain events will explicitly trigger a policy re-evaluation:
+
+- When a package is added to a repository, it goes through a [synchronization process](https://help.cloudsmith.io/docs/resync-a-package#what-is-package-synchronization) that includes evaluating existing policies that may affect the package. Vulnerability Scanning should be enabled for the Workspace.
+- When a package is resynchronized, provided it wasn't scanned within the 30 minutes before that.
+- When a package is copied from one repository to another.
+- When a vulnerability scan is triggered via the UI or API (Note that manual scan requests will only result in a re-scan 30 minutes after the previous scan).
+- When a [recurring vulnerability scan](https://help.cloudsmith.io/docs/security-scanning#early-access-recurring-security-scans) is triggered.
+- When Cloudsmith receives updated package data, such as CVSS or EPSS updates.
+
+### Policies
+
+Policies are written in [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/), a declarative language used to define OPA policies. Policies evaluate packages against a set of criteria, such as package metadata, workspace, repository, and security information.
+
+### Policy Matching
+
+Policy matching occurs when the policy evaluation engine evaluates a policy against a package and determines that the package matches the criteria outlined in the policy.
+
+### Policy Actions
+
+Actions can be assigned to policies to act on packages following policy evaluation. If a package has been matched in the matching step above, the policy actions associated with the policy will then be applied to the package. Multiple actions can be associated with a given policy, and the following actions are currently supported:
+
+- `set_state`. This allows you to control the state of the package. For example, whether to delete or quarantine the package. See the [PackageStateEnum](https://api.cloudsmith.io/v2/swagger/#/:~:text=MovePackageActionTyped-,PackageStateEnum,string,-AVAILABLE%20%2D%20The%20package) for more information.
+- `add_package_tags`. Add a set of tags to the package.
+
+For more detail on creating Enterprise policy management policies and actions, see the [Getting Started with Enterprise Policy Management guide](/:getting-started).
+
+### Decision Logs
+
+The details of every policy evaluation and its outcome are captured in a decision log.  
+Decision logs record the result of policy evaluations, including why the decision was made and what actions were taken as a result. 
+
+The [Getting Started](epm/getting-started)  with Enterprise Policy Management guide provides more details on creating enterprise policy management policies and actions.
