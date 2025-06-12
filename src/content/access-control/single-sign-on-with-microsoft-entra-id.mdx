@@ -28,20 +28,21 @@ import img4995811_Screenshot_2023_03_28_at_16_44_01 from './images/single-sign-o
 import img4934353_Screenshot_2023_03_28_at_16_56_27 from './images/single-sign-on-with-azure-ad/4934353-Screenshot_2023-03-28_at_16.56.27.png'
 import img1b6c2ec_Screenshot_2023_04_04_at_13_24_50 from './images/single-sign-on-with-azure-ad/1b6c2ec-Screenshot_2023-04-04_at_13.24.50.png'
 
-# Single Sign-On with Azure AD
+# Single Sign-On with Microsoft Entra ID (formerly Azure Active Directory)
 
-This guide provides step-by-step instructions on setting up [Azure AD](https://azure.microsoft.com/en-gb/services/active-directory/) as a SAML IdP for your Cloudsmith Organization.
+This guide provides step-by-step instructions on setting up [Microsoft Entra ID](https://www.microsoft.com/en-gb/security/business/identity-access/microsoft-entra-id) as a SAML IdP for your Cloudsmith Organization.
 
-## Adding Cloudsmith to Azure AD
+## Adding Cloudsmith to Microsoft Entra ID
 
-Cloudsmith is not (yet) an integrated application in Azure AD. You'll have to add Cloudsmith manually so you can configure SSO.
+Cloudsmith is not (yet) an integrated application in Microsoft Entra ID. You'll have to add Cloudsmith manually so you can configure SSO.
 
 ### Step 1
-Log into the Azure portal as an admin and click **Azure Active Directory** in the left menu, then **Enterprise Applications** in the menu that appears:
+Log into the Microsoft Entra ID portal as an admin and click **Azure Active Directory** in the left menu, then **Enterprise Applications** in the menu that appears:
 
 <BlockImage src={imgeed4fe7_cloudsmith_azure_ad_1} alt=""></BlockImage>
 
 ### Step 2
+
 Choose + **New application** from the top menu:
 
 <BlockImage src={imgc5faa5f_cloudsmith_azure_ad_2} alt=""></BlockImage>
@@ -53,20 +54,23 @@ Click **Non-gallery application** and enter "Cloudsmith" in the "Name" box:
 <BlockImage src={img8bac474_cloudsmith_azure_ad_3} alt=""></BlockImage>
 
 ### Step 4
+
 Click the blue **Add** button at the bottom of the page. After a short processing delay, you'll be redirected to the overview page for your new application.
 
 ### Step 5
+
 Select **Single sign-on** from the left menu and choose **SAML**:
 
 <BlockImage src={img76a302f_cloudsmith_azure_ad_4} alt=""></BlockImage>
 
 ### Step 6
+
 Next, we'll configure SAML settings. Click the pencil symbol beside **Basic SAML Configuration** to begin editing:
 
 <BlockImage src={img19dfed2_cloudsmith_azure_ad_5} alt=""></BlockImage>
 
-
 ### Step 7
+
 To determine your **Identifier** and **Reply URL** (we use the same value for both) we use the following format: "https://cloudsmith.io/orgs/MY_ORG_NAME/saml/acs/", where "MY_ORG_NAME" is replaced with your organization's slug.
 
 <BlockImage src={img482a011_cloudsmith_azure_ad_6} alt=""></BlockImage>
@@ -74,6 +78,7 @@ To determine your **Identifier** and **Reply URL** (we use the same value for bo
 Hit the **Save** button at the top of the page.
 
 ### Step 8
+
 Next, we'll configure Azure to also send the user's first and last names during sign-in. Click the pencil icon on the **User Attributes & Claims** section:
 
 <BlockImage src={img66f29c5_cloudsmith_azure_ad_7} alt=""></BlockImage>
@@ -85,16 +90,19 @@ Remove all attributes _except_ the **Name identifier value**, the screen should 
 <BlockImage src={img5aabb6f_cloudsmith_azure_ad_8} alt=""></BlockImage>
 
 ### Step 10
+
 Next, we'll add first and last names to the attributes sent to Cloudsmith. Click + **Add new claim** at the top of the page, and add **FirstName** as follows:
 
 <BlockImage src={img6a5ba58_cloudsmith_azure_ad_9} alt=""></BlockImage>
 
 ### Step 11
+
 Repeat the process for **LastName** and hit **Save**. The attributes screen should now look as below:
 
 <BlockImage src={imgd168a64_cloudsmith_azure_ad_10} alt=""></BlockImage>
 
 ### Step 12
+
 Finally, we'll need to add any users that need to be able to access the application. Click** Users and groups** in the left sidebar and then **+Add user**. You can add as many users or groups as needed:
 
 <BlockImage src={img6a260ed_cloudsmith_azure_ad_11} alt=""></BlockImage>
@@ -111,9 +119,9 @@ Copy this link and add it to your SAML configuration in your [Cloudsmith organiz
 
 ## SAML Group Sync
 
-Once SAML has been setup, you can then use Azure AD and Cloudsmith's group mapping in order to import your teams into Cloudsmith.
+Once SAML has been setup, you can then use Microsoft Entra ID and Cloudsmith's group mapping in order to import your teams into Cloudsmith.
 
-To get started, head into your Cloudsmith Enterprise applicaiton on Azure and select "Single sign-on", then click on "Edit" under "Attributes & Claims":
+To get started, head into your Cloudsmith Enterprise application on Azure and select "Single sign-on", then click on "Edit" under "Attributes & Claims":
 
 <BlockImage src={img9bcf573_Screenshot_2023_04_04_at_13_31_53} alt=""></BlockImage>
 
@@ -151,7 +159,7 @@ Now when a user re-logs with SAML, they will be placed in the assigned group bas
 
 ## SCIM De-provisioning
 
-You can use SCIM to automatically de-provision users from your Cloudsmith organization whenever you remove a user assignment for the Cloudsmith application in Azure AD.
+You can use SCIM to automatically de-provision users from your Cloudsmith organization whenever you remove a user assignment for the Cloudsmith application in Microsoft Entra ID.
 
 General documentation on how SAML group sync works can be found [here](/access-control/single-sign-on#saml-group-sync).
 
@@ -183,7 +191,7 @@ In Cloudsmith navigate to the following link: `https://cloudsmith.io/orgs/<you_o
 
 Enable SCIM if it's not enabled and copy your SCIM Authentication token.
 
-Go back to Azure AD and set the Tenatn URL to: `https://api.cloudsmith.io/scim/v2` and the "Secret token" to the copied token from Cloudsmith, click "Save" and "Test connection"
+Go back to Microsoft Entra ID and set the Tenatn URL to: `https://api.cloudsmith.io/scim/v2` and the "Secret token" to the copied token from Cloudsmith, click "Save" and "Test connection"
 
 Now under the same "Provisioning tab", select "Mappings" dropdown and select "Provision Azure Active Directory Users"
 
@@ -193,7 +201,7 @@ Under "Target Object Actions", select only "Updated, Delete" and click "Save":
 
 <BlockImage src={img1b6c2ec_Screenshot_2023_04_04_at_13_24_50} alt=""></BlockImage>
 
-Azure AD should now have the necessary information to de-provision users from Cloudsmith
+Microsoft Entra ID should now have the necessary information to de-provision users from Cloudsmith
 
 ## All wrapped up!
 
