@@ -185,19 +185,19 @@ helm push CHART_NAME-CHART_VERSION.tgz oci://helm.oci.cloudsmith.io/OWNER/REPOSI
 
 To install/use a specific version of a chart: 
 
-```Text Shell - OCI Repository
+```shell
 helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME --version CHART_VERSION
 ```
 
 To install the latest version of a chart:
 
-```Text Shell - OCI Repository
+```shell
 helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
 ```
 
 Or you can upgrade to the most recent version of a chart if you've already installed:
 
-```Text Shell - OCI Repository
+```shell
 helm upgrade oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
 ```
 
