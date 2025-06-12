@@ -6,6 +6,15 @@ Cloudsmith provides public & private repositories for Helm Charts
 
 <Video wistiaId="f7kpheipxd"></Video>
 
+<Note>
+🚧 **Support for OCI and non-OCI Helm Registries**
+
+While Cloudsmith supports both OCI and non-OCI Helm registries, please note that for Helm OCI support the endpoint is: [helm.oci.cloudsmith.io](helm.oci.cloudsmith.io).
+
+For support on OCI Helm Charts, please refer to our OCI Repository documentation [here](https://help.cloudsmith.io/edit/oci-repository#helm-v3-charts-via-oci).
+</Note>
+
+
 [Helm](https://helm.sh) is a package manager for Kubernetes that allows development and operations teams to easily manage and deploy these increasingly complex cloud native applications to their Kubernetes clusters. Helm allows you to manage applications on your Kubernetes cluster in much the same way as you’d manage applications on your Linux server with `apt` or `yum`.
 
 Helm works by packaging up a set of YAML definitions along with the necessary configuration to quickly stand up all components of an application in a repeatable way. A single chart can be as simple or complex as necessary, deploying anything from a single container to a full distributed application. Helm combines these application definitions with user-provided configuration to allow simple overriding of configuration where needed, allowing users to concentrate on shipping software and not on the nitty-gritty of configuring every application they need to run.
@@ -55,32 +64,6 @@ Please see the [official Chart development](https://helm.sh/docs/developing_char
 OCI support is currently in Early Access. Helm Charts uploaded via OCI will show as "Docker Packages" on Cloudsmith. Helm Charts uploaded via OCI aren't available to download via the classic `Chart.yaml` repository method.
 </Note>
 
-### Upload via OCI with Helm v3
-
-Starting Helm v3.8.0 OCI-compliant registries can now be used to store and share chart packages. For full detail see [Helm Docs](https://helm.sh/docs/topics/registries/) .
-
-#### Setup
-
-Before you can push your chart you need to login to Cloudsmith's registry.
-
-```shell Entitlement Token Auth
-helm registry login docker.cloudsmith.io -u OWNER/REPOSITORY -p TOKEN
-```
-```shell HTTP Basic Auth (User & Pass)
-helm registry login docker.cloudsmith.io -u USERNAME -p PASSWORD
-```
-```shell HTTP Basic Auth (API-Key)
-helm registry login docker.cloudsmith.io -u USERNAME -p API-KEY
-```
-
-#### Push your chart
-
-The command to upload a Helm Chart via OCI using the Helm CLI is:
-
-```shell
-helm push CHART_NAME-CHART_VERSION.tgz oci://docker.cloudsmith.io/OWNER/REPOSITORY
-```
-
 ### Upload via the Cloudsmith CLI
 
 For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
@@ -107,31 +90,7 @@ For examples of what your project should look like for packaging and publishing/
 
 ## Download / Install a Chart
 
-### Setup for OCI-based charts
-
-<Note variant="note" headline="Note">
-OCI support is currently in Early Access. Helm Charts uploaded via OCI will show as "Docker Packages" on Cloudsmith. Helm Charts uploaded via OCI aren't available to download via the classic `Chart.yaml` repository method.
-</Note>
-
-#### Private Repositories
-
-Assuming you have Helm v3.8.0 already installed, before you can pull a chart you need to login to Cloudsmith's registry.
-
-```shell Entitlement Token Auth
-helm registry login docker.cloudsmith.io -u OWNER/REPOSITORY -p TOKEN
-```
-```shell HTTP Basic Auth (User & Pass)
-helm registry login docker.cloudsmith.io -u USERNAME -p PASSWORD
-```
-```shell HTTP Basic Auth (API-Key)
-helm registry login docker.cloudsmith.io -u USERNAME -p API-KEY
-```
-
-#### Public Repositories
-
-With public repositores you don't need any sort of authentication and you can jump straight to [Installing a Chart](/formats/helm-chart-repository#installing-a-chart/) 
-
-### Setup for classic repository
+### Setup
 
 Assuming you have helm already installed, it is straight-forward to add a Cloudsmith-based chart repository. You use the `helm repo add` and `helm repo update` commands as follows:
 
@@ -144,15 +103,6 @@ helm repo update
 ```
 
 #### Private Repositories
-
-<Note variant="note" headline="Private Repositories">
-Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
-The setup method will differ depending on what authentication type you choose to use.
-</Note>
-
-<Note variant="warning" headline="Warning">
-Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
-</Note>
 
 ```shell Entitlement Token Auth
 helm repo add NAME \
@@ -181,33 +131,32 @@ helm repo add NAME \
 helm repo update
 ```
 
+<Note variant="note" headline="Private Repositories">
+Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
+The setup method will differ depending on what authentication type you choose to use.
+</Note>
+
+<Note variant="warning" headline="Warning">
+Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
+</Note>
 ### Installing a Chart
 
 To install/use a specific version of a chart: 
 
-```shell Shell - Classic Repository
+```shell
 helm install NAME/CHART_NAME --version CHART_VERSION
-```
-```shell - OCI Repository
-helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME --version CHART_VERSION
 ```
 
 To install the latest version of a chart:
 
-```shell Shell - Classic Repository
+```shell
 helm install NAME/CHART_NAME
-```
-```shell - OCI Repository
-helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
 ```
 
 Or you can upgrade to the most recent version of a chart if you've already installed:
 
-```shell Shell - Classic Repository
+```shell
 helm upgrade NAME/CHART_NAME
-```
-```shell - OCI Repository
-helm upgrade oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
 ```
 
 If you've got a `requirements.yaml` file in your chart, you can specify this as a dependency:
@@ -219,7 +168,7 @@ dependencies:
     repository: NAME
 ```
 
-### Removing Setup (Classic Repository)
+### Removing Setup
 
 Helm provides a very clean method of removing a chart repository, simply run the following command:
 
@@ -227,19 +176,15 @@ Helm provides a very clean method of removing a chart repository, simply run the
 helm repo remove NAME
 ```
 
-### Logging out of OCI Registry
+### Logging out of Registry
 
-Helm provides a command to logout of OCI-based registries
+Helm provides a command to logout of registries
 
 ```shell
 helm registry logout docker.cloudsmith.io
 ```
 
 ## Provenance
-
-<Note variant="note" headline="Note">
-Provenance files aren't supported for OCI chart uploads yet, but this feature is coming soon.
-</Note>
 
 Provenance files allow for verification of both the integrity and source of a Helm chart. Cloudsmith fully supports both verification and generation of Helm provenance files.
 
