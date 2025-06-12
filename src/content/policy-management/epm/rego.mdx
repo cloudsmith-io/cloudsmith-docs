@@ -1,12 +1,11 @@
 import { BlockImage, Note } from '@/components'
 
-import img_Screenshot_2024_10_18_at_22_01_26 from './images/deny-policy/7e404fe4ae434d837861b82fad3c4df7775eb56d406b516be996572e5130e70b-Screenshot_2024-10-18_at_22.01.26.png'
 
 ## Recipe 1: Simple Tag Check
 
 **Use case:** Match any package with a certain tag. For example: `ready-for-production`. For this rule, the value of`match` will be `true` when `tags.info` contains the value provided in `required_tag`.
 
-```
+```text
 package cloudsmith
 
 import rego.v1
