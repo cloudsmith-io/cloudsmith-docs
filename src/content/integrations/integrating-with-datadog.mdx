@@ -1,12 +1,15 @@
 # Datadog
 
+{/*  SME === Ranjan Singh (rsingh@cloudsmith.io) */}
+
 import { BlockImage } from '@/components';
 import { Note } from '@/components';
 
-import addIntegration from './images/datadog/integrations-datadog-add.png';
 import config from './images/datadog/integrations-datadog-config.png';
 import findDashboard from './images/datadog/integrations-datadog-find-dashboard.png';
 import dataDogCSDashboardImage from './images/datadog/DatadogDashboard.png';
+import addIntegration from './images/datadog/integration_card.png';
+
 
 [Datadog](<https://www.datadoghq.com/>) is an observability service for cloud-scale apps, providing monitoring of servers, databases, tools, and services through a SaaS-based data analytics platform. At Cloudsmith, we're big fans of Datadog and use it to monitor and visualize how our system is performing across a range of services and tools.
 
@@ -34,11 +37,15 @@ Monitor percentage usage and raw values (in bytes or gigabytes) for both artifac
 | `cloudsmith.storage_used_gb`                      | byte        | The storage used in gigabytes.                                                                                                |
 | `cloudsmith.storage_plan_limit_bytes`             | byte        | The storage limit in bytes defined by the plan.                                                                               |
 | `cloudsmith.storage_plan_limit_gb`                | byte        | The storage limit in gigabytes defined by the plan.                                                                           |
+| `cloudsmith.storage_configured_bytes`   | byte        | The configured storage in bytes, including plan and overage       |
+| `cloudsmith.storage_configured_gb`      | byte        | The configured storage in gigabytes, including plan and overage   |
 | `cloudsmith.bandwidth_used`                       | percent     | The percentage of package delivery allowance used.                                                           |
 | `cloudsmith.bandwidth_used_bytes`                 | byte        | The amount of bandwidth used in bytes.                                                                                        |
 | `cloudsmith.bandwidth_used_gb`                    | byte        | The bandwidth used in gigabytes.                                                                                              |
 | `cloudsmith.bandwidth_plan_limit_bytes`           | byte        | The bandwidth limit in bytes defined by the plan.                                                                             |
 | `cloudsmith.bandwidth_plan_limit_gb`              | byte        | The bandwidth limit in gigabytes defined by the plan.                                                                         |
+| `cloudsmith.bandwidth_configured_bytes` | byte        | The configured bandwidth in bytes, including plan and overage     |
+| `cloudsmith.bandwidth_configured_gb`    | byte        | The configured bandwidth in gigabytes, including plan and overage |
 
 ### Token visibility
 
@@ -56,17 +63,17 @@ Monitor active users, login methods (SAML or password), and 2FA status. Track me
 
 | Metric Name                                     | Metric Type | Description                                                                                                                     |
 | :------------------------------------------------ | :---------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| `cloudsmith.cloudsmith.license_policy_violation.count`       | item        | The number of license policy violations.                                                                                      |
-| `cloudsmith.cloudsmith.vulnerability_policy_violation.count` | item        | The number of vulnerability policy violations.                                                                                |
-| `cloudsmith.cloudsmith.member.count`                         | item        | The number of active members in the workspace.                                                                                |
-| `cloudsmith.cloudsmith.member.has_2fa.count`                 | item        | The number of members with 2FA enabled.                                                                                       |
-| `cloudsmith.cloudsmith.member.saml.count`                    | item        | The number of members who logged in with SAML.                                                                                |
-| `cloudsmith.cloudsmith.member.password.count`                | item        | The number of members who logged in with password.                                                                            |
-| `cloudsmith.cloudsmith.member.owner.count`                   | item        | The number of members with role Owner.                                                                                          |
-| `cloudsmith.cloudsmith.member.manager.count`                 | item        | The number of members with role Manager.                                                                                        |
-| `cloudsmith.cloudsmith.member.readonly.count`                | item        | The number of members with role ReadOnly.                                                                                       |
-| `cloudsmith.cloudsmith.member.admin.count`                   | item        | The number of members with role Admin.                                                                                          |
-| `cloudsmith.cloudsmith.member.active`                        | item        | Whether a Cloudsmith user is active (1 or 0).                                                                                 |
+| `cloudsmith.license_policy_violation.count`       | item        | The number of license policy violations.                                                                                      |
+| `cloudsmith.vulnerability_policy_violation.count` | item        | The number of vulnerability policy violations.                                                                                |
+| `cloudsmith.member.count`                         | item        | The number of active members in the workspace.                                                                                |
+| `cloudsmith.member.has_2fa.count`                 | item        | The number of members with 2FA enabled.                                                                                       |
+| `cloudsmith.member.saml.count`                    | item        | The number of members who logged in with SAML.                                                                                |
+| `cloudsmith.member.password.count`                | item        | The number of members who logged in with password.                                                                            |
+| `cloudsmith.member.owner.count`                   | item        | The number of members with role Owner.                                                                                          |
+| `cloudsmith.member.manager.count`                 | item        | The number of members with role Manager.                                                                                        |
+| `cloudsmith.member.readonly.count`                | item        | The number of members with role ReadOnly.                                                                                       |
+| `cloudsmith.member.admin.count`                   | item        | The number of members with role Admin.                                                                                          |
+| `cloudsmith.member.active`                        | item        | Whether a Cloudsmith user is active (1 or 0).                                                                                 |
 
 ### Events & Security Insights
 
@@ -100,7 +107,7 @@ The Cloudsmith check is a [Community Integration](https://docs.datadoghq.com/age
 For Agent versions `v7.21+ / v6.21+`, follow the instructions below to install the Cloudsmith check on your host. Run the following command to install the Cloudsmith Agent integration:
 
 ```bash
-datadog-agent integration install -t datadog-cloudsmith==1.0.0
+datadog-agent integration install -t datadog-cloudsmith==1.1.0
 ```
 
 <Note>📘 Visit the Datadog [integration page](https://docs.datadoghq.com/integrations/cloudsmith/) to find the latest version</Note>
