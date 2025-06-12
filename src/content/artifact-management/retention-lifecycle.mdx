@@ -36,3 +36,15 @@ By disabling count and size, it means it only uses the package age to delete
 <Note variant="note">
 Retention rules only activate when packages are uploaded (synchronized). So you could have one package at 1000 days, and the 90 days retention still wouldn't activate. Only after uploading a new package would the 1000 day package be deleted.
 </Note>
+
+#### How Resync Affects Retention Rules
+
+Retention rules can also be triggered by resyncing the **most recently uploaded package** in your repository.
+
+Cloudsmith determines which packages to delete by using a cutoff date.  
+The cutoff date is calculated by subtracting the retention days from the uploaded date of the resynced package.
+
+For example:  
+If your newest package was uploaded on June 10th and the retention period is 4 days, the cutoff date is June 6th. Any packages uploaded before June 6th are eligible for deletion.
+
+<Note>📘 Resyncing a package will trigger the retention rules to run again, but it does **not** update the uploaded date of any package.</Note>
