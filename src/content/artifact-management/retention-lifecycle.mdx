@@ -1,38 +1,155 @@
 import { Note, BlockImage } from '@/components'
-import img5eb0f037d17a90f5bcce678b6eb8a06e3f78eaffcd89d078fab466fead2b7313_Screenshot_2024_10_18_at_22_48_05 from './images/retention-lifecycle/5eb0f037d17a90f5bcce678b6eb8a06e3f78eaffcd89d078fab466fead2b7313-Screenshot_2024-10-18_at_22.48.05.png'
-import img6653be612eee27401b05591796f082da4afa79901b807c2089df8fd570e5b391_Screenshot_2024_10_18_at_22_48_05 from './images/retention-lifecycle/6653be612eee27401b05591796f082da4afa79901b807c2089df8fd570e5b391-Screenshot_2024-10-18_at_22.48.05.png'
+import overview from './images/retention-lifecycle/overview.png'
 
-# Retention Lifecycle
+# Retention Rules
 
----
-## Enabling and Configuring Retention / Lifecycle policies
+Cloudsmith retention rules allow you to automatically manage storage for packages by deleting those packages you don't need any more.
 
-Automated retention/lifetime rules (available on the Velocity plan and above) allow you to automatically manage storage for packages by deleting or moving packages that fall outside of the defined retention rules. Assets can be expired based on the number of packages (count), the size of packages (bytes), or the number of days (time).
+Each repository has one retention rule, that you can configure with a set of parameters to define what to keep.
+This means, those packages that fall outside of the defined retention rules will be deleted. The main parameters to define your rules are:
+- the number of packages (count)
+- the size of packages (bytes)
+- the number of days (time).
+- a search query to filter packages.
 
-To enable and configure retention/lifecycle rules, click "Artifact Lifecycle" in the lefthand menu on a repository detail page, then use the sliders to set your policy, and finally click the green "Enable Lifecycle" button. 
+Jump to the [Configuration](#configuration) section to learn more about these fields.
 
-<BlockImage src={img5eb0f037d17a90f5bcce678b6eb8a06e3f78eaffcd89d078fab466fead2b7313_Screenshot_2024_10_18_at_22_48_05} alt="Enabling Retention / Lifecycle policy"></BlockImage>
+## Triggers
 
-The retention rules are disjunctive, so it uses all three to select what to delete.  Packages are deleted based on the date pushed, starting with the oldest. 
+Retention rules are applied when a new package is synchronized in a repository.
+Resynchronization of packages does not evaluate retention rules.
 
+<Note variant="note">
+Note that you could have one package at 1000 days, and the 90 days retention still wouldn't activate.
+Only after uploading a new package would the 1000 day package be deleted.
+</Note>
+
+## Enabling Retention Rules
+
+Retention Rules for a repository are disabled by default. Go to your repository settings, and in the lefthand menu, click Retention Rules. Click on the "Enable" button in the yellow banner to enable them.
+Alternatively, use the API to enable it with:
+
+```shell
+curl --request PATCH \
+  --url 'https://api.cloudsmith.io/v1/repos/WORKSPACE/REPOSITORY/retention?=' \
+  --header 'Authorization: Bearer API_TOKEN' \
+  --form retention_enabled=true
+```
+
+## Configuration parameters
+
+
+| Name | API | Description |
+|----------|----------|----------|
+| Enabled?  | `retention_enabled`     | If checked, the retention lifecycle rules will be activated for the repository. Any packages that don't match will be deleted automatically, and the rest are retained.      |      
+| Limit by days  | `retention_days_limit`     | The number of days of packages to retain. Set to zero to remove this criteria from the rules to apply.      |      
+| Limit by count    | `retention_count_limit`     | The maximum number of packages to retain. Set to zero to remove this criteria from the rules to apply.     |      
+| Limit by size    | `retention_size_limit`     | The maximum total size (in bytes) of packages to retain. Set to zero to remove this criteria from the rules to apply.     |      
+| Group packages by Name |   `retention_group_by_name` | If checked, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a limit of 1 and you upload PkgA 1.0, PkgB 1.0 and PkgB 1.1; only PkgB 1.0 is deleted because there are two (2) PkgBs and one (1) PkgA.        |
+| Group packages by Format | `retention_group_by_format` | If checked, retention will apply to packages by package formats rather than across all package formats.For example, when retaining by a limit of 1 and you upload `PythonPkg 1.0` and `RubyPkg 1.0`, no packages are deleted because they are different formats.         |
+| Group packages by Type |  `retention_group_by_package_type` | If checked, retention will apply to packages by package type (e.g. by binary, by source, etc.), rather than across all package types for one or more formats. For example, when retaining by a limit of 1 and you upload `DebPackage 1.0` and `DebSourcePackage 1.0`, no packages are deleted because they are different package types, binary and source respectively.         |    
+| Query String   |  `retention_package_query_string` | A package search expression which, if provided, filters the packages to be deleted. For example, a search expression of `name:foo` will result in only packages called `foo` being deleted, or a search expression of `tag:~latest` will prevent any packages tagged `latest` from being deleted. Refer to the Cloudsmith documentation for package query syntax.  |         
+
+<Note>📘 From the UI, use the sliders to set your rules, and finally click the green "Update" button to apply it.
+Some fields not available in the UI, use the API instead.</Note>
+
+<Note>📘 Note: `retention_package_query_string` is defined in an opposite meaning than the other parameters: it defines the packages to delete, not the packages to retain.</Note>
+
+<Note>📘 About multiple groupings</Note>
+
+### Configuration parameters via API
+
+Visit API reference.
+
+As a reference, use `GET` to consult existing retention rules or (PATCH) to update them.
+
+## Other considerations
+
+The retention rules are disjunctive, so it uses all three to select what to delete.
+In other words, if a package meets any of the criteria (condition1 OR condition2 OR condition3) or none, it will be kept.
+But, if a package meets all of the criteria (condition1 AND condition2 AND condition3), it will be deleted.
+
+### Limiting the number of packages to delete
+The **Limit by count** option defines the number of packages to keep. For example, if we set this to `4` and only 3 packages meet the criteria, none will be deleted. But if 5 do meet the criteria, then 1 will be deleted and 4 will be keep in the repository.
+
+This value applies per group. So, the maximum total number of packages to kept will always be the result of `retention_count_limit` multiplied by the number of groups.
+
+### Deletion order
+Packages are deleted based on the date pushed, starting with the oldest. Newest packages will be kept.
+
+### Groupings
 If grouping is selected, it applies to the rules to each "grouping". Otherwise, it's across all packages within a repository.
 
-If “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and you upload PkgA 1.0, PkgB 1.0 and PkgB 1.1; only PkgB 1.0 is deleted because there are two (2) PkgBs and one (1) PkgA
+For example, if “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and you upload PkgA 1.0, PkgB 1.0 and PkgB 1.1; only PkgB 1.0 is deleted because there are two (2) PkgBs and one (1) PkgA. Or, If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and you upload PythonPkg 1.0 and RubyPkg 1.0, no packages are deleted because they are different formats
 
-If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and you upload PythonPkg 1.0 and RubyPkg 1.0, no packages are deleted because they are different formats
+## Examples
 
-**Example - Retention Policy that deletes packages older than 100 days** 
+### Example 1
 
-To configure a retention / lifecycle policy that removes packages older than 100 days, you would set the following: 
+Delete packages older than 100 days.
+
+To configure a retention rule in the UI that removes packages older than 100 days, you would set the following:
 
 - "Limit By Days" = 100
 - "Limit By Count" = 1000 
 - "Limit By Size" = 0.0B (disabled)
 
-By disabling count and size, it means it only uses the package age to delete
+By disabling count and size, it means it only uses the package age to delete. (TODO check #team-sentinel)
 
 <BlockImage src={img6653be612eee27401b05591796f082da4afa79901b807c2089df8fd570e5b391_Screenshot_2024_10_18_at_22_48_05} alt="100 day Retention Policy"></BlockImage>
 
-<Note variant="note">
-Retention rules only activate when packages are uploaded (synchronized). So you could have one package at 1000 days, and the 90 days retention still wouldn't activate. Only after uploading a new package would the 1000 day package be deleted.
-</Note>
+### Example 2
+
+Kept only 5 packages per format (python, docker, helm, etc.), that are not older than 100 days, are not tagged with `production`, have been downloaded less than 10 times and are violating some policies.
+
+```shell
+curl --request PATCH \
+  --url 'https://api.cloudsmith.io/v1/repos/WORKSPACE/REPOSITORY/retention?=' \
+  --header 'Authorization: Bearer API_TOKEN' \
+    --header "accept: application/json" \
+    --header content-type: application/json" \
+    --DATA "{
+        "retention_enabled": true,
+        "retention_days_limit": 100,
+        "retention_count_limit": 5,
+        "retention_size_limit": 0,
+        "retention_group_by_name": false,
+        "retention_group_by_format": true,
+        "retention_group_by_package_type": false,
+        "retention_package_query_string": "tag:~production AND downloads >= 10 AND ~policy_violated"
+    }"
+```
+
+### Example 3
+
+Delete all packages that are more than 30 days old and do not have any tag.
+
+```shell
+curl --request PATCH \
+     --url https://api.cloudsmith.io/v1/repos/cloudsmith-test/acme-prod/retention/ \
+     --header "X-Api-Key: test-key" \
+     --header "accept: application/json" \
+     --header content-type: application/json" \
+     --data "{
+  "retention_enabled": true,
+  "retention_days_limit": 30,
+  "retention_package_query_string": "NOT tag:*"
+}"
+```
+
+### Example 4
+
+Delete all packages that are more than 60 days old and have less than 10 downloads. 
+
+```shell
+curl --request PATCH \
+     --url https://api.cloudsmith.io/v1/repos/cloudsmith-test/acme-prod/retention/ \
+     --header "X-Api-Key: test-key" \
+     --header "accept: application/json" \
+     --header "content-type: application/json" \
+     --data "{
+  "retention_enabled": true,  
+  "retention_days_limit": 60,
+  "retention_package_query_string": "downloads:<10"
+}"
+```
