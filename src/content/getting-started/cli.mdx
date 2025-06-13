@@ -9,7 +9,8 @@ The Cloudsmith Command Line Interface (CLI) is a Py2/Py3 text-based interface to
 You can install the latest CLI application from:
 
 - [Cloudsmith](https://cloudsmith.io/~cloudsmith/repos/cli/packages/)
-- [PyPi](https://pypi.python.org/pypi/cloudsmith-cli)
+- [PyPi](https://pypi.python.org/pypi/cloudsmith-cli)- <br />
+- [Homebrew Tap](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli) (MacOS)
 
 The easiest way is to use `pip`, such as:
 
@@ -22,6 +23,28 @@ Or you can get the latest pre-release version from Cloudsmith:
 ```shell
 pip install --upgrade cloudsmith-cli --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
 ```
+
+### Installing on MacOS with Homebrew Tap
+
+First, add the tap:
+
+```shell
+brew tap cloudsmith-io/cloudsmith-cli
+```
+
+Then install the CLI:
+
+```shell
+brew install cloudsmith-cli
+```
+
+To upgrade:
+
+```shell
+brew upgrade cloudsmith-cli
+```
+
+For issues with the tap, please open a [GitHub issue](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli/issues/new) or contact [support@cloudsmith.io](mailto:support@cloudsmith.io).
 
 ### Installing on Windows
 
