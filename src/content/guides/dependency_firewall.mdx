@@ -2,6 +2,8 @@
 
 
 {/* GOALS
+Highlight key cloudsmith functionality. including; security scanning, deny policies, block-until-scanned, vulnerability policies
+
 Super important to:
 - keep it simple
 - relate to the product features, strenghs, where do we do it better?
@@ -11,7 +13,7 @@ Super important to:
 
 
 
-Highlight key cloudsmith functionality. including; security scanning, deny policies, block-until-scanned, vulnerability policies
+
 
 {/*  INTRO / PROBLEM STATEMENT
 
@@ -62,6 +64,8 @@ Here's an overview of the different areas we'll cover:
 
 For most organizations, there's a common ausence of visibility over OSS software used in most of their Software Development Life Cicle (SDLC). Everything is allowed to ship new features in time. This leads to a point in which it is almost impossible to track which packages have been running in your infra, with the consequent increase in risk. The first step to take control is to increase visibility: you can't control what you don't see.
 
+#### 1.1. Single source of truth for your all your artifacts
+
 Cloudsmith is your single pane of glass for all kind of artifacts. With an extensive [support of 30 different package formats](),
 Cloudsmith provides an easy to manage but yet advanced platform that support all the native tooling your developers use.
 
@@ -77,11 +81,22 @@ export CLOUDSMITH_API_TOKEN=<API_TOKEN> # Available in user settings
 export CLOUDSMITH_WORKSPACE_NAME=<WORKSPACE_NAME>
 export CLOUDSMITH_REPOSITORY=<REPO_NAME>
 export CLOUDSMITH_REPOSITORY_IS_PRIVATE=yes
+
+#download and setup cloudsmith-cli
+
 ```
 
-You can use this repo to upload any kind of asset: from _Python_ or _Golang_ packages to _Docker containers_. For example, let's upload a _Helm chart_:
+You can use this repo to upload any kind of asset: from _Python_ or _Golang_ packages to _Docker containers_. Let's see a couple of examples. With python (pip3 required):
+
+```bash
+pip3 download adorable
+cloudsmith push python demo-docs/awesome-repo adorable-0.1.5-py3-none-any.whl
 
 ```
+
+Or, for example, let's upload a _Helm chart_:
+
+```bash
 # add and update a helm repo + download a sample chart
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
@@ -129,7 +144,6 @@ For example:
 Reach out to our [Support team]() to learn more about all of the alternatives we provide.
 </Note>
 
-Cloudsmith provides a CLI and support for all major native tooling for your packages. It also includes instructions to configure your new repository as the only source of artifacts for your developers. As we'll see later, Cloudsmith allows you to enforce which software is allowed within your organization.
 
 {/* Ensure your teams are only pulling from Cloudsmith - which means setting up your teams and pipelines to point at Cloudsmith.
     Talk about teams, accounts, services, workspace members. */}
