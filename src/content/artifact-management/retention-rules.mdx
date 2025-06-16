@@ -1,19 +1,5 @@
 import { Note, BlockImage } from '@/components'
 
-{/* 
-TODOs
-waiting on slack reply: https://cloudsmith-io.slack.com/archives/C07K8E6NXV1/p1749805751067719
-- By disabling count and size, it means it only uses the package age to delete. (TODO check #team-sentinel)
-- “allow you to automatically manage storage for packages by deleting or moving packages” --- I don’t see anything about moving packages in this feature. This is wrong, right?
-- > “If grouping is selected, it applies to the rules to each "grouping". Otherwise, it's across all packages within a repository.” --- About combinatory, having multiple groupings. Example: Does this mean that if I have N different formats, M different package names per format, this will lead to NxM different groups to which my rules apply? Comment from a newbie here: for a bit enough repo, I see it isn't easy to forecast the consequences of multiple groupings. Not saying this option is not useful, just complex to tame/predict. I wonder how many customers are successfully using the retention_group_by_* options, but IMO it looks a bit complex to understand its consequences. Happy to hear someone disagreeing about this.
-- dry_run?
-- why value 1000 disables limit by count (based in the existing docs). This looks wrong.
-- Retention rules only activate when packages are uploaded (synchronized). So you could have one package at 1000 days, and the 90 days retention still wouldn't activate. Only after uploading a new package would the 1000 day package be deleted. --- Is this still true with the new continuous security workflows? I think this should not be true any more, it goes against it.
-- tag FAILED vs ~FAILED
-- retention_package_query_string: retention vs deletion. now is deletion, but the other fields are retention-oriented.
-
-*/}
-
 # Retention Rules
 
 Cloudsmith retention rules allow you to automatically manage storage for packages by deleting those packages you don't need any more.
@@ -29,13 +15,20 @@ Jump to the [Configuration](#configuration) section to learn more about these fi
 
 ## Triggers
 
-Retention rules are applied when a new package is synchronized in a repository.
-Resynchronization of packages doesn't evaluate retention rules.
+Retention rules are applied when a new package is synchronized or re-synchronized in a repository.
+Retention rules can also be triggered by resyncing the most recently uploaded package in your repository.
 
 <Note variant="note">
 Note that you could have one package at 1000 days, and the 90 days retention still wouldn't activate.
 Only after uploading a new package would the 1000 day package be deleted.
 </Note>
+
+Cloudsmith determines which packages to delete by using a cutoff date.
+The cutoff date is calculated by subtracting the retention days from the uploaded date of the resynced package.
+
+For example: if your newest package was uploaded on June 10th and the retention period is 4 days, the cutoff date is June 6th. Any packages uploaded before June 6th are eligible for deletion.
+
+<Note>📘 Although a re-sync process will re-evaluate retention rules, it won't alter the most recent upload date on a package.</Note>
 
 ## Enabling Retention Rules
 
@@ -64,12 +57,6 @@ curl --request PATCH \
 
 <Note>📘 From the UI, use the sliders to set your rules, and finally click the green "Update" button to apply it.
 Some fields not available in the UI, use the API instead.</Note>
-
-<Note>📘 **Note**
-`retention_package_query_string` is defined in an opposite meaning than the other parameters: it defines the packages to delete, not the packages to retain.</Note>
-
-{/* <Note>📘 About multiple groupings</Note> 
-TODO PENDING, review top section*/}
 
 ### Configuration parameters via API
 
@@ -102,10 +89,10 @@ For example, if “Group Packages by Name” is selected, retention will apply t
 
 Delete packages older than 100 days.
 
-To configure a retention rule in the UI that removes packages older than 100 days, you would set the following:
+To configure a retention rule in the UI that removes all packages older than 100 days, you would set the following:
 
 - "Limit By Days" = 100
-- "Limit By Count" = 1000 
+- "Limit By Count" = 0 
 - "Limit By Size" = 0.0B (disabled)
 
 By disabling count and size, it means it only uses the package age to delete.
