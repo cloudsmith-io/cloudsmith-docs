@@ -11,18 +11,15 @@ _How to integrate Mend Renovate with Cloudsmith._
 
 ---
 
-[Renovate](https://github.com/renovatebot/renovate) is a popular open source dependency update automation tool. It can help you by automating the process of looking for references to dependencies (both public and private) and updating them if there are newer versions available. Renovate supports a wide range of package ecosystems (Docker, npm, PyPI, Maven, NuGet, etc.) and works across multiple version control systems (GitHub, GitLab, Azure DevOps, Bitbucket).
+[Renovate](https://github.com/renovatebot/renovate) is a popular open-source dependency update automation tool. It can help you by automating the process of looking for references to dependencies (both public and private) and updating them if newer versions are available. Renovate supports a wide range of package ecosystems (Docker, npm, PyPI, Maven, NuGet, etc.) and works across multiple version control systems (GitHub, GitLab, Azure DevOps, Bitbucket).
 
-<Note>📘 This guide shows how to configure Renovate to work with a private Cloudsmith Docker repository, using the Renovate GitHub App (hosted by Mend) as the primary example.However, the same approach applies to other package types supported by Cloudsmith, including npm, PyPI, Maven, NuGet, and more.</Note>
+<Note>📘 This guide shows how to configure Renovate to work with a private Cloudsmith Docker repository, using the Renovate GitHub App (hosted by Mend) as its primary example.However, the same approach applies to other package types supported by Cloudsmith, including npm, PyPI, Maven, NuGet, and more.</Note>
 
 ## Why use Renovate with Cloudsmith?
 
-- Automatically create pull requests to update your dependencies when new versions are published to Cloudsmith.
 - Keep your dependencies secure and up-to-date.
 - Automate the process of consuming new builds published to your Cloudsmith repositories.
 - Works with all major package types supported by Cloudsmith.
-
-<Note>📘 We recommend using a Cloudsmith [Entitlement token](/software-distribution/entitlement-tokens) instead of an API key.</Note>
 
 ## Configuration Steps
 
@@ -34,21 +31,22 @@ _How to integrate Mend Renovate with Cloudsmith._
 - A private Cloudsmith repository for your chosen package type.
 - A valid authentication method (Entitlement Token, or User/Service API Key) for your Cloudsmith repository. Cloudsmith repositories are private by default. Renovate requires authentication to list available package versions and perform version checks.
 
+<Note>📘 We recommend using a Cloudsmith [Entitlement token](/software-distribution/entitlement-tokens) instead of an API key.</Note>
 
 ### 1. Add your Cloudsmith Entitlement Token as a Secret
 
-In the Mend Developer Dashboard, navigate to Settings → Credentials → Add Secret. This step can be completed at the Repository level or the Organisation level and define your:
-- Secret Name: use `MEND_CLOUDSMITH_TOKEN`.
-- Secret Value: use your Cloudsmith entitlement token. Click [here](/software-distribution/entitlement-tokens-via-the-website-ui#creating-entitlement-tokens) to learn how to generate a new one.
-- Check the “Env var” box (if available).
+In the Mend Developer Dashboard, navigate to Settings → Credentials → Add Secret. This step can be completed at the Repository level or the Organisation level, and define your:
+- **Secret Name**: use `MEND_CLOUDSMITH_TOKEN`.
+- **Secret Value**: Use your Cloudsmith entitlement token. Click [here](/software-distribution/entitlement-tokens-via-the-website-ui#creating-entitlement-tokens) to learn how to generate a new one.
+- Check the **Env var** box (if available).
 
 <BlockImage src={set_secret} alt=""></BlockImage>
 
 ### 2. Add a Host Rule
 
-The primary purpose of hostRules is to configure credentials for host authentication (in this case, your private repository). In the next step, you'll tell Renovate how to match against your Cloudsmith repository, and which credentials to use.
+The primary purpose of hostRules is to configure credentials for host authentication (in this case, your private repository). In the next step, you'll tell Renovate how to match against your Cloudsmith repository and which credentials to use.
 
-In the Mend Developer Dashboard, navigate to Settings → Host Rules → Add Host Rule and fill the fields:
+In the Mend Developer Dashboard, navigate to Settings → Host Rules → Add Host Rule and fill in the fields:
 
 | Field         | value                                                             |
 | :------------ | :---------------------------------------------------------------- |
