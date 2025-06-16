@@ -640,6 +640,10 @@
             "path": "/integrations/integrating-with-roadie"
           },
           {
+            "title": "Renovate",
+            "path": "/integrations/integrating-with-renovate"
+          },  
+          {
             "title": "Semaphore CI",
             "path": "/integrations/integrating-with-semaphore-ci"
           },
