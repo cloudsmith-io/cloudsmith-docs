@@ -121,19 +121,19 @@ While the legacy endpoint ([https://dl.cloudsmith.io](https://dl.cloudsmith.io))
 </Note>
 
 
-**Linux / Mac**
+##### **Linux / Mac**
 
 ```shell
 export GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-**Windows (cmd)**
+##### **Windows (cmd)**
 
 ```shell
 set GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-**Windows (Powershell)** 
+##### **Windows (Powershell)** 
 
 ```shell
 $env:GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
@@ -155,8 +155,7 @@ To define the `GOPROXY` environment variable for a private Cloudsmith repository
 ```shell
 # HTTP Basic Auth (with Entitlement Token)
 export GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
-```
-```shell
+
 # HTTP Basic Auth (API-Key)
 export GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
@@ -166,8 +165,7 @@ export GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```shell
 # HTTP Basic Auth (with Entitlement Token)
 set GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
-```
-```shell
+
 # HTTP Basic Auth (API-Key)
 set GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
@@ -177,12 +175,10 @@ set GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```powershell
 # HTTP Basic Auth (with Entitlement Token)
 $env:GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
-```
-```powershell
+
 # HTTP Basic Auth (API-Key)
 $env:GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
-
 
 <Note variant="note" headline="About Go modules authentication">
 The Go sumdb cannot record the hash value of a private repository and this will cause the local Go command to fail the verification after downloading. You can see more details running the `go mod download` with the `-x` option.
@@ -191,15 +187,12 @@ It is recommended to use the environment variable `GONOSUMDB` and set its value 
 
 `GONOSUMDB` should be a [list of module path prefixes](https://go.dev/ref/mod#module-proxy:~:text=GONOSUMDB%20%E2%80%94%20list%20of%20glob%20patterns%20of%20module%20path%20prefixes%20that%20should%20not%20be%20checked%20using%20the%20public%20checksum%20database%2C%20sum.golang.org.), like for example: `GONOSUMDB=demo-docs/awesome-repo,cloudsmith-test/acme2`.
 
----
-
 While verifying the checksum of downloaded go modules is a critical step,
 there's general agreement against having separate checksum databases (for example, having a Cloudsmith checksum database).
 See for example: [https://github.com/golang/go/issues/44936](https://github.com/golang/go/issues/44936) and [https://github.com/gomods/athens/issues/1572](https://github.com/gomods/athens/issues/1572).
 
 {/* Cloudsmith adheres to this recommendations and will proxy checksum verification requests to the global checksum database. */}
 </Note>
-
 
 ### Installing a Package
 
