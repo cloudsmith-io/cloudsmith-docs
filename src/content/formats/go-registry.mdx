@@ -1,4 +1,4 @@
-import { Note, Video } from '@/components';
+import { Note, Video, BlockImage } from '@/components';
 
 # Go Registry
 
@@ -231,17 +231,21 @@ go get PACKAGE_NAME@PACKAGE_VERSION
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+Cloudsmith supports ecurity scanning for Go modules.
+Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information about this capability.
 
 ## Upstream Proxying / Caching
 ### Upstream Proxying 
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> 
+Cloudsmith supports [proxy.golang.org](proxy.golang.org) as an Upstream for your Golang projects. 
+
+import go_upstream from './images/go-registry/go_upstream.png';
+
+<BlockImage src={go_upstream} alt=""></BlockImage>
 
 ### Upstream Caching
 
-<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+Not supported.
 
 ## Troubleshooting
 
