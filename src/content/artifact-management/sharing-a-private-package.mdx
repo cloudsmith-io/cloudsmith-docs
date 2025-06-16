@@ -2,7 +2,6 @@ import { BlockImage } from '@/components'
 import imged522fd6ab43d9abced7a801732c40c9a29869e465c20ea305d13e9ec0a5dd59_create_entitlement_token_button from './images/sharing-a-private-package/ed522fd6ab43d9abced7a801732c40c9a29869e465c20ea305d13e9ec0a5dd59-create-entitlement-token-button.png'
 import img10943100632c8efccde4ea5173b8900f22b275ff3b58a913658956becc40446e_create_token_form from './images/sharing-a-private-package/10943100632c8efccde4ea5173b8900f22b275ff3b58a913658956becc40446e-create-token-form.png'
 import imgd78b6589d3fc9dc9251e98f23bfb4cbc80d051037072be4a427403160189ed5f_create_token_complete from './images/sharing-a-private-package/d78b6589d3fc9dc9251e98f23bfb4cbc80d051037072be4a427403160189ed5f-create-token-complete.png'
-import imgaf3864e_download_select_token from './images/sharing-a-private-package/af3864e-download-select-token.png'
 import imga9ed4b8_download_select_token_detail_page from './images/sharing-a-private-package/a9ed4b8-download-select-token-detail-page.png'
 
 
@@ -16,7 +15,7 @@ It's very simple. Say you want to give one of your customers - let's call him Ar
 
 ## 1. Create an Entitlement Token
 
-In a repository; click the "Settings" tab then click "Entitlement Tokens". This will take you to the Entitlements management page where you will see the Entitlement Tokens for the repository. If you have not previously created any Entitlement Tokens, you will only see the Default token for the repository. This is created for you as standard and will always be there (you can refresh it but not delete it!)
+In a repository; click the "Settings" tab then click "Entitlement Tokens". This will take you to the Entitlements management page where you will see the Entitlement Tokens for the repository. If you have not previously created any Entitlement Tokens, you will only see the Default token for the repository. This is created for you as standard and will always be there (you can refresh it but not delete it).
 
 Click the blue "Create New Token" button (top-right): 
 
@@ -26,19 +25,15 @@ A form will be displayed asking for a name for the token - the name is inconsequ
 
 <BlockImage src={img10943100632c8efccde4ea5173b8900f22b275ff3b58a913658956becc40446e_create_token_form} alt="Create Entitlement Token Form"></BlockImage>
 
-You will now see the new token under the Default token.
+You will now see the new token:
 
 <BlockImage src={imgd78b6589d3fc9dc9251e98f23bfb4cbc80d051037072be4a427403160189ed5f_create_token_complete} alt="Entitlement Token List"></BlockImage>
 
 ## 2. Assign Entitlement Token to a Package
 
-Navigate back to the private repository packages list page.
+Navigate back to the private repository packages list page, and click on a package to review its details.
 
-You will notice that there is an arrow beside the download icon on the download button on the right hand side. Click the arrow and you'll be given the option to download the file with a particular token. If you just want to send the url; right-click with the token of choice and using the browser's "Copy Link Address" feature you can copy the url to your clipboard (for pasting into a chat window or email).
-
-<BlockImage src={imgaf3864e_download_select_token} alt="Token Selection for Download"></BlockImage>
-
-Alternatively from the package details page you'll see a larger version of the button described above (top-right) - it works the same as the smaller version on the repository package listing page.
+You will notice that there is a **Use Package** button on the right hand side. Click on it and a few options will be presented to configure or use the package with native tooling like, in the case of this example, `pip`. If you just want to send the url; right-click with the token of choice. In this case, select `arnold-token from the dropdown in **Pull with a single command**. Then, copy the link in the code-block and browse the index to find the package you want to share. Once you have it, use the browser's "Copy Link Address" feature to copy the url to your clipboard and share it.
 
 <BlockImage src={imga9ed4b8_download_select_token_detail_page} alt=""></BlockImage>
 
