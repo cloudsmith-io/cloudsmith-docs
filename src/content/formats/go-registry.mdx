@@ -29,7 +29,7 @@ In the following examples:
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
 | PASSWORD        | Your Cloudsmith password                                                                  |
-| API-KEY         | Your Cloudsmith API Ke-                                                                   |
+| API-KEY         | Your Cloudsmith API Key                                                                   |
 | PACKAGE_NAME    | The name of your package                                                                  |
 | PACKAGE_VERSION | The version number of your package                                                        |
 
@@ -118,6 +118,10 @@ To define the `GOPROXY` environment variable for a public Cloudsmith repository:
 Cloudsmith provides a dedicated endpoint for Go artifacts: [https://golang.cloudsmith.io](https://golang.cloudsmith.io). This endpoint supports native Golang Upstreams so you can access modules from [https://proxy.golang.org](https://proxy.golang.org).
 
 While the legacy endpoint ([https://dl.cloudsmith.io](https://dl.cloudsmith.io)) is still maintained, we recommend to use the new one.
+</Note>
+
+<Note variant="note" headline="Note">
+`GOPROXY` allows the concatenation of multiple servers separated by commas. For example, for `GOPROXY=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct`, all requests not satisfied by the first server will fallback the the next one (`https://proxy.golang.org`).
 </Note>
 
 
