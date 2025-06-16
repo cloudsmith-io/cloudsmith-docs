@@ -1,13 +1,27 @@
 import { Note, BlockImage } from '@/components'
 
+{/* 
+TODOs
+waiting on slack reply: https://cloudsmith-io.slack.com/archives/C07K8E6NXV1/p1749805751067719
+- By disabling count and size, it means it only uses the package age to delete. (TODO check #team-sentinel)
+- “allow you to automatically manage storage for packages by deleting or moving packages” --- I don’t see anything about moving packages in this feature. This is wrong, right?
+- > “If grouping is selected, it applies to the rules to each "grouping". Otherwise, it's across all packages within a repository.” --- About combinatory, having multiple groupings. Example: Does this mean that if I have N different formats, M different package names per format, this will lead to NxM different groups to which my rules apply? Comment from a newbie here: for a bit enough repo, I see it isn't easy to forecast the consequences of multiple groupings. Not saying this option is not useful, just complex to tame/predict. I wonder how many customers are successfully using the retention_group_by_* options, but IMO it looks a bit complex to understand its consequences. Happy to hear someone disagreeing about this.
+- dry_run?
+- why value 1000 disables limit by count (based in the existing docs). This looks wrong.
+- Retention rules only activate when packages are uploaded (synchronized). So you could have one package at 1000 days, and the 90 days retention still wouldn't activate. Only after uploading a new package would the 1000 day package be deleted. --- Is this still true with the new continuous security workflows? I think this should not be true any more, it goes against it.
+- tag FAILED vs ~FAILED
+- retention_package_query_string: retention vs deletion. now is deletion, but the other fields are retention-oriented.
+
+*/}
+
 # Retention Rules
 
 Cloudsmith retention rules allow you to automatically manage storage for packages by deleting those packages you don't need any more.
 
 Each repository has one retention rule, that you can configure with a set of parameters to define what to keep.
 This means, those packages that fall outside of the defined retention rules will be deleted. The main parameters to define your rules are:
-- the number of packages (count)
-- the size of packages (bytes)
+- the number of packages (count).
+- the size of packages (bytes).
 - the number of days (time).
 - a search query to filter packages.
 
@@ -16,7 +30,7 @@ Jump to the [Configuration](#configuration) section to learn more about these fi
 ## Triggers
 
 Retention rules are applied when a new package is synchronized in a repository.
-Resynchronization of packages does not evaluate retention rules.
+Resynchronization of packages doesn't evaluate retention rules.
 
 <Note variant="note">
 Note that you could have one package at 1000 days, and the 90 days retention still wouldn't activate.
@@ -37,7 +51,6 @@ curl --request PATCH \
 
 ## Configuration parameters
 
-
 | Name | API | Description |
 |----------|----------|----------|
 | Enabled?  | `retention_enabled`     | If checked, the retention lifecycle rules will be activated for the repository. Any packages that don't match will be deleted automatically, and the rest are retained.      |      
@@ -52,34 +65,36 @@ curl --request PATCH \
 <Note>📘 From the UI, use the sliders to set your rules, and finally click the green "Update" button to apply it.
 Some fields not available in the UI, use the API instead.</Note>
 
-<Note>📘 Note: `retention_package_query_string` is defined in an opposite meaning than the other parameters: it defines the packages to delete, not the packages to retain.</Note>
+<Note>📘 **Note**
+`retention_package_query_string` is defined in an opposite meaning than the other parameters: it defines the packages to delete, not the packages to retain.</Note>
 
-<Note>📘 About multiple groupings</Note>
+{/* <Note>📘 About multiple groupings</Note> 
+TODO PENDING, review top section*/}
 
 ### Configuration parameters via API
 
-Visit API reference.
+Visit [API reference](https://api.cloudsmith.io/v1/swagger/) and search by `/repos/{owner}/{repo}/retention`.
 
-As a reference, use `GET` to consult existing retention rules or (PATCH) to update them.
+As a reference, use `GET` to consult an existing a retention rule in your `{owner}/{repo}` repository  or `PATCH` when you need to update it.
 
 ## Other considerations
 
 The retention rules are disjunctive, so it uses all three to select what to delete.
-In other words, if a package meets any of the criteria (condition1 OR condition2 OR condition3) or none, it will be kept.
-But, if a package meets all of the criteria (condition1 AND condition2 AND condition3), it will be deleted.
+In other words, if a package meets any of the criteria `(condition1 OR condition2 OR condition3)` or none, it will be kept.
+But, if a package meets all of the criteria `(condition1 AND condition2 AND condition3)`, it will be deleted.
 
 ### Limiting the number of packages to delete
-The **Limit by count** option defines the number of packages to keep. For example, if we set this to `4` and only 3 packages meet the criteria, none will be deleted. But if 5 do meet the criteria, then 1 will be deleted and 4 will be keep in the repository.
+The **Limit by count** option defines the number of packages to keep. For example, if we set its value to `4` and only a total of `3` packages meet the criteria, then `0` packages will be deleted. But if `5` packages meet the criteria, then `1` will be deleted and `4` will be keep in the repository.
 
 This value applies per group. So, the maximum total number of packages to kept will always be the result of `retention_count_limit` multiplied by the number of groups.
 
 ### Deletion order
-Packages are deleted based on the date pushed, starting with the oldest. Newest packages will be kept.
+Packages are deleted based on the date pushed, starting with the oldest and being newest packages the latest to be deleted until a total of `TOTAL_PACKAGES - retention_count_limit` packages have been deleted.
 
 ### Groupings
 If grouping is selected, it applies to the rules to each "grouping". Otherwise, it's across all packages within a repository.
 
-For example, if “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and you upload PkgA 1.0, PkgB 1.0 and PkgB 1.1; only PkgB 1.0 is deleted because there are two (2) PkgBs and one (1) PkgA. Or, If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and you upload PythonPkg 1.0 and RubyPkg 1.0, no packages are deleted because they are different formats
+For example, if “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and you upload `PkgA 1.0`, `PkgB 1.0` and `PkgB 1.1`; only `PkgB 1.0` is deleted because there are two (2) `PkgBs` and one (1) `PkgA`. Or, If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and you upload `PythonPkg 1.0` and `RubyPkg 1.0`, no packages are deleted because they are different formats
 
 ## Examples
 
@@ -93,7 +108,7 @@ To configure a retention rule in the UI that removes packages older than 100 day
 - "Limit By Count" = 1000 
 - "Limit By Size" = 0.0B (disabled)
 
-By disabling count and size, it means it only uses the package age to delete. (TODO check #team-sentinel)
+By disabling count and size, it means it only uses the package age to delete.
 
 ### Example 2
 
