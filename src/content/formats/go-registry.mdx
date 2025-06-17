@@ -102,9 +102,9 @@ For examples of what your project should look like for packaging and publishing/
 
 Cloudsmith supports [https://proxy.golang.org](https://proxy.golang.org) as an upstream. This allows you to proxy modules not yet in your repository through Cloudsmith for your Golang projects. Caching support is coming soon.
 
-To enable it for your repository, browse to your your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Go** format Upstream.
+To enable it for your repository, browse to your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Go** format Upstream.
 
-In the Upstream creation menu, dfine a name your Upstream and in the **Proxy URL** field insert `https://proxy.golang.org`. Click on **+ Create Upstream Proxy** and the upstream shoud become immediately available.
+In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://proxy.golang.org`. Click on **+ Create Upstream Proxy** and the upstream shoud become immediately available.
 
 <BlockImage src={go_upstream} alt=""></BlockImage>
 
@@ -146,7 +146,7 @@ $env:GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
 #### Private Repositories
 
 Private Cloudsmith repositories require authentication. GOPROXY protocol only supports authentication via HTTP Basic Authentication: `<USERNAME>/<PASSWORD>`.
-It you want to authenticate via Entitlement Token, use the literal string `token` in the user field: `token/<PASSWORD>`.
+It you want to authenticate via Entitlement Token, use the literal string `token` in the user field: `token:<TOKEN>`.
 
 <Note variant="warning" headline="Secrets management">
 Entitlement Tokens, User Credentials, and API-Keys should be treated as secrets. You should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
@@ -187,7 +187,8 @@ $env:GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 <Note variant="note" headline="About Go modules authentication">
 The Go sumdb cannot record the hash value of a private repository and this will cause the local Go command to fail the verification after downloading. You can see more details running the `go mod download` with the `-x` option.
 
-It is recommended to use the environment variable `GONOSUMDB` and set its value to `cloudsmith.io` to skip verification for your Cloudsmith repositories against the global checksum database [sum.golang.org](sum.golang.org) (this service provides an auditable checksum database service used by the go command to authenticate modules).
+It is recommended to use the environment variable `GONOSUMDB` and set its value to `cloudsmith.io`.
+This will skip verification for modules in your Cloudsmith repositories with a module name beginning with `cloudsmith.io`. Verification is performed against the global checksum database [sum.golang.org](sum.golang.org) (this service provides an auditable checksum database service used by the go command to authenticate modules).
 
 `GONOSUMDB` should be a [list of module path prefixes](https://go.dev/ref/mod#module-proxy:~:text=GONOSUMDB%20%E2%80%94%20list%20of%20glob%20patterns%20of%20module%20path%20prefixes%20that%20should%20not%20be%20checked%20using%20the%20public%20checksum%20database%2C%20sum.golang.org.), like for example: `GONOSUMDB=demo-docs/awesome-repo,cloudsmith-test/acme2`.
 
