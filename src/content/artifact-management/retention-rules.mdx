@@ -1,5 +1,8 @@
 import { Note, BlockImage } from '@/components'
 
+import retention_rules from './images/retention-rules/retention_rules.png';
+
+
 # Retention Rules
 
 Cloudsmith retention rules allow you to automatically manage storage for packages by deleting those packages you don't need any more.
@@ -33,6 +36,9 @@ For example: if your newest package was uploaded on June 10th and the retention 
 ## Enabling Retention Rules
 
 Retention Rules for a repository are disabled by default. Go to your repository settings, and in the lefthand menu, click Retention Rules. Click on the "Enable" button in the yellow banner to enable them.
+
+<BlockImage src={retention_rules} alt=""></BlockImage>
+
 Alternatively, use the API to enable it with:
 
 ```shell
