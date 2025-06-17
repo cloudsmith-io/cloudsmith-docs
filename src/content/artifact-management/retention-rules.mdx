@@ -46,7 +46,7 @@ curl --request PATCH \
 
 | Name | API | Description |
 |----------|----------|----------|
-| Enabled?  | `retention_enabled`     | If checked, the retention lifecycle rules will be activated for the repository. Any packages that don't match will be deleted automatically, and the rest are retained.      |      
+| Enabled?  | `retention_enabled`     | If checked, the retention rules will be activated for the repository. Any packages that don't match will be deleted automatically, and the rest are retained.      |      
 | Limit by days  | `retention_days_limit`     | The number of days of packages to retain. Set to zero to remove this criteria from the rules to apply.      |      
 | Limit by count    | `retention_count_limit`     | The maximum number of packages to retain. Set to zero to remove this criteria from the rules to apply.     |      
 | Limit by size    | `retention_size_limit`     | The maximum total size (in bytes) of packages to retain. Set to zero to remove this criteria from the rules to apply.     |      
