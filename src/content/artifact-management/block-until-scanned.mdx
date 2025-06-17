@@ -1,0 +1,79 @@
+import { Note, BlockImage } from '@/components'
+
+# Block Until Scanned (BUS)
+
+**Block Until Scan (BUS)** is an optional, advanced security feature designed to significantly enhance the integrity and security of software packages served by Cloudsmith. This feature mandates that all relevant security and compliance policy checks:
+- license
+- vulnerability
+- and package deny policies
+
+are fully completed *before* a package is made available for download.
+
+By enabling BUS, all package requests originating from upstreams configured in "Cache and Proxy" or "Cache Only" mode are subjected to a mandatory scanning and policy evaluation process. This ensures that only packages meeting your organization's predefined security and compliance requirements can be accessed by users, thereby mitigating the risk of distributing unverified or non-compliant software.
+
+### How It Works:
+
+* **Behavior With BUS Enabled**:
+    With BUS enabled, any package fetched directly from an upstream source is held and *not* served to the client until all relevant security and compliance policy checks have been successfully completed. This ensures that only fully vetted and compliant packages are ever distributed, preventing the initial download of potentially problematic software.
+
+* **Without BUS enabled**:
+    When a client requests a package, Cloudsmith first checks if it's already synchronized and available in the repository. If so, relevant policy checks have usually been performed asynchronously, and any policy-violating packages would be quarantined. However, if the package isn't yet in Cloudsmith and needs to be fetched from an upstream, the package is served to the client *before* all necessary policy checks are completed. This allows for the initial download of packages that may subsequently fail policy checks, potentially introducing vulnerable or non-compliant software into your build environments or client systems.
+
+## How to Use It
+
+### Enabling Block Until Scan
+
+The Block Until Scan feature is currently in **Early Access (EA)**. To enable BUS for your workspace, please contact Cloudsmith Support.
+
+#### Requirements and Considerations:
+
+* **Active Security Policies**: At least one active classic policy with a 'quarantine' action enabled is required. Without such a policy (e.g., an active Vulnerability or License Policy), the system would have no criteria to block against, and thus no delay in responses would occur.
+* **Upstream Configuration ('Proxy and Caching' mode)**: the repository must have an upstream configured with 'Proxy and Caching' mode enabled. BUS functionality is explicitly applied to packages undergoing the caching and evaluation pipeline within Cloudsmith.
+* **Workspace-Wide Setting**: Please note that BUS is a global setting that affects all repositories within a given workspace. Its activation will impact all applicable package flows.
+
+<Note>📘 **Performance Impact**
+
+When a package is not yet cached within Cloudsmith, every package and its dependencies must undergo a series of synchronous operations before being served:
+
+* **Parsing**: The package metadata must be parsed.
+* **Scanning**: The package is scanned for malware, vulnerabilities, and license compliance.
+* **Policy Evaluation**: The package is evaluated against all active policies.</Note>
+
+
+### Steps to Validate Block Until Scan
+
+To verify the functionality of Block Until Scan, follow these steps:
+
+1.  **Feature Activation**: Contact Cloudsmith Support to enable the BUS feature for your workspace. Ensure all prerequisites (e.g., active policies) are met.
+2.  **Upstream Configuration**: Configure a repository with an upstream in 'Proxy and Caching' mode. For example, enable an upstream for PyPI.
+3.  **Package Pull (With BUS Enabled)**:
+    Execute a command to pull a new, uncached package from the Cloudsmith CLI (or your native package manager) that is known to trigger a policy violation or simply requires a scan.
+
+    ```bash
+    # using Cloudsmith CLI proxy
+    cloudsmith pull python <your-org>/<your-repo> --package <package-name> --version <package-version>
+    # Alternatively, using pip configured to your Cloudsmith repo:
+    pip install <package-name>
+    ```
+
+4.  **Observe Behavior**:
+    * **Expected Behavior (With BUS)**: When BUS is enabled, the initial download request for an uncached package will be temporarily blocked until the policy evaluation has completed.
+        * **Successful Scan**: If the package passes all policy checks, the download will proceed, and the package will be served normally.
+        * **Failed Scan/Policy Violation**: If the package fails a policy check (e.g., due to a vulnerability or license issue), or if the scanning process encounters an unrecoverable error, the download will be blocked. Users will typically receive a `404 Not Found` error.
+            * **Error Differentiation**: [**Note**: It's important to clarify how users can differentiate a `404 Not Found` caused by a non-existent package from one caused by a package blocked due to a failed scan or ongoing scan. Does the Cloudsmith UI/CLI or logs provide specific error messages or status codes beyond a generic 404 for a blocked package?]
+            * **Retry Mechanism**: [**Note**: Provide specific guidance on when a user should retry a download attempt for a package that was initially blocked due to scanning. Will there be a distinct error for "scanning in progress" vs. "permanently blocked"?]
+            * **UI/CLI/Native Tooling Display**: [**Note**: Describe how these errors or delays are manifested within the Cloudsmith UI, CLI, and common native package tooling (e.g., `pip`, `npm`, `maven`). Are there specific messages, status indicators, or log entries?]
+
+5.  **Comparative Behavior (Without BUS)**:
+    Without BUS enabled, the same package would be delivered to the user immediately, before the full evaluation phase of the synchronization process had taken place. Cloudsmith would then asynchronously cache and synchronize the package after the first download. At this point, the system would apply the policy to the package and could then quarantine it. While future downloads of the package would then be blocked, this asynchronous processing means the initial downloads of the package could not be prevented.
+
+## Summary
+
+Block Until Scan represents a significant advancement in ensuring that all packages and their dependencies consumed via Cloudsmith meet an organization's security and compliance standards. While the synchronous nature of the scanning process may introduce a performance impact, particularly noticeable during the initial population of repositories or large-scale clean builds, the benefits of enhanced security, proactive risk mitigation, and assured compliance are substantial. This feature is a critical tool for maintaining the integrity of software supply chains.
+
+In general, implementing the Block Until Scan feature provides several key advantages:
+
+* **Enhanced Security Posture**: It proactively prevents the download and potential installation of packages containing known vulnerabilities or malware by enforcing mandatory pre-download scanning.
+* **Assured Compliance**: It ensures that all consumed packages adhere to established license and organizational policies, significantly reducing legal and compliance risks.
+* **Proactive Risk Mitigation**: It shifts the security evaluation from an asynchronous, post-download process to a synchronous, pre-download gate, substantially reducing exposure to non-compliant or malicious packages.
+* **Improved Integrity of Build Environments**: It guarantees that only vetted dependencies enter your development and production pipelines, fostering more secure and reliable software builds.

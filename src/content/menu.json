@@ -269,6 +269,10 @@
             "path": "/artifact-management/retention-lifecycle"
           },
           {
+            "title": "Block Until Scanned (BUS)",
+            "path": "/artifact-management/block-until-scanned"
+          },
+          {
             "title": "Package Groups",
             "path": "/artifact-management/package-groups"
           }
