@@ -62,7 +62,7 @@ curl --request PATCH \
 | Query String   |  `retention_package_query_string` | A package search expression which, if provided, filters the packages to be deleted. For example, a search expression of `name:foo` will result in only packages called `foo` being deleted, or a search expression of `tag:~latest` will prevent any packages tagged `latest` from being deleted. Refer to the Cloudsmith documentation for package query syntax.  |         
 
 <Note>📘 From the UI, use the sliders to set your rules, and finally click the green "Update" button to apply it.
-Some fields not available in the UI, use the API instead.</Note>
+Please note that the `Query String` is not available in the UI, use the API instead to consult or edit it.</Note>
 
 ### Configuration parameters via API
 
