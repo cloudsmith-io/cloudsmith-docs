@@ -1,5 +1,4 @@
 import { Note, BlockImage, Video } from '@/components';
-import npmImage from './images/npm-registry/71451c4-npm-proxy-settings.png';
 
 # npm Registry
 
@@ -317,18 +316,10 @@ The Auth key should be in base64, which you can get by running:
 echo -n 'User:APIKEY' | base64
 ```
 
-## Transparent Upstream Proxying
+## Upstream Proxying / Caching
+Configurable Proxying Caching. Please see [Upstream Proxying](https://docs.cloudsmith.com/tbc/upstream-proxying-and-caching) for more details.
 
-Cloudsmith supports transparent proxying of install requests to/from npmjs.com.  
-When enabled, requests for packages that don't exist in the registry will be automatically proxied.
-
-With admin access to the registry, you can disable transparent upstream proxying by going to the settings page, unchecking the **Proxy npm Packages?** option, and then clicking Update:
-
-<BlockImage src={npmImage} alt="npm Proxy Settings"></BlockImage>
-
-<Note variant="note" headline="Note">
-If transparent upstream proxying is disabled for the registry then you will need to fetch all dependencies of your packages manually. These can then be published into the registry, or you can bundle them with `bundleDependencies`.
-</Note>
+Upstreams provide a way to blend multiple external repositories into a single repository. This allows your single Cloudsmith repository to serve packages from multiple 'upstream' repositories.
 
 ## Security Auditing
 

@@ -1,8 +1,10 @@
 import { BlockImage } from '@/components'
-import imgec90d62_Screenshot_2022_09_01_at_14_11_13 from './images/security-scanning/ec90d62-Screenshot_2022-09-01_at_14.11.13.png'
-import img40fd4c3_Screenshot_2022_09_01_at_14_21_34 from './images/security-scanning/40fd4c3-Screenshot_2022-09-01_at_14.21.34.png'
-import imgb5651a5_Screenshot_2022_09_01_at_14_02_51 from './images/security-scanning/b5651a5-Screenshot_2022-09-01_at_14.02.51.png'
-import img783596c_Screenshot_2022_09_01_at_14_03_52 from './images/security-scanning/783596c-Screenshot_2022-09-01_at_14.03.52.png'
+
+
+
+import scans_repo_overview from './images/security-scanning/scans_repo_overview.png'
+import package_vulns from './images/security-scanning/package_vulns.png'
+import additional_scan from './images/security-scanning/additional_scan.png'
 
 # Continuous security
 
@@ -61,17 +63,19 @@ The results of a security scan are available from the Cloudsmith Web UI, the Clo
 
 ### Scan results via the Cloudsmith Web UI
 
-You can find an overview of all the packages that have been scanned, or are awaiting an additional scan via the "Security Scanning" page in any repository: 
+You can find an overview of all the packages that have been scanned, or are awaiting an additional scan, via the "Compliance / Security" page in any repository: 
 
-<BlockImage src={imgec90d62_Screenshot_2022_09_01_at_14_11_13} alt=""></BlockImage>
+<BlockImage src={scans_repo_overview} alt=""></BlockImage>
 
-The Security Scanning page shows a breakdown of the number of packages scanned/not scanned, the age of scans (how long ago they were performed) and the pass/fail count overall. 
+The Security Scanning page shows a list of packages scanned, with information about:
+- Maximum severity of vulnerabilities.
+- Affected package.
+- Number of vulnerabilities found.
+- Time since last scan.
 
-For each listed package, you can also see the number of vulnerabilities found and the maximum severity of those found. 
+For more information and details, you can view the individual vulnerabilities found on the "Security" tab on any package detail page (alternatively, from the overview page click in the **Vulnerabilities Found** card): 
 
-For more information and details, you can view the individual vulnerabilities found on the "Scans" tab on any package detail page: 
-
-<BlockImage src={img40fd4c3_Screenshot_2022_09_01_at_14_21_34} alt=""></BlockImage>
+<BlockImage src={package_vulns} alt=""></BlockImage>
 
 ### Scan results via the Cloudsmith API
 
@@ -87,13 +91,9 @@ You can perform additional security scans after the scan that is performed when 
 
 ### Additional security scans via the Cloudsmith Web UI
 
-You can select one or more packages that you wish to security scan in the packages list in any repository:
+You can request an additional scan for an individual package from the package details page: 
 
-<BlockImage src={imgb5651a5_Screenshot_2022_09_01_at_14_02_51} alt=""></BlockImage>
-
-You can also scan an individual package from the package details page: 
-
-<BlockImage src={img783596c_Screenshot_2022_09_01_at_14_03_52} alt=""></BlockImage>
+<BlockImage src={additional_scan} alt=""></BlockImage>
 
 ### Additional security scans via the Cloudsmith API
 
