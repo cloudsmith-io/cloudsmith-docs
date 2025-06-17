@@ -28,7 +28,7 @@ The Block Until Scan feature is currently in **Early Access (EA)**. To enable BU
 #### Requirements and Considerations:
 
 * **Active Security Policies**: At least one active classic policy with a 'quarantine' action enabled is required. Without such a policy (e.g., an active Vulnerability or License Policy), the system would have no criteria to block against, and thus no delay in responses would occur.
-* **Upstream Configuration ('Proxy and Caching' mode)**: the repository must have an upstream configured with 'Proxy and Caching' mode enabled. BUS functionality is explicitly applied to packages undergoing the caching and evaluation pipeline within Cloudsmith.
+* **Upstream Configuration ('Proxy and Caching' mode)**: the repository must have an upstream configured with ['Proxy and Caching'](https://docs.cloudsmith.com/tbc/upstream-proxying-and-caching#supported-formats) mode enabled. BUS functionality is explicitly applied to packages undergoing the caching and evaluation pipeline within Cloudsmith.
 * **Workspace-Wide Setting**: Please note that BUS is a global setting that affects all repositories within a given workspace. Its activation will impact all applicable package flows.
 
 <Note>
