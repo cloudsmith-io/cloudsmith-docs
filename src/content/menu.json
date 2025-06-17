@@ -269,7 +269,7 @@
             "path": "/artifact-management/retention-lifecycle"
           },
           {
-            "title": "Block Until Scanned (BUS)",
+            "title": "Block Until Scanned",
             "path": "/artifact-management/block-until-scanned"
           },
           {
