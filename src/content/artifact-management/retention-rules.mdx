@@ -72,9 +72,8 @@ As a reference, use `GET` to consult an existing a retention rule in your `{owne
 
 ## Other considerations
 
-The retention rules are disjunctive, so it uses all three to select what to delete.
-In other words, if a package meets any of the criteria `(condition1 OR condition2 OR condition3)` or none, it will be kept.
-But, if a package meets all of the criteria `(condition1 AND condition2 AND condition3)`, it will be deleted.
+When multiple parameters of a retention rule are enabled (it's value is set higher than zero) and a package meets none or any of the conditions `(condition1 OR condition2 OR condition3)` for those parameters, the package will be kept.
+This means that, in order for a package to be deleted, it needs to meet **all** of the conditions `(condition1 AND condition2 AND condition3)` in the retention rule, and not be excluded by the [`retention_count_limit`](#limiting-the-number-of-packages-to-delete) parameter when all packages to delete are [ordered](#deletion-order).
 
 ### Limiting the number of packages to delete
 The **Limit by count** option defines the number of packages to keep. For example, if we set its value to `4` and only a total of `3` packages meet the criteria, then `0` packages will be deleted. But if `5` packages meet the criteria, then `1` will be deleted and `4` will be keep in the repository.
