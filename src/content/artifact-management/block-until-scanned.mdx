@@ -2,34 +2,31 @@ import { Note, BlockImage } from '@/components'
 
 # Block Until Scanned
 
-**Block Until Scan** is an optional, advanced security feature designed to significantly enhance the integrity and security of software packages served by Cloudsmith. This feature mandates that all relevant security and compliance policy checks:
+**Block Until Scan** is a security feature designed to enhance the integrity and security of software packages served by Cloudsmith. This feature mandates that, *before* a package is made available for download, all relevant security and compliance policy checks are fully completed:
 - license
 - vulnerability
 - and package deny policies
 
-are fully completed *before* a package is made available for download.
-
-By enabling Block Until Scan, all package requests originating from upstreams configured in "Cache and Proxy" or "Cache Only" mode are subjected to a mandatory scanning and policy evaluation process. This ensures that only packages meeting your organization's predefined security and compliance requirements can be accessed by users, thereby mitigating the risk of distributing unverified or non-compliant software.
+By enabling Block Until Scan, all package requests originating from upstreams configured in "Cache and Proxy" or "Cache Only" mode are subjected to a mandatory scanning and policy evaluation process. This ensures that only packages meeting your organization's predefined security and compliance requirements can be accessed by users, thereby mitigating the risk of distributing unverified or non-compliant software and helping you enforcing your security policies across your organization.
 
 ### How It Works:
 
-* **Behavior With Block Until Scan Enabled**:
-    With Block Until Scan enabled, any package fetched directly from an upstream source is held and *not* served to the client until all relevant security and compliance policy checks have been successfully completed. This ensures that only fully vetted and compliant packages are ever distributed, preventing the initial download of potentially problematic software.
+With Block Until Scan disabled, packages are served to clients *before* all necessary policy checks are completed (unless the package was already synced in the repository, and policy checks had been completed prior to that). This allows for the initial download of packages that may subsequently fail policy checks.
 
-* **Without Block Until Scan enabled**:
-    When a client requests a package, Cloudsmith first checks if it's already synchronized and available in the repository. If so, relevant policy checks have usually been performed asynchronously, and any policy-violating packages would be quarantined. However, if the package isn't yet in Cloudsmith and needs to be fetched from an upstream, the package is served to the client *before* all necessary policy checks are completed. This allows for the initial download of packages that may subsequently fail policy checks, potentially introducing vulnerable or non-compliant software into your build environments or client systems.
+When Block Until Scan is enabled, any package fetched directly from an upstream source is held and *not* served to the client until all relevant security and compliance policy checks have been successfully completed. This ensures that only compliant packages are ever distributed, preventing the initial download of potentially problematic software.
 
 ## How to Use It
 
-### Enabling Block Until Scan
+<Note>
+📘 The Block Until Scan feature is currently in **Early Access (EA)**. To enable Block Until Scan for your workspace, please contact Cloudsmith Support.
 
-The Block Until Scan feature is currently in **Early Access (EA)**. To enable Block Until Scan for your workspace, please contact Cloudsmith Support.
+**Workspace-Wide Setting**: Please note that Block Until Scan is a global setting that affects all repositories within a given workspace. Its activation will impact all applicable package flows.
+</Note>
 
-#### Requirements and Considerations:
+### Requirements:
 
-* **Active Security Policies**: At least one active classic policy with a 'quarantine' action enabled is required. Without such a policy (e.g., an active Vulnerability or License Policy), the system would have no criteria to block against, and thus no delay in responses would occur.
-* **Upstream Configuration ('Proxy and Caching' mode)**: the repository must have an upstream configured with ['Proxy and Caching'](https://docs.cloudsmith.com/tbc/upstream-proxying-and-caching#supported-formats) mode enabled. Block Until Scan is explicitly applied to packages undergoing the caching and evaluation pipeline within Cloudsmith.
-* **Workspace-Wide Setting**: Please note that Block Until Scan is a global setting that affects all repositories within a given workspace. Its activation will impact all applicable package flows.
+- **Active Security Policies**: At least one active classic policy with a 'quarantine' action enabled is required. Without such a policy (e.g., an active Vulnerability or License Policy), the system would have no criteria to block against.
+- **Upstream Configuration ('Proxy and Caching' mode)**: the repository must have an upstream configured with ['Proxy and Caching'](https://docs.cloudsmith.com/tbc/upstream-proxying-and-caching#supported-formats) mode enabled. Block Until Scan is explicitly applied to packages undergoing the caching and evaluation pipeline within Cloudsmith.
 
 <Note>
 📘 **Performance Impact**
@@ -41,15 +38,13 @@ When a package is not yet cached within Cloudsmith, every package and its depend
 * **Policy Evaluation**: The package is evaluated against all active policies.
 </Note>
 
-
 ### Steps to Validate Block Until Scan
 
 To verify the functionality of Block Until Scan, follow these steps:
 
 1.  **Feature Activation**: Contact Cloudsmith Support to enable the Block Until Scan feature for your workspace. Ensure all prerequisites (e.g., active policies) are met.
 2.  **Upstream Configuration**: Configure a repository with an upstream in 'Proxy and Caching' mode. For example, enable an upstream for PyPI.
-3.  **Package Pull (With Block Until Scan Enabled)**:
-    Execute a command to pull a new, uncached package from the Cloudsmith CLI (or your native package manager) that is known to trigger a policy violation or simply requires a scan.
+3.  **Package Pull**: Execute a command to pull a new, uncached package from the Cloudsmith CLI (or your native package manager) that is known to trigger a policy violation or simply requires a scan:
 
     ```bash
     # using Cloudsmith CLI proxy
