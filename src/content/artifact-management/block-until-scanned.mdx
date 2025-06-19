@@ -42,35 +42,35 @@ When a package is not yet cached within Cloudsmith, every package and its depend
 
 To verify the functionality of Block Until Scan, follow these steps:
 
-1.  **Feature Activation**: Contact Cloudsmith Support to enable the Block Until Scan feature for your workspace. Ensure all prerequisites (e.g., active policies) are met.
-2.  **Upstream Configuration**: Configure a repository with an upstream in 'Proxy and Caching' mode. For example, enable an upstream for PyPI.
-3.  **Package Pull**: Execute a command to pull a new, uncached package from the Cloudsmith CLI (or your native package manager) that is known to trigger a policy violation or simply requires a scan:
+#### 1. Feature activation
+Contact Cloudsmith Support to enable the Block Until Scan feature for your workspace. Ensure all prerequisites (e.g., active policies) are met.
+
+#### 2. Upstream Configurationactivation
+Configure a repository with an upstream in 'Proxy and Caching' mode. For example, enable a Python upstream with PyPI.
+
+#### 3. Create a vulnerability policyactivation
+[link](). Scope it to `format:python AND requests` 
+
+#### 4. Pull a new package from your repository
+Execute a command to pull a new, uncached package (for example, `requests==1.2.0` if not present in your repo) that is known to trigger a policy violation or simply requires a scan:
 
     ```bash
-    # using Cloudsmith CLI proxy
-    cloudsmith pull python <your-org>/<your-repo> --package <package-name> --version <package-version>
-    # Alternatively, using pip configured to your Cloudsmith repo:
-    pip install <package-name>
+    pip download requests==1.2.0 --index-url https://dl.cloudsmith.io/public/demo-docs/awesome-repo/python/simple/ 
     ```
 
-4.  **Observe Behavior**:
-    * **Expected Behavior (With Block Until Scan)**: When Block Until Scan is enabled, the initial download request for an uncached package will be temporarily blocked until the policy evaluation has completed.
-        * **Successful Scan**: If the package passes all policy checks, the download will proceed, and the package will be served normally.
-        * **Failed Scan/Policy Violation**: If the package fails a policy check (e.g., due to a vulnerability or license issue), or if the scanning process encounters an unrecoverable error, the download will be blocked. Users will typically receive a `404 Not Found` error.
-            * **Error Differentiation**: [**Note**: It's important to clarify how users can differentiate a `404 Not Found` caused by a non-existent package from one caused by a package blocked due to a failed scan or ongoing scan. Does the Cloudsmith UI/CLI or logs provide specific error messages or status codes beyond a generic 404 for a blocked package?]
-            * **Retry Mechanism**: [**Note**: Provide specific guidance on when a user should retry a download attempt for a package that was initially blocked due to scanning. Will there be a distinct error for "scanning in progress" vs. "permanently blocked"?]
-            * **UI/CLI/Native Tooling Display**: [**Note**: Describe how these errors or delays are manifested within the Cloudsmith UI, CLI, and common native package tooling (e.g., `pip`, `npm`, `maven`). Are there specific messages, status indicators, or log entries?]
+#### 5.  Observe Behavior
+When Block Until Scan is enabled, the initial download request for an uncached package will be temporarily blocked until the policy evaluation has completed:
+- **Successful Scan**: If the package passes all policy checks, the download will proceed, and the package will be served normally.
+- **Failed Scan/Policy Violation**: If the package fails a policy check (e.g., due to a vulnerability or license issue), or if the scanning process encounters an unrecoverable error, the download will be blocked with a `403 Forbidden` error code.
 
-5.  **Comparative Behavior (Without Block Until Scan)**:
-    Without Block Until Scan enabled, the same package would be delivered to the user immediately, before the full evaluation phase of the synchronization process had taken place. Cloudsmith would then asynchronously cache and synchronize the package after the first download. At this point, the system would apply the policy to the package and could then quarantine it. While future downloads of the package would then be blocked, this asynchronous processing means the initial downloads of the package could not be prevented.
+Without Block Until Scan, the same package would be delivered to the user immediately, before the full evaluation phase of the synchronization process had taken place. Cloudsmith would then asynchronously cache and synchronize the package after the first download. At this point, the system would apply the policy to the package and could then quarantine it. While future downloads of the package would then be blocked, this asynchronous processing means the initial downloads of the package could not be prevented if required.
 
 ## Summary
 
-Block Until Scan represents a significant advancement in ensuring that all packages and their dependencies consumed via Cloudsmith meet an organization's security and compliance standards. While the synchronous nature of the scanning process may introduce a performance impact, particularly noticeable during the initial population of repositories or large-scale clean builds, the benefits of enhanced security, proactive risk mitigation, and assured compliance are substantial. This feature is a critical tool for maintaining the integrity of software supply chains.
+Block Until Scan helps your organization ensure that all software packages and their dependencies downloaded through Cloudsmith meet your security and compliance rules.
+While this scanning happens before you can download packages, the advantages are significant:
 
-In general, implementing the Block Until Scan feature provides several key advantages:
+- **Enforce Security Policies across all your organization**: It blocks any package downloads until security checks has been completed. Only approved software components are used in your workloads, guaranteeing compliance with organizational standards and practices.
+- **Reduced Risk**: checking packages before running them reduces your exposure to non-compliant software.
 
-* **Enhanced Security Posture**: It proactively prevents the download and potential installation of packages containing known vulnerabilities or malware by enforcing mandatory pre-download scanning.
-* **Assured Compliance**: It ensures that all consumed packages adhere to established license and organizational policies, significantly reducing legal and compliance risks.
-* **Proactive Risk Mitigation**: It shifts the security evaluation from an asynchronous, post-download process to a synchronous, pre-download gate, substantially reducing exposure to non-compliant or malicious packages.
-* **Improved Integrity of Build Environments**: It guarantees that only vetted dependencies enter your development and production pipelines, fostering more secure and reliable software builds.
+In short, Block Until Scan is a crucial tool for securing and reducing risk in your software supply chain.
