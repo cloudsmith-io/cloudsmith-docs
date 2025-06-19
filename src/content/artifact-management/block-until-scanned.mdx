@@ -6,7 +6,7 @@ import { Note, BlockImage } from '@/components'
 
 ---
 
-By enabling Block Until Scan, all package requests originating from upstreams configured in "Cache and Proxy" or "Cache Only" mode are subjected to a mandatory scanning and policy evaluation process. This ensures that only packages meeting your organization's security policies can be accessed by users.
+By enabling Block Until Scan, all package requests originating from upstreams configured in "Cache and Proxy" mode are subjected to a mandatory scanning and policy evaluation process. This ensures that only packages meeting your organization's security policies can be accessed by users.
 
 Without Block Until Scan, packages could be served to clients *before* all necessary policy checks were completed (unless the package was already synced in the repository, and policy checks had been completed prior to that). This allowed for the initial download of packages that may subsequently fail policy checks.
 
