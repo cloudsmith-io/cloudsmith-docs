@@ -8,10 +8,6 @@ import { Note } from '@/components';
 
 Cloudsmith provides public & private registries for OCI artifacts
 
-<Note variant="warning" headline="Early Access Feature">
-Our OCI registry is in early access, so some Cloudsmith features aren't yet available for OCI artifacts.
-</Note>
-
 [The OpenContainer Initiative (OCI)](https://opencontainers.org/) is a lightweight, open governance structure project, formed under the auspices of the Linux Foundation, for the express purpose of creating open industry standards around container formats and runtimes.
 
 OCI provides the concept of the _registry_ as a storage service for storing and distributing artifacts for use.
@@ -154,21 +150,85 @@ Pulling (downloading) an artifact from the Cloudsmith OCI registry can be done u
 $ oras pull docker.cloudsmith.io/OWNER/REPOSITORY/ARTIFACT_NAME:TAG
 ```
 
-## Push and pull Helm v3 charts via OCI
+## Helm v3 charts via OCI
 
-For this please refer to our Helm documentation [here](/formats/helm-chart-repository#upload-via-oci-with-helm-v3) .
+Starting Helm v3.8.0 OCI-compliant registries can now be used to store and share chart packages. For full detail see [Helm Docs](https://helm.sh/docs/topics/registries/) .
+
+<Note>🚧 **Early Access Feature**
+While Cloudsmith OCI Registries are GA, our Helm OCI registry is in Early Access, so some Cloudsmith features like Helm OCI Upstreams aren't yet available.</Note>
+
+### Setup
+
+Before you can push your chart you need to login to Cloudsmith's registry.
+
+```shell Entitlement Token Auth
+helm registry login helm.oci.cloudsmith.io -u OWNER/REPOSITORY -p TOKEN
+```
+```shell HTTP Basic Auth (User & Pass)
+helm registry login helm.oci.cloudsmith.io -u USERNAME -p PASSWORD
+```
+```shell HTTP Basic Auth (API-Key)
+helm registry login helm.oci.cloudsmith.io -u USERNAME -p API-KEY
+```
+
+With public repositories, you don't need any sort of authentication and you can jump straight to the Installing a Chart section below.
+
+### Push your chart
+
+The command to upload a Helm Chart via OCI using the Helm CLI is:
+
+```shell
+helm push CHART_NAME-CHART_VERSION.tgz oci://helm.oci.cloudsmith.io/OWNER/REPOSITORY
+```
+
+### Installing a Chart
+
+To install/use a specific version of a chart: 
+
+```shell
+helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME --version CHART_VERSION
+```
+
+To install the latest version of a chart:
+
+```shell
+helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
+```
+
+Or you can upgrade to the most recent version of a chart if you've already installed:
+
+```shell
+helm upgrade oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
+```
+
+If you've got a `requirements.yaml` file in your chart, you can specify this as a dependency:
+
+```yaml
+dependencies:
+  - name: CHART_NAME
+    version: CHART_VERSION
+    repository: NAME
+```
+
+### Logging out of Registry
+
+Helm provides a command to logout of OCI-based registries
+
+```shell
+helm registry logout docker.cloudsmith.io
+```
+
+## Provenance
+
+Provenance files allow for verification of both the integrity and source of a Helm chart. 
+
+<Note>🚧 Provenance files aren't supported for OCI chart uploads yet, but this feature is coming soon. Cloudsmith fully supports both verification and generation of Helm provenance files for non-OCI Helm Charts.</Note>
 
 ## Security Scanning
 
 <span class="cs-tag cs-tag-dark-green">Supported</span> 
 
 Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information. 
-
-## Current Limitations
-
-The Cloudsmith OCI registry implementation currently has the following limitations:
-
-- At the moment all artifacts uploaded via OCI regardless of their artifact and media type will show in the Cloudsmith UI as a "Docker Package"
 
 ## Upstream Proxying / Caching
 
