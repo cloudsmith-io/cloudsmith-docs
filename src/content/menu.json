@@ -261,8 +261,8 @@
             "path": "/artifact-management/package-move"
           },
           {
-            "title": "Retention Lifecycle",
-            "path": "/artifact-management/retention-lifecycle"
+            "title": "Retention Rules",
+            "path": "/artifact-management/retention-rules"
           },
           {
             "title": "Package Groups",
