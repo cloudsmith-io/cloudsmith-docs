@@ -1,6 +1,5 @@
 import { BlockImage } from '@/components'
-import img841ea19_package_groups from './images/package-groups/841ea19-package-groups.png'
-import img245de19_package_groups_detail from './images/package-groups/245de19-package-groups-detail.png'
+import package_groups from './images/package-groups/package_groups.gif'
 
 # Package Groups
 
@@ -9,19 +8,17 @@ Package Groups provides a per package view of a repository, as opposed to the de
 
 The Package Groups view groups packages by package format and package name: 
 
-<BlockImage src={img841ea19_package_groups} alt="Package Groups"></BlockImage>
+<BlockImage src={package_groups} alt="Package Groups"></BlockImage>
 
 Where:
 
 | Information | Description                                                            |
 | :---------- | :--------------------------------------------------------------------- |
 | Format      | The format of the package                                              |
-| Count       | The total number of versions of the package                            |
-| Name        | The package name                                                       |
+| Name and version      | The name and version of the                                  |
+| Count       | The total number of artifacts within the package group                 |
 | Downloads   | The total number of downloads for all versions of the package          |
 | Size        | The size of the Package                                                |
-| Last Push   | The date / time of the most recent upload of the package to Cloudsmith |
+| Uploaded   | The date / time of the most recent upload of the package to Cloudsmith  |
 
-Clicking on any package name will take you to the default list view for the repository, but filtered to show only versions of that specific package.  For example, if you clicked on the _cloudsmith-maven-example_ package name above, you will then see: 
-
-<BlockImage src={img245de19_package_groups_detail} alt="Package Group Details"></BlockImage>
+Clicking on any package name or in the dropdown arrow in the right will take you to the default list view of artifacts within a group.

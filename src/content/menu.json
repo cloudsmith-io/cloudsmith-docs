@@ -261,10 +261,6 @@
             "path": "/artifact-management/package-move"
           },
           {
-            "title": "Recycle Bin",
-            "path": "/artifact-management/recycle-bin"
-          },
-          {
             "title": "Retention Lifecycle",
             "path": "/artifact-management/retention-lifecycle"
           },
@@ -482,11 +478,6 @@
           {
             "title": "Exporting logs to S3",
             "path": "/logs-and-observability/access-log-exports-to-s3"
-          },
-
-          {
-            "title": "Package logs",
-            "path": "/logs-and-observability/package-logs"
           },
           {
             "title": "Analyzing logs with Athena",

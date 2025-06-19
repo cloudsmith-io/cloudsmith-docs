@@ -5,8 +5,8 @@ import { Note, BlockImage } from '@/components';
 import vsToolsOptionsImage from './images/nuget-symbol-server/07b2a66-image.png';
 import debuggingSymbols from './images/nuget-symbol-server/dfb62d0-image.png';
 import credentialsImage from './images/nuget-symbol-server/0c35b25-image.png';
-import snupkgSymbolsCloudsmithUIImage from './images/nuget-symbol-server/99638c2-image.png';
 import loadAllSymbolsImage from './images/nuget-symbol-server/ef4d04b-image.png';
+import nuget_pdb_file from './images/nuget-symbol-server/nuget_pdb_file.png';
 
 # NuGet Symbol Server
 
@@ -96,7 +96,7 @@ Password: API-KEY
 
 If you had `snupkg` symbols uploaded from before this feature was released, it's possible that the `pdb` files are not indexed. Check in the UI in the `Files` tab if you see `pdb` files attached to your package
 
-<BlockImage src={snupkgSymbolsCloudsmithUIImage} alt=""></BlockImage>
+<BlockImage src={nuget_pdb_file} alt=""></BlockImage>
 
 If you don't see one or more `pdb` files here, then do a `Resync` of your package to force a re-index.
 
