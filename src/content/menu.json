@@ -261,10 +261,6 @@
             "path": "/artifact-management/package-move"
           },
           {
-            "title": "Recycle Bin",
-            "path": "/artifact-management/recycle-bin"
-          },
-          {
             "title": "Retention Rules",
             "path": "/artifact-management/retention-rules"
           },
@@ -483,11 +479,6 @@
             "title": "Exporting logs to S3",
             "path": "/logs-and-observability/access-log-exports-to-s3"
           },
-
-          {
-            "title": "Package logs",
-            "path": "/logs-and-observability/package-logs"
-          },
           {
             "title": "Analyzing logs with Athena",
             "path": "/logs-and-observability/analyzing-s3-download-logs"
@@ -648,6 +639,10 @@
             "title": "Roadie",
             "path": "/integrations/integrating-with-roadie"
           },
+          {
+            "title": "Renovate",
+            "path": "/integrations/integrating-with-renovate"
+          },  
           {
             "title": "Semaphore CI",
             "path": "/integrations/integrating-with-semaphore-ci"

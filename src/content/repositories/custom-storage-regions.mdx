@@ -1,7 +1,7 @@
 import { Note, BlockImage } from '@/components'
-import imgd0954bd_storage_region from './images/custom-storage-regions/d0954bd-storage_region.png'
-import img4583ac7_Transfer_Repo_Button from './images/custom-storage-regions/4583ac7-Transfer_Repo_Button.png'
-import imgabd679b_transfer_repo_form from './images/custom-storage-regions/abd679b-transfer-repo-form.png'
+import storage_region from './images/custom-storage-regions/storage_region.png'
+import transfer_repo_button from './images/custom-storage-regions/transfer_repo_button.png'
+import transfer_repo_form from './images/custom-storage-regions/transfer_repo_form.png'
 
 # Custom Storage Regions
 
@@ -25,7 +25,7 @@ The currently supported storage regions are:
 
 Selecting a storage region enables you to use one of our supported locations to store your packages at an edge location that is geographically closer to your region of operations. With some consideration regarding your intended usage, selecting your nearest storage region can significantly reduce latency.
 
-<BlockImage src={imgd0954bd_storage_region} alt="Create Package Repository Form"></BlockImage>
+<BlockImage src={storage_region} alt="Create Package Repository Form"></BlockImage>
 
 Use the "Storage Region" drop-down menu to select your custom storage region, and then click the green "Create" button to create a new repository in your chosen region.
 
@@ -33,11 +33,11 @@ Use the "Storage Region" drop-down menu to select your custom storage region, an
 
 To transfer an existing repository to a new storage region, click the repository "Settings" button on the left-hand menu, scroll to the bottom and click the orange "Transfer" button. By default, your storage region will be based in Dublin, Ireland if this is the first time you are specifying a storage region.  
 
-<BlockImage src={img4583ac7_Transfer_Repo_Button} alt="Transfer Repository Button"></BlockImage>
+<BlockImage src={transfer_repo_button} alt="Transfer Repository Button"></BlockImage>
 
 You will then be presented with the Transfer Repository Form: 
 
-<BlockImage src={imgabd679b_transfer_repo_form} alt="Transfer Repository Form"></BlockImage>
+<BlockImage src={transfer_repo_form} alt="Transfer Repository Form"></BlockImage>
 
 In order to prevent accidental transfers, you need to confirm the identifier / slug for the repository by typing it into the "Confirm Current Repository Slug/Identifier" field.  
 Then choose your new storage region from the drop-down menu, complete the Captcha and click the orange "Transfer" button to start the transfer. 

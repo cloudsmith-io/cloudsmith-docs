@@ -1,19 +1,17 @@
 import { Note, BlockImage } from '@/components'
-import imgdd89322_licence_compliance from './images/license-compliance/dd89322-licence-compliance.png'
+import licence_compliance from './images/license-compliance/license_compliance.png'
 import img26d0615_licence_details from './images/license-compliance/26d0615-licence-details.png'
 
 # License Compliance
 
 ---
-License Compliance provides you with an overall view of the state of licenses for the repository as a whole and gives you at-a-glance statistics on what licenses you are currently using. It also allows you to edit/change the license associated with a package held within Cloudsmith. 
+License Compliance provides you with an overall view of license policy violations for your Workspace or Repository as a whole.
 
-If you're interested in restricting the use of packages with certain licenses, please review our [License Policy documentation](/policy-management/license-policy) to learn how to use policies to automatically quarantine packages and ensure organizational compliance.  
+<BlockImage src={licence_compliance} alt="License Compliance Overview"></BlockImage>
 
-## Overview
+If you're interested in restricting the use of packages with certain licenses, please review our [License Policy documentation](/policy-management/license-policy) to learn how to use policies to automatically quarantine packages and ensure organizational compliance.
 
-<BlockImage src={imgdd89322_licence_compliance} alt="License Compliance Overview"></BlockImage>
-
-The License Compliance page shows a breakdown of the license associated with each package stored in the repository. It provides basic statistics on overall license usage and coverage for the repository. 
+{/* The License Compliance page shows a breakdown of the license associated with each package stored in the repository. It provides basic statistics on overall license usage and coverage for the repository. 
 
 **Total Packages Chart**  
 The total packages chart shows the number of packages of each format in the repository
@@ -22,13 +20,13 @@ The total packages chart shows the number of packages of each format in the repo
 The licensed packages chart shows the number of each license type in the repository
 
 **Licensed / Unlicensed Chart**  
-The licensed / unlicensed chart shows the total number of licensed versus unlicensed packages in the repository
+The licensed / unlicensed chart shows the total number of licensed versus unlicensed packages in the repository */}
 
 <Note variant="note" headline="Dependencies">
   Cloudsmith currently provides License data for the packages it knows about or has access to. A package might have a dependency on another package with a different license which is unknown and therefore not reported.
 </Note>
 
-## Edit a License
+{/* ## Edit a License
 
 The license defined within a package's metadata is automatically matched as accurately as possible to the SPDX License List.
 
@@ -38,7 +36,7 @@ When a license is matched automatically, a description is provided of the licens
 
 _The Apache 2.0 license provided within this package's metadata is a 97% match to a Apache License 2.0 License SPDX license and was automatically added to this package_
 
-Anytime the match is not accurate to a high percentage (less than 75%), the parsed license is greater than 60 characters, or the license is not supplied, we leave the license empty for you to decide how you want to resolve it.
+Anytime the match is not accurate to a high percentage (less than 75%), the parsed license is greater than 60 characters, or the license is not supplied, we leave the license empty for you to decide how you want to resolve it. 
 
 Click the blue "Edit" button on the package that you wish to change / edit the license for. You are then presented with the Edit License form: 
 
@@ -50,7 +48,7 @@ You can also add a license override, where you can mark a package as "ignored" o
 
 Click the green "Edit" button to apply your changes and return to the license overview page.
 
-Please Note: Currently editing the License changes the Cloudsmith held metadata. It does not write the new License to the package itself.
+Please Note: Currently editing the License changes the Cloudsmith held metadata. It does not write the new License to the package itself. */}
 
 ## Disclaimer
 

@@ -1,12 +1,14 @@
-import { Note, Video } from '@/components';
+import { Note, Video, BlockImage } from '@/components';
+
+import go_upstream from './images/go-registry/go_upstream.png';
 
 # Go Registry
 
-Cloudsmith provides public & private registries for Go
+Cloudsmith provides public & private registries for Go.
 
 <Video wistiaId="cfpoye51t5"></Video>
 
-Go, also known as Golang, is an open source programming language designed at Google
+Go, also known as Golang, is an open source programming language designed at Google.
 
 For more information on Go, please see:
 
@@ -34,14 +36,12 @@ In the following examples:
 ## Upload a Package
 
 <Note variant="note" headline="Note">
-Raw GO binaries are not supported and need to be uploaded as a RAW package format instead
+Raw GO binaries are not supported and need to be uploaded as a RAW package format instead.
 </Note>
 
-To upload, you need to generate a module first. While we expect the tooling in this area to improve over time, currently the process is a manual one and can be a little tricky.
+To upload, you need to generate a go module first. You can build a module with standard command-line tooling like `zip` and `git`. To illustrate the process we'll use [logrus](https://github.com/sirupsen/logrus) as an example:
 
-You can build a module with standard command-line tooling like `zip` and `git`. To illustrate the process we'll use [logrus](https://github.com/sirupsen/logrus) as an example:
-
-First, we'll create the correct directory structure and check out the version of `logrus` we want to pack (v1.4.2 for example purposes):
+1. First, we'll create the correct directory structure and check out the version of `logrus` we want to pack (`v1.4.2`):
 
 ```shell
 mkdir -p github.com/sirupsen/logrus@v1.4.2
@@ -50,7 +50,7 @@ cd github.com/sirupsen/logrus@v1.4.2
 git checkout v1.4.2
 ```
 
-Next (and finally) we need to clean up and pack the module. We only want to include folders with files in them, so we'll use `find`:
+2. Finally, clean up and pack the module. Use `find` to include only folders with files in them:
 
 ```shell
 rm -rf .git/
@@ -58,10 +58,11 @@ cd ../../../
 find -type f | while read f; do zip v1.4.2.zip "$f"; done
 ```
 
-<Note variant="note" headline="Note">
-Please see Russ Cox's [Go Modules overview](https://research.swtch.com/vgo-module.pdf) for full information on building your own modules.
-</Note>
+Now, we have a go module ready to be uploaded to a Cloudsmith repository.
 
+<Note variant="note" headline="Note">
+For a full overview on building your own modules, please refer to Russ Cox's [Go Modules](https://research.swtch.com/vgo-module.pdf).
+</Note>
 
 ### Upload via the Cloudsmith CLI
 
@@ -76,12 +77,12 @@ cloudsmith push go OWNER/REPOSITORY PACKAGE_NAME.zip
 Example:
 
 ```shell
-cloudsmith push go org/repo v1.0.0.zip
+cloudsmith push go org/repo v1.4.2.zip
 ```
 
 <Note variant="note" headline="Note">
 Older Go projects may not be in the Go Modules format, and you may experience an error when pushing these to Cloudsmith. 
-You can add module support using `go mod init` and `go mod tidy`, then commit the new `go.mod` and `go.sum` files and add a new tag
+You can add module support using `go mod init` and `go mod tidy`, then commit the new `go.mod` and `go.sum` files and add a new tag.
 </Note>
 
 
@@ -91,100 +92,111 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 
 ### Example Project
 
-For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later but otherwise, just ask - we're here to help!
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub).
 
 ## Download a Package
 
 ### Setup
 
-Before you can install modules from your Cloudsmith repository you'll need to configure your environment for access. The configuration is defined using the `GOPROXY` environment variable.
+#### Configure a new Upstream
 
-<Note variant="note" headline="Note">
-Cloudsmith Go repositories don't (currently) proxy upstream sources, and so can only serve modules which have been explicitly pushed. If you require the ability to pull modules from public/upstream sources then you **must use Go 1.13 or greater** to avail of the fallback repository support.
-</Note>
+Cloudsmith supports [https://proxy.golang.org](https://proxy.golang.org) as an upstream. This allows you to proxy modules not yet in your repository through Cloudsmith for your Golang projects. Caching support is coming soon.
+
+To enable it for your repository, browse to your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Go** format Upstream.
+
+In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://proxy.golang.org`. Click on **+ Create Upstream Proxy** and the upstream shoud become immediately available.
+
+<BlockImage src={go_upstream} alt=""></BlockImage>
+
+Before you can install modules from your Cloudsmith repository, you'll need to configure your environment for access. The configuration is defined using the `GOPROXY` environment variable as explained below.
 
 #### Public Repositories
 
 To define the `GOPROXY` environment variable for a public Cloudsmith repository: 
 
-**Linux / Mac**
+<Note variant="warning" headline="Warning">
+Cloudsmith provides a dedicated endpoint for Go artifacts: [https://golang.cloudsmith.io](https://golang.cloudsmith.io). This endpoint supports native Golang Upstreams so you can access modules from [https://proxy.golang.org](https://proxy.golang.org).
+
+While the legacy endpoint ([https://dl.cloudsmith.io](https://dl.cloudsmith.io)) is still maintained, we recommend to use the new one.
+</Note>
+
+<Note variant="note" headline="Note">
+`GOPROXY` allows the concatenation of multiple servers separated by commas. For example, for `GOPROXY=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct`, all requests not satisfied by the first server will fallback the the next one (`https://proxy.golang.org`).
+</Note>
+
+
+##### **Linux / Mac**
 
 ```shell
-export GOPROXY=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
+export GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-**Windows (cmd)**
+##### **Windows (cmd)**
 
 ```shell
-set GOPROXY=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
+set GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-**Windows (Powershell)** 
+##### **Windows (Powershell)** 
 
 ```shell
-$env:GOPROXY=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
+$env:GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
 #### Private Repositories
 
-<Note variant="note" headline="Private Repositories">
-Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
-The setup method will differ depending on what authentication type you choose to use.
+Private Cloudsmith repositories require authentication. GOPROXY protocol only supports authentication via HTTP Basic Authentication: `<USERNAME>/<PASSWORD>`.
+It you want to authenticate via Entitlement Token, use the literal string `token` in the user field: `token:<TOKEN>`.
+
+<Note variant="warning" headline="Secrets management">
+Entitlement Tokens, User Credentials, and API-Keys should be treated as secrets. You should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
 </Note>
 
-<Note variant="warning" headline="Warning">
-Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
-</Note>
 To define the `GOPROXY` environment variable for a private Cloudsmith repository: 
 
-**Linux / Mac**
+##### **Linux / Mac**
 
-```shell Entitlement Token Auth
-export GOPROXY=https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```shell HTTP Basic Auth (User & Pass)
-export GOPROXY=https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```shell HTTP Basic Auth (API-Key)
-export GOPROXY=https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```shell HTTP Basic Auth (Token)
-export GOPROXY=https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
+```shell
+# HTTP Basic Auth (with Entitlement Token)
+export GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
+
+# HTTP Basic Auth (API-Key)
+export GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-**Windows (cmd)**
+##### **Windows (cmd)**
 
-```shell Entitlement Token Auth
-set GOPROXY=https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```shell HTTP Basic Auth (User & Pass)
-set GOPROXY=https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```shell HTTP Basic Auth (API-Key)
-set GOPROXY=https://USERNAME:API KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```shell HTTP Basic Auth (Token)
-set GOPROXY=https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
+```shell
+# HTTP Basic Auth (with Entitlement Token)
+set GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
+
+# HTTP Basic Auth (API-Key)
+set GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-**Windows (Powershell)** 
+##### **Windows (Powershell)** 
 
-```powershell Entitlement Token Auth
-$env:GOPROXY=https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```powershell HTTP Basic Auth (User & Pass)
-$env:GOPROXY=https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```powershell HTTP Basic Auth (API-Key)
-$env:GOPROXY=https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
-```
-```powershell HTTP Basic Auth (Token)
-$env:GOPROXY=https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct
+```powershell
+# HTTP Basic Auth (with Entitlement Token)
+$env:GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
+
+# HTTP Basic Auth (API-Key)
+$env:GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-<Note variant="note" headline="Private Repositories">
-The Go sumdb cannot record the hash value of a private repository and this will cause the local Go command to fail the verification after downloading. 
-It is recommended to use the environment variable `GONOSUMDB=https://cloudsmith.io/` to skip verification for your Cloudsmith repositories, or alternatively (but less secure), use the environment variable `GOSUMDB=off` to turn off the verification completely.
+<Note variant="note" headline="About Go modules authentication">
+The Go sumdb cannot record the hash value of a private repository and this will cause the local Go command to fail the verification after downloading. You can see more details running the `go mod download` with the `-x` option.
+
+It is recommended to use the environment variable `GONOSUMDB` and set its value to `cloudsmith.io`.
+This will skip verification for modules in your Cloudsmith repositories with a module name beginning with `cloudsmith.io`. Verification is performed against the global checksum database [sum.golang.org](sum.golang.org) (this service provides an auditable checksum database service used by the go command to authenticate modules).
+
+`GONOSUMDB` should be a [list of module path prefixes](https://go.dev/ref/mod#module-proxy:~:text=GONOSUMDB%20%E2%80%94%20list%20of%20glob%20patterns%20of%20module%20path%20prefixes%20that%20should%20not%20be%20checked%20using%20the%20public%20checksum%20database%2C%20sum.golang.org.), like for example: `GONOSUMDB=demo-docs/awesome-repo,cloudsmith-test/acme2`.
+
+While verifying the checksum of downloaded go modules is a critical step,
+there's general agreement against having separate checksum databases (for example, having a Cloudsmith checksum database).
+See for example: [https://github.com/golang/go/issues/44936](https://github.com/golang/go/issues/44936) and [https://github.com/gomods/athens/issues/1572](https://github.com/gomods/athens/issues/1572).
+
+{/* Cloudsmith adheres to this recommendations and will proxy checksum verification requests to the global checksum database. */}
 </Note>
 
 ### Installing a Package
@@ -203,12 +215,8 @@ go get PACKAGE_NAME@PACKAGE_VERSION
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
-
-## Upstream Proxying / Caching
-
-<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+Cloudsmith supports security scanning for Go modules.
+Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information about this capability.
 
 ## Troubleshooting
 

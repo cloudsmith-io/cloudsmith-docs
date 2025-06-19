@@ -1,0 +1,80 @@
+import { BlockImage, Note } from '@/components'
+
+import set_secret from './images/renovate/set_secret.png';
+import host_rule from './images/renovate/host_rule.png';
+import output1 from './images/renovate/output1.png';
+import output2 from './images/renovate/output2.png';
+
+# Renovate
+
+_How to integrate Mend Renovate with Cloudsmith._
+
+---
+
+[Renovate](https://github.com/renovatebot/renovate) is a popular open-source dependency update automation tool. It can help you by automating the process of looking for references to dependencies (both public and private) and updating them if newer versions are available. Renovate supports a wide range of package ecosystems (Docker, npm, PyPI, Maven, NuGet, etc.) and works across multiple version control systems (GitHub, GitLab, Azure DevOps, Bitbucket).
+
+<Note>📘 This guide shows how to configure Renovate to work with a private Cloudsmith Docker repository, using the Renovate GitHub App (hosted by Mend) as its primary example.However, the same approach applies to other package types supported by Cloudsmith, including npm, PyPI, Maven, NuGet, and more.</Note>
+
+## Why use Renovate with Cloudsmith?
+
+- Keep your dependencies secure and up-to-date.
+- Automate the process of consuming new builds published to your Cloudsmith repositories.
+- Works with all major package types supported by Cloudsmith.
+
+## Configuration Steps
+
+### Prerequisites
+
+- You are using either:
+  - The Renovate GitHub App (hosted version), OR
+  - A self-hosted instance of Renovate (for full control of credentials).
+- A private Cloudsmith repository for your chosen package type.
+- A valid authentication method (Entitlement Token, or User/Service API Key) for your Cloudsmith repository. Cloudsmith repositories are private by default. Renovate requires authentication to list available package versions and perform version checks.
+
+<Note>📘 We recommend using a Cloudsmith [Entitlement token](/software-distribution/entitlement-tokens) instead of an API key.</Note>
+
+### 1. Add your Cloudsmith Entitlement Token as a Secret
+
+In the Mend Developer Dashboard, navigate to Settings → Credentials → Add Secret. This step can be completed at the Repository level or the Organisation level, and define your:
+- **Secret Name**: use `MEND_CLOUDSMITH_TOKEN`.
+- **Secret Value**: Use your Cloudsmith entitlement token. Click [here](/software-distribution/entitlement-tokens-via-the-website-ui#creating-entitlement-tokens) to learn how to generate a new one.
+- Check the **Env var** box (if available).
+
+<BlockImage src={set_secret} alt=""></BlockImage>
+
+### 2. Add a Host Rule
+
+The primary purpose of hostRules is to configure credentials for host authentication (in this case, your private repository). In the next step, you'll tell Renovate how to match against your Cloudsmith repository and which credentials to use.
+
+In the Mend Developer Dashboard, navigate to Settings → Host Rules → Add Host Rule and fill in the fields:
+
+| Field         | value                                                             |
+| :------------ | :---------------------------------------------------------------- |
+| Description   | Cloudsmith Docker Updates                                         |
+| Host Type     | docker (or npm, pip, maven, nuget depending on your package type) |
+| Host URL      | `https://docker.cloudsmith.io`                                    |
+| Secret Type      | Pasword                                                        |
+| Host Username | `YOOUR_ORG_NAME/YOUR_REPO_NAME`                                   |
+| Password      | `{{ MEND_CLOUDSMITH_TOKEN }}`                                     |
+
+<BlockImage src={host_rule} alt=""></BlockImage>
+
+<Note>📘  You do not need to add a renovate.json file to your repository — the hosted App manages this for you!</Note>
+
+### 3. Example: version upgrade for docker
+
+Once configured, Renovate will automatically:
+1. Authenticate to your Cloudsmith repository using the newly created Host Rule.
+2. Scan your project (Dockerfile, package.json, requirements.txt, pom.xml, etc.).
+3. Check Cloudsmith for newer versions. In the image below, you can observe how Renovate detected an upgraded version of the `datadog-cloudsmith-agent` docker container, from version `2.1.0` to `2.10.0`.
+
+<BlockImage src={output1} alt=""></BlockImage>
+
+4. Automatically open a pull request with the latest version available. Please, note that [Silent Mode](https://docs.renovatebot.com/configuration-options/#mode) needs to be disabled.
+
+<BlockImage src={output2} alt=""></BlockImage>
+
+## Summary
+
+- Renovate can be used with any Cloudsmith-supported package type.
+- The Renovate GitHub App hosted via Mend works perfectly with Cloudsmith private repositories with little configuration:.
