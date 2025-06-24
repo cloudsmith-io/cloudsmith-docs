@@ -1,6 +1,6 @@
 import { Note, BlockImage } from '@/components'
 
-# Block Until Scanned
+# Block Until Scan
 
 **Block Until Scan** is a security feature designed to enhance the integrity and security of software packages served by Cloudsmith, guaranteeing that all relevant security and compliance policy checks (licenses, vulnerabilities, package deny policies) are fully completed *before* a package is made available for download.
 
@@ -37,7 +37,7 @@ To verify the functionality of Block Until Scan, follow these steps:
 📘 Note that incoming packages from sources different to an upstream are also subjected to Block Until Scan. Downloads won't be allowed until all security checks have been completed.
 </Note>
 
-#### 2. Vulnerability policy creation
+#### 2. Create a Vulnerability policy
 
 Browse to your Workspace Settings and [create a new vulnerability policy](/policy-management/vulnerability-policy). Define your policy with:
 - A name.
@@ -51,9 +51,9 @@ Then, click in **+ Create Policy**.
 
 Execute a command to pull a new package. For example, `requests==0.2.2`. This package contains a known vulnerability with a high severity CVE: `2018-18074`. If this package already exists in your repo, find a different one that hasn't been synced and cached before:
 
-    ```bash
-    pip download requests==1.2.0 --index-url https://dl.cloudsmith.io/public/demo-docs/awesome-repo/python/simple/ 
-    ```
+```bash
+pip download requests==1.2.0 --index-url https://dl.cloudsmith.io/public/demo-docs/awesome-repo/python/simple/ 
+```
 
 <Note>
 📘 **Performance Impact**
@@ -65,7 +65,7 @@ When a package is not yet cached within Cloudsmith, every package and its depend
 * **Policy Evaluation**: The package is evaluated against all active policies.
 </Note>
 
-#### 4.  Observe Behavior
+#### 4. Observe Behavior
 
 When Block Until Scan is enabled, the initial download request for an uncached package will be temporarily blocked until the policy evaluation has completed:
 - **Successful Scan**: If the package passes all policy checks, the download will proceed, and the package will be served normally.

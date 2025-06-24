@@ -269,8 +269,8 @@
             "path": "/artifact-management/retention-lifecycle"
           },
           {
-            "title": "Block Until Scanned",
-            "path": "/artifact-management/block-until-scanned"
+            "title": "Block Until Scan",
+            "path": "/artifact-management/block-until-scan"
           },
           {
             "title": "Package Groups",
