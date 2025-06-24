@@ -265,6 +265,10 @@
             "path": "/artifact-management/retention-rules"
           },
           {
+            "title": "Block Until Scan",
+            "path": "/artifact-management/block-until-scan"
+          },
+          {
             "title": "Package Groups",
             "path": "/artifact-management/package-groups"
           }
