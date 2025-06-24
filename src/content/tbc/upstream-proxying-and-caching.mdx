@@ -92,7 +92,55 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 
 <BlockImage src={upstream_formats} alt="Create Upstream button"></BlockImage>
 
-### Create a Maven Upstream
+#### Create a Cargo (Rust) Upstream
+TODO
+
+#### Create a NPM Upstream
+
+<BlockImage src={npm} alt="Create NPM Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+#### Create a Ruby Upstream
+
+<BlockImage src={ruby} alt="Create Ruby Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+#### Create a Python Upstream
+
+<BlockImage src={python} alt="Create Python Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+#### Create a Maven Upstream
 
 <BlockImage src={maven} alt="Create Maven Upstream Form"></BlockImage>
 
@@ -113,7 +161,39 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
   Package caching is only supported for for Maven packages that have a `.pom` file present on the upstream source.
 </Note>
 
-### Create a Debian Upstream
+#### Create a Composer Upstream
+TODO
+
+#### Create a CRAN Upstream
+
+<BlockImage src={cran} alt="Create CRAN Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+#### Create a Dart Upstream
+
+<BlockImage src={dart} alt="Create Dart Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+#### Create a Debian Upstream
 
 <BlockImage src={debian} alt="Create Debian Upstream Form"></BlockImage>
 
@@ -132,7 +212,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
 | Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
 
-### Create a Docker Upstream
+#### Create a Docker Upstream
 
 <BlockImage src={docker} alt="Create Docker Upstream Form"></BlockImage>
 
@@ -147,114 +227,13 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 |Authentication (optional)|Optional credentials that can be provided if the upstream is not publicly accessible.<br /><br />**Note**: Docker Hub requires that requests to their service via an upstream proxy be authenticated. As such, when you configure an upstream to Docker Hub, you will be required to provide credentials for authentication.|
 |Headers (optional)|Optional Key-Value headers that can be passed to upstreams with each request.|
 
-### Create a RPM Upstream
+#### Create a Go Upstream
+TODO
 
-<BlockImage src={rpm} alt="Create RedHat Upstream Form"></BlockImage>
+#### Create a Helm Upstream
+TODO
 
-| Form Field                 | Description                                                                                                                                                                                             |
-| :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Name                       | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                                    |
-| Weighting                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                       |
-| Upstream URL               | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                          |
-| Proxy Only                 | (Default) Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                  |
-| Cache and Proxy            | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                                    |
-| Distribution               | The distribution version to index from the upstream, such as el/8r or fedora/32.                                                                                                                        |
-| Source Packages            | If selected, source packages will be available from the upstream.                                                                                                                                       |
-| Verify SSL Certificates    | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks.        |
-| GPG Key                    | The source of a package signing key. When a signing key is provided, the Cloudsmith setup script will ensure this signing key is deployed to allow packages available on this upstream to be installed. |
-| Authentication  (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                                    |
-| Headers (optional)         | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                           |
-
-### Create a NPM Upstream
-
-<BlockImage src={npm} alt="Create NPM Upstream Form"></BlockImage>
-
-| Form Field                | Description                                                                                                                                                                                      |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
-| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
-| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
-| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
-| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
-| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
-| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
-
-### Create a NuGet Upstream
-
-<BlockImage src={nuget} alt="Create NuGet Upstream Form"></BlockImage>
-
-| Form Field                | Description                                                                                                                                                                                      |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
-| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
-| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
-| Proxy Only                | (Default) Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                           |
-| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
-| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
-| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
-
-### Create a Python Upstream
-
-<BlockImage src={python} alt="Create Python Upstream Form"></BlockImage>
-
-| Form Field                | Description                                                                                                                                                                                      |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
-| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
-| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
-| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
-| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
-| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
-| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
-
-### Create a Dart Upstream
-
-<BlockImage src={dart} alt="Create Dart Upstream Form"></BlockImage>
-
-| Form Field                | Description                                                                                                                                                                                      |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
-| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
-| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
-| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
-| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
-| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
-
-### Create a Ruby Upstream
-
-<BlockImage src={ruby} alt="Create Ruby Upstream Form"></BlockImage>
-
-| Form Field                | Description                                                                                                                                                                                      |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
-| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
-| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
-| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
-| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
-| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
-| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
-
-### Create a Swift Upstream
-
-<BlockImage src={swift} alt="Create Swift Upstream Form"></BlockImage>
-
-| Form Field                | Description                                                                                                                                                                                      |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
-| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
-| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
-| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
-| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
-| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
-| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
-
-### Create a Hex Upstream
+#### Create a Hex Upstream
 
 <Note variant="note">
   Hex upstreams are in Early-Access
@@ -273,9 +252,45 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Authentication  (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
 | Headers (optional)         | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
 
-### Create a CRAN Upstream
+#### Create a NuGet Upstream
 
-<BlockImage src={cran} alt="Create CRAN Upstream Form"></BlockImage>
+<BlockImage src={nuget} alt="Create NuGet Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Proxy Only                | (Default) Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                           |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+
+
+#### Create a RedHat (RPM) Upstream
+
+<BlockImage src={rpm} alt="Create RedHat Upstream Form"></BlockImage>
+
+| Form Field                 | Description                                                                                                                                                                                             |
+| :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Name                       | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                                    |
+| Weighting                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                       |
+| Upstream URL               | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                          |
+| Proxy Only                 | (Default) Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                  |
+| Cache and Proxy            | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                                    |
+| Distribution               | The distribution version to index from the upstream, such as el/8r or fedora/32.                                                                                                                        |
+| Source Packages            | If selected, source packages will be available from the upstream.                                                                                                                                       |
+| Verify SSL Certificates    | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks.        |
+| GPG Key                    | The source of a package signing key. When a signing key is provided, the Cloudsmith setup script will ensure this signing key is deployed to allow packages available on this upstream to be installed. |
+| Authentication  (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                                    |
+| Headers (optional)         | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                           |
+
+
+#### Create a Swift Upstream
+
+<BlockImage src={swift} alt="Create Swift Upstream Form"></BlockImage>
 
 | Form Field                | Description                                                                                                                                                                                      |
 | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -287,6 +302,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
 | Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
 
 ## Edit an Upstream Proxy
 
