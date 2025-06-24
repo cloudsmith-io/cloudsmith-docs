@@ -112,9 +112,11 @@ cargo publish --registry REGISTRY_NAME
 
 If you haven't specified credentials using one of the methods above, you'll be asked to provide them using `cargo login`.
 
-You can also set the following environment variables:  
-`CARGO_REGISTRIES_<REGISTRY_NAME>_INDEX` - instead of setting the registry URL in `~/.cargo/config`  
-`CARGO_REGISTRIES_<REGISTRY_NAME>_TOKEN` - instead of providing credentials via `cargo login` or writing them to `~/.cargo/credentials`:
+Instead of usign the previous authentication methods, you can also set the following environment variables to define your index and token:
+- `CARGO_REGISTRIES_<REGISTRY_NAME>_INDEX`
+- `CARGO_REGISTRIES_<REGISTRY_NAME>_TOKEN`
+
+Remember to rename the variable with your registry name.
 
 ### Upload via the Cloudsmith CLI
 
@@ -140,15 +142,11 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 
 ### Configure a new Upstream
 
-Cloudsmith supports [https://crates.io/](https://crates.io/) as an upstream. This allows you to proxy and cache Rust crates not yet in your repository through Cloudsmith for your Rust projects.
+Cloudsmith supports [https://index.crates.io](https://index.crates.io) as an upstream. This allows you to proxy and cache external Rust crates that are not part of your repository.
 
-To enable it for your repository, browse to your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Rust** format Upstream.
+To enable the upstream, browse to your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Cargo** Upstream.
 
-In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://crates.io/`. Click on **+ Create Upstream Proxy** and the upstream shoud become immediately available.
-
-{/* <BlockImage src={rust_upstream} alt=""></BlockImage> */}
-
-
+In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://index.crates.io/`. Click on **+ Create Upstream Proxy** and the upstream shoud become immediately available.
 
 ### Registry Setup
 
