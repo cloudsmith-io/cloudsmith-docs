@@ -146,7 +146,7 @@ Cloudsmith supports [https://index.crates.io](https://index.crates.io) as an ups
 
 To enable the upstream, browse to your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Cargo** Upstream.
 
-In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://index.crates.io/`. Click on **+ Create Upstream Proxy** and the upstream shoud become immediately available.
+In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://index.crates.io/`. Click on **+ Create Upstream Proxy** and the upstream should become immediately available.
 
 ### Registry Setup
 
@@ -192,7 +192,7 @@ OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/ca
 OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/index.git" }
 ```
 
-## Registry Authentication
+### Registry Authentication
 
 You must configure Git with the proper credentials to clone the registry when using HTTP basic authentication. Git's standard authentication mechanisms are used by Cargo and can be configured normally. For example, you could use git's per-user credential store like so:
 
