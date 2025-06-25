@@ -13,6 +13,7 @@ export interface ApiOperation {
   menuSegments: string[];
   slug: string;
   title: string;
+  version: 'v2' | 'v3'; // Each operation is now tagged with a version.
 
   // From OpenAPIV3.OperationObject
   tags?: string[];
