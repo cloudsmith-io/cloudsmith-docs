@@ -1,8 +1,8 @@
-import { Note, Video } from '@/components';
+import { Note, Video, BlockImage } from '@/components';
 
 # Cargo Registry
 
-Cloudsmith provides public & private registries for Cargo (Rust)
+Cloudsmith provides public & private registries for Cargo (Rust).
 
 <Video wistiaId="6j1x45h87p"></Video>
 
@@ -11,8 +11,6 @@ For more information on Rust, please see:
 - [Rust](https://www.rust-lang.org/): The official website for Rust language
 - [Cargo](https://doc.rust-lang.org/cargo/index.html): The official documentation for Cargo - the Rust package manager
 - [Crates Public Registry](https://crates.io/): The official Rust community's crate registry
-
-
 
 <Note variant="note" headline="Contextual Documentation">
   The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -57,26 +55,34 @@ The setup method will differ depending on what authentication type you choose to
 Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
 </Note>
 
-```text Entitlement Token Auth
+```toml
+# Entitlement Token Auth
 [registries]
 REGISTRY_NAME = { index = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/index.git" }
 ```
-```toml HTTP Basic Auth
+
+```toml
+# HTTP Basic Auth
 [registries]
 REGISTRY_NAME = { index = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cargo/index.git" }
 ```
 
 If using HTTP basic authentication, you'll need to configure Git with credentials. Git's standard authentication mechanisms are used by Cargo and can be configured in the normal way. For example, you could use git's per-user credential store as follows: 
 
-```shell HTTP Basic Auth (User & Pass)
+```shell
+# HTTP Basic Auth (User & Pass)
 git config --global credential.helper store
 echo "https://USERNAME:PASSWORD@dl.cloudsmith.io" > ~/.git-credentials
 ```
-```shell HTTP Basic Auth (API-Key)
+
+```shell
+# HTTP Basic Auth (API-Key)
 git config --global credential.helper store
 echo "https://USERNAME:API-KEY@dl.cloudsmith.io" > ~/.git-credentials
 ```
-```shell HTTP Basic Auth (Token)
+
+```shell
+# HTTP Basic Auth (Token)
 git config --global credential.helper store
 echo "https://token:TOKEN@dl.cloudsmith.io" > ~/.git-credentials
 ```
@@ -106,9 +112,11 @@ cargo publish --registry REGISTRY_NAME
 
 If you haven't specified credentials using one of the methods above, you'll be asked to provide them using `cargo login`.
 
-You can also set the following environment variables:  
-`CARGO_REGISTRIES_<REGISTRY_NAME>_INDEX` - instead of setting the registry URL in `~/.cargo/config`  
-`CARGO_REGISTRIES_<REGISTRY_NAME>_TOKEN` - instead of providing credentials via `cargo login` or writing them to `~/.cargo/credentials`:
+Instead of usign the previous authentication methods, you can also set the following environment variables to define your index and token:
+- `CARGO_REGISTRIES_<REGISTRY_NAME>_INDEX`
+- `CARGO_REGISTRIES_<REGISTRY_NAME>_TOKEN`
+
+Remember to rename the variable with your registry name.
 
 ### Upload via the Cloudsmith CLI
 
@@ -131,6 +139,14 @@ cloudsmith push cargo org/repo your-package.crate
 Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
 
 ## Download a Package
+
+### Configure a new Upstream
+
+Cloudsmith supports [https://index.crates.io](https://index.crates.io) as an upstream. This allows you to proxy and cache external Rust crates that are not part of your repository.
+
+To enable the upstream, browse to your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Cargo** Upstream.
+
+In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://index.crates.io/`. Click on **+ Create Upstream Proxy** and the upstream should become immediately available.
 
 ### Registry Setup
 
@@ -176,7 +192,7 @@ OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/ca
 OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/index.git" }
 ```
 
-## Registry Authentication
+### Registry Authentication
 
 You must configure Git with the proper credentials to clone the registry when using HTTP basic authentication. Git's standard authentication mechanisms are used by Cargo and can be configured normally. For example, you could use git's per-user credential store like so:
 
@@ -207,20 +223,11 @@ cargo install PACKAGE_NAME --registry REGISTRY_NAME`
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
-
-## Upstream Proxying / Caching
-
-<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
-
-<Note variant="note" headline="Note">
-When you install a Cargo package, `cargo` will assume that all dependencies are available in your Cloudsmith repository. You can configure your Cloudsmith repository to fetch any dependencies from crates.io that are not already present. See the repository [Main Settings](/repositories/repository-settings) for further information.
-</Note>
+<span class="cs-tag cs-tag-dark-green">Supported.</span> Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-dark-grey">Not Supported by Format</span>
+<span class="cs-tag cs-tag-dark-grey">Not Supported.</span>
 
 ## Troubleshooting
 
