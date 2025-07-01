@@ -3,7 +3,7 @@ title: Getting Started
 description: This is the Getting Started page
 ---
 
-import { Card, Flex } from '@/components';
+import { Card, Flex, Button } from '@/components';
 
 # Getting Started
 
@@ -12,6 +12,14 @@ Cloudsmith is a cloud-native, hosted, package management service with deep focus
 Store public, private and open-source packages in Cloudsmith to help you manage, track and control the software used within your development and deployment pipelines or when you distribute it to your customers.
 
 Learn more about [**Supported formats**](/formats).
+
+Not sure where to start? 
+
+<Flex gap="m" align="center">
+  <Button href="/getting-started/sign-up" size="xlarge">
+    Start your trial!
+  </Button>
+</Flex>
 
 ---
 
@@ -31,31 +39,54 @@ Learn more about [**Supported formats**](/formats).
   <Card
     title="For Vendors"
     description="Distribution"
-    href="./software-distribution/distribution-for-vendors"
+    href="./software-distribution"
     icon="utility/guide"
   />
 </Flex>
 
-## Developers
+## Developer tools
 
-Cloudsmith is built by developers, for developers. We understand the workflows and processes that developers use and need, and we try to ensure that what we build brings value to our customers, and generally makes their lives easier.  
+Cloudsmith is built by developers, for developers. We understand the workflows and processes that developers use and need, and we try to ensure that what we build brings value to our customers, and generally makes their lives easier.
 
+We maintain a set of tools to programmatically manage your workspaces, repositories, and artifacts. Along with other elements within Cloudsmith that helps you manage your organization: like teams, user accounts, service accounts, or tokens to conveniently automate configuration through scripts or any of the existing tooling you already use.
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Cloudsmith CLI"
+    description="Integrate smoothly with Cloudsmith without requiring explicit plugins or tools"
+    href="/developer-tools/cli"
+    icon="utility/api"
+    size="s"
+    width="quarter"
+    linkText="CLI Reference"
+  />
+  <Card
+    title="REST API"
+    description="Retrieve information, upload packages, or take actions programmatically through our API."
+    href="/api"
+    icon="utility/api"
+    size="s"
+    width="quarter"
+    linkText="API Reference"
+  />
+  <Card
+    title="Webhooks"
+    description="Reveive notifications when particular actions take place within Cloudsmith."
+    href="./developer-tools/webhooks"
+    icon="utility/guide"
+    size="s"
+    width="quarter"
+    linkText="Get started with Webhooks"
+  />
+  <Card
+    title="Terraform Provider"
+    description="Automate administrative actions with our Terraform provider."
+    href="./developer-tools/terraform-provider"
+    icon="utility/documentation"
+    size="s"
+    width="quarter"
+    linkText="Cloudsmith Terraform Provider"
+  />
+</Flex>
+<br></br>
 We believe in what we have built. We love to talk to other developers about what we have created, how it can fit into their development processes, and how we can help. If you have questions or would like to chat, please just [contact us](https://cloudsmith.com/company/contact-us).
-
-### REST API
-
-Retrieve information, upload packages, or take actions programmatically through our API.
-- [REST API Reference](/api)
-- [API Bindings](/getting-started/api-bindings)
-
-### Cloudsmith CLI
-
-The Cloudsmith Command Line Interface (CLI) allows users, machines and other services to access and integrate smoothly with Cloudsmith without requiring explicit plugins or tools.
-
-Learn how to [install the CLI](/getting-started/cli).
-
-### Webhooks
-
-Stay informed by receiving notifications when particular actions take place within Cloudsmith.
-- [Webhooks Guide](/logs-and-observability/webhooks)
-- [Origin IP Addresses]()

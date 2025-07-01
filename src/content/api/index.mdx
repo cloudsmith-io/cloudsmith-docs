@@ -1,9 +1,18 @@
----
-title: API Documentation
-description: This is the API page
-lastUpdated: 2025-01-01
----
+# API intro
 
-# API
+The Cloudsmith REST (REpresentational State Transfer) API (Application Programming Interface) provides everything you love about Cloudsmith but in a programmatic machine-accessible RESTful format. We believe in providing a rich API to enable exciting and powerful integrations, hopefully in ways that we couldn't imagine - just like your favourite brick-like toys!
 
-Content goes here...
+## Versioning
+
+The API is versioned to help reduce future compatibility issues if we need to change the API. The following is a list of the current API versions and their URI endpoints:
+
+### v1 (Version 1.0)	https://api.cloudsmith.io/v1/	
+### v2 (Version 2.0)	https://api.cloudsmith.io/v2/	
+
+If no explicit version has been specified then the latest version of the API will always be accessible at https://api.cloudsmith.io/ - so for example if the latest version is v1 then this will point to the v1 API. If we release a new v2 API then https://api.cloudsmith.io/ will automatically point to the v2 API, which may break clients that don't expect it. In order to maximise compatibility (if you need it), you should consider pointing at the fully-qualified endpoint for the version you need, such as https://api.cloudsmith.io/v1/, or use one of the alternative methods (see below) for specifying the version.
+
+In addition to explicitly specifying the endpoint in the URI, the following methods of specifying the version are supported by the Cloudsmith API:
+
+Method	Description	Example
+Accept Header	Specify the version in the Accept header when making requests.	Accept: application/json; version=v1
+Query String	Specify the version in the query string when making requests.	https://api.cloudsmith.io/user/self/?version=v1

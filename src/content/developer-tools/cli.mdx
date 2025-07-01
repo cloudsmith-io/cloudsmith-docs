@@ -1,0 +1,214 @@
+import { Note } from '@/components'
+
+# Command-Line Interface
+
+The Cloudsmith Command Line Interface (CLI) is a Py2/Py3 text-based interface to the <a href="https://api.cloudsmith.io">API</a>. This allows users, machines and other services to access and integrate smoothly with Cloudsmith without requiring explicit plugins or tools.
+
+## Installation
+
+You can install the latest CLI application from:
+
+- [Cloudsmith](https://cloudsmith.io/~cloudsmith/repos/cli/packages/)
+- [PyPi](https://pypi.python.org/pypi/cloudsmith-cli)
+- [Homebrew Tap](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli)
+
+The easiest way is to use `pip`, such as:
+
+```shell
+pip install --upgrade cloudsmith-cli
+```
+
+Or you can get the latest pre-release version from Cloudsmith:
+
+```shell
+pip install --upgrade cloudsmith-cli --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
+```
+
+### Installing with Homebrew Tap
+
+Homebrew is a package manager that can be [installed](<https://brew.sh/>) and used in different operative systems (MacOS, Linux, and also Windows). To install the Cloudsmith CLI with Brew, add the tap first:
+
+```bash
+brew tap cloudsmith-io/cloudsmith-cli
+```
+
+Then, install it with:
+
+```bash
+brew install cloudsmith-cli
+```
+
+And you should be able to start using it! If you need to upgrade:
+
+```bash
+brew upgrade cloudsmith-cli
+```
+
+For issues with the tap, please open a [GitHub issue](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli/issues/new) or contact [support@cloudsmith.io](mailto:support@cloudsmith.io).
+
+### Installing on Windows
+
+The instructions below detail how to install the Cloudsmith CLI using [chocolatey](https://chocolatey.org/):
+
+1. Click Start on your Windows machine and type “powershell“
+2. Right-click Windows Powershell and select to “Run as Administrator“
+3. To install chocolatey, type the following command into the Powershell terminal:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; `
+  iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
+4. Close and reopen Powershell in Administrator mode.
+5. Install the cloudsmith cli using chocolately:
+
+```powershell
+choco install python -y
+refreshenv
+choco install cloudsmith-cli --source python
+```
+
+### Getting your API Key
+
+You'll need to authenticate Cloudsmith for any CLI actions that result in accessing private data or changing resources (such as pushing a new package to a repository). There are two ways to retrieve your API Key:
+
+**1. Via the Cloudsmith web app**
+
+Go to the [API Key](https://cloudsmith.io/user/settings/api/) page in your user settings to view the API Key.
+
+**2. via the Cloudsmith CLI**
+
+<Note variant="note" headline="SAML Single Sign On Users">
+If you login to Cloudsmith via SAML, you will not be able to retrieve your API-Key via the Cloudsmith CLI, as you will not have a password associated with your Cloudsmith Account.  You will need to retrieve your API-Key via the Cloudsmith Website as described above, and then [configure the CLI](#configuration--setup) with your API-Key. We are working on improving this via SSO integration with the CLI. With the CLI this is simple to do. You can retrieve your API key using the cloudsmith login command:
+</Note>
+
+```
+cloudsmith login
+Login: you@example.com
+Password: PASSWORD
+Repeat for confirmation: PASSWORD
+```
+
+**NOTE**: Please ensure you use your email for the 'Login' prompt and not your user slug/identifier.
+
+The resulting output looks something like:
+
+```
+Retrieving API token for 'you@example.com' ... OK
+Your API token is: 1234567890abcdef1234567890abcdef
+```
+
+Once you have your API key, you can put it into your `credentials.ini` file, use it as an environment variable `export CLOUDSMITH_API_KEY=<YOUR_API_KEY>` or pass it to the CLI using the `-k <YOUR_API_KEY>` flag.
+
+For convenience, the CLI will ask you if you want to install the default configuration files, complete with your API key, if they don't already exist. Enter `y` or `yes` to create the configuration files. 
+
+If the configuration files already exist, you'll have to put the API key into the configuration files manually, but the CLI will print out their locations.
+
+***
+
+## Configuration / Setup
+
+There are two configuration files used by the CLI:
+
+- `config.ini`: For non-credentials configuration.
+- `credentials.ini`: For credentials (authentication) configuration.
+
+By default, the CLI will look for these in the following locations:
+
+- The current working directory.
+- A directory called cloudsmith in the OS-defined application directory. For example:
+
+**Linux**
+
+- `$HOME/.config/cloudsmith`
+- `$HOME/.cloudsmith`
+
+**Mac OS**
+
+- `$HOME/Library/Application Support/cloudsmith`
+- `$HOME/.cloudsmith`
+
+**Windows**
+
+- `C:\Users\<user>\AppData\Local\cloudsmith (Win7+, not roaming)`
+- `C:\Users\<user>\AppData\Roaming\cloudsmith (Win7+, roaming)`
+- `C:\Documents and Settings\<user>\Application Data\cloudsmith (WinXP, not roaming)`
+- `C:\Documents and Settings\<user>\Local Settings\Application Data\cloudsmith (WinXP, roaming)`
+
+### config.ini
+
+You can specify the following configuration options:
+
+`api_host:` The API host to connect to.  
+`api_proxy:` The API proxy to connect through.  
+`api_ssl_verify:` Whether or not to use SSL verification for requests.  
+`api_user_agent:` The user agent to use for requests.
+
+The default config is:
+
+```shell config.ini
+# Default configuration
+[default]
+# The API host to connect to (default: api.cloudsmith.io).
+api_host=
+
+# The API proxy to connect through (default: None).
+api_proxy=
+
+# Whether to verify SSL connection to the API (default: True)
+api_ssl_verify=true
+
+# The user agent to use for requests (default: calculated).
+api_user_agent=
+
+
+# Profile-based configuration
+# You can set as many additional profiles as you need to provide
+# for different configuration environments (e.g. prod vs staging).
+# Add your overrides in the sections and then specify one of:
+#  * -P your-profile-name (as an argument)
+#  * --profile your-profile-name (an an argument)
+#  * CLOUDSMITH_PROFILE=your-profile-name (as an env variable)
+[profile:your-profile-name]
+```
+
+### credentials.ini
+
+You can specify the following configuration options:
+
+`api_key:` The API key for authenticating with the API.
+
+```shell credentials.ini
+# Default configuration
+[default]
+# The API key for authenticating with the API.
+api_key=<YOUR_API_KEY>
+
+
+# Profile-based configuration
+# You can set as many additional profiles as you need to provide
+# for different configuration environments (e.g. prod vs staging).
+# Add your overrides in the sections and then specify one of:
+#  * -P your-profile-name (as an argument)
+#  * --profile your-profile-name (an an argument)
+#  * CLOUDSMITH_PROFILE=your-profile-name (as an env variable)
+[profile:your-profile-name]
+```
+
+## CLI Scripting
+
+There are certain operations, such as moving multiple packages at a time, that currently require additional scripting to achieve using the CLI. View the [CLI Scripting guide](/getting-started/cli-scripting) for details and examples of CLI Scripting.
+
+# Troubleshooting
+
+When upgrading the Cloudsmith CLI, you may also need to update the Cloudsmith API using: 
+
+```shell
+pip install --upgrade cloudsmith-api
+```
+
+If using a proxy with self-signed / internal TLS Certificates, you may need to point to your custom certs with:
+
+```
+export REQUESTS_CA_BUNDLE=/path/to/converted/certificate.pem
+```

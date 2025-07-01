@@ -1,0 +1,92 @@
+import { Note, BlockImage } from '@/components'
+
+import img_settings_workspaces from './images/workspaces/7ea55d80fcf7a86db156b47aafb9c5e0eff26cabb5bb832fafbd7c0fd2ade07f-settings-workspaces.png'
+import img_workspace_profile from './images/workspaces/ebfd1af9bdfbb8a0015e8e885c01164fa68055d41a1ededa538c5fd55f77eb0d-workspace-profile.png'
+import img_billing_settings from './images/workspaces/f68019bfd870d2451ab22cd5291ee99120e96b7a6931401e164727d0faacdb88-billing-settings.png'
+import img_global_privileges from './images/workspaces/13a08bb0b4e09840757898328a717c25a2e978d68a1daff7816c0f44a06cf311-global-privileges.png'
+import img_object_privileges from './images/workspaces/2437eb9334abde4fdaf268840bff7b39ea4894e795f7c01d3d094f20592229ac-object-privileges.png'
+import img_teams from './images/workspaces/5a7210ce89a4ad40fc961f1500a76a7fa469f363f3ac7d7a07fbe2e7dd41a636-teams.png'
+import img_custom_domains from './images/workspaces/0f67b9df1936ad70829df5e29411d625d3b5487ff7ce4a6c44b00960d575d6ac-custom-domains.png'
+import img_usage_limits from './images/workspaces/4ffbcf8f4da7c4c67d9dd347744fe35e63cdc9595711d2215e19346ad077c10e-usage-limits.png'
+
+# Workspaces
+
+To configure the settings for the Workspace, just click on the Settings menu item:
+
+<BlockImage src={img_settings_workspaces} alt=""></BlockImage>
+
+## Workspace Settings
+
+The menu on the left is where you can modify/configure Workspace settings, and has the following sections:
+
+- Workspace
+- Billing
+- Privileges
+- Accounts and Teams
+- Authentication
+- Custom domains
+- Usage limits
+- Manage policies
+
+### Workspace
+
+The Workspace profile settings are where you configure the Workspace name, avatar and contact email addresses (including billing email address if different from the primary email address): 
+
+<BlockImage src={img_workspace_profile} alt=""></BlockImage>
+
+From within the Workspace profile settings, you have the ability to rename your organization's slug/identifier, and if you really need too, you can delete an organization (caution: this is a permanent action and cannot be undone). 
+
+<Note variant="warning">
+  If you rename the Workspace, then the URI that is used to connect to any repositories will change.  This change will affect any users that currently use the repositories as the URI would no longer be valid.
+</Note>
+
+### Billing
+
+The Workspace Billing settings are where you add or change your payment source, view your invoices and select / modify your current plan. 
+
+<BlockImage src={img_billing_settings} alt=""></BlockImage>
+
+### Privileges
+
+The Workspace Privileges settings are where you set global privileges and default object privileges. For a high-level description, visit the [Workspace privileges](/workspaces/privileges) documentation pages. 
+
+### Accounts and Teams
+
+Workspace Accounts and Teams settings is used to control the default visibility of teams:
+
+<BlockImage src={img_teams} alt=""></BlockImage>
+
+- Hidden - Non-Members are not able to view the team
+- Visible - Non-Members are able to view the team
+
+### Authentication
+
+Workspace Authentication settings is where you can configure and modify the authentication settings for your users. For a high-level description, visit the [Authentication](/authentication) documentation pages. 
+
+
+### Custom Domains
+
+Custom domains let you utilize branded domains for any endpoint. Custom Domains settings are where you can view what custom domains have been configured for your Workspace account. 
+
+<BlockImage src={img_custom_domains} alt=""></BlockImage>
+
+### Usage Limits
+
+The Usage Limits settings are where you can configure additional usage of artifact data and package delivery for the Workspace. 
+
+<BlockImage src={img_usage_limits} alt=""></BlockImage>
+
+<Note variant="note">
+  Setting a limit of 0GB will disable any overage
+</Note>
+
+### Manage policies
+
+Cloudsmith's Policy Management lets your protect your workspace by defining policies that suit your business. Manage Policies settings is where you can configure and manage your workspace policies. Policy types include:
+
+- License policies
+- Vulnerability policies
+- Authentication policies
+- Package deny policies 
+
+Please see [Policy Management](/policy-management/policy-management) documentation for more details on each policy type.
