@@ -44,9 +44,8 @@ export const createTitle = (menuSegments: string[]): string => {
 };
 
 /**
- * Turns an operation slug into a fully qualified local path to use in links.
- * Now includes the version.
+ * Turns an operation slug into a fully qualified local path to use in links
  */
-export const apiOperationPath = (slug: string, version: 'v2' | 'v3'): string => {
-  return `/api/${version}/${slug}`;
+export const apiOperationPath = (slug: string): string => {
+  return `/api/${slug}`;
 };
