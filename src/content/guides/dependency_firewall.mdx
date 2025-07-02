@@ -138,7 +138,7 @@ For our NodeJS modules, we can use `npm` and just point it to: `https://npm.clou
 npm install --registry https://npm.cloudsmith.io/demo-docs/no-upstream-npm --loglevel verbose
 ```
 
-```logs
+```bash
 npm verbose pkgid axios@^1.4.0
 npm error code E404
 npm error 404 Not Found - GET https://npm.cloudsmith.io/demo-docs/no-upstream-npm/axios - Not found.
@@ -153,7 +153,7 @@ pip install --index-url https://dl.cloudsmith.io/public/demo-docs/no-upstream-np
 
 We get a similar error:
 
-```logs
+```bash
 Could not fetch URL https://dl.cloudsmith.io/public/demo-docs/no-upstream-npm/python/simple/flask/: 404 Client Error: Not Found for url: https://dl.cloudsmith.io/public/demo-docs/no-upstream-npm/python/simple/flask/ - skipping
 Skipping link: not a file: https://dl.cloudsmith.io/public/demo-docs/no-upstream-npm/python/simple/flask/
 Given no hashes to check 0 links for project 'flask': discarding no candidates
