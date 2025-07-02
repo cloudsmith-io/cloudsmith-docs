@@ -9,7 +9,7 @@ import { MenuItem } from '../menu/types';
  */
 export const parseSchema = async (): Promise<OpenAPIV3.Document> => {
   const schema = (await SwaggerParser.dereference(
-    `src/content/schemas/api-schema-v3.json`,
+    `src/content/schemas/api-schema-v1.json`,
   )) as OpenAPIV3.Document;
 
   if (!schema) {
