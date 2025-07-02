@@ -46,7 +46,7 @@ These examples use the Groovy-based syntax for Gradle. For the Kotlin syntax, pl
 The endpoint for native Gradle API (Maven-based) is:
 
 ```
-https://api.cloudsmith.io/maven/
+https://maven.cloudsmith.io/
 ```
 
 For Maven-based publishing you'll need to enable the maven-publish plugin:
@@ -64,9 +64,9 @@ publishing {
   repositories {
     maven {
       name = "cloudsmith"
-      url = "https://api.cloudsmith.io/maven/OWNER/REPOSITORY/"
-      def releasesRepoUrl = "https://api.cloudsmith.io/maven/OWNER/REPOSITORY/"
-      def snapshotsRepoUrl = "https://api.cloudsmith.io/maven/OWNER/REPOSITORY/"
+      url = "https://maven.cloudsmith.io/OWNER/REPOSITORY/"
+      def releasesRepoUrl = "https://maven.cloudsmith.io/OWNER/REPOSITORY/"
+      def snapshotsRepoUrl = "https://maven.cloudsmith.io/OWNER/REPOSITORY/"
       url = version.endsWith('SNAPSHOT') ? **snapshotsRepoUrl **: releasesRepoUrl
       credentials {
         username = 'USERNAME'
