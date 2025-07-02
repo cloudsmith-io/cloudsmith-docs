@@ -25,7 +25,6 @@ export const parseSchemas = async (): Promise<{ schema: OpenAPIV3.Document; vers
 
     for (const file of jsonFiles) {
       const filePath = path.join(SCHEMAS_DIR, file);
-
       try {
         // First, read the file to extract versionAlias
         const fileContent = await readFile(filePath, 'utf-8');
