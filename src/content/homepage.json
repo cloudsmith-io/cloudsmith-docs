@@ -5,7 +5,7 @@
     "buttons": [
       {
         "label": "Documentation",
-        "href": "/documentation"
+        "href": "/getting-started"
       },
       {
         "label": "Guides",
@@ -30,17 +30,16 @@
           "icon": "utility/documentation"
         },
         {
+          "title": "Supported Formats",
+          "description": "Cloudsmith is a single solution for all of your software assets.",
+          "href": "/formats/",
+          "linkText": "Go to formats",
+          "icon": "utility/documentation"
+        },
+        {
           "title": "Quickstart guide",
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
           "href": "/guides/cloudsmith-quickstart-guide/",
-          "linkText": "Go to guide",
-          "icon": "utility/guide"
-        }
-        ,
-        {
-          "title": "Evaluating Cloudsmith",
-          "description": "If you're considering Cloudsmith, we've compiled a guide covering steps typically taken by customers during an evaluation.",
-          "href": "/guides/evaluating-cloudsmith/",
           "linkText": "Go to guide",
           "icon": "utility/guide"
         }
@@ -68,10 +67,10 @@
           "icon": "utility/documentation"
         },
         {
-          "title": "Setting permissions",
-          "description": "Anim ipsum eiusmod occaecat duis ullamco reprehenderit sint do sunt irure veniam ullamco mollit in. Veniam Lorem amet culpa ullamco voluptate ad anim esse officia.",
-          "href": "/accounts-and-teams/permissions",
-          "linkText": "Read the doc",
+          "title": "Workspace privileges",
+          "description": "Learn how to apply the principle of least privilege to secure your supply chain.",
+          "href": "/workspaces/privileges",
+          "linkText": "Privileges",
           "icon": "utility/documentation"
         }
       ]

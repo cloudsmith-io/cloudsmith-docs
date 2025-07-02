@@ -45,7 +45,7 @@ You will need to add a secret to your GitHub repository named `CLOUDSMITH_API_KE
 Pass your `CLOUDSMITH_API_KEY` secret to the Action as per the examples.
 
 <Note variant="note" headline="OIDC Authentication">
-When using [OIDC](/access-control/openid-connect) with GitHub Actions, save the JWT token to an environment variable called `CLOUDSMITH_API_KEY` and **do not** include `api-key` in the `.yaml` push action - the API key will be taken from the environment variable instead.
+When using [OIDC](/authentication/openid-connect) with GitHub Actions, save the JWT token to an environment variable called `CLOUDSMITH_API_KEY` and **do not** include `api-key` in the `.yaml` push action - the API key will be taken from the environment variable instead.
 </Note>
 
 

@@ -1,0 +1,165 @@
+import { BlockImage, Note } from '@/components'
+
+
+## Recipe 1: Simple Tag Check
+
+**Use case:** Match any package with a certain tag. For example: `ready-for-production`. For this rule, the value of`match` will be `true` when `tags.info` contains the value provided in `required_tag`.
+
+```text
+package cloudsmith
+
+import rego.v1
+
+default match := false
+required_tag := "ready-for-production"
+
+match if {
+    has_required_tag
+}
+
+has_required_tag if {
+    some i
+    input.v0["package"]["tags"]["info"][i] == required_tag
+}
+
+```
+
+## Recipe 2: Time-Based CVSS Policy
+
+**Use case:** Evaluate vulnerabilities older than 30 days, check CVSS threshold ≥ 7, filter a specific repo, ignoring certain CVEs.
+
+What It Does:
+
+- Scopes to the `testing-policy` repository.
+- Ignores certain CVEs, requires CVSS ≥ 7.
+- Only triggers if vulnerability is older than 30 days.
+
+```
+package cloudsmith
+
+import rego.v1
+
+default match := false
+
+max_cvss_score := 7
+older_than_days := -30
+target_repository := "testing-policy"
+ignored_cves := {"CVE-2023-45853", "CVE-2024-12345"}
+
+match if {
+    in_target_repository
+    count(reason) != 0
+}
+
+in_target_repository if {
+    input.v0["repository"]["name"] == target_repository
+}
+
+reason contains msg if {
+    some vulnerability in input.v0["security_scan"]["Vulnerabilities"]
+
+    not ignored_cve(vulnerability)
+
+    vulnerability["FixedVersion"]
+    vulnerability["Status"] == "fixed"
+
+    some _, val in vulnerability["CVSS"]
+    val["V3Score"] >= max_cvss_score
+
+    t := time.add_date(time.now_ns(), 0, 0, older_than_days)
+    published_date := time.parse_rfc3339_ns(vulnerability["PublishedDate"])
+    published_date <= t
+
+    msg := sprintf("CVSS Score: %v | Package: %v | Vulnerability: %v | Reason: %v",
+      [val["V3Score"], input.v0["package"]["name"], vulnerability["VulnerabilityID"], vulnerability["Description"]])
+}
+
+ignored_cve(vulnerability) if {
+    vulnerability["VulnerabilityID"] in ignored_cves
+}
+
+```
+
+## Recipe 3: CVSS Score + Fix Version + CVE Exclusion + Repo
+
+**Use case:** Another approach for ignoring certain CVEs, focusing on one repository, with high/critical CVSS threshold.
+
+What It Does:
+
+- Matches packages in repository testing-policy if at least one vulnerability is “fixed,” CVSS > 7, and not in `ignored_cves`.
+
+```
+package cloudsmith
+
+import rego.v1
+
+default match := false
+
+max_cvss_score := 7
+target_repository := "testing-policy"
+ignored_cves := {"CVE-2023-45853"}
+
+match if {
+    input.v0["repository"]["name"] == target_repository
+    some vulnerability in input.v0["security_scan"]["Vulnerabilities"]
+    vulnerability["FixedVersion"]
+    vulnerability["Status"] == "fixed"
+    not ignored_cve(vulnerability)
+    exceeded_max_cvss(vulnerability)
+}
+
+exceeded_max_cvss(vulnerability) if {
+    some _, val in vulnerability["CVSS"]
+    val["V3Score"] > max_cvss_score
+}
+
+ignored_cve(vulnerability) if {
+    vulnerability["VulnerabilityID"] in ignored_cves
+}
+
+```
+
+## Recipe 4: CVSS Score + Tag + Time-Based
+
+**Use case:** Combine tag requirements with older vulnerabilities that surpass a threshold.
+
+What It Does:
+
+- Requires package to have a tag containing "internal-only"
+- Only triggers if a vulnerability is older than 21 days, fixed, and has a CVSS ≥ 7.
+
+```
+package cloudsmith
+
+import rego.v1
+
+default match := false
+
+customer_face_tag := "internal-only"
+max_cvss_score := 7
+
+match if {
+    has_given_tag
+    count(reason) != 0
+}
+
+has_given_tag if {
+    some _, type in input.v0["package"]["tags"]
+    some tag in type
+    contains(tag, customer_face_tag)
+}
+
+reason contains msg if {
+    t := time.add_date(time.now_ns(), 0, 0, -21)
+    some vulnerability in input.v0["security_scan"]["Vulnerabilities"]
+    published_date := time.parse_rfc3339_ns(vulnerability["PublishedDate"])
+    published_date <= t
+    vulnerability["FixedVersion"]
+    vulnerability["Status"] == "fixed"
+    some _, val in vulnerability["CVSS"]
+    val["V3Score"] >= max_cvss_score
+    msg := sprintf("CVSS Score: '%v' for Package: '%v' has VulnerabilityID: '%v' with Reason: '%v'",
+      [val["V3Score"], input.v0["package"]["name"], vulnerability["VulnerabilityID"], vulnerability["Description"]])
+}
+
+```

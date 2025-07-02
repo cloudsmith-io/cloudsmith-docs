@@ -1,0 +1,2627 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Cloudsmith API",
+        "version": "1.729.1 (v2)",
+        "description": "The API to the Cloudsmith Service",
+        "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
+        "contact": {
+            "email": "support@cloudsmith.io",
+            "name": "Cloudsmith Support",
+            "url": "https://help.cloudsmith.io/"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "paths": {
+        "/workspaces/{workspace}/policies/": {
+            "get": {
+                "operationId": "workspaces_policies_list",
+                "description": "List policies.",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "required": false,
+                        "in": "query",
+                        "description": "Number of results to return per page.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "A search string to limit results by name. Legal fields are: `name`. Boolean operators may be used to construct intricate queries. Omitting boolean operators is interpreted as an implicit `AND`.",
+                        "examples": {
+                            "PoliciesNamedFooOrBar": {
+                                "value": "name: foo OR name: bar",
+                                "summary": "Policies named foo or bar"
+                            }
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "sort",
+                        "schema": {
+                            "type": "string",
+                            "default": "-created_at"
+                        },
+                        "description": "A comma-separated string of fields to sort by. Legal fields are: `created_at`, `name`, `version`, `updated_at`. Descending order can be expressed by prepending `-` to a field name.",
+                        "examples": {
+                            "`version`Descending,`updatedAt`Ascending": {
+                                "value": "-version,updated_at",
+                                "summary": "`version` descending, `updated_at` ascending"
+                            }
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedPolicyList"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "workspaces_policies_create",
+                "description": "Create a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Policy"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Policy"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDetail"
+                                },
+                                "examples": {
+                                    "MaxPoliciesReached": {
+                                        "value": {
+                                            "detail": "Invalid input.",
+                                            "code": "invalid",
+                                            "fields": {
+                                                "non_field_errors": [
+                                                    {
+                                                        "string": "Maximum number of policies reached.",
+                                                        "code": "max_policies_reached"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "summary": "Max Policies Reached",
+                                        "description": "Occurs when the number of repositories associated with a workspace is already at the maximum."
+                                    }
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspace}/policies/{policy}/": {
+            "get": {
+                "operationId": "workspaces_policies_retrieve",
+                "description": "Retrieve a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Policy"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "operationId": "workspaces_policies_update",
+                "description": "Update a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Policy"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Policy"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "workspaces_policies_partial_update",
+                "description": "Partially update a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedPolicy"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Policy"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "workspaces_policies_destroy",
+                "description": "Delete a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspace}/policies/{policy}/actions/": {
+            "get": {
+                "operationId": "workspaces_policies_actions_list",
+                "description": "List all actions for the policy.",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "required": false,
+                        "in": "query",
+                        "description": "Number of results to return per page.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedPolicyActionList"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "workspaces_policies_actions_create",
+                "description": "Create an action for a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PolicyAction"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PolicyAction"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDetail"
+                                },
+                                "examples": {
+                                    "MaxActionsReached": {
+                                        "value": {
+                                            "detail": "Invalid input.",
+                                            "code": "invalid",
+                                            "fields": {
+                                                "non_field_errors": [
+                                                    {
+                                                        "string": "Maximum number of actions reached.",
+                                                        "code": "max_actions_reached"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "summary": "Max Actions Reached",
+                                        "description": "Occurs when the number of actions associated with a policy is already at the maximum."
+                                    }
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspace}/policies/{policy}/actions/{action}/": {
+            "get": {
+                "operationId": "workspaces_policies_actions_retrieve",
+                "description": "Retrieve an action for a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "action",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Action identifier."
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PolicyAction"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "operationId": "workspaces_policies_actions_update",
+                "description": "Update an action for a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "action",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Action identifier."
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PolicyAction"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PolicyAction"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "workspaces_policies_actions_partial_update",
+                "description": "Partially update an action for a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "action",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Action identifier."
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedPolicyAction"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PolicyAction"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "workspaces_policies_actions_destroy",
+                "description": "Delete an action for a policy.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "action",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Action identifier."
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspace}/policies/{policy}/simulate/": {
+            "get": {
+                "operationId": "workspaces_policies_simulate_list",
+                "description": "Simulates the execution of a Policy to verify its behavior without taking any actions.\n\nThis endpoint evaluates all packages in the workspace, generating a \"decision log\" for each evaluation.\nEach log contains:\n- Package metadata provided to the policy engine at runtime.\n- Output from the user-defined Rego policy.\n\nNo actions associated with the policy are executed. Instead, the endpoint reports what would happen to each package if the policy were active.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "package_query_string",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "A [package search](https://help.cloudsmith.io/docs/search-packages) query by which to filter the packages being evaluated."
+                    },
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "required": false,
+                        "in": "query",
+                        "description": "Number of results to return per page.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedPolicyDecisionLogList"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/workspaces/{workspace}/policies/decision_logs/": {
+            "get": {
+                "operationId": "workspaces_policies_decision_logs_list",
+                "description": "List policy decision logs.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "correlation_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "description": "Filter by `correlation_id`."
+                    },
+                    {
+                        "in": "query",
+                        "name": "ended_after",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "description": "Filter by `ended_at`. This operates as an inclusive lower bound (greater than or equal to)."
+                    },
+                    {
+                        "in": "query",
+                        "name": "ended_before",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "description": "Filter by `ended_at`. This operates as an exclusive upper bound (less than)."
+                    },
+                    {
+                        "in": "query",
+                        "name": "match",
+                        "schema": {
+                            "type": "boolean",
+                            "nullable": true
+                        },
+                        "description": "Filter by whether the policy matched the package."
+                    },
+                    {
+                        "in": "query",
+                        "name": "package",
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "description": "Filter by package identifier (`slug_perm`)."
+                    },
+                    {
+                        "in": "query",
+                        "name": "package_format",
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "description": "Filter by package format."
+                    },
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "required": false,
+                        "in": "query",
+                        "description": "Number of results to return per page.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "policy",
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "description": "Filter by  policy identifier (`slug_perm`)."
+                    },
+                    {
+                        "in": "query",
+                        "name": "repository",
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "description": "Filter by repository identifier (`slug_perm`)."
+                    },
+                    {
+                        "in": "query",
+                        "name": "sort",
+                        "schema": {
+                            "type": "string",
+                            "default": "-started_at"
+                        },
+                        "description": "A comma-separated string of fields to sort by. Legal fields are: `started_at`, `ended_at`. Descending order can be expressed by prepending `-` to a field name."
+                    },
+                    {
+                        "in": "query",
+                        "name": "started_after",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "description": "Filter by `started_at`. This operates as an inclusive lower bound (greater than or equal to)."
+                    },
+                    {
+                        "in": "query",
+                        "name": "started_before",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "description": "Filter by `started_at`. This operates as an exclusive upper bound (less than)."
+                    },
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[-_\\w]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    },
+                    {
+                        "basic": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedPolicyDecisionLogList"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AddPackageTagsPolicyAction": {
+                "type": "object",
+                "properties": {
+                    "precedence": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "description": "The order in which this action occurs relative to other actions for the same policy."
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The Action identifier.",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was created."
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was updated."
+                    },
+                    "effect": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "maxLength": 100
+                        }
+                    }
+                },
+                "required": [
+                    "created_at",
+                    "effect",
+                    "slug_perm",
+                    "tags",
+                    "updated_at"
+                ]
+            },
+            "AddPackageTagsPolicyActionTyped": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "action_type": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "action_type"
+                        ]
+                    },
+                    {
+                        "$ref": "#/components/schemas/AddPackageTagsPolicyAction"
+                    }
+                ]
+            },
+            "BlankEnum": {
+                "enum": [
+                    ""
+                ]
+            },
+            "CountryEnum": {
+                "enum": [
+                    "AF",
+                    "AX",
+                    "AL",
+                    "DZ",
+                    "AS",
+                    "AD",
+                    "AO",
+                    "AI",
+                    "AQ",
+                    "AG",
+                    "AR",
+                    "AM",
+                    "AW",
+                    "AU",
+                    "AT",
+                    "AZ",
+                    "BS",
+                    "BH",
+                    "BD",
+                    "BB",
+                    "BY",
+                    "BE",
+                    "BZ",
+                    "BJ",
+                    "BM",
+                    "BT",
+                    "BO",
+                    "BQ",
+                    "BA",
+                    "BW",
+                    "BV",
+                    "BR",
+                    "IO",
+                    "BN",
+                    "BG",
+                    "BF",
+                    "BI",
+                    "CV",
+                    "KH",
+                    "CM",
+                    "CA",
+                    "KY",
+                    "CF",
+                    "TD",
+                    "CL",
+                    "CN",
+                    "CX",
+                    "CC",
+                    "CO",
+                    "KM",
+                    "CG",
+                    "CD",
+                    "CK",
+                    "CR",
+                    "CI",
+                    "HR",
+                    "CU",
+                    "CW",
+                    "CY",
+                    "CZ",
+                    "DK",
+                    "DJ",
+                    "DM",
+                    "DO",
+                    "EC",
+                    "EG",
+                    "SV",
+                    "GQ",
+                    "ER",
+                    "EE",
+                    "SZ",
+                    "ET",
+                    "FK",
+                    "FO",
+                    "FJ",
+                    "FI",
+                    "FR",
+                    "GF",
+                    "PF",
+                    "TF",
+                    "GA",
+                    "GM",
+                    "GE",
+                    "DE",
+                    "GH",
+                    "GI",
+                    "GR",
+                    "GL",
+                    "GD",
+                    "GP",
+                    "GU",
+                    "GT",
+                    "GG",
+                    "GN",
+                    "GW",
+                    "GY",
+                    "HT",
+                    "HM",
+                    "VA",
+                    "HN",
+                    "HK",
+                    "HU",
+                    "IS",
+                    "IN",
+                    "ID",
+                    "IR",
+                    "IQ",
+                    "IE",
+                    "IM",
+                    "IL",
+                    "IT",
+                    "JM",
+                    "JP",
+                    "JE",
+                    "JO",
+                    "KZ",
+                    "KE",
+                    "KI",
+                    "KW",
+                    "KG",
+                    "LA",
+                    "LV",
+                    "LB",
+                    "LS",
+                    "LR",
+                    "LY",
+                    "LI",
+                    "LT",
+                    "LU",
+                    "MO",
+                    "MG",
+                    "MW",
+                    "MY",
+                    "MV",
+                    "ML",
+                    "MT",
+                    "MH",
+                    "MQ",
+                    "MR",
+                    "MU",
+                    "YT",
+                    "MX",
+                    "FM",
+                    "MD",
+                    "MC",
+                    "MN",
+                    "ME",
+                    "MS",
+                    "MA",
+                    "MZ",
+                    "MM",
+                    "NA",
+                    "NR",
+                    "NP",
+                    "NL",
+                    "NC",
+                    "NZ",
+                    "NI",
+                    "NE",
+                    "NG",
+                    "NU",
+                    "NF",
+                    "KP",
+                    "MK",
+                    "MP",
+                    "NO",
+                    "OM",
+                    "PK",
+                    "PW",
+                    "PS",
+                    "PA",
+                    "PG",
+                    "PY",
+                    "PE",
+                    "PH",
+                    "PN",
+                    "PL",
+                    "PT",
+                    "PR",
+                    "QA",
+                    "RE",
+                    "RO",
+                    "RU",
+                    "RW",
+                    "BL",
+                    "SH",
+                    "KN",
+                    "LC",
+                    "MF",
+                    "PM",
+                    "VC",
+                    "WS",
+                    "SM",
+                    "ST",
+                    "SA",
+                    "SN",
+                    "RS",
+                    "SC",
+                    "SL",
+                    "SG",
+                    "SX",
+                    "SK",
+                    "SI",
+                    "SB",
+                    "SO",
+                    "ZA",
+                    "GS",
+                    "KR",
+                    "SS",
+                    "ES",
+                    "LK",
+                    "SD",
+                    "SR",
+                    "SJ",
+                    "SE",
+                    "CH",
+                    "SY",
+                    "TW",
+                    "TJ",
+                    "TZ",
+                    "TH",
+                    "TL",
+                    "TG",
+                    "TK",
+                    "TO",
+                    "TT",
+                    "TN",
+                    "TR",
+                    "TM",
+                    "TC",
+                    "TV",
+                    "UG",
+                    "UA",
+                    "AE",
+                    "GB",
+                    "UM",
+                    "US",
+                    "UY",
+                    "UZ",
+                    "VU",
+                    "VE",
+                    "VN",
+                    "VG",
+                    "VI",
+                    "WF",
+                    "EH",
+                    "YE",
+                    "ZM",
+                    "ZW"
+                ],
+                "type": "string",
+                "description": "* `AF` - Afghanistan\n* `AX` - Åland Islands\n* `AL` - Albania\n* `DZ` - Algeria\n* `AS` - American Samoa\n* `AD` - Andorra\n* `AO` - Angola\n* `AI` - Anguilla\n* `AQ` - Antarctica\n* `AG` - Antigua and Barbuda\n* `AR` - Argentina\n* `AM` - Armenia\n* `AW` - Aruba\n* `AU` - Australia\n* `AT` - Austria\n* `AZ` - Azerbaijan\n* `BS` - Bahamas\n* `BH` - Bahrain\n* `BD` - Bangladesh\n* `BB` - Barbados\n* `BY` - Belarus\n* `BE` - Belgium\n* `BZ` - Belize\n* `BJ` - Benin\n* `BM` - Bermuda\n* `BT` - Bhutan\n* `BO` - Bolivia\n* `BQ` - Bonaire, Sint Eustatius and Saba\n* `BA` - Bosnia and Herzegovina\n* `BW` - Botswana\n* `BV` - Bouvet Island\n* `BR` - Brazil\n* `IO` - British Indian Ocean Territory\n* `BN` - Brunei\n* `BG` - Bulgaria\n* `BF` - Burkina Faso\n* `BI` - Burundi\n* `CV` - Cabo Verde\n* `KH` - Cambodia\n* `CM` - Cameroon\n* `CA` - Canada\n* `KY` - Cayman Islands\n* `CF` - Central African Republic\n* `TD` - Chad\n* `CL` - Chile\n* `CN` - China\n* `CX` - Christmas Island\n* `CC` - Cocos (Keeling) Islands\n* `CO` - Colombia\n* `KM` - Comoros\n* `CG` - Congo\n* `CD` - Congo (the Democratic Republic of the)\n* `CK` - Cook Islands\n* `CR` - Costa Rica\n* `CI` - Côte d'Ivoire\n* `HR` - Croatia\n* `CU` - Cuba\n* `CW` - Curaçao\n* `CY` - Cyprus\n* `CZ` - Czechia\n* `DK` - Denmark\n* `DJ` - Djibouti\n* `DM` - Dominica\n* `DO` - Dominican Republic\n* `EC` - Ecuador\n* `EG` - Egypt\n* `SV` - El Salvador\n* `GQ` - Equatorial Guinea\n* `ER` - Eritrea\n* `EE` - Estonia\n* `SZ` - Eswatini\n* `ET` - Ethiopia\n* `FK` - Falkland Islands (Malvinas)\n* `FO` - Faroe Islands\n* `FJ` - Fiji\n* `FI` - Finland\n* `FR` - France\n* `GF` - French Guiana\n* `PF` - French Polynesia\n* `TF` - French Southern Territories\n* `GA` - Gabon\n* `GM` - Gambia\n* `GE` - Georgia\n* `DE` - Germany\n* `GH` - Ghana\n* `GI` - Gibraltar\n* `GR` - Greece\n* `GL` - Greenland\n* `GD` - Grenada\n* `GP` - Guadeloupe\n* `GU` - Guam\n* `GT` - Guatemala\n* `GG` - Guernsey\n* `GN` - Guinea\n* `GW` - Guinea-Bissau\n* `GY` - Guyana\n* `HT` - Haiti\n* `HM` - Heard Island and McDonald Islands\n* `VA` - Holy See\n* `HN` - Honduras\n* `HK` - Hong Kong\n* `HU` - Hungary\n* `IS` - Iceland\n* `IN` - India\n* `ID` - Indonesia\n* `IR` - Iran\n* `IQ` - Iraq\n* `IE` - Ireland\n* `IM` - Isle of Man\n* `IL` - Israel\n* `IT` - Italy\n* `JM` - Jamaica\n* `JP` - Japan\n* `JE` - Jersey\n* `JO` - Jordan\n* `KZ` - Kazakhstan\n* `KE` - Kenya\n* `KI` - Kiribati\n* `KW` - Kuwait\n* `KG` - Kyrgyzstan\n* `LA` - Laos\n* `LV` - Latvia\n* `LB` - Lebanon\n* `LS` - Lesotho\n* `LR` - Liberia\n* `LY` - Libya\n* `LI` - Liechtenstein\n* `LT` - Lithuania\n* `LU` - Luxembourg\n* `MO` - Macao\n* `MG` - Madagascar\n* `MW` - Malawi\n* `MY` - Malaysia\n* `MV` - Maldives\n* `ML` - Mali\n* `MT` - Malta\n* `MH` - Marshall Islands\n* `MQ` - Martinique\n* `MR` - Mauritania\n* `MU` - Mauritius\n* `YT` - Mayotte\n* `MX` - Mexico\n* `FM` - Micronesia\n* `MD` - Moldova\n* `MC` - Monaco\n* `MN` - Mongolia\n* `ME` - Montenegro\n* `MS` - Montserrat\n* `MA` - Morocco\n* `MZ` - Mozambique\n* `MM` - Myanmar\n* `NA` - Namibia\n* `NR` - Nauru\n* `NP` - Nepal\n* `NL` - Netherlands\n* `NC` - New Caledonia\n* `NZ` - New Zealand\n* `NI` - Nicaragua\n* `NE` - Niger\n* `NG` - Nigeria\n* `NU` - Niue\n* `NF` - Norfolk Island\n* `KP` - North Korea\n* `MK` - North Macedonia\n* `MP` - Northern Mariana Islands\n* `NO` - Norway\n* `OM` - Oman\n* `PK` - Pakistan\n* `PW` - Palau\n* `PS` - Palestine, State of\n* `PA` - Panama\n* `PG` - Papua New Guinea\n* `PY` - Paraguay\n* `PE` - Peru\n* `PH` - Philippines\n* `PN` - Pitcairn\n* `PL` - Poland\n* `PT` - Portugal\n* `PR` - Puerto Rico\n* `QA` - Qatar\n* `RE` - Réunion\n* `RO` - Romania\n* `RU` - Russia\n* `RW` - Rwanda\n* `BL` - Saint Barthélemy\n* `SH` - Saint Helena, Ascension and Tristan da Cunha\n* `KN` - Saint Kitts and Nevis\n* `LC` - Saint Lucia\n* `MF` - Saint Martin (French part)\n* `PM` - Saint Pierre and Miquelon\n* `VC` - Saint Vincent and the Grenadines\n* `WS` - Samoa\n* `SM` - San Marino\n* `ST` - Sao Tome and Principe\n* `SA` - Saudi Arabia\n* `SN` - Senegal\n* `RS` - Serbia\n* `SC` - Seychelles\n* `SL` - Sierra Leone\n* `SG` - Singapore\n* `SX` - Sint Maarten (Dutch part)\n* `SK` - Slovakia\n* `SI` - Slovenia\n* `SB` - Solomon Islands\n* `SO` - Somalia\n* `ZA` - South Africa\n* `GS` - South Georgia and the South Sandwich Islands\n* `KR` - South Korea\n* `SS` - South Sudan\n* `ES` - Spain\n* `LK` - Sri Lanka\n* `SD` - Sudan\n* `SR` - Suriname\n* `SJ` - Svalbard and Jan Mayen\n* `SE` - Sweden\n* `CH` - Switzerland\n* `SY` - Syria\n* `TW` - Taiwan\n* `TJ` - Tajikistan\n* `TZ` - Tanzania\n* `TH` - Thailand\n* `TL` - Timor-Leste\n* `TG` - Togo\n* `TK` - Tokelau\n* `TO` - Tonga\n* `TT` - Trinidad and Tobago\n* `TN` - Tunisia\n* `TR` - Türkiye\n* `TM` - Turkmenistan\n* `TC` - Turks and Caicos Islands\n* `TV` - Tuvalu\n* `UG` - Uganda\n* `UA` - Ukraine\n* `AE` - United Arab Emirates\n* `GB` - United Kingdom\n* `UM` - United States Minor Outlying Islands\n* `US` - United States of America\n* `UY` - Uruguay\n* `UZ` - Uzbekistan\n* `VU` - Vanuatu\n* `VE` - Venezuela\n* `VN` - Vietnam\n* `VG` - Virgin Islands (British)\n* `VI` - Virgin Islands (U.S.)\n* `WF` - Wallis and Futuna\n* `EH` - Western Sahara\n* `YE` - Yemen\n* `ZM` - Zambia\n* `ZW` - Zimbabwe"
+            },
+            "ErrorDetail": {
+                "type": "object",
+                "description": "A serializer for displaying a detail error message.",
+                "properties": {
+                    "detail": {
+                        "type": "string",
+                        "description": "An extended message for the response."
+                    },
+                    "fields": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "A Dictionary of related errors where key: Field and value: Array of Errors related to that field"
+                    }
+                },
+                "required": [
+                    "detail"
+                ]
+            },
+            "NullEnum": {
+                "enum": [
+                    null
+                ]
+            },
+            "PackageStateEnum": {
+                "enum": [
+                    "AVAILABLE",
+                    "BLOCKED",
+                    "DELETED",
+                    "QUARANTINED"
+                ],
+                "type": "string",
+                "description": "* `AVAILABLE` - The package is available for download.\n* `BLOCKED` - The package is not downloadable.\n* `DELETED` - The package is deleted.\n* `QUARANTINED` - The package is quarantined."
+            },
+            "PackageTagSourceTypeEnum": {
+                "enum": [
+                    "AUTOMATIC",
+                    "MANUAL"
+                ],
+                "type": "string",
+                "description": "* `AUTOMATIC` - Automatic\n* `MANUAL` - Manual"
+            },
+            "PackageTagTypeEnum": {
+                "enum": [
+                    "INFO",
+                    "SOME_VERSION",
+                    "LATEST_VERSION",
+                    "ANNOTATION"
+                ],
+                "type": "string",
+                "description": "* `INFO` - Info\n* `SOME_VERSION` - Some Version\n* `LATEST_VERSION` - Latest Version\n* `ANNOTATION` - Annotation"
+            },
+            "PackageTypeEnum": {
+                "enum": [
+                    "BINARY",
+                    "SOURCE",
+                    "COMBINED",
+                    "OTHER"
+                ],
+                "type": "string",
+                "description": "* `BINARY` - Binary\n* `SOURCE` - Source\n* `COMBINED` - Combined\n* `OTHER` - Other"
+            },
+            "PaginatedPolicyActionList": {
+                "type": "object",
+                "required": [
+                    "results"
+                ],
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyAction"
+                        }
+                    }
+                }
+            },
+            "PaginatedPolicyDecisionLogList": {
+                "type": "object",
+                "required": [
+                    "results"
+                ],
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyDecisionLog"
+                        }
+                    }
+                }
+            },
+            "PaginatedPolicyList": {
+                "type": "object",
+                "required": [
+                    "results"
+                ],
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Policy"
+                        }
+                    }
+                }
+            },
+            "PatchedAddPackageTagsPolicyAction": {
+                "type": "object",
+                "properties": {
+                    "precedence": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "description": "The order in which this action occurs relative to other actions for the same policy."
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The Action identifier.",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was created."
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was updated."
+                    },
+                    "effect": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "maxLength": 100
+                        }
+                    }
+                }
+            },
+            "PatchedAddPackageTagsPolicyActionTyped": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "action_type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/PatchedAddPackageTagsPolicyAction"
+                    }
+                ]
+            },
+            "PatchedPolicy": {
+                "type": "object",
+                "properties": {
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was created."
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The description of the Policy.",
+                        "maxLength": 250
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Policy.",
+                        "maxLength": 100
+                    },
+                    "rego": {
+                        "type": "string",
+                        "description": "The rego code which constitutes the Policy logic."
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "If true, the policy is enabled."
+                    },
+                    "is_terminal": {
+                        "type": "boolean",
+                        "description": "If true and the policy matches, no further policies are evaluated."
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The Policy identifier.",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was updated."
+                    },
+                    "version": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "description": "The version of the rego code."
+                    },
+                    "precedence": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "description": "The order in which this policy is evaluated relative to other policies."
+                    }
+                }
+            },
+            "PatchedPolicyAction": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/PatchedSetPackageStatePolicyActionTyped"
+                    },
+                    {
+                        "$ref": "#/components/schemas/PatchedAddPackageTagsPolicyActionTyped"
+                    }
+                ],
+                "discriminator": {
+                    "propertyName": "action_type",
+                    "mapping": {
+                        "SetPackageState": "#/components/schemas/PatchedSetPackageStatePolicyActionTyped",
+                        "AddPackageTags": "#/components/schemas/PatchedAddPackageTagsPolicyActionTyped"
+                    }
+                }
+            },
+            "PatchedSetPackageStatePolicyAction": {
+                "type": "object",
+                "properties": {
+                    "precedence": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "description": "The order in which this action occurs relative to other actions for the same policy."
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The Action identifier.",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was created."
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was updated."
+                    },
+                    "effect": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "package_state": {
+                        "$ref": "#/components/schemas/PackageStateEnum"
+                    }
+                }
+            },
+            "PatchedSetPackageStatePolicyActionTyped": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "action_type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/PatchedSetPackageStatePolicyAction"
+                    }
+                ]
+            },
+            "Policy": {
+                "type": "object",
+                "properties": {
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was created."
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The description of the Policy.",
+                        "maxLength": 250
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Policy.",
+                        "maxLength": 100
+                    },
+                    "rego": {
+                        "type": "string",
+                        "description": "The rego code which constitutes the Policy logic."
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "If true, the policy is enabled."
+                    },
+                    "is_terminal": {
+                        "type": "boolean",
+                        "description": "If true and the policy matches, no further policies are evaluated."
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The Policy identifier.",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was updated."
+                    },
+                    "version": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "description": "The version of the rego code."
+                    },
+                    "precedence": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "description": "The order in which this policy is evaluated relative to other policies."
+                    }
+                },
+                "required": [
+                    "created_at",
+                    "name",
+                    "rego",
+                    "slug_perm",
+                    "updated_at",
+                    "version"
+                ]
+            },
+            "PolicyAction": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/SetPackageStatePolicyActionTyped"
+                    },
+                    {
+                        "$ref": "#/components/schemas/AddPackageTagsPolicyActionTyped"
+                    }
+                ],
+                "discriminator": {
+                    "propertyName": "action_type",
+                    "mapping": {
+                        "SetPackageState": "#/components/schemas/SetPackageStatePolicyActionTyped",
+                        "AddPackageTags": "#/components/schemas/AddPackageTagsPolicyActionTyped"
+                    }
+                }
+            },
+            "PolicyAdvisory": {
+                "type": "object",
+                "description": "An Advisory is all the known information about a vulnerability.",
+                "properties": {
+                    "cvss": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/components/schemas/PolicyAdvisoryCvss"
+                        },
+                        "nullable": true,
+                        "description": "The CVSS score details."
+                    },
+                    "epss": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PolicyAdvisoryEpss"
+                            }
+                        ],
+                        "nullable": true,
+                        "description": "The EPSS details. Null if not available."
+                    },
+                    "format": {
+                        "type": "string",
+                        "description": "The format of the vulnerable package."
+                    },
+                    "identifier": {
+                        "type": "string",
+                        "description": "The vulnerability identifier. E.g. CVE-2021-1234."
+                    },
+                    "package_name": {
+                        "type": "string",
+                        "description": "The name of the vulnerable package."
+                    },
+                    "patched_versions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of patched versions, if available."
+                    },
+                    "published_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "The published date of vulnerability."
+                    },
+                    "severity": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SeverityEnum"
+                            }
+                        ],
+                        "description": "The severity level of the vulnerability.\n\n* `LOW` - LOW\n* `MEDIUM` - MEDIUM\n* `HIGH` - HIGH\n* `CRITICAL` - CRITICAL"
+                    },
+                    "source": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PolicyAdvisorySource"
+                            }
+                        ],
+                        "description": "The advisory source details."
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "The title of the advisory."
+                    },
+                    "vulnerable_versions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of known vulnerable versions."
+                    }
+                },
+                "required": [
+                    "cvss",
+                    "epss",
+                    "format",
+                    "identifier",
+                    "package_name",
+                    "patched_versions",
+                    "published_date",
+                    "severity",
+                    "source",
+                    "title",
+                    "vulnerable_versions"
+                ]
+            },
+            "PolicyAdvisoryCvss": {
+                "type": "object",
+                "description": "A CVSS score and vector string.",
+                "properties": {
+                    "V2Score": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true,
+                        "description": "The CVSS V2 score."
+                    },
+                    "V2Vector": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The CVSS V2 vector string."
+                    },
+                    "V3Score": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true,
+                        "description": "The CVSS V3 score."
+                    },
+                    "V3Vector": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The CVSS V3 vector string."
+                    }
+                },
+                "required": [
+                    "V2Score",
+                    "V2Vector",
+                    "V3Score",
+                    "V3Vector"
+                ]
+            },
+            "PolicyAdvisoryEpss": {
+                "type": "object",
+                "description": "The EPSS score and percentile.",
+                "properties": {
+                    "score": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true,
+                        "description": "The EPSS score. Null if not available."
+                    },
+                    "percentile": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true,
+                        "description": "The EPSS percentile. Null if not available."
+                    }
+                },
+                "required": [
+                    "percentile",
+                    "score"
+                ]
+            },
+            "PolicyAdvisorySource": {
+                "type": "object",
+                "description": "The source of the advisory.",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The advisory source name.",
+                        "maxLength": 256
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The advisory source URL.",
+                        "maxLength": 256
+                    }
+                },
+                "required": [
+                    "name",
+                    "url"
+                ]
+            },
+            "PolicyArchitecture": {
+                "type": "object",
+                "description": "Serializer for a package architecture for policy purposes.",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 64
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 32
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "PolicyDecisionLog": {
+                "type": "object",
+                "description": "Serializer for policy decision logs",
+                "properties": {
+                    "correlation_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "policy": {
+                        "$ref": "#/components/schemas/Policy"
+                    },
+                    "started_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ended_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "policy_input": {
+                        "$ref": "#/components/schemas/PolicyInput"
+                    },
+                    "policy_output": {},
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyAction"
+                        }
+                    }
+                },
+                "required": [
+                    "actions",
+                    "correlation_id",
+                    "ended_at",
+                    "policy",
+                    "policy_input",
+                    "policy_output",
+                    "started_at"
+                ]
+            },
+            "PolicyDistribution": {
+                "type": "object",
+                "description": "Serializer for a distribution for policy purposes.",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "slug": {
+                        "type": "string",
+                        "maxLength": 64
+                    },
+                    "variants": {
+                        "type": "string",
+                        "nullable": true,
+                        "maxLength": 128
+                    }
+                },
+                "required": [
+                    "name",
+                    "slug"
+                ]
+            },
+            "PolicyDistributionVersion": {
+                "type": "object",
+                "description": "Serializer for a distribution version for policy purposes.",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The textual name for this version.",
+                        "maxLength": 64
+                    },
+                    "slug": {
+                        "type": "string",
+                        "maxLength": 64
+                    }
+                },
+                "required": [
+                    "slug"
+                ]
+            },
+            "PolicyInput": {
+                "type": "object",
+                "description": "Serializer for policy input.",
+                "properties": {
+                    "v0": {
+                        "$ref": "#/components/schemas/PolicyInputV0"
+                    }
+                },
+                "required": [
+                    "v0"
+                ]
+            },
+            "PolicyInputV0": {
+                "type": "object",
+                "description": "Serializer for V0 policy input.",
+                "properties": {
+                    "package": {
+                        "$ref": "#/components/schemas/PolicyPackage"
+                    },
+                    "repository": {
+                        "$ref": "#/components/schemas/PolicyRepository"
+                    },
+                    "workspace": {
+                        "$ref": "#/components/schemas/PolicyWorkspace"
+                    },
+                    "security_scan": {},
+                    "vulnerabilities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyAdvisory"
+                        }
+                    }
+                },
+                "required": [
+                    "package",
+                    "repository",
+                    "security_scan",
+                    "vulnerabilities",
+                    "workspace"
+                ]
+            },
+            "PolicyPackage": {
+                "type": "object",
+                "description": "Serializer for packages for policy purposes.",
+                "properties": {
+                    "architectures": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyArchitecture"
+                        }
+                    },
+                    "checksum_md5": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "checksum_sha1": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "checksum_sha256": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "checksum_sha512": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "A textual description of this package.",
+                        "maxLength": 12288
+                    },
+                    "distro": {
+                        "$ref": "#/components/schemas/PolicyDistribution"
+                    },
+                    "distro_version": {
+                        "$ref": "#/components/schemas/PolicyDistributionVersion"
+                    },
+                    "epoch": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": -2147483648,
+                        "nullable": true,
+                        "description": "The epoch of the package version (if any)."
+                    },
+                    "extension": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "filename": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "files": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyPackageFile"
+                        }
+                    },
+                    "format": {
+                        "type": "string"
+                    },
+                    "indexed": {
+                        "type": "boolean"
+                    },
+                    "license": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The license of this package.",
+                        "maxLength": 128
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The name of this package.",
+                        "maxLength": 200
+                    },
+                    "num_files": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": 0
+                    },
+                    "package_type": {
+                        "$ref": "#/components/schemas/PackageTypeEnum"
+                    },
+                    "release": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The release of the package version (if any).",
+                        "maxLength": 96
+                    },
+                    "security_scan_status": {
+                        "$ref": "#/components/schemas/SecurityScanStatusEnum"
+                    },
+                    "security_scan_status_updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "description": "The datetime the security scanning status was updated."
+                    },
+                    "security_scan_started_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "description": "The datetime the security scanning was started."
+                    },
+                    "security_scan_completed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "description": "The datetime the security scanning was completed."
+                    },
+                    "size": {
+                        "type": "integer",
+                        "maximum": 9223372036854776000,
+                        "minimum": -9223372036854776000,
+                        "format": "int64",
+                        "description": "The calculated size of the package."
+                    },
+                    "slug": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The public unique identifier for the package.",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "maxLength": 16,
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "subtype": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "summary": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "A one-liner synopsis of this package.",
+                        "maxLength": 255
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyPackageTag"
+                        }
+                    },
+                    "uploaded_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "The date this package was uploaded."
+                    },
+                    "uploader": {
+                        "$ref": "#/components/schemas/PolicyUploader"
+                    },
+                    "version": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The raw version for this package.",
+                        "maxLength": 128
+                    }
+                },
+                "required": [
+                    "architectures",
+                    "checksum_md5",
+                    "checksum_sha1",
+                    "checksum_sha256",
+                    "checksum_sha512",
+                    "distro",
+                    "distro_version",
+                    "extension",
+                    "filename",
+                    "files",
+                    "format",
+                    "package_type",
+                    "security_scan_status",
+                    "slug",
+                    "subtype",
+                    "tags"
+                ]
+            },
+            "PolicyPackageFile": {
+                "type": "object",
+                "description": "Serializer for package files for policy purposes.",
+                "properties": {
+                    "checksum_md5": {
+                        "type": "string",
+                        "nullable": true,
+                        "pattern": "^[a-fA-F0-9]{32}$",
+                        "maxLength": 32
+                    },
+                    "checksum_sha1": {
+                        "type": "string",
+                        "nullable": true,
+                        "pattern": "^[a-fA-F0-9]{40}$",
+                        "maxLength": 40
+                    },
+                    "checksum_sha256": {
+                        "type": "string",
+                        "nullable": true,
+                        "pattern": "^[a-fA-F0-9]{64}$",
+                        "maxLength": 64
+                    },
+                    "checksum_sha512": {
+                        "type": "string",
+                        "nullable": true,
+                        "pattern": "^[a-fA-F0-9]{128}$",
+                        "maxLength": 128
+                    },
+                    "filename": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "is_primary": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "size": {
+                        "type": "integer",
+                        "maximum": 9223372036854776000,
+                        "minimum": -9223372036854776000,
+                        "format": "int64",
+                        "description": "The calculated size of the file."
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "maxLength": 16,
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Freeform descriptor that describes what the file is.",
+                        "maxLength": 255
+                    }
+                },
+                "required": [
+                    "filename",
+                    "is_primary"
+                ]
+            },
+            "PolicyPackageTag": {
+                "type": "object",
+                "description": "A package tag that labels packages with additional information.",
+                "properties": {
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "The date this tag was created."
+                    },
+                    "is_immutable": {
+                        "type": "boolean",
+                        "description": "If true, the tag is immutable and cannot be (normally) removed."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name for the tag.",
+                        "maxLength": 255
+                    },
+                    "source": {
+                        "$ref": "#/components/schemas/PackageTagSourceTypeEnum"
+                    },
+                    "tag_type": {
+                        "$ref": "#/components/schemas/PackageTagTypeEnum"
+                    }
+                },
+                "required": [
+                    "name",
+                    "source",
+                    "tag_type"
+                ]
+            },
+            "PolicyRepository": {
+                "type": "object",
+                "description": "Serializer for the Repository model for policy purposes.",
+                "properties": {
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the repository's purpose/contents.",
+                        "maxLength": 1000
+                    },
+                    "ecdsa_keys": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyRepositoryEcdsaKey"
+                        }
+                    },
+                    "gpg_keys": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PolicyRepositoryGpgKey"
+                        }
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "A descriptive name for the repository.",
+                        "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+                        "maxLength": 50
+                    },
+                    "open_source_license": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "repository_type": {
+                        "$ref": "#/components/schemas/RepositoryTypeEnum"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "The slug identifies the repository in URIs.",
+                        "maxLength": 50,
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "description": "The slug_perm immutably identifies the repository. It will never change once a repository has been created.",
+                        "maxLength": 16,
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "storage_region": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                },
+                "required": [
+                    "ecdsa_keys",
+                    "gpg_keys",
+                    "name",
+                    "open_source_license",
+                    "repository_type",
+                    "storage_region"
+                ]
+            },
+            "PolicyRepositoryEcdsaKey": {
+                "type": "object",
+                "description": "An ECDSA key used to sign repository contents.",
+                "properties": {
+                    "active": {
+                        "type": "boolean",
+                        "description": "If selected this is the active key for this repository."
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "default": {
+                        "type": "boolean",
+                        "description": "If selected this is the default key for this repository."
+                    },
+                    "fingerprint_short": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "fingerprint": {
+                        "type": "string",
+                        "description": "The long identifier used by ECDSA for this key.",
+                        "maxLength": 32
+                    },
+                    "public_key": {
+                        "type": "string",
+                        "description": "The public key given to repository users."
+                    },
+                    "ssh_fingerprint": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The SSH fingerprint used by ECDSA for this key.",
+                        "maxLength": 128
+                    }
+                },
+                "required": [
+                    "fingerprint",
+                    "fingerprint_short",
+                    "public_key"
+                ]
+            },
+            "PolicyRepositoryGpgKey": {
+                "type": "object",
+                "description": "A GPG key used to sign repository contents.",
+                "properties": {
+                    "active": {
+                        "type": "boolean",
+                        "description": "If selected this is the active key for this repository."
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "default": {
+                        "type": "boolean",
+                        "description": "If selected this is the default key for this repository."
+                    },
+                    "fingerprint_short": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "fingerprint": {
+                        "type": "string",
+                        "description": "The long identifier used by GPG for this key.",
+                        "maxLength": 40
+                    },
+                    "public_key": {
+                        "type": "string",
+                        "description": "The public key given to repository users."
+                    }
+                },
+                "required": [
+                    "comment",
+                    "fingerprint",
+                    "fingerprint_short",
+                    "public_key"
+                ]
+            },
+            "PolicyUploader": {
+                "type": "object",
+                "description": "Serializer for packager uploader for policy puposes.",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "nullable": true,
+                        "title": "Email address",
+                        "description": "Your email address that we use to contact you. This is only visible to you.",
+                        "maxLength": 254
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "maxLength": 120
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "maxLength": 120
+                    },
+                    "slug": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                },
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "slug",
+                    "slug_perm"
+                ]
+            },
+            "PolicyWorkspace": {
+                "type": "object",
+                "description": "Representation of a Workspace used in Policy input.",
+                "properties": {
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "country": {
+                        "nullable": true,
+                        "description": "The country your workspace is based in.\n\n* `AF` - Afghanistan\n* `AX` - Åland Islands\n* `AL` - Albania\n* `DZ` - Algeria\n* `AS` - American Samoa\n* `AD` - Andorra\n* `AO` - Angola\n* `AI` - Anguilla\n* `AQ` - Antarctica\n* `AG` - Antigua and Barbuda\n* `AR` - Argentina\n* `AM` - Armenia\n* `AW` - Aruba\n* `AU` - Australia\n* `AT` - Austria\n* `AZ` - Azerbaijan\n* `BS` - Bahamas\n* `BH` - Bahrain\n* `BD` - Bangladesh\n* `BB` - Barbados\n* `BY` - Belarus\n* `BE` - Belgium\n* `BZ` - Belize\n* `BJ` - Benin\n* `BM` - Bermuda\n* `BT` - Bhutan\n* `BO` - Bolivia\n* `BQ` - Bonaire, Sint Eustatius and Saba\n* `BA` - Bosnia and Herzegovina\n* `BW` - Botswana\n* `BV` - Bouvet Island\n* `BR` - Brazil\n* `IO` - British Indian Ocean Territory\n* `BN` - Brunei\n* `BG` - Bulgaria\n* `BF` - Burkina Faso\n* `BI` - Burundi\n* `CV` - Cabo Verde\n* `KH` - Cambodia\n* `CM` - Cameroon\n* `CA` - Canada\n* `KY` - Cayman Islands\n* `CF` - Central African Republic\n* `TD` - Chad\n* `CL` - Chile\n* `CN` - China\n* `CX` - Christmas Island\n* `CC` - Cocos (Keeling) Islands\n* `CO` - Colombia\n* `KM` - Comoros\n* `CG` - Congo\n* `CD` - Congo (the Democratic Republic of the)\n* `CK` - Cook Islands\n* `CR` - Costa Rica\n* `CI` - Côte d'Ivoire\n* `HR` - Croatia\n* `CU` - Cuba\n* `CW` - Curaçao\n* `CY` - Cyprus\n* `CZ` - Czechia\n* `DK` - Denmark\n* `DJ` - Djibouti\n* `DM` - Dominica\n* `DO` - Dominican Republic\n* `EC` - Ecuador\n* `EG` - Egypt\n* `SV` - El Salvador\n* `GQ` - Equatorial Guinea\n* `ER` - Eritrea\n* `EE` - Estonia\n* `SZ` - Eswatini\n* `ET` - Ethiopia\n* `FK` - Falkland Islands (Malvinas)\n* `FO` - Faroe Islands\n* `FJ` - Fiji\n* `FI` - Finland\n* `FR` - France\n* `GF` - French Guiana\n* `PF` - French Polynesia\n* `TF` - French Southern Territories\n* `GA` - Gabon\n* `GM` - Gambia\n* `GE` - Georgia\n* `DE` - Germany\n* `GH` - Ghana\n* `GI` - Gibraltar\n* `GR` - Greece\n* `GL` - Greenland\n* `GD` - Grenada\n* `GP` - Guadeloupe\n* `GU` - Guam\n* `GT` - Guatemala\n* `GG` - Guernsey\n* `GN` - Guinea\n* `GW` - Guinea-Bissau\n* `GY` - Guyana\n* `HT` - Haiti\n* `HM` - Heard Island and McDonald Islands\n* `VA` - Holy See\n* `HN` - Honduras\n* `HK` - Hong Kong\n* `HU` - Hungary\n* `IS` - Iceland\n* `IN` - India\n* `ID` - Indonesia\n* `IR` - Iran\n* `IQ` - Iraq\n* `IE` - Ireland\n* `IM` - Isle of Man\n* `IL` - Israel\n* `IT` - Italy\n* `JM` - Jamaica\n* `JP` - Japan\n* `JE` - Jersey\n* `JO` - Jordan\n* `KZ` - Kazakhstan\n* `KE` - Kenya\n* `KI` - Kiribati\n* `KW` - Kuwait\n* `KG` - Kyrgyzstan\n* `LA` - Laos\n* `LV` - Latvia\n* `LB` - Lebanon\n* `LS` - Lesotho\n* `LR` - Liberia\n* `LY` - Libya\n* `LI` - Liechtenstein\n* `LT` - Lithuania\n* `LU` - Luxembourg\n* `MO` - Macao\n* `MG` - Madagascar\n* `MW` - Malawi\n* `MY` - Malaysia\n* `MV` - Maldives\n* `ML` - Mali\n* `MT` - Malta\n* `MH` - Marshall Islands\n* `MQ` - Martinique\n* `MR` - Mauritania\n* `MU` - Mauritius\n* `YT` - Mayotte\n* `MX` - Mexico\n* `FM` - Micronesia\n* `MD` - Moldova\n* `MC` - Monaco\n* `MN` - Mongolia\n* `ME` - Montenegro\n* `MS` - Montserrat\n* `MA` - Morocco\n* `MZ` - Mozambique\n* `MM` - Myanmar\n* `NA` - Namibia\n* `NR` - Nauru\n* `NP` - Nepal\n* `NL` - Netherlands\n* `NC` - New Caledonia\n* `NZ` - New Zealand\n* `NI` - Nicaragua\n* `NE` - Niger\n* `NG` - Nigeria\n* `NU` - Niue\n* `NF` - Norfolk Island\n* `KP` - North Korea\n* `MK` - North Macedonia\n* `MP` - Northern Mariana Islands\n* `NO` - Norway\n* `OM` - Oman\n* `PK` - Pakistan\n* `PW` - Palau\n* `PS` - Palestine, State of\n* `PA` - Panama\n* `PG` - Papua New Guinea\n* `PY` - Paraguay\n* `PE` - Peru\n* `PH` - Philippines\n* `PN` - Pitcairn\n* `PL` - Poland\n* `PT` - Portugal\n* `PR` - Puerto Rico\n* `QA` - Qatar\n* `RE` - Réunion\n* `RO` - Romania\n* `RU` - Russia\n* `RW` - Rwanda\n* `BL` - Saint Barthélemy\n* `SH` - Saint Helena, Ascension and Tristan da Cunha\n* `KN` - Saint Kitts and Nevis\n* `LC` - Saint Lucia\n* `MF` - Saint Martin (French part)\n* `PM` - Saint Pierre and Miquelon\n* `VC` - Saint Vincent and the Grenadines\n* `WS` - Samoa\n* `SM` - San Marino\n* `ST` - Sao Tome and Principe\n* `SA` - Saudi Arabia\n* `SN` - Senegal\n* `RS` - Serbia\n* `SC` - Seychelles\n* `SL` - Sierra Leone\n* `SG` - Singapore\n* `SX` - Sint Maarten (Dutch part)\n* `SK` - Slovakia\n* `SI` - Slovenia\n* `SB` - Solomon Islands\n* `SO` - Somalia\n* `ZA` - South Africa\n* `GS` - South Georgia and the South Sandwich Islands\n* `KR` - South Korea\n* `SS` - South Sudan\n* `ES` - Spain\n* `LK` - Sri Lanka\n* `SD` - Sudan\n* `SR` - Suriname\n* `SJ` - Svalbard and Jan Mayen\n* `SE` - Sweden\n* `CH` - Switzerland\n* `SY` - Syria\n* `TW` - Taiwan\n* `TJ` - Tajikistan\n* `TZ` - Tanzania\n* `TH` - Thailand\n* `TL` - Timor-Leste\n* `TG` - Togo\n* `TK` - Tokelau\n* `TO` - Tonga\n* `TT` - Trinidad and Tobago\n* `TN` - Tunisia\n* `TR` - Türkiye\n* `TM` - Turkmenistan\n* `TC` - Turks and Caicos Islands\n* `TV` - Tuvalu\n* `UG` - Uganda\n* `UA` - Ukraine\n* `AE` - United Arab Emirates\n* `GB` - United Kingdom\n* `UM` - United States Minor Outlying Islands\n* `US` - United States of America\n* `UY` - Uruguay\n* `UZ` - Uzbekistan\n* `VU` - Vanuatu\n* `VE` - Venezuela\n* `VN` - Vietnam\n* `VG` - Virgin Islands (British)\n* `VI` - Virgin Islands (U.S.)\n* `WF` - Wallis and Futuna\n* `EH` - Western Sahara\n* `YE` - Yemen\n* `ZM` - Zambia\n* `ZW` - Zimbabwe",
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/CountryEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/BlankEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/NullEnum"
+                            }
+                        ]
+                    },
+                    "location": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The city/town/area your workspace is based in.",
+                        "maxLength": 60
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "A descriptive name for your workspace.",
+                        "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+                        "maxLength": 50
+                    },
+                    "slug": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "tagline": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "A short public descriptive for your workspace.",
+                        "maxLength": 80
+                    }
+                },
+                "required": [
+                    "name",
+                    "slug",
+                    "slug_perm"
+                ]
+            },
+            "RepositoryTypeEnum": {
+                "enum": [
+                    "PUBLIC",
+                    "PRIVATE",
+                    "OPEN_SOURCE"
+                ],
+                "type": "string",
+                "description": "* `PUBLIC` - Public\n* `PRIVATE` - Private\n* `OPEN_SOURCE` - Open-Source"
+            },
+            "SecurityScanStatusEnum": {
+                "enum": [
+                    "AWAITING_SCAN",
+                    "SCANNING",
+                    "VULNERABLE",
+                    "NOT_VULNERABLE",
+                    "DISABLED",
+                    "FAILED",
+                    "SKIPPED",
+                    "UNSUPPORTED_PACKAGE",
+                    "UNSUPPORTED_FORMAT"
+                ],
+                "type": "string",
+                "description": "* `AWAITING_SCAN` - Awaiting Security Scan\n* `SCANNING` - Security Scanning in Progress\n* `VULNERABLE` - Scan Detected Vulnerabilities\n* `NOT_VULNERABLE` - Scan Detected No Vulnerabilities\n* `DISABLED` - Security Scanning Disabled\n* `FAILED` - Security Scanning Failed\n* `SKIPPED` - Security Scanning Skipped\n* `UNSUPPORTED_PACKAGE` - Security Scanning Not Supported\n* `UNSUPPORTED_FORMAT` - Security Scanning Not Supported"
+            },
+            "SetPackageStatePolicyAction": {
+                "type": "object",
+                "properties": {
+                    "precedence": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "description": "The order in which this action occurs relative to other actions for the same policy."
+                    },
+                    "slug_perm": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The Action identifier.",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was created."
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The date and time the policy was updated."
+                    },
+                    "effect": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "package_state": {
+                        "$ref": "#/components/schemas/PackageStateEnum"
+                    }
+                },
+                "required": [
+                    "created_at",
+                    "effect",
+                    "package_state",
+                    "slug_perm",
+                    "updated_at"
+                ]
+            },
+            "SetPackageStatePolicyActionTyped": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "action_type": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "action_type"
+                        ]
+                    },
+                    {
+                        "$ref": "#/components/schemas/SetPackageStatePolicyAction"
+                    }
+                ]
+            },
+            "SeverityEnum": {
+                "enum": [
+                    "LOW",
+                    "MEDIUM",
+                    "HIGH",
+                    "CRITICAL"
+                ],
+                "type": "string",
+                "description": "* `LOW` - LOW\n* `MEDIUM` - MEDIUM\n* `HIGH` - HIGH\n* `CRITICAL` - CRITICAL"
+            }
+        },
+        "securitySchemes": {
+            "apikey": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-Api-Key"
+            },
+            "basic": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "https://api.cloudsmith.io/v2/"
+        }
+    ],
+    "externalDocs": {
+        "url": "https://help.cloudsmith.io/reference/introduction",
+        "description": "Cloudsmith API Reference"
+    }
+}

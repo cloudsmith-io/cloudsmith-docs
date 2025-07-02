@@ -1,0 +1,72 @@
+import { BlockImage, Note } from '@/components'
+
+import img_Screenshot_2024_11_08_at_3_15_38_PM from './images/privileges/47511f8f4786d93637ca175abeac2302a095445c08f920e372ed8f46be5aad48-Screenshot_2024-11-08_at_3.15.38_PM.png'
+
+# Workspace Privileges
+
+Once your Cloudsmith Workspace [is set up](/workspaces/workspace-create), you can implement a least privilege approach to secure your software supply chain. This is achieved by defining roles and permissions that control access to your artifacts and workspace settings. This page describes these roles and details how they can be modified and tailored for your specific use cases.
+
+## Workspace User Roles
+
+Cloudsmith provides the next levels of user privileges, based on four roles:
+
+| Role | Permissions |
+| :--- | :--- |
+| **Owners** | Can modify all workspace settings, manage other owners or delete the workspace. They are the "root" of the workspace, the only user that can manage all other users (including owners) or delete the workspace, and have full access over all artifacts within the Workspace repositories. |
+| **Manager** | Can manage workspace settings and all non-owner users and teams. By default, they have no access to artifacts within the Workspace repositories, but it can be assigned to them (see [Default Object Privileges](#default-object-privileges)). |
+| **Member** | Can see other members and visible teams. They inherit privileges from workspace and team membership. |
+| **Collaborator** | Can see other team members and inherit privileges from their teams, but they can't access Workspace or Repository settings. |
+
+<Note>📘 Please note that this roles only apply to Account Member Accounts. For Service Accounts, only **Manager** and **Member** roles can be assigned.</Note>
+
+### User Role Assignment
+
+You can assign any of the roles described above when you [invite users](/accounts-and-teams/invite-users) to a Workspace:
+
+<BlockImage src={img_Screenshot_2024_11_08_at_3_15_38_PM} alt=""></BlockImage>
+
+Once assigned, roles can also be modified from the **Accounts** tab in your Workspace.
+
+## Workspace User Team Roles
+
+Additionaly, users can play different roles in teams:
+
+| Role | Permissions |
+| :--- | :--- |
+| **Manager** | Can manage team settings and members. Inherits all privileges assigned to the team. |
+| **Member** | Inherits all privileges assigned to the team. |
+
+### User Team Role Assignment
+
+Team roles can be edited for each of the users belonging from the **Teams** tab in your Workspace. When a user is added to a team, you can select its role in the team.
+
+## Global Privileges
+
+By default, accounts with the **Member** role assigned have no access over certain Workspace settings. This behaviour can be overridden in the Workspace **Global Privileges** settings. To access this setting, browse to your _Workspace Settings_ and, in the left menu, click _Privileges_.
+
+<Note>
+📘 Please note that this setting applies to **workspace members** only. **Owners and managers** can always perform these actions by default, and **Collaborators** can't be granted this level of privileges.
+</Note>
+
+The next extra privileges can be granted to workspace members:
+- Create new teams.
+- Invite new users with member or collaborator access role (no manager or owner roles allowed, as this could be use to escalate privileges).
+- See other member's unredacted email addresses.
+- Create new repositories.
+
+## Default Object Privileges
+
+You can set the default repository privileges for workspace members and managers.
+
+<Note>📘 Note that these settings apply only to **Members** and **Managers**. **Owners** always have full administrative access to all repositories. **Collaborators** do not inherit these workspace-level privileges, but you can grant them permissions on a per-repository basis.</Note>
+
+By default, users are granted no specific repository privileges. You can choose from the following options:
+
+| Privilege | Description |
+| :--- | :--- |
+| **Admin** | Allows users to manage repository settings, user permissions, and entitlements. Includes Write and Read privileges too. |
+| **Write** | Allows users to upload, edit, and delete packages within the repository. Includes Read privileges too. |
+| **Read** | Allows users to view and download packages. This permission is for authenticated users working directly in the system. In contrast, an entitlement token is typically used by automated systems (like a CI/CD pipeline) for programmatic, read-only access without a user account. |
+| **None** | (Default) No specific repository permissions are granted. |
+
+To configure more specific access rules for individual users, teams, or services, see the [Repository Access Control](/repositories/access-controls) documentation.
