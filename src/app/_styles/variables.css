@@ -50,6 +50,87 @@
     --base-color-yellow-700: #ff8f00;
     --base-color-yellow-800: #c87107;
 
+    /* Base colors (new) */
+    --brand-color-white: #fff;
+    --brand-color-black: #0a1b2a;
+    --brand-color-blue-0: #fafcff;
+    --brand-color-blue-1: #ebf2fc;
+    --brand-color-blue-2: #dfebfe;
+    --brand-color-blue-3: #b7d2ff;
+    --brand-color-blue-4: #90b7f6;
+    --brand-color-blue-5: #6ca3fe;
+    --brand-color-blue-6: #498af6;
+    --brand-color-blue-7: #2a6fe1;
+    --brand-color-blue-8: #134596;
+    --brand-color-blue-9: #112b5e;
+    --brand-color-blue-10: #0c1325;
+    --brand-color-green-0: #f4fef9;
+    --brand-color-green-1: #e2fcf0;
+    --brand-color-green-2: #c4f4e0;
+    --brand-color-green-3: #85dabb;
+    --brand-color-green-4: #57c7a4;
+    --brand-color-green-5: #1bb694;
+    --brand-color-green-6: #00a084;
+    --brand-color-green-7: #007c68;
+    --brand-color-green-8: #005346;
+    --brand-color-green-9: #03322b;
+    --brand-color-green-10: #02120f;
+    --brand-color-grey-0: #f9fcff;
+    --brand-color-grey-1: #eff3fa;
+    --brand-color-grey-2: #e1eaf3;
+    --brand-color-grey-3: #c5d4de;
+    --brand-color-grey-4: #a5b7c5;
+    --brand-color-grey-5: #8ea5b5;
+    --brand-color-grey-6: #768fa2;
+    --brand-color-grey-7: #5b798a;
+    --brand-color-grey-8: #26465b;
+    --brand-color-grey-9: #092f45;
+    --brand-color-grey-10: #041e2e;
+    --brand-color-purple-0: #fbf9ff;
+    --brand-color-purple-1: #f6f2ff;
+    --brand-color-purple-2: #f0e5ff;
+    --brand-color-purple-3: #dcc7fc;
+    --brand-color-purple-4: #bd9eff;
+    --brand-color-purple-5: #af8fff;
+    --brand-color-purple-6: #915eff;
+    --brand-color-purple-7: #7a52db;
+    --brand-color-purple-8: #5527a4;
+    --brand-color-purple-9: #381a6b;
+    --brand-color-purple-10: #0f0522;
+    --brand-color-red-0: #fff8fa;
+    --brand-color-red-1: #fff2f5;
+    --brand-color-red-2: #ffe3e8;
+    --brand-color-red-3: #fcc0cb;
+    --brand-color-red-4: #fd93a8;
+    --brand-color-red-5: #ff6183;
+    --brand-color-red-6: #eb5070;
+    --brand-color-red-7: #b73b55;
+    --brand-color-red-8: #7f243a;
+    --brand-color-red-9: #541025;
+    --brand-color-red-10: #1d050b;
+    --brand-color-salmon-0: #fffbf9;
+    --brand-color-salmon-1: #fff4ef;
+    --brand-color-salmon-2: #ffe4d8;
+    --brand-color-salmon-3: #fec3ab;
+    --brand-color-salmon-4: #eca283;
+    --brand-color-salmon-5: #ed8565;
+    --brand-color-salmon-6: #db6c53;
+    --brand-color-salmon-7: #b7453b;
+    --brand-color-salmon-8: #7f251f;
+    --brand-color-salmon-9: #4a1d1a;
+    --brand-color-salmon-10: #1d0505;
+    --brand-color-yellow-0: #fefbf6;
+    --brand-color-yellow-1: #fdf6e8;
+    --brand-color-yellow-2: #ffe5b4;
+    --brand-color-yellow-3: #ffd482;
+    --brand-color-yellow-4: #e0aa40;
+    --brand-color-yellow-5: #d8982a;
+    --brand-color-yellow-6: #c08000;
+    --brand-color-yellow-7: #9c640e;
+    --brand-color-yellow-8: #6d4500;
+    --brand-color-yellow-9: #3f2604;
+    --brand-color-yellow-10: #1b0b00;
+
     /* Backgrounds */
     --color-background-default: var(--base-color-white);
     --color-background-light: var(--base-color-grey-25);
@@ -97,6 +178,28 @@
     --letter-http-type: 0.06px;
     --letter-http-rule: 0.06px;
 
+    --letter-spacing-negative-6xl: -0.6em;
+    --letter-spacing-negative-5xl: -0.4em;
+    --letter-spacing-negative-4xl: -0.3em;
+    --letter-spacing-negative-3xl: -0.2em;
+    --letter-spacing-negative-2xl: -0.15em;
+    --letter-spacing-negative-xl: -0.125em;
+    --letter-spacing-negative-l: -0.1em;
+    --letter-spacing-negative-m: -0.075em;
+    --letter-spacing-negative-s: -0.05em;
+    --letter-spacing-negative-xs: -0.025em;
+
+    --letter-spacing-positive-6xl: 0.6em;
+    --letter-spacing-positive-5xl: 0.4em;
+    --letter-spacing-positive-4xl: 0.3em;
+    --letter-spacing-positive-3xl: 0.2em;
+    --letter-spacing-positive-2xl: 0.15em;
+    --letter-spacing-positive-xl: 0.125em;
+    --letter-spacing-positive-l: 0.1em;
+    --letter-spacing-positive-m: 0.075em;
+    --letter-spacing-positive-s: 0.05em;
+    --letter-spacing-positive-xs: 0.025em;
+
     /* Text Sizes */
     --text-body-2xs: fluid(8.5px, 10.5px);
     --text-body-xs: fluid(10px, 12px);
@@ -130,6 +233,8 @@
     --line-height-tight: 1.2;
     --line-height-snug: 1.222;
     --line-height-normal: 1.444;
+    --line-height-relaxed: 1.65;
+    --line-height-loose: 1.75;
 
     /* General Spacing */
     --space-5xs: fluid(1px, 2px);

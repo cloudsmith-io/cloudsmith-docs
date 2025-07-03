@@ -65,9 +65,7 @@ export const Navbar = () => {
               <Link
                 key={`${item.path}-${i}`}
                 href={item.path!}
-                className={cx(styles.navLink, {
-                  [styles.navLinkActive]: activeMenuItem === item,
-                })}>
+                className={cx(styles.navLink, { [styles.navLinkActive]: activeMenuItem === item }, 'bodyM')}>
                 <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
                 {item.title}
               </Link>
