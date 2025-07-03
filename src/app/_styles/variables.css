@@ -178,27 +178,27 @@
     --letter-http-type: 0.06px;
     --letter-http-rule: 0.06px;
 
-    --letter-spacing-negative-6xl: -0.6em;
-    --letter-spacing-negative-5xl: -0.4em;
-    --letter-spacing-negative-4xl: -0.3em;
-    --letter-spacing-negative-3xl: -0.2em;
-    --letter-spacing-negative-2xl: -0.15em;
-    --letter-spacing-negative-xl: -0.125em;
-    --letter-spacing-negative-l: -0.1em;
-    --letter-spacing-negative-m: -0.075em;
-    --letter-spacing-negative-s: -0.05em;
-    --letter-spacing-negative-xs: -0.025em;
+    --letter-spacing-negative-6xl: -0.06em;
+    --letter-spacing-negative-5xl: -0.04em;
+    --letter-spacing-negative-4xl: -0.03em;
+    --letter-spacing-negative-3xl: -0.02em;
+    --letter-spacing-negative-2xl: -0.015em;
+    --letter-spacing-negative-xl: -0.0125em;
+    --letter-spacing-negative-l: -0.01em;
+    --letter-spacing-negative-m: -0.0075em;
+    --letter-spacing-negative-s: -0.005em;
+    --letter-spacing-negative-xs: -0.0025em;
 
-    --letter-spacing-positive-6xl: 0.6em;
-    --letter-spacing-positive-5xl: 0.4em;
-    --letter-spacing-positive-4xl: 0.3em;
-    --letter-spacing-positive-3xl: 0.2em;
-    --letter-spacing-positive-2xl: 0.15em;
-    --letter-spacing-positive-xl: 0.125em;
-    --letter-spacing-positive-l: 0.1em;
-    --letter-spacing-positive-m: 0.075em;
-    --letter-spacing-positive-s: 0.05em;
-    --letter-spacing-positive-xs: 0.025em;
+    --letter-spacing-positive-6xl: 0.06em;
+    --letter-spacing-positive-5xl: 0.04em;
+    --letter-spacing-positive-4xl: 0.03em;
+    --letter-spacing-positive-3xl: 0.02em;
+    --letter-spacing-positive-2xl: 0.015em;
+    --letter-spacing-positive-xl: 0.0125em;
+    --letter-spacing-positive-l: 0.01em;
+    --letter-spacing-positive-m: 0.0075em;
+    --letter-spacing-positive-s: 0.005em;
+    --letter-spacing-positive-xs: 0.0025em;
 
     /* Text Sizes */
     --text-body-2xs: fluid(8.5px, 10.5px);

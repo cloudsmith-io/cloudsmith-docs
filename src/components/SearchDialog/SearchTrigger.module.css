@@ -3,11 +3,11 @@
   align-items: center;
   flex-direction: row;
   max-width: var(--container-width-2xs);
-  gap: var(--space-2xs);
-  font-size: var(--text-body-s);
+  gap: var(--space-xs);
   cursor: pointer;
   border-radius: var(--border-radius-s);
-  padding: var(--space-2xs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-s);
+  background-color: var(--base-color-grey-1000);
 }
 
 .icon {
@@ -24,17 +24,21 @@
   margin-left: auto;
 }
 
+.kbd abbr {
+  text-decoration: none;
+}
+
 @media (--phablet-up) {
   .root {
-    background-color: var(--base-color-white);
+    background-color: var(--base-color-grey-1000);
     color: var(--base-color-grey-500);
-    max-width: var(--container-width-2xs);
+    max-width: 280px;
     width: 400px;
-    border: 1px solid var(--base-color-grey-300);
+    border: 1px solid var(--brand-color-grey-8);
   }
 
   .root:hover {
-    background-color: var(--base-color-grey-400);
+    background-color: var(--base-color-grey-900);
   }
 
   .icon {

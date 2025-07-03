@@ -54,6 +54,13 @@ export const Navbar = () => {
 
             <div className={styles.right}>
               <SearchDialog />
+              <Link
+                href="https://cloudsmith.com"
+                target={'_blank'}
+                className={cx(styles.openCloudsmith, 'bodyS')}
+                aria-label="Open Cloudsmith">
+                Open Cloudsmith
+              </Link>
 
               <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
                 <Icon name="menu" title="" />
