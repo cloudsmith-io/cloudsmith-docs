@@ -8,23 +8,22 @@ Attackers move fast, often exploiting a newly-disclosed vulnerability within hou
 
 This documentation page aims at clarifying the distinction between Continuous Security and other vulnerability scanning methods, such as on-demand and scheduled scans.
 
-## Understanding the Three Types of Security Scans
+## Evolving Security Scanning
 
-There are three primary types of security features available:
+To provide an almost real-time experience to deliver security feedback, Cloudsmith's scanning features have evolved. We offer both traditional scanning methods for deep, point-in-time analysis and a modern, continuous approach for immediate awareness of new threats.
 
-1. **On-Demand Scanning**: This is a manual scan that can be triggered at any time for a package. It is a computationally intensive operation that provides a detailed vulnerability analysis.
+### **On-Demand & Scheduled Scans _(Classic Vulnerability Scanning)_**
 
-2. **Scheduled Scans**: These are essentially on-demand scans that are configured to run on a recurring schedule for a specific organization. They perform the same function as on-demand scans but on an automated cadence.
+These scans perform a comprehensive, deep-dive analysis of a package to produce a complete vulnerability report. Because they analyze the entire package from scratch, they are perfect for an initial audit or for generating a definitive report at a specific point in time.
+- **On-Demand**: A manual scan you can trigger at any time.
+- **Scheduled**: An automated scan that runs on a recurring cadence.
 
-3. **Continuous Security**: This is an always-on process that provides a more immediate and efficient way of assessing vulnerabilities. Unlike on-demand or scheduled scans, Continuous Security does not require a full, heavy scan of a package each time. Instead, it leverages existing data and new vulnerability advisories to provide up-to-date security information.
+### **Continuous Security**
+
+This is the evolution of vulnerability management, designed to close the critical time gap that periodic scans leave open. Instead of re-scanning packages from scratch, Continuous Security instantly checks your packages against **new** vulnerability advisories as they are published. When a new threat is discovered that affects your software, this "always-on" process provides immediate feedback, alerting you to the risk without the delay of waiting for the next scheduled scan.
 
 <Note>
-📘 Both Continuous Security and traditional on-demand/scheduled scans currently use **Trivi** as their underlying vulnerability data source. This means there is a high degree of parity between the vulnerability information available from both methods.
-
-Within the EPM input metadata, you can access data from both:
-
-- The `security_scan` object contains the results from a traditional on-demand or scheduled scan.
-- The `vulnerabilities` object is populated by Continuous Security and includes additional information like EPSS (Exploit Prediction Scoring System) scores.
+📘 Both Continuous Security and traditional on-demand/scheduled scans currently use **Trivi** as their underlying vulnerability data source. Additionally, Continuous Security also enriches CVE information with a relevant [EPSS](https://www.first.org/epss/data_stats) score.
 </Note>
 
 ## How Continuous Security Works
@@ -36,7 +35,7 @@ Continuous Security is enabled by default for all users using EPM. Its primary f
     - For other package types, Package URLs (PURLs) are used to match against advisories.
 2. **When the vulnerability advisory database is updated**: Our system frequently pulls the latest vulnerability advisories (approximately every hour). When new advisories are added, existing packages are checked against this new information.
 
-This frequent, near-constant checking ensures that vulnerability information for your packages is always current, without the need for repeated, resource-intensive full scans.
+This frequent, near-constant checking ensures that vulnerability information for your packages is always current. Hence, those changes in the vulnerability data will trigger an EPM policy reevaluation, that might quarantine risky assets in case of a policy violation.
 
 ### The Role of Continuous Sercurity in EPM
 
@@ -46,8 +45,8 @@ When a Continuous Security check finds a new vulnerability that matches the crit
 
 In essence, Continuous Security provides the real-time data feed, and EPM provides the automated action and enforcement based on that data that you can apply in all your Cloudsmith Workspaces.
 
-#### Continuous Security traces
+{/* #### Continuous Security traces
 
 At present, the direct output of Continuous Security is primarily visible through the **EPM Decision Log**. When a policy is triggered due to a new vulnerability discovered by Continuous Security, the Decision Log will show the evaluation and the resulting action.
 
-It is important to note that the main package vulnerability list in the UI is populated by the traditional on-demand or scheduled scans, not by Continuous Security. Therefore, the EPM Decision Log is the most accurate place to see the impact of Continuous Security.
+It is important to note that the main package vulnerability list in the UI is populated by the traditional on-demand or scheduled scans, not by Continuous Security. Therefore, the EPM Decision Log is the most accurate place to see the impact of Continuous Security. */}
