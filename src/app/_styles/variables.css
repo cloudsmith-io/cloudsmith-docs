@@ -274,8 +274,7 @@
     --container-width-xs: 480px;
     --container-width-s: 740px;
     --container-width-m: 960px;
-    --container-width-l: 1400px;
-    --container-width-xl: 1512px;
+    --container-width-l: 1440px;
     --sidebar-width: 240px;
 
     /* Button fixed widths */
@@ -302,6 +301,10 @@
 
     @media (--laptop-up) {
       --container-margin-home: var(--space-2xl);
+    }
+
+    @media (--desktop-up) {
+      --sidebar-width: 260px;
     }
   }
 }

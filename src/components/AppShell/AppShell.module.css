@@ -33,10 +33,17 @@
 
   .main {
     flex: 1;
-    padding-left: var(--space-xl);
-    padding-right: var(--space-xl);
+    padding-left: var(--space-3xl);
+    padding-right: var(--space-3xl);
 
     /* Make sure that pre tags don't expand the tags */
     min-width: 0;
+  }
+}
+
+@media (--desktop-up) {
+  .main {
+    padding-left: var(--space-3xl);
+    padding-right: var(--space-3xl);
   }
 }
