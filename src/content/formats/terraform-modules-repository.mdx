@@ -10,8 +10,8 @@ Terraform is an infrastructure-as-code tool to provision and manage any cloud, i
 
 For more information on Terraform, please see:
 
-- [Terraform](https://www.terraform.io/): The official website for Terraform
-- [Terraform Documentation](https://www.terraform.io/docs/index.html): The official docs for Terraform
+- [Terraform](https://developer.hashicorp.com/terraform): The official website for Terraform
+- [Terraform Documentation](https://developer.hashicorp.com/terraform/docs): The official docs for Terraform
 
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -54,12 +54,12 @@ tar --exclude='.terraform' --exclude='*.tfstate*' --exclude='*_override.tf*' -cz
 ```
 
 <Note variant="note" headline="Note">
-Only lowercase alphanumeric characters, underscores and hyphens are supported for the module name. Please see the official [Terraform documentation](https://www.terraform.io/docs/modules/index.html) for more information on building your own modules.
+Only lowercase alphanumeric characters, underscores and hyphens are supported for the module name. Please see the official [Terraform documentation](https://developer.hashicorp.com/terraform/docs) for more information on building your own modules.
 </Note>
 
 #### Upload via Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Terraform Module via the Cloudsmith CLI is: 
 
@@ -102,7 +102,7 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 
 ### Install a Module
 
-Once configured as above, your module can then depend on a module from your registry by specifying the module's source in your Terraform file(s) using the syntax as outlined by [Terraform](https://www.terraform.io/docs/registry/modules/use.html#private-registry-module-sources):
+Once configured as above, your module can then depend on a module from your registry by specifying the module's source in your Terraform file(s) using the syntax as outlined by [Terraform](https://developer.hashicorp.com/terraform#private-registry-module-sources):
 
 ```
 module "my_module" {

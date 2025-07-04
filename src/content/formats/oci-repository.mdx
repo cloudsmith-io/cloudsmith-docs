@@ -53,7 +53,7 @@ For consistency, the terms will be used within all of the OCI-related documentat
 ## Upload an Generic Artifact with ORAS
 
 <Note variant="note" headline="Note">
-If you have added a [Custom Domain](/getting-started/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
+If you have added a [Custom Domain](/software-distribution/broadcasts-custom-domain) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
 </Note>
 
 [ORAS (OCI Registry As Storage)](https://oras.land/)  is an open-source tool that enables users to push, pull, and manage non-container artifacts in OCI-compliant registries. It extends the OCI specification beyond container images, turning registries into a general-purpose storage system for diverse artifact types.
@@ -88,7 +88,7 @@ ORAS allows you to specify the type of the artifact by using the `--artifact-typ
 $ oras push docker.cloudsmith.io/OWNER/REPOSITORY/ARTIFACT_NAME:TAG --artifact-type application/vnd.cloudsmith.v1 ./FILENAME_PATH
 ```
 
-For more information on how to define a unique artifact type check the [official documentation](https://github.com/opencontainers/artifact-management/blob/main/artifact-authors.md#defining-a-unique-artifact-type) .
+For more information on how to define a unique artifact type check the [official documentation](https://github.com/opencontainers/artifacts/blob/main/artifact-authors.md#defining-a-unique-artifact-type).
 
 ## Attach file to an existing Artifact
 
@@ -228,7 +228,7 @@ Provenance files allow for verification of both the integrity and source of a He
 
 <span class="cs-tag cs-tag-dark-green">Supported</span> 
 
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information. 
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 

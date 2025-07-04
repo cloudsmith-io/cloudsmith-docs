@@ -8,7 +8,7 @@ The Cloudsmith Command Line Interface (CLI) is a Py2/Py3 text-based interface to
 
 You can install the latest CLI application from:
 
-- [Cloudsmith](https://cloudsmith.io/~cloudsmith/repos/cli/packages/)
+- [Cloudsmith](https://broadcasts.cloudsmith.com/cloudsmith/cli/)
 - [PyPi](https://pypi.python.org/pypi/cloudsmith-cli)
 - [Homebrew Tap](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli)
 
@@ -74,7 +74,7 @@ You'll need to authenticate Cloudsmith for any CLI actions that result in access
 
 **1. Via the Cloudsmith web app**
 
-Go to the [API Key](https://cloudsmith.io/user/settings/api/) page in your user settings to view the API Key.
+Go to the [API Key](https://app.cloudsmith.com/settings/api-keys) page in your user settings to view the API Key.
 
 **2. via the Cloudsmith CLI**
 
@@ -197,7 +197,108 @@ api_key=<YOUR_API_KEY>
 
 ## CLI Scripting
 
-There are certain operations, such as moving multiple packages at a time, that currently require additional scripting to achieve using the CLI. View the [CLI Scripting guide](/getting-started/cli-scripting) for details and examples of CLI Scripting.
+The CLI provides a powerful interface for interacting with your packages and repositories in Cloudsmith. However, some operations currently require additional scripting to achieve the required result. Please see the examples below:
+
+## Copying/Moving Multiple Packages
+
+Currently it is only possible to directly move one package at a time. However, it is easy to script a solution for moving multiple packages.
+
+The following command will list all the packages returned by `YOUR-QUERY`. Extract the relevant metadata and run the copy command for each.
+
+```bash
+cloudsmith ls pkg YOUR-ACCOUNT/YOUR-REPO -q 'YOUR-QUERY' -F json \
+  | jq '.data[] | .namespace + "/" + .repository + "/" + .slug' -r \
+  | xargs -Ipackage cloudsmith copy package YOUR-DEST-REPO
+```
+
+<Note>📘 The destination is not qualified by a namespace (YOUR-ACCOUNT). This is because you can only copy/move packages from repositories within the same namespace.</Note>
+
+<Note>
+📘 You can remove the query (YOUR-QUERY) to target all packages. The only downside to this approach is that it might require multiple invocations if you have more packages than the page size limit.
+
+It's possible to navigate pages using -p  and increase the page size limit to 500 using -l 500
+</Note>
+
+### Example 
+The following moves all Maven packages named cloudsmith-api with version 0.21.\*  from `lskillen/test2` to `lskillen/test3` (Permissions permitting obviously).
+
+```bash
+cloudsmith ls pkg lskillen/test2 -q 'format:maven AND name:cloudsmith-api AND version:^0.21' -F json 
+  | jq '.data[] | .namespace + "/" + .repository + "/" + .slug' -r 
+  | xargs -Ipackage cloudsmith copy package test3
+```
+
+## Waiting for a package to complete synchronizing
+
+The `wait_for_package_sync` function below will wait for a package matching the provided query to either complete syncing or fail.
+
+For example `wait_for_package_sync "name:^foo$ AND version:0.0.1"` would wait for a package named `foo` with version `0.0.1` to either successfully complete synchronization, fail or time out after 180 seconds.
+
+The full list of available search parameters can be found in [our documentation on searching and filtering](/artifact-management/search-filter-sort-packages).
+
+```bash
+get_package_identifier() {
+    local query=${1:-""}
+    cloudsmith list packages --output-format json --query "$query" "$ORG/$REPOSITORY" 2> /dev/null | jq '.data[0].slug' | sed -e 's/^"//' -e 's/"$//'
+}
+
+get_package_status() {
+    local identifier=${1:-""}
+    cloudsmith status "$ORG/$REPOSITORY/$identifier" 2> /dev/null
+}
+
+wait_for_package_sync() {
+    local query=${1:-""}
+    local total_time_limit=${2:-180}
+    local identifier=""
+    local package_status=""
+    local total_time=0
+    local identifier=""
+    local package_sync_complete=1
+    local package_sync_failed=0
+    local sleep_time=10
+
+    while [[ $total_time -lt $total_time_limit ]]; do
+        if [[ -z "$identifier" ]] || [[ "$identifier" == "null" ]]; then
+            identifier=$(get_package_identifier "$query")
+            if [[ -z "$identifier" ]] || [[ "$identifier" == "null" ]]; then
+              echo "Waiting for package .. (query: $query)" > /dev/stderr
+              total_time=$((total_time+$sleep_time))
+              sleep $sleep_time
+              continue
+            fi
+        fi
+
+        package_status=$(get_package_status "$identifier")
+
+        echo "$package_status" | grep --quiet 'Completed'
+        package_sync_complete=$?
+
+        echo "$package_status" | grep --quiet 'Failed'
+        package_sync_failed=$?
+
+        if [[ $package_sync_complete -eq 0 ]] || [[ $package_sync_failed -eq 0 ]]; then
+            break
+        fi
+
+        echo "Waiting for package status ... (identifier: $identifier)" > /dev/stderr
+        total_time=$((total_time+$sleep_time))
+        sleep $sleep_time
+    done
+
+    if [[ $total_time -gt $total_time_limit ]]; then
+        echo "Timed out after waiting $total_time seconds for package to sync" > /dev/stderr
+        exit 1
+    fi
+
+    if [[ $package_sync_complete -ne 0 ]]; then
+      echo "Package failed to sync after $total_time seconds" > /dev/stderr
+      exit 1
+    fi
+
+    echo "Package synced successfully after $total_time seconds" > /dev/stderr
+}
+```
 
 # Troubleshooting
 

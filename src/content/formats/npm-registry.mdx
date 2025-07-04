@@ -20,7 +20,7 @@ The Cloudsmith npm registry has been fully tested with the following:
 - `node` version: v6.11.3
 - `yarn` version: v1.9.4
 
-It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](/contact-us).
+It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](https://cloudsmith.com/company/contact-us).
 
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -96,7 +96,7 @@ For more details on `npm publish` see the official [npm documentation](https://d
 
 ## Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 To upload via the Cloudsmith CLI / API, you'll need to generate your package first. You can do this with:
 
@@ -155,7 +155,7 @@ Cloudsmith has full support for distribution tags and (mostly) follows the same 
 1. A specific tag can point at one version of a package only.
 2. A package version may have multiple unique tags.
 3. Unless specified otherwise, the default tag for the last package published is latest.
-4. When a package that is **latest** is deleted, the tag is moved to the next applicable version by [semver](https://docs.npmjs.com/misc/semver).
+4. When a package that is **latest** is deleted, the tag is moved to the next applicable version by [semver](https://semver.npmjs.com/).
 5. When a package is copied/moved to another repository, its tags are carried with it.
 6. If the **latest** package is moved/deleted, then existing packages are sorted via SemVer to determine the next latest.
 
@@ -317,7 +317,7 @@ echo -n 'User:APIKEY' | base64
 ```
 
 ## Upstream Proxying / Caching
-Configurable Proxying Caching. Please see [Upstream Proxying](https://docs.cloudsmith.com/repositories/upstreams) for more details.
+Configurable Proxying Caching. Please see [Upstream Proxying](/repositories/upstreams) for more details.
 
 Upstreams provide a way to blend multiple external repositories into a single repository. This allows your single Cloudsmith repository to serve packages from multiple 'upstream' repositories.
 
@@ -330,7 +330,7 @@ npm audit
 ```
 
 <Note variant="note" headline="Note">
-To use `npm audit`, you must authenticate using a Cloudsmith [API-Key](/getting-started/cli#getting-your-api-key), not an [Entitlement Token](/software-distribution/entitlement-tokens).
+To use `npm audit`, you must authenticate using a Cloudsmith [API-Key](/developer-tools/cli#getting-your-api-key), not an [Entitlement Token](/software-distribution/entitlement-tokens).
 </Note>
 
 You can find out more about [security auditing](https://docs.npmjs.com/getting-started/running-a-security-audit) in the npm documentation (external link).
@@ -354,7 +354,7 @@ Additionally, any search terms used are not passed to upstream repositories and 
 ## Security Scanning
 
 <span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 

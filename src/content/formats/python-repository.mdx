@@ -73,7 +73,7 @@ twine upload -r cloudsmith dist/PACKAGE_NAME-PACKAGE_VERSION.whl
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Python package via the Cloudsmith CLI is: 
 
@@ -184,7 +184,7 @@ There is an important distinction to be made between these parameters, especiall
 Specifying `--index-url` will override pip's default repository and _only_ search the specified repository. This is the recommended approach from Cloudsmith. This improves your security posture as it reduces the risk of malicious public packages being installed in place of your own.
 
 <Note variant="warning" headline="Dependency confusion">
-An attack known as [dependency confusion](https://cloudsmith.com/blog/dependency-confusion-attacks/): where an attacker can claim the package on the public repository in a way that will ensure it gets chosen over the private package.
+An attack known as [dependency confusion](https://cloudsmith.com/blog/dependency-confusion-attacks): where an attacker can claim the package on the public repository in a way that will ensure it gets chosen over the private package.
 </Note>
 
 If you still wish to access third-party repositories, like `pypi.org`, paid-for Cloudsmith plans include upstream proxying. This allows your repository to call out to other python repositories whenever a package cannot be found in your repository. See the Upstream Proxying section below.
@@ -200,7 +200,7 @@ To search your Cloudsmith repository for packages use the `--index-url` Pip conf
 ## Security Scanning
 
 <span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information. 
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 
