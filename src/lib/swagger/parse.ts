@@ -1,46 +1,115 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
+import { readdir, readFile } from 'fs/promises';
+import path from 'path';
 import { ApiOperation } from './types';
 import { isHttpMethod, createSlug, parseMenuSegments, apiOperationPath, createTitle } from './util';
 import { MenuItem } from '../menu/types';
 
+const SCHEMAS_DIR = 'src/content/schemas';
+
 /**
- * Parses the swagger schema with the Swagger Parser library to resolve refs
+ * Dynamically parses all swagger schema files in the schemas directory and returns them as an array
  */
-export const parseSchema = async (): Promise<OpenAPIV3.Document> => {
-  const schema = (await SwaggerParser.dereference(
-    `src/content/schemas/api-schema-v1.json`,
-  )) as OpenAPIV3.Document;
+export const parseSchemas = async (): Promise<{ schema: OpenAPIV3.Document; version: string }[]> => {
+  try {
+    // Read all files in the schemas directory
+    const files = await readdir(SCHEMAS_DIR);
+    const jsonFiles = files.filter((file) => file.endsWith('.json'));
 
-  if (!schema) {
-    throw new Error('Failed to parse API schema');
+    if (jsonFiles.length === 0) {
+      throw new Error(`No JSON schema files found in ${SCHEMAS_DIR}`);
+    }
+
+    const schemas: { schema: OpenAPIV3.Document; version: string }[] = [];
+
+    for (const file of jsonFiles) {
+      const filePath = path.join(SCHEMAS_DIR, file);
+      try {
+        // First, read the file to extract versionAlias
+        const fileContent = await readFile(filePath, 'utf-8');
+        const rawSchema = JSON.parse(fileContent);
+
+        const versionAlias = rawSchema?.info?.versionAlias;
+        if (!versionAlias) {
+          console.warn(`Warning: No versionAlias found in ${file}, skipping`);
+          continue;
+        }
+
+        // Parse and dereference the schema
+        const schema = (await SwaggerParser.dereference(filePath)) as OpenAPIV3.Document;
+
+        schemas.push({
+          schema,
+          version: versionAlias,
+        });
+
+        console.log(`✓ Loaded schema: ${file} (version: ${versionAlias})`);
+      } catch (error) {
+        console.error(`Error processing ${file}:`, error);
+        throw new Error(`Failed to parse schema file: ${file}`);
+      }
+    }
+
+    if (schemas.length === 0) {
+      throw new Error('No valid schemas with versionAlias found');
+    }
+
+    // Sort schemas by version for consistent ordering
+    schemas.sort((a, b) => a.version.localeCompare(b.version));
+
+    return schemas;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(`Failed to parse API schemas: ${error.message}`);
+    }
+    throw new Error('Failed to parse API schemas');
   }
-
-  return schema;
 };
 
 /**
- * Transforms the schema into a flat array of our custom ApiOperation type.
+ * Transforms multiple schemas into a flat array of our custom ApiOperation type.
  * This makes it a bit easier to work with when generating the content pages.
+ * Adds version information and checks for duplicate endpoints.
  */
-export const toOperations = (schema: OpenAPIV3.Document): ApiOperation[] => {
+export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: string }[]): ApiOperation[] => {
   const operations: ApiOperation[] = [];
+  const pathMethodTracker = new Map<string, string>(); // Track path+method combinations and their versions
 
-  for (const path in schema.paths) {
-    const pathObject = schema.paths[path];
-    for (const method in pathObject) {
-      if (isHttpMethod(method)) {
-        const operation = pathObject[method as keyof OpenAPIV3.PathItemObject] as OpenAPIV3.OperationObject;
-        const menuSegments = parseMenuSegments(operation.operationId);
-        const slug = createSlug(menuSegments);
-        operations.push({
-          ...(operation as ApiOperation),
-          method: method as OpenAPIV3.HttpMethods,
-          path,
-          menuSegments,
-          slug,
-          title: createTitle(menuSegments),
-        });
+  for (const { schema, version } of schemas) {
+    for (const path in schema.paths) {
+      const pathObject = schema.paths[path];
+      for (const method in pathObject) {
+        if (isHttpMethod(method)) {
+          const pathMethodKey = `${method.toUpperCase()} ${path}`;
+
+          if (pathMethodTracker.has(pathMethodKey)) {
+            const existingVersion = pathMethodTracker.get(pathMethodKey);
+            throw new Error(
+              `Duplicate API endpoint detected: ${pathMethodKey}\n` +
+                `This endpoint exists in both ${existingVersion} and ${version} schemas.\n` +
+                `Please ensure each endpoint exists in only one API version.`,
+            );
+          }
+
+          pathMethodTracker.set(pathMethodKey, version);
+
+          const operation = pathObject[method as keyof OpenAPIV3.PathItemObject] as OpenAPIV3.OperationObject;
+          const menuSegments = parseMenuSegments(operation.operationId);
+          const slug = createSlug(menuSegments);
+
+          const cleanPath = path.replace(/\/$/, '');
+
+          operations.push({
+            ...(operation as ApiOperation),
+            method: method as OpenAPIV3.HttpMethods,
+            path: cleanPath,
+            version,
+            menuSegments,
+            slug,
+            title: createTitle(menuSegments),
+          });
+        }
       }
     }
   }

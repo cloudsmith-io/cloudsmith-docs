@@ -1,6 +1,6 @@
 import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
 import { loadMdxInfo } from '@/lib/markdown/util';
-import { parseSchema, toOperations } from '@/lib/swagger/parse';
+import { parseSchemas, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   // For Swagger operations, use the operation details
-  const schema = await parseSchema();
-  const operations = toOperations(schema);
+  const schemas = await parseSchemas();
+  const operations = toOperations(schemas);
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {
@@ -55,8 +55,8 @@ export const generateStaticParams = async () => {
     .map((info) => ({ slug: info.segments }));
 
   // Generate swagger slugs
-  const schema = await parseSchema();
-  const operations = toOperations(schema);
+  const schemas = await parseSchemas();
+  const operations = toOperations(schemas);
   const operationSlugs = operations.map((op) => ({ slug: toRouteSegments(op.slug) }));
 
   return mdxSlugs.concat(operationSlugs);
@@ -84,8 +84,8 @@ const Page = async ({ params }: PageProps) => {
   }
 
   // Otherwise render as an operation
-  const schema = await parseSchema();
-  const operations = toOperations(schema);
+  const schemas = await parseSchemas();
+  const operations = toOperations(schemas);
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {

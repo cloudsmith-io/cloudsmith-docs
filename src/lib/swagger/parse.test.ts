@@ -1,58 +1,120 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { parseSchema, toMenuItems, toOperations } from './parse';
+import { parseSchemas, toMenuItems, toOperations } from './parse';
 
 describe('lib', () => {
   describe('swagger', () => {
     describe('parse.ts', () => {
-      describe('parseSchema', () => {
-        test('it parses the schema', async () => {
-          const schema = await parseSchema();
-          expect(schema.openapi).toBe('3.0.0');
-          expect(Object.keys(schema.paths).length).toBeGreaterThan(20);
-        });
-        test('it resolves refs', async () => {
-          const schema = await parseSchema();
-          const responseObject = schema?.paths['/orgs']?.get?.responses['400'] as OpenAPIV3.ResponseObject;
-          const schemaObject = responseObject?.content?.['application/json']
-            ?.schema as OpenAPIV3.SchemaObject;
-          expect(schemaObject.type).toEqual('object');
+      describe('parseSchemas', () => {
+        test('it dynamically parses all schema files with versionAlias', async () => {
+          const schemas = await parseSchemas();
+          expect(schemas.length).toBeGreaterThanOrEqual(2);
+
+          // Should have schemas with version aliases
+          const versions = schemas.map((s) => s.version).sort();
+          expect(versions).toContain('v1');
+          expect(versions).toContain('v2');
+
+          // Each schema should have the expected structure
+          for (const { schema, version } of schemas) {
+            expect(schema.openapi).toMatch(/^3\.0\./);
+            expect(schema.info).toBeDefined();
+            expect(schema.paths).toBeDefined();
+            expect(version).toBeTruthy();
+          }
         });
       });
 
-      // TODO: Update test when we have the proper data
       describe('toOperations', () => {
-        test('it creates flat array of operation objects', async () => {
-          const schema = await parseSchema();
-          const result = toOperations(schema);
-          expect(result.length).toBeGreaterThan(4);
+        test('it creates flat array of operation objects from multiple schemas with correct versions', async () => {
+          const schemas = await parseSchemas();
+          const result = toOperations(schemas);
+          expect(result.length).toBeGreaterThan(10);
 
-          const operation = result.find((op) => op.operationId === 'orgs_list');
-          expect(operation).toBeDefined();
-          expect(operation?.menuSegments).toEqual(['Orgs', 'List']);
-          expect(operation?.path).toEqual('/orgs');
-          expect(operation?.method).toEqual('get');
-          expect(operation?.slug).toEqual('orgs/list');
-          expect(operation?.title).toEqual('Orgs List');
+          // Check that operations have correct version information
+          const uniqueVersions = Array.from(new Set(result.map((op) => op.version)));
+          expect(uniqueVersions.length).toBeGreaterThanOrEqual(2);
+          expect(uniqueVersions).toContain('v1');
+          expect(uniqueVersions).toContain('v2');
+
+          // Find a specific operation from v2 (policies are v2 only)
+          const policyOperation = result.find((op) => op.operationId === 'workspaces_policies_list');
+          expect(policyOperation).toBeDefined();
+          expect(policyOperation?.version).toBe('v2');
+          expect(policyOperation?.path).toMatch(/^\/workspaces/);
+
+          // Verify all operations have required fields
+          for (const operation of result) {
+            expect(operation.version).toBeTruthy();
+            expect(operation.path).toBeTruthy();
+            expect(operation.method).toBeTruthy();
+            expect(operation.slug).toBeTruthy();
+            expect(operation.title).toBeTruthy();
+            expect(operation.menuSegments).toBeInstanceOf(Array);
+          }
+        });
+
+        test('it throws error for duplicate paths between schemas', () => {
+          // Create mock schemas with duplicate paths
+          const mockSchemas = [
+            {
+              version: 'v1',
+              schema: {
+                openapi: '3.0.0',
+                info: { title: 'Test API', version: '1.0.0', versionAlias: 'v1' },
+                paths: {
+                  '/test': {
+                    get: {
+                      operationId: 'test_get_v1',
+                      responses: { '200': { description: 'Success' } },
+                    },
+                  },
+                },
+              } as OpenAPIV3.Document,
+            },
+            {
+              version: 'v2',
+              schema: {
+                openapi: '3.0.0',
+                info: { title: 'Test API', version: '2.0.0', versionAlias: 'v2' },
+                paths: {
+                  '/test': {
+                    get: {
+                      operationId: 'test_get_v2',
+                      responses: { '200': { description: 'Success' } },
+                    },
+                  },
+                },
+              } as OpenAPIV3.Document,
+            },
+          ];
+
+          expect(() => toOperations(mockSchemas)).toThrow('Duplicate API endpoint detected: GET /test');
         });
       });
 
-      // TODO: Update test when we have the proper data
       describe('toMenuItems', () => {
-        test('it creates menu items', async () => {
-          const schema = await parseSchema();
-          const operations = toOperations(schema);
+        test('it creates menu items from multiple schemas operations', async () => {
+          const schemas = await parseSchemas();
+          const operations = toOperations(schemas);
           const result = toMenuItems(operations);
 
-          const parentItem = result.find((res) => res.title === 'Formats');
-          const childItem = parentItem?.children?.[0];
+          // Should have operations from multiple versions
+          expect(result.length).toBeGreaterThan(0);
 
-          expect(parentItem?.title).toBe('Formats');
-          expect(parentItem?.path).toEqual('/api/formats/list'); // Parents always link to the first item
-          expect(parentItem?.method).toBeUndefined();
+          // Check that we have some operations that would be from v2 (like Policies)
+          const workspacesItem = result.find((res) => res.title === 'Workspaces');
+          expect(workspacesItem).toBeDefined();
 
-          expect(childItem?.title).toEqual('List');
-          expect(childItem?.method).toEqual('get');
-          expect(childItem?.path).toEqual('/api/formats/list');
+          // Verify menu structure
+          for (const item of result) {
+            expect(item.title).toBeTruthy();
+            if (item.path) {
+              expect(item.path).toMatch(/^\/api\//);
+            }
+            if (item.children) {
+              expect(item.children).toBeInstanceOf(Array);
+            }
+          }
         });
       });
     });

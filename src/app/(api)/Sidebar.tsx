@@ -1,12 +1,12 @@
 import { getMenuItem } from '@/lib/menu/util';
 import { Sidenav } from '@/components';
-import { parseSchema, toMenuItems, toOperations } from '@/lib/swagger/parse';
+import { parseSchemas, toMenuItems, toOperations } from '@/lib/swagger/parse';
 
 export const Sidebar = async () => {
   const menuData = getMenuItem('api');
 
-  const schema = await parseSchema();
-  const operations = toOperations(schema);
+  const schemas = await parseSchemas();
+  const operations = toOperations(schemas);
   const menuItems = toMenuItems(operations);
 
   const allItems = [];

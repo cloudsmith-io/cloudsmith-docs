@@ -325,17 +325,19 @@
                 "path": "/supply-chain-security/epm/getting-started"
               },       
               {
-                "title": "Continuous security",
-                "path": "/supply-chain-security/epm"
+                "title": "Continuous Security",
+                "path": "/supply-chain-security/epm/continuous-security"
               },  
               {
                 "title": "Rego Recipes",
                 "path": "/supply-chain-security/epm/rego"
               }
             ]
-
-        
           },
+          {
+            "title": "Vulnerability scanning",
+            "path": "/supply-chain-security/vulnerability-scanning"
+          }, 
           {
             "title": "Malware scanning",
             "path": "/supply-chain-security/malware-scanning"
