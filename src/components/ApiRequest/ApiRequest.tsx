@@ -15,7 +15,7 @@ export const ApiRequest = (operation: ApiOperation) => {
       <div className={styles.request}>
         <div className={styles.url}>
           <Tag method={operation.method} />
-          {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}${operation.path}`}
+          {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}/${operation.version}${operation.path}`}
         </div>
       </div>
 

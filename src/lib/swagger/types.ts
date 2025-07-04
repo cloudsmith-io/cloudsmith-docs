@@ -13,6 +13,7 @@ export interface ApiOperation {
   menuSegments: string[];
   slug: string;
   title: string;
+  version: string;
 
   // From OpenAPIV3.OperationObject
   tags?: string[];

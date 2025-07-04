@@ -5,7 +5,7 @@ import { readFile } from 'fs/promises';
 import { FullOptions, Searcher } from 'fast-fuzzy';
 
 import { SearchInput, SearchResult } from './types';
-import { parseSchema, toOperations } from '../swagger/parse';
+import { parseSchemas, toOperations } from '../swagger/parse';
 import { apiOperationPath } from '../swagger/util';
 import { contentPath, loadMdxInfo } from '../markdown/util';
 import { extractMdxMetadata } from '../metadata/util';
@@ -40,8 +40,8 @@ export const performSearch = async (
     }
 
     // OpenApi
-    const schema = await parseSchema();
-    const operations = toOperations(schema);
+    const schemas = await parseSchemas();
+    const operations = toOperations(schemas);
     for (let i = 0; i < operations.length; i++) {
       const op = operations[i];
       items.push({
