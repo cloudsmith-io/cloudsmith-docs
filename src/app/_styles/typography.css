@@ -159,6 +159,7 @@
     font-size: var(--text-body-l);
     line-height: var(--line-height-normal);
     letter-spacing: var(--letter-spacing-positive-3xl);
+    text-transform: uppercase;
   }
 
   .monoLUppercase {
@@ -166,6 +167,7 @@
     font-size: var(--text-body-m);
     line-height: var(--line-height-normal);
     letter-spacing: var(--letter-spacing-positive-5xl);
+    text-transform: uppercase;
   }
 
   .monoMUppercase {
@@ -173,6 +175,7 @@
     font-size: var(--text-body-s);
     line-height: var(--line-height-normal);
     letter-spacing: var(--letter-spacing-positive-5xl);
+    text-transform: uppercase;
   }
 
   .monoSUppercase {
@@ -180,6 +183,7 @@
     font-size: var(--text-body-xs);
     line-height: var(--line-height-normal);
     letter-spacing: var(--letter-spacing-positive-5xl);
+    text-transform: uppercase;
   }
 
   .monoXSUppercase {
@@ -187,5 +191,6 @@
     font-size: var(--text-body-2xs);
     line-height: var(--line-height-normal);
     letter-spacing: var(--letter-spacing-positive-6xl);
+    text-transform: uppercase;
   }
 }

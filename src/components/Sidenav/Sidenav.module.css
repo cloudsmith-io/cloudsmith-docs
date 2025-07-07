@@ -1,15 +1,16 @@
-/* stylelint-disable declaration-no-important */
 .root {
-  --svg-path-fill: var(--base-color-grey-100);
+  --color-font-primary: var(--base-color-grey-100);
+  --svg-path-fill: var(--color-font-primary);
 
   position: relative;
   overflow-y: hidden;
 }
 
 .wrapper {
-  padding-block-start: var(--space-xl);
+  margin-block-start: var(--space-xl);
   padding-inline: var(--space-xs);
   margin-block-end: var(--space-l);
+  border-right: 1px solid var(--brand-color-grey-2);
 }
 
 /* Mobile toggler */
@@ -31,9 +32,8 @@
 }
 
 .toggleIconDown {
-  --svg-path-fill: var(--base-color-grey-100);
-
   flex-shrink: 0;
+  fill: var(--base-color-grey-100);
 }
 
 .toggleIconDown {
@@ -62,13 +62,12 @@
   list-style: none;
 
   .list {
-    row-gap: var(--space-2xs);
-    padding-block: var(--space-2xs);
+    row-gap: var(--space-3xs);
+    padding-top: var(--space-3xs);
     padding-inline-start: var(--space-s);
-    font-size: var(--text-body-s);
 
     .list {
-      row-gap: var(--space-4xs);
+      row-gap: var(--space-3xs);
     }
   }
 }
@@ -86,16 +85,16 @@
 .link {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   text-decoration: none;
   color: var(--base-color-grey-100);
-  padding-inline: var(--space-2xs);
-  padding-block: var(--space-5xs);
-  border-radius: var(--border-radius-m);
+  padding-block: var(--space-6xs);
   font-size: var(--text-fixed-s);
   line-height: var(--line-height-s);
 
   &:is(:hover, :active) {
-    background-color: var(--base-color-grey-900);
+    color: var(--brand-color-blue-7);
+    --svg-path-fill: var(--brand-color-blue-7);
   }
 
   .item .item & {
@@ -103,12 +102,13 @@
   }
 
   .item .item .item & {
-    padding-block: var(--space-4xs);
+    padding-block: var(--space-6xs);
   }
 }
 
 .linkActive {
-  background-color: var(--base-color-grey-900);
+  color: var(--brand-color-blue-7);
+  --svg-path-fill: var(--brand-color-blue-7);
 }
 
 .linkTitle {
@@ -120,30 +120,36 @@
   margin-inline-start: auto;
 }
 
+.emptyIcon,
+.linkIcon {
+  margin-right: 4px;
+}
+
+.emptyIcon {
+  width: 12px;
+  height: 12px;
+}
+
 .linkIcon {
   flex-shrink: 0;
-  margin-inline-start: auto;
+  height: fit-content;
+  margin-right: 4px;
 }
 
 /* TODO: Maybe remove sections? */
 .section {
   display: flex;
-  font-family: var(--font-family-mono);
-  font-size: var(--text-body-xs);
-  color: var(--base-color-grey-400);
-  text-transform: uppercase;
+  color: var(--brand-color-grey-7);
   padding-inline: var(--space-2xs);
 }
 
 @media (--laptop-up) {
   .root {
-    --svg-path-fill: var(--color-font-primary);
-
     overflow-y: initial;
 
-    /* Overwrite animation from JS to always display */
     opacity: 1 !important;
     height: auto !important;
+    --color-font-primary: var(--brand-color-grey-8);
   }
 
   .toggleButton {
@@ -154,15 +160,13 @@
     color: var(--color-font-primary);
 
     &:is(:hover, :active) {
-      background-color: var(--base-color-blue-100);
+      color: var(--brand-color-blue-7);
     }
   }
 
   .linkActive {
-    background-color: var(--base-color-blue-100);
-  }
-
-  .section {
-    color: var(--color-font-primary);
+    background-color: transparent;
+    color: var(--brand-color-blue-7);
+    border-left: 2px solid var(--brand-color-blue-7);
   }
 }

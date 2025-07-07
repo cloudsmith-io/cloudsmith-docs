@@ -237,6 +237,7 @@
     --line-height-loose: 1.75;
 
     /* General Spacing */
+    --space-6xs: 0.5px;
     --space-5xs: fluid(1px, 2px);
     --space-4xs: fluid(2px, 4px);
     --space-3xs: fluid(4px, 6px);

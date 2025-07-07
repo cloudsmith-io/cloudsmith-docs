@@ -8,6 +8,13 @@
   top: var(--navbar-top-height);
   z-index: var(--layer-navigation);
   background-color: var(--base-color-grey-1000);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 @media (--phablet-up) {
@@ -24,9 +31,7 @@
   .secondaryNav {
     z-index: 0;
     flex: 0 0 var(--sidebar-width);
-    border-right: 1px solid var(--color-border);
-    border-left: 1px solid var(--color-border);
-    background-color: var(--color-background-light);
+    background-color: transparent;
     height: calc(100vh - var(--navbar-height));
     overflow-y: auto;
   }
