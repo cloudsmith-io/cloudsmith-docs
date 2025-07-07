@@ -49,6 +49,35 @@ import { FormatTerraformIcon } from './svgs/format/Terraform';
 import { FormatUnityIcon } from './svgs/format/Unity';
 import { FormatVagrantIcon } from './svgs/format/Vagrant';
 
+import { IntegrationAikidoIcon } from './svgs/integration/Aikido';
+import { IntegrationAnsibleIcon } from './svgs/integration/Ansible';
+import { IntegrationAWSCodeBuildIcon } from './svgs/integration/AWSCodeBuild';
+import { IntegrationAzureDevOpsIcon } from './svgs/integration/AzureDevOps';
+import { IntegrationBitbucketPipelinesIcon } from './svgs/integration/BitbucketPipelines';
+import { IntegrationBuildkiteIcon } from './svgs/integration/Buildkite';
+import { IntegrationChainguardIcon } from './svgs/integration/Chainguard';
+import { IntegrationChefIcon } from './svgs/integration/Chef';
+import { IntegrationCircleCIIcon } from './svgs/integration/CircleCI';
+import { IntegrationDatadogIcon } from './svgs/integration/Datadog';
+import { IntegrationDockerIcon } from './svgs/integration/Docker';
+import { IntegrationDroneCIIcon } from './svgs/integration/DroneCI';
+import { IntegrationGitHubActionsIcon } from './svgs/integration/GitHubActions';
+import { IntegrationGitLabCICDIcon } from './svgs/integration/GitLabCI';
+import { IntegrationHarnessCDIcon } from './svgs/integration/HarnessCD';
+import { IntegrationJenkinsIcon } from './svgs/integration/Jenkins';
+import { IntegrationMicrosoftTeamsIcon } from './svgs/integration/MicrosoftTeams';
+import { IntegrationOctopusDeployIcon } from './svgs/integration/OctopusDeploy';
+import { IntegrationPuppetIcon } from './svgs/integration/Puppet';
+import { IntegrationRenovateCLIIcon } from './svgs/integration/RenovateCLI';
+import { IntegrationRoadieIcon } from './svgs/integration/Roadie';
+import { IntegrationSemaphoreCIIcon } from './svgs/integration/SemaphoreCI';
+import { IntegrationSlackIcon } from './svgs/integration/Slack';
+import { IntegrationTeamCityIcon } from './svgs/integration/TeamCity';
+import { IntegrationTerraformIcon } from './svgs/integration/Terraform';
+import { IntegrationTravisCIIcon } from './svgs/integration/Travis';
+import { IntegrationZapierIcon } from './svgs/integration/Zapier';
+
+
 export const iconRegistry = createIconRegistry({
   menu: MenuIcon,
   chevron: ChevronIcon,
@@ -104,4 +133,33 @@ export const iconRegistry = createIconRegistry({
   'format/terraform': FormatTerraformIcon,
   'format/unity': FormatUnityIcon,
   'format/vagrant': FormatVagrantIcon,
+
+  'integration/aikido': IntegrationAikidoIcon,
+  'integration/ansible': IntegrationAnsibleIcon,
+  'integration/awscodebuild': IntegrationAWSCodeBuildIcon,
+  'integration/azuredevops': IntegrationAzureDevOpsIcon,
+  'integration/bitbucketpipelines': IntegrationBitbucketPipelinesIcon,
+  'integration/buildkite': IntegrationBuildkiteIcon,
+  'integration/chainguard': IntegrationChainguardIcon,
+  'integration/chef': IntegrationChefIcon,
+  'integration/circleci': IntegrationCircleCIIcon,
+  'integration/datadog': IntegrationDatadogIcon,
+  'integration/docker': IntegrationDockerIcon,
+  'integration/droneci': IntegrationDroneCIIcon,
+  'integration/githubactions': IntegrationGitHubActionsIcon,
+  'integration/gitlabci': IntegrationGitLabCICDIcon,
+  'integration/harnesscd': IntegrationHarnessCDIcon,
+  'integration/jenkins': IntegrationJenkinsIcon,
+  'integration/microsoftteams': IntegrationMicrosoftTeamsIcon,
+  'integration/octopusdeploy': IntegrationOctopusDeployIcon,
+  'integration/puppet': IntegrationPuppetIcon,
+  'integration/renovatecli': IntegrationRenovateCLIIcon,
+  'integration/roadie': IntegrationRoadieIcon,
+  'integration/semaphoreci': IntegrationSemaphoreCIIcon,
+  'integration/slack': IntegrationSlackIcon,
+  'integration/teamcity': IntegrationTeamCityIcon,
+  'integration/terraform': IntegrationTerraformIcon,
+  'integration/travis': IntegrationTravisCIIcon,
+  'integration/zapier': IntegrationZapierIcon,
+
 });
