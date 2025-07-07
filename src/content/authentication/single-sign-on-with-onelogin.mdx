@@ -58,7 +58,7 @@ Once saved, a number of additional options will appear in the sidebar. Click "Co
 <BlockImage src={imgadeced6_cloudsmith_one_login_7} alt=""></BlockImage>
 
 ### Step 8
-Next, we'll configure SAML settings. To determine your **Single sign on URL** we use the following format: "https://cloudsmith.io/orgs/MY_ORG_NAME/saml/acs/", where "MY_ORG_NAME" is replaced with your organization's slug.  
+Next, we'll configure SAML settings. To determine your **Single sign on URL** we use the following format: "https://app.cloudsmith.com/WORKSPACE/saml/acs/", where "WORKSPACE" is replaced with your organization's slug.  
 We use this URL for the **Audience**, **Recipient**, and **ACS (Consumer) URL** values in the form below.
 
 For **ACS (Consumer) URL Validator** use ".\*".
@@ -130,6 +130,6 @@ Your application should now appear on the OneLogin portal.
 You can then enable SAML authentication in your Cloudsmith [SAML settings](/authentication/single-sign-on#enable-saml) and you can use OneLogin to begin logging in straight away.
 
 You'll be able to access the landing page of your organization at the following URL:  
-https://cloudsmith.io/orgs/ORG/saml/login/
+https://app.cloudsmith.com/WORKSPACE/saml/login/
 
-Where _ORG_ is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).
+Where _WORKSPACE_ is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).

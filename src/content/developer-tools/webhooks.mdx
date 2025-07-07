@@ -68,7 +68,7 @@ The event types are:
 
 ### Package Query Filter
 
-You can also add a package search query to webhooks. This uses the same [search syntax](/artifact-management/search-packages) supported elsewhere for searching. If present, packages that emit events need to match the search query provided. In this way, you could filter webhooks for only certain types of packages, in addition to specific events.
+You can also add a package search query to webhooks. This uses the same [search syntax](/artifact-management/search-filter-sort-packages) supported elsewhere for searching. If present, packages that emit events need to match the search query provided. In this way, you could filter webhooks for only certain types of packages, in addition to specific events.
 
 For example, to send `Package Synced` events for `my-web-app` packages that have the `release` tag, you can define the query as `name:my-web-app AND tag:release`.
 
@@ -323,7 +323,7 @@ An example of a `Package` payload, sent for webhooks emitted by packages:
     "release": null,
     "repository": "testo2",
     "repository_url": "https://api.cloudsmith.io/repos/my-org/my-repo/",
-    "self_html_url": "https://cloudsmith.io/~my-org/repos/my-repo/packages/detail/my-package/",
+    "self_html_url": "https://app.cloudsmith.com/~my-org/repos/my-repo/packages/detail/my-package/",
     "self_url": "https://api.cloudsmith.io/packages/my-org/my-repo/xKYgfsOsboz6/",
     "size": 2204,
     "slug": "my-package",
@@ -371,4 +371,4 @@ The webhooks can originate from the following IP addresses:
 - 52.208.86.0
 - 108.129.59.129
 
-These are not guaranteed to remain static forever. For an updated list, please [contact us today](/contact-us)!
+These are not guaranteed to remain static forever. For an updated list, please [contact us today](https://cloudsmith.com/company/contact-us)!

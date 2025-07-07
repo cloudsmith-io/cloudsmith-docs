@@ -2,28 +2,29 @@ import { Note } from '@/components'
 
 # Continuous Security
 
-Cloudsmith's continuous Security is one of the key components of Enterprise Policy Management (EPM), guaranteeing that the information about Software vulnerabilities and other advisories in your artifacts are up to date.
+Cloudsmith's Continuous Security is one of the key components of Enterprise Policy Management (EPM), guaranteeing that the information about software vulnerabilities and other advisories in your artifacts are up to date.
 
-Attackers move fast, often exploiting a newly-disclosed vulnerability within hours. If your security scan only runs once every few days, you’re leaving a wide-open gap for a breach. This window of exposure is the critical period where you are vulnerable and don't even know it. In modern software, where a single flaw in a small, shared library can compromise everything, you can't afford that delay. A near real-time feed of new vulnerabilities closes that gap. It means you can find out about a threat almost as soon as it's known, giving you the chance to quarantine a risky package or apply a patch before it can be used against you.
+Attackers move fast, often exploiting a newly-disclosed vulnerability within hours. If your security scan only runs once every few days, you're significantly increasing your organization's risk of a breach. This window of exposure is the critical period where you are vulnerable and don't even know it. In modern software, where a single flaw in a small, shared library can compromise everything, you can't afford that delay. A near real-time feed of new vulnerabilities closes that gap. It means you can find out about a threat almost as soon as it's known, giving you the chance to quarantine a risky package or apply a patch before it can be used against you.
 
-This documentation page aims at clarifying the distinction between Continuous Security and other vulnerability scanning methods, such as on-demand and scheduled scans.
+With Cloudsmith, your organization can already leverage on-demand and scheduled vulnerability scans of your artifacts (link to vulnerability scanning section). Via EPM, your organization can also access an additional near-real-time feed of vulnerabilities under a component known as Continuous Security. This documentation page aims at clarifying the distinction between Continuous Security and other vulnerability scanning methods, such as on-demand and scheduled scans.
 
 ## Evolving Security Scanning
 
-To provide an almost real-time experience to deliver security feedback, Cloudsmith's scanning features have evolved. We offer both traditional scanning methods for deep, point-in-time analysis and a modern, continuous approach for immediate awareness of new threats.
+Cloudsmith's scanning features are evolving to provide an almost real-time experience for delivering security feedback. We offer both traditional scanning methods for deep, point-in-time analysis and a modern, continuous approach for immediate awareness of new threats.
 
-### **On-Demand & Scheduled Scans _(Classic Vulnerability Scanning)_**
+### On-Demand & Scheduled Scans _(Classic Vulnerability Scanning)_
 
 These scans perform a comprehensive, deep-dive analysis of a package to produce a complete vulnerability report. Because they analyze the entire package from scratch, they are perfect for an initial audit or for generating a definitive report at a specific point in time.
-- **On-Demand**: A manual scan you can trigger at any time.
+- **On-Demand**: A manual scan can be triggered at any time.
+- **On-Upload**: Every artifact is scanned automatically when it is first cached in Cloudsmith. For more details, review the [policy triggers](/supply-chain-security/epm/continuous-security#how-continuous-security-works).
 - **Scheduled**: An automated scan that runs on a recurring cadence.
 
 ### **Continuous Security**
 
-This is the evolution of vulnerability management, designed to close the critical time gap that periodic scans leave open. Instead of re-scanning packages from scratch, Continuous Security instantly checks your packages against **new** vulnerability advisories as they are published. When a new threat is discovered that affects your software, this "always-on" process provides immediate feedback, alerting you to the risk without the delay of waiting for the next scheduled scan.
+This is the evolution of vulnerability management, designed to close the critical time gap that periodic scans leave open. Instead of re-scanning packages from scratch, Continuous Security instantly checks your packages against **new** and **updated** vulnerability advisories as they are published. When a new threat is discovered that affects your software, this "always-on" process provides immediate feedback, alerting you to the risk without the delay of waiting for the next scheduled scan.
 
 <Note>
-📘 Both Continuous Security and traditional on-demand/scheduled scans currently use **Trivi** as their underlying vulnerability data source. Additionally, Continuous Security also enriches CVE information with a relevant [EPSS](https://www.first.org/epss/data_stats) score.
+📘 Both Continuous Security and traditional on-demand/scheduled scans currently use **Trivy** as their underlying vulnerability data source. Additionally, Continuous Security also enriches CVE information with a relevant [EPSS](https://www.first.org/epss/data_stats) score.
 </Note>
 
 ## How Continuous Security Works
@@ -37,7 +38,32 @@ Continuous Security is enabled by default for all users using EPM. Its primary f
 
 This frequent, near-constant checking ensures that vulnerability information for your packages is always current. Hence, those changes in the vulnerability data will trigger an EPM policy reevaluation, that might quarantine risky assets in case of a policy violation.
 
-### The Role of Continuous Sercurity in EPM
+### Data Sources
+
+These are the data sources currently available in Continuous Security:
+
+- Common Vulnerabilities and Exposures (CVE) databases via _Trivy_.
+- Exploit Prediction Scoring System (EPSS) scores.
+
+### Supported Formats
+
+Cloudsmith's Security Scanning feature is available for the following package formats:
+
+- [Cargo](/formats/cargo-registry) 
+- [Composer](/formats/composer-repository) 
+- [Conan](/formats/conan-repository)
+- [Dart](/formats/dart-repository)
+- [Docker](/formats/docker-registry) 
+- [GoLang](/formats/go-registry)
+- [Hex](/formats/hex-repository)
+- [Maven](/formats/maven-repository)
+- [npm](/formats/npm-registry) 
+- [NuGet](/formats/nuget-feed) 
+- [Python](/formats/python-repository) 
+- [Ruby](/formats/ruby-repository) 
+- [Swift](/formats/swift-registry)
+
+### The Role of Continuous Security in EPM
 
 The real power of Continuous Security is unlocked through **Enterprise Policy Management (EPM)**. The vulnerability data generated by Continuous Security is surfaced as an output that can be used to feed your EPM policies.
 

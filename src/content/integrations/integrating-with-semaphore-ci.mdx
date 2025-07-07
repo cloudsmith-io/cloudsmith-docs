@@ -30,7 +30,7 @@ In the following examples:
 
 ## API Key Configuration 
 
-You need to add your Cloudsmith [API Key](https://cloudsmith.io/user/settings/api/) in order to authenticate to Cloudsmith for pushing packages. We recommend storing your Cloudsmith API Key as a [secret in Semaphore](https://docs.semaphoreci.com/essentials/using-secrets/). Secrets in Semaphore are organization-level objects that can contain environment variables or files which you can then access in your build jobs. 
+You need to add your Cloudsmith [API Key](https://app.cloudsmith.com/settings/api-keys) in order to authenticate to Cloudsmith for pushing packages. We recommend storing your Cloudsmith API Key as a [secret in Semaphore](https://docs.semaphoreci.com/using-semaphore/secrets). Secrets in Semaphore are organization-level objects that can contain environment variables or files which you can then access in your build jobs. 
 
 You can add a secret using the Semaphore CLI or the UI:  
 
@@ -59,12 +59,12 @@ For example:
 ```
 
 <Note variant="note">
-The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb` . Please see the [Cloudsmith CLI](/getting-started/cli) for full details of the push command for other formats and additional help).
+The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb` . Please see the [Cloudsmith CLI](/developer-tools/cli) for full details of the push command for other formats and additional help).
 </Note>
 
 In the above example, we use the command executed during the block prologue to install the Cloudsmith CLI, so that the `cloudsmith push` command is available.
 
- In addition, we also use the `cache restore` command to retrieve the package file that was built in a previous block.  Please see the [Semaphore Cache documentation](https://docs.semaphoreci.com/essentials/caching-dependencies-and-directories/) for more detail on storing and retrieving artifacts using the Semaphore cache
+ In addition, we also use the `cache restore` command to retrieve the package file that was built in a previous block.  Please see the [Semaphore Cache documentation](https://docs.semaphoreci.com/using-semaphore/optimization/cache) for more detail on storing and retrieving artifacts using the Semaphore cache
 
 <Note variant="note">
 Where supported, you can also use native publishing commands like `docker push` or `npm publish` instead of using the Cloudsmith CLI, provided you have installed the necessary tooling as part of your pipeline block setup.
