@@ -319,11 +319,7 @@
               {
                 "title": "Getting started",
                 "path": "/supply-chain-security/epm/getting-started"
-              },       
-              {
-                "title": "Continuous Security",
-                "path": "/supply-chain-security/epm/continuous-security"
-              },  
+              }, 
               {
                 "title": "Rego Recipes",
                 "path": "/supply-chain-security/epm/rego"
