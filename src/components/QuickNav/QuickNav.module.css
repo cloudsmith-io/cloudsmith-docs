@@ -1,7 +1,17 @@
 .root {
   position: sticky;
   top: calc(var(--space-l) + var(--navbar-height));
-  font-size: var(--text-body-s);
+  padding-block: var(--space-xs);
+}
+
+.root::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-left: 1px solid var(--brand-color-grey-2);
+  z-index: -1;
 }
 
 .list {
@@ -9,7 +19,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xs);
+  row-gap: var(--space-3xs);
 }
 
 .item {
@@ -18,34 +28,39 @@
   &:has(.item) {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2xs);
+    row-gap: var(--space-3xs);
   }
 }
 
 .link {
-  color: var(--base-color-grey-500);
+  color: var(--brand-color-grey-8);
   display: block;
   text-decoration: none;
   border-left: 2px solid transparent;
   padding-inline-start: var(--space-s);
+  padding-block: var(--space-5xs);
   transition:
     color var(--transition-fast),
     border-color var(--transition-fast);
 
   &:is(:hover, :focus) {
-    color: var(--base-color-grey-900);
+    color: var(--brand-color-blue-7);
   }
 
   .item .item & {
-    padding-inline-start: var(--space-m);
+    padding-inline-start: calc(var(--space-s) * 2);
   }
 
   .item .item .item & {
-    padding-inline-start: var(--space-l);
+    padding-inline-start: calc(var(--space-s) * 3);
+  }
+
+  .item .item .item .item & {
+    padding-inline-start: calc(var(--space-s) * 4);
   }
 }
 
 .active {
-  color: var(--base-color-grey-900);
-  border-left-color: var(--base-color-blue-500);
+  color: var(--brand-color-blue-7);
+  border-left-color: var(--brand-color-blue-7);
 }

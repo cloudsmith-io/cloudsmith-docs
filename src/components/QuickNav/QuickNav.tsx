@@ -53,7 +53,7 @@ export const QuickNav = () => {
 
 const renderHeadings = (headings: Array<HeadingList>, activeHeadline: string) => {
   return (
-    <ul className={styles.list}>
+    <ul className={cx(styles.list, 'bodyS')}>
       {headings.map((heading, i) => (
         <li key={`${heading.id}-${i}`} className={styles.item}>
           <a

@@ -7,8 +7,8 @@
 }
 
 .wrapper {
-  margin-block-start: var(--space-xl);
-  padding-inline: var(--space-xs);
+  margin-block-start: var(--space-l);
+  padding-inline: var(--space-m);
   margin-block-end: var(--space-l);
   border-right: 1px solid var(--brand-color-grey-2);
 }
@@ -17,7 +17,7 @@
 .toggleButton {
   display: flex;
   inline-size: 100%;
-  padding-inline: var(--space-s);
+  padding-inline: var(--space-m);
   padding-block: var(--space-2xs);
   align-items: center;
   color: var(--base-color-grey-100);
@@ -43,6 +43,10 @@
 /* Lists */
 .listWrapper {
   overflow-y: hidden;
+
+  &:first-child {
+    padding-block: var(--space-xs);
+  }
 }
 
 /* Overwrite animation from JS to always display on mobile */
@@ -57,7 +61,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  row-gap: var(--space-s);
+  row-gap: var(--space-m);
   padding: 0;
   list-style: none;
 
@@ -88,7 +92,7 @@
   align-items: center;
   text-decoration: none;
   color: var(--base-color-grey-100);
-  padding-block: var(--space-6xs);
+  padding-block: var(--space-5xs);
   font-size: var(--text-fixed-s);
   line-height: var(--line-height-s);
 
@@ -102,7 +106,7 @@
   }
 
   .item .item .item & {
-    padding-block: var(--space-6xs);
+    padding-block: var(--space-5xs);
   }
 }
 
@@ -116,7 +120,6 @@
 }
 
 .linkTag {
-  align-self: center;
   margin-inline-start: auto;
 }
 
@@ -140,7 +143,7 @@
 .section {
   display: flex;
   color: var(--brand-color-grey-7);
-  padding-inline: var(--space-2xs);
+  padding-block: var(--space-4xs);
 }
 
 @media (--laptop-up) {
@@ -150,6 +153,10 @@
     opacity: 1 !important;
     height: auto !important;
     --color-font-primary: var(--brand-color-grey-8);
+  }
+
+  .wrapper {
+    padding-inline: var(--space-m) var(--space-xs);
   }
 
   .toggleButton {

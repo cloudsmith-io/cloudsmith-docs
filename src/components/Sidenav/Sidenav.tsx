@@ -106,7 +106,7 @@ const Item = ({ item }: ItemProps) => {
             <div className={styles.emptyIcon} />
           )}
 
-          <div className={styles.linkTitle}>{item.title}</div>
+          <div className={cx(styles.linkTitle, 'bodyS')}>{item.title}</div>
 
           {item.method ? (
             <Tag
