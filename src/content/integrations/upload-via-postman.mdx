@@ -41,9 +41,7 @@ Lets see how you can upload a raw package using Postman:
 
 ## POST Raw package
 
-## 
-
-1. Populate the request with the POST url: https://api.cloudsmith.io/v1/packages/CLOUDSMITH_ORG/CLOUDSMITH_REPO/upload/raw/
+1. Populate the request with the POST url: https://api.cloudsmith.io/packages/CLOUDSMITH_ORG/CLOUDSMITH_REPO/upload/raw/
 2. Select the 'Body' tab and populate it with your JSON (NOTE: the package_file value should be populated with the identifier from the PUT response above):  
    `{"package_file": "IDENTIFIER", "name": "test-package", "description": "Everything about packaging files.", "summary": "My Package File", "version": "1.0"}`
    package_file value has to be the same as the response from the PUT req above- it is populated in the identifier value.

@@ -162,7 +162,7 @@ pipelines:
           # Authenticate with Cloudsmith API
           - |
             curl --request GET \
-            --url "https://api.cloudsmith.io/v1/user/self/" \
+            --url "https://api.cloudsmith.io/user/self/" \
             --header "X-Api-Key: Bearer ${CLOUDSMITH_TOKEN}" \
             --header "accept: application/json"
 
