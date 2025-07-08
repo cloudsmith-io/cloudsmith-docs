@@ -5,9 +5,6 @@
 
 .responseTitle {
   color: var(--base-color-grey-600);
-  font-family: var(--font-family-mono);
-  font-size: var(--text-body-xs);
-  text-transform: uppercase;
 }
 
 .responseTypeContent {
@@ -18,7 +15,6 @@
 
 .responseTypeTitle {
   color: var(--base-color-grey-600);
-  font-size: var(--text-body-xs);
 }
 
 .responseGrid {

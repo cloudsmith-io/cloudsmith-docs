@@ -5,6 +5,7 @@ import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
+import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import WithQuicknav from '@/components/WithQuickNav';
 
 import styles from './page.module.css';
@@ -70,6 +71,11 @@ const Page = async ({ params }: PageProps) => {
   const content = await loadMdxInfo('api');
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
+  const pathname = `/${qualifiedSlug}`;
+  const menuData = getMenuItem('api');
+  const ancestors = getActiveAncestors(pathname, [menuData]);
+  const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
+
   if (mdxInfo) {
     const mdxModule = await import(`@/content/${mdxInfo.file}`);
     const { default: Post } = mdxModule;
@@ -77,6 +83,13 @@ const Page = async ({ params }: PageProps) => {
 
     return (
       <WithQuicknav>
+        {parentTitle ? (
+          <h2
+            className="monoXSUppercase"
+            style={{ color: 'var(--brand-color-grey-7)', marginBottom: 'var(--space-s)' }}>
+            {parentTitle}
+          </h2>
+        ) : null}
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
@@ -89,8 +102,19 @@ const Page = async ({ params }: PageProps) => {
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {
+    const operationParentTitle =
+      parentTitle ||
+      (operation.menuSegments.length > 1 ? operation.menuSegments[operation.menuSegments.length - 2] : null);
+
     return (
       <div className={styles.root}>
+        {operationParentTitle ? (
+          <h2
+            className="monoXSUppercase"
+            style={{ color: 'var(--brand-color-grey-7)', marginBottom: 'var(--space-s)' }}>
+            {operationParentTitle}
+          </h2>
+        ) : null}
         <Heading size="h1">{operation.title}</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
 

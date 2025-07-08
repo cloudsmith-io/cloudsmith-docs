@@ -3,6 +3,7 @@ import { toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
+import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import { TimeAgo } from '@/components';
 import WithQuicknav from '@/components/WithQuickNav';
 
@@ -44,8 +45,20 @@ const Page = async ({ params }: PageProps) => {
     const { default: Post } = mdxModule;
     const lastUpdated = getLastUpdated(mdxModule);
 
+    const pathname = `/${qualifiedSlug}`;
+    const menuData = getMenuItem('guides');
+    const ancestors = getActiveAncestors(pathname, [menuData]);
+    const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
+
     return (
       <WithQuicknav>
+        {parentTitle ? (
+          <h2
+            className="monoXSUppercase"
+            style={{ color: 'var(--brand-color-grey-7)', marginBottom: 'var(--space-s)' }}>
+            {parentTitle}
+          </h2>
+        ) : null}
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>

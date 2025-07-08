@@ -157,7 +157,7 @@
     --color-text-code: var(--base-color-blue-600);
 
     /* Border */
-    --color-border: var(--base-color-grey-300);
+    --color-border: var(--brand-color-grey-2);
     --color-border-tabs: var(--base-color-blue-500);
 
     /* Accent */

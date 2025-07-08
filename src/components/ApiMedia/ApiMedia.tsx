@@ -13,7 +13,9 @@ export const ApiMediaResponse = (response: ResponseObject | RequestBodyObject) =
     <>
       {response.content ? (
         <div className={styles.responseType}>
-          <p className={styles.responseTitle}>{response.description || 'Response body'}</p>
+          <p className={cx(styles.responseTitle, 'monoXSUppercase')}>
+            {response.description || 'Response body'}
+          </p>
           <div className={styles.responseTypeContent}>
             {Object.entries(response.content).map(([media, content]) => (
               <Schema key={media} media={media} schema={content.schema as SchemaObject} />
@@ -29,7 +31,9 @@ const Schema = ({ schema, description }: { media?: string; schema: SchemaObject;
   if (schema.type === 'array') {
     return (
       <>
-        <p className={styles.responseTypeTitle}>{description || `${schema.type} of ${schema.items.type}s`}</p>
+        <p className={cx(styles.responseTypeTitle, 'monoXSUppercase')}>
+          {description || `${schema.type} of ${schema.items.type}s`}
+        </p>
         <div className={styles.responseTypeContent}>
           <Properties {...schema.items} />
         </div>
@@ -40,7 +44,7 @@ const Schema = ({ schema, description }: { media?: string; schema: SchemaObject;
   if (schema.type === 'object') {
     return (
       <>
-        <p className={styles.responseTypeTitle}>{description || schema.type}</p>
+        <p className={cx(styles.responseTypeTitle, 'monoXSUppercase')}>{description || schema.type}</p>
         <div className={styles.responseTypeContent}>
           <Properties {...schema} />
         </div>
@@ -54,7 +58,7 @@ const Schema = ({ schema, description }: { media?: string; schema: SchemaObject;
 const Properties = ({ properties, required, type }: SchemaObject) => {
   return (
     <>
-      {type ? <p className={styles.responseTypeTitle}>{type}</p> : null}
+      {type ? <p className={cx(styles.responseTypeTitle, 'monoXSUppercase')}>{type}</p> : null}
 
       {properties ? (
         <div className={styles.responseGrid}>
