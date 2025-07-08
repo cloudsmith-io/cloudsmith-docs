@@ -10,7 +10,6 @@
   margin-block-start: var(--space-l);
   padding-inline: var(--space-m);
   margin-block-end: var(--space-l);
-  border-right: 1px solid var(--brand-color-grey-2);
 }
 
 /* Mobile toggler */
@@ -157,6 +156,7 @@
 
   .wrapper {
     padding-inline: var(--space-m) var(--space-xs);
+    border-right: 1px solid var(--brand-color-grey-2);
   }
 
   .toggleButton {

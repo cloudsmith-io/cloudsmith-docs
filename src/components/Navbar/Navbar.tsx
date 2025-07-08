@@ -63,7 +63,7 @@ export const Navbar = () => {
               </Link>
 
               <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
-                <Icon name="menu" title="" />
+                <Icon name="menu" title="" className={styles.menuIcon} />
               </button>
             </div>
           </div>

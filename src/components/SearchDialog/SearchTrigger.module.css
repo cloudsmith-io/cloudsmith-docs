@@ -5,14 +5,19 @@
   max-width: var(--container-width-2xs);
   gap: var(--space-xs);
   cursor: pointer;
-  border-radius: var(--border-radius-s);
   padding: var(--space-2xs) var(--space-s);
   background-color: var(--base-color-grey-1000);
+
+  border: 1px solid var(--brand-color-grey-8);
+  height: 38px;
+  width: 38px;
+  border-radius: var(--border-radius-s);
 }
 
 .icon {
   width: var(--space-s);
   height: var(--space-s);
+  opacity: 0.6;
 }
 
 .content {
@@ -32,8 +37,9 @@
   .root {
     background-color: var(--base-color-grey-1000);
     color: var(--base-color-grey-500);
-    max-width: 280px;
+    max-width: 260px;
     width: 400px;
+    height: auto;
     border: 1px solid var(--brand-color-grey-8);
   }
 
@@ -44,6 +50,7 @@
   .icon {
     width: var(--space-xs);
     height: var(--space-xs);
+    opacity: 1;
   }
 
   .content {
