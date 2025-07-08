@@ -1,7 +1,7 @@
 import { createIcon, SpecificIconProps } from '../../util/create-icon';
 
-export const IntegrationChainguardIcon = createIcon<SpecificIconProps>(
-  'integration/chainguard',
+export const IntegrationOctopusDeployIcon = createIcon<SpecificIconProps>(
+  'integration/octopusdeploy',
   ({ width = 24, height = 24, ...props }) => ({
     ...props,
     width,

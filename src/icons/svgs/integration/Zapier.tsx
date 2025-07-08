@@ -1,7 +1,7 @@
 import { createIcon, SpecificIconProps } from '../../util/create-icon';
 
-export const IntegrationChainguardIcon = createIcon<SpecificIconProps>(
-  'integration/chainguard',
+export const IntegrationZapierIcon = createIcon<SpecificIconProps>(
+  'integration/zapier',
   ({ width = 24, height = 24, ...props }) => ({
     ...props,
     width,

@@ -1,7 +1,7 @@
 import { createIcon, SpecificIconProps } from '../../util/create-icon';
 
-export const IntegrationChainguardIcon = createIcon<SpecificIconProps>(
-  'integration/chainguard',
+export const IntegrationAnsibleIcon = createIcon<SpecificIconProps>(
+  'integration/ansible',
   ({ width = 69, height = 69, ...props }) => ({
     ...props,
     width,

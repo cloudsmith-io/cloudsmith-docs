@@ -62,7 +62,7 @@ import { IntegrationDatadogIcon } from './svgs/integration/Datadog';
 import { IntegrationDockerIcon } from './svgs/integration/Docker';
 import { IntegrationDroneCIIcon } from './svgs/integration/DroneCI';
 import { IntegrationGitHubActionsIcon } from './svgs/integration/GitHubActions';
-import { IntegrationGitLabCICDIcon } from './svgs/integration/GitLabCI';
+import { IntegrationGitLabCICDIcon } from './svgs/integration/GitLabCICD';
 import { IntegrationHarnessCDIcon } from './svgs/integration/HarnessCD';
 import { IntegrationJenkinsIcon } from './svgs/integration/Jenkins';
 import { IntegrationMicrosoftTeamsIcon } from './svgs/integration/MicrosoftTeams';
@@ -74,7 +74,7 @@ import { IntegrationSemaphoreCIIcon } from './svgs/integration/SemaphoreCI';
 import { IntegrationSlackIcon } from './svgs/integration/Slack';
 import { IntegrationTeamCityIcon } from './svgs/integration/TeamCity';
 import { IntegrationTerraformIcon } from './svgs/integration/Terraform';
-import { IntegrationTravisCIIcon } from './svgs/integration/Travis';
+import { IntegrationTravisCIIcon } from './svgs/integration/TravisCI';
 import { IntegrationZapierIcon } from './svgs/integration/Zapier';
 
 
