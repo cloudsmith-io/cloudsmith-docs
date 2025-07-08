@@ -329,11 +329,7 @@
           {
             "title": "Vulnerability scanning",
             "path": "/supply-chain-security/vulnerability-scanning"
-          }, 
-          {
-            "title": "Malware scanning",
-            "path": "/supply-chain-security/malware-scanning"
-          },  
+          },
           {
             "title": "Package signing",
             "path": "/supply-chain-security/signing-keys"
