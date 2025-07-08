@@ -290,7 +290,7 @@
     --layer-overlay: 200;
 
     /* Specific measurements */
-    --navbar-top-height: 50px;
+    --navbar-top-height: 67px;
     --navbar-bottom-height: 50px;
     --navbar-height: calc(var(--navbar-top-height) + var(--navbar-bottom-height));
 

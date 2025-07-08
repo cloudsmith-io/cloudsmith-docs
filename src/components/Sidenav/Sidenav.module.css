@@ -17,17 +17,16 @@
   display: flex;
   inline-size: 100%;
   padding-inline: var(--space-m);
-  padding-block: var(--space-2xs);
+  padding-block: var(--space-s);
   align-items: center;
   color: var(--base-color-grey-100);
   cursor: pointer;
   background-color: var(--base-color-grey-1000);
-  font-size: var(--text-body-m);
-  line-height: var(--line-height-m);
 }
 
 .toggleButtonText {
   margin-inline-end: 6px;
+  opacity: 0.6;
 }
 
 .toggleIconDown {

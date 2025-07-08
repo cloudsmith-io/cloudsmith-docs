@@ -37,7 +37,7 @@ export const Sidenav = ({ items }: SidenavProps) => {
   return (
     <>
       <button type="button" className={styles.toggleButton} onClick={toggle}>
-        <span className={styles.toggleButtonText}>{activeLabel}</span>
+        <span className={cx(styles.toggleButtonText, 'monoMUppercase')}>{activeLabel}</span>
         <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
       </button>
 

@@ -9,7 +9,6 @@
 
 .container {
   padding-inline: var(--space-m);
-  padding-block: var(--space-xs);
 }
 
 .isHome .container {
