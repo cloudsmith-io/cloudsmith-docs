@@ -61,6 +61,7 @@ import { IntegrationCircleCIIcon } from './svgs/integration/CircleCI';
 import { IntegrationDatadogIcon } from './svgs/integration/Datadog';
 import { IntegrationDockerIcon } from './svgs/integration/Docker';
 import { IntegrationDroneCIIcon } from './svgs/integration/DroneCI';
+import { IntegrationGCPCloudBuildIcon } from './svgs/integration/GCPCloudBuild';
 import { IntegrationGitHubActionsIcon } from './svgs/integration/GitHubActions';
 import { IntegrationGitLabCICDIcon } from './svgs/integration/GitLabCICD';
 import { IntegrationHarnessCDIcon } from './svgs/integration/HarnessCD';
@@ -146,6 +147,7 @@ export const iconRegistry = createIconRegistry({
   'integration/datadog': IntegrationDatadogIcon,
   'integration/docker': IntegrationDockerIcon,
   'integration/droneci': IntegrationDroneCIIcon,
+  'integration/gcpcloudbuild': IntegrationGCPCloudBuildIcon,
   'integration/githubactions': IntegrationGitHubActionsIcon,
   'integration/gitlabci': IntegrationGitLabCICDIcon,
   'integration/harnesscd': IntegrationHarnessCDIcon,
