@@ -13,7 +13,6 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Tag } from '../Tag';
 import { FilterButtons } from './FilterButtons';
-import { SearchFooter } from './SearchFooter';
 import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
 
@@ -145,6 +144,9 @@ export const SearchDialog = () => {
                 value={term}
                 events={{ onChange: setTerm, goUp, goDown, goToResult, goToStart, goToEnd }}
               />
+              <dd className={cx(styles.data, 'monoXSUppercase')}>
+                <kbd>ESC</kbd>
+              </dd>
             </header>
 
             <VisuallyHidden>
@@ -175,15 +177,12 @@ export const SearchDialog = () => {
                       onMouseEnter={() => !isKeyboardNav && setFocusedIndex(index)}
                       onClick={() => setOpen(false)}
                       className={cx(styles.resultLink, { [styles.resultLinkFocus]: index === focusedIndex })}>
-                      <span className={styles.resultTitle}>
+                      <span className={cx(styles.resultTitle, 'bodyM')}>
                         {res.title}
                         {res.method && <Tag method={res.method} className={styles.resultTag} />}
                       </span>
-                      <span className={styles.resultDescription}>
+                      <span className={cx(styles.resultDescription, 'bodyXS')}>
                         {highlightSearchTerm(res.snippet, term)}
-                      </span>
-                      <span className={styles.resultEnter}>
-                        <Icon name="enter" className={styles.resultEnterIcon} title="" />
                       </span>
                       <Icon name="arrowRight" className={styles.resultArrow} title="" />
                     </Link>
@@ -191,18 +190,16 @@ export const SearchDialog = () => {
                 ))}
               </ul>
 
-              {isWaiting && <p className={styles.noResults}>Loading...</p>}
+              {isWaiting && <p className={cx(styles.noResults, 'bodyS')}>Loading...</p>}
 
-              {!isWaiting && term === '' && <p className={styles.noResults}>Please enter a search term</p>}
+              {!isWaiting && term === '' && (
+                <p className={cx(styles.noResults, 'bodyS')}>Please enter a search term</p>
+              )}
 
               {!isWaiting && results.length === 0 && term !== '' && (
-                <p className={styles.noResults}>No results</p>
+                <p className={cx(styles.noResults, 'bodyS')}>No results</p>
               )}
             </div>
-
-            <footer className={styles.footer}>
-              <SearchFooter />
-            </footer>
           </RadixDialog.Content>
         </RadixDialog.Overlay>
       </RadixDialog.Portal>

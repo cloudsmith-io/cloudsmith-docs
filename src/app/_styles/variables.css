@@ -141,11 +141,11 @@
     --color-background-warning: var(--base-color-yellow-100);
     --color-background-code: var(--base-color-blue-75);
     --color-background-pre: var(--base-color-grey-900);
-    --color-background-header: var(--base-color-grey-25);
+    --color-background-header: var(--brand-color-grey-0);
 
     /* Text */
     --color-text-primary: var(--base-color-grey-900);
-    --color-text-secondary: var(--base-color-grey-600);
+    --color-text-secondary: var(--brand-color-grey-7);
     --color-text-link: var(--base-color-blue-500);
     --color-text-on-color: var(--base-color-white);
     --color-text-label: var(--base-color-grey-500);

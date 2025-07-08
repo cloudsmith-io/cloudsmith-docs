@@ -5,7 +5,7 @@
   max-width: var(--container-width-2xs);
   gap: var(--space-xs);
   cursor: pointer;
-  padding: var(--space-2xs) var(--space-s);
+  padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-xs);
   background-color: var(--base-color-grey-1000);
 
   border: 1px solid var(--brand-color-grey-8);
@@ -15,9 +15,9 @@
 }
 
 .icon {
-  width: var(--space-s);
-  height: var(--space-s);
   opacity: 0.6;
+  flex-shrink: 0;
+  transform: translateY(-1px);
 }
 
 .content {
@@ -48,8 +48,6 @@
   }
 
   .icon {
-    width: var(--space-xs);
-    height: var(--space-xs);
     opacity: 1;
   }
 
