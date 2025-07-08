@@ -108,6 +108,26 @@
   background-color: var(--base-color-grey-900);
 }
 
+.openCloudsmith.light {
+  background-color: var(--base-color-white);
+  color: var(--brand-color-grey-8);
+  border: 1px solid var(--brand-color-grey-3);
+}
+
+.openCloudsmith.light:hover {
+  background-color: var(--base-color-grey-100);
+}
+
+.menuButton.light {
+  background-color: var(--base-color-white);
+  color: var(--base-color-grey-900);
+  border: 1px solid var(--brand-color-grey-3);
+}
+
+.menuButton.light:hover {
+  background-color: var(--base-color-grey-100);
+}
+
 .isHome {
   background-color: transparent;
   color: var(--color-text-primary);

@@ -1,17 +1,23 @@
 .root {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: row;
   max-width: var(--container-width-2xs);
   gap: var(--space-xs);
   cursor: pointer;
-  padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-xs);
   background-color: var(--base-color-grey-1000);
 
   border: 1px solid var(--brand-color-grey-8);
   height: 38px;
   width: 38px;
   border-radius: var(--border-radius-s);
+}
+
+.root.light {
+  background-color: var(--base-color-white);
+  color: var(--brand-color-grey-8);
+  border: 1px solid var(--brand-color-grey-3);
 }
 
 .icon {
@@ -41,6 +47,7 @@
     width: 400px;
     height: auto;
     border: 1px solid var(--brand-color-grey-8);
+    padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-xs);
   }
 
   .root:hover {
@@ -55,5 +62,13 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+  }
+}
+
+@media (--phablet-up) {
+  .root.light {
+    background-color: var(--base-color-white);
+    color: var(--brand-color-grey-8);
+    border: 1px solid var(--brand-color-grey-3);
   }
 }

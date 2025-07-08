@@ -57,12 +57,16 @@ export const Navbar = () => {
               <Link
                 href="https://cloudsmith.com"
                 target={'_blank'}
-                className={cx(styles.openCloudsmith, 'bodyS')}
+                className={cx(styles.openCloudsmith, 'bodyS', pathname === '/' && styles.light)}
                 aria-label="Open Cloudsmith">
                 Open Cloudsmith
               </Link>
 
-              <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
+              <button
+                type="button"
+                className={cx(styles.menuButton, pathname === '/' && styles.light)}
+                aria-label="Menu"
+                onClick={toggle}>
                 <Icon name="menu" title="" className={styles.menuIcon} />
               </button>
             </div>
