@@ -161,7 +161,7 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
    */
   const flattenMenuItems = (menuItems: MenuItem[]): MenuItem[] => {
     return menuItems.map((item) => {
-      let children = item.children ? flattenMenuItems(item.children) : undefined;
+      const children = item.children ? flattenMenuItems(item.children) : undefined;
 
       let flattenedItem: MenuItem = { ...item, children };
 
