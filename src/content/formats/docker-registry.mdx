@@ -245,9 +245,9 @@ Please see our [Security Scanning](/policy-management/vulnerability-policy) docu
 
 ## Current Limitations
 
-The Cloudsmith Docker registry implementation currently has the following limitations:
+The Cloudsmith Docker registry implementation has the following limitations:
 
-- Remote layer mounting (for non-distributable layers, such as Windows) is currently not supported.
+- Remote layer mounting (for non-distributable layers, such as Windows) is not supported.
 - Digests for images will not match those pushed to Docker Hub (but layers will match).
 - Digests for offline image uploads (via `docker save`) will not match those from `docker push`.
 

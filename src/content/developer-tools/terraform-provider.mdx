@@ -48,7 +48,7 @@ provider "cloudsmith" {
 }
 ```
 
-You then run `terraform init` and Terraform will automatically install the provider. To specify a particular provider version when installing providers, see the Terraform documentation on [provider versioning](https://www.terraform.io/docs/configuration/providers.html#version-provider-versions).
+You then run `terraform init` and Terraform will automatically install the provider. To specify a particular provider version when installing providers, see the Terraform documentation on [provider versioning](https://developer.hashicorp.com/terraform/language/providers/configuration#version-deprecated).
 
 ## Data Sources
 
@@ -98,7 +98,7 @@ See the [repository documentation](/repositories) for more information on creati
 
 The repository privileges resource allows the management of privileges for a given Cloudsmith repository. Using this resource it is possible to assign users, teams, or service accounts to a repository, and define the appropriate permission level for each.
 
-Note that while users can be added to repositories in this manner, since Terraform does not (and cannot currently) manage those user accounts, you may encounter issues if the users change or are deleted outside of Terraform.
+Note that while users can be added to repositories in this manner, since Terraform does not manage those user accounts, you may encounter issues if the users change or are deleted outside of Terraform.
 
 ```
 resource "cloudsmith_repository_privileges" "privs" {

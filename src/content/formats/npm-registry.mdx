@@ -6,7 +6,7 @@ Cloudsmith provides public & private registries for npm (JavaScript)
 
 <Video wistiaId="yb24y37ume"></Video>
 
-npm is an extremely popular package manager for the [JavaScript](https://en.wikipedia.org/wiki/JavaScript), and is used for creating and using packaged [Node.js](https://en.wikipedia.org/wiki/Node.js) modules. A public index of packages is available from npm, inc. on [npmjs.org](https://npmjs.org). npm, Inc also develop and maintain the official  `npm` client, ecosystem and tooling.
+npm is an extremely popular package manager for [JavaScript](https://en.wikipedia.org/wiki/JavaScript), and is used for creating and using packaged [Node.js](https://en.wikipedia.org/wiki/Node.js) modules. A public index of packages is available from npm, inc. on [npmjs.org](https://npmjs.org). npm, Inc. also develop and maintain the official  `npm` client, ecosystem and tooling.
 
 For more information on npm, please see:
 
@@ -107,7 +107,7 @@ npm pack
 This will generate a tarball file (.tgz) like `your-package-1.2.3.tgz` that you can upload.
 
 <Note variant="note" headline="Note">
-This assumes that you've created a `project.json` file for your project. Please see the official npmjs [package.json reference](https://docs.npmjs.com/files/package.json) (external link) for more information.
+This assumes that you've created a `package.json` file for your project. Please see the official npmjs [package.json reference](https://docs.npmjs.com/files/package.json) (external link) for more information.
 </Note>
 
 The command to upload an npm package via the Cloudsmith CLI is: 
@@ -337,9 +337,9 @@ You can find out more about [security auditing](https://docs.npmjs.com/getting-s
 
 # Current Limitations
 
-The Cloudsmith npm registry implementation currently has the following limitations:
+The Cloudsmith npm registry implementation has the following limitations:
 
-- The maximum size per-package file is currently limited to 100MiB (100 megabytes), but only when utilising the native npm-cli for publishing. If uploading using the cloudsmith-cli, then the absolute maximum size per-package file limit will be the standard 5GiB.
+- The maximum size per-package file is limited to 100MiB (100 megabytes), but only when utilising the native npm-cli for publishing. If uploading using the cloudsmith-cli, then the absolute maximum size per-package file limit will be the standard 5GiB.
 
 Cloudsmith is unlikely to support the following (out-of-scope):
 
