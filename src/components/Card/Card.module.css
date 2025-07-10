@@ -6,7 +6,7 @@
   border: 1px solid var(--color-background-info);
   display: flex;
   flex-direction: column;
-  gap: var(--space-s);
+  gap: var(--space-m);
   padding: var(--space-m);
   min-height: 200px;
 }
@@ -33,7 +33,6 @@
 }
 
 .description {
-  font-family: var(--font-family-body);
   padding-bottom: var(--space-2xs);
 }
 
@@ -42,6 +41,7 @@
   align-items: center;
   gap: var(--space-2xs);
   font-family: var(--font-family-headline);
+  margin-top: var(--space-2xs);
 }
 
 /* Size variants */
@@ -82,42 +82,18 @@
 }
 
 .sizeSmall {
-  .title {
-    font-size: var(--text-body-m);
-  }
-
-  .description {
-    font-size: var(--text-body-s);
-  }
-
   .link {
     font-size: var(--text-body-xs);
   }
 }
 
 .sizeMedium {
-  .title {
-    font-size: var(--text-body-l);
-  }
-
-  .description {
-    font-size: var(--text-body-m);
-  }
-
   .link {
     font-size: var(--text-body-s);
   }
 }
 
 .sizeLarge {
-  .title {
-    font-size: var(--text-headline-s);
-  }
-
-  .description {
-    font-size: var(--text-body-m);
-  }
-
   .link {
     font-size: var(--text-body-m);
     justify-content: space-between;
@@ -126,10 +102,6 @@
 
 .root:hover .link {
   text-decoration: underline;
-}
-
-.content:has(.description) .link {
-  margin-top: auto;
 }
 
 .content:not(:has(.description)) {

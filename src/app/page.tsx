@@ -1,5 +1,6 @@
 import { Card, Flex, HomepageHero, Container } from '@/components';
 import { HomepageContent, Section, Card as CardType } from '@/lib/types';
+import { cx } from 'class-variance-authority';
 import styles from './page.module.css';
 import content from '@/content/homepage.json';
 
@@ -11,7 +12,7 @@ export default function Page() {
       case 'cards':
         return (
           <Container key={index} className={styles.section} as="section">
-            <h2 className={styles.sectionHeading}>{section.heading}</h2>
+            <h2 className={cx(styles.sectionHeading, 'headlineS')}>{section.heading}</h2>
             <Flex align="stretch">
               {section.cards.map((card: CardType, cardIndex: number) => (
                 <Card

@@ -1,19 +1,22 @@
 {
   "hero": {
-    "title": "Cloudsmith Documentation",
+    "title": "Cloudsmith <br/> <strong>Documentation</strong>",
     "description": "Cloudsmith is a fully-managed artifact management, software supply chain security, and software distribution platform. ",
     "buttons": [
       {
         "label": "Documentation",
-        "href": "/getting-started"
+        "href": "/getting-started",
+        "icon": "action/documentation"
       },
       {
         "label": "Guides",
-        "href": "/guides"
+        "href": "/guides",
+        "icon": "utility/guide"
       },
       {
         "label": "API Reference",
-        "href": "/api"
+        "href": "/api",
+        "icon": "action/api"
       }
     ]
   },
@@ -27,26 +30,26 @@
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
           "href": "/getting-started/key-concepts/",
           "linkText": "Read the doc",
-          "icon": "utility/documentation"
+          "icon": "action/documentation"
         },
         {
           "title": "Supported Formats",
           "description": "Cloudsmith is a single solution for all of your software assets.",
           "href": "/formats/",
           "linkText": "Go to formats",
-          "icon": "utility/documentation"
+          "icon": "action/documentation"
         },
         {
           "title": "Quickstart guide",
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
           "href": "/guides/cloudsmith-quickstart-guide/",
           "linkText": "Go to guide",
-          "icon": "utility/guide"
+          "icon": "action/guide"
         }
       ]
     },
     {
-      "type":"divider"
+      "type": "divider"
     },
     {
       "heading": "Managing accounts and teams",

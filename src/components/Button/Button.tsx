@@ -1,4 +1,4 @@
-import { Icon } from '@/icons';
+import { Icon, type IconName } from '@/icons';
 import { ButtonColorScheme, ButtonSize, ButtonVariant, ButtonWidth } from '@/lib/types';
 import { cva, cx, type VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
@@ -47,6 +47,7 @@ interface ButtonProps
   withArrow?: boolean;
   isExternalLink?: boolean;
   className?: string;
+  icon?: IconName;
 }
 
 export function Button({
@@ -58,6 +59,7 @@ export function Button({
   className,
   width,
   withArrow = false,
+  icon,
   disabled,
   isExternalLink = false,
   ...rest
@@ -72,6 +74,7 @@ export function Button({
 
   const content = (
     <>
+      {icon && <Icon name={icon} title="" className={styles.icon} />}
       {children}
       {withArrow && <Icon name="arrow" title="" />}
       {variant === 'secondary' && (

@@ -154,6 +154,11 @@
   }
 }
 
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
 .root:hover .secondaryBorderFill {
   display: none;
 }
@@ -184,4 +189,11 @@
 .root[aria-disabled] {
   opacity: 0.5;
   pointer-events: none;
+}
+
+@media (--phablet-up) {
+  .root.widthFull {
+    width: fit-content;
+    justify-content: space-between;
+  }
 }

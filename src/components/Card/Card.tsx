@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from 'class-variance-authority';
+import { type VariantProps, cva, cx } from 'class-variance-authority';
 import Link from 'next/link';
 import { Icon, IconName } from '@/icons';
 import styles from './Card.module.css';
@@ -53,11 +53,11 @@ export function Card({
       </div>
 
       <div className={styles.content}>
-        <h3 className={styles.title}>{title}</h3>
-        {description && <p className={styles.description}>{description}</p>}
+        <h3 className={cx(styles.title, 'headlineS')}>{title}</h3>
+        {description && <p className={cx(styles.description, 'bodyS')}>{description}</p>}
 
         <div className={styles.link}>
-          <span className={styles.linkText}>{linkText || title}</span>
+          <span className={cx(styles.linkText, 'headlineXXS')}>{linkText || title}</span>
           <Icon name="arrow" title="" />
         </div>
       </div>
