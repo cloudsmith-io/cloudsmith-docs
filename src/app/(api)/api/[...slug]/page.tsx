@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import WithQuicknav from '@/components/WithQuickNav';
+import { cx } from 'class-variance-authority';
 
 import styles from './page.module.css';
 
@@ -71,7 +72,7 @@ const Page = async ({ params }: PageProps) => {
   const content = await loadMdxInfo('api');
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
-  const pathname = `/${qualifiedSlug}`;
+  const pathname = `${qualifiedSlug}`;
   const menuData = getMenuItem('api');
   const ancestors = getActiveAncestors(pathname, [menuData]);
   const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
@@ -83,13 +84,7 @@ const Page = async ({ params }: PageProps) => {
 
     return (
       <WithQuicknav>
-        {parentTitle ? (
-          <h2
-            className="monoXSUppercase"
-            style={{ color: 'var(--brand-color-grey-7)', marginBottom: 'var(--space-s)' }}>
-            {parentTitle}
-          </h2>
-        ) : null}
+        {parentTitle ? <h2 className={cx(styles.sectionHeading, 'monoXSUppercase')}>{parentTitle}</h2> : null}
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
@@ -109,11 +104,7 @@ const Page = async ({ params }: PageProps) => {
     return (
       <div className={styles.root}>
         {operationParentTitle ? (
-          <h2
-            className="monoXSUppercase"
-            style={{ color: 'var(--brand-color-grey-7)', marginBottom: 'var(--space-s)' }}>
-            {operationParentTitle}
-          </h2>
+          <h2 className={cx(styles.sectionHeading, 'monoXSUppercase')}>{operationParentTitle}</h2>
         ) : null}
         <Heading size="h1">{operation.title}</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}

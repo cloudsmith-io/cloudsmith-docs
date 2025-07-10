@@ -55,7 +55,7 @@ export const Navbar = () => {
             <div className={styles.right}>
               <SearchDialog />
               <Link
-                href="https://cloudsmith.com"
+                href="https://app.cloudsmith.com/login"
                 target={'_blank'}
                 className={cx(styles.openCloudsmith, 'bodyS', pathname === '/' && styles.light)}
                 aria-label="Open Cloudsmith">

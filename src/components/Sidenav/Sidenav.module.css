@@ -31,10 +31,12 @@
 .toggleIconDown {
   flex-shrink: 0;
   fill: var(--base-color-grey-100);
+  margin-inline-start: auto;
+  transition: transform 0.2s ease;
 }
 
-.toggleIconDown {
-  margin-inline-start: auto;
+.toggleIconDownOpen {
+  transform: rotate(180deg);
 }
 
 /* Lists */
@@ -133,7 +135,6 @@
 .linkIcon {
   flex-shrink: 0;
   height: fit-content;
-  margin-right: 4px;
 }
 
 /* TODO: Maybe remove sections? */

@@ -32,13 +32,16 @@ export const Sidenav = ({ items }: SidenavProps) => {
   const isOpen = navigationState === 'sideNav';
   const toggle = () => toggleNavigation('sideNav');
 
-  console.log('items', items);
-
   return (
     <>
       <button type="button" className={styles.toggleButton} onClick={toggle}>
         <span className={cx(styles.toggleButtonText, 'monoMUppercase')}>{activeLabel}</span>
-        <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
+        <Icon
+          name="chevronDown"
+          as="svg"
+          title=""
+          className={cx(styles.toggleIconDown, { [styles.toggleIconDownOpen]: isOpen })}
+        />
       </button>
 
       <motion.div

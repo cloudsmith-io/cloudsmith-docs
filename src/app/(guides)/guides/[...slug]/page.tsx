@@ -6,6 +6,9 @@ import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/meta
 import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import { TimeAgo } from '@/components';
 import WithQuicknav from '@/components/WithQuickNav';
+import { cx } from 'class-variance-authority';
+
+import styles from './page.module.css';
 
 export const dynamicParams = false;
 
@@ -52,13 +55,7 @@ const Page = async ({ params }: PageProps) => {
 
     return (
       <WithQuicknav>
-        {parentTitle ? (
-          <h2
-            className="monoXSUppercase"
-            style={{ color: 'var(--brand-color-grey-7)', marginBottom: 'var(--space-s)' }}>
-            {parentTitle}
-          </h2>
-        ) : null}
+        {parentTitle ? <h2 className={cx(styles.sectionHeading, 'monoXSUppercase')}>{parentTitle}</h2> : null}
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
