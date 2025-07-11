@@ -55,7 +55,11 @@ const Page = async ({ params }: PageProps) => {
 
     return (
       <WithQuicknav>
-        {parentTitle ? <h2 className={cx(styles.sectionHeading, 'monoXSUppercase')}>{parentTitle}</h2> : null}
+        {parentTitle ? (
+          <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
+            {parentTitle}
+          </h2>
+        ) : null}
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>

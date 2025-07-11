@@ -100,6 +100,71 @@
   }
 }
 
+/* Type variants */
+
+.typeSimple {
+  padding: var(--space-s) var(--space-m);
+  gap: var(--space-2xs);
+  width: 100%;
+  min-height: unset;
+  height: fit-content;
+  position: relative;
+
+  .top,
+  .bottom {
+    max-width: calc(100% - var(--space-xl));
+  }
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+
+  .icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .description {
+    padding-bottom: 0;
+    color: var(--color-text-secondary);
+  }
+
+  .arrow {
+    position: absolute;
+    right: var(--space-m);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--brand-color-grey-7);
+  }
+
+  &:hover {
+    background-color: var(--brand-color-blue-7);
+    color: var(--brand-color-white);
+    border: 1px solid transparent;
+
+    .icon svg {
+      color: var(--brand-color-white);
+    }
+
+    .description {
+      color: var(--brand-color-white);
+      opacity: 0.6;
+    }
+
+    .arrow {
+      color: var(--brand-color-white);
+      opacity: 0.6;
+    }
+  }
+}
+
 .root:hover .link {
   text-decoration: underline;
 }

@@ -84,7 +84,11 @@ const Page = async ({ params }: PageProps) => {
 
     return (
       <WithQuicknav>
-        {parentTitle ? <h2 className={cx(styles.sectionHeading, 'monoXSUppercase')}>{parentTitle}</h2> : null}
+        {parentTitle ? (
+          <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
+            {parentTitle}
+          </h2>
+        ) : null}
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
@@ -104,7 +108,9 @@ const Page = async ({ params }: PageProps) => {
     return (
       <div className={styles.root}>
         {operationParentTitle ? (
-          <h2 className={cx(styles.sectionHeading, 'monoXSUppercase')}>{operationParentTitle}</h2>
+          <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
+            {operationParentTitle}
+          </h2>
         ) : null}
         <Heading size="h1">{operation.title}</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}

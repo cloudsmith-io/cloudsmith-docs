@@ -6,7 +6,7 @@ import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
 import { cx } from 'class-variance-authority';
 
-const headingsToObserve = ':scope > :is(h2, h3, h4, h5, h6)';
+const headingsToObserve = ':scope > :is(h2, h3, h4, h5, h6):not([data-quick-nav-ignore])';
 
 export const QuickNav = () => {
   const [headings, setHeadings] = useState<Array<HeadingList>>([]);
