@@ -47,7 +47,7 @@ cloudsmith ls pkg OWNER/SOURCE_REPO -q 'YOUR-QUERY'/
 | xargs -Ipackage cloudsmith copy package DESTINATION_REPO
 ```
 
-for the `-q` query you can use any terms that you would use when searching for a package (see [Search / Filter Packages](/artifact-management/search-packages) for full details). For example: 
+for the `-q` query you can use any terms that you would use when searching for a package (see [Search / Filter Packages](/artifact-management/search-filter-sort-packages) for full details). For example: 
 
 `-q 'format:maven AND name:cloudsmith-api AND version:^0.21'` 
 

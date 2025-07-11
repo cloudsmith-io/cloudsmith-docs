@@ -69,7 +69,7 @@ In the Guides section, you can use a special `GuideLink` component to show a sol
 ```mdx
 import { GuideLink } from '@/components';
 
-<GuideLink href="/getting-started/api-bindings">Click me</GuideLink>
+<GuideLink href="/api/api-bindings">Click me</GuideLink>
 ```
 
 ## Dividers

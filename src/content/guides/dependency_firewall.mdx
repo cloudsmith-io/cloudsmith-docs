@@ -90,9 +90,9 @@ Without any kind of supply chain management solution, tracking the usage of depe
 
 #### 1.1. Single source of truth for your all your artifacts
 
-Cloudsmith is your single pane of glass for all kind of artifacts. With an extensive [support of 30 different package formats](https://docs.cloudsmith.com/formats), Cloudsmith provides an easy to manage but yet advanced platform that support all the native tooling your developers use.
+Cloudsmith is your single pane of glass for all kind of artifacts. With an extensive [support of 30 different package formats](/formats), Cloudsmith provides an easy to manage but yet advanced platform that support all the native tooling your developers use.
 
-Let's [create a repository](https://docs.cloudsmith.com/repositories/create-a-repository) for our microservices stack:
+Let's [create a repository](/repositories/create-a-repository) for our microservices stack:
 1. Browse to your Cloudsmith workspace and click on **+ New Repository**. 
 2. Type a name (for example: `dev-env`), 
 3. select a region (default to `Dublin`), 
@@ -160,7 +160,7 @@ Given no hashes to check 0 links for project 'flask': discarding no candidates
 ERROR: Could not find a version that satisfies the requirement Flask==2.0.1 (from versions: none)
 ```
 
-This is good! What is going on? We have not configured any upstream for our repository, hence those dependencies from https://www.npmjs.com/ and https://www.pypi.com/ are not available to use them. In the next section we'll learn about Upstreams and how to [configure](https://docs.cloudsmith.com/repositories/upstreams) them.
+This is good! What is going on? We have not configured any upstream for our repository, hence those dependencies from https://www.npmjs.com/ and https://www.pypi.com/ are not available to use them. In the next section we'll learn about Upstreams and how to [configure](/repositories/upstreams) them.
 
 ### 2. Upstream Proxying and Caching
 
@@ -203,7 +203,7 @@ pip3 download adorable
 cloudsmith push python demo-docs/awesome-repo adorable-0.1.5-py3-none-any.whl
 ```
 
-<Note>📘 Cloudsmith provides full controls to define who can view or make changes to your repos. Learn more about permissions and entitlements [here](/repositories/access-controls).</Note>
+<Note>📘 Cloudsmith provides full controls to define who can view or make changes to your repos. Learn more about permissions and entitlements [here](/repositories/repository-privileges#access-control).</Note>
 
 {/* Now, you can upload any other artifact you might want to test. Explore all the formats supported, and play with those more familiar to you. Alternatively, use this project https://github.com/cloudsmith-io/cloudsmith-examples to populate your new repository with alternative examples:
 

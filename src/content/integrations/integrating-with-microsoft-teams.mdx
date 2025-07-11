@@ -20,14 +20,14 @@ https://outlook.office.com/webhook/0f7eb16f-f6de-csm1-8272-3028fbf63fdb@1e93d1ef
 
 ## Create Webhook on Cloudsmith
 
-1. Open your repository in [Cloudsmith](https://cloudsmith.io) and browse to the 'Webhooks' page using the menu on the left
+1. Open your repository in [Cloudsmith](https://app.cloudsmith.com) and browse to the 'Webhooks' page using the menu on the left
 2. Choose to 'Create Webhook'
 3. Add the webhook URL from above to the box labeled 'Target Endpoint URL'
 4. Choose 'Handlebars Template' as the 'Payload Format'
 5. Choose 'application/json' as the Content type
-6. Select 'Package Synchronised' from the row of events 
+6. Select 'Package Synchronized' from the row of events 
 7. Add your handlebars code; the template below produced the message shown above
-8. Under 'Webhook Event Subscriptions' select  'Send Specific Events (choose)' then check 'Package Synchronised'
+8. Under 'Webhook Event Subscriptions' select  'Send Specific Events (choose)' then check 'Package Synchronized'
 
 ```json
 {
@@ -37,7 +37,7 @@ https://outlook.office.com/webhook/0f7eb16f-f6de-csm1-8272-3028fbf63fdb@1e93d1ef
       "fallback": "{{ data.filename }} version {{ data.version }} by {{ data.uploader }}",
       "text": "{{ data.summary }}",
       "title": "{{ data.filename }}",
-      "title_link": "https://cloudsmith.io/user/login/?next=/package/ns/{{ data.namespace }}/repos/{{ data.repository }}/packages/detail/{{ data.slug }}",
+      "title_link": "https://app.cloudsmith.com/user/login/?next=/package/{{ data.workspace }}/{{ data.repository }}/detail/{{ data.slug }}",
       "mrkdwn_in": ["fields"],
       "color": "good",
       "fields": [

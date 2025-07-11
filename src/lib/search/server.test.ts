@@ -13,7 +13,7 @@ describe('lib', () => {
         const results = await performSearch('Formats');
         expect(results.length).toBeGreaterThan(10);
 
-        const mdx = results.find((res) => res.path === '/supported-formats');
+        const mdx = results.find((res) => res.path === '/formats');
         const api = results.find((res) => res.path === '/api/formats/read');
 
         expect(mdx).toBeDefined();
@@ -27,7 +27,7 @@ describe('lib', () => {
 
       test('searches only documentation', async () => {
         const results = await performSearch('Developer Community', ['documentation']);
-        expect(results[0].path).toEqual('/developer-community');
+        expect(results[0].path).toEqual('/developer-tools/developer-community');
         // This will not test MDX frontmatter because of Jest mock
         expect(results[0].title).toEqual('Developer Community');
         expect(results[0].score).toEqual(1);

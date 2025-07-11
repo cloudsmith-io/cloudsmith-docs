@@ -26,7 +26,7 @@ Make sure that the remote repository that you are using doesn't have an upstream
 The script below includes the `main.py` and `requirements.txt` files:
 
 <Note variant="note" headline="Note">
-Please make sure that you have Cloudsmith CLI downloaded. Installation steps can be found [here](/getting-started/cli#installation).
+Please make sure that you have Cloudsmith CLI downloaded. Installation steps can be found [here](/developer-tools/cli#installation).
 </Note>
 
 ```python main.py
@@ -37,10 +37,10 @@ from time import sleep
 import os
 from os.path import exists
 
-org_name = input("Your organization name (Same as on Cloudsmith): ")
+org_name = input("Your workspace name (Same as on Cloudsmith): ")
 repository = input("Repository that you wish to upload your Python packages to: ")
 
-print(f"Please grab `index-url` from: https://cloudsmith.io/~{org_name}/repos/{repository}/setup/#formats-python")
+print(f"Please grab `index-url` from: https://app.cloudsmith.io/WORKSPACE/REPOSITORY/setup/#formats-python")
 url = input("Paste in your `index-url`: ")
 reqs = requests.get(url)
 soup = BeautifulSoup(reqs.text, 'html.parser')
