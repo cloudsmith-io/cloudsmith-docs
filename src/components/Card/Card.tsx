@@ -23,7 +23,8 @@ const card = cva(styles.root, {
     },
   },
   defaultVariants: {
-    type: 'simple',
+    size: 's',
+    width: 'third',
   },
 });
 

@@ -30,21 +30,27 @@
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
           "href": "/getting-started/key-concepts/",
           "linkText": "Read the doc",
-          "icon": "homepage/documentation"
+          "icon": "homepage/documentation",
+          "size": "s",
+          "type": "default"
         },
         {
           "title": "Supported Formats",
           "description": "Cloudsmith is a single solution for all of your software assets.",
           "href": "/formats/",
           "linkText": "Go to formats",
-          "icon": "homepage/guide"
+          "icon": "homepage/guide",
+          "size": "s",
+          "type": "default"
         },
         {
           "title": "Quickstart guide",
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
           "href": "/guides/cloudsmith-quickstart-guide/",
           "linkText": "Go to guide",
-          "icon": "homepage/api"
+          "icon": "homepage/api",
+          "size": "small",
+          "type": "s"
         }
       ]
     },
