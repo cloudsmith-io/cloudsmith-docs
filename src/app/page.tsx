@@ -22,6 +22,9 @@ export default function Page() {
                   href={card.href}
                   linkText={card.linkText}
                   icon={card.icon}
+                  size={card.size}
+                  width={card.width}
+                  type={card.type}
                 />
               ))}
             </Flex>

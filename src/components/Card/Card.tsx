@@ -19,12 +19,9 @@ const card = cva(styles.root, {
       full: styles.widthFull,
     },
     type: {
+      default: '',
       simple: styles.typeSimple,
     },
-  },
-  defaultVariants: {
-    size: 's',
-    width: 'third',
   },
 });
 
