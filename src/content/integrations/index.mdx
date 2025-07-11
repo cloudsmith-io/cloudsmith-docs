@@ -1,63 +1,16 @@
-# Integrations
+import { GuideLink, Note, BlockImage } from '@/components';
+import { Icon, IconName } from '@/icons';
+import { iconRegistry } from '../../icons/icon-registry';
+import IntegrationsGroupSnippet from '@/snippets/integrationsGroupSnippet.mdx';
 
-import { Note } from '@/components';
+# Integrations
 
 At Cloudsmith, our goal is to make it as easy as possible to get your packages into our system from where you can manage and distribute them according to your need.
 
-
-Cloudsmith comes with an awesome [CLI](/getting-started/cli) (Command Line Interface) tool, a discoverable first-class [API](https://api.cloudsmith.io), and [bindings](getting-started/api-bindings) allowing you to publish and download your packages and containers using practically any leading DevOps tool/service.
+Cloudsmith comes with an awesome [CLI](/developer-tools/cli) (Command Line Interface) tool, a discoverable first-class [API](https://api.cloudsmith.io), and [bindings](getting-started/api-bindings) allowing you to publish and download your packages and containers using practically any leading DevOps tool/service.
 
 <Note variant="note" headline="Service Accounts">
 For CI/CD, we would usually recommend that you create a Service Account in your organization. See [Service Accounts](/accounts-and-teams/service-accounts) for more details.
 </Note>
 
-## Canonical Upstreams
-
-- [Chainguard Images](/integrations/integrating-with-chainguard-images)
-- [Docker Hub](/integrations/integrating-with-docker-hub)
-
-## CI / CD
-
-- [AWS CodeBuild](/integrations/integrating-with-aws-codebuild)
-- [Azure DevOps](/integrations/integrating-with-azure-devops)
-- [Bitbucket Pipelines](/integrations/integrating-with-bitbucket-pipelines)
-- [Buildkite](/integrations/integrating-with-buildkite)
-- [CircleCI](/integrations/integrating-with-circleci)
-- [Drone CI](/integrations/integrating-with-drone-ci)
-- [GitHub Actions](/integrations/integrating-with-github-actions)
-- [GitLab CI/CD](/integrations/integrating-with-gitlab-cicd)
-- [Harness CD](/integrations/integrating-with-harness)
-- [Jenkins](/integrations/integrating-with-jenkins)
-- [Renovate CLI](/integrations/integrating-with-renovate) 
-- [Semaphore CI](/integrations/integrating-with-semaphore-ci) 
-- [Travis-CI](/integrations/integrating-with-travis-ci)
-- [TeamCity](/integrations/integrating-with-teamcity)
-- [Octopus Deploy](/integrations/integrating-with-octopus-deploy) 
-
-## Continuous Configuration Automation (CCA)
-
-- [Ansible](/integrations/integrating-with-ansible) 
-- [Chef](/integrations/integrating-with-chef)
-- [Puppet](/integrations/integrating-with-puppet) 
-- [Terraform](/integrations/integrating-with-terraform)
-
-## Notification
-
-- [Microsoft Teams](/integrations/integrating-with-microsoft-teams)
-- [Slack](/integrations/integrating-with-slack)
-
-## Observability
-
-- [Datadog](/integrations/integrating-with-datadog) 
-
-## Security
-
-- [Aikido](/integrations/integrating-with-aikido)
-
-## Connector
-
-- [Zapier](/integrations/integrating-with-zapier)
-
-## Service Catalog
-
-- [Roadie](/integrations/integrating-with-roadie)
+<IntegrationsGroupSnippet />

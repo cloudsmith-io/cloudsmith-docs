@@ -38,7 +38,7 @@ Select SAML 2.0 and click next:
 <BlockImage src={img6476b61_okta_create_app_integration_modal} alt=""></BlockImage>
 
 ### Step 3
-On the next screen (General Settings), enter the App name as "Cloudsmith". (You can optionally add the Cloudsmith logo too for easier visibility, you can find hi-res versions of the logo [here](https://cloudsmith.io/branding/)):
+On the next screen (General Settings), enter the App name as "Cloudsmith". (You can optionally add the Cloudsmith logo too for easier visibility, you can find hi-res versions of the logo [here](https://cloudsmith.com/company/brand)):
 
 <BlockImage src={img48b6395_okta_create_app_integration_step1} alt=""></BlockImage>
 
@@ -46,10 +46,10 @@ On the next screen (General Settings), enter the App name as "Cloudsmith". (You 
 Next, we'll configure SAML settings. To determine your **Single sign on URL** use the following format:
 
 ```
-https://cloudsmith.io/orgs/{ACCOUNT}/saml/acs/
+https://app.cloudsmith.com/WORKSPACE/saml/acs/
 ```
 
-Where `{ACCOUNT}` is your Cloudsmith organization identifier (slug).
+Where `WORKSPACE` is your Cloudsmith organization identifier (slug).
 
 We use the same URL for the **Audience URI** value.
 
@@ -84,19 +84,19 @@ In the **Sign On** tab of your application management screen, you can see a link
 <BlockImage src={img636281f_okta_saml_metadata} alt=""></BlockImage>
 
 
-Copy this metadata and add it to your Cloudsmith organization [SAML settings](/getting-started/workspaces#saml-authentication) as Inline XML.
+Copy this metadata and add it to your Cloudsmith organization [SAML settings](/authentication/saml) as Inline XML.
 
 You can then [enable SAML authentication](/authentication/single-sign-on#enable-saml) in your Cloudsmith organization, and you can use Okta to begin logging in straight away.
 
 You'll be able to access the landing page of your organization at the following URL:
 
 ```
-https://cloudsmith.io/orgs/{ACCOUNT}/saml/login/
+https://app.cloudsmith.com/WORKSPACE/saml/login/
 ```
 
-Where `{ACCOUNT}` is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith). If you're unsure what this is, please just [contact us](/contact-us)!
+Where `WORKSPACE` is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith). If you're unsure what this is, please just [contact us](https://cloudsmith.com/company/contact-us)!
 
-You can also optionally set up [SAML Group Sync mappings](ref:orgs_saml-group-sync_create) to automatically map OKTA groups to teams in your Cloudsmith organization, and SCIM to provision, deprovision and update user profile information.
+You can also optionally set up [SAML Group Sync mappings](/authentication/saml) to automatically map OKTA groups to teams in your Cloudsmith organization, and SCIM to provision, deprovision and update user profile information.
 
 ## SAML Group Sync
 

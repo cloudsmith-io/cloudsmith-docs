@@ -10,7 +10,7 @@ import dataDogCSDashboardImage from './images/datadog/DatadogDashboard.png';
 
 [Datadog](<https://www.datadoghq.com/>) is an observability service for cloud-scale apps, providing monitoring of servers, databases, tools, and services through a SaaS-based data analytics platform. At Cloudsmith, we're big fans of Datadog and use it to monitor and visualize how our system is performing across a range of services and tools.
 
-The Datadog Cloudsmith Integration is a simple and effective visualization tool for your workspace artifact usage, package delivery, audit logs, and all of the security and compliance details of your assets. This integration also helps you monitor [consumption and usage](https://cloudsmith.com/resources/blog/track-your-bandwidth-storage-limits-with-our-quota-api) within Cloudsmith, along with all of the audit logs and security scanning information we provide to help you spot if any suspicious activity is going on in your workspace.
+The Datadog Cloudsmith Integration is a simple and effective visualization tool for your workspace artifact usage, package delivery, audit logs, and all of the security and compliance details of your assets. This integration also helps you monitor [consumption and usage](https://cloudsmith.com/blog/track-your-bandwidth-storage-limits-with-our-quota-api) within Cloudsmith, along with all of the audit logs and security scanning information we provide to help you spot if any suspicious activity is going on in your workspace.
 
 ## Metrics available
 
@@ -114,7 +114,7 @@ Once installed, configure your integration similar to core integrations. There a
 | :----------------- | :----------------------------------------------------------------------------------------- |
 | `url`                | The Cloudsmith API URL (https://api.cloudsmith.io/v1) |
 | `cloudsmith_api_key` | Your Cloudsmith API key                                                                    |
-| `organization`       | The Cloudsmith [Workspace](/getting-started/workspaces) (Organization) that you are monitoring     |
+| `organization`       | The Cloudsmith [Workspace](/workspaces) (Workspace) that you are monitoring     |
 | `min_collection_interval`    | Collection interval of the check. **We recommend to set it's value to 180**. |
 
 Follow these steps to configure your Cloudsmith Datadog Integration:
@@ -157,6 +157,6 @@ Once completed, you can created a custom Dashboard or just use the default dashb
 
 ## To sum it up
 
-The Datadog Cloudsmith Integration is a simple and effective visualization tool for monitoring your token, artifact data, package delivery, audit logs, and vulnerability scanning. Manage and forecast your monthly usage. If you identify a limit that's approaching a threshold, then you can quickly and easily adjust your [limits](/getting-started/workspaces#usage-limits) at any time within the Cloudsmith UI.
+The Datadog Cloudsmith Integration is a simple and effective visualization tool for monitoring your token, artifact data, package delivery, audit logs, and vulnerability scanning. Manage and forecast your monthly usage. If you identify a limit that's approaching a threshold, then you can quickly and easily adjust your [limits](/workspaces/workspace-settings#usage-limits) at any time within the Cloudsmith UI.
 
 If you already use Datadog to monitor your tools and services, this tool is for you.

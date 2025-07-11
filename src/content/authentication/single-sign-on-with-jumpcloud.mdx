@@ -45,12 +45,12 @@ Next, you'll need to choose an **IdP entity ID**, which is just a unique string 
 <BlockImage src={img4b4ae82_f5U5xlF} alt=""></BlockImage>
 
 ### Step 5
-For the next step, you'll need to generate a public and private key used to sign and secure communication between JumpCloud and Cloudsmith (if you don't already have them). JumpCloud have [their own docs](https://support.jumpcloud.com/customer/en/portal/articles/2775691-saml-configuration-notes#certs) on exactly how to generate these keys depending on your operating system. Once generated, upload the private and public keys using the next two fields in the form:
+For the next step, you'll need to generate a public and private key used to sign and secure communication between JumpCloud and Cloudsmith (if you don't already have them). JumpCloud have [their own docs](https://jumpcloud.com/support/saml-configuration-notes) on exactly how to generate these keys depending on your operating system. Once generated, upload the private and public keys using the next two fields in the form:
 
 <BlockImage src={img010954d_HngkhoO} alt=""></BlockImage>
 
 ### Step 6
-Next, we'll fill in **SP Entity ID** and **ACS URL** with the same value. To determine the value we use the following format: `https://cloudsmith.io/orgs/MY_ORG_NAME/saml/acs/`, where "MY_ORG_NAME" is replaced with your organization's slug e.g. for the `cloudsmith` org we use `https://cloudsmith.io/orgs/cloudsmith/saml/acs/`:
+Next, we'll fill in **SP Entity ID** and **ACS URL** with the same value. To determine the value we use the following format: `https://app.cloudsmith.com/WORKSPACE/saml/acs/`, where "WORKSPACE" is replaced with your organization's slug e.g. for the `cloudsmith` org we use `https://app.cloudsmith.com/cloudsmith/saml/acs/`:
 
 <BlockImage src={img8e49768_hAcXDjT} alt=""></BlockImage>
 
@@ -107,6 +107,6 @@ The Cloudsmith application should now appear on the JumpCloud portal as normal:
 
 You can then enable SAML in your Cloudsmith [SAML settings](/authentication/single-sign-on#enable-saml). 
 
-You'll be able to access the landing page of your organization at the following URL:  https://cloudsmith.io/orgs/ORG/saml/login/
+You'll be able to access the landing page of your organization at the following URL:  https://app.cloudsmith.com/WORKSPACE/saml/login/
 
-Where _ORG_ is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).
+Where _WORKSPACE_ is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).

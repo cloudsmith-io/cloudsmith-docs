@@ -67,7 +67,7 @@ Next, we'll configure SAML settings. Click the pencil symbol beside **Basic SAML
 
 
 ### Step 7
-To determine your **Identifier** and **Reply URL** (we use the same value for both) we use the following format: "https://cloudsmith.io/orgs/MY_ORG_NAME/saml/acs/", where "MY_ORG_NAME" is replaced with your organization's slug.
+To determine your **Identifier** and **Reply URL** (we use the same value for both) we use the following format: "https://app.cloudsmith.com/WORKSPACE/authentication/saml/acs/", where "WORKSPACE" is replaced with your workspace's slug.
 
 <BlockImage src={img482a011_cloudsmith_azure_ad_6} alt=""></BlockImage>
 
@@ -179,11 +179,11 @@ Once the page loads, select "Provisioning" again, and select "Provisioning Mode"
 
 <BlockImage src={img4995811_Screenshot_2023_03_28_at_16_44_01} alt=""></BlockImage>
 
-In Cloudsmith navigate to the following link: `https://cloudsmith.io/orgs/<you_org_name>/settings/scim/`
+In Cloudsmith navigate to the following link: `https://app.cloudsmith.com/<WORKSPACE>/settings/authentication/scim/`
 
 Enable SCIM if it's not enabled and copy your SCIM Authentication token.
 
-Go back to Azure AD and set the Tenatn URL to: `https://api.cloudsmith.io/scim/v2` and the "Secret token" to the copied token from Cloudsmith, click "Save" and "Test connection"
+Go back to Azure AD and set the Tenant URL to: `https://app.cloudsmith.com/scim/v2` and the "Secret token" to the copied token from Cloudsmith, click "Save" and "Test connection"
 
 Now under the same "Provisioning tab", select "Mappings" dropdown and select "Provision Azure Active Directory Users"
 
@@ -199,6 +199,6 @@ Azure AD should now have the necessary information to de-provision users from Cl
 
 Once you've added the link to your App Federation Metadata, and enabled SAML in your Cloudsmith organization settings, you will be able to access the landing page of your organization at the following URL:
 
-https://cloudsmith.io/orgs/ORG/saml/login/
+`https://app.cloudsmith.com/WORKSPACE/saml/login/`
 
-Where _ORG_ is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).
+Where `WORKSPACE` is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).

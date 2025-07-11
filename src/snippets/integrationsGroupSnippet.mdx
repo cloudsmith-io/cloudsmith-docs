@@ -1,0 +1,156 @@
+import { GuideLink, BlockImage } from '@/components';
+import { Icon, IconName } from '@/icons';
+import { iconRegistry } from '../icons/icon-registry';
+import styles from '../app/(documentation)/design-system/page.module.css';
+
+
+Cloudsmith supports the following integrations:
+
+## Canonical Upstreams
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/chainguard'} as="svg" title="Chainguard Images" width={24} height={24} />
+        <a href="/integrations/integrating-with-chainguard-images"><span>Chainguard Images</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/docker'} as="svg" title="Docker Hub" width={24} height={24} />
+        <a href="/integrations/integrating-with-docker-hub"><span>Docker Hub</span></a>
+    </div>
+</div>
+
+
+## CI / CD
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/awscodebuild'} as="svg" title="AWS CodeBuild" width={24} height={24} />
+        <a href="/integrations/integrating-with-aws-codebuild"><span>AWS CodeBuild</span></a>
+     </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/azuredevops'} as="svg" title="Azure DevOps" width={24} height={24} />
+        <a href="/integrations/integrating-with-azure-devops"><span>Azure DevOps</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/bitbucketpipelines'} as="svg" title="Bitbucket" width={24} height={24} />
+        <a href="/integrations/integrating-with-bitbucket-pipelines"><span>Bitbucket</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/buildkite'} as="svg" title="Buildkite" width={24} height={24} />
+        <a href="/integrations/integrating-with-buildkite"><span>Buildkite</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/circleci'} as="svg" title="Circle CI" width={24} height={24} />
+        <a href="/integrations/integrating-with-circleci"><span>Circle CI</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/droneci'} as="svg" title="Drone CI" width={24} height={24} />
+        <a href="/integrations/integrating-with-drone-ci"><span>Drone CI</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/githubactions'} as="svg" title="GitHub Actions" width={24} height={24} />
+        <a href="/integrations/integrating-with-github-actions"><span>GitHub Actions</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/gitlabci'} as="svg" title="GitLab CI/CD" width={24} height={24} />
+        <a href="/integrations/integrating-with-gitlab-cicd"><span>GitLab CI/CD</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/harnesscd'} as="svg" title="Harness" width={24} height={24} />
+        <a href="/integrations/integrating-with-harnescd"><span>Harness</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/jenkins'} as="svg" title="Jenkins" width={24} height={24} />
+        <a href="/integrations/integrating-with-jenkins"><span>Jenkins</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/renovatecli'} as="svg" title="Renovate CLI" width={24} height={24} />
+        <a href="/integrations/integrating-with-renovate"><span>Renovate CLI</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/semaphoreci'} as="svg" title="Semaphore CI" width={24} height={24} />
+        <a href="/integrations/integrating-with-semaphore-ci"><span>Semaphore CI</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/travis'} as="svg" title="Travis CI" width={24} height={24} />
+        <a href="/integrations/integrating-with-travis-ci"><span>Travis CI</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/teamcity'} as="svg" title="TeamCity" width={24} height={24} />
+        <a href="/integrations/integrating-with-teamcity"><span>TeamCity</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+            <Icon name={'integration/octopusdeploy'} as="svg" title="Octopus Deploy" width={24} height={24} />
+        <a href="/integrations/integrating-with-octopus-deploy"><span>Octopus Deploy</span></a>
+    </div>
+</div>
+
+## Continuous Configuration Automation (CCA)
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/ansible'} as="svg" title="Ansible" width={24} height={24} />
+        <a href="/integrations/integrating-with-ansible"><span>Ansible</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/chef'} as="svg" title="Chef" width={24} height={24} />
+        <a href="/integrations/integrating-with-chef"><span>Chef</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/puppet'} as="svg" title="Puppet" width={24} height={24} />
+        <a href="/integrations/integrating-with-puppet"><span>Puppet</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/terraform'} as="svg" title="Terraform" width={24} height={24} />
+        <a href="/integrations/integrating-terraform"><span>Terraform</span></a>
+    </div>
+</div>
+
+## Notification
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/microsoftteams'} as="svg" title="Microsoft Teams" width={24} height={24} />
+        <a href="/integrations/integrating-with-microsoft-teams"><span>Microsoft Teams</span></a>
+    </div>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/slack'} as="svg" title="Slack" width={24} height={24} />
+        <a href="/integrations/integrating-with-slack"><span>Slack</span></a>
+    </div>
+</div>
+
+## Observability
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/datadog'} as="svg" title="Datadog" width={24} height={24} />
+        <a href="/integrations/integrating-with-datadog"><span>Datadog</span></a>
+    </div>
+</div> 
+
+## Security
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/aikido'} as="svg" title="Aikido" width={24} height={24} />
+        <a href="/integrations/integrating-with-aikido"><span>Aikido</span></a>
+    </div>
+</div> 
+
+## Connector
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/zapier'} as="svg" title="Zapier" width={24} height={24} />
+        <a href="/integrations/integrating-with-zapier"><span>Zapier</span></a>
+    </div>
+</div>
+
+## Service Catalog
+
+<div className={styles.iconGrid}>
+    <div className={styles.iconWrapper}>
+        <Icon name={'integration/roadie'} as="svg" title="Roadie" width={24} height={24} />
+        <a href="/integrations/integrating-with-roadie"><span>Roadie</span></a>
+    </div>
+</div> 

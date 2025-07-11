@@ -11,7 +11,7 @@ These instructions are generic examples. Cloudsmith provides contextual setup de
 
 ## API Key Configuration
 
-If you haven't already done so you'll need to expose your Cloudsmith [API Key](https://cloudsmith.io/user/settings/api/) within Jenkins. We recommend using the [credentials plugin](https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin) then injecting the `CLOUDSMITH_API_KEY` environment variable into your build jobs.
+If you haven't already done so you'll need to expose your Cloudsmith [API Key](https://app.cloudsmith.com/settings/api-keys) within Jenkins. We recommend using the [credentials plugin](https://plugins.jenkins.io/credentials/) then injecting the `CLOUDSMITH_API_KEY` environment variable into your build jobs.
 
 ## Examples
 
@@ -44,5 +44,5 @@ sh('cloudsmith push FORMAT OWNER/REPOSITORY PACKAGE_FILE')
 ```
 
 <Note variant="note">
-The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb`. Please see the [Cloudsmith CLI](/getting-started/cli) for full details of the push command for other formats and additional help.
+The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb`. Please see the [Cloudsmith CLI](/developer-tools/cli) for full details of the push command for other formats and additional help.
 </Note>

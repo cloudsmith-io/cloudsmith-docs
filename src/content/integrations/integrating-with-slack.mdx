@@ -26,13 +26,13 @@ _After creating your app you can view its settings at https://api.slack.com/apps
 
 ## Create Webhook on Cloudsmith
 
-1. Open your repository in [Cloudsmith](https://cloudsmith.io) and browse to the 'Webhooks' page using the menu on the left
+1. Open your repository in [Cloudsmith](https://app.cloudsmith.com) and browse to the 'Webhooks' page using the menu on the left
 2. Choose to 'Create Webhook'
 3. Add the webhook URL from above to the box labelled 'Target Endpoint URL'
 4. Choose 'Handlebars Template' as the 'Payload Format'
-5. Select 'Package Synchronised' from the row of events 
+5. Select 'Package Synchronized' from the row of events 
 6. Add your handlebars code; the template below produced the message shown above
-7. Under 'Webhook Event Subscriptions' select  'Send Specific Events (choose)' then check 'Package Synchronised'
+7. Under 'Webhook Event Subscriptions' select  'Send Specific Events (choose)' then check 'Package Synchronized'
 8. 'Create Webhook'
 
 <Note variant="note" headline="Payload Format">
@@ -75,7 +75,7 @@ Although Slack consumes JSON, the format of a Cloudsmith webhook payload differs
 Upload a package and enjoy the awesome automated Slack posts!
 
 <Note variant="note" headline="Webhook Event Types">
-For more information about the events triggered by the package synchronization process please see [here](/logs-and-observability/webhooks#webhook-event-types)
+For more information about the events triggered by the package synchronization process please see [here](/developer-tools/webhooks#webhook-event-types)
 </Note>
 
 ## References
