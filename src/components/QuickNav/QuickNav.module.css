@@ -1,7 +1,6 @@
 .root {
   position: sticky;
   top: calc(var(--space-l) + var(--navbar-height));
-  padding-block: var(--space-xs);
 }
 
 .root::before {

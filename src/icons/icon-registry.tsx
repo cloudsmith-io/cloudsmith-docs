@@ -50,6 +50,10 @@ import { FormatTerraformIcon } from './svgs/format/Terraform';
 import { FormatUnityIcon } from './svgs/format/Unity';
 import { FormatVagrantIcon } from './svgs/format/Vagrant';
 
+import { HomepageDocumentationIcon } from './svgs/homepage/Documentation';
+import { HomepageGuideIcon } from './svgs/homepage/Guide';
+import { HomepageAPIIcon } from './svgs/homepage/API';
+
 export const iconRegistry = createIconRegistry({
   menu: MenuIcon,
   chevron: ChevronIcon,
@@ -116,4 +120,7 @@ export const iconRegistry = createIconRegistry({
   'format/terraform': FormatTerraformIcon,
   'format/unity': FormatUnityIcon,
   'format/vagrant': FormatVagrantIcon,
+  'homepage/documentation': HomepageDocumentationIcon,
+  'homepage/guide': HomepageGuideIcon,
+  'homepage/api': HomepageAPIIcon,
 });

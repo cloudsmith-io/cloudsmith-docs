@@ -3,6 +3,7 @@ import { type IconName } from '@/icons';
 import { Container } from '../Container';
 import { Flex } from '../Flex';
 import styles from './HomepageHero.module.css';
+import { cx } from 'class-variance-authority';
 
 interface ButtonProps {
   label: string;
@@ -86,7 +87,7 @@ export function HomepageHero({
           ) : (
             <h2 className={styles.title}>{title}</h2>
           )}
-          <p className={styles.description}>{description}</p>
+          <p className={cx(styles.description, 'headlineS')}>{description}</p>
           {buttons.length > 0 && (
             <div className={styles.buttonContainer}>
               {buttons.map((button) => (
@@ -94,7 +95,7 @@ export function HomepageHero({
                   key={button.label}
                   href={button.href}
                   icon={button.icon}
-                  size="small"
+                  size="medium"
                   width="full"
                   className={styles.button}>
                   {button.label}

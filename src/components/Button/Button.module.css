@@ -2,7 +2,7 @@
   --notch-size: 5px;
 
   display: inline-flex;
-  padding: 1em 1.25em 0.85em;
+  padding: var(--space-xs) var(--space-s);
   border: 0;
   font-family: var(--font-family-headline);
   font-size: var(--text-body-m);
@@ -157,6 +157,7 @@
 .icon {
   width: 16px;
   height: 16px;
+  opacity: 0.75;
 }
 
 .root:hover .secondaryBorderFill {

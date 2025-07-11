@@ -85,7 +85,7 @@
   z-index: var(--layer-hero);
   width: 100%;
   max-width: var(--container-width-s);
-  padding: var(--offset-top) var(--container-margin-home) var(--space-2xl);
+  padding: var(--offset-top) var(--space-m);
   font-family: var(--font-family-body);
 }
 
@@ -106,6 +106,7 @@
 .description {
   max-width: var(--container-width-xs);
   margin-bottom: var(--space-s);
+  color: var(--brand-color-grey-8);
 }
 
 .buttonContainer {

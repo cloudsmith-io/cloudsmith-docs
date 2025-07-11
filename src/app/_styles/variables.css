@@ -144,8 +144,8 @@
     --color-background-header: var(--brand-color-grey-0);
 
     /* Text */
-    --color-text-primary: var(--base-color-grey-900);
-    --color-text-secondary: var(--brand-color-grey-7);
+    --color-text-primary: var(--brand-color-grey-10);
+    --color-text-secondary: var(--brand-color-grey-8);
     --color-text-link: var(--base-color-blue-500);
     --color-text-on-color: var(--base-color-white);
     --color-text-label: var(--base-color-grey-500);
@@ -157,7 +157,7 @@
     --color-text-code: var(--base-color-blue-600);
 
     /* Border */
-    --color-border: var(--brand-color-grey-2);
+    --color-border: var(--brand-color-grey-3);
     --color-border-tabs: var(--base-color-blue-500);
 
     /* Accent */
@@ -304,7 +304,7 @@
     }
 
     @media (--desktop-up) {
-      --sidebar-width: 260px;
+      --sidebar-width: 272px;
     }
   }
 }
