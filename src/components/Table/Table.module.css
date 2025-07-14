@@ -33,8 +33,7 @@
   font-family: var(--font-family-mono);
   font-size: var(--text-body-2xs);
   letter-spacing: var(--letter-spacing-positive-6xl);
-  color: var(--color-text-primary);
-  opacity: 0.6;
+  color: var(--brand-color-grey-7);
   text-transform: uppercase;
 }
 

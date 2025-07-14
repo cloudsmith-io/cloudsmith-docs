@@ -1,6 +1,9 @@
 .iconGrid {
+  --card-min-height: 116px;
+  --card-min-width: 166px;
+
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
   gap: var(--space-m);
   margin: var(--space-m) 0;
 }
@@ -8,14 +11,56 @@
 .iconWrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: var(--space-m);
+  justify-content: space-between;
+  min-height: var(--card-min-height, 10em);
+  padding: var(--space-s) var(--space-m);
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-m);
+  border-radius: var(--border-radius-s);
+  background: var(--brand-color-white);
+  text-decoration: none;
+  color: var(--color-text-primary);
 }
 
-.iconName {
-  margin-top: var(--space-xs);
-  font-size: var(--text-body-xs);
-  text-align: center;
+.iconWrapper:hover {
+  border-color: var(--color-accent-default);
+  background: var(--color-accent-default);
+}
+
+.iconWrapper:hover header span,
+.iconWrapper:hover .logo,
+.iconWrapper:hover .arrowIcon {
+  color: var(--brand-color-white);
+}
+
+.iconWrapper footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-top: var(--space-m);
+}
+
+.iconWrapper header span {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.logo {
+  --logo-max-width: 30px;
+  --logo-max-height: 14px;
+
+  color: var(--brand-color-grey-7);
+}
+
+.arrowIcon {
+  margin-right: 0;
+  margin-left: auto;
+  color: var(--brand-color-white);
+  font-size: 1.3em;
+}
+
+@media (--medium) {
+  .logo {
+    --logo-max-width: 40px;
+    --logo-max-height: 20px;
+  }
 }
