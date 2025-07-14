@@ -1,14 +1,15 @@
 /* TODO: Replace with real styles */
 .root {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-l);
   display: flex;
+  gap: var(--space-3xl);
 }
 
 .content {
   flex: 1;
-
   /* Make sure that pre tags don't expand the tags */
   min-width: 0;
+  margin-top: var(--space-xs);
 }
 
 .nav {
@@ -18,7 +19,7 @@
 @media (--desktop-up) {
   .nav {
     display: block;
-    padding: var(--space-m);
+    padding-bottom: var(--space-2xs);
     flex: 0 0 var(--sidebar-width);
   }
 }

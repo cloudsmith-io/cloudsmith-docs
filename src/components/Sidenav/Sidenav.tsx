@@ -2,7 +2,7 @@
 
 import { useNavigation } from '@/app/navigation';
 import { Icon } from '@/icons';
-import { ChevronIcon } from '@/icons/Chevron';
+import { ChevronSmallIcon } from '@/icons/ChevronSmall';
 import { MenuItem } from '@/lib/menu/types';
 import { cx } from 'class-variance-authority';
 import { Transition, Variants } from 'motion/react';
@@ -35,8 +35,13 @@ export const Sidenav = ({ items }: SidenavProps) => {
   return (
     <>
       <button type="button" className={styles.toggleButton} onClick={toggle}>
-        <span className={styles.toggleButtonText}>{activeLabel}</span>
-        <Icon name="chevronDown" as="svg" title="" className={styles.toggleIconDown} />
+        <span className={cx(styles.toggleButtonText, 'monoMUppercase')}>{activeLabel}</span>
+        <Icon
+          name="chevronDown"
+          as="svg"
+          title=""
+          className={cx(styles.toggleIconDown, { [styles.toggleIconDownOpen]: isOpen })}
+        />
       </button>
 
       <motion.div
@@ -91,7 +96,20 @@ const Item = ({ item }: ItemProps) => {
           className={cx(styles.link, { [styles.linkActive]: isCurrentPageActive })}
           href={item.path}
           onClick={toggleExpand}>
-          <span className={styles.linkTitle}>{item.title}</span>
+          {item.children ? (
+            <ChevronSmallIcon
+              chevronDirection={isExpanded ? 'down' : 'right'}
+              as="svg"
+              size="small"
+              title={isExpanded ? 'Expand icon' : 'Collapse icon'}
+              className={styles.linkIcon}
+              transition={openCloseTransition}
+            />
+          ) : (
+            <div className={styles.emptyIcon} />
+          )}
+
+          <div className={cx(styles.linkTitle, 'bodyS')}>{item.title}</div>
 
           {item.method ? (
             <Tag
@@ -103,19 +121,9 @@ const Item = ({ item }: ItemProps) => {
               {item.method}
             </Tag>
           ) : null}
-
-          {item.children ? (
-            <ChevronIcon
-              chevronDirection={isExpanded ? 'down' : 'right'}
-              as="svg"
-              title={isExpanded ? 'Expand icon' : 'Collapse icon'}
-              className={styles.linkIcon}
-              transition={openCloseTransition}
-            />
-          ) : null}
         </Link>
       ) : (
-        <span className={styles.section}>{item.title}</span>
+        <span className={cx(styles.section, 'monoXSUppercase')}>{item.title}</span>
       )}
 
       {item.children ? <List items={item.children} isExpanded={isExpanded} /> : null}

@@ -155,5 +155,34 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
     }
   }
 
-  return items;
+  /**
+   * Recursively flatten any menu chains that only contain a single child.
+   * This is used to simplify the menu structure and make it more readable.
+   */
+  const flattenMenuItems = (menuItems: MenuItem[]): MenuItem[] => {
+    return menuItems.map((item) => {
+      const children = item.children ? flattenMenuItems(item.children) : undefined;
+
+      let flattenedItem: MenuItem = { ...item, children };
+
+      while (flattenedItem.children && flattenedItem.children.length === 1) {
+        const [onlyChild] = flattenedItem.children;
+
+        flattenedItem = {
+          title: `${flattenedItem.title} ${onlyChild.title}`.trim(),
+          path: onlyChild.path ?? flattenedItem.path,
+          method: onlyChild.method ?? flattenedItem.method,
+          children: onlyChild.children,
+        };
+
+        if (flattenedItem.children) {
+          flattenedItem.children = flattenMenuItems(flattenedItem.children);
+        }
+      }
+
+      return flattenedItem;
+    });
+  };
+
+  return flattenMenuItems(items);
 };

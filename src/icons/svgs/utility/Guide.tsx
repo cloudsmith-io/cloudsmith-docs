@@ -2,25 +2,20 @@ import { createIcon, SpecificIconProps } from '../../util/create-icon';
 
 export const UtilityGuideIcon = createIcon<SpecificIconProps>(
   'utility/guide',
-  ({ width = 44, height = 44, ...props }) => ({
+  ({ width = 16, height = 16, ...props }) => ({
     ...props,
     width,
     height,
-    viewBox: '0 0 44 44',
+    viewBox: '0 0 16 16',
     fill: 'none',
     children: (
       <>
         <path
-          d="M2.65234 9.75224L4.92223 12.0221L28.8293 12.0221L33.6914 7.15922V5.8629L28.8293 1L4.92223 1L2.65234 3.26989L2.65234 9.75224Z"
-          stroke="currentColor"
-          strokeWidth="1.86255"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M3.75631 2.44446H11.5432L13.3354 4.13702V4.95096L11.5432 6.64352H8.42651V7.93582L12.0435 7.93582L13.0364 8.92871V11.142L12.0435 12.1349H8.42651V14.8832H7.42651V12.1349H4.25663L2.46436 10.4423V9.62838L4.25663 7.93582L7.42651 7.93582V6.64352H3.75631L2.76342 5.65063V3.43735L3.75631 2.44446ZM4.17053 3.44446L3.76342 3.85157V5.23642L4.17053 5.64352H11.1289L12.3282 4.54399L11.1289 3.44446L4.17053 3.44446ZM11.6293 8.93582L12.0364 9.24292V10.7278L11.6293 11.1349H4.67089L3.47155 10.0353L4.67089 8.93582L11.6293 8.93582Z"
+          fill="currentColor"
         />
-        <path
-          d="M32.0391 24.521L29.7692 26.7909H5.86208L0.999962 21.928V20.6317L5.86208 15.7688L29.7692 15.7688L32.0391 18.0387V24.521Z"
-          stroke="currentColor"
-          strokeWidth="1.86255"
-        />
-        <path d="M17.0908 37V26.7896M17.0908 15.7686V12.019" stroke="currentColor" strokeWidth="1.86255" />
       </>
     ),
   }),
