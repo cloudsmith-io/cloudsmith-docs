@@ -4,7 +4,10 @@ import overview from './images/overview.png';
 
 # Workspace Overview
 
-The "demo-docs" workspace overview provides a summary of package **usage** and **delivery**, with all the information required to understand and control all your repositories activity. It is organized into several key sections:
+The workspace overview page provides a summary of your package **usage** and **delivery**, with all the information and controls required to understand and manage all your repositories activity. It is organized into several key sections:
+- **Header Navigation**: access your Workspace Overview, Repositories, Packages, Accounts, Teams, Policies, and Settings. It also includes access to Logs, Usage and Security.
+- **Workspace Analytics Overview**: provides a high level view of usage and delivery analytics.
+- **Recent activity**: stay on top of the latest activities within your workspace.
 
 <BlockImage src={overview} alt=""></BlockImage>
 
@@ -13,27 +16,25 @@ The "demo-docs" workspace overview provides a summary of package **usage** and *
 A primary navigation bar at the top allows you to switch between different sections of the workspace:
 
 - **Overview**: The current view, summarizing all activity.
-- **Repositories**: View and manage all your repositories.
-- **Packages**: Browse and manage all packages within your workspace. Use the search engine to narrow the view to your desired packages.
-- **Accounts**: Manage user and service accounts and permissions.
-- **Teams**: Organize users into teams.
-- **Policies**: Define and manage EPM policies for your workspace.
-- **Settings**: Configure workspace settings.
+- **Repositories**: View and manage all your [repositories](/repositories).
+- **Packages**: Browse and [manage all packages](/artifact-management/) within your workspace. Use the [search engine](/artifact-management/search-filter-sort-packages) to narrow the view to your desired packages.
+- **Accounts**: Manage [user and service accounts](/accounts-and-teams/) and [permissions](/workspaces/privileges).
+- **Teams**: Organize users into [teams](/accounts-and-teams/teams).
+- **Policies**: Define and manage [EPM policies](/supply-chain-security/epm) for your workspace.
+- **Settings**: Configure your [Workspace Settings](./workspace-settings).
 
 Secondary navigation includes:
-- **Logs**: View client and audit logs for your workspace.
-- **Usage**: access analytics and understand in more detail your package usage and delivery.
-- **Compliance**: Get an overview of security findings and license violations.
+- **Logs**: View [client and audit logs](/logs-and-observability) for your workspace.
+- **Usage**: access [analytics](/logs-and-observability/client-statistics) and understand in more detail your package usage and delivery.
+- **Security**: Get an overview of [security findings](/supply-chain-security) and [license violations](/supply-chain-security/license-compliance).
 
-### Workspace highlights
+### Workspace Analytics overview
 
 Under the top bar, 4 cards summarize information about:
 - **Quarantined Packages**: The total number of packages that have been quarantined due to policy violations.
 - **Vulnerable Packages**: The total count of packages with known vulnerabilities.
 - **Vulnerability Policy Violations**: The number of instances where packages do not comply with Workspace vulnerability policies.
 - **License Policy Violations**: The number of packages that violate Workspace license policies.
-
-### Workspace Analytics overview
 
 The **Workspace** card provides a snapshot of the entities in the workspace:
 - **Repositories**
@@ -49,8 +50,7 @@ This section also displays a graph visualizing the accumulated package delivery 
 
 To get a detailed view of package usage and delivery, browse to the Workspace Usage section.
 
-
-### Recent Activity Lists
+### Recent Activity
 
 Two lists at the bottom of the page highlight the latest activities:
 
