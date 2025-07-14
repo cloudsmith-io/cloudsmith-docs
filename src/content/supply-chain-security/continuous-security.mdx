@@ -1,0 +1,35 @@
+
+# Continuous Security
+
+Continuous Security is a feature that provides an hourly feed of vulnerability data from multiple sources (see [refresh intervals]() for each source). When new vulnerabilities are published, we check them against existing artifacts in your Cloudsmith repositories. This enables faster identification of affected artifacts compared to scheduled or on-demand [vulnerability scanning](./vulnerability-scanning).
+
+<Note>📘 Continuous Security is currently in Early Access (EA) through Cloudsmith’s Enterprise Policy Management. </Note>
+
+## Vulnerability Scanning vs. Continuous Security
+
+### Vulnerability Scanning
+
+Cloudsmith [scans](./vulnerability-scanning) artifacts as they are introduced into a repository for the first time. This scan analyzes the components of a package and then checks for vulnerabilities associated with them, which are listed in a vulnerability report. Note that when new vulnerabilities are disclosed, any existing report for impacted artifacts won’t flag them; a re-scan will be required to get the most up-to-date information.
+
+### Continuous Security
+
+<Note>📘 Continuous Security is only available for Cloudsmith workspace where EPM has been enabled.</Note>
+
+When artifacts are first scanned, Cloudsmith stores the list of identified components. Continuous Security uses that stored list to check for vulnerabilities using an advisory database that is refreshed hourly. When a new threat is discovered that affects an artifact in your workspace, Continuous Security will flag it via EPM without the need for a full manual or scheduled re-scan.
+
+For more information about using EPM to address vulnerabilities identified by Continuous Security, see [Getting Started with Enterprise Policy Management](./emp/getting-started) and [Rego Recipes](./epm/rego).
+
+Details of the specific vulnerability data available via Continuous Security are available in our API documentation under the vulnerabilities object in the [PolicyInputV0 schema](https://api.cloudsmith.io/v2/swagger/).
+
+#### Data Sources
+
+Continuous Security uses the following data sources:
+
+| Source                                                                                  | Refresh Interval |
+| :-------------------------------------------------------------------------------------- | :--------------: | 
+| Common Vulnerabilities and Exposures (CVE) databases aggregated in [Aqua Trivy DB](https://trivy.dev/v0.39/docs/vulnerability/detection/data-source/) |   6 hours   |
+| [Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/) |   24 hours  |
+
+#### Supported Formats
+
+Continuous Security is available for [all package formats](./vulnerability-scanning) currently supported by Cloudsmith’s Vulnerability Scanning feature.

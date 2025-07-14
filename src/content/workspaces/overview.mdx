@@ -1,0 +1,73 @@
+import { Note, BlockImage } from '@/components'
+
+import overview from './images/overview.png';
+
+# Workspace Overview
+
+The "demo-docs" workspace overview provides a summary of package **usage** and **delivery**, with all the information required to understand and control all your repositories activity. It is organized into several key sections:
+
+<BlockImage src={overview} alt=""></BlockImage>
+
+### Header Navigation
+
+A primary navigation bar at the top allows you to switch between different sections of the workspace:
+
+- **Overview**: The current view, summarizing all activity.
+- **Repositories**: View and manage all your repositories.
+- **Packages**: Browse and manage all packages within your workspace. Use the search engine to narrow the view to your desired packages.
+- **Accounts**: Manage user and service accounts and permissions.
+- **Teams**: Organize users into teams.
+- **Policies**: Define and manage EPM policies for your workspace.
+- **Settings**: Configure workspace settings.
+
+Secondary navigation includes:
+- **Logs**: View client and audit logs for your workspace.
+- **Usage**: access analytics and understand in more detail your package usage and delivery.
+- **Compliance**: Get an overview of security findings and license violations.
+
+### Workspace highlights
+
+Under the top bar, 4 cards summarize information about:
+- **Quarantined Packages**: The total number of packages that have been quarantined due to policy violations.
+- **Vulnerable Packages**: The total count of packages with known vulnerabilities.
+- **Vulnerability Policy Violations**: The number of instances where packages do not comply with Workspace vulnerability policies.
+- **License Policy Violations**: The number of packages that violate Workspace license policies.
+
+### Workspace Analytics overview
+
+The **Workspace** card provides a snapshot of the entities in the workspace:
+- **Repositories**
+- **Packages**
+- **Container Images**
+- **Accounts**
+
+And also, the main area in your workspace overview page shows two different cards to help you understand in a quick glance the **package usage and delivery** of your users. This card details the data consumption for the workspace:
+- **Artifact Data**: The total amount of storage used during the current month.
+- **Package Delivery**: The total amount of bandwitch used during the current month.
+
+This section also displays a graph visualizing the accumulated package delivery over the last month. It also provides a breakdown of usage and delivery by repository. 
+
+To get a detailed view of package usage and delivery, browse to the Workspace Usage section.
+
+
+### Recent Activity Lists
+
+Two lists at the bottom of the page highlight the latest activities:
+
+#### Recent Packages
+This list shows the most recently added or updated packages in the workspace. Each entry includes:
+- Package name and version.
+- Repository it belongs to.
+- Tags.
+- File size.
+- Time of the last update and associated user.
+
+#### Recent Repositories
+
+This list shows the repositories that have been recently created or have had recent activity.
+
+### Cloudsmith Service Status & News
+
+A sidebar on the right provides information directly from Cloudsmith:
+- **Cloudsmith Service Status**: A link to check the operational status of all Cloudsmith services.
+- **New at Cloudsmith**: A feed of the latest updates, features, and announcements from Cloudsmith.

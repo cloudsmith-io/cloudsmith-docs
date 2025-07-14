@@ -27,11 +27,11 @@ An example policy, explained in more detail below, quarantines a package followi
 Cloudsmith policies are continuously evaluated, so we detect changes in your security posture in near real time. Certain events will explicitly trigger a policy re-evaluation:
 
 - When a package is added to a repository, it goes through a [synchronization process](/artifact-management/resync-a-package#what-is-package-synchronization) that includes evaluating existing policies that may affect the package. Vulnerability Scanning should be enabled for the Workspace.
-- When a package is resynchronized, provided it wasn't scanned within the 30 minutes before that.
+- When a package is resynchronized, provided it wasn't scanned within the 30 minutes before that (failed scans) or 24 hours before (successful scans).
 - When a package is copied from one repository to another.
 - When a vulnerability scan is triggered via the UI or API (Note that manual scan requests will only result in a re-scan 30 minutes after the previous scan).
 - When a [recurring vulnerability scan](/supply-chain-security/vulnerability-scanning#early-access-recurring-security-scans) is triggered.
-- When Cloudsmith receives updated package data, such as CVSS or EPSS updates.
+- When Cloudsmith receives updated package data, such as CVSS or EPSS updates ([Continuous Security](../continuous-security)).
 
 ### Policies
 

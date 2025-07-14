@@ -1,0 +1,135 @@
+import { BlockImage, Note } from '@/components'
+
+import broadcastOverview from './images/overview.png';
+import newBroadcast from './images/new.png';
+import broadcasting from './images/broadcasting.png';
+import disable from './images/disable.png';
+import view from './images/view.png';
+import analytics from './images/analytics.png';
+
+# Broadcasts
+
+_Share branded public repositories via a public facing URL._
+
+<Note>📘 Broadcasts are in Early Access. If you would like to try this feature, please [Contact us](https://help.cloudsmith.io/docs/contact-us).</Note>
+
+Broadcasts are a feature designed to help you distribute your software packages to your end-users through a customizable, brandable, and user-friendly interface. It allows you to create a seamless experience for your customers, making it feel as though they are interacting directly with your own infrastructure, rather than a third-party service.
+
+Users can browse and discover software artifacts from this public Broadcast page, and download artifacts via the browser, or pull them using native tooling such as their IDE or CI/CD build systems.
+
+<BlockImage src={broadcastOverview} alt=""></BlockImage>
+
+<Note>
+📘 With Broadcasts, you no longer create a "public repository" directly. Instead, you create a standard repository and then enable it to broadcast its contents to the world.
+
+If you previously used public or open-source repositories, they have been automatically converted into broadcasts. To ensure a smooth transition from our legacy systems, we have implemented automatic redirects from old public repository URLs to their new broadcast equivalents.
+</Note>
+
+<Note>📘 You can continue distributing artifacts within private repositories using entitlement tokens.</Note>
+
+## Key Benefits of Using Broadcasts
+
+Cloudsmith Broadcasts lets you securely share a repository using a public-facing URL with a few clicks, offering an enterprise-level range of controls:
+
+- **Branded Experience**: Customize the user interface with your own logo and color scheme, ensuring your users have a consistent experience with your brand.
+- **Control Over Information**: You decide which metadata is visible to your users. You can hide or show details like package tags, download counts, and more.
+- **Seamless Integration**: From your end-user's perspective, they are interacting with your ecosystem, which helps build trust and brand recognition.
+- **Centralized Analytics**: Get an overview of how your distributed packages are performing with aggregated download statistics for all your broadcasts.
+
+## Managing Broadcasts
+
+You can manage all aspects of your broadcasts by navigating to the Broadcasts Overview section of the Cloudsmith web app. To get there, click on the Cloudsmith logo in the top-left corner and switch from "Artifact Management" to **Broadcasts**.
+
+<BlockImage src={view} alt=""></BlockImage>
+
+This section contains three main areas:
+
+- **Overview**: Displays aggregated analytics for all of your broadcasting repositories, including total downloads, a list of your most popular broadcasts, and your most popular packages over the last 30 days.
+    - Analytics:
+    - Popular Broadcasts
+    - Popular Packages
+    - Workspace total public and OSS broadcasts count.
+- **Broadcasts**: Shows a complete list of all your repositories that are currently broadcasting. Clicking on a specific repository will show you analytics scoped just to that broadcast.
+- **Theme**: Allows you to [customize the look and feel of your broadcast](./broadcasts-customization) pages.
+
+### Creating a New Broadcast
+
+1.  When you create a new repository, or in the repository main page, you will see a toggle to **Enable broadcast**.
+2.  Once enabled, you can choose the broadcast type:
+    - **Public**: Makes the repository and its packages freely available for the public to view and pull.
+    - **Open Source**: Similar to public, designed for open-source projects. The usage is tracked separately from your public broadcasts and private repositories, and you get 50GB of artifact data + 200GB of package delivery in all your OSS broadcasts at no cost.
+
+<BlockImage src={newBroadcast} alt=""></BlockImage>
+
+Alternatively, you can create a new Broadcasts browsing to the Broadcasts overview page within your Workspace and click in Create New Broadcasts. In the form, select one of your repositories.
+
+While a repository has a Broadcast active, the Broadcast button will read “Broadcasting”:
+
+<BlockImage src={broadcasting} alt=""></BlockImage>
+
+You can view the public Broadcast page via your organization’s broadcast URL:
+
+```text
+https://broadcasts.cloudsmith.com/{organization-name}/{repository-name}
+```
+
+### Disabling a Broadcast
+
+> 🚧 Disabling a Broadcast
+> 
+> When a Broadcast is disabled, its public Broadcast URL will not be accessible.
+
+To disable a Broadcast, press the “Broadcasting” button. Please note if a Broadcast is disabled, the URL associated with it will not be accessible.
+
+<BlockImage src={disable} alt=""></BlockImage>
+
+
+### Broadcast Analytics
+
+<Note>📘 Broadcast analytics are only available for Ultra customers.</Note>
+
+The Broadcast Overview displays analytics for all Broadcasts in your Workspace. Broadcast analytics allow you to keep track of the following:
+
+- The number of downloads across all of your Broadcasts in the last 30 days
+- The most popular/downloaded broadcasts.
+- The most popular/downloaded packages.
+
+<BlockImage src={analytics} alt=""></BlockImage>
+
+#### Analytics for a specific Broadcast
+
+To view analytics specific to a given Broadcast, select that Broadcast. The Overview page for the Broadcast will include total downloads over the last 30 days and the most popular packages downloaded.
+
+### Broadcast Customization
+
+#### Broadcasts themes
+
+#### Broadcast custom domains
+
+<Note>📘 Disambiguation with pull string </Note>
+
+
+
+## The Broadcasts user-facing pages
+
+- **Broadcasts Overview**: displays all repositories broadcasting artifacts inside of your organization. A custom domain can be configured for it (link).
+
+- **Broadcast**: displays all the artifacts available within a repository broadcast. Each of the repositories in a Workspace have their own Broadcast user facing page.
+- **Package**: 
+
+For each of this pages, custom metadata can be configured (link).
+
+
+### The End-User Experience: URLs and Domains
+
+It is important to understand the two types of custom addresses associated with broadcasts and your repositories, as they serve different purposes.
+
+1.  **Broadcast URL** or user-facing portal
+    This is the web address your end-users will visit to browse and discover your packages.
+    * **Default URL Structure**: `broadcast.cloudsmith.com/YOUR_WORKSPACE_NAME/YOUR_REPO_NAME/`.
+    * **Custom URL**: You can have a fully branded URL for your broadcast portal (e.g., `packages.yourcompany.com`). This provides a completely seamless experience for your users. To set this up, you will need to contact our support team. We refer to this as the "Broadcast URL" to distinguish it from the "Custom Domain".
+
+2.  **Custom Domains (For Native Tooling)**
+    This is the address used in the command line or build scripts to pull packages with native tooling (e.g., Docker, npm, Maven).
+    * Cloudsmith has long supported custom domains for package downloads (e.g., using `npm.cloudsmith.com` instead of the default domain).
+    * The installation instructions provided on your broadcast pages will automatically use any custom domain you have configured for the repository. This ensures that your users see your branded domain in the setup instructions they copy.
