@@ -77,9 +77,11 @@ export function Card({
             </div>
             <h3 className={cx(styles.title, 'headlineXXS')}>{title}</h3>
           </div>
-          <div className={styles.bottom}>
-            {description && <p className={cx(styles.description, 'bodyS')}>{description}</p>}
-          </div>
+          {description && (
+            <div className={styles.bottom}>
+              <p className={cx(styles.description, 'bodyS')}>{description}</p>
+            </div>
+          )}
           <div className={styles.arrow}>
             <Icon name="arrow" title="" />
           </div>
