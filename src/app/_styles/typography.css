@@ -44,6 +44,13 @@
     letter-spacing: var(--letter-spacing-positive-s);
   }
 
+  .headlineXXXS {
+    font-family: var(--font-family-headline);
+    font-size: var(--text-body-s);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-positive-s);
+  }
+
   /*****************************************************
   * BODY
   *****************************************************/

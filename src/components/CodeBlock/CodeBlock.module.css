@@ -59,13 +59,14 @@
   user-select: none;
   color: var(--color-text-on-color);
   border-radius: var(--border-radius-2xl) var(--border-radius-2xl) 0 0;
-  font-family: var(--font-family-mono);
-  text-transform: uppercase;
-  font-size: 12px;
   padding-block: 5px;
   padding-inline: 21px;
   background: var(--color-background-pre) linear-gradient(var(--line-bg-color), var(--line-bg-color) 100%)
     center bottom / 100% 1px no-repeat;
+}
+
+.langText {
+  opacity: 0.75;
 }
 
 .hideHeader {
