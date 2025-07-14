@@ -31,8 +31,10 @@
   background-color: var(--color-background-light);
   border-bottom: 1px solid var(--color-border);
   font-family: var(--font-family-mono);
-  font-size: var(--text-body-xs);
+  font-size: var(--text-body-2xs);
+  letter-spacing: var(--letter-spacing-positive-6xl);
   color: var(--color-text-primary);
+  opacity: 0.6;
   text-transform: uppercase;
 }
 
