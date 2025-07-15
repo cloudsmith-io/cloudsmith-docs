@@ -41,7 +41,7 @@ Alternatively, use the API to enable it with:
 
 ```shell
 curl --request PATCH \
-  --url 'https://api.cloudsmith.io/v1/repos/WORKSPACE/REPOSITORY/retention?=' \
+  --url 'https://api.cloudsmith.io/repos/WORKSPACE/REPOSITORY/retention?=' \
   --header 'Authorization: Bearer API_TOKEN' \
   --form retention_enabled=true
 ```
@@ -64,7 +64,7 @@ Please note that the `Query String` is not available in the UI, use the API inst
 
 ### Configuration parameters via API
 
-Visit [API reference](https://api.cloudsmith.io/v1/swagger/) and search by `/repos/{owner}/{repo}/retention`.
+Visit [API reference](https://api.cloudsmith.io/swagger/) and search by `/repos/{owner}/{repo}/retention`.
 
 As a reference, use `GET` to consult an existing a retention rule or `PATCH` to update it.
 
@@ -106,7 +106,7 @@ Delete all packages that are more than 30 days old and do not have any tag.
 
 ```shell
 curl --request PATCH \
-     --url https://api.cloudsmith.io/v1/repos/cloudsmith-test/acme-prod/retention/ \
+     --url https://api.cloudsmith.io/repos/cloudsmith-test/acme-prod/retention/ \
      --header "X-Api-Key: test-key" \
      --header "accept: application/json" \
      --header content-type: application/json" \
@@ -123,7 +123,7 @@ Delete all packages that are more than 60 days old and have less than 10 downloa
 
 ```shell
 curl --request PATCH \
-     --url https://api.cloudsmith.io/v1/repos/cloudsmith-test/acme-prod/retention/ \
+     --url https://api.cloudsmith.io/repos/cloudsmith-test/acme-prod/retention/ \
      --header "X-Api-Key: test-key" \
      --header "accept: application/json" \
      --header "content-type: application/json" \
@@ -140,7 +140,7 @@ Kept only 5 packages per format (python, docker, helm, etc.), that are not older
 
 ```shell
 curl --request PATCH \
-  --url 'https://api.cloudsmith.io/v1/repos/WORKSPACE/REPOSITORY/retention?=' \
+  --url 'https://api.cloudsmith.io/repos/WORKSPACE/REPOSITORY/retention?=' \
   --header 'Authorization: Bearer API_TOKEN' \
     --header "accept: application/json" \
     --header content-type: application/json" \

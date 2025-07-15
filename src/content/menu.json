@@ -101,6 +101,10 @@
             "path": "/workspaces/privileges"
           },
           {
+            "title": "Custom domains",
+            "path": "/workspaces/custom-domains"
+          },
+          {
             "title": "Authentication",
             "path": "/authentication/",
             "children": [
@@ -218,7 +222,7 @@
           },
           {
             "title": "Member accounts",
-            "path": "/accounts-and-teams/invite-users"
+            "path": "/accounts-and-teams/user-accounts"
           },
           {
             "title": "Service accounts",
@@ -359,10 +363,6 @@
               {
                 "title": "Customization",
                 "path": "/software-distribution/broadcasts/broadcasts-customization"
-              },
-              {
-                "title": "Custom domains",
-                "path": "/software-distribution/broadcasts/broadcasts-custom-domain"
               }
             ]
           },
