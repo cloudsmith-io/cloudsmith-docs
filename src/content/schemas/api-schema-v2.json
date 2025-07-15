@@ -370,7 +370,6 @@
       "get": {
         "operationId": "workspaces_policies_actions_list",
         "description": "List all actions for the policy.",
-        "x-experimental": true,
         "parameters": [
           {
             "name": "page",
@@ -409,7 +408,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": ["workspaces", "experimental"],
         "security": [
           {
             "apikey": []
@@ -434,7 +433,6 @@
       "post": {
         "operationId": "workspaces_policies_actions_create",
         "description": "Create an action for a policy.",
-        "x-experimental": true,
         "parameters": [
           {
             "in": "path",
@@ -455,7 +453,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": ["workspaces", "experimental"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -519,7 +517,6 @@
       "get": {
         "operationId": "workspaces_policies_actions_retrieve",
         "description": "Retrieve an action for a policy.",
-        "x-experimental": true,
         "parameters": [
           {
             "in": "path",
@@ -549,7 +546,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": ["workspaces", "experimental"],
         "security": [
           {
             "apikey": []
@@ -574,7 +571,6 @@
       "put": {
         "operationId": "workspaces_policies_actions_update",
         "description": "Update an action for a policy.",
-        "x-experimental": true,
         "parameters": [
           {
             "in": "path",
@@ -604,7 +600,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": ["workspaces", "experimental"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -638,7 +634,6 @@
       "patch": {
         "operationId": "workspaces_policies_actions_partial_update",
         "description": "Partially update an action for a policy.",
-        "x-experimental": true,
         "parameters": [
           {
             "in": "path",
@@ -668,7 +663,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": ["workspaces", "experimental"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -702,7 +697,6 @@
       "delete": {
         "operationId": "workspaces_policies_actions_destroy",
         "description": "Delete an action for a policy.",
-        "x-experimental": true,
         "parameters": [
           {
             "in": "path",
@@ -732,7 +726,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": ["workspaces", "experimental"],
         "security": [
           {
             "apikey": []
