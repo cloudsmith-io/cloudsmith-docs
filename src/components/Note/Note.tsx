@@ -1,5 +1,5 @@
 import { cva, VariantProps } from 'class-variance-authority';
-import { Icon, IconName } from '@/icons';
+import { Icon } from '@/icons';
 import styles from './Note.module.css';
 
 const defaultHeadings = {
