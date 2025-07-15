@@ -23,72 +23,56 @@
                     {
             "title": "Signing-in",
             "path": "/getting-started/sign-in"
+          }
+        ]
+      },
+      {
+        "title": "Migrating to Cloudsmith",
+        "path": "/migrating-to-cloudsmith",
+        "children": [
+          {
+            "title": "Migrating from JFrog Artifactory",
+            "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory"
           },
           {
-            "title": "Migrating to Cloudsmith",
-            "path": "/migrating-to-cloudsmith",
-            "children": [
-              {
-                "title": "Migrating from JFrog Artifactory",
-                "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory"
-              },
-              {
-                "title": "Migrating from Nexus Sonatype",
-                "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
-              },
-              {
-                "title": "Exporting NuGet",
-                "path": "/migrating-to-cloudsmith/exporting-nuget"
-              },
-              {
-                "title": "Import files from a folder",
-                "path": "/migrating-to-cloudsmith/import-files-from-a-folder"
-              },
-              {
-                "title": "Import Maven",
-                "path": "/migrating-to-cloudsmith/import-maven"
-              },
-              {
-                "title": "Import npm",
-                "path": "/migrating-to-cloudsmith/import-npm"
-              },
-              {
-                "title": "Import NuGet",
-                "path": "/migrating-to-cloudsmith/import-nuget"
-              },
-              {
-                "title": "Import Docker",
-                "path": "/migrating-to-cloudsmith/import-docker"
-              },
-              {
-                "title": "Import Python",
-                "path": "/migrating-to-cloudsmith/import-python"
-              },
-              {
-                "title": "Import Debian",
-                "path": "/migrating-to-cloudsmith/import-debian"
-              },
-              {
-                "title": "Import RPM",
-                "path": "/migrating-to-cloudsmith/import-rpm"
-              }
-            ]
+            "title": "Migrating from Nexus Sonatype",
+            "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
           },
           {
-            "title": "Generating an API key",
-            "path": "/getting-started/api-key"
+            "title": "Exporting NuGet",
+            "path": "/migrating-to-cloudsmith/exporting-nuget"
           },
           {
-            "title": "Pulling your first package",
-            "path": "/getting-started/first-package-pull"
+            "title": "Import files from a folder",
+            "path": "/migrating-to-cloudsmith/import-files-from-a-folder"
           },
           {
-            "title": "Using the Cloudsmith CLI",
-            "path": "/developer-tools/cli"
+            "title": "Import Maven",
+            "path": "/migrating-to-cloudsmith/import-maven"
           },
           {
-            "title": "API bindings",
-            "path": "/api/api-bindings"
+            "title": "Import npm",
+            "path": "/migrating-to-cloudsmith/import-npm"
+          },
+          {
+            "title": "Import NuGet",
+            "path": "/migrating-to-cloudsmith/import-nuget"
+          },
+          {
+            "title": "Import Docker",
+            "path": "/migrating-to-cloudsmith/import-docker"
+          },
+          {
+            "title": "Import Python",
+            "path": "/migrating-to-cloudsmith/import-python"
+          },
+          {
+            "title": "Import Debian",
+            "path": "/migrating-to-cloudsmith/import-debian"
+          },
+          {
+            "title": "Import RPM",
+            "path": "/migrating-to-cloudsmith/import-rpm"
           }
         ]
       },
@@ -105,8 +89,8 @@
             "path": "/workspaces/workspace-create"
           },
           {
-            "title": "Joining a workspace",
-            "path": "/workspaces/joining-a-workspace"
+            "title": "Workspace Overview",
+            "path": "/workspaces/overview"
           },
           {
             "title": "Settings",
@@ -125,8 +109,8 @@
                 "path": "/authentication/single-sign-on",
                 "children": [
                   {
-                    "title": "SSO with Azure AD",
-                    "path": "/authentication/single-sign-on-with-azure-ad"
+                    "title": "SSO with Microsoft Entra ID",
+                    "path": "/authentication/single-sign-on-with-entra-id"
                   },
                   {
                     "title": "SSO with Google",
@@ -220,17 +204,7 @@
           },
           {
             "title": "Upstreams",
-            "path": "/repositories/upstreams",
-            "children": [
-              {
-                "title": "Upstream prioritisation",
-                "path": "/repositories/upstreams/upstream-priorities"
-              },
-              {
-                "title": "Failure scenarios",
-                "path": "/repositories/upstreams/failure-scenarios"
-              }
-            ]
+            "path": "/repositories/upstreams"
           }
         ]
       },
@@ -285,6 +259,10 @@
           {
             "title": "Block Until Scan",
             "path": "/policy-management/block-until-scan"
+          },
+          {
+            "title": "Continuous Security",
+            "path": "/supply-chain-security/continuous-security"
           },
           {
             "title": "Policies",
@@ -378,23 +356,15 @@
             "title": "Cloudsmith Broadcasts",
             "path": "/software-distribution/broadcasts",
             "children":[
-
-                    {
-            "title": "Public Broadcasts",
-            "path": "/software-distribution/public-broadcasts"
-          },
-                              {
-            "title": "OSS Broadcasts",
-            "path": "/software-distribution/oss-broadcasts"
-          },
-          {
-            "title": "Customization",
-            "path": "/software-distribution/broadcasts-customization"
-          },
-          {
-            "title": "Custom domains",
-            "path": "/software-distribution/broadcasts-custom-domain"
-          }]
+              {
+                "title": "Customization",
+                "path": "/software-distribution/broadcasts/broadcasts-customization"
+              },
+              {
+                "title": "Custom domains",
+                "path": "/software-distribution/broadcasts/broadcasts-custom-domain"
+              }
+            ]
           },
           {
             "title": "Entitlement tokens",
@@ -428,6 +398,10 @@
         "title": "Developer tools",
         "path": "/getting-started#developer-tools",
         "children": [
+          {
+            "title": "Generating an API key",
+            "path": "/getting-started/api-key"
+          },
           {
             "title": "Cloudsmith CLI",
             "path": "/developer-tools/cli"
@@ -498,6 +472,10 @@
           {
             "title": "HTTP Responses",
             "path": "/does-not-exist"
+          },
+          {
+            "title": "API bindings",
+            "path": "/api/api-bindings"
           }
         ]
       }

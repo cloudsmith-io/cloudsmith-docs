@@ -40,7 +40,7 @@ In the following examples:
 ## Publish via Dart
 
 <Note variant="note" headline="Note">
-Please note that Dart SDK version 2.15.1 or newer is required for native upload support. For older client versions, please continue to use the Cloudsmith CLI/API.
+Please note that Dart SDK >= 2.15 is required to use Dart Repositories.
 </Note>
 
 The endpoint for the native Dart API is:
@@ -82,7 +82,7 @@ Please see Dart's [documentation on creating packages](https://dart.dev/guides/l
 
 #### Creating Dart Packages
 
-To upload via the Cloudsmith API/CLI, you'll need to generate a package first. While we expect the tooling in this area to improve over time, currently the process is a manual one and can be a little tricky.
+To upload via the Cloudsmith API/CLI, you'll need to generate a package first.
 
 You can build a package with standard command-line tooling like `tar`. To illustrate the process we'll use [cli_util](https://github.com/dart-lang/cli_util) as an example:
 
@@ -119,13 +119,9 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 
 ## Download / Install a Package
 
-Instaling packages from this repository varies, depending on the version of the Dart SDK in use.
-
-### SDK Version >= 2.15
-
 **Public Repositories** 
 
-No further setup is required when using Dart SDK >= 2.15 with public repositories, you can add a dependency from this repository to your package `pubspec.yaml` automatically with `dart pub`. See [Installing a Package](/formats/dart-repository)
+No further setup is required with public repositories, you can add a dependency from this repository to your package `pubspec.yaml` automatically with `dart pub`. See [Installing a Package](/formats/dart-repository)
 
 **Private Repositories**
 
@@ -152,94 +148,7 @@ Enter secret token:
 Requests to "https://dart.cloudsmith.io/OWNER/REPOSITORY/" will now be authenticated using the secret token.
 ```
 
-### SDK Version \<= 2.14
-
-Before you can install packages from your Cloudsmith repository you'll need to configure your environment for access. The configuration is defined using the `PUB_HOSTED_URL` environment variable. 
-
-<Note variant="warning" headline="Warning">
-This approach is not recommended, and we strongly encourage the use of the method detailed for SDK 2.15 onwards. This approach has the effect of embedding access tokens within your generated `pubspec.lock file`. As these typically tend to get committed to source repositories, this is a potential attack vector.
-</Note>
-
-<Note variant="warning" headline="Warning">
-When using PUB_HOSTED_URL, all dependencies must be present in the specified Cloudsmith repository. Dart repositories don't (currently) proxy upstream sources and can only serve packages explicitly uploaded to Cloudsmith. So if set, you cannot resolve any dependencies from pub.dev.  
-If PUB_HOSTED_URL is unset, any packages not uploaded to Cloudsmith (and with a specific Cloudsmith URL set in the pubspec.yaml file) will be fetched from pub.dev
-</Note>
-
-**Public Repositories**
-
-_Linux / Mac_
-
-```shell
-export PUB_HOSTED_URL=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/dart/
-```
-
-_Windows (cmd)_
-
-```shell
-set PUB_HOSTED_URL=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/dart/
-```
-
-_Windows (Powershell)_
-
-```powershell
-$env:PUB_HOSTED_URL=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/dart/
-```
-
-**Private Repositories**
-
-<Note variant="note" headline="Note">
-Private Cloudsmith repositories require authentication.  You can choose between two types of authentication, Entitlement Token Authentication or HTTP Basic Authentication. 
-The setup method will differ depending on what authentication type you choose to use.
-</Note>
-
-_Linux / Mac_
-
-```shell Entitlement Token Auth
-export PUB_HOSTED_URL=https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/dart/
-```
-```shell HTTP Basic Auth (User & Pass)
-export PUB_HOSTED_URL=https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-```shell HTTP Basic Auth (API Key)
-export PUB_HOSTED_URL=https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-```shell HTTP Basic Auth (Token)
-export PUB_HOSTED_URL=https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-
-_Windows (cmd)_
-
-```text Entitlement Token Auth
-set PUB_HOSTED_URL=https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/dart/
-```
-```text HTTP Basic Auth (User & Pass)
-set PUB_HOSTED_URL=https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-```text HTTP Basic Auth (API Key)
-set PUB_HOSTED_URL=https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-```text HTTP Basic Auth (Token)
-set PUB_HOSTED_URL=https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-
-_Windows (Powershell)_
-
-```powershell Entitlement Token Auth
-$env:PUB_HOSTED_URL=https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/dart/
-```
-```powershell HTTP Basic Auth (User & Pass)
-$env:PUB_HOSTED_URL=https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-```powershell HTTP Basic Auth (API Key)
-$env:PUB_HOSTED_URL=https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-```powershell HTTP Basic Auth (Token)
-$env:PUB_HOSTED_URL=https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/dart/
-```
-
-## Installing a Package
-
-### SDK Version >= 2.15
+## Installing a package
 
 `dart pub` is capable of adding a dependency from this repository to your package `pubspec.yaml` automatically:
 
@@ -253,35 +162,6 @@ Downloading your-package 1.2.3...
 Changed 1 dependency!
 ```
 
-### SDK Version \<= 2.14
-
-**Public Repositories**
-
-A dependency may be manually added to your project `pubspec.yaml` file:
-
-```yaml
-dependencies:
- DEPENDENCY_NAME:
-    hosted:
-      name: PACKAGE_NAME
-      url: https://dl.cloudsmith.io/public/OWNER/REPOSITORY/dart/
-      version: PACKAGE_VERSION
-```
-
-**Private Repositories**
-
-```yaml
-dependencies:
-  your-package:
-    version: PACKAGE_VERSION
-```
-
-Once set up, pub will download the dependency to `.pub_cache`  and update the `pubspec.lock` and `.packages` after running following command:
-
-```shell
-pub get
-```
-
 Please also see the [pubspec docs](https://dart.dev/tools/pub/pubspec) for further examples of pubspec files.
 
 ## Security Scanning
@@ -293,7 +173,7 @@ Please see our [Security Scanning](/policy-management/vulnerability-policy) docu
 ## Upstream Proxying / Caching
 
 <span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
-You can configure upstream Dart repositories that you wish to use for packages that are not available in your Cloudsmith repository. Proxied Dart packages cannot currently be cached.
+You can configure upstream Dart repositories that you wish to use for packages that are not available in your Cloudsmith repository. Catching Dart packages is not supported.
 
 Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 
 

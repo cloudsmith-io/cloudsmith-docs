@@ -173,6 +173,10 @@ token = "Token TOKEN"
 credential-provider = "cargo:token"
 ```
 
+<Note variant="note" headline="config.toml">
+Once you’ve configured your credentials in the config.toml file, there’s no need to run cargo login. Cargo will automatically authenticate using the token from the configuration.
+</Note>
+
 ### Cargo \< v1.74 (HTTP Sparse Registry)
 If you are using Cargo version `< 1.74`, the only way to authenticate with a private sparse registry is using Cloudsmith's URL-based authentication.
 
@@ -228,6 +232,10 @@ cargo install PACKAGE_NAME --registry REGISTRY_NAME`
 ## Key Signing Support
 
 <span class="cs-tag cs-tag-dark-grey">Not Supported.</span>
+
+## Known Limitations
+
+Currently, Cloudsmith does not support the cargo search command.
 
 ## Troubleshooting
 

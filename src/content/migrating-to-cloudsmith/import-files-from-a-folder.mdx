@@ -4,17 +4,22 @@ Once you have exported all your npm packages you can upload them to Cloudsmith- 
 
 First make sure you [install the Cloudsmith CLI ](/developer-tools/cli#installation) and export your token. 
 
-A folder of packages in the correct format can be published to Cloudsmith using the script below. We support over 28+ format types. The supported formats can be found [here](/formats).  
+A folder of packages in the correct format can be published to Cloudsmith using the script below. We support over 28+ format types. The supported formats can be found [here](/formats).
+
 Create the bash script below and call it `migrate_npm_to_cs.sh` and give it execute privileges.  
-cd into the folder. 
+
+Access the folder with your packages and run the next script:
 
 ```shell
 #!/bin/bash
 FILES="."
-for f in *
+
+FILES=$(find . -type f)
+
+for f in $FILES
 do
   echo "Processing $f file..."
-  cloudsmith push $2 "$1" $f
+  cloudsmith push $2 "$1" "$f"
 done
 ```
 

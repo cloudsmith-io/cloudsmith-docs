@@ -1,25 +1,53 @@
 import { Note, BlockImage } from '@/components'
 
+import workspaces_list from './images/workspaces_list.png';
+import workspace_invite from './images/workspace_invite.png';
 
 # Workspaces
 
-Creating a Workspace in Cloudsmith allows you to configure access for teams, individuals and machines that map to your company's organizational structure. Building security and resilience in managing teams and workflows is essential in today's ecosystem. This is a quick introduction to your workspaces.
+Creating a Workspace in Cloudsmith allows you to configure access for teams, individuals and services that map to your company's organizational structure. Building security and resilience in managing teams and workflows is essential in today's ecosystem.
 
-Set as default workspace
-Caution
-This will set cloudsmith as your default workspace, and will be where you are redirected to on login.
+<Note>
+📘 We refer to your top-level account as **Workspaces**. Depending on the context, you might think of a Workspace as an **Organization**, a **Namespace**, or an **Owner**. These terms all refer to the same concept of a shared, top-level container for your work, but preferably **Workspace** will be used.
+</Note>
 
-Workspace Overview page: https://app.cloudsmith.com/workspaces
-Click on the cloudsmith Logo to see the workspace overview page.
-Workspace invite.
+## Account Workspaces view
 
-My workspace settings: https://app.cloudsmith.com/settings/workspaces
-- default workspace, implications to SAML. landing page. Note: SSO login is only available for workspaces which have already enabled SAML. Not sure? Contact Us.
-- leave workspace
-- create a new workspace
+Click in the Cloudsmith Logo in the top left corner to see all the Workspaces that you can access with your account. Alternatively browse to: [https://app.cloudsmith.com/workspaces](https://app.cloudsmith.com/workspaces).
 
+<BlockImage src={workspaces_list} alt=""></BlockImage>
 
-# Multiple Email Management
+### Joining a workspace
+
+Here you can see the workspaces you've joined and also accept new invitations:
+
+<BlockImage src={workspace_invite} alt=""></BlockImage>
+
+E-mail notifications will be sent after a new invitation. From this page you can also Accept or Reject new invitations. To learn how to invite users to a workspace, review the [Users](/teams-and-accounts/users) documentation.
+
+## Primary Workspace
+
+You can access multiple workspaces from a single account. This provides both isolation and flexibility for convenience of your Cloudsmith users. To find out what's your primary workspace, browse to your [workspace settings](https://app.cloudsmith.com/settings/workspaces).
+
+<Note variant="warning" headline="SAML and SCIM">
+A primary workspace defines the landing page when you login into Cloudsmith. This also have implications in terms of login with [SAML](/authentication/saml) and [SCIM](/authentication/scim) configuration, please refer to their documentation pages to learn more about how primary workspaces influence your login experience.
+</Note>
+
+### Selecting or changing your Primary Workspace
+
+From your Account Settings, click in Workspaces (or alternatively browse to [https://app.cloudsmith.com/settings/workspaces](https://app.cloudsmith.com/settings/workspaces)).
+
+Here, you'll be presented with a list of all the Workspaces available for you. The star icon identifies your primary workspace.
+
+## Workspace Overview Page
+
+Browse to the [Workspace Overview Page](./overview) documentation page to learn more about it.
+
+## Workspace Settings
+
+Browse to the [Workspace Settings](./workspace-settings) documentation page to learn about the different controls available.
+
+## Multiple Email Management
 
 It's often the case that one ends up juggling multiple email accounts and using them simultaneously to access different services. This is often the case if you belong to multiple workspaces, and each provides you with an email address that is specific to it. To help manage and facilitate this, you can now add multiple email addresses to your Cloudsmith User Account. Once an email is verified, you can log in with it. You can also specify your primary email address, which we'll email when contacting you.
 

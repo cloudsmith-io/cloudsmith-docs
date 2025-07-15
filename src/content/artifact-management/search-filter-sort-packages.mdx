@@ -124,14 +124,14 @@ For example, to retrieve all packages named `ms`:
 
 ```bash
 curl -sL --request GET \
-  --url "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/<MY_REPO>/?query=name:ms" \
+  --url "https://api.cloudsmith.io/packages/<MY_WORKSPACE>/<MY_REPO>/?query=name:ms" \
   --header 'Authorization: Bearer <MY_API_TOKEN>'
 ```
 
 Alternatively, you can use `jq` to search for a package in a repository by using **any of the fields** available in the `json` returned by the request. For example:
 
 ```bash
-curl -sL "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/<MY_REPO>/" \
+curl -sL "https://api.cloudsmith.io/packages/<MY_WORKSPACE>/<MY_REPO>/" \
   --header 'Authorization: Bearer <MY_API_TOKEN>' \
   | jq '.[] | select(.name == "requests")'
 ```
@@ -189,7 +189,7 @@ The available sorting options are:
 - Total Downloads (Ascending) 
 - Total Downloads (Descending)
 
-Note that currently, the UI only supports sorting by one field at a time.
+<Note>📘 Note that the UI only supports sorting by one field at a time.</Note>
 
 ## Sorting Packages via the Cloudsmith API
 
@@ -203,7 +203,7 @@ For example, to retrieve all of the packages of the workspace `<MY_WORKSPACE>` o
 
 ```bash
 curl -sL --request GET \
-  --url "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/?sort=downloads" \
+  --url "https://api.cloudsmith.io/packages/<MY_WORKSPACE>/?sort=downloads" \
   --header 'Authorization: Bearer <MY_API_TOKEN>'
 ```
 

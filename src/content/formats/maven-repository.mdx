@@ -130,6 +130,38 @@ Example:
 cloudsmith push maven org/repo validation-api-1.0.0.GA.jar --pom-file=validation-api-1.0.0.GA.pom
 ```
 
+
+### Uploading of extra files via the Cloudsmith CLI
+
+Customers can take advantage of the new extra-files option available for the Maven push command in cloudsmith-cli as of version 1.7.0.
+
+Here’s an example of how to use the command. You can either provide a comma-separated list or pass multiple `--extra-files` parameters. Using `extra-files` as a comma-separated list:
+
+```shell
+cloudsmith push maven cloudsmith-test/cli-upload example-maven-project-1.0.0.jar \
+  --javadoc-file example-maven-project-1.0.0-javadoc.jar \
+  --sources-file example-maven-project-1.0.0-sources.jar \
+  --pom-file example-maven-project-1.0.0.pom \
+  --version 1.0.0 \
+  --group-id com.example \
+  --artifact-id maven-cli-push-test \
+  --extra-files build-script.sh,random-file.xml
+```
+
+Or sing multiple `extra-files` parameters:
+
+```shell
+cloudsmith push maven cloudsmith-test/cli-upload example-maven-project-1.0.0.jar \
+  --javadoc-file example-maven-project-1.0.0-javadoc.jar \
+  --sources-file example-maven-project-1.0.0-sources.jar \
+  --pom-file example-maven-project-1.0.0.pom \
+  --version 1.0.0 \
+  --group-id com.example \
+  --artifact-id maven-cli-push-test \
+  --extra-files build-script.sh,random-file.xml \
+  --extra-files readme.md
+```
+
 ### Upload via Cloudsmith web app
 
 Please see [Upload a Package](/artifact-management/package-upload) for details of how to upload via the Cloudsmith web app.
@@ -294,6 +326,20 @@ Please see our [Security Scanning](/policy-management/vulnerability-policy) docu
 
 <span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
 You can configure upstream Maven repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
+
+If you’ve configured your Maven upstream for caching, Cloudsmith will cache all files fetched from your upstream, including arbitrary files.
+
+Our supported upstreams for arbitrary file support are:
+
+- Maven Central
+- Artifactory
+- Gradle
+- Nexus
+- WSO2/JBOSS
+- Google
+- Confluent
+- Shibbolenth
+- Atlassian
 
 Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 
 

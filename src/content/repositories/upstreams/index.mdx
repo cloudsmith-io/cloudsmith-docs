@@ -55,25 +55,26 @@ A good approach when determining what priority to apply to upstreams is to ensur
 
 ## Supported Formats
 
-|Format|<div class="cs-center">Fixed Proxy</div>|<div class="cs-center">Configurable Proxy</div>|<div class="cs-center">Caching</div>|<div class="cs-center">Indexing</div>|<div class="cs-center">Indexing Type</div>|
-|:---|:---|:---|:---|:---|:---|
-|[Cargo (Rust)](/formats/cargo-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[CRAN](/formats/cran-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Dart](/formats/dart-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Debian](/formats/debian-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Docker](/formats/docker-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|
-|[Golang ](/formats/go-registry)| N/A | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Gradle ](/formats/gradle-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|
-|[Helm](/formats/helm-chart-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Hex](/formats/hex-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Maven](/formats/maven-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|
-|[npm](/formats/npm-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|
-|[NuGet](/formats/nuget-feed)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Python](/formats/python-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[RedHat](/formats/redhat-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[Ruby](/formats/ruby-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|
-|[sbt ](/formats/sbt-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|
-|[Swift](/formats/swift-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|
+|Format|<div class="cs-center">Fixed Proxy</div>|<div class="cs-center">Configurable Proxy</div>|<div class="cs-center">Caching</div>|<div class="cs-center">Indexing</div>|<div class="cs-center">Indexing Type</div>|<div class="cs-center">Config Reference</div>|
+|:---|:---|:---|:---|:---|:---|:---|
+|[Cargo (Rust)](/formats/cargo-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_cargo_create) |
+|[Composer](/formats/composer-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_composer_create) |
+|[CRAN](/formats/cran-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_cran_create) |
+|[Dart](/formats/dart-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_dart_create) |
+|[Debian](/formats/debian-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_deb_create) |
+|[Docker](/formats/docker-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_docker_create) |
+|[Golang ](/formats/go-registry)| N/A | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_go_create) |
+|[Gradle ](/formats/gradle-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_maven_create) |
+|[Helm](/formats/helm-chart-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_helm_create) |
+|[Hex](/formats/hex-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_hex_create) |
+|[Maven](/formats/maven-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_maven_create) |
+|[npm](/formats/npm-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_npm_create) |
+|[NuGet](/formats/nuget-feed)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_nuget_create) |
+|[Python](/formats/python-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_python_create) |
+|[RedHat](/formats/redhat-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_rpm_create) |
+|[Ruby](/formats/ruby-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_ruby_create) |
+|[sbt ](/formats/sbt-repository)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_maven_create) |
+|[Swift](/formats/swift-registry)|N/A| ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](https://help.cloudsmith.io/reference/repos_upstream_swift_create) |
 
 <Note variant="note">
   You can can also create and manage upstreams via the [Cloudsmith API](/api).
@@ -88,6 +89,32 @@ Cloudsmith helps you proxying and caching canonical registries in a single click
 <BlockImage src={quick_configure} alt="Create Upstream Quick"></BlockImage>
 
 Just select the Upstream you need and it will be automatically configured to you. You can pull packages from them proxying and caching all of the content in Cloudsmith, hence applying all the controls you require.
+
+### Using the CLI
+
+You can create upstreams without leaving your terminal. For example, you can create a debian upstream with the Cloudsmith CLI.
+
+1. Create a `upstream_config.json` file with the next fields:
+
+```json
+{
+  "name": "Debian Upstream Demo Docs",
+  "upstream_url": "http://archive.ubuntu.com/ubuntu",
+  "mode": "Cache and Proxy",
+  "distro_versions": ["debian/trixie"],
+  "component": "main", 
+  "auth_mode": "None",
+  "priority": 1
+}
+```
+
+2. Use the Cloudsmith CLI to create the Debian upstream in your workspace `WORKSPACE` and repository `REPOSITORY`:
+
+```bash
+cloudsmith upstream deb create WORKSPACE/REPOSITORY ./upstream_config.json
+```
+
+Please, refer to the [Config Reference](#supported-formats) column in the supported formats table to review fields available for each of the supported formats.
 
 ### Using the manual configuration
 

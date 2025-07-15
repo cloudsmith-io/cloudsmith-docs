@@ -98,7 +98,7 @@ Let's [create a repository](/repositories/create-a-repository) for our microserv
 3. select a region (default to `Dublin`), 
 4. and click on **+ Create Repository**. 
 
-Our new repo is created!
+Our new repository is created!
 
 Depending on your use case or how you want to distribute your software, you have different visibility options for your repositories: 
 - Public
@@ -126,9 +126,9 @@ We can also use the cloudsmith CLI to manage artifacts from different formats, o
 {/* TODO, try to automate this via API to hide a bit what we are doing and avoid going to the old UI */}
 <Note>
 📘 npm and pypi redirects
-To continue with this guide, browse to your repo settings in the old UI ([https://cloudsmith.io/~demo-docs/repos/awesome-repo/settings/](https://cloudsmith.io/~<WORKSPACE>/repos/<REPO>/settings/)) and disable the next two options:
+To continue with this guide, browse to your repository settings in the old UI ([https://cloudsmith.io/~demo-docs/repos/awesome-repo/settings/](https://cloudsmith.io/~<WORKSPACE>/repos/<REPO>/settings/)) and disable the next two options:
 - Proxy Python Packages?
-- Proxy Npm Packages?
+- Proxy npm Packages?
 </Note>
 
 {/* TODO: better use the file config instead of adding the registry option on every command */}
@@ -194,7 +194,7 @@ Adding to this, you'll get another benefit from storing your dependencies in Clo
 
 ---
 
-We can also use this repo to upload any kind of asset: from _NodeJS_, to Python_, _Golang_, or_Docker containers_. 
+We can also use this repository to upload any kind of asset: from _NodeJS_, to Python_, _Golang_, or_Docker containers_. 
 Let's see a couple of examples. With python (pip3 required):
 
 ```bash
@@ -238,7 +238,7 @@ Reach out to our [Support team](https://support.cloudsmith.com/) to learn more a
 {/* Ensure your teams are only pulling from Cloudsmith - which means setting up your teams and pipelines to point at Cloudsmith.
     Talk about teams, accounts, services, workspace members. */}
 
-{/* Add example to push to the repo the app we just build, native + docker */}
+{/* Add example to push to the repository the app we just build, native + docker */}
 
 Now, we not only block dependencies from other external repositories, but also have full visibility about all the dependencies being used by our applications. What about enforcing more advances criteria to guarantee that no known vulnerbale software is used?
 
@@ -279,7 +279,7 @@ There's a multitude of security solutions that are great providing new findings,
 
 #### Observability and Logging
 
-As part of the visibility features, Cloudsmith provides different observability functions to understand how dependencies are being used within your organization. Browse to your repo and click Logs.
+As part of the visibility features, Cloudsmith provides different observability functions to understand how dependencies are being used within your organization. Browse to your repository and click Logs.
 
 The Client Logs are presented. Here you can see an overview of all of the different artifact files downloaded within your organization. This will give you insights about when, how, and by whom your packages are being used.
 

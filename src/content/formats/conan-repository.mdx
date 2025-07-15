@@ -46,30 +46,36 @@ https://conan.cloudsmith.io/OWNER/REPOSITORY/
 
 First, you need to set up the Repository as a Conan remote, with your Cloudsmith API-Key and Username for authentication:
 
-```shell Shell - Conan v1
+```shell
+# Shell - Conan v1
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan user -p API-KEY -r OWNER-REPOSITORY USERNAME
 ```
-```shell Shell - Conan v2
+```shell
+# Shell - Conan v2
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan remote login -p API-KEY OWNER-REPOSITORY USERNAME
 ```
 
 You can then upload natively using [Conan](https://docs.conan.io/en/latest/reference/commands/creator/export.html) with the command:
 
-```shell Shell - Conan v1
+```shell
+# Shell - Conan v1
 conan upload PACKAGE_NAME/PACKAGE_VERSION --all -r OWNER-REPOSITORY
 ```
-```shell Shell - Conan v2
+```shell
+# Shell - Conan v2
 conan upload PACKAGE_NAME/PACKAGE_VERSION -r OWNER-REPOSITORY
 ```
 
 An optional USER/CHANNEL can also be provided when uploading a package; this enables multiple versions of the same package to coexist using the user/channel to create a unique version of the package version:
 
-```shell Shell - Conan v1
+```shell
+# Shell - Conan v1
 conan upload PACKAGE_NAME/PACKAGE_VERSION@USER/CHANNEL --all -r OWNER-REPOSITORY
 ```
-```shell Shell - Conan v2
+```shell
+# Shell - Conan v2
 conan upload PACKAGE_NAME/PACKAGE_VERSION@USER/CHANNEL -r OWNER-REPOSITORY
 ```
 
@@ -91,7 +97,8 @@ To upload via the Cloudsmith API/CLI, you'll need to generate a package first. T
 
 You can build a package with Conan by creating a new example project using new, create, and export:
 
-```shell Shell - Conan v1
+```shell
+# Shell - Conan v1
 conan new PACKAGE_NAME/PACKAGE_VERSION -t
 conan create .
 conan install .
@@ -156,11 +163,13 @@ First, the remote repository must be created and then credentials can be added f
 
 ### Public Repositories
 
-```shell Shell - Conan v1
+```shell
+# Shell - Conan v1
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan user -p API-KEY -r OWNER-REPOSITORY USERNAME
 ```
-```shell Shell - Conan v2
+```shell
+# Shell - Conan v2
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan remote login -p API-KEY OWNER-REPOSITORY USERNAME
 ```
@@ -176,36 +185,44 @@ The setup method will differ depending on what authentication type you choose to
 Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
 </Note>
 
-```shell Entitlement Token Auth - Conan v1
+```shell
+# Entitlement Token Auth - Conan v1
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan user -p TOKEN -r OWNER-REPOSITORY OWNER/REPOSITORY
 ```
-```shell HTTP Basic Auth (User & Pass) - Conan v1
+```shell
+# HTTP Basic Auth (User & Pass) - Conan v1
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan user -p PASSWORD -r OWNER-REPOSITORY USERNAME
 ```
-```shell HTTP Basic Auth (API Key) - Conan v1
+```shell
+# HTTP Basic Auth (API Key) - Conan v1
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan user -p API-KEY -r OWNER-REPOSITORY USERNAME
 ```
-```shell HTTP Basic Auth (Token) - Conan v1
+```shell
+# HTTP Basic Auth (Token) - Conan v1
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan user -p TOKEN -r OWNER-REPOSITORY token
 ```
 
-```shell Entitlement Token Auth - Conan v2
+```shell
+# Entitlement Token Auth - Conan v2
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan remote login -p TOKEN OWNER-REPOSITORY OWNER/REPOSITORY
 ```
-```shell HTTP Basic Auth (User & Pass) - Conan v2
+```shell
+# HTTP Basic Auth (User & Pass) - Conan v2
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan remote login -p PASSWORD OWNER-REPOSITORY USERNAME
 ```
-```shell HTTP Basic Auth (API Key) - Conan v2
+```shell
+# HTTP Basic Auth (API Key) - Conan v2
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan remote login -p API-KEY OWNER-REPOSITORY USERNAME
 ```
-```shell HTTP Basic Auth (Token) - Conan v2
+```shell
+# HTTP Basic Auth (Token) - Conan v2
 conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
 conan remote login -p TOKEN OWNER-REPOSITORY token
 ```
@@ -214,7 +231,8 @@ conan remote login -p TOKEN OWNER-REPOSITORY token
 
 Once set up, Conan can download the package by running:
 
-```shell Shell - Conan v1/v2
+```shell
+# Shell - Conan v1/v2
 conan download PACKAGE_NAME/PACKAGE_VERSION@ -r OWNER-REPOSITORY
 ```
 
