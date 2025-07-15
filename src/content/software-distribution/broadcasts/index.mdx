@@ -11,7 +11,9 @@ import analytics from './images/analytics.png';
 
 _Share branded repositories via a public facing URL._
 
-<Note>📘 Broadcasts are in Early Access. If you would like to try this feature, please [Contact us](https://help.cloudsmith.io/docs/contact-us).</Note>
+<Note variant="note" headline="Early Access">
+Broadcasts are in Early Access. If you would like to try this feature, please [Contact us](https://help.cloudsmith.io/docs/contact-us).
+</Note>
 
 Broadcasts help you distribute your software packages to your end-users through a customizable, secure, and user-friendly interface. It allows you to create a seamless experience for your customers, making it feel as though they are interacting directly with your own infrastructure, rather than a third-party service. Users can browse and discover software artifacts from this public Broadcast page, and download artifacts via the browser, or pull them using native tooling such as their IDE or CI/CD build systems. 
 
@@ -23,17 +25,32 @@ Cloudsmith Broadcasts offers an enterprise-level range of controls:
 
 <BlockImage src={broadcastOverview} alt=""></BlockImage>
 
-<Note>
-📘 With Broadcasts, you no longer create a "public repository" directly. Instead, you create a standard repository and then enable it to broadcast its contents to the world.
+<Note variant="important" headline="Public repositories">
+With Broadcasts, you no longer create a "public repository" directly. Instead, you create a standard repository and then enable it to broadcast its contents to the world.
 
 If you previously used public or open-source repositories, they have been automatically converted into broadcasts. To ensure a smooth transition from our legacy systems, we have implemented automatic redirects from old public repository URLs to their new broadcast equivalents.
 </Note>
-<Note>📘 You can continue distributing artifacts within private repositories using entitlement tokens.</Note>
 
+<Note variant="tip" headline="Private Repositories">
+You can continue distributing artifacts within private repositories using entitlement tokens.
+</Note>
+
+## Broadcasts user-facing pages
+
+- **Broadcasts Overview**: displays all repositories broadcasting artifacts inside of your organization. A [custom domain can be configured](./broadcasts-custom-domain) for it.
+- **Broadcast**: displays all the artifacts available within a repository broadcast. Each of the repositories in a Workspace have their own Broadcast user facing page.
+- **Package**: displays different levels of information for your packages:
+    - **Overview**: this page include instructions for the installation or configuration required for the format of the package, including package metadata and the README.
+    - **Files**: all package files are accessible from this section, including associated metadata as tags, filenames, downloads, size, or checksums. 
+    - **Versions**: access information about all available versions of the package.
+
+<Note variant="tip" headline="Customization">
+Visit the [Broadcast Customization](./broadcasts-customization) documentation page to learn how to configure the feel and look and metadata available in these user facing pages.
+</Note>
 
 ## Managing Broadcasts
 
-You can manage all aspects of your broadcasts by navigating to the Broadcasts Overview section of the Cloudsmith web app. To get there, click on the Cloudsmith logo in the top-left corner and switch from "Artifact Management" to **Broadcasts**.
+You can manage all aspects of your broadcasts by navigating to the Broadcasts Overview section of the Cloudsmith web app. To get there, click on the Cloudsmith logo in the top-left corner and switch from "Artifact Management" to **Broadcasts**. Alternatively, browse to: [https://app.cloudsmith.com/distribution](https://app.cloudsmith.com/distribution).
 
 <BlockImage src={view} alt=""></BlockImage>
 
@@ -44,7 +61,7 @@ This section contains three main areas:
     - Popular Broadcasts
     - Popular Packages
     - Workspace total public and OSS broadcasts count.
-- **Broadcasts**: Shows a complete list of all your repositories that are currently broadcasting. Clicking on a specific repository will show you analytics scoped just to that broadcast.
+- **Broadcasts**: Shows a complete list of all your repositories that are being currently broadcasted. Clicking on a specific repository will show you analytics scoped just to that broadcast.
 - **Theme**: Allows you to [customize the look and feel of your broadcast](./broadcasts-customization) pages.
 
 ### Creating a New Broadcast
@@ -70,13 +87,15 @@ https://broadcasts.cloudsmith.com/WORKSPACE/REPOSITORY
 
 ### Disabling a Broadcast
 
-To disable a Broadcast, press the “Broadcasting” button. Please note if a Broadcast is disabled, the URL associated with it will not be accessible.
+To disable a Broadcast, press the “Broadcasting” button. When a Broadcast is disabled, the URL associated with it and any package within your repository will not be accessible.
 
 <BlockImage src={disable} alt=""></BlockImage>
 
 ### Broadcast Analytics
 
-<Note>📘 Broadcast analytics are only available for Ultra customers.</Note>
+<Note variant="note" headline="Plans">
+Broadcast analytics are only available for Ultra customers.
+</Note>
 
 The Broadcast Overview displays analytics for all Broadcasts in your Workspace. Broadcast analytics allow you to keep track of the following:
 
@@ -90,40 +109,23 @@ The Broadcast Overview displays analytics for all Broadcasts in your Workspace. 
 
 To view analytics specific to a given Broadcast, select that Broadcast. The Overview page for the Broadcast will include total downloads over the last 30 days and the most popular packages downloaded.
 
-### Broadcast Customization
+### Broadcast custom domains
 
-#### Broadcasts themes
-
-#### Broadcast custom domains
-
-<Note>📘 Custom domains are only available for Ultra customers.</Note>
+<Note variant="note" headline="Plans">
+Broadcast analytics are only available for Ultra customers.
+</Note>
 
 Broadcasts can be displayed on a custom domain. To do so, please contact Cloudsmith via support. You will need to provide your chosen custom domain, and Cloudsmith will provide you a `CNAME` to add to this domain. Cloudsmith will then let you know when your domain is published and available to use. To learn more about it, visit the [Custom domains](./broadcasts-custom-domain) documentation. 
 
-<Note>📘 Disambiguation with pull string </Note>
-
-
-
-## The Broadcasts user-facing pages
-
-- **Broadcasts Overview**: displays all repositories broadcasting artifacts inside of your organization. A custom domain can be configured for it (link).
-
-- **Broadcast**: displays all the artifacts available within a repository broadcast. Each of the repositories in a Workspace have their own Broadcast user facing page.
-- **Package**: 
-
-For each of this pages, custom metadata can be configured (link).
-
-
-### The End-User Experience: URLs and Domains
-
+<Note variant="important" headline="Disambiguation">
 It is important to understand the two types of custom addresses associated with broadcasts and your repositories, as they serve different purposes.
 
-1.  **Broadcast URL** or user-facing portal
-    This is the web address your end-users will visit to browse and discover your packages.
-    * **Default URL Structure**: `broadcast.cloudsmith.com/YOUR_WORKSPACE_NAME/YOUR_REPO_NAME/`.
-    * **Custom URL**: You can have a fully branded URL for your broadcast portal (e.g., `packages.yourcompany.com`). This provides a completely seamless experience for your users. To set this up, you will need to contact our support team. We refer to this as the "Broadcast URL" to distinguish it from the "Custom Domain".
+1.  **Broadcast URL**: this is the web address your end-users will visit to browse and discover your packages:
+    - **Default URL Structure**: `broadcast.cloudsmith.com/YOUR_WORKSPACE_NAME/YOUR_REPO_NAME/`.
+    - **Custom URL**: You can have a fully branded URL for your broadcast portal (e.g., `packages.yourcompany.com`). This provides a completely seamless experience for your users. To set this up, you will need to contact our support team.
 
-2.  **Custom Domains (For Native Tooling)**
-    This is the address used in the command line or build scripts to pull packages with native tooling (e.g., Docker, npm, Maven).
-    * Cloudsmith has long supported custom domains for package downloads (e.g., using `npm.cloudsmith.com` instead of the default domain).
-    * The installation instructions provided on your broadcast pages will automatically use any custom domain you have configured for the repository. This ensures that your users see your branded domain in the setup instructions they copy.
+2.  **Workspace Custom Domains**: this is the address used in the command line or build scripts to pull packages with native tooling (e.g., Docker, npm, Maven):
+    - Cloudsmith has long supported custom domains for package downloads (e.g., using `npm.cloudsmith.com` instead of the default cloudsmith domain).
+    - The installation instructions provided on your broadcast pages will automatically use any custom domain you have configured for your workspace. This ensures that your users see your branded domain in the setup instructions they copy.
+    - To learn how to configure it, visit the [Workspace Settings](/workspaces/workspace-settings#custom-domains) documentation.
+</Note>

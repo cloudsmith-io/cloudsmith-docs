@@ -1,23 +1,24 @@
 import { BlockImage, Note } from '@/components'
 
 import customize from './images/customize.png';
+import broadcasts_theme_final from './images/broadcasts_theme_final.png';
 
 # Customizing a Broadcast
 
-The default Broadcast color scheme can be customized to allow your public broadcasts to match your organization's brand colors. To customize the appearance of your Broadcasts, click the **Theme Tab** from the Broadcasts Overview page.
+The default Broadcast **color scheme** can be customized to match your organization's brand colors. To customize the appearance of your Broadcasts, click the **Theme Tab** from the Broadcasts Overview page.
 
 <BlockImage src={customize} alt=""></BlockImage>
 
-From this view, you will be able to customize:
+Customizations are applied at the workspace level, meaning the theme will be consistent across all of your broadcasts. 
 
-Customizations are applied at the workspace level, meaning the theme will be consistent across all of your broadcasts. In the **Theme** tab, you can modify:
+In the **Theme** tab, you can modify:
 - **Logo**: Add your company's logo.
 - **Colors**: Adjust the background, text, and accent colors.
-- **Metadata**: Choose which package metadata fields (like tags or download counts) to show or hide from end-users.
 
-The user-facing Broadcasts page has three different sections:
+Additionally, you can configure visible metadata for each of the three different user-facing broadcast pages:
 
-The above settings can be customized for each of them separately.
+- **Broadcast overview**: Customize the main broadcast page by showing or hiding the total package and download counts.
+- **Broadcast page**: View key repository information for your broadcast, including its description, package count, total downloads, and license.
+- **Package details**: Publish package information, including size, downloads, status, checksums, GPG signature, GPG fingerprint, upload date, uploading user, and the README file.
 
-
-PICTURE
+<BlockImage src={broadcasts_theme_final} alt=""></BlockImage>
