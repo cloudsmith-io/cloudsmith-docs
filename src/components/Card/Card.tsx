@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from 'class-variance-authority';
+import { type VariantProps, cva, cx } from 'class-variance-authority';
 import Link from 'next/link';
 import { Icon, IconName } from '@/icons';
 import styles from './Card.module.css';
@@ -18,10 +18,10 @@ const card = cva(styles.root, {
       half: styles.widthHalf,
       full: styles.widthFull,
     },
-  },
-  defaultVariants: {
-    size: 'm',
-    width: 'third',
+    type: {
+      default: '',
+      simple: styles.typeSimple,
+    },
   },
 });
 
@@ -35,32 +35,58 @@ export function Card({
   backgroundImage,
   size,
   width,
+  type,
   className,
   ...rest
 }: CardProps) {
   return (
-    <Link href={href} className={card({ size, width, className })} {...rest}>
-      {backgroundImage && (
-        <div
-          className={styles.background}
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-          aria-hidden="true"
-        />
+    <Link href={href} className={card({ size, width, type, className })} {...rest}>
+      {type !== 'simple' ? (
+        <>
+          {backgroundImage && (
+            <div
+              className={styles.background}
+              style={{ backgroundImage: `url(${backgroundImage})` }}
+              aria-hidden="true"
+            />
+          )}
+          <div className={styles.icon}>
+            <Icon name={icon} title="" {...iconProps} />
+          </div>
+          <div className={styles.content}>
+            <h3 className={cx(styles.title, 'headlineS')}>{title}</h3>
+            {description && <p className={cx(styles.description, 'bodyS')}>{description}</p>}
+            <div className={styles.link}>
+              <span className={cx(styles.linkText, 'headlineXXS')}>{linkText || title}</span>
+              <Icon name="arrow" title="" />
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          {backgroundImage && (
+            <div
+              className={styles.background}
+              style={{ backgroundImage: `url(${backgroundImage})` }}
+              aria-hidden="true"
+            />
+          )}
+          <div className={styles.top}>
+            <div className={styles.icon}>
+              <Icon name={icon} title="" {...iconProps} />
+            </div>
+            <h3 className={cx(styles.title, 'headlineXXS')}>{title}</h3>
+          </div>
+          {description && (
+            <div className={styles.bottom}>
+              <p className={cx(styles.description, 'bodyS')}>{description}</p>
+            </div>
+          )}
+          <div className={styles.arrow}>
+            <Icon name="arrow" title="" />
+          </div>
+        </>
       )}
-
-      <div className={styles.icon}>
-        <Icon name={icon} title="" {...iconProps} />
-      </div>
-
-      <div className={styles.content}>
-        <h3 className={styles.title}>{title}</h3>
-        {description && <p className={styles.description}>{description}</p>}
-
-        <div className={styles.link}>
-          <span className={styles.linkText}>{linkText || title}</span>
-          <Icon name="arrow" title="" />
-        </div>
-      </div>
     </Link>
   );
 }

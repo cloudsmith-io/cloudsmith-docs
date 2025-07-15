@@ -53,6 +53,9 @@ export interface Card {
   href: string;
   linkText: string;
   icon: IconName;
+  size?: 'xs' | 's' | 'm' | 'l';
+  width?: 'fifth' | 'quarter' | 'third' | 'half' | 'full';
+  type?: 'default' | 'simple';
 }
 
 interface Button {

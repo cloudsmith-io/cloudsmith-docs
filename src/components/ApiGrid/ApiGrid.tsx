@@ -8,7 +8,7 @@ import styles from './ApiGrid.module.css';
 export const ApiGrid = ({ heading, children }: Grid) => (
   <div className={styles.grid}>
     <div className={cx(styles.item, styles.header)}>
-      <div className={styles.subItem}>{heading}</div>
+      <div className={cx(styles.subItem, 'monoXSUppercase')}>{heading}</div>
     </div>
 
     {children}

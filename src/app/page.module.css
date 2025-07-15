@@ -1,7 +1,7 @@
 .section {
-  max-width: var(--container-width-xl);
+  max-width: var(--container-width-l);
   margin: 0 auto;
-  padding: var(--space-l) var(--container-margin-home);
+  padding: var(--space-l) var(--space-m);
 }
 
 .section:first-of-type {
@@ -10,11 +10,10 @@
 
 .sectionHeading {
   margin-bottom: var(--space-m);
-  font-size: var(--text-body-m);
 }
 
 .divider {
-  max-width: var(--container-width-xl);
+  max-width: var(--container-width-l);
   margin: 0 auto;
   padding: var(--space-m);
 }
@@ -23,10 +22,4 @@
   display: block;
   height: 1px;
   background-color: var(--color-border);
-}
-
-@media (--phablet-up) {
-  .sectionHeading {
-    font-size: var(--text-body-xl);
-  }
 }

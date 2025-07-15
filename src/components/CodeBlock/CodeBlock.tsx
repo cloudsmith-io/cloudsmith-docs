@@ -1,5 +1,5 @@
 import { transformerNotationHighlight } from '@shikijs/transformers';
-import { cva } from 'class-variance-authority';
+import { cva, cx } from 'class-variance-authority';
 
 import { getHighlighter, theme } from '@/lib/highlight';
 
@@ -35,7 +35,7 @@ export async function CodeBlock({ children, lang, header = true }: Props) {
     <div className={codeBlock({ hideHeader, hideLineNumbers })}>
       {!hideHeader && (
         <div className={styles.lang}>
-          <div className={styles.langText}>{lang}</div>
+          <div className={cx(styles.langText, 'monoXSUppercase')}>{lang}</div>
           <ClipboardCopy textToCopy={children} />
         </div>
       )}

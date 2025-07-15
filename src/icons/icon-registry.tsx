@@ -2,6 +2,7 @@ import { createIconRegistry } from './util/create-icon-registry';
 
 import { MenuIcon } from './svgs/Menu';
 import { ChevronIcon } from './svgs/Chevron';
+import { ChevronSmallIcon } from './svgs/ChevronSmall';
 import { ArrowIcon } from './svgs/Arrow';
 import { SearchIcon } from './svgs/Search';
 import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
@@ -49,6 +50,10 @@ import { FormatTerraformIcon } from './svgs/format/Terraform';
 import { FormatUnityIcon } from './svgs/format/Unity';
 import { FormatVagrantIcon } from './svgs/format/Vagrant';
 
+import { HomepageDocumentationIcon } from './svgs/homepage/Documentation';
+import { HomepageGuideIcon } from './svgs/homepage/Guide';
+import { HomepageAPIIcon } from './svgs/homepage/API';
+
 import { IntegrationAikidoIcon } from './svgs/integration/Aikido';
 import { IntegrationAnsibleIcon } from './svgs/integration/Ansible';
 import { IntegrationAWSCodeBuildIcon } from './svgs/integration/AWSCodeBuild';
@@ -78,7 +83,6 @@ import { IntegrationTerraformIcon } from './svgs/integration/Terraform';
 import { IntegrationTravisCIIcon } from './svgs/integration/TravisCI';
 import { IntegrationZapierIcon } from './svgs/integration/Zapier';
 
-
 export const iconRegistry = createIconRegistry({
   menu: MenuIcon,
   chevron: ChevronIcon,
@@ -87,6 +91,17 @@ export const iconRegistry = createIconRegistry({
   chevronRight: (props) => <ChevronIcon {...props} id="icon-chevron-right" chevronDirection="right" />,
   chevronDown: (props) => <ChevronIcon {...props} id="icon-chevron-down" chevronDirection="down" />,
   chevronLeft: (props) => <ChevronIcon {...props} id="icon-chevron-left" chevronDirection="left" />,
+  chevronSmall: ChevronSmallIcon,
+  chevronSmallUp: (props) => <ChevronSmallIcon {...props} id="icon-chevron-small-up" chevronDirection="up" />,
+  chevronSmallRight: (props) => (
+    <ChevronSmallIcon {...props} id="icon-chevron-small-right" chevronDirection="right" />
+  ),
+  chevronSmallDown: (props) => (
+    <ChevronSmallIcon {...props} id="icon-chevron-small-down" chevronDirection="down" />
+  ),
+  chevronSmallLeft: (props) => (
+    <ChevronSmallIcon {...props} id="icon-chevron-small-left" chevronDirection="left" />
+  ),
   arrow: ArrowIcon,
   arrowUp: (props) => <ArrowIcon {...props} id="icon-arrow-up" arrowDirection="up" />,
   arrowRight: (props) => <ArrowIcon {...props} id="icon-arrow-right" arrowDirection="right" />,
@@ -134,7 +149,9 @@ export const iconRegistry = createIconRegistry({
   'format/terraform': FormatTerraformIcon,
   'format/unity': FormatUnityIcon,
   'format/vagrant': FormatVagrantIcon,
-
+  'homepage/documentation': HomepageDocumentationIcon,
+  'homepage/guide': HomepageGuideIcon,
+  'homepage/api': HomepageAPIIcon,
   'integration/aikido': IntegrationAikidoIcon,
   'integration/ansible': IntegrationAnsibleIcon,
   'integration/awscodebuild': IntegrationAWSCodeBuildIcon,
@@ -163,5 +180,4 @@ export const iconRegistry = createIconRegistry({
   'integration/terraform': IntegrationTerraformIcon,
   'integration/travis': IntegrationTravisCIIcon,
   'integration/zapier': IntegrationZapierIcon,
-
 });

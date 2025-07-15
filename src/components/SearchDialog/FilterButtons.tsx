@@ -13,7 +13,6 @@ export interface FilterButtonsProps {
 export const FilterButtons = ({ filters, activeSections, onFilterChange }: FilterButtonsProps) => {
   return (
     <div className={styles.filters}>
-      <span className={styles.filtersHeadline}>Search in</span>
       <div className={styles.filtersList}>
         {filters.map((filter) => (
           <button

@@ -34,14 +34,10 @@
   border-top: 0;
   border-radius: var(--border-radius-m) var(--border-radius-m) 0 0;
   background-color: var(--color-background-light);
-  text-transform: uppercase;
-  font-family: var(--font-family-mono);
-  font-size: var(--text-body-xs);
-  color: var(--base-color-grey-600);
+  color: var(--brand-color-grey-7);
 }
 
 .subItem {
-  line-height: var(--line-height-s);
   padding-inline: var(--column-inline-padding);
   padding-block: var(--column-block-padding);
 
@@ -55,7 +51,6 @@
 .subItemType {
   color: var(--base-color-blue-500);
   font-family: var(--font-family-mono);
-  font-size: var(--text-body-xs);
   letter-spacing: var(--letter-http-type);
 }
 

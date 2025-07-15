@@ -3,22 +3,44 @@ import { Icon, IconName } from '@/icons';
 import { iconRegistry } from '../icons/icon-registry';
 import styles from '../app/(documentation)/design-system/page.module.css';
 
-
 Cloudsmith supports the following integrations:
 
 ## Canonical Upstreams
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/chainguard'} as="svg" title="Chainguard Images" width={24} height={24} />
-        <a href="/integrations/integrating-with-chainguard-images"><span>Chainguard Images</span></a>
-     </div>
-    <div className={styles.iconWrapper}>
-            <Icon name={'integration/docker'} as="svg" title="Docker Hub" width={24} height={24} />
-        <a href="/integrations/integrating-with-docker-hub"><span>Docker Hub</span></a>
-    </div>
+  <a href="/integrations/integrating-with-chainguard-images" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Chainguard Images</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/chainguard'}
+        as="svg"
+        title="Chainguard Images"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-docker-hub" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Docker Hub</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/docker'}
+        as="svg"
+        title="Docker Hub"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
 </div>
-
 
 ## CI / CD
 
@@ -87,74 +109,428 @@ Cloudsmith supports the following integrations:
             <Icon name={'integration/octopusdeploy'} as="svg" title="Octopus Deploy" width={24} height={24} />
         <a href="/integrations/integrating-with-octopus-deploy"><span>Octopus Deploy</span></a>
     </div>
+3=======
+  <a href="/integrations/integrating-with-aws-codebuild" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>AWS CodeBuild</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/awscodebuild'}
+        as="svg"
+        title="AWS CodeBuild"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-azure-devops" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Azure DevOps</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/azuredevops'}
+        as="svg"
+        title="Azure DevOps"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-bitbucket-pipelines" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Bitbucket</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/bitbucketpipelines'}
+        as="svg"
+        title="Bitbucket"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-buildkite" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Buildkite</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/buildkite'}
+        as="svg"
+        title="Buildkite"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-circleci" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Circle CI</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/circleci'}
+        as="svg"
+        title="Circle CI"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-drone-ci" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Drone CI</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/droneci'}
+        as="svg"
+        title="Drone CI"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-github-actions" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>GitHub Actions</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/githubactions'}
+        as="svg"
+        title="GitHub Actions"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-gitlab-cicd" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>GitLab CI/CD</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/gitlabci'}
+        as="svg"
+        title="GitLab CI/CD"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-harnescd" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Harness</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/harnesscd'}
+        as="svg"
+        title="Harness"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-jenkins" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Jenkins</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/jenkins'}
+        as="svg"
+        title="Jenkins"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-renovate" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Renovate CLI</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/renovatecli'}
+        as="svg"
+        title="Renovate CLI"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-semaphore-ci" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Semaphore CI</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/semaphoreci'}
+        as="svg"
+        title="Semaphore CI"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-travis-ci" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Travis CI</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/travis'}
+        as="svg"
+        title="Travis CI"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-teamcity" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>TeamCity</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/teamcity'}
+        as="svg"
+        title="TeamCity"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-octopus-deploy" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Octopus Deploy</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/octopusdeploy'}
+        as="svg"
+        title="Octopus Deploy"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
 </div>
 
 ## Continuous Configuration Automation (CCA)
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/ansible'} as="svg" title="Ansible" width={24} height={24} />
-        <a href="/integrations/integrating-with-ansible"><span>Ansible</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/chef'} as="svg" title="Chef" width={24} height={24} />
-        <a href="/integrations/integrating-with-chef"><span>Chef</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/puppet'} as="svg" title="Puppet" width={24} height={24} />
-        <a href="/integrations/integrating-with-puppet"><span>Puppet</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/terraform'} as="svg" title="Terraform" width={24} height={24} />
-        <a href="/integrations/integrating-terraform"><span>Terraform</span></a>
-    </div>
+  <a href="/integrations/integrating-with-ansible" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Ansible</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/ansible'}
+        as="svg"
+        title="Ansible"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-chef" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Chef</span>
+    </header>
+    <footer>
+      <Icon name={'integration/chef'} as="svg" title="Chef" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-puppet" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Puppet</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/puppet'}
+        as="svg"
+        title="Puppet"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-terraform" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Terraform</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/terraform'}
+        as="svg"
+        title="Terraform"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
 </div>
 
 ## Notification
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/microsoftteams'} as="svg" title="Microsoft Teams" width={24} height={24} />
-        <a href="/integrations/integrating-with-microsoft-teams"><span>Microsoft Teams</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/slack'} as="svg" title="Slack" width={24} height={24} />
-        <a href="/integrations/integrating-with-slack"><span>Slack</span></a>
-    </div>
+  <a href="/integrations/integrating-with-microsoft-teams" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Microsoft Teams</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/microsoftteams'}
+        as="svg"
+        title="Microsoft Teams"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/integrations/integrating-with-slack" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Slack</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/slack'}
+        as="svg"
+        title="Slack"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
 </div>
 
 ## Observability
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/datadog'} as="svg" title="Datadog" width={24} height={24} />
-        <a href="/integrations/integrating-with-datadog"><span>Datadog</span></a>
-    </div>
-</div> 
+  <a href="/integrations/integrating-with-datadog" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Datadog</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/datadog'}
+        as="svg"
+        title="Datadog"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+</div>
 
 ## Security
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/aikido'} as="svg" title="Aikido" width={24} height={24} />
-        <a href="/integrations/integrating-with-aikido"><span>Aikido</span></a>
-    </div>
-</div> 
+  <a href="/integrations/integrating-with-aikido" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Aikido</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/aikido'}
+        as="svg"
+        title="Aikido"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+</div>
 
 ## Connector
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/zapier'} as="svg" title="Zapier" width={24} height={24} />
-        <a href="/integrations/integrating-with-zapier"><span>Zapier</span></a>
-    </div>
+  <a href="/integrations/integrating-with-zapier" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Zapier</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/zapier'}
+        as="svg"
+        title="Zapier"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
 </div>
 
 ## Service Catalog
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'integration/roadie'} as="svg" title="Roadie" width={24} height={24} />
-        <a href="/integrations/integrating-with-roadie"><span>Roadie</span></a>
-    </div>
-</div> 
+  <a href="/integrations/integrating-with-roadie" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Roadie</span>
+    </header>
+    <footer>
+      <Icon
+        name={'integration/roadie'}
+        as="svg"
+        title="Roadie"
+        className={styles.logo}
+        width={24}
+        height={24}
+      />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+</div>

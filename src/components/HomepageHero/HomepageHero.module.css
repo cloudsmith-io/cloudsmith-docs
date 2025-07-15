@@ -1,7 +1,7 @@
 .root {
-  background-color: var(--base-color-grey-150);
+  background-color: var(--brand-color-grey-0);
   overflow: hidden;
-  height: 100%;
+  height: 518px;
 
   --offset-top: calc(var(--space-xl) + var(--navbar-top-height));
   --hero-illustration-overlap: min(20vh, 150px);
@@ -13,17 +13,79 @@
 }
 
 .background {
+  height: 518px;
+  width: 100%;
   position: absolute;
-  height: 100%;
-  width: 800px;
-  right: -20%;
+  max-width: var(--container-width-l);
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+
+  & > svg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-inline-size: none;
+    max-block-size: none;
+  }
+
+  .topVignette,
+  .bottomVignette {
+    height: 40px;
+  }
+
+  .rightVignette,
+  .leftVignette {
+    width: 40px;
+  }
+
+  .topVignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, transparent, var(--brand-color-grey-0));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .rightVignette {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, transparent, var(--brand-color-grey-0));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .bottomVignette {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, transparent, var(--brand-color-grey-0));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .leftVignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(to left, transparent, var(--brand-color-grey-0));
+    pointer-events: none;
+    z-index: 1;
+  }
 }
 
 .content {
   z-index: var(--layer-hero);
   width: 100%;
   max-width: var(--container-width-s);
-  padding: var(--offset-top) var(--container-margin-home) var(--space-2xl);
+  padding: var(--offset-top) var(--space-m);
   font-family: var(--font-family-body);
 }
 
@@ -31,11 +93,20 @@
   font-family: var(--font-family-headline);
   font-size: var(--text-headline-l);
   line-height: var(--line-height-compact);
+  letter-spacing: -0.0075em;
+}
+
+.title strong {
+  background-clip: text;
+  background: linear-gradient(to right, var(--brand-color-blue-6), var(--brand-color-blue-8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .description {
   max-width: var(--container-width-xs);
   margin-bottom: var(--space-s);
+  color: var(--brand-color-grey-8);
 }
 
 .buttonContainer {
@@ -46,11 +117,6 @@
 }
 
 @media (--phablet-up) {
-  .background {
-    left: auto;
-    right: 10%;
-  }
-
   .title {
     font-size: var(--text-headline-xl);
   }
@@ -61,5 +127,15 @@
 
   .button {
     width: var(--button-width-m);
+  }
+
+  .topVignette,
+  .bottomVignette {
+    height: 80px;
+  }
+
+  .rightVignette,
+  .leftVignette {
+    width: 80px;
   }
 }
