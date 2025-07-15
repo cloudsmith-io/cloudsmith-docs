@@ -108,7 +108,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
             menuSegments,
             slug,
             title: createTitle(menuSegments),
-            experimental: (operation as any)['x-experimental'] === true,
+            experimental: (operation as OpenAPIV3.OperationObject)['x-experimental'] === true,
           });
         }
       }
