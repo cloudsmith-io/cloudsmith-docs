@@ -135,10 +135,10 @@
     --color-background-default: var(--base-color-white);
     --color-background-light: var(--base-color-grey-25);
     --color-background-info: var(--base-color-blue-100);
-    --color-background-alert: var(--base-color-red-100);
-    --color-background-premium: var(--base-color-purple-100);
-    --color-background-success: var(--base-color-teal-100);
-    --color-background-warning: var(--base-color-yellow-100);
+    --color-background-alert: var(--brand-color-red-2);
+    --color-background-premium: var(--brand-color-purple-2);
+    --color-background-success: var(--brand-color-green-2);
+    --color-background-warning: var(--brand-color-yellow-2);
     --color-background-code: var(--base-color-blue-75);
     --color-background-pre: var(--base-color-grey-900);
     --color-background-header: var(--brand-color-grey-0);

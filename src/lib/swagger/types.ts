@@ -14,6 +14,7 @@ export interface ApiOperation {
   slug: string;
   title: string;
   version: string;
+  experimental?: boolean; // Whether this endpoint is in early access
 
   // From OpenAPIV3.OperationObject
   tags?: string[];
