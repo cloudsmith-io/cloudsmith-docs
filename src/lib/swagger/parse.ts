@@ -6,6 +6,10 @@ import { ApiOperation } from './types';
 import { isHttpMethod, createSlug, parseMenuSegments, apiOperationPath, createTitle } from './util';
 import { MenuItem } from '../menu/types';
 
+interface OperationObjectWithExperimental extends OpenAPIV3.OperationObject {
+  'x-experimental'?: boolean;
+}
+
 const SCHEMAS_DIR = 'src/content/schemas';
 
 /**
@@ -108,7 +112,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
             menuSegments,
             slug,
             title: createTitle(menuSegments),
-            experimental: (operation as OpenAPIV3.OperationObject)['x-experimental'] === true,
+            experimental: (operation as OperationObjectWithExperimental)['x-experimental'] === true,
           });
         }
       }
