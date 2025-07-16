@@ -1,4 +1,4 @@
-import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph, Tag, Note } from '@/components';
+import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
 import { loadMdxInfo } from '@/lib/markdown/util';
 import { parseSchemas, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
