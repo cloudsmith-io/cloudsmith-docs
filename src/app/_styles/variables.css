@@ -146,6 +146,7 @@
     /* Text */
     --color-text-primary: var(--brand-color-grey-10);
     --color-text-secondary: var(--brand-color-grey-8);
+    --color-text-tertiary: var(--brand-color-grey-7);
     --color-text-link: var(--base-color-blue-500);
     --color-text-on-color: var(--base-color-white);
     --color-text-label: var(--base-color-grey-500);

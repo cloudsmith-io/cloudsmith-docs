@@ -44,9 +44,10 @@ const Page = async ({ params }: PageProps) => {
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
+    const repoPath = `src/content/${mdxInfo.file}`;
     const mdxModule = await import(`@/content/${mdxInfo.file}`);
     const { default: Post } = mdxModule;
-    const lastUpdated = getLastUpdated(mdxModule);
+    const lastUpdated = await getLastUpdated(mdxInfo);
 
     const pathname = `/${qualifiedSlug}`;
     const menuData = getMenuItem('documentation');
@@ -54,7 +55,7 @@ const Page = async ({ params }: PageProps) => {
     const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
 
     return (
-      <WithQuicknav>
+      <WithQuicknav showSidePanel path={repoPath} lastUpdated={lastUpdated}>
         {parentTitle ? (
           <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
             {parentTitle}
