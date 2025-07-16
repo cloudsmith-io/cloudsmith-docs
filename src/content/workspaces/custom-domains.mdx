@@ -1,10 +1,6 @@
----
-title: Custom Domains
----
+import { Note, BlockImage } from '@/components'
 
 # Custom domains
-
-## About custom domains
 
 Your company brand and trust are important to you and your customers, and with custom domains you can present your own company as the endpoint for distribution, APIs, and configuration (e.g. retrieving GPG keys). 
 
@@ -12,7 +8,11 @@ This is a great idea if you are:
 - A vendor that is selling and distributing software to your customers
 - A security-conscious DevOps team that is looking to control the source endpoint for artifacts
 
-Custom domains are available with our Velocity and Ultra plans. We strongly recommend - and may require - custom domains for any customer with significant Cloudsmith package delivery traffic.
+<Note variant="note" headline="Disambiguation">
+If you are looking for Broadcast URL customization, please refer to the [Broadcasts](/software-delivery/broadcasts) documentation or [contact us](https://cloudsmith.com/company/contact-us).
+</Note>
+
+Custom domains are available with our Ultra and Enterprise plans. We strongly recommend - and may require - custom domains for any customer with significant Cloudsmith package delivery traffic.
 
 ## Configuration Options
 
@@ -68,23 +68,23 @@ To configure a custom domain within Cloudsmith, we require you to provide:
 
 Example request:
 
+```
 Domain: `docker.mycompany.com` (Docker)  
 Account wide  
 No redirect
+```
 
 Once created within Cloudsmith, you will need to create two DNS CNAME entries for each domain you wish to configure within your DNS provider. 
 
-***
-
-#### Step 1:
+### Step 1
 
 - The process begins when you [contact us](https://cloudsmith.com/company/contact-us) via support with a list of custom domains you would like to configure. We will review and start processing your request, ensuring your plan is eligible to make use of the custom domain feature. 
 
-#### Step 2:
+### Step 2
 
 - After confirming the domains you need, a member of the team will review and configure them within Cloudsmith. Once set, the DNS CNAME entries will be visible in your account (in the "Custom Domains" section of any repository)  
 
-#### Step 3:
+### Step 3
 
 - You then add the DNS CNAME entries to your domain DNS records with your DNS provider. The first CNAME is for authorizing the domain, and the second is to make it visible and accessible to your users.
 - Once you have configured the CNAME's, you will then be able to make use of your custom domains.

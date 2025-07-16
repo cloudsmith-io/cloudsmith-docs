@@ -58,6 +58,42 @@
       ]
     },
     {
+      "heading": "Leveling up your artifact management and package delivery",
+      "type": "cards",
+      "cards": [
+        {
+          "title": "Broadcasts",
+          "description": "Distribute your packages with your own branding",
+          "href": "/software-delivery/broadcasts/",
+          "linkText": "Broadcasts",
+          "icon": "homepage/guide",
+          "size": "s",
+          "width": "third",
+          "type": "default"
+        },
+        {
+          "title": "Supply Chain Security",
+          "description": "Define your security policies as code, and enforce them across all your organization's artifacts",
+          "href": "/supply-chain-security",
+          "linkText": "Secure your artifacts",
+          "icon": "homepage/documentation",
+          "size": "s",
+          "width": "third",
+          "type": "default"
+        },
+        {
+          "title": "Upstreams",
+          "description": "Index, proxy, and cache popular public upstreams and control all your assets within a single repository.",
+          "href": "/repositories/upstreams",
+          "linkText": "Configure a new upstream",
+          "icon": "homepage/api",
+          "size": "s",
+          "width": "third",
+          "type": "default"
+        }
+      ]
+    },
+    {
       "heading": "Managing accounts and teams",
       "type": "cards",
       "cards": [
@@ -82,7 +118,7 @@
           "type": "default"
         },
         {
-          "title": "Workspace privileges",
+          "title": "Workspace RBAC",
           "description": "Learn how to apply the principle of least privilege to secure your supply chain.",
           "href": "/workspaces/privileges",
           "linkText": "Privileges",
