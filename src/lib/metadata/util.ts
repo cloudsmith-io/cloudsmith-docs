@@ -100,6 +100,11 @@ export async function getLastUpdated(mdxInfo: MdxInfo): Promise<string | undefin
   } else {
     const fullPath = path.join('src/content', mdxInfo.file);
     const gitDate = execSync(`git log -1 --format=%cI -- ${fullPath}`)?.toString().trim();
-    return gitDate || undefined;
+
+    if (gitDate) {
+      return gitDate;
+    } else {
+      return undefined;
+    }
   }
 }

@@ -18,8 +18,10 @@ const WithQuicknav = ({ children, showSidePanel = false, path = '', lastUpdated 
         {children}
       </article>
       <aside className={styles.nav}>
-        <QuickNav />
-        {showSidePanel && <SidePanel path={path} lastUpdated={lastUpdated} />}
+        <div className={styles.navWrapper}>
+          <QuickNav />
+          {showSidePanel && <SidePanel path={path} lastUpdated={lastUpdated} />}
+        </div>
       </aside>
     </main>
   );

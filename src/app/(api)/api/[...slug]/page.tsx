@@ -1,4 +1,4 @@
-import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
+import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph, Tag, Note } from '@/components';
 import { loadMdxInfo } from '@/lib/markdown/util';
 import { parseSchemas, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
@@ -78,9 +78,8 @@ const Page = async ({ params }: PageProps) => {
   const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
 
   if (mdxInfo) {
-    const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    const { default: Post } = mdxModule;
-    const lastUpdated = getLastUpdated(mdxModule);
+    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
+    const lastUpdated = await getLastUpdated(mdxInfo);
 
     return (
       <WithQuicknav>

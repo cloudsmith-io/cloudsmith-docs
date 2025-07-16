@@ -44,9 +44,8 @@ const Page = async ({ params }: PageProps) => {
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
+    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
     const repoPath = `src/content/${mdxInfo.file}`;
-    const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    const { default: Post } = mdxModule;
     const lastUpdated = await getLastUpdated(mdxInfo);
 
     const pathname = `/${qualifiedSlug}`;
