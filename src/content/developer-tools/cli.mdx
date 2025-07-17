@@ -26,6 +26,26 @@ Or you can get the latest pre-release version from Cloudsmith:
 ```shell
 pip install --upgrade cloudsmith-cli --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
 ```
+### Installing with zipapp
+
+Distributing Python applications can be challenging because, as an interpreted language, Python requires an interpreter to run code, unlike compiled languages that produce standalone executables. However, for smaller, pure-Python programs, a Python Zip application offers a straightforward solution for bundling and sharing your work. This method packages all the necessary code into a single ZIP file.
+
+<Note variant="note" headline="Requirements">
+`python3` required to use this installation method.
+</Note>
+
+```bash
+# download latest release and make it executable
+curl -s https://api.github.com/repos/cloudsmith-io/cloudsmith-cli/releases/latest | sed -n 's/"browser_download_url": //p' | xargs wget -qO cloudsmith.pyz
+chmod +x ./cloudsmith.pyz
+# move it into your $PATH
+sudo mv ./cloudsmith.pyz /usr/local/bin/cloudsmith
+```
+You are ready to use it:
+
+```bash
+cloudsmith -h
+```
 
 ### Installing with Homebrew Tap
 
