@@ -203,6 +203,10 @@
           {
             "title": "Package Groups",
             "path": "/artifact-management/package-groups"
+          },
+          {
+            "title": "Troubleshooting",
+            "path": "/troubleshooting"
           }
         ]
       },

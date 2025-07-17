@@ -9,6 +9,8 @@ export async function getHighlighter() {
     highlighter = await createHighlighter({
       themes: [theme],
       langs: [
+        () => import('./lang/rego.json'),
+        () => import('./lang/swift.json'),
         'js',
         'jsx',
         'ts',
