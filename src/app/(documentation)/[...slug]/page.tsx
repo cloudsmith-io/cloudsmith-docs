@@ -48,10 +48,17 @@ const Page = async ({ params }: PageProps) => {
     const { default: Post } = mdxModule;
     const lastUpdated = getLastUpdated(mdxModule);
 
+    // 1. Look for a `parentTitle` exported from the .mdx file first.
+    const mdxParentTitle = mdxModule.parentTitle || null;
+
+    // 2. Original logic: Get parentTitle from the menu system.
     const pathname = `/${qualifiedSlug}`;
     const menuData = getMenuItem('documentation');
     const ancestors = getActiveAncestors(pathname, [menuData]);
-    const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
+    const menuParentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
+
+    // 3. Prioritize the title from the MDX file, then fall back to the menu.
+    const parentTitle = mdxParentTitle || menuParentTitle;
 
     return (
       <WithQuicknav>

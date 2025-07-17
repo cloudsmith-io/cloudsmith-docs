@@ -20,7 +20,7 @@ Without Block Until Scan, packages could be served to clients *before* all neces
 Please note that Block Until Scan is a global setting that affects **all repositories** within a given workspace. Its activation will impact all applicable package flows.
 </Note>
 
-### Requirements:
+### Requirements
 
 - **Active Security Policies**: At least one active classic policy with a _quarantine_ action enabled is required. Without such a policy, the system would have no criteria to evaluate incoming packages.
 - **Upstream Configuration ('Proxy and Caching' mode)**: the repository must have an upstream configured with ['Proxy and Caching'](/repositories/upstreams#supported-formats) mode enabled. Block Until Scan is explicitly applied to packages undergoing the caching and evaluation pipeline within Cloudsmith.
