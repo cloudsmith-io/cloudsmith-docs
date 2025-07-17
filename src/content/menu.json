@@ -365,6 +365,10 @@
             "path": "/api"
           },
           {
+            "title": "API bindings",
+            "path": "/developer-tools/api-bindings"
+          }
+          {
             "title": "Webhooks",
             "path": "/developer-tools/webhooks"
           },
@@ -476,10 +480,6 @@
           {
             "title": "HTTP Responses",
             "path": "/does-not-exist"
-          },
-          {
-            "title": "API bindings",
-            "path": "/api/api-bindings"
           }
         ]
       }
