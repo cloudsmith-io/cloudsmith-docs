@@ -6,11 +6,14 @@ The Cloudsmith Command Line Interface (CLI) is a Py2/Py3 text-based interface to
 
 ## Installation
 
-You can install the latest CLI application from:
+You can install or deploy the latest CLI application from:
 
 - [Cloudsmith](https://broadcasts.cloudsmith.com/cloudsmith/cli/)
 - [PyPi](https://pypi.python.org/pypi/cloudsmith-cli)
 - [Homebrew Tap](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli)
+- [DockerHub](https://hub.docker.com/r/cloudsmith/cloudsmith-cli)
+
+### Installing with pip
 
 The easiest way is to use `pip`, such as:
 
@@ -66,6 +69,52 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; `
 choco install python -y
 refreshenv
 choco install cloudsmith-cli --source python
+```
+
+### Deploying the CLI containerized
+
+Cloudsmith maintains a [Docker image for the Cloudsmith CLI](https://hub.docker.com/r/cloudsmith/cloudsmith-cli)⁠ built for use in CI/CD pipelines and automation environments.
+
+To deploy it, replace the `API_TOKEN` with the API Token associated to the service account you want to use, specifiying the Cloudsmith CLI command you want to use. For example, you can run `cloudsmith whoami`:
+
+```bash
+docker run --rm \
+-e CLOUDSMITH_API_KEY=API_TOKEN \
+cloudsmith/cloudsmith-cli:1.8.3 \
+whoami
+```
+
+Successful execution of the command above will return the member or service account associated to the API Token used:
+
+```text
+Retrieving your authentication status from the API ... OK
+You are authenticated as:
+M. Bolton (slug: mbolton, email: mbolton@initech.com)
+```
+
+For example, you can use the Cloudsmith CLI container to push a python package to your workspace/repository `WORKSPACE/REPOSITORY`. In this example, the python package `PACKAGE.whl` is located `/path_to_package/`, and the package is being mounted in the container filesystem in `/tmp/` as `my_package.whl`:
+
+```bash
+docker run --rm \
+-e CLOUDSMITH_API_KEY=API_TOKEN \
+-v "/path_to_package/PACKAGE.whl:/tmp/my_package.whl" \
+cloudsmith/cloudsmith-cli:1.8.3 \
+push python WORKSPACE/REPOSITORY /tmp/my_package.whl 
+```
+
+Successful execution of the command will return:
+
+```text
+Checking python package upload parameters ... OK
+Checking PACKAGE.whl file upload parameters ... OK
+Requesting file upload for PACKAGE.whl ... OK
+Uploading PACKAGE.whl:
+Creating a new python package ... OK
+Created: WORKSPACE/REPOSITORY/PACKAGEwhl (package_slug)
+
+Synchronising PACKAGEwhl:
+
+Package synchronised successfully in 6.001236 second(s)!
 ```
 
 ### Getting your API Key
