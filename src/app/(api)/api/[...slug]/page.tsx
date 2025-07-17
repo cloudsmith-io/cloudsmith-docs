@@ -7,6 +7,8 @@ import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import WithQuicknav from '@/components/WithQuickNav';
+import { Icon, type IconName } from '@/icons';
+import { Link } from '@/components';
 import { cx } from 'class-variance-authority';
 
 import styles from './page.module.css';
@@ -113,8 +115,15 @@ const Page = async ({ params }: PageProps) => {
           </h2>
         ) : null}
         <Heading size="h1">{operation.title}</Heading>
-        {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
-
+        <div className={styles.description}>
+          {operation.description && <Paragraph>{operation.description}</Paragraph>}
+          {operation.sandboxLink && (
+            <Link href={operation.sandboxLink} className={cx(styles.sandboxLink, 'bodyS')} target="_blank">
+              <span>Open API Sandbox</span>
+              <Icon name="external" title="Open API Sandbox" />
+            </Link>
+          )}
+        </div>
         <div className={styles.gridRoot}>
           <Heading size="h2" className={styles.fullWidth}>
             Request

@@ -30,6 +30,7 @@ export interface ApiOperation {
   deprecated?: boolean;
   security?: SecurityRequirementObject[];
   servers?: ServerObject[];
+  sandboxLink?: string;
 }
 
 interface ServerObject {
