@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
 import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import WithQuicknav from '@/components/WithQuickNav';
-import { Icon, type IconName } from '@/icons';
+import { Icon } from '@/icons';
 import { Link } from '@/components';
 import { cx } from 'class-variance-authority';
 
