@@ -1,4 +1,4 @@
-import { Note } from '@/components';
+import { Tag, Note } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # NuGet Feed
@@ -254,12 +254,15 @@ The Cloudsmith NuGet feed implementation has the following limitations:
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream NuGet feeds that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
 Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 

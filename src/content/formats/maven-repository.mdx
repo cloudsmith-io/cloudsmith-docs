@@ -1,4 +1,4 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # Maven Repository
@@ -319,12 +319,15 @@ mvn install
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream Maven repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
 If you’ve configured your Maven upstream for caching, Cloudsmith will cache all files fetched from your upstream, including arbitrary files.
@@ -345,7 +348,9 @@ Please see our [Upstream Proxying](/repositories/upstreams) documentation for fu
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Index</span> <span class="cs-tag cs-tag-midnight-blue">Packages</span>
+<Tag variant="blue" theme="legacy">GPG</Tag> 
+<Tag variant="purple" theme="legacy">Index</Tag> 
+<Tag variant="midnight-blue" theme="legacy">Packages</Tag> 
 
 ## Troubleshooting
 

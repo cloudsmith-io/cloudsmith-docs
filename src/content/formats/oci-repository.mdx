@@ -1,4 +1,4 @@
-import { Note } from '@/components';
+import { Tag, Note } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # OCI Repository
@@ -223,19 +223,21 @@ Provenance files allow for verification of both the integrity and source of a He
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span> 
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
 
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Chaching</Tag>
 
 You can configure upstream OCI registries you wish to use by using our Docker Upstream feature. In addition, you can also choose to cache any requested artifacts for future use.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">RSA</span> <span class="cs-tag cs-tag-purple">Index</span>
+<Tag variant="red" theme="legacy">RSA</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
 
 ## Troubleshooting
 

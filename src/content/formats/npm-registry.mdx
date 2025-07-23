@@ -1,4 +1,4 @@
-import { Note, BlockImage, Video } from '@/components';
+import { Tag, Note, BlockImage, Video } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # npm Registry
@@ -354,19 +354,22 @@ Additionally, any search terms used are not passed to upstream repositories and 
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
+<Tag variant="dark-green" theme="legacy">Supported</Tag> 
+
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream NPM repositories you wish to use as additional package sources for your Cloudsmith repository. You can also choose to cache any requested packages for future use.
 
 Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
 
 ## Troubleshooting
 

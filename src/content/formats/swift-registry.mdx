@@ -1,5 +1,5 @@
 
-import { Note, BlockImage } from '@/components';
+import { Tag, Note, BlockImage } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 import swift from './images/swift/swift.png';
@@ -317,12 +317,15 @@ swift package purge-cache
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 
 You can configure to proxy a private or public swift registry you wish to use for packages that are not available in your current Cloudsmith repository e.g. you can point to another Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
@@ -334,7 +337,7 @@ Please see our [Upstream Proxying](/repositories/upstreams) documentation for fu
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">Not supported</span>
+<Tag variant="red" theme="legacy">Not supported</Tag>
 
 ## Troubleshooting
 

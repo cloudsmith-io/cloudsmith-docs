@@ -1,4 +1,4 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # Docker Registry
@@ -240,7 +240,7 @@ FROM docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span> 
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
 
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
@@ -254,13 +254,15 @@ The Cloudsmith Docker registry implementation has the following limitations:
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
 
 You can configure upstream Docker registries you wish to use for images. In addition, you can also choose to cache any requested images for future use.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">RSA</span> <span class="cs-tag cs-tag-purple">Index</span>
+<Tag variant="red" theme="legacy">RSA</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
 
 ## Troubleshooting
 

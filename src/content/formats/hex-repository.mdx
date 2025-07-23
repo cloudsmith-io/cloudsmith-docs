@@ -1,4 +1,4 @@
-import { Note } from '@/components';
+import { Tag, Note } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # Hex Repository
@@ -90,7 +90,7 @@ To configure your Hex package for publishing to your Cloudsmith repository, foll
 ```shell
 defp hex do
     [
-      api_url: "https://hex.cloudsmith.io/hex/OWNER/REPOSITORY",
+      api_url: "https://hex.cloudsmith.io/OWNER/REPOSITORY",
       api_key: "API-KEY"
     ]
   end
@@ -200,12 +200,15 @@ To incorporate a package hosted on Cloudsmith into your project, you need to mod
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream Hex repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
 Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions.
