@@ -108,6 +108,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
             menuSegments,
             slug,
             title: createTitle(menuSegments),
+            experimental: operation.tags?.includes('experimental') === true,
           });
         }
       }

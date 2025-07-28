@@ -61,6 +61,22 @@ The following XML is an example of a depandancy in a pom.xml:
 
 ### Update your pluginRepository
 
+A repository holds two main kinds of items, called artifacts. The first and most common kind are dependencies, which other projects need to work. The second kind are Maven plugins. Because plugins are a special type of artifact, they can have their own separate repositories. The setup for these `pluginRepositories` is very similar to the setup for regular repositories:
+
+```xml
+<pluginRepositories>
+  <pluginRepository>
+    <id>NAME</id> <url>https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+  </pluginRepository>
+</pluginRepositories>
+```
+
 ## Deploy to Cloudsmith
 
 Once you have your pom.xml and settings.xml file all updated with the Cloudsmith information, you just need to package your Maven package and deploy it to Cloudsmith.

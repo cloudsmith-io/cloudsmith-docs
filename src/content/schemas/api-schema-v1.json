@@ -30,7 +30,6 @@
         "operationId": "audit_log_namespace_list",
         "summary": "Lists audit log entries for a specific namespace.",
         "description": "Lists audit log entries for a specific namespace.",
-        "sandboxLink": "https://api-stg.cloudsmith.io/v1/redoc/#tag/audit-log/operation/audit_log_namespace_list",
         "parameters": [
           {
             "name": "page",
@@ -123,7 +122,6 @@
         "operationId": "audit_log_repo_list",
         "summary": "Lists audit log entries for a specific repository.",
         "description": "Lists audit log entries for a specific repository.",
-        "sandboxLink": "https://api-stg.cloudsmith.io/v1/redoc/#tag/audit-log/operation/audit_log_repo_list",
         "parameters": [
           {
             "name": "page",

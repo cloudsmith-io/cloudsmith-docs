@@ -1,4 +1,4 @@
-import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
+import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph, Tag, Note } from '@/components';
 import { loadMdxInfo } from '@/lib/markdown/util';
 import { parseSchemas, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
@@ -80,9 +80,8 @@ const Page = async ({ params }: PageProps) => {
   const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
 
   if (mdxInfo) {
-    const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    const { default: Post } = mdxModule;
-    const lastUpdated = getLastUpdated(mdxModule);
+    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
+    const lastUpdated = await getLastUpdated(mdxInfo);
 
     return (
       <WithQuicknav>
@@ -114,6 +113,11 @@ const Page = async ({ params }: PageProps) => {
             {operationParentTitle}
           </h2>
         ) : null}
+        {operation.experimental ? (
+          <Tag variant="lightyellow" className={styles.experimentalTag}>
+            Early access
+          </Tag>
+        ) : null}
         <Heading size="h1">{operation.title}</Heading>
         <div className={styles.description}>
           {operation.description && <Paragraph>{operation.description}</Paragraph>}
@@ -124,6 +128,12 @@ const Page = async ({ params }: PageProps) => {
             </Link>
           )}
         </div>
+        {operation.experimental ? (
+          <Note variant="warning" noHeadline>
+            This endpoint is in early access, and may not be available to you. Contact us to request access
+          </Note>
+        ) : null}
+
         <div className={styles.gridRoot}>
           <Heading size="h2" className={styles.fullWidth}>
             Request

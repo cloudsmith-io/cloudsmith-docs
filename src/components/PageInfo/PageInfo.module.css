@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+
+.dateUpdated {
+  padding-block: var(--space-3xs);
+  color: var(--color-text-tertiary);
+}
+
+.githubLink,
+.addCommentLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  color: var(--color-text-secondary);
+
+  &:hover {
+    color: var(--brand-color-blue-7);
+  }
+}

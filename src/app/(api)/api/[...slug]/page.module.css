@@ -35,6 +35,10 @@
   }
 }
 
+.experimentalTag {
+  margin-bottom: var(--space-s);
+}
+
 @media (--tablet-up) {
   .description {
     display: flex;

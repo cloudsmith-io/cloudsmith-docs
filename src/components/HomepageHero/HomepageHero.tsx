@@ -29,16 +29,16 @@ const HeroBackground = () => (
           <path
             d="M40 0 L0 0 0 40"
             stroke="var(--brand-color-blue-2)"
-            stroke-width="1.5"
-            stroke-dasharray="3 3"
+            strokeWidth="1.5"
+            strokeDasharray="3 3"
           />
         </pattern>
       </defs>
-      <g clip-path="url(#clip0)">
-        <g clip-path="url(#clip1)">
+      <g clipPath="url(#clip0)">
+        <g clipPath="url(#clip1)">
           <rect width="1600" height="518" fill="var(--brand-color-grey-0)" />
           <rect width="1600" height="518" fill="url(#gridPattern)" />
-          <rect width="1600" height="518" stroke="var(--brand-color-grey-0)" stroke-width="1.5" />
+          <rect width="1600" height="518" stroke="var(--brand-color-grey-0)" strokeWidth="1.5" />
           <ellipse
             opacity="0.25"
             cx="120"
@@ -46,10 +46,6 @@ const HeroBackground = () => (
             rx="120"
             ry="120"
             transform="matrix(4.37114e-08 1 1 -4.37114e-08 1080 177)"
-            fill="var(--brand-color-blue-3)"
-          />
-          <path
-            d="M760 418L759.47 418.53L759.689 418.75L760 418.75L760 418Z … (rest of your path here) … 758.425 235.365L757.895 235.895Z"
             fill="var(--brand-color-blue-3)"
           />
         </g>

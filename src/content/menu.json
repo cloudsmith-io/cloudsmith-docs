@@ -5,79 +5,29 @@
     "icon": "action/documentation",
     "children": [
       {
-        "title": "About Cloudsmith",
+        "title": "Getting Started",
         "path": "/getting-started",
         "children": [
           {
-            "title": "Key concepts",
+            "title": "Key Concepts",
             "path": "/getting-started/key-concepts"
           },
           {
-            "title": "Common use cases",
+            "title": "Common Use Cases",
             "path": "/getting-started/common-use-cases"
           },
           {
-            "title": "Signing-up",
+            "title": "Sign Up",
             "path": "/getting-started/sign-up"
           },
                     {
-            "title": "Signing-in",
+            "title": "Log In",
             "path": "/getting-started/sign-in"
           }
         ]
       },
       {
-        "title": "Migrating to Cloudsmith",
-        "path": "/migrating-to-cloudsmith",
-        "children": [
-          {
-            "title": "Migrating from JFrog Artifactory",
-            "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory"
-          },
-          {
-            "title": "Migrating from Nexus Sonatype",
-            "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
-          },
-          {
-            "title": "Exporting NuGet",
-            "path": "/migrating-to-cloudsmith/exporting-nuget"
-          },
-          {
-            "title": "Import files from a folder",
-            "path": "/migrating-to-cloudsmith/import-files-from-a-folder"
-          },
-          {
-            "title": "Import Maven",
-            "path": "/migrating-to-cloudsmith/import-maven"
-          },
-          {
-            "title": "Import npm",
-            "path": "/migrating-to-cloudsmith/import-npm"
-          },
-          {
-            "title": "Import NuGet",
-            "path": "/migrating-to-cloudsmith/import-nuget"
-          },
-          {
-            "title": "Import Docker",
-            "path": "/migrating-to-cloudsmith/import-docker"
-          },
-          {
-            "title": "Import Python",
-            "path": "/migrating-to-cloudsmith/import-python"
-          },
-          {
-            "title": "Import Debian",
-            "path": "/migrating-to-cloudsmith/import-debian"
-          },
-          {
-            "title": "Import RPM",
-            "path": "/migrating-to-cloudsmith/import-rpm"
-          }
-        ]
-      },
-      {
-        "title": "Supported formats",
+        "title": "Supported Formats",
         "path": "/formats/"
       },
       {
@@ -101,7 +51,7 @@
             "path": "/workspaces/privileges"
           },
           {
-            "title": "Custom domains",
+            "title": "Custom Domains",
             "path": "/workspaces/custom-domains"
           },
           {
@@ -177,7 +127,7 @@
                 "path": "/authentication/openid-connect",
                 "children": [
                   {
-                    "title": "Setup GitHub Actions to authenticate to Cloudsmith using OIDC",
+                    "title": "Setup GitHub Actions to Authenticate to Cloudsmith using OIDC",
                     "path": "/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
                   }
                 ]
@@ -199,16 +149,16 @@
             "path": "/repositories/repository-settings"
           },
           {
-            "title": "Privileges",
-            "path": "/repositories/repository-privileges"
-          },
-          {
-            "title": "Custom storage regions",
+            "title": "Custom Storage Regions",
             "path": "/repositories/custom-storage-regions"
           },
           {
             "title": "Upstreams",
             "path": "/repositories/upstreams"
+          },
+          {
+            "title": "Privileges",
+            "path": "/repositories/repository-privileges"
           }
         ]
       },
@@ -221,21 +171,21 @@
             "path": "/accounts-and-teams/teams"
           },
           {
-            "title": "Member accounts",
+            "title": "Member Accounts",
             "path": "/accounts-and-teams/user-accounts"
           },
           {
-            "title": "Service accounts",
+            "title": "Service Accounts",
             "path": "/accounts-and-teams/service-accounts"
           },
           {
-            "title": "About privileges",
+            "title": "Privileges",
             "path": "/accounts-and-teams/about-privileges"
           }
         ]
       },
       {
-        "title": "Artifact management",
+        "title": "Artifact Management",
         "path": "/artifact-management",
         "children": [
            {
@@ -253,11 +203,15 @@
           {
             "title": "Package Groups",
             "path": "/artifact-management/package-groups"
+          },
+          {
+            "title": "Troubleshooting",
+            "path": "/troubleshooting"
           }
         ]
       },
       {
-        "title": "Supply chain security",
+        "title": "Supply Chain Security",
         "path": "/supply-chain-security",
         "children": [
           {
@@ -267,6 +221,10 @@
           {
             "title": "Continuous Security",
             "path": "/supply-chain-security/continuous-security"
+          },
+          {
+            "title": "Vulnerability Scanning",
+            "path": "/supply-chain-security/vulnerability-scanning"
           },
           {
             "title": "Policies",
@@ -295,11 +253,11 @@
             ]
           },
           {
-            "title": "Enterprise Policy Management",
+            "title": "Enterprise Policy Mgmt.",
             "path": "/supply-chain-security/epm",
             "children":[   
               {
-                "title": "Getting started",
+                "title": "Getting Started",
                 "path": "/supply-chain-security/epm/getting-started"
               }, 
               {
@@ -309,11 +267,7 @@
             ]
           },
           {
-            "title": "Vulnerability scanning",
-            "path": "/supply-chain-security/vulnerability-scanning"
-          },
-          {
-            "title": "Package signing",
+            "title": "Package Signing",
             "path": "/supply-chain-security/signing-keys"
           },
           {
@@ -323,41 +277,41 @@
         ]
       },
       {
-        "title": "Logs & observability",
+        "title": "Observability and Logs",
         "path": "/logs-and-observability/",
         "children": [
           {
-            "title": "Client logs",
+            "title": "Client Logs",
             "path": "/logs-and-observability/client-logs"
           },
           {
-            "title": "Client stats",
+            "title": "Client Statistics",
             "path": "/logs-and-observability/client-statistics"
           },
           {
-            "title": "Audit logs",
+            "title": "Audit Logs",
             "path": "/logs-and-observability/audit-logs"
           },
           {
-            "title": "Exporting logs to Azure",
+            "title": "Exporting Logs to Azure",
             "path": "/logs-and-observability/exports-to-azure"
           },
           {
-            "title": "Exporting logs to S3",
+            "title": "Exporting Logs to S3",
             "path": "/logs-and-observability/access-log-exports-to-s3"
           },
           {
-            "title": "Analyzing logs with Athena",
+            "title": "Analyzing Logs with Athena",
             "path": "/logs-and-observability/analyzing-s3-download-logs"
           }
         ]
       },
       {
-        "title": "Software distribution",
+        "title": "Software Distribution",
         "path": "/software-distribution",
         "children": [
           {
-            "title": "Cloudsmith Broadcasts",
+            "title": "Broadcasts",
             "path": "/software-distribution/broadcasts",
             "children":[
               {
@@ -367,25 +321,25 @@
             ]
           },
           {
-            "title": "Entitlement tokens",
+            "title": "Entitlement Tokens",
             "path": "/software-distribution/entitlement-tokens",
             "children": [
               {
-                "title": "Entitlement tokens via the API",
+                "title": "Via the API",
                 "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-api"
               },
               {
-                "title": "Entitlement tokens via the CLI",
+                "title": "Via the CLI",
                 "path": "/software-distribution/entitlement-tokens-via-the-cloudsmith-cli"
               },
               {
-                "title": "Entitlement tokens via web app",
+                "title": "Via web app",
                 "path": "/software-distribution/entitlement-tokens-via-the-website-ui"
               }
             ]
           },
           {
-            "title": "EULA enforcement",
+            "title": "EULA Enforcement",
             "path": "/software-distribution/eula"
           }
         ]
@@ -395,11 +349,11 @@
         "path": "/integrations/"
       },
       {
-        "title": "Developer tools",
+        "title": "Developer Tools",
         "path": "/getting-started#developer-tools",
         "children": [
           {
-            "title": "Generating an API key",
+            "title": "Generating an API Key",
             "path": "/getting-started/api-key"
           },
           {
@@ -409,6 +363,10 @@
           {
             "title": "API Reference",
             "path": "/api"
+          },
+          {
+            "title": "API bindings",
+            "path": "/developer-tools/api-bindings"
           },
           {
             "title": "Webhooks",
@@ -425,7 +383,57 @@
         ]
       },
       {
-        "title": "Contact us",
+        "title": "Migrating to Cloudsmith",
+        "path": "/migrating-to-cloudsmith",
+        "children": [
+          {
+            "title": "Migrating from JFrog Artifactory",
+            "path": "/migrating-to-cloudsmith/export-from-jfrog-artifactory"
+          },
+          {
+            "title": "Migrating from Nexus Sonatype",
+            "path": "/migrating-to-cloudsmith/export-from-nexus-sonatype"
+          },
+          {
+            "title": "Exporting NuGet",
+            "path": "/migrating-to-cloudsmith/exporting-nuget"
+          },
+          {
+            "title": "Import files from a folder",
+            "path": "/migrating-to-cloudsmith/import-files-from-a-folder"
+          },
+          {
+            "title": "Import Maven",
+            "path": "/migrating-to-cloudsmith/import-maven"
+          },
+          {
+            "title": "Import npm",
+            "path": "/migrating-to-cloudsmith/import-npm"
+          },
+          {
+            "title": "Import NuGet",
+            "path": "/migrating-to-cloudsmith/import-nuget"
+          },
+          {
+            "title": "Import Docker",
+            "path": "/migrating-to-cloudsmith/import-docker"
+          },
+          {
+            "title": "Import Python",
+            "path": "/migrating-to-cloudsmith/import-python"
+          },
+          {
+            "title": "Import Debian",
+            "path": "/migrating-to-cloudsmith/import-debian"
+          },
+          {
+            "title": "Import RPM",
+            "path": "/migrating-to-cloudsmith/import-rpm"
+          }
+        ]
+      },
+      {
+        "title": "Contact Us",
         "path": "https://cloudsmith.com/company/contact-us"
       }
     ]
@@ -472,10 +480,6 @@
           {
             "title": "HTTP Responses",
             "path": "/does-not-exist"
-          },
-          {
-            "title": "API bindings",
-            "path": "/api/api-bindings"
           }
         ]
       }
