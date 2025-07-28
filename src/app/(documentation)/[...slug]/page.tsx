@@ -54,7 +54,7 @@ const Page = async ({ params }: PageProps) => {
     const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
 
     return (
-      <WithQuicknav showSidePanel path={repoPath} lastUpdated={lastUpdated}>
+      <WithQuicknav showPageInfo path={repoPath} lastUpdated={lastUpdated}>
         {parentTitle ? (
           <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
             {parentTitle}
