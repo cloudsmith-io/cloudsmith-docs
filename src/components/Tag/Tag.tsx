@@ -17,6 +17,7 @@ const tagVariants = cva(styles.root, {
       neutral: styles.neutral,
       green: styles.green,
       yellow: styles.yellow,
+      lightyellow: styles.lightyellow,
       red: styles.red,
       grey: styles.grey,
     },

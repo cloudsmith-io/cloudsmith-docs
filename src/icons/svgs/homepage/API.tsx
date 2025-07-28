@@ -15,8 +15,8 @@ export const HomepageAPIIcon = createIcon<SpecificIconProps>(
           fill="currentColor"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M40 10.5859V32.4141L37.4141 35H6.58594L4 32.4141V10.5859L6.58594 8H37.4141L40 10.5859ZM6 11.4141V31.5859L7.41406 33H36.5859L38 31.5859V11.4141L36.5859 10H7.41406L6 11.4141Z"
           fill="currentColor"
         />

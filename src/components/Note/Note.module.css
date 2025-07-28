@@ -53,3 +53,13 @@
   --note-text: var(--color-text-alert);
   --color-text-code: var(--color-text-alert);
 }
+
+.noHeadline {
+  color: var(--brand-color-grey-10);
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: flex-start;
+  padding-inline: var(--space-m);
+  font-size: var(--text-body-s);
+  line-height: var(--line-height-tight);
+}
