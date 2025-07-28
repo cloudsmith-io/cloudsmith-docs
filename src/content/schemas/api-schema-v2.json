@@ -408,7 +408,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces", "experimental"],
+        "tags": ["workspaces"],
         "security": [
           {
             "apikey": []
@@ -453,7 +453,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces", "experimental"],
+        "tags": ["workspaces"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -546,7 +546,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces", "experimental"],
+        "tags": ["workspaces"],
         "security": [
           {
             "apikey": []
@@ -600,7 +600,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces", "experimental"],
+        "tags": ["workspaces"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -663,7 +663,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces", "experimental"],
+        "tags": ["workspaces"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -726,7 +726,7 @@
             "required": true
           }
         ],
-        "tags": ["workspaces", "experimental"],
+        "tags": ["workspaces"],
         "security": [
           {
             "apikey": []
