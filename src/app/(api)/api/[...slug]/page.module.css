@@ -19,6 +19,29 @@
   grid-column: 1 / -1;
 }
 
+.description {
+  display: block;
+
+  .sandboxLink {
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    width: fit-content;
+
+    &:hover {
+      color: var(--brand-color-blue-7);
+    }
+  }
+}
+
 .experimentalTag {
   margin-bottom: var(--space-s);
+}
+
+@media (--tablet-up) {
+  .description {
+    display: flex;
+    justify-content: space-between;
+  }
 }
