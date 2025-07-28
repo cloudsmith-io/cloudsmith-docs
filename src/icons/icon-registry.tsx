@@ -5,6 +5,8 @@ import { ChevronIcon } from './svgs/Chevron';
 import { ChevronSmallIcon } from './svgs/ChevronSmall';
 import { ArrowIcon } from './svgs/Arrow';
 import { SearchIcon } from './svgs/Search';
+import { EditIcon } from './svgs/Edit';
+import { GithubIcon } from './svgs/Github';
 import { InfoIcon } from './svgs/Info';
 
 import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
@@ -110,6 +112,8 @@ export const iconRegistry = createIconRegistry({
   arrowDown: (props) => <ArrowIcon {...props} id="icon-arrow-down" arrowDirection="down" />,
   arrowLeft: (props) => <ArrowIcon {...props} id="icon-arrow-left" arrowDirection="left" />,
   search: SearchIcon,
+  edit: EditIcon,
+  github: GithubIcon,
   info: InfoIcon,
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,

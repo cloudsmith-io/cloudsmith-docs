@@ -9,6 +9,12 @@ export interface MdxModule extends Partial<MDXModule> {
   rawContent?: string;
 }
 
+export interface MdxInfo {
+  file: string;
+  segments: string[];
+  slug: string;
+}
+
 export interface MetadataOptions {
   defaultTitle: string;
   templatePrefix?: string;

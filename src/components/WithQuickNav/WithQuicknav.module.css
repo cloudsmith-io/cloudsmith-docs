@@ -16,6 +16,11 @@
   display: none;
 }
 
+.navWrapper {
+  position: sticky;
+  top: calc(var(--space-l) + var(--navbar-height));
+}
+
 @media (--desktop-up) {
   .nav {
     display: block;
