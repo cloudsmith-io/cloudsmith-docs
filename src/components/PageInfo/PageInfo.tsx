@@ -5,7 +5,9 @@ import { Icon } from '@/icons';
 import { intlFormatDistance, parseISO } from 'date-fns';
 
 export const PageInfo = ({ path = '', lastUpdated }: PageInfoProps) => {
-  const githubLink = `${process.env.NEXT_PUBLIC_CLOUDSMITH_DOCS_URL}/tree/${process.env.NEXT_PUBLIC_CLOUDSMITH_DOCS_BRANCH}/${path}`;
+  const docsUrl = process.env.NEXT_PUBLIC_CLOUDSMITH_DOCS_URL;
+  const docsBranch = process.env.NEXT_PUBLIC_CLOUDSMITH_DOCS_BRANCH;
+  const githubLink = `${docsUrl}/tree/${docsBranch}/${path}`;
 
   const getUpdatedLabel = (date: string) => {
     const compare = parseISO(date);
@@ -18,10 +20,12 @@ export const PageInfo = ({ path = '', lastUpdated }: PageInfoProps) => {
       {lastUpdated ? (
         <div className={cx(styles.dateUpdated, 'monoXSUppercase')}>{getUpdatedLabel(lastUpdated)}</div>
       ) : null}
-      <Link className={cx(styles.githubLink, 'bodyS')} href={githubLink} target="_blank">
-        <Icon title="View" name="github" />
-        <span>View on GitHub</span>
-      </Link>
+      {docsUrl && docsBranch && (
+        <Link className={cx(styles.githubLink, 'bodyS')} href={githubLink} target="_blank">
+          <Icon title="View" name="github" />
+          <span>View on GitHub</span>
+        </Link>
+      )}
     </div>
   );
 };
