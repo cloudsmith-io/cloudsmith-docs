@@ -1,8 +1,5 @@
----
-title: "sbt Repository"
----
-
 import { Note, Video } from '@/components';
+export const parentTitle = 'Supported Formats';
 
 # sbt Repository
 
@@ -183,7 +180,7 @@ credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 
 ### Specifying Dependencies
 
-After the repository is added to the `build.sbt` file, and your credentials are added to the `/.sbt/.credentials` file (required for private repositories if using HTTP Basic Authentication), all that is left is to [specify the dependency](https://www.scala-sbt.org/1.0/docs/Library-Dependencies.html) in the dependencies section of the project `build.sbt` file.
+After the repository is added to the `build.sbt` file, and your credentials are added to the `/.sbt/.credentials` file (required for private repositories if using HTTP Basic Authentication), all that is left is to [specify the dependency](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html) in the dependencies section of the project `build.sbt` file.
 
 ```scala
 libraryDependencies += "GROUP_ID" % "ARTIFACT_ID" % "PACKAGE_VERSION"

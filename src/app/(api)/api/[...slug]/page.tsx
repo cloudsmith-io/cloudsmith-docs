@@ -1,4 +1,4 @@
-import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
+import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph, Tag, Note } from '@/components';
 import { loadMdxInfo } from '@/lib/markdown/util';
 import { parseSchemas, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
@@ -111,8 +111,18 @@ const Page = async ({ params }: PageProps) => {
             {operationParentTitle}
           </h2>
         ) : null}
+        {operation.experimental ? (
+          <Tag variant="lightyellow" className={styles.experimentalTag}>
+            Early access
+          </Tag>
+        ) : null}
         <Heading size="h1">{operation.title}</Heading>
         {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
+        {operation.experimental ? (
+          <Note variant="warning" noHeadline>
+            This endpoint is in early access, and may not be available to you. Contact us to request access
+          </Note>
+        ) : null}
 
         <div className={styles.gridRoot}>
           <Heading size="h2" className={styles.fullWidth}>

@@ -5,6 +5,8 @@
   --color-green-text: var(--brand-color-green-7);
   --color-yellow-base: var(--brand-color-yellow-2);
   --color-yellow-text: var(--brand-color-yellow-7);
+  --color-lightyellow-base: var(--brand-color-yellow-1);
+  --color-lightyellow-text: var(--brand-color-yellow-7);
   --color-red-base: var(--brand-color-red-2);
   --color-red-text: var(--brand-color-red-7);
   --color-grey-base: var(--brand-color-grey-2);
@@ -32,6 +34,8 @@
     --color-green-text: var(--brand-color-green-2);
     --color-yellow-base: var(--brand-color-yellow-7);
     --color-yellow-text: var(--brand-color-yellow-2);
+    --color-lightyellow-base: var(--brand-color-yellow-7);
+    --color-lightyellow-text: var(--brand-color-yellow-2);
     --color-red-base: var(--brand-color-red-7);
     --color-red-text: var(--brand-color-red-2);
     --color-grey-base: var(--brand-color-grey-7);
@@ -83,6 +87,16 @@
   &.active {
     --method-bg-color: var(--color-yellow-text);
     --method-text-color: var(--color-yellow-base);
+  }
+}
+
+.lightyellow {
+  --method-bg-color: var(--color-lightyellow-base);
+  --method-text-color: var(--color-lightyellow-text);
+
+  &.active {
+    --method-bg-color: var(--color-lightyellow-text);
+    --method-text-color: var(--color-lightyellow-base);
   }
 }
 

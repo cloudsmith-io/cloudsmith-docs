@@ -92,6 +92,15 @@ sleep(5)
 for package in packages:
     os.system(f"cloudsmith push python {org_name}/{repository} {package} --no-wait-for-sync")
 ```
+
+The `main.py` python script above requires several Python packages to function correctly. The `requirements.txt` file below lists all of these required dependencies and their specific versions.
+
+Before running the main script, create a file named `requirements.txt` in the same directory and paste the following content into it. You can then install all the necessary packages at once by running this command in your terminal:
+
+```python
+pip install -r requirements.txt
+```
+
 ```text requirements.txt
 autopep8==1.7.0
 beautifulsoup4==4.11.1

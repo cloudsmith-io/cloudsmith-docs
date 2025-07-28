@@ -7,6 +7,7 @@ import { ArrowIcon } from './svgs/Arrow';
 import { SearchIcon } from './svgs/Search';
 import { EditIcon } from './svgs/Edit';
 import { GithubIcon } from './svgs/Github';
+import { InfoIcon } from './svgs/Info';
 
 import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
 import { UtilityGuideIcon } from './svgs/utility/Guide';
@@ -113,6 +114,7 @@ export const iconRegistry = createIconRegistry({
   search: SearchIcon,
   edit: EditIcon,
   github: GithubIcon,
+  info: InfoIcon,
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,
   'utility/api': UtilityApiIcon,

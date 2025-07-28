@@ -1,8 +1,5 @@
----
-title: "OCI Repository"
----
-
 import { Note } from '@/components';
+export const parentTitle = 'Supported Formats';
 
 # OCI Repository
 
@@ -53,7 +50,7 @@ For consistency, the terms will be used within all of the OCI-related documentat
 ## Upload an Generic Artifact with ORAS
 
 <Note variant="note" headline="Note">
-If you have added a [Custom Domain](/software-distribution/broadcasts-custom-domain) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
+If you have added a [Custom Domain](/workspaces/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
 </Note>
 
 [ORAS (OCI Registry As Storage)](https://oras.land/)  is an open-source tool that enables users to push, pull, and manage non-container artifacts in OCI-compliant registries. It extends the OCI specification beyond container images, turning registries into a general-purpose storage system for diverse artifact types.

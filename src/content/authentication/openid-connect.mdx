@@ -182,21 +182,28 @@ run-name: ${{ github.actor }} is testing out GitHub Actions with OpenID Connect 
 on: [push]
 
 permissions:
-  id-token: write
+  id-token: write # Required for OIDC authentication
+  contents: read # Required for actions/checkout
 
 jobs:
   test-openid-connect:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Testing out OpenID Connect in GitHub Actions."
-      - run: |
-          value=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange" | jq '.value')
-          echo "$value"
-          jwt=$(curl -X POST -H "Content-Type: application/json" -d "{\"oidc_token\":$value, \"service_slug\":\"github-service\"}" https://api.cloudsmith.io/openid/{ACCOUNT}/ | jq -r '.token' )
-          echo "OIDC token from Cloudsmith: $jwt"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Cloudsmith via OIDC
+        uses: cloudsmith-io/cloudsmith-cli-action@v1.0.3
+        with:
+          oidc-namespace: 'your-oidc-workspace' # Replace with your Cloudsmith workspace
+          oidc-service-slug: 'your-service-account-slug' # Replace with the slug of your Cloudsmith service account
+          oidc-auth-only: 'true' # The action only performs authentication
+
+      - name: Run subsequent steps
+        run: echo "Successfully authenticated with Cloudsmith!"
 ```
 
-For further details on configuring Github Actions for OIDC see the guide [here](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions).
+For further details on configuring Github Actions for OIDC see the guide [here](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) or review the [documentation](https://github.com/cloudsmith-io/cloudsmith-cli-action) of the Cloudsmith CLI GitHub Action.
 
 #### CircleCI Example
 

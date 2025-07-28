@@ -1,4 +1,5 @@
 import { cva, VariantProps } from 'class-variance-authority';
+import { Icon } from '@/icons';
 import styles from './Note.module.css';
 
 const defaultHeadings = {
@@ -18,17 +19,25 @@ const note = cva(styles.root, {
       warning: styles.variantWarning,
       caution: styles.variantCaution,
     },
+    noHeadline: {
+      true: styles.noHeadline,
+    },
   },
   defaultVariants: {
     variant: 'note',
+    noHeadline: false,
   },
 });
 
-export function Note({ variant, headline, children, ...rest }: NoteProps) {
+export function Note({ variant, headline, children, noHeadline, ...rest }: NoteProps) {
   return (
-    <blockquote className={note({ variant })} {...rest}>
-      <p className={styles.headline}>{headline ?? defaultHeadings[variant ?? 'note']}</p>
-      {children}
+    <blockquote className={note({ variant, noHeadline })} {...rest}>
+      {noHeadline ? (
+        <Icon name="info" title="Info" className={styles.icon} />
+      ) : (
+        <p className={styles.headline}>{headline ?? defaultHeadings[variant ?? 'note']}</p>
+      )}
+      <span>{children}</span>
     </blockquote>
   );
 }
@@ -37,4 +46,5 @@ type VariantsProps = VariantProps<typeof note>;
 
 interface NoteProps extends VariantsProps, React.ComponentPropsWithoutRef<'blockquote'> {
   headline?: string;
+  noHeadline?: boolean;
 }
