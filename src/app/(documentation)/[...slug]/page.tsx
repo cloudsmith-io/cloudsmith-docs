@@ -44,12 +44,9 @@ const Page = async ({ params }: PageProps) => {
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
   if (mdxInfo) {
-    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
+    const { parentTitle: mdxParentTitle, default: Post } = await import(`@/content/${mdxInfo.file}`);
     const repoPath = `src/content/${mdxInfo.file}`;
     const lastUpdated = await getLastUpdated(mdxInfo);
-
-    // 1. Look for a `parentTitle` exported from the .mdx file first.
-    const mdxParentTitle = mdxModule.parentTitle || null;
 
     // 2. Original logic: Get parentTitle from the menu system.
     const pathname = `/${qualifiedSlug}`;
@@ -58,7 +55,7 @@ const Page = async ({ params }: PageProps) => {
     const menuParentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
 
     // 3. Prioritize the title from the MDX file, then fall back to the menu.
-    const parentTitle = mdxParentTitle || menuParentTitle;
+    const parentTitle = mdxParentTitle ?? menuParentTitle;
 
     return (
       <WithQuicknav showPageInfo path={repoPath} lastUpdated={lastUpdated}>
