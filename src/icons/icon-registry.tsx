@@ -82,6 +82,7 @@ import { IntegrationTeamCityIcon } from './svgs/integration/TeamCity';
 import { IntegrationTerraformIcon } from './svgs/integration/Terraform';
 import { IntegrationTravisCIIcon } from './svgs/integration/TravisCI';
 import { IntegrationZapierIcon } from './svgs/integration/Zapier';
+import { IntegrationVSCodeIcon } from './svgs/integration/VSCode';
 
 export const iconRegistry = createIconRegistry({
   menu: MenuIcon,
@@ -180,4 +181,5 @@ export const iconRegistry = createIconRegistry({
   'integration/terraform': IntegrationTerraformIcon,
   'integration/travis': IntegrationTravisCIIcon,
   'integration/zapier': IntegrationZapierIcon,
+  'integration/vscode': IntegrationVSCodeIcon,
 });
