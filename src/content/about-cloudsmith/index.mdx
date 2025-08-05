@@ -1,17 +1,28 @@
----
-title: Getting Started
-description: This is the Getting Started page
----
-
 import { Card, Flex, Button } from '@/components';
 
-# Getting Started
+# About Cloudsmith
 
-Cloudsmith is a cloud-native, hosted, package management service with deep focus on providing the best universal support for all native package and container technologies.
+## What is Cloudsmith?
 
-Store public, private and open-source packages in Cloudsmith to help you manage, track and control the software used within your development and deployment pipelines or when you distribute it to your customers.
+Cloudsmith is a fully managed, cloud-native artifact management platform that provides a single source of truth for all software artifacts. It serves as both the control plane and data plane for your software supply chain, helping teams control, secure, and distribute artifacts at global scale.
 
-Learn more about [Supported formats](/formats).
+Cloudsmith supports all major [package formats](/formats) - such as Docker, Python, Maven, npm, Helm, ML models, and more - and integrates with CI/CD systems, developer workflows, and security tools. Artifacts are delivered through a global Package Delivery Network (PDN) for fast, reliable access anywhere in the world.
+
+### Differentiators
+
+Cloudsmith is designed for organizations that want to:
+- **Move to the cloud**: Replace on-premises registries with a fully managed, globally available service.
+- **Secure their software supply chain**: Enforce policies, scan for vulnerabilities, and verify artifact provenance.
+- **Adopt AI**: Support AI-enabled development workflows, where models, datasets, and other artifacts become part of the software supply chain. Cloudsmith provides a single platform to manage these alongside traditional software artifacts, with consistent security and governance.
+- **Improve developer experience**: Provide developers with fast artifact access, CI/CD integrations, and reliable global delivery.
+- **Distribute software globally**: Deliver artifacts to customers, partners, or internal teams with low latency worldwide.
+
+Cloudsmith organizes artifacts into a simple hierarchy:
+- [**Workspace**](/workspaces): The top-level scope for managing users, billing, and policies.
+- [**Repository**](/repositories): A logical grouping of packages. Repositories are multi-format and can host any supported package type.
+- [**Package**](/artifact-management): An immutable software artifact, such as a container image, library, or dataset.
+
+For more details about these concepts, see [Key Concepts](/about-cloudsmith/key-concepts), or explore some practical examples in the [Common Use Cases](/about-cloudsmith/common-use-cases) section.
 
 Not sure where to start?
 
@@ -23,11 +34,12 @@ Not sure where to start?
 
 ---
 
+{/* TODO I think this three should go away from here, merging some of its contents into the new common use cases section */}
 <Flex gap="s" align="stretch">
   <Card
     title="For Developers"
     description="Dependencies"
-    href="/getting-started/dependencies-for-developers"
+    href="/about-cloudsmith/dependencies-for-developers"
     icon="homepage/guide"
     type="simple"
     width="full"
@@ -35,7 +47,7 @@ Not sure where to start?
   <Card
     title="For Operations"
     description="Deployment"
-    href="/getting-started/deployment-for-operations"
+    href="/about-cloudsmith/deployment-for-operations"
     icon="homepage/guide"
     type="simple"
     width="full"

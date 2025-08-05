@@ -1,0 +1,81 @@
+# Key concepts
+
+## Concepts and components of Cloudsmith
+
+Cloudsmith is a cloud-native artifact management platform that serves as both the control plane and data plane for your software supply chain. It provides a single, secure source of truth for all software artifacts - packages, container images, ML models, datasets, and more - delivered reliably through a global package delivery network (PDN).
+
+Cloudsmith supports all major package formats and integrates with CI/CD pipelines, security tools, and developer workflows. It enables organizations to store, secure, scan, and distribute artifacts with full visibility, provenance, and policy enforcement.
+
+Here are some of the key concepts and components of Cloudsmith: 
+
+### Workspace
+
+A workspace is the top level scope in Cloudsmith. It is where you manage users, billing, policies, repositories and registries for your organization. Each workspace can contain one or more repositories, each with its own access controls. 
+
+### Registry
+
+A Cloudsmith registry is the central service for storing and managing all artifacts for an organization. It acts as the package registry for your organization, mapping package names to immutable artifact versions and enforcing security controls on publication and distribution.
+
+### Repository
+
+A repository is a logical grouping of artifacts within a workspace. Repositories can be format-specific (e.g., Docker, Python, Maven) or universal. Each repository has its own permissions, policies, upstream mirrors, and retention rules. 
+
+### Artifact
+
+An artifact is an immutable software asset stored in a repository. Examples include container images, libraries, Helm charts, SBOMs, and ML models. 
+
+### Package
+
+Artifact that is “published” for use by others. It is usually the output of a build process. Examples include Docker image (package); a ZIP file containing source code is a package, not a source, because it is built from some other source, such as a git commit.
+
+### Dependency 
+
+Artifact that is an input to a build process but that is not a source. 
+
+### Version and Tag
+
+Artifacts can be referenced using immutable versions (such as semantic versions or digests) or mutable tags (such as latest). Tags resolve to specific artifact versions within a repository.
+
+### Access Control
+
+Cloudsmith uses role-based access control (RBAC), API tokens, and service accounts to manage access. Permissions can be scoped to workspaces or repositories, and control individual actions such as pushing, pulling, or managing artifacts.
+
+### Policies
+
+Repositories can enforce governance rules using Enterprise Policy Management (EPM). Policies can block artifacts, restrict usage based on licenses, or require provenance metadata before publication or distribution.
+
+### Provenance and Metadata
+
+Artifacts stored in Cloudsmith include metadata such as checksums, SBOMs, and provenance records. This enables traceability, compliance, and reproducibility across the software supply chain.
+
+### Upstreams and Caching
+
+Cloudsmith can proxy and cache upstream registries such as PyPI, npmjs, Docker Hub, and Hugging Face. Cached upstreams ensure availability, improve build performance, and provide full visibility into external dependencies.
+
+### Universal Package Support
+
+Cloudsmith "speaks" the native protocol for a large number of packaging technologies (e.g. Python \+ Ruby \+ Maven/Java, etc.), as well provide APIs for easy/agnostic manipulation; so you have immediate compatibility with all of your tools.
+
+### Continuous Security
+
+Cloudsmith continuously scans artifacts for vulnerabilities using multiple threat-intelligence sources. 
+
+### Retention Rules
+
+Repositories can be configured with retention policies that automatically remove artifacts based on version count, age, or tags.
+
+### Package Delivery Network (PDN)
+
+Cloudsmith's globally distributed PDN ensures reliable, low-latency artifact delivery worldwide. It supports high-velocity teams and production environments at scale.
+
+### Audit and Client Logging
+
+Cloudsmith records all artifact actions \- push, pull, delete, and promote \- and provides near real-time logs and metrics for compliance, debugging, and usage insights.
+
+### Enterprise Features
+
+Enterprise plans include advanced policy enforcement, continuous security, custom MSAs, negotiated SLAs, cross-region replication, and support for annual usage commitments.
+
+### Broadcasts
+
+Share branded public repositories via a public facing URL using your own domain, and monitoring usage from your users.
