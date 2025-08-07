@@ -2,9 +2,11 @@ import { Note } from '@/components'
 
 # Continuous Security
 
-Continuous Security is a feature that provides an hourly feed of vulnerability data from multiple sources (see [refresh intervals]() for each source). When new vulnerabilities are published, we check them against existing artifacts in your Cloudsmith repositories. This enables faster identification of affected artifacts compared to scheduled or on-demand [vulnerability scanning](./vulnerability-scanning).
+Continuous Security is a feature that provides an hourly feed of vulnerability and malicious packages data from multiple sources (see [refresh intervals](#data-sources) for each source). When new vulnerabilities or malicious packages are published, we check them against existing artifacts in your Cloudsmith repositories. This enables faster identification of affected artifacts compared to scheduled or on-demand [vulnerability scanning](./vulnerability-scanning).
 
-<Note>📘 Continuous Security is in Early Access (EA) through Cloudsmith’s Enterprise Policy Management. </Note>
+<Note variant="note" headline="Early Access">
+Continuous Security is in Early Access (EA) through Cloudsmith's Enterprise Policy Management.
+</Note>
 
 ## Vulnerability Scanning vs. Continuous Security
 
@@ -14,7 +16,9 @@ Cloudsmith [scans](./vulnerability-scanning) artifacts as they are introduced in
 
 ### Continuous Security
 
-<Note>📘 Continuous Security is only available for Cloudsmith workspace where EPM has been enabled.</Note>
+<Note variant="note" headline="EPM Required">
+Continuous Security is only available for Cloudsmith workspace where EPM has been enabled.
+</Note>
 
 When artifacts are first scanned, Cloudsmith stores the list of identified components. Continuous Security uses that stored list to check for vulnerabilities using an advisory database that is refreshed hourly. When a new threat is discovered that affects an artifact in your workspace, Continuous Security will flag it via EPM without the need for a full manual or scheduled re-scan.
 
@@ -30,6 +34,7 @@ Continuous Security uses the following data sources:
 | :-------------------------------------------------------------------------------------- | :--------------: | 
 | Common Vulnerabilities and Exposures (CVE) databases aggregated in [Aqua Trivy DB](https://trivy.dev/v0.39/docs/vulnerability/detection/data-source/) |   6 hours   |
 | [Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/) |   24 hours  |
+| Vulnerabilities and Malicious Packages from the [Open Source Vulnerability DB (OSV)](https://osv.dev/list) |   X hours  |
 
 #### Supported Formats
 

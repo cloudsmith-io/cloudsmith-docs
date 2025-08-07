@@ -267,6 +267,14 @@
             ]
           },
           {
+            "title": "Malware Scanning",
+            "path": "/supply-chain-security/malware"
+          },
+          {
+            "title": "Malicious Packages",
+            "path": "/supply-chain-security/malicious-packages"
+          },
+          {
             "title": "Package Signing",
             "path": "/supply-chain-security/signing-keys"
           },
