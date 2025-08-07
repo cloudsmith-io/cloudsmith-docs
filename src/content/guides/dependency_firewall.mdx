@@ -19,7 +19,14 @@ Super important to:
 
 OPEN QUSTIONS
 - what about transitive dependencies? can we catch it all? If not, which alternatives we suggest to customers?
+- cloudsmith terraform provider, easy to setup sample to create dev, stg and prod repos. anything else we can automate with CTP?
+- package promotions, how to automate?
+- cloudsmith repo as a cloudsmith upstream repo, any workaround? This would be key to add into this guide
 
+what are the (different) approaches you could use to implement the firewall & pros/cons
+- promotion workflow
+- strict dependency blocking
+help required here I think we can merge both for this guide
 
 */}
 
@@ -48,6 +55,7 @@ No matter if you are a Cloudsmith customer or not, you can [sign-up for a trial 
 ## Building a Dependency Firewall
 
 Here's an overview of the different areas we'll cover:
+0. Setup (CTP)
 1. Control of Dependencies
 2. Upstream Proxying and Caching
 3. Artifact Advisories
@@ -71,7 +79,7 @@ code .
 
 It contains a microservices app composed of a node frontend, python backend, and a mariadb database, all of them prepared to be deployed in a Kubernetes cluster.
 
-Although there two sample apps together don't sum up more than 100 lines of code, the number of dependencies required to execute them is surprising. For example, browse to the frontend app directory and use `npx howfat` to list information about dependencies in use:
+Although there two sample apps together don't sum up more than 100 lines of code, the number of dependencies required to execute them is surprisingly high. For example, browse to the frontend app directory and use `npx howfat` to list information about dependencies in use:
 
 ```bash
 cd frontend
@@ -94,6 +102,7 @@ Let's [create a repository](https://docs.cloudsmith.com/repositories/create-a-re
 
 Our new repo is created!
 
+{/* update this with broadcasts, probably better to remove it */}
 Depending on your use case or how you want to distribute your software, you have different visibility options for your repositories: 
 - Public
 - Private
@@ -235,8 +244,8 @@ Now, we not only block dependencies from other external repositories, but also h
 
 
 ### 3. Artifact Advisories
-
-Advisories, what are they?
+{/* 
+Not sure if EPM or legacy policies */}
 
 
 #### 3.1. Malware
@@ -293,8 +302,6 @@ Defense in depth: multiple layers, onion. Not only checking incoming vulnerabili
 
 
 
-
-
 4. Licenses
 
 License Compliance Risks: Open source software can contain a dizzying variety of licenses.  Inadvertently introducing new types of OSS licensing can create a threat to legal compliance and alter the legal status of your software, exposing you to litigation.
@@ -302,9 +309,3 @@ License Compliance Risks: Open source software can contain a dizzying variety of
 
 
 
-what are the (different) approaches you could use to implement the firewall & pros/cons
-- promotion workflow
-{/* help required here */}
-- strict dependency blocking
-{/* this workflow is clear */}
-aqui estaria bien comparar cada una de las alternativas y ver como se comportan la una con la otra. pros y contras de las mismas.
