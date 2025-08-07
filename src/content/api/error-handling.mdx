@@ -8,7 +8,7 @@ Expected errors that occur when interacting with the API result in a `4xx` error
 
 A `401 Unauthorized` status code is sent when the resource endpoint expects the user to be authenticated but the user isn't. For example, if sending a request as an anonymous user to an authenticated endpoint the following error is sent as a response:
 
-```curl
+```bash
 HTTP/1.0 401 Unauthorized
 Allow: POST, OPTIONS
 Content-Length: 58
@@ -23,7 +23,7 @@ Server: Cloudsmith MCP
 
 A `403 Forbidden` status code is sent when the resource endpoint expects the user to have specific permissions, which will be detailed in the resource endpoint documentation. For example, if sending a request as an authenticated user to a resource endpoint in which we don't have permissions (such as one belonging to another user), the following error is sent as a response:
 
-```curl
+```bash
 HTTP/1.0 403 Forbidden
 Allow: POST, OPTIONS
 Content-Length: 63
@@ -42,7 +42,7 @@ Server: Cloudsmith MCP
 
 A `400 Bad Request` status code is sent when the body of the document is expected to be JSON encoded, but the actual content is otherwise. For example, if the body was sent as `foo` then the following error is sent as a response:
 
-```curl
+```bash
 HTTP/1.0 400 Bad Request
 Allow: POST, OPTIONS
 Content-Length: 68
@@ -58,7 +58,7 @@ Server: Cloudsmith MCP
 
 A `400 Bad Request` status code is sent when the body of the document is cannot be parsed as syntactically correct JSON. For example, if the body was sent as `{` then the following error is sent as a response:
 
-```curl
+```bash
 HTTP/1.0 400 Bad Request
 Content-Length: 79
 Content-Type: application/json
@@ -73,7 +73,7 @@ Server: Cloudsmith MCP
 
 A `422 Unprocess Entity` status code is sent when the resource endpoint receives a JSON body that is syntactically but not semantically correct. These error responses contain a `fields` attribute that lists the specific fields affected by the error condition. For example, if the resource endpoint expected a filename attribute in the  body to be populated but isn't then the following error is sent as a response:
 
-```curl
+```bash
 HTTP/1.0 422 Unprocessable Entity
 Content-Length: 132
 Content-Type: application/json
