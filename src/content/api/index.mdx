@@ -105,7 +105,7 @@ The `Link` header can contain the following `rel` values:
 | `next` | The link relation to the next page of results. This will only be present if the client has requested a page less than the last/final page. |
 | `last` | The link relation to the last/final page of results. This will only be present if there is more than one page. |
 
-### Let's see it in action:
+Let's see it in action
 
 ```bash
 curl -i -H "X-Api-Key: key" 'https://api.cloudsmith.io/package/example/repo/packages/?page=2&page_size=1'
