@@ -1,0 +1,45 @@
+# Data Security Posture Management
+
+Security is paramount and we are actively engaged in continuous security and always improving the security of our processes and services. If you need more information than provided here, please [contact us](https://cloudsmith.com/company/contact-us).
+
+While Cloudsmith operates on a shared tenancy model, it's crucial to understand that the platform was architected from the ground up with data segregation as a core principle. The system is designed in such a way that crossover between customer data is not just difficult, it's architecturally impossible. This helps us meet stringent regulatory and [compliance requirements like SOC2, and others](https://trust.cloudsmith.com).
+
+Here's a deeper view at the control measures that ensure this.
+
+## Encryption at Rest of sensitive data and communication
+
+All data is encrypted in transit, through all layers of our application and processing. Encryption at rest guarantees that all data is cryptographically sealed when it is stored on a disk. This encryption is applied consistently across all data types—including primary packages, backups, and system logs. Even if someone were to physically access the hardware where the data is stored (i.e., break into AWS Data Centers), the data itself would be unreadable without the specific key to the safe. This provides a fundamental layer of security against physical breaches and unauthorized hardware access.
+
+Encryption is performed using a combination of AES-256 and AWS-based KMS for packages, and Fernet based (plus others) for "sensitive data" in relational data.
+
+Universal encryption is a powerful safeguard in a multi-tenant system. It ensures there are no gaps where plaintext data could be inadvertently exposed. Even in the highly unlikely event of a misconfiguration at a different layer of the stack, your data remains cryptographically sealed and unreadable to anyone outside your tenancy.
+
+### Securing encryption keys with AWS KMS
+
+The strength of encryption depends on the security of the keys. Cloudsmith uses AWS Key Management Service (KMS) as a dedicated, highly secure vault. It acts as a centralized and hardened system for all cryptographic operations. Internal Cloudsmith teams do not have direct access to your keys.
+
+By using KMS, Cloudsmith ensures that the keys used to encrypt one customer's data are cryptographically isolated from another's. Access is governed by the **principle of least privilege**, and every use of a key is logged via AWS CloudTrail, providing a full audit trail. This prevents one tenant's processes from ever having access to the decryption keys of another tenant.
+
+## Direct Data Access Prevention and Ephemeral URLs
+
+The Cloudsmith architecture makes it impossible to access data directly, enforcing a strict, application-managed process for every request.
+
+- **Architectural Enforcement**: Artifacts stored in the underlying S3 storage are **never directly accessible**. All access must go through our application layer, which enforces two critical steps on every request:
+    1.  **Authentication (AuthN)**: The system verifies who the user is.
+    2.  **Authorization (AuthZ)**: The system checks that the authenticated user has the correct permissions to access that specific data.
+    This entire process is tracked via **audit logs**, so any access can be traced back to a specific user. This ensures that only the appropriate combination of AuthN and AuthZ for a particular customer can access that customer's data.
+
+- **Logical Separation**: To further enforce this, we use a segregated storage structure by assigning each customer a unique path prefix. This logical partitioning at the storage level, combined with the application-layer controls, provides strong isolation and prevents any risk of cross-tenant access.
+
+- **Ephemeral Pre-signed URLs**: When access is granted, it's done via an ephemeral, pre-signed URL. This is a unique, temporary URL that grants access to a specific file for a limited time. A good analogy is from the movie *The Matrix*: when a character needs to exit the Matrix, they are directed to a specific, ringing phone that only works for a short time before disappearing. Each URL contains a cryptographic signature that makes it impossible to tamper with or forge. If anyone tries to modify the URL or use it after it expires, the signature becomes invalid and access is denied. This prevents a link from being shared or reused indefinitely, ensuring every access attempt is re-validated.
+
+This multi-layered approach—combining universal encryption, isolated key management, and an architecture that brokers every single request—is how Cloudsmith guarantees the security and privacy of your data within our shared tenancy model.
+
+## Vulnerability disclosure and Bug Bounty program
+
+In addition to the controls describe above, we maintain an active bug bounty program to detect any security issue.
+Security issues are considered a higher priority than all other issues, and the team will investigate and respond to any reported vulnerability in scope. We request that you do not publicly disclose the issue until it has been identified and resolved by Cloudsmith.
+
+We understand the hard work and knowledge required to identify viable security issues. We offer a reward program for responsibly disclosed vulnerabilities in scope to show our appreciation.
+
+If you have any question or need extra details, [reach out to us](https://cloudsmith.com/company/contact-us).

@@ -36,24 +36,24 @@ Our search syntax allows you to move beyond simple name-based searches and build
 |Entitlement Token Identifier (`token`)|`token:3lKPVJPosCsY` (packages visible for specified token)|
 |Dependencies (`dependency`)|`dependency:log4j` (search for packages that have a dependency with "log4j" in the name).<br />`dependency:log4j=1.2.17` (search for packages dependencies name including "log4j" & version matching 1.2.17).<br />`dependency:log4j<2.0.0` (search for packages dependencies with name including "log4j" & version less than 2.0.0).|
 |Repository (`repository`)|`repository:repo-name` (Search for packages within the repository named "repo-name")|
-|**Debian:** Component|`deb_component:component-name` (Search for packages by Debian Component)|
-|**Docker:** Image Digest|`docker_image_digest:sha256:abcdef` (Search for packages by Docker Image Digest)|
-|**Docker:** Layer Digest|`docker_layer_digest:sha256:abcdef` (Search for packages by Docker Layer Digest)|
-|**Maven:** GroupID|`maven_group_id:io.cloudsmith` (Search for packages by Maven GroupID)|
+|**Debian**: Component|`deb_component:component-name` (Search for packages by Debian Component)|
+|**Docker**: Image Digest|`docker_image_digest:sha256:abcdef` (Search for packages by Docker Image Digest)|
+|**Docker**: Layer Digest|`docker_layer_digest:sha256:abcdef` (Search for packages by Docker Layer Digest)|
+|**Maven**: GroupID|`maven_group_id:io.cloudsmith` (Search for packages by Maven GroupID)|
 |Packages that have violated a policy (`policy_violated`)|`true` (packages that have violated a policy)<br />`false` (packages have not violated a policy)|
 |Packages that have violated a vulnerability policy (`vulnerability_policy_violated`)|`true` (packages that have violated a vulnerability policy)<br />`false` (packages have not violated a vulnerability policy)|
 |Packages that have violated a license policy (`license_policy_violated`)|`true` (packages that have violated a license policy)<br /> `false` (packages have not violated a license policy)|
 |Packages that have violated a deny list policy (`deny_policy_violated`)|`true` (packages that have violated a deny list policy)<br />`false` (packages have not violated a deny list policy)|
 
-**For all queries you can use:**  
+**For all queries you can use**:  
 `~` for negation.  (Example: `~foo`)
 
-**For string queries you can use:**  
+**For string queries you can use**:  
 `^`   - to anchor to start of term.  (Example: `^foo`)  
 `$` -  to anchor to end of term.  (Example: `foo$`)  
 `*`  -  for fuzzy matching.  (Example: `foo*bar`)
 
-**For number or date queries you can use:**  
+**For number or date queries you can use**:  
 `>`   -  for values greater than.  (Example: `>foo`)  
 `>=` -  for values greater / equal.  (Example: `>=foo`)  
 `<`   -  for values less than.  (Example: `<foo`)  
@@ -61,7 +61,7 @@ Our search syntax allows you to move beyond simple name-based searches and build
 
 Please note, when you use a query like `uploaded: >'1 month ago'`, that becomes `uploaded > dd/mm/yy` (i.e, within the last month).
 
-**For version queries you can use:**  
+**For version queries you can use**:  
 `>`   -  for versions greater than.  (Example: `>1.2.3.`)  
 `>=` -  for versions greater / equal.  (Example: `>=1.2.3`)  
 `<`   -  for versions less than.  (Example: `<1.2.3`)  
@@ -221,7 +221,7 @@ Sorting search results is simple with Cloudsmith. A collection of one or more fi
 | Downloads (`downloads`)            | `downloads` (sort by downloads ascending e.g. 0, 10, 50, 1,000)       |
 | Date (`date`)                      | `-date` (sort by uploaded time, most recent first)                    |
 
-**For all fields you can use:**  
+**For all fields you can use**:  
 `-` to sort by descending order. (Example: `-date`, `-version`)
 
 ## A Short Worked Example
@@ -235,7 +235,7 @@ Suppose that you had the following packages:
 | cloudsmith-java-app    | Maven  | 6910 | 1.0.0   | 2500      |
 | cloudsmith-example-pdf | Raw    | 309  | 2.0.0   | 100       |
 
-**To sort packages by size descending, your sort query would be:**
+**To sort packages by size descending, your sort query would be**:
 
 ```
 -size
@@ -248,7 +248,7 @@ Which would provide the following results
 - cloudsmith-example-cli, Size: 719 bytes
 - cloudsmith-example-pdf, Size: 309 bytes
 
-**To sort packages by format alphabetically, with version descending, your sort query would be:**
+**To sort packages by format alphabetically, with version descending, your sort query would be**:
 
 ```
 -format,-version

@@ -1,0 +1,97 @@
+import { Note, BlockImage, Tag } from '@/components'
+
+# Open-Source Hosting Policy
+
+Whether you use Cloudsmith for private or public distribution, free or paid, you always have the option of creating open-source repositories. An open-source repository works a little bit different from others, with the following differences:
+
+- Usage for open-source repositories is tracked _separately_ from your public/private repositories.
+- You don't need to sign up for a specific open-source plan; you create an open-source repository.
+- You get _at least_ 50GB of artifact data + 200GB of package delivery for _free_, across all open-source repositories.
+- You get some features on the OSS repository that are normally reserved for paid _Pro_ plan users, such as geo/IP restrictions, access logs, and statistics.
+- You can request more features, artifact data, or package delivery in return for sponsorship (more details later).
+
+Sounds good. Right?
+
+So how do you qualify for open-source repositories? Read on!
+
+## Rules
+
+To qualify for an open-source repository, we have a few simple rules for you:
+
+1. The primary project you're distributing for must be [free and open-source by definition](https://en.wikipedia.org/wiki/The_Open_Source_Definition).
+2. You must have significant control and/or responsibility for the project; i.e. you're a maintainer.
+3. The project must not be a minor fork; i.e. it is either the primary project or a **major** fork of one.
+4. The main artifacts being served by the repository are for the project and not dependencies only.
+5. You must adequately and fairly attribute Cloudsmith as the source of free hosting (see below).
+6. A paid plan or significant sponsorship may be more appropriate if you're a commercial, for-profit entity.
+7. A Cloudsmith org can contain multiple OSS projects, but a project must belong to one org only.
+
+If you need clarity on any of these, please feel free to [contact us](https://cloudsmith.com/company/contact-us) to ask. We'll be delighted to help!
+
+We currently pre-authorize open-source repositories and then check them later on. In other words, feel free to create the open-source repositories you need today, and as long as you're following the rules above, you'll be able to use them immediately.
+
+If your repository doesn't fit within our rules, this is usually something simple that can be fixed, such as using the wrong license. For more severe cases, we may have to suspend the open-source repository (e.g., doesn't have attribution, or is for a fork, etc.)
+
+In the case of suspension, we'll contact you and let you know the steps forward. We take suspension as seriously as we would do with any other user, paid or not. If this occurs, please know that we do so thoughtfully and have likely tried to contact you.
+
+<Note variant="note" headline="👍 Are you a forked project?">
+Although we require distributors to be the primary project, or a major fork of one, there's an exception to the rule: If you get the blessing from the primary maintainers to be the distributor, then you can bypass the rule. Typically though, we advise that forks either try to integrate their changes into the main project instead.
+</Note>
+
+## Attribution
+
+Want to meet the attribution rule? That's easy!
+
+Just include the next snippet:
+
+```
+<img alt="Static Badge" src="https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=flat-square&link=https%3A%2F%2Fcloudsmith.com">
+</img>
+
+Package repository hosting is graciously provided by [Cloudsmith](https://cloudsmith.com).
+Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
+enables your organization to create, store and share packages in any format, to any place, with total
+confidence.
+```
+
+... to render a badge such as the following:
+
+<img alt="Static Badge" src="https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=flat-square&link=https%3A%2F%2Fcloudsmith.com">
+</img>
+<br>
+</br>
+
+Package repository hosting is graciously provided by [Cloudsmith](https://cloudsmith.com). Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that enables your organization to create, store and share packages in any format, to any place, with total confidence.
+
+***
+
+Feel free to shake it up a little. As long as it contains a link back to [cloudsmith.com](https://cloudsmith.com) or [https://app.cloudsmith.io](https://app.cloudsmith.com), and addresses that Cloudsmith provided free hosting, you're good to go.
+
+You can see other examples of badges on [Shields](https://shields.io).
+
+<Note variant="note" headline="Please Spread The Word!">
+We'd also _really_ _REALLY_ appreciate it if you tweeted to your followers that you're now using Cloudsmith for package management, and tag us in. For example: **"AcmeCorp is now using @cloudsmith for open-source package management and distribution; check it out!"**. Replacing _AcmeCorp_ with your own company or project name. You could also add a link to your new repository; be proud and show it off.
+</Note>
+
+## Commercial Entities
+
+Suppose you're a commercial, for-profit entity, especially one with significant funding or that's post-revenue. In that case, it may be more appropriate to proceed with a paid plan or sponsorship (as below). You can still avail yourself of the base open-source usage we offer for everyone, but beyond that, we'd recommend a commercial relationship where we can work together. If you're for-profit, it's in your best interest to keep vendors, such as ourselves, going; in return, we can provide the best possible solution and full commercial support.
+
+## Sponsorship
+
+If you need to vary the rules a little (e.g., a repository full of dependencies), need more ([Ultra or Enterprise plans](https://cloudsmith.com/pricing)) features, or need more GBs of artifact data / package delivery? We can do that for you with sponsorship that's a pinch more formal (but only a pinch).
+
+Our primary rule for sponsorship is that you're a "significant" open-source project. By significant, there isn't a hard and fast rule, but typically it means you have some level of notability.
+
+This typically means a community of users in the thousands or beyond, a website with several hundred thousand genuine hits per month, or over a thousand followers on sites like Twitter.
+
+If you feel like you fit, just [let us know, and we can work it out with you](https://cloudsmith.com/company/contact-us), a sponsorship usually takes the form of providing more significant linkbacks on your site, blog, and/or social media. Essentially it is helping us with marketing in return for free hosting and support.
+
+Nothing too demanding; just quid pro quo. Please help us; help you!
+
+Some examples of open-source projects we've sponsored formally:
+
+- [HoneyDB](https://honeydb.io)
+- [Shields](http://shields.io)
+- [Pony Language](https://www.ponylang.io)
+- [CloudPosse](https://github.com/cloudposse/packages)

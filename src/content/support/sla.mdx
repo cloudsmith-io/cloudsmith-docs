@@ -1,0 +1,91 @@
+# Service Level Agreement (SLA)
+
+This Service Level Agreement (SLA) applies to and is incorporated by reference into the ordering document (the **Order Form**) made by and between Cloudsmith and the Customer ("you"), where the Customer is on a plan in which an SLA is expressly provided (e.g. "Ultra" plans and beyond).
+
+Cloudsmith may modify these SLA terms and conditions from time to time by posting such amended SLA terms and conditions (this document / page) to Cloudsmith's site, but will provide thirty (30) days advance notice to the Customer before materially reducing the benefits offered to the Customer under this Service Level Agreement.
+
+# SLA Terms and Conditions
+
+## A. Definitions
+
+### 1. Downtime
+
+**Downtime** means the time in which any **Included Services** listed below are not capable of fulfilling their primary purpose, of being accessed or used by the Customer, as monitored by Cloudsmith.
+
+### 2. Monthly Uptime Percentage
+
+The **Monthly Uptime** Percentage means the total number of minutes in a calendar month minus the number of minutes of **Downtime** suffered in a calendar month, divided by the total number of minutes in a calendar month.
+
+### 3. Cloudsmith Processing
+
+**Cloudsmith Processing** is defined as the suite of asynchronous processes that are initiated following an initial upload of Customer Data. These processes include, but are not limited to, data retrieval, scanning, indexing, policy application and propagation.
+
+### 4. Time to Availability
+
+The **Time to Availability** for initial (first instance) uploads is calculated as the time it takes to complete Cloudsmith Processing and make it available for use.
+
+### 5. Excluded from Downtime
+
+The following are not counted as Downtime for the purpose of calculating Monthly Uptime Percentage:
+
+- Service unavailability caused by scheduled maintenance of the platform used to provide the applicable service (Cloudsmith will endeavour to provide seven days' advance notice of service-affecting scheduled maintenance unless planned downtime is expected to be fewer than 20 minutes in length); or
+- Service unavailability caused by events outside of the reasonable control of Cloudsmith or its subcontractor(s), including any force majeure event, the failure, performance, age, or unavailability of the Customer's systems, the Internet, and the failure of any other technology or equipment Customer used to connect to or access the service (e.g. proxies or out-of-date TLS support).
+
+### 6. Included Services
+
+The following **Inclusive Services** are designated as being applicable to this SLA:
+
+- Cloudsmith Content Distribution Network (CDN); dl.cloudsmith.io specifically, for downloading of Customer assets.
+- [Cloudsmith Application Programming Interface (API)](https://api.cloudsmith.io); specifically, for uploading of Customer assets.
+
+### 7. Excluded Services
+
+The following **Excluded Services** are explicitly excluded from this SLA:
+
+[Cloudsmith Corporate](https://cloudsmith.com); for Cloudsmith corporate/marketing info.  
+[Cloudsmith Frontend](https://app.cloudsmith.com); for managing Customer assets via the user-interface.  
+[Cloudsmith Help (via Readme)](https://docs.cloudsmith.com); for Cloudsmith Customer documentation.  
+[Cloudsmith Status](https://status.cloudsmith.io); for **Reporting** status of the Cloudsmith service.  
+[Cloudsmith Live Chat (via Intercom)](https://intercom.com); for Cloudsmith Customer support.  
+Cloudsmith Processing; for asynchronous processing of Customer assets.
+
+Anything else not expressly listed in **Included Services** is excluded from this SLA.
+
+## B. Guarantee
+
+During the term of the applicable Order Form, Cloudsmith will employ reasonable efforts to achieve an SLA guarantee of at least **99.9%** for **Monthly Uptime Percentage**, for any calendar month. If Cloudsmith does not meet this guarantee, and so long as the Customer's account is current and not overdue, the Customer will be eligible to receive **Service Credits**, as described below. These credits are the Customer's _exclusive_ remedy for any failure by Cloudsmith to meet the conditions of this guarantee. 
+
+Furthermore, following disaster recovery and unplanned **Downtime**, Cloudsmith agrees to prioritise time-to-recovery for the Customer covered by this SLA. Cloudsmith will endeavour to return the Customer to full functionality after disaster scenarios as a matter of urgency, but this is via prioritisation and is not a guarantee of timeliness. Time-to-recover is measured by the time it takes from unplanned **Downtime** until restoration of **Included Services** for impacted Customers.
+
+Cloudsmith will employ reasonable efforts to provide P95 Monthly Average Time to Availability \< 5 mins.
+
+## C. Reporting
+
+Cloudsmith will take reasonable measures to ensure that the **Monthly Uptime Percentage**, outages and scheduled maintenance are reported via the [Cloudsmith Status Site](https://status.cloudsmith.io). However, these are not guaranteed to be 100% accurate or complete, so the Customer is encouraged to perform its own measurements for reporting purposes.
+
+## D. Service Credits
+
+**Service Credits** are issued as credit to the extent that Cloudsmith does not meet the SLA guarantee for a particular month of the ordered term. Upon approval of a claim Cloudsmith will provide the applicable remedy set forth below:
+
+| Monthly Uptime Percentage    | Service Credit         |
+| :--------------------------- | :--------------------- |
+| Less than 99.9% but >= 99.6% | 5% of the monthly fee  |
+| Less than 99.6% but >= 99.0% | 10% of the monthly fee |
+| Less than 99.0% but >= 98.7% | 15% of the monthly fee |
+| Less than 98.7%              | 20% of the monthly fee |
+
+The monthly fee is calculated as the amount _after_ discounts. If the Customer pays annually, **Service Credits** will be pro-rated to a monthly amount for the calendar month in which the claim is addressing.
+
+## E. Claim Procedure
+
+To receive **Service Credits** for a particular calendar month, the Customer must submit a claim to the support team (see **Escalation** below) within _30 days_ of the end of the month during which the Service did not meet the SLA guarantee, and include the following information:
+
+- Customer Name and Account Identifier (the "slug" in the URI);
+- The Name, Email Address, and Telephone Number of the Customer's designated contact; and
+- Information supporting each claim of **Downtime**, including the Date, Time, and a Description of the incident and affected service/functionality, all of which must fall within the calendar month for which you are submitting a claim.
+
+Claims that are reasonable, accurate and succinct have the greatest chance of being accepted. If the claim is not accepted, Cloudsmith will endeavour to provide the specific reasons as to why not, to allow the Customer the chance to correct any issues for re-submission (if applicable).
+
+## F. Escalation
+
+For urgent escalation, we offer the ability to page our on-call team. See our [Escalation Channel Policy](/support-escalation-policy) for more information on this. You can also use the [Contact Us](https://cloudsmith.com/company/contact-us) methods, by following the same procedures but designate the message as **URGENT**.

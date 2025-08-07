@@ -147,33 +147,46 @@ Go to the [API Key](https://app.cloudsmith.com/settings/api-keys) page in your u
 
 **2. via the Cloudsmith CLI**
 
-<Note variant="note" headline="SAML Single Sign On Users">
-If you login to Cloudsmith via SAML, you will not be able to retrieve your API-Key via the Cloudsmith CLI, as you will not have a password associated with your Cloudsmith Account.  You will need to retrieve your API-Key via the Cloudsmith Website as described above, and then [configure the CLI](#configuration--setup) with your API-Key. We are working on improving this via SSO integration with the CLI. With the CLI this is simple to do. You can retrieve your API key using the cloudsmith login command:
-</Note>
+You can retrieve your API key using the `cloudsmith login` command:
 
-```
+```bash
 cloudsmith login
 Login: you@example.com
 Password: PASSWORD
 Repeat for confirmation: PASSWORD
 ```
 
-**NOTE**: Please ensure you use your email for the 'Login' prompt and not your user slug/identifier.
+<Note variant="note" headline="Use email for login">
+Please ensure you use your email for the 'Login' prompt and not your user slug/identifier.
+</Note>
 
-The resulting output looks something like:
+The resulting output is:
 
 ```
 Retrieving API token for 'you@example.com' ... OK
 Your API token is: 1234567890abcdef1234567890abcdef
 ```
 
-Once you have your API key, you can put it into your `credentials.ini` file, use it as an environment variable `export CLOUDSMITH_API_KEY=<YOUR_API_KEY>` or pass it to the CLI using the `-k <YOUR_API_KEY>` flag.
+Once you have your API key, you can put it in your `credentials.ini` file, use it as an environment variable `export CLOUDSMITH_API_KEY=<YOUR_API_KEY>`,  or pass it to the CLI using the `-k <YOUR_API_KEY>` flag.
 
 For convenience, the CLI will ask you if you want to install the default configuration files, complete with your API key, if they don't already exist. Enter `y` or `yes` to create the configuration files. 
 
 If the configuration files already exist, you'll have to put the API key into the configuration files manually, but the CLI will print out their locations.
 
-***
+<Note variant="note" headline="SAML Single Sign On Users">
+SSO Users do not have a Cloudsmith password and cannot use the `cloudsmith login`command to retrieve their API-Key.  
+
+SSO Users should instead use the `cloudsmith auth`command and pass their workspace identifier like:  
+`cloudsmith auth -o my-workspace`
+
+You will then be prompted to complete the SSO login process via your web browser (if not already signed in), and 2FA if applicable. Once authentication is complete, the CLI is issued an access token for your account.
+
+To authenticate in environments without a web browser, such as a remote terminal session, set the CLOUDSMITH_API_KEY environment variable. You can set it for your current session like this:
+
+```bash
+📘 export CLOUDSMITH_API_KEY="your-api-key-here"
+```
+</Note>
 
 ## Configuration / Setup
 

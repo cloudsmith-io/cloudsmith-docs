@@ -1,8 +1,6 @@
-# Rate Limits and Scaling Options
+# Rate Limits and Scaling with Cloudsmith
 
-Cloudsmith applies rate limits to protect platform reliability and security, and to ensure predictable performance for all users. These safeguards prevent abusive or accidental overuse and help customers avoid unexpected costs. 
-
-Our platform is built to scale with your needs. If your workloads require higher limits, we’ll adjust them. Just [contact us](https://cloudsmith.com/company/contact-us) and we’ll work with you to set the right limits for your use case. 
+Cloudsmith applies rate limits to ensure reliability, security and consistent performance for all users. These limits help protect against abusive or accidental overuse. Most users will never encounter rate limits, and if your workloads require more capacity, we’ll adjust them. [Contact us](https://cloudsmith.com/company/contact-us) and we’ll work with you to configure limits to match your requirements.
 
 ## Cloudsmith Web App and API
 
@@ -13,12 +11,12 @@ The table below shows the baseline defaults:
 | Description | Rate Limit |
 | :---- | :---- |
 | Non-authenticated/anonymous users (by IP address) via API | 1,800 req/hour (0.5 req/sec) |
-| Authenticated users with on Core plans via API | 5,400 req/hour (1.5 req/sec) |
-| Authenticated users on Pro and Velocity plans via API | 10,800 req/hour (3 req/sec) |
-| Authenticated users on Ultra or Enterprise plans via API | Custom rate limits apply |
-| Authenticated users via [app.cloudsmith.com](http://app.cloudsmith.com) | 10,800 req/hour (3 req/sec) |
-| Default download domains | 120,000 req/hour (33.33 req/sec) |
-| Custom download domains | Custom rate limits apply |
+| Authenticated users on a Core plan via API | 5,400 req/hour (1.5 req/sec) |
+| Authenticated users on a Pro or Velocity plans via API | 10,800 req/hour (3 req/sec) |
+| Authenticated users on an Ultra or Enterprise plans via API | Custom rate limits apply |
+| Authenticated [app.cloudsmith.com](http://app.cloudsmith.com) usage | 10,800 req/hour (3 req/sec) |
+| Package downloads via default domain  | 120,000 req/hour (33.33 req/sec) |
+| Package downloads via [custom domain](https://help.cloudsmith.io/docs/custom-domains)  | Custom rate limits apply |
 
 ## Package Metadata APIs
 
@@ -28,7 +26,9 @@ Cloudsmith provides native endpoints for different package formats (for example,
 Cloudsmith regularly customizes limits to support customer use cases. If your workloads need more capacity, contact our team and we'll be happy to adjust limits to fit your needs.
 </Note>
 
-Every API response includes headers to help you monitor and manage usage. These can be used in automated workflows to prevent disruptions and optimize performance:
+## Monitoring your usage
+
+Each API response includes headers to help you monitor and manage usage. These can be used in automated workflows to prevent disruptions and optimize performance:
 
 | Header | Meaning | Example |
 | :---- | :---- | :---- |
@@ -47,7 +47,7 @@ X-RateLimit-Interval: 60.0
 X-RateLimit-Limit: 600
 X-RateLimit-Remaining: 599
 X-RateLimit-Reset: 1485712175
-Date: Sun, 29 Jan 2017 16:49:34 GMT
+Date: Tue, 5 Aug 2025 12:34:56 GMT
 ```
 
 If the client has exceeded the rate limit in a particular rate limit window a **429 Too Many Requests** status code will be sent instead of acting upon the request. The body response will be **JSON encoded** and include a detail message:
@@ -72,5 +72,7 @@ Date: Sun, 29 Jan 2017 16:54:30 GMT
   "detail": "Request was throttled. Expected available in 3304.0 seconds."
 }
 ```
+
+## Scaling with Cloudsmith
 
 Our goal is to give every team a reliable, predictable platform that can meet its needs, without surprises. Rate limits protect Cloudsmith and our users. If your workflows require more capacity, we’ll work with you to ensure you always have the limits you need. 

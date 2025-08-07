@@ -5,12 +5,12 @@
     "buttons": [
       {
         "label": "Documentation",
-        "href": "/getting-started",
+        "href": "/about-cloudsmith",
         "icon": "action/documentation"
       },
       {
         "label": "Guides",
-        "href": "/guides",
+        "href": "/guides/getting-started",
         "icon": "utility/guide"
       },
       {
@@ -27,8 +27,8 @@
       "cards": [
         {
           "title": "Key concepts",
-          "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
-          "href": "/getting-started/key-concepts/",
+          "description": "Learn the fundamentals of package management and discover how Cloudsmith's features provide a secure, visible, and collaborative solution.",
+          "href": "/about-cloudsmith/key-concepts/",
           "linkText": "Read the doc",
           "icon": "homepage/documentation",
           "size": "s",
@@ -48,7 +48,7 @@
         {
           "title": "Quickstart guide",
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
-          "href": "/guides/cloudsmith-quickstart-guide/",
+          "href": "/guides/getting-started",
           "linkText": "Go to guide",
           "icon": "homepage/api",
           "size": "s",

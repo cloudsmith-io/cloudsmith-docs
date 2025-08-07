@@ -5,7 +5,7 @@ import configure from './images/vscode/configure.gif';
 
 # Cloudsmith Visual Studio Code Extension
 
-The Cloudsmith extension for Visual Studio Code allows you to view and manage your Cloudsmith packages directly within your VSCode IDE. 
+The Cloudsmith extension for Visual Studio Code allows you to view and manage your Cloudsmith packages directly within your VS Code IDE. 
 
 <BlockImage src={overview} alt=""></BlockImage>
 
@@ -49,12 +49,12 @@ After installation, connect the extension to your Cloudsmith account using an [A
 
 You can configure the extension's behavior by navigating to **File > Preferences > Settings** and searching for `Cloudsmith`:
 
-- **Show Packages by Group**: If enabled, the explorer will display packages as [Package Groups](https://help.cloudsmith.io/docs/package-groups). By default, individual packages are shown.
+- **Show Packages by Group**: If enabled, the explorer will display packages as [Package Groups](/artifact-management/package-groups). By default, individual packages are shown.
 - **Inspect Output Target**: Choose where the `Inspect Package` command sends its output: `Output` window or a `New Document`.
 - **Maximum Packages Per Repository**: Set the maximum number of packages to display per repository. The value can be between 1 and 30. The default (and maximum) is 30.
 - **Use Legacy Web App**: If enabled, URLs opened via the `Open Package in Cloudsmith` command will point to the legacy Cloudsmith web app ([https://cloudsmith.io/](https://cloudsmith.io/)).
 
-## Using the Cloudsmith VSCode plugin
+## Using the Cloudsmith VSCode extension
 
 The extension adds a **Cloudsmith Explorer** view to VS Code. This view provides a tree-based navigator to explore your Cloudsmith assets, including workspaces, repositories, and packages.
 
@@ -64,7 +64,7 @@ This is a subset of the full data available via the Cloudsmith API. For the comp
 
 | Field                 | Description                                                                          |
 | :-------------------- | :----------------------------------------------------------------------------------- |
-| **Status** | Indicates the current state of the package (e.g., Completed, Failed, Deleted, deprecated, unlisted).     |
+| **Status** | Indicates the current state of the package (e.g., Completed, Failed, Deleted, etc.).     |
 | **Name** | The human-readable title or name of the package.                                     |
 | **Slug** | A URL-friendly version of the package name, typically lowercase with hyphens for spaces. |
 | **Slug Perm** | A permanent, unique slug that does not change, even if the package name is updated.  |

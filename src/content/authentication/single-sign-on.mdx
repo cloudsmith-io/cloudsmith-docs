@@ -2,6 +2,7 @@ import { Note, BlockImage } from '@/components'
 import img_Saml_setup from './images/single-sign-on/saml_setup.png'
 import img_SAML_Group_Sync_Create from './images/single-sign-on/saml_group_sync_setup.png'
 import img_create_mapping_form from './images/single-sign-on/saml_group_form.png'
+import SAMLnotDefaultWorkspace from './images/single-sign-on/SAMLnotDefaultWorkspace.png';
 
 # Single Sign-On via SAML
 
@@ -12,8 +13,14 @@ Cloudsmith offers support for Single Sign-On (SSO) at the workspace level using 
 <Note>
 📘 **About SAML Login**
 
-SAML Login is only allowed via your [primary workspace](/workspaces#primary-workspace). If you try to SAML login into a workspace that is not the primary one, the login will fail. If you can't access your account to set it up as your default workspace, login with username and password to a different workspace, then access to your workspaces section, and set the deafult workspace to your SAML one. 
+SAML Login is only allowed via your [primary workspace](/workspaces#primary-workspace). If you try to SAML login into a workspace that is not the primary one, the [login will fail](#failed-saml-login). If you can't access your account to set it up as your default workspace, login with username and password to a different workspace, then access to your workspaces section, and set the deafult workspace to your SAML one. 
 </Note>
+
+## Failed SAML Login
+
+If a user's primary workspace is not the one configured for SAML, their login attempt will fail and they will receive the following error message:
+
+<BlockImage src={SAMLnotDefaultWorkspace} alt=""></BlockImage>
 
 ## Getting Started
 

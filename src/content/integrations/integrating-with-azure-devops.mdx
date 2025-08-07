@@ -17,7 +17,7 @@ Integrate Cloudsmith with Azure DevOps to automate the management of your artifa
 Before getting started, you need to have the following prerequisites:
 
 - An Azure DevOps account with pipeline permissions, which can be set up by following the steps in the [Azure DevOps documentation](https://learn.microsoft.com/en-us/azure/devops/user-guide/sign-up-invite-teammates?view=azure-devops&tabs=microsoft-account).
-- A Cloudsmith account, which can be set up by following the steps in the [Cloudsmith documentation](/getting-started).
+- A Cloudsmith account, which can be set up by following the steps in the [Cloudsmith documentation](/about-cloudsmith).
 - Azure Entra (formerly Azure Active Directory) App registration capabilities if using OIDC.
 
 ## Integration Features
@@ -34,29 +34,29 @@ Before getting started, you need to have the following prerequisites:
 
 To enable OIDC authentication, create an Microsoft Entra ID application that will allow Azure DevOps to interact securely with Cloudsmith.
 
-1. **Navigate to Azure Entra Applications:**
+1. **Navigate to Azure Entra Applications**:
    1. Go to [Azure Portal](https://portal.azure.com/#home).
    2. Select Azure Active Directory/Entra from the menu.
    3. Choose App registrations and click New registration.
-2. **Register the Application:**
+2. **Register the Application**:
    1. Enter a Name (e.g., “Cloudsmith Integration”).
    2. For Supported account types, select Accounts in this organizational directory only.
    3. Click Register.
-3. **Capture Key Details:**
+3. **Capture Key Details**:
    1. After registration, note the Application (client) ID and Directory (tenant) ID. These will be needed in the pipeline configuration as `clientId` and `tenantId`, respectively.
-4. **Create a Client Secret:**
+4. **Create a Client Secret**:
    1. In your registered app, navigate to Certificates & secrets.
    2. Under Client secrets, click New client secret.
    3. Add a Description (e.g., “Cloudsmith Secret”) and set an expiration.
    4. Click Add and copy the Value. This will be your `clientSecret`.
-5. **Configure API Permissions for the Azure Entra App Registration:**
+5. **Configure API Permissions for the Azure Entra App Registration**:
    1. In your Azure Entra App Registration, navigate to the API Permissions blade.
    2. Click on Add a permission.
    3. Under Microsoft APIs, select Microsoft Graph.
    4. Choose Delegated permissions and select `User.Read`.
    5. Click Add permissions.
    6. After adding the permission, click on **Grant admin consent for the organization** to ensure this permission is granted for all users in the directory.
-6. **Set App ID URI:**
+6. **Set App ID URI**:
    1. Navigate to Expose an API in the application’s settings.
    2. Click Set to define an Application ID URI. You can use the default URI or set one on your own.
    3. Copy the URI.
@@ -158,7 +158,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-  - task: CloudsmithCliSetupAndAuthenticate
+  - task: CloudsmithCliSetupAndAuthenticate@0
     inputs:
       authMethod: 'oidc'                     # Use OIDC authentication
       clientId: '$(your-client-id)'           # Client ID from your Azure Entra app registration
@@ -184,18 +184,18 @@ With all the configurations in place, you’re now set up to use Cloudsmith CLI 
 ## Best Practices
 
 - **Use OIDC**: Use OIDC authentication instead of API keys for enhanced security.
-- **Use Secure Variables:** Ensure all sensitive information, like clientId, clientSecret, apiKey, and tenantId, are stored securely as secrets in Azure DevOps rather than hardcoded in your pipeline.
-- **Use Latest CLI Versions:** Keep the Cloudsmith CLI updated to leverage the latest features and security patches. If specific versions are required, specify them explicitly in your configuration.
+- **Use Secure Variables**: Ensure all sensitive information, like clientId, clientSecret, apiKey, and tenantId, are stored securely as secrets in Azure DevOps rather than hardcoded in your pipeline.
+- **Use Latest CLI Versions**: Keep the Cloudsmith CLI updated to leverage the latest features and security patches. If specific versions are required, specify them explicitly in your configuration.
 
 ## Troubleshooting
 
-- **Authentication Issues: **
+- **Authentication Issues**:
   - Ensure all authentication variables are correctly set and valid for either API Key or OIDC.
   - Verify that the correct service account is selected in Cloudsmith for the OIDC provider.
-- **Permission Errors:** Verify that the ADO pipeline worker has appropriate permissions to download and install the CLI on the agent(in case of self-hosted agents).
+- **Permission Errors**: Verify that the ADO pipeline worker has appropriate permissions to download and install the CLI on the agent(in case of self-hosted agents).
 - **OIDC authentication failures**: Ensure the Provider URL and aud claim are set correctly, and verify all Azure Entra app configurations.
-- **PATH Issues with Cloudsmith CLI:** Ensure you’re using the same runner for all steps, as switching runners may lose CLI installation and configuration.
-- **OIDC Authentication Failures (401/422 Errors):**
+- **PATH Issues with Cloudsmith CLI**: Ensure you’re using the same runner for all steps, as switching runners may lose CLI installation and configuration.
+- **OIDC Authentication Failures (401/422 Errors)**:
   - Ensure that the Provider URL is set to `<https://sts.windows.net/>\<TENANT_ID>` in Cloudsmith and that it matches the configuration in Microsoft Entra ID.
   - Double-check the aud (audience) claim in the token claims section to ensure it matches the Application ID URI configured in Microsoft Entra ID.
   - If you encounter invalid_scope errors, make sure the appIdUri is correct.
