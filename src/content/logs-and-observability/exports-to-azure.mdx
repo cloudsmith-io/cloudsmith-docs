@@ -29,7 +29,7 @@ Next, you'll need to **follow these steps**:
 
 **5**. [Contact us](https://cloudsmith.com/company/contact-us) to tell us your:
 
-<Note variant="note" headline="One container to rule them all!">
+<Note variant="note" headline="One container to rule them all">
   We recommend setting up one container with folders for each log type and use the same Azure Tenant, if you require each log type to have a different Azure Tenant, please let us know.
 </Note>
 
@@ -89,7 +89,7 @@ You should have provided us with the following information:
 - The format of the logs you'd like to export (e.g. Apache-style, CSV, JSON Stream, JSON Stream + Timestamp, etc.)
 
 <Note variant="note" headline="Which format should I choose?">
-It depends! Each format is "streaming," meaning there's one line per entry for each download rather than a large object. In terms of detail, the Apache (or Nginx) format has the least to conform with those formats, CSV has the next level of detail but is limited due to columns, and JSON has the most level of detail as a structured format. **We recommend choosing JSON Stream + Timestamp**, in which a JSON blob representing the download is prefixed with a timestamp, making this nice to parse and import into your favorite Business Intelligence (BI) or Security Information Event Monitoring (SIEM) tooling.
+It depends. Each format is "streaming," meaning there's one line per entry for each download rather than a large object. In terms of detail, the Apache (or Nginx) format has the least to conform with those formats, CSV has the next level of detail but is limited due to columns, and JSON has the most level of detail as a structured format. **We recommend choosing JSON Stream + Timestamp**, in which a JSON blob representing the download is prefixed with a timestamp, making this nice to parse and import into your favorite Business Intelligence (BI) or Security Information Event Monitoring (SIEM) tooling.
 </Note>
 
 We should have provided you with the following information to configure a Federated Credential:

@@ -78,7 +78,7 @@ for package_name in urls:
         download_url = url[:-7] + package_name
         urllib.request.urlretrieve(download_url, package_name.split("#")[0])
 
-print("Packages downloaded! Please login to your Cloudsmith account to upload the packages.")
+print("Packages downloaded. Please login to your Cloudsmith account to upload the packages.")
 
 # Login to Cloudsmith if config files are not found
 if not exists("config.ini") and not exists("credentials.ini"):

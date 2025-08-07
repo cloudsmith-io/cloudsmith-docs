@@ -200,7 +200,7 @@ jobs:
           oidc-auth-only: 'true' # The action only performs authentication
 
       - name: Run subsequent steps
-        run: echo "Successfully authenticated with Cloudsmith!"
+        run: echo "Successfully authenticated with Cloudsmith."
 ```
 
 For further details on configuring Github Actions for OIDC see the guide [here](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) or review the [documentation](https://github.com/cloudsmith-io/cloudsmith-cli-action) of the Cloudsmith CLI GitHub Action.
@@ -214,7 +214,7 @@ commands:
   make_oidc_request:
     steps:
       - run: |
-          echo "Testing CircleCI OIDC!"
+          echo "Testing CircleCI OIDC."
           jwt=$(curl -X POST -H "Content-Type: application/json" -d "{\"oidc_token\":\"$CIRCLE_OIDC_TOKEN_V2\", \"service_slug\":\"{SERVICE_SLUG}"}" https://api.cloudsmith.io/openid/{ACCOUNT}/ | jq -r '.token')
           echo "OIDC token from Cloudsmith: $jwt"
 
