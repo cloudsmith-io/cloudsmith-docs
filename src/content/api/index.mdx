@@ -6,16 +6,16 @@ The Cloudsmith REST (REpresentational State Transfer) API (Application Programmi
 
 The API is versioned to help reduce future compatibility issues if we need to change the API. The following is a list of the current API versions and their URI endpoints:
 
-- [v1 (Version 1.0)](https://api.cloudsmith.io/)		
-- [v2 (Version 2.0)](https://api.cloudsmith.io/v2)		
+- [v1](https://api.cloudsmith.io/)
+- [v2](https://api.cloudsmith.io/v2)
 
 ## Authentication
 
 Most resources provided by the API require some form of authentication, which identifies the client to the API in the context of a particular user. Other resources are accessible anonymously, so they don't need authentication (although they may provide expanded detail for authenticated users). You can use the following methods to authenticate:
 
 ### Basic Authentication
-The simplest (but least recommended) way to authenticate is to provide your login email and password when making API requests (replacing `email` with your username and `password` with your password):
 
+The simplest (but least recommended) way to authenticate is to provide your login email and password when making API requests (replacing `email` with your username and `password` with your password):
 
 ```bash
 curl -u "email:password" https://api.cloudsmith.io/user/self/
@@ -72,7 +72,7 @@ server: Cloudsmith MCP
 ```
 
 <Note variant="warning" headline="Use Service Accounts">
-If your API key is given to someone else they will be able to access the API in its entirety as you (although they won't be able to login to the website itself, which makes this method slightly more secure that using Basic Authentication). This should be viewed as a security risk and every effort should be taken to protect your API Key from disclosure. If you need to add read-only access, we suggest creating a lesser privileged [service account](/accounts-and-teams/service-accounts} and using that instead for scripts/automation.
+If your API key is given to someone else they will be able to access the API in its entirety as you (although they won't be able to login to the website itself, which makes this method slightly more secure that using Basic Authentication). This should be viewed as a security risk and every effort should be taken to protect your API Key from disclosure. If you need to add read-only access, we suggest creating a lesser privileged [service account](/accounts-and-teams/service-accounts) and using that instead for scripts/automation.
 </Note>
 
 ## Pagination
