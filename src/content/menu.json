@@ -478,16 +478,8 @@
             "path": "/api/rate-limits"
           },
           {
-            "title": "Endpoints / Versioning",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "HTTP Verbs",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "HTTP Responses",
-            "path": "/does-not-exist"
+            "title": "Error Handling",
+            "path": "/api/error-handling"
           }
         ]
       }
