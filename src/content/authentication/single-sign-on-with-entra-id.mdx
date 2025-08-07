@@ -73,7 +73,7 @@ Next, we'll configure SAML settings. Click the pencil symbol beside **Basic SAML
 
 ### Step 7
 
-To determine your **Identifier** and **Reply URL** (we use the same value for both) we use the following format: "https://app.cloudsmith.com/WORKSPACE/authentication/saml/acs/", where "WORKSPACE" is replaced with your workspace's slug.
+To determine your **Identifier** and **Reply URL** (we use the same value for both) we use the following format: `https://cloudsmith.io/orgs/WORKSPACE/saml/acs/`, where "WORKSPACE" is replaced with your workspace's slug.
 
 <BlockImage src={img482a011_cloudsmith_entra_id_6} alt=""></BlockImage>
 
@@ -205,7 +205,7 @@ Under "Target Object Actions", select only "Updated, Delete" and click "Save":
 
 Microsoft Entra ID should now have the necessary information to de-provision users from Cloudsmith.
 
-## All wrapped up!
+## All wrapped up
 
 Once you've added the link to your App Federation Metadata, and enabled SAML in your Cloudsmith organization settings, you will be able to access the landing page of your organization at the following URL:
 

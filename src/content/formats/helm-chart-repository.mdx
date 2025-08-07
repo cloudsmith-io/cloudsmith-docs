@@ -1,4 +1,4 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # Helm Chart Repository
@@ -87,7 +87,7 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 
 ### Example Project
 
-For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later but otherwise, just ask! - we're here to help.
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later but otherwise, just ask: we're here to help.
 
 ## Download / Install a Chart
 
@@ -227,7 +227,8 @@ Note that this will require the GPG public key of the repository to be installed
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
 
 You can configure upstream Helm repositories that you wish to use for charts that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested charts for future use.
 
@@ -235,7 +236,8 @@ Please see our [Upstream Proxying](/repositories/upstreams) documentation for fu
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Packages</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
+<Tag variant="purple" theme="legacy">Packages</Tag>
 
 ## Troubleshooting
 

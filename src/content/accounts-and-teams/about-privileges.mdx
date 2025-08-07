@@ -2,82 +2,12 @@
 
 Cloudsmith provides a powerful and flexible permissions system to ensure you can implement a least-privilege approach for your software supply chain. Access control is managed at three distinct levels: the Workspace, Teams, and individual Repositories.
 
-This page provides a high-level overview of these layers, how they interact, and how they combine to define a user's ultimate permissions.
-
-## The Hierarchy of Permissions
-
 It is helpful to think of Cloudsmith's permissions as a top-down hierarchy, where settings at a higher level provide defaults that can be refined or overridden by settings at a more specific level.
 
-- **Workspace Level:** The broadest level of control. It defines user roles for the entire workspace and sets default permissions that apply to all repositories within it.
-- **Team-Based Permissions:** Teams are groups of workspace users. You don't assign privileges to a team directly; instead, you grant a team specific access to a repository. All members of that team then inherit those repository privileges. This is the primary mechanism for managing access for groups of users.
-- **Repository Level:** The most granular level of control. Here, you can override workspace defaults for a specific repository, grant unique permissions to specific users and teams, and fine-tune what actions are permissible within that repository.
+- [**Workspace Level**](/workspaces/privileges): The broadest level of control. It defines user roles for the entire workspace and sets default permissions that apply to all repositories within it.
+- [**Team-Based Permissions**](/accounts-and-teams/teams): Teams are groups of workspace users. You don't assign privileges to a team directly; instead, you grant a team specific access to a repository. All members of that team then inherit those repository privileges. This is the primary mechanism for managing access for groups of users.
+- [**Repository Level**](/repositories/repository-privileges): The most granular level of control. Here, you can override workspace defaults for a specific repository, grant unique permissions to specific users and teams, and fine-tune what actions are permissible within that repository.
 
 A user's final, **effective privilege** is the greatest privilege granted to them from any of these levels.
 
----
-
-## Workspace-Level Privileges
-
-These are the foundational settings that apply across your entire workspace. They are configured in **Workspace Settings > Privileges**.
-
-### Workspace User Roles
-
-Every user in a workspace has one of four roles, which defines their fundamental capabilities.
-
-| Role          | Permissions                                                                                                         |
-| :------------ | :------------------------------------------------------------------------------------------------------------------ |
-| **Owner** | Full "root" access. Can manage all workspace settings, billing, other owners, and has full access to all repositories. |
-| **Manager** | Can manage workspace settings and all non-owner users and teams. Has no repository access by default.               |
-| **Member** | A standard user who inherits privileges from workspace defaults and team memberships.                               |
-| **Collaborator** | A limited user who can only inherit privileges from their teams. Cannot access general Workspace or Repository settings. |
-
-### Global and Default Privileges
-
-The workspace settings also allow you to define two types of default permissions:
-
-* **Global Privileges:** You can grant **Members** the ability to perform workspace-level actions like creating new teams, inviting users, or creating new repositories.
-* **Default Object Privileges:** You can set the default repository access (`Admin`, `Write`, `Read`, or `None`) that **Members** and **Managers** receive for all repositories in the workspace. **Collaborators** do not inherit these.
-
-For a complete breakdown of these settings, please see the **Workspace Privileges** documentation.
-
-## Team-Based Permissions
-
-Teams are the most efficient way to manage repository access for groups of users. Users can be added to a team as either a **Manager** (can manage the team itself) or a **Member**.
-
-The team itself does not have inherent privileges. Instead, you grant the **Team** a specific privilege level (e.g., `Read` or `Write`) on a particular repository. Every user in that team then inherits that level of access for that repository.
-
-This is configured at the repository level, under **Repository Settings > Access Control**.
-
-For more info on creating and managing teams, see the **Repository Privileges** documentation.
-
-## Repository-Level Privileges
-
-This is the most specific level of control, configured under **Repository Settings > Access Controls**. These settings apply only to the individual repository and can override the workspace defaults.
-
-### Repository Access Control
-
-| Setting                       | Description                                                                                                                                                    |
-| :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Default Privileges** | Sets the default privilege (`Admin`, `Write`, `Read`, `None`) for all workspace **Members** on *this specific repository*, overriding the workspace-wide default.     |
-| **User/Team/Service Privileges** | You can grant a higher level of privilege to specific users, services, or teams, beyond the default. For example, you could give the "CI/CD" team `Write` access while the default for everyone else is `Read`. |
-| **Repository Privileges** | Fine-tune the *minimum privilege level* required to perform specific actions like `Copy`, `Delete`, or `Resync` packages within this repository.                 |
-| **Self Privileges** | Define actions that users can *always* perform on their own packages, regardless of other permissions.                                                         |
-
-For a detailed explanation of these settings, please see the **Repository Privileges** documentation.
-
-## Putting It All Together: Effective Privilege
-
-The final, or "effective," privilege for any user is the **greatest privilege** they are granted through any of these mechanisms. The system checks for permissions in this order:
-
-1.  Privileges assigned directly to the **User** on a repository.
-2.  Privileges inherited from any **Team** the user is a member of.
-3.  The **Default Privilege** set on the repository.
-4.  The workspace-wide **Default Object Privilege**.
-
-For example, if the workspace default is `Read`, but a user is on a team that has `Write` access to a repository, that user will have `Write` access.
-
-## External Access: Entitlement Tokens
-
-The permissions described above apply to authenticated Cloudsmith users within your workspace. For providing read-only, programmatic access to external users or automated systems (like CI/CD pipelines or end-user clients), you should use **Entitlement Tokens**. These tokens provide access to a repository without requiring a Cloudsmith user account.
-
-For more information, please see the **Entitlement Tokens Documentation**.
+To learn more about privileges, visit each of the sections linked above, or complete our [Permissions guide](/guides/managing-permissions).

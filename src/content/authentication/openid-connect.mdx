@@ -27,11 +27,11 @@ The following diagram gives an overview of how an OIDC provider integrates with 
 
 ### OIDC Flow
 
-1. **Request token:** The client initiates the workflow by requesting a token from the auth service to authenticate with Cloudsmith.
-2. **Return token:** The auth service receives the token request. After verification and validation, it generates a JWT token. The auth service and the client have implicit trust, allowing for this token exchange.
-3. **Present token:** The client presents a JWT token to Cloudsmith for access to resources.
-4. **Verify token:** Cloudsmith verifies the JWT token with the auth service to ensure its authenticity and validity. This step includes verifying claims.
-5. **Return new token:** Upon successful validation, Cloudsmith issues a short-lived access token to the client, granting access to Cloudsmith's resources for around 90 minutes to cover the duration of the job.
+1. **Request token**: The client initiates the workflow by requesting a token from the auth service to authenticate with Cloudsmith.
+2. **Return token**: The auth service receives the token request. After verification and validation, it generates a JWT token. The auth service and the client have implicit trust, allowing for this token exchange.
+3. **Present token**: The client presents a JWT token to Cloudsmith for access to resources.
+4. **Verify token**: Cloudsmith verifies the JWT token with the auth service to ensure its authenticity and validity. This step includes verifying claims.
+5. **Return new token**: Upon successful validation, Cloudsmith issues a short-lived access token to the client, granting access to Cloudsmith's resources for around 90 minutes to cover the duration of the job.
 
 ## OIDC Settings
 
@@ -200,7 +200,7 @@ jobs:
           oidc-auth-only: 'true' # The action only performs authentication
 
       - name: Run subsequent steps
-        run: echo "Successfully authenticated with Cloudsmith!"
+        run: echo "Successfully authenticated with Cloudsmith."
 ```
 
 For further details on configuring Github Actions for OIDC see the guide [here](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) or review the [documentation](https://github.com/cloudsmith-io/cloudsmith-cli-action) of the Cloudsmith CLI GitHub Action.
@@ -214,7 +214,7 @@ commands:
   make_oidc_request:
     steps:
       - run: |
-          echo "Testing CircleCI OIDC!"
+          echo "Testing CircleCI OIDC."
           jwt=$(curl -X POST -H "Content-Type: application/json" -d "{\"oidc_token\":\"$CIRCLE_OIDC_TOKEN_V2\", \"service_slug\":\"{SERVICE_SLUG}"}" https://api.cloudsmith.io/openid/{ACCOUNT}/ | jq -r '.token')
           echo "OIDC token from Cloudsmith: $jwt"
 

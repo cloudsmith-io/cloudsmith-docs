@@ -1,18 +1,131 @@
-# API intro
+import { Note } from '@/components'
 
-The Cloudsmith REST (REpresentational State Transfer) API (Application Programming Interface) provides everything you love about Cloudsmith but in a programmatic machine-accessible RESTful format. We believe in providing a rich API to enable exciting and powerful integrations, hopefully in ways that we couldn't imagine - just like your favourite brick-like toys!
+The Cloudsmith REST (REpresentational State Transfer) API (Application Programming Interface) provides everything you love about Cloudsmith but in a programmatic machine-accessible RESTful format. We believe in providing a rich API to enable exciting and powerful integrations, hopefully in ways that we couldn't imagine - just like your favourite brick-like toys.
 
 ## Versioning
 
 The API is versioned to help reduce future compatibility issues if we need to change the API. The following is a list of the current API versions and their URI endpoints:
 
-### v1 (Version 1.0)	https://api.cloudsmith.io/	
-### v2 (Version 2.0)	https://api.cloudsmith.io/v2/	
+- [v1](https://api.cloudsmith.io/)
+- [v2](https://api.cloudsmith.io/v2)
 
-If no explicit version has been specified then the latest version of the API will always be accessible at https://api.cloudsmith.io/ - so for example if the latest version is v1 then this will point to the v1 API. If we release a new v2 API then https://api.cloudsmith.io/ will automatically point to the v2 API, which may break clients that don't expect it. In order to maximise compatibility (if you need it), you should consider pointing at the fully-qualified endpoint for the version you need, such as https://api.cloudsmith.io/, or use one of the alternative methods (see below) for specifying the version.
+## Authentication
 
-In addition to explicitly specifying the endpoint in the URI, the following methods of specifying the version are supported by the Cloudsmith API:
+Most resources provided by the API require some form of authentication, which identifies the client to the API in the context of a particular user. Other resources are accessible anonymously, so they don't need authentication (although they may provide expanded detail for authenticated users). You can use the following methods to authenticate:
 
-Method	Description	Example
-Accept Header	Specify the version in the Accept header when making requests.	Accept: application/json; version=v1
-Query String	Specify the version in the query string when making requests.	https://api.cloudsmith.io/user/self/?version=v1
+### Basic Authentication
+
+The simplest (but least recommended) way to authenticate is to provide your login email and password when making API requests (replacing `email` with your username and `password` with your password):
+
+```bash
+curl -u "email:password" https://api.cloudsmith.io/user/self/
+```
+
+Specifying an invalid email and/or password will result in an 401 Unauthorized status code, and the body will specify that invalid credentials were received. Let's see it in action:
+
+```bash
+curl -i -u "example:wrongpassword" -X OPTIONS https://api.cloudsmith.io/user/self/
+
+HTTP/2 401
+date: Thu, 09 Mar 2023 16:52:55 GMT
+server: Cloudsmith MCP
+
+{"detail": "Invalid username/password."}
+```
+
+<Note variant="warning" headline="Warning">
+Disclosure of your email and password will allow a malicious third-party to takeover your account and cause damage. We recommend using an API Key instead and using a lesser privileged account for API access.
+
+Instead of providing your email and password, it is recommended that you instead authenticate to the API by specifying your API Key.
+</Note>
+
+### API Key Authentication
+
+<Note variant="note" headline="Getting your API Key">
+You can [find your API Key](/about-cloudsmith/api-key) within your User Settings or you can request (or reset) it via the Users Token API Endpoint.
+
+Cloudsmith Entitlement Tokens cannot be used to authenticate to the Cloudsmith API. Entitlement Tokens are used to authenticate for package downloads only.
+</Note>
+
+You can specify your API Key via the `X-Api-Key` header when making requests (replacing `key` with your actual API Key):
+
+```bash
+curl -H "X-Api-Key: key" https://api.cloudsmith.io/user/self/
+```
+
+You can also specify your API Key via the Authorization header when making requests (replacing `key` with your actual API Key):
+
+```bash
+curl -H "Authorization: token key" https://api.cloudsmith.io/user/self/
+```
+
+Specifying an invalid API Key will result in an 401 Unauthorized status code, and the body will specify that an invalid token was received. Let's see it in action:
+
+```bash
+curl -i -H "X-Api-Key: foobar" -X OPTIONS https://api.cloudsmith.io/user/self/
+
+HTTP/2 401
+date: Thu, 09 Mar 2023 16:55:35 GMT
+server: Cloudsmith MCP
+
+{"detail": "Invalid token."}
+```
+
+<Note variant="warning" headline="Use Service Accounts">
+If your API key is given to someone else they will be able to access the API in its entirety as you (although they won't be able to login to the website itself, which makes this method slightly more secure that using Basic Authentication). This should be viewed as a security risk and every effort should be taken to protect your API Key from disclosure. If you need to add read-only access, we suggest creating a lesser privileged [service account](/accounts-and-teams/service-accounts) and using that instead for scripts/automation.
+</Note>
+
+## Pagination
+
+API requests that return more than one item may be paginated, which simply means the total number of items is split into logical pages, in the same way that a book is split into pages. Each page will have a certain number of items in it from one up to the page limit - empty datasets are never paginated.
+
+When pagination is enabled, the following query string parameters are supported:
+
+| Parameter | Description |
+| :--- | :--- |
+| `page` | The current page of the pagination dataset to view. The page number is 1-based, so omitting or specifying a non-positive number will return the first page. |
+| `page_size` | The page size to divide the dataset into. The default amount (if not specified) is 30 items per page and the maximum configurable is 500 items per page. |
+
+When pagination occurs, the following headers will be represent in API responses:
+
+| Header | Description |
+| :--- | :--- |
+| Link (based on H+C6988) | Hypermedia links for the previous page (if any) and for the next page (if any). Some of which may require expansion as URI templates. |
+| X-Pagination-Count | The total number of items in the dataset. |
+| X-Pagination-Page | The number of the current page. |
+| X-Pagination-PageTotal | The total number of pages in the dataset. |
+| X-Pagination-PageSize | The size of each page in the dataset. |
+
+The `Link` header can contain the following `rel` values:
+
+| Name | Description |
+| :--- | :--- |
+| `first` | The link relation to the first page of results. This will only be present if there is more than one page. |
+| `prev` | The link relation to the previous page of results. This will only be present if the client has requested a page greater than 1. |
+| `next` | The link relation to the next page of results. This will only be present if the client has requested a page less than the last/final page. |
+| `last` | The link relation to the last/final page of results. This will only be present if there is more than one page. |
+
+Let's see it in action
+
+```bash
+curl -i -H "X-Api-Key: key" 'https://api.cloudsmith.io/package/example/repo/packages/?page=2&page_size=1'
+```
+
+```
+HTTP/1.0 200 OK
+Allow: GET, OPTIONS
+Content-Type: application/json
+Link: <https://api.cloudsmith.io/package/example/repo/packages/?page=1>; rel="first", <https://api.cloudsmith.io/package/example/repo/packages/?page=1>; rel="prev", <https://api.cloudsmith.io/package/example/repo/packages/?page=3>; rel="next", <https://api.cloudsmith.io/package/example/repo/packages/?page=3>; rel="last"
+X-Pagination-Count: 3
+X-Pagination-Page: 2
+X-Pagination-PageTotal: 3
+X-Pagination-PageSize: 1
+Server: Cloudsmith MCP
+Date: Sun, 29 Jan 2017 18:40:55 GMT
+
+[snip]
+```
+
+<Note variant="warning" headline="Page Sizes / Remainders">
+If the page size is 100 and the dataset size is 400, then there will be four pages available for retrieval. If the dataset isn't cleanly divided by the page size, the remainder will be on the final page. For example, if the page size is 100 and the dataset size is 350 then the last (4th) page will have 50 items on it.
+</Note>

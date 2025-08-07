@@ -1,28 +1,28 @@
 {
   "documentation": {
     "title": "Documentation",
-    "path": "/getting-started",
+    "path": "/about-cloudsmith",
     "icon": "action/documentation",
     "children": [
       {
-        "title": "Getting Started",
-        "path": "/getting-started",
+        "title": "About Cloudsmith",
+        "path": "/about-cloudsmith",
         "children": [
           {
             "title": "Key Concepts",
-            "path": "/getting-started/key-concepts"
+            "path": "/about-cloudsmith/key-concepts"
           },
           {
             "title": "Common Use Cases",
-            "path": "/getting-started/common-use-cases"
+            "path": "/about-cloudsmith/common-use-cases"
           },
           {
             "title": "Sign Up",
-            "path": "/getting-started/sign-up"
+            "path": "/about-cloudsmith/sign-up"
           },
                     {
             "title": "Log In",
-            "path": "/getting-started/sign-in"
+            "path": "/about-cloudsmith/sign-in"
           }
         ]
       },
@@ -285,12 +285,12 @@
             "path": "/logs-and-observability/client-logs"
           },
           {
-            "title": "Client Statistics",
-            "path": "/logs-and-observability/client-statistics"
-          },
-          {
             "title": "Audit Logs",
             "path": "/logs-and-observability/audit-logs"
+          },
+          {
+            "title": "Usage",
+            "path": "/logs-and-observability/usage"
           },
           {
             "title": "Exporting Logs to Azure",
@@ -350,11 +350,11 @@
       },
       {
         "title": "Developer Tools",
-        "path": "/getting-started#developer-tools",
+        "path": "/about-cloudsmith#developer-tools",
         "children": [
           {
             "title": "Generating an API Key",
-            "path": "/getting-started/api-key"
+            "path": "/about-cloudsmith/api-key"
           },
           {
             "title": "Cloudsmith CLI",
@@ -365,7 +365,11 @@
             "path": "/api"
           },
           {
-            "title": "API bindings",
+            "title": "VS Code Extension",
+            "path": "/developer-tools/vscode"
+          },
+          {
+            "title": "API Bindings",
             "path": "/developer-tools/api-bindings"
           },
           {
@@ -440,7 +444,7 @@
   },
   "guides": {
     "title": "Guides",
-    "path": "/guides",
+    "path": "/guides/getting-started",
     "icon": "action/guide",
     "children": [
           {
@@ -448,12 +452,12 @@
             "path": "/guides/getting-started"
           },
           {
-            "title": "Test Guide",
-            "path": "/guides/test-guide"
+            "title": "Managing Permissions in Cloudsmith",
+            "path": "/guides/managing-permissions"
           },
-                    {
-            "title": "Getting started (legacy)",
-            "path": "/guides/setting-up-your-cloudsmith-account-and-workspace"
+          {
+            "title": "Dependency Firewall",
+            "path": "/guides/dependency-firewall"
           }
         ]
       },
@@ -470,16 +474,12 @@
             "path": "/api/introduction"
           },
           {
-            "title": "Endpoints / Versioning",
-            "path": "/does-not-exist"
+            "title": "Rate Limits",
+            "path": "/api/rate-limits"
           },
           {
-            "title": "HTTP Verbs",
-            "path": "/does-not-exist"
-          },
-          {
-            "title": "HTTP Responses",
-            "path": "/does-not-exist"
+            "title": "Error Handling",
+            "path": "/api/error-handling"
           }
         ]
       }

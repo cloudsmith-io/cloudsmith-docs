@@ -1,4 +1,4 @@
-import { Note, Video, BlockImage } from '@/components';
+import { Tag, Note, Video, BlockImage } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 import uv_terminal from './images/python/uv_terminal.png';
@@ -11,7 +11,7 @@ Cloudsmith provides public & private repositories for Python packages
 
 <Video wistiaId="nh8mkpjak7"></Video>
 
-Python is an awesome general-purpose programming language (we use it!). Cloudsmith is proud to support fully-featured registries for managing your own public and private python packages.
+Python is an awesome general-purpose programming language. Cloudsmith is proud to support fully-featured registries for managing your own public and private python packages.
 
 For more information on Python, please see:
 
@@ -240,7 +240,7 @@ dependencies    = [
 name = "cloudsmith"
 url  = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/"
 # optional, but recommended for publish:
-publish-url = "https://python.cloudsmith.io/python/OWNER/REPOSITORY/"
+publish-url = "https://python.cloudsmith.io/OWNER/REPOSITORY/"
 ```
 
 Then, define the next environmental variables for `uv` to perform basic HTTP Auth. Replace `API-KEY` with your user API Token:
@@ -334,12 +334,13 @@ To learn more about other dependency declaration formats supported, visit the [o
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>.
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag><Tag variant="orange" theme="legacy">Caching</Tag>
 
 Please see [Upstream Proxying](/repositories/upstreams) for more details.
 
@@ -347,7 +348,7 @@ Upstreams provide a way to _blend_ multiple Python repositories into a single re
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
 
 ## Troubleshooting
 

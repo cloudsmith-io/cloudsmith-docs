@@ -5,6 +5,10 @@ import styles from './Tag.module.css';
 
 const tagVariants = cva(styles.root, {
   variants: {
+    theme: {
+      modern: '',
+      legacy: styles.legacy, // Apply legacy override class
+    },
     size: {
       small: styles.small,
       medium: styles.medium,
@@ -20,6 +24,14 @@ const tagVariants = cva(styles.root, {
       lightyellow: styles.lightyellow,
       red: styles.red,
       grey: styles.grey,
+
+      blue: styles.blue,
+      purple: styles.purple,
+      orange: styles.orange,
+      'midnight-blue': styles['midnight-blue'],
+      'dark-grey': styles['dark-grey'],
+      'dark-green': styles['dark-green'],
+      tomato: styles.tomato,
     },
     active: {
       true: styles.active,
@@ -29,6 +41,7 @@ const tagVariants = cva(styles.root, {
     },
   },
   defaultVariants: {
+    theme: 'modern',
     size: 'medium',
     type: 'status',
   },
@@ -60,8 +73,8 @@ const statusCodes: { [key in Tag.HttpResponseStatusCodes]: Tag.VariantsProps['va
   422: 'red',
 };
 
-export const Tag = ({ size, type, active, mobileDarkMode, className, ...props }: Tag.Props) => {
-  const sharedVariants = { size, type, active, mobileDarkMode };
+export const Tag = ({ theme, size, type, active, mobileDarkMode, className, ...props }: Tag.Props) => {
+  const sharedVariants = { theme, size, type, active, mobileDarkMode };
 
   if ('method' in props) {
     const { method, children, ...rest } = props;
@@ -116,6 +129,7 @@ export namespace Tag {
 
   interface defaultProps {
     mobileDarkMode?: boolean;
+    theme?: 'modern' | 'legacy';
   }
 
   export type Props = (withMethod | withStatusCode | withVariant) & defaultProps;

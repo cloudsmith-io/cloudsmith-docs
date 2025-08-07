@@ -30,7 +30,7 @@ Next, you'll need to **follow these steps**:
 
 **4**. [Contact us](https://cloudsmith.com/company/contact-us) to tell us your:
 
-<Note variant="note" headline="One bucket to rule them all!">
+<Note variant="note" headline="One bucket to rule them all">
   We recommend setting up one bucket with folders for each log type and use the same AWS account, if you require each log type to have a different AWS account, please let us know.
 </Note>
 
@@ -129,7 +129,7 @@ You should have provided us with the following information:
 - The format of the logs you'd like to export (e.g. Apache-style, CSV, JSON Stream, JSON Stream + Timestamp, etc.)
 
 <Note variant="note" headline="Which format should I choose?">
-  It depends! Each format is "streaming," meaning there's one line per entry for each download rather than a large object. In terms of detail, the Apache (or Nginx) format has the least to conform with those formats, CSV has the next level of detail but is limited due to columns, and JSON has the most level of detail as a structured format. **We recommend choosing JSON Stream + Timestamp**, in which a JSON blob representing the download is prefixed with a timestamp, making this nice to parse and import into your favorite Business Intelligence (BI) or Security Information Event Monitoring (SIEM) tooling.
+  It depends. Each format is "streaming," meaning there's one line per entry for each download rather than a large object. In terms of detail, the Apache (or Nginx) format has the least to conform with those formats, CSV has the next level of detail but is limited due to columns, and JSON has the most level of detail as a structured format. **We recommend choosing JSON Stream + Timestamp**, in which a JSON blob representing the download is prefixed with a timestamp, making this nice to parse and import into your favorite Business Intelligence (BI) or Security Information Event Monitoring (SIEM) tooling.
 </Note>
 
 We should have provided you with the following information:
@@ -153,46 +153,46 @@ It is possible to include or exclude the following:
 
 Some of the data provided includes:
 
-- **Edge Location:** Nearest CDN Edge Node Location (e.g., "LHR61-C2")
-- **EULA ID:** Unique identifier for EULA accepted (if any)
-- **EULA Number:** Revision of EULA accepted (if any)
-- **IP Address:** IP of the client
-- **Host:** Hostname for the request (e.g. your download domain)
-- **Method:** HTTP Method (e.g. "GET")
-- **Geo/IP Fields:** E.g., "City," "Continent", e.g. enriched based on IP (we pay for this)
-- **Package Identifier:** Unique identifier for downloaded package (if any)
-- **Package Name:** Name for the downloaded package (if any)
-- **Package Version:** Version for downloaded package (if any)
-- **Protocol:** HTTP Protocol Used (e.g. "https/1.3")
-- **Referer:** HTTP Referrer
-- **Request ID:** Globally unique identifier for the request
-- **Status:** HTTP Status Code (e.g. "200")
-- **Time Taken:** Time taken to service request, in seconds
-- **Token ID:** Unique identifier for entitlement token used (if any)
-- **Token Name:** Name for entitlement token used (if any)
-- **URI:** Uniform Resource Identifier, i.e. path, for the request
-- **User Agent:** HTTP User Agent sent by the client
-- **User ID:** Unique identifier for the client user (if any)
-- **User Name:** Name for the client user (if any)
+- **Edge Location**: Nearest CDN Edge Node Location (e.g., "LHR61-C2")
+- **EULA ID**: Unique identifier for EULA accepted (if any)
+- **EULA Number**: Revision of EULA accepted (if any)
+- **IP Address**: IP of the client
+- **Host**: Hostname for the request (e.g. your download domain)
+- **Method**: HTTP Method (e.g. "GET")
+- **Geo/IP Fields**: E.g., "City," "Continent", e.g. enriched based on IP (we pay for this)
+- **Package Identifier**: Unique identifier for downloaded package (if any)
+- **Package Name**: Name for the downloaded package (if any)
+- **Package Version**: Version for downloaded package (if any)
+- **Protocol**: HTTP Protocol Used (e.g. "https/1.3")
+- **Referer**: HTTP Referrer
+- **Request ID**: Globally unique identifier for the request
+- **Status**: HTTP Status Code (e.g. "200")
+- **Time Taken**: Time taken to service request, in seconds
+- **Token ID**: Unique identifier for entitlement token used (if any)
+- **Token Name**: Name for entitlement token used (if any)
+- **URI**: Uniform Resource Identifier, i.e. path, for the request
+- **User Agent**: HTTP User Agent sent by the client
+- **User ID**: Unique identifier for the client user (if any)
+- **User Name**: Name for the client user (if any)
 
 ## Audit Logs
 
-- **Actor:** The user or system that performed the action.
-- **Actor IP Address:** The IP address of the actor.
-- **Actor Kind:** The type of actor, such as "user" or "system".
-- **Actor Location:** The location of the actor, as determined by their IP address.
-- **Actor Slug Perm:** A unique identifier for the actor, used for permissions.
-- **Actor URL:** The URL of the actor's profile.
-- **Context:** The context in which the event occurred, such as "web" or "api".
-- **Event:** The type of event that occurred.
-- **Event At:** The date and time the event occurred.
-- **Object:** The object that was affected by the event.
-- **Object Kind:** The type of object, such as "user" or "file".
-- **Object Slug Perm:** A unique identifier for the object, used for permissions.
-- **Target:** The target of the event, such as the user who was affected.
-- **Target Kind:** The type of target, such as "user" or "file".
-- **Target Slug Perm:** A unique identifier for the target, used for permissions.
-- **UUID:** A unique identifier for the event.
+- **Actor**: The user or system that performed the action.
+- **Actor IP Address**: The IP address of the actor.
+- **Actor Kind**: The type of actor, such as "user" or "system".
+- **Actor Location**: The location of the actor, as determined by their IP address.
+- **Actor Slug Perm**: A unique identifier for the actor, used for permissions.
+- **Actor URL**: The URL of the actor's profile.
+- **Context**: The context in which the event occurred, such as "web" or "api".
+- **Event**: The type of event that occurred.
+- **Event At**: The date and time the event occurred.
+- **Object**: The object that was affected by the event.
+- **Object Kind**: The type of object, such as "user" or "file".
+- **Object Slug Perm**: A unique identifier for the object, used for permissions.
+- **Target**: The target of the event, such as the user who was affected.
+- **Target Kind**: The type of target, such as "user" or "file".
+- **Target Slug Perm**: A unique identifier for the target, used for permissions.
+- **UUID**: A unique identifier for the event.
 
 # Format Examples
 

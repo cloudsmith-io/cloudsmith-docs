@@ -1,0 +1,142 @@
+import { Note, BlockImage } from '@/components'
+
+import workspace from './images/managing-permissions/workspace.png';
+import object from './images/managing-permissions/object.png';
+import access_control from './images/managing-permissions/access_control.png';
+import repo_privileges from './images/managing-permissions/repo_privileges.png';
+
+# Managing Permissions in Cloudsmith: A Comprehensive Guide
+
+Secure and efficient management of access is vital for organizations that rely on cloud-based tools. As a cloud-native artifact management platform, Cloudsmith provides robust and flexible permission models to help enterprises maintain security without sacrificing productivity.
+
+In this guide, we explore how Cloudsmith organizes [roles and permissions](/accounts-and-teams/about-privileges) to facilitate secure collaboration and streamlined workflows. At the end of this guide, you'll understand how the different layers of permissions can be combined to define a user's ultimate permissions.
+
+## Understanding the Hierarchy
+
+At the core of Cloudsmith's access control is the [**Workspace**](/workspaces): a top-level entity that groups things like users, services, teams, policies and, of course, repositories.
+
+### Workspace-Level Privileges
+
+These are the foundational settings that apply across your entire workspace. They are configured in **Workspace Settings > Privileges**.
+
+#### Workspace User Roles
+
+Users in your Cloudsmith workspace can have one of the following roles: 
+
+| Role          | Permissions                                                                                                         |
+| :------------ | :------------------------------------------------------------------------------------------------------------------ |
+| **Owners** | The "Superusers" of the workspace. They have access to all settings and repositories implicitly. They can manage or delete users, including other Owners. This is the only role that has such broad privileges. |
+| **Managers** | They have access to workspace settings, can manage the workspace itself and can join teams, but have no repository access by default: managers must be members of teams that have access to a repository (or have explicit access granted as an individual user).               |
+| **Members** | The default role for new users. They can not manage any workspace settings but can see other members and visible teams, and they inherit privileges from the teams they belong to.                         |
+| **Collaborators** | A limited user who can only see other team members and inherit privileges from their teams. Cannot access general Workspace or Repository settings. This role can be useful for things like granting a third party, such as a consultant, controlled access to your Cloudsmith workspace. |
+
+<Note variant="note" headline="Entitlement Tokens">
+The permissions described above apply to authenticated Cloudsmith users within your workspace. For providing artifact read-only access to external users or services, you should use **Entitlement Tokens**. These tokens provide access to a repository without requiring a Cloudsmith user account.
+
+For more information, please see the [**Entitlement Tokens Documentation**](/software-distribution/entitlement-tokens).
+</Note>
+
+#### Global and Default Object Privileges
+
+Furthermore, you can modify these roles to have additional privileges through Global Privileges and Default Object Privileges.
+
+##### Global Privileges
+
+You can modify the Member role through global privileges so that Members can create teams, invite new users, see other users' email addresses and create repositories. Essentially, a subset of the privileges that the Manager role has.
+
+<BlockImage src={workspace} alt=""></BlockImage>
+
+##### Default Object Privileges
+
+You can set the default privileges (`Admin`, `Write`, `Read`, or `None`) for **Members** and **Managers** on package repositories. For example, setting this to “Read” will mean that all Managers and Members will have read privileges on all package repositories.
+
+The default for this setting is “None” - meaning that all package repository privileges must be explicitly granted to Managers and Members.
+
+For a complete breakdown of these settings, please see the [**Workspace Privileges**](/workspaces/privileges) documentation.
+
+<BlockImage src={object} alt=""></BlockImage>
+
+<Note variant="note" headline="Exception: Collaborator role">
+Note that this setting does not apply to the **Collaborator** role, which must always be explicitly granted package repository privileges - either as an individual or inherited from a team membership.
+</Note>
+
+### Team-based Permissions
+
+[Teams](accounts-and-teams/teams) are a powerful way to manage permissions in Cloudsmith, especially for workspaces with numerous users. Teams allow you to group users together for role-based access at scale, avoiding the complexity of managing repository privileges for individual accounts.
+
+If you are using [Single Sign On (SSO)](authentication/saml), it is also possible to automate team membership based on groups from your Identity Provider using SAML Group Sync.
+
+#### Team Roles
+
+When adding users or services to a team, you choose one of the following roles within the team:  
+- **Manager**: can manage the team settings (visible or invisible team) and can add/remove members. 
+- **Member**: only inherits privileges from the team.
+
+### Repository Access Control
+
+Cloudsmith supports detailed [privileges for repositories](repositories/repository-privileges), allowing organizations to define who can access what and to what extent.
+
+| Setting                       | Description                                                                                                                                                    |
+| :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Default Privileges** | Sets the default privilege (`Admin`, `Write`, `Read`, `None`) for all workspace **Members** on *this specific repository*, overriding the workspace-wide default.     |
+| **User/Team/Service Privileges** | You can grant a higher level of privilege to specific users, services, or teams, beyond the default. For example, you could give the "CI/CD" team `Write` access while the default for everyone else is `Read`. |
+| **Repository Privileges** | Fine-tune the *minimum privilege level* required to perform specific actions like `Copy`, `Delete`, or `Resync` packages within this repository.                 |
+| **Self Privileges** | Define actions that users can *always* perform on their own packages, regardless of other permissions.   
+
+Default and User/Team/Service privileges are found within a repository, under “Settings > Access control”.
+
+<BlockImage src={access_control} alt=""></BlockImage>
+
+The possible privileges for a package repository are: 
+
+- **Read**: permits viewing repository contents and downloading artifacts. Ideal for developers who just need to be consumers of the repository.
+- **Write**: extends privileges to include adding or updating packages, often assigned to services.
+- **Admin**: grants complete control, including modifying repository settings and managing privileges.
+
+In addition, it is possible to fine-tune exactly what these privilege levels can do in a repository, or actions that users can perform on their own packages. To do so, browse to “Repository Settings > General".
+
+<BlockImage src={repo_privileges} alt=""></BlockImage>
+
+For example, it is possible to configure a package repository so that accounts with “Write” privileges can copy or move packages, but deleting packages requires “Admin” privileges.
+
+This granular approach helps to align with modern DevOps practices, enabling seamless collaboration while maintaining strict security protocols.
+
+## Putting It All Together: Effective Privilege
+
+The final or "effective" privilege for any user is the **greatest privilege** they are granted through any of the mechanisms explained above. The system checks for permissions on each of the privilege layers:
+
+1.  Privileges assigned directly to the **User** on a repository.
+2.  Privileges inherited from any **Team** the user is a member of.
+3.  The **Default Privilege** set on the repository.
+4.  The workspace-wide **Default Object Privilege**.
+
+For example, if the workspace default is `Read`, but a user is on a team that has `Write` access to a repository, that user will have `Write` access.
+
+## Permissions Best Practices
+
+1. Use Teams for Simplified Management:
+    - Create teams aligned with functional groups (e.g., developers, QA, DevOps).
+    - Use SAML Group Sync to automate team memberships based on groups from your IdP.
+    - Assign repository-specific privileges for teams.
+
+2. Leverage Services for Automation:
+    - Create dedicated service accounts for CI/CD tools and restrict their access to only necessary repositories.
+    - Use OIDC to allow services to authenticate to Cloudsmith with short-lived tokens, negating the need to store long-lived service API Keys in external tools.
+
+3. Audit and Review Access Regularly:
+    - Periodically review permissions to ensure compliance with security policies.
+    - Utilize Cloudsmith's [Audit Logs]() to track changes in access control settings.
+
+4. Adopt the Principle of Least Privilege:
+    - Grant users, services and teams the minimum access they need to perform their tasks. For example, “Read” Privileges on a repository for Member accounts, but services have “Write” privileges to publish packages from CI/CD pipelines. This reduces the risk of accidental or malicious actions.
+
+### Why Flexible Access Control Matters
+
+Effective access control is a cornerstone of operational security. Cloudsmith's approach ensures that organizations can:  
+- Minimize risks of unauthorized access or data breaches.
+- Adapt permissions to evolving team structures or projects.
+- Maintain compliance with industry standards and best practices.
+
+By enabling precise control at both organizational and repository levels, Cloudsmith simplifies complex workflows while bolstering security—a must-have for businesses in DevOps, FinTech, and other industries. Whether you're setting up your first repository or managing access for a large team, Cloudsmith provides the tools to do so securely and efficiently. 
+
+With this guide, you're equipped to harness Cloudsmith's capabilities and ensure that your software supply chain is secure, scalable, and streamlined.

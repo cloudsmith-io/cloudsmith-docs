@@ -1,5 +1,5 @@
 
-import { Note, BlockImage } from '@/components';
+import { Tag, Note, BlockImage } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 import swift from './images/swift/swift.png';
@@ -105,7 +105,7 @@ swift package-registry set --global "https://swift.cloudsmith.io/WORKSPACE/REPOS
 ```
 </Note>
 
-Then, [get your API_TOKEN](getting-started/API-TOKEN) and login to your private Cloudsmith Swift registry with:
+Then, [get your API_TOKEN](/about-cloudsmith/api-key#getting-your-api-key) and login to your private Cloudsmith Swift registry with:
 
 ```shell
 swift package-registry login https://swift.cloudsmith.io/WORKSPACE/REPOSITORY/ --username USERNAME --password API_TOKEN
@@ -185,7 +185,7 @@ You are ready to publish the package to your Cloudsmith Registry. Follow the pre
 swift package-registry publish alamofire.alamofire 5.9.1 --metadata-path ./package-metadata.json
 ```
 
-**Done!** You've successfully published your Swift package to a Cloudsmith registry. You can now view the package in your Cloudsmith web app.
+**Done**. You've successfully published your Swift package to a Cloudsmith registry. You can now view the package in your Cloudsmith web app.
 
 ## Upload via the Cloudsmith CLI
 
@@ -317,12 +317,15 @@ swift package purge-cache
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 
 You can configure to proxy a private or public swift registry you wish to use for packages that are not available in your current Cloudsmith repository e.g. you can point to another Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
@@ -334,7 +337,7 @@ Please see our [Upstream Proxying](/repositories/upstreams) documentation for fu
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">Not supported</span>
+<Tag variant="red" theme="legacy">Not supported</Tag>
 
 ## Troubleshooting
 

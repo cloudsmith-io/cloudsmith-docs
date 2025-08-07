@@ -1,0 +1,80 @@
+import { Note } from '@/components'
+
+# Rate Limits and Scaling with Cloudsmith
+
+Cloudsmith applies rate limits to ensure reliability, security and consistent performance for all users. These limits help protect against abusive or accidental overuse. Most users will never encounter rate limits, and if your workloads require more capacity, we’ll adjust them. [Contact us](https://cloudsmith.com/company/contact-us) and we’ll work with you to configure limits to match your requirements.
+
+## Cloudsmith Web App and API
+
+Cloudsmith applies default request limits based on how you access the platform. Authenticated usage is the preferred way to use Cloudsmith. It provides higher throughput, better security, and a more reliable experience for production workloads. 
+
+The table below shows the baseline defaults:
+
+| Description | Rate Limit |
+| :---- | :---- |
+| Non-authenticated/anonymous users (by IP address) via API | 1,800 req/hour (0.5 req/sec) |
+| Authenticated users on a Core plan via API | 5,400 req/hour (1.5 req/sec) |
+| Authenticated users on a Pro or Velocity plans via API | 10,800 req/hour (3 req/sec) |
+| Authenticated users on an Ultra or Enterprise plans via API | Custom rate limits apply |
+| Authenticated [app.cloudsmith.com](http://app.cloudsmith.com) usage | 10,800 req/hour (3 req/sec) |
+| Package downloads via default domain  | 120,000 req/hour (33.33 req/sec) |
+| Package downloads via [custom domain](https://help.cloudsmith.io/docs/custom-domains)  | Custom rate limits apply |
+
+## Package Metadata APIs
+
+Cloudsmith provides native endpoints for different package formats (for example, npm, Docker, Maven, NuGet, and more). These endpoints have a default throttle of 1,512,000 requests per hour (per region, per user, and per organisation). This can be customised dynamically, applying to all package formats.
+
+<Note variant="note" headline="Need higher limits?">
+Cloudsmith regularly customizes limits to support customer use cases. If your workloads need more capacity, contact our team and we'll be happy to adjust limits to fit your needs.
+</Note>
+
+## Monitoring your usage
+
+Each API response includes headers to help you monitor and manage usage. These can be used in automated workflows to prevent disruptions and optimize performance:
+
+| Header | Meaning | Example |
+| :---- | :---- | :---- |
+| `X-RateLimit-Limit` | The maximum number of requests that the client is permitted to send per hour. | `600` |
+| `X-RateLimit-Remaining` | The number of requests that are remaining in the current rate limit window. | `588` |
+| `X-RateLimit-Reset` | The [UTC epoch timestamp](https://www.epochconverter.com/) at which the current rate limit window will reset. | `1485706850` |
+| `X-RateLimit-Interval` | The time in seconds that client is suggested to wait until the next request in order to avoid consuming too much within the rate limit window. | `0.98256663893` |
+
+Let's see it in action:
+
+```shell
+curl -i http://api.cloudsmith.io/user/self/
+
+HTTP/1.0 200 OK
+X-RateLimit-Interval: 60.0
+X-RateLimit-Limit: 600
+X-RateLimit-Remaining: 599
+X-RateLimit-Reset: 1485712175
+Date: Tue, 5 Aug 2025 12:34:56 GMT
+```
+
+If the client has exceeded the rate limit in a particular rate limit window a **429 Too Many Requests** status code will be sent instead of acting upon the request. The body response will be **JSON encoded** and include a detail message:
+
+```shell
+curl -i http://api.cloudsmith.io/user/self/
+
+HTTP/1.0 429 Too Many Requests
+Allow: GET, OPTIONS
+Content-Type: application/json
+Retry-After: 3304
+Vary: Cookie
+x-content-type-options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-RateLimit-Interval: 3303.55762601
+X-RateLimit-Limit: 1
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1485712175
+Date: Sun, 29 Jan 2017 16:54:30 GMT
+
+{
+  "detail": "Request was throttled. Expected available in 3304.0 seconds."
+}
+```
+
+## Scaling with Cloudsmith
+
+Our goal is to give every team a reliable, predictable platform that can meet its needs, without surprises. Rate limits protect Cloudsmith and our users. If your workflows require more capacity, we’ll work with you to ensure you always have the limits you need. 

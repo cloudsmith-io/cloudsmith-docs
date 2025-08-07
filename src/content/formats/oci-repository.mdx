@@ -1,4 +1,4 @@
-import { Note } from '@/components';
+import { Tag, Note } from '@/components';
 export const parentTitle = 'Supported Formats';
 
 # OCI Repository
@@ -27,16 +27,16 @@ For clarity, it's important to note some of the differences between a registry s
 
 Docker defines the following names (this is not the official wording):
 
-- **Layer:** A blob (big object of bytes) containing software and configuration.
-- **Image:** A collection of Docker layers plus metadata that represent an application.
-- **Container:** A running instance of a Docker image in-memory.
-- **Repository:** A collection of Docker images, separated by hashref and version tags.
-- **Registry:** A collection of all Docker repositories, separated by namespaces.
+- **Layer**: A blob (big object of bytes) containing software and configuration.
+- **Image**: A collection of Docker layers plus metadata that represent an application.
+- **Container**: A running instance of a Docker image in-memory.
+- **Repository**: A collection of Docker images, separated by hashref and version tags.
+- **Registry**: A collection of all Docker repositories, separated by namespaces.
 
 For comparison purposes, where terms differ from Cloudsmith:
 
-- **Package:** A specific identifiable and versionable artifact.
-- **Repository:** A collection of versionable artifacts, with multiple allowed per account.
+- **Package**: A specific identifiable and versionable artifact.
+- **Repository**: A collection of versionable artifacts, with multiple allowed per account.
 
 Therefore, based on the above, the following terms are equivalent:
 
@@ -223,19 +223,21 @@ Provenance files allow for verification of both the integrity and source of a He
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span> 
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
 
 Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Chaching</Tag>
 
 You can configure upstream OCI registries you wish to use by using our Docker Upstream feature. In addition, you can also choose to cache any requested artifacts for future use.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">RSA</span> <span class="cs-tag cs-tag-purple">Index</span>
+<Tag variant="red" theme="legacy">RSA</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
 
 ## Troubleshooting
 
