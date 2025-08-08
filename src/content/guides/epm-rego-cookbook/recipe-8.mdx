@@ -1,0 +1,15 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 8: CVSS Score enriched with EPSS context 
+
+Combine High scoring with EPSS scores above a specific threshold. In this case, a patch has to be available and we are excluding or ignoring specific disclosed CVEs.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-8/policy.rego"
+/>
+
+**Trigger Condition:**
+
+**When and How It's Triggered**
+

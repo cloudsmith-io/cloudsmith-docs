@@ -1,5 +1,6 @@
 import { createIconRegistry } from './util/create-icon-registry';
 
+import { RegoIcon } from './svgs/Rego';
 import { MenuIcon } from './svgs/Menu';
 import { ChevronIcon } from './svgs/Chevron';
 import { ChevronSmallIcon } from './svgs/ChevronSmall';
@@ -91,6 +92,7 @@ import { IntegrationVSCodeIcon } from './svgs/integration/VSCode';
 
 export const iconRegistry = createIconRegistry({
   menu: MenuIcon,
+  rego: RegoIcon,
   chevron: ChevronIcon,
   enter: EnterIcon,
   chevronUp: (props) => <ChevronIcon {...props} id="icon-chevron-up" chevronDirection="up" />,

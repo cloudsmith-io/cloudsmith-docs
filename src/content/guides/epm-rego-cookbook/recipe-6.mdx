@@ -1,0 +1,15 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 6: CVSS Score with Fix Version and CVE Exclusion 
+
+Another approach for ignoring certain CVEs, focusing on one repository, with high/critical CVSS threshold. This policy matches packages in repository testing-policy if at least one vulnerability is “fixed,” CVSS > 7, and not in ignored_cves.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-6/policy.rego"
+/>
+
+**Trigger Condition:**
+
+**When and How It's Triggered**
+

@@ -1,0 +1,22 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 4: Limiting Package Size 
+
+If a package is larger than 100MB, this policy will match it.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-4/policy.rego"
+/>
+
+**Trigger Condition:**  
+max_size := 30 * 1024 * 1024  # 30MB
+
+**When and How It's Triggered**  
+The goal of this policy is to prevent packages larger than 30MB from being accepted during the sync process. Some packages, like b2gpopulate and ajenti, have large download sizes (36MB and 35MB respectively). These larger packages often contain a lot of code or data, making them bigger than typical packages.
+
+Download and push the b2gpopulate tarball to Cloudsmith:  
+curl -LO https://files.pythonhosted.org/packages/source/b/b2gpopulate/b2gpopulate-0.29.tar.gz && cloudsmith push python acme-corporation/acme-repo-one b2gpopulate-0.29.tar.gz -k "$CLOUDSMITH_API_KEY"
+
+![][image12]
+

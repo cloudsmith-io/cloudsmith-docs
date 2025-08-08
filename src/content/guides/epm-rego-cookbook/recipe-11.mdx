@@ -1,0 +1,15 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 11: Enforce Upload Time Window 
+
+Only allow uploads during business hours (e.g., 9 AM – 5 PM UTC), to catch anomalous behaviour like late-night uploads.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-11/policy.rego"
+/>
+
+**Trigger Condition:**
+
+**When and How It's Triggered**
+

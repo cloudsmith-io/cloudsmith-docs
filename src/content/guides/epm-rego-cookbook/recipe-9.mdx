@@ -1,0 +1,18 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 9: Specific format from unapproved source repo 
+
+Define specific approved source repositories and target only to specific package format, in this case “npm”.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-9/policy.rego"
+/>
+
+**Trigger Condition:**  
+Approved source repos: "internal-tools", "trusted-upstreams"  
+Targeted format: "npm"
+
+**When and How It's Triggered**  
+The match is triggered if an npm package comes from a repo not listed in **approved_repos**.
+
