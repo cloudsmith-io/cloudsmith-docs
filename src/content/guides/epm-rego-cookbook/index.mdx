@@ -1,0 +1,12 @@
+// Example in a page like src/pages/my-guide.mdx
+
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+## My Guide with a Remote Code Example
+
+Here is a Rego policy loaded directly from GitHub. It will always show the latest version from the `main` branch.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-1/policy.rego"
+/>
