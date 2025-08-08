@@ -69,7 +69,11 @@ When a package is not yet cached within Cloudsmith, every package and its depend
 
 When Block Until Scan is enabled, the initial download request for an uncached package will be temporarily blocked until the policy evaluation has completed:
 - **Successful Scan**: If the package passes all policy checks, the download will proceed, and the package will be served normally.
-- **Failed Scan/Policy Violation**: If the package fails a policy check (e.g., due to a vulnerability or license issue), or if the scanning process encounters an unrecoverable error, the download will be blocked with a `403 Forbidden` error code.
+- **Policy Matched**: If the package is matched against a policy, the package is processed exactly as the matched policy specifies:
+  - If the policy's action is **quarantine**, the package is quarantined and any download attempt returns **403** Forbidden.
+  - If the policy's action is **tag, allow**, or any other non-blocking action, the package is served normally (with the tag or other metadata applied).
+
+If the package fails a policy check (e.g., due to a vulnerability or license issue), or if the scanning process encounters an unrecoverable error, the download will be blocked with a `403 Forbidden` error code.
 
 <Note>📘 Without Block Until Scan, the same package would be delivered to the user immediately, before the full evaluation phase of the synchronization process had taken place. Cloudsmith would then asynchronously cache and synchronize the package after the first download. At this point, the system would apply the policy to the package and could then quarantine it. While future downloads of the package would then be blocked, this asynchronous processing means the initial downloads of the package could not be prevented if required.</Note>
 
