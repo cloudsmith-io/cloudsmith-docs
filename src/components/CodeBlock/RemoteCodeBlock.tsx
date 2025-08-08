@@ -1,7 +1,7 @@
-// components/RemoteCodeBlock.tsx
+// components/CodeBlock/RemoteCodeBlock.tsx
 // This component wraps your existing CodeBlock to add data fetching.
 
-import { CodeBlock } from '@/components/CodeBlock'; // Using path alias to import from your CodeBlock module
+import { CodeBlock } from './CodeBlock'; // Using path alias to import from your CodeBlock module
 
 // Define the types for the component's props
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   lang: string;
   header?: boolean;
   // This allows passing any other props that your original CodeBlock might accept
-  [key: string]: any;
+  [key: string]: unknown; // Use 'unknown' instead of 'any' for better type safety
 }
 
 /**
@@ -32,8 +32,13 @@ export async function RemoteCodeBlock({ src, lang, ...props }: Props) {
     }
 
     codeContent = await response.text();
-  } catch (err: any) {
-    error = err.message;
+  } catch (err: unknown) { // Catch the error as 'unknown'
+    // Check if the caught object is an instance of Error to safely access .message
+    if (err instanceof Error) {
+        error = err.message;
+    } else {
+        error = 'An unknown error occurred while fetching the code.';
+    }
     console.error("Error fetching remote code:", err);
     // Render a simple error message if fetching fails
     codeContent = `Error: Could not load code from ${src}\n\n${error}`;
