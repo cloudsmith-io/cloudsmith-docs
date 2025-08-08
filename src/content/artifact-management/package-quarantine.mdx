@@ -87,3 +87,13 @@ For example:
 Please see the Cloudsmith [Interactive API Reference](/api/packages/quarantine) for details on the Quarantine Package API endpoint
 
 ***
+
+## Client behaviour
+
+When a quarantined package is requested by native tooling e.g. `pip install`, `mvn install`, `npm install`, etc., the repository returns **HTTP 403 Forbidden**. Builds will fail with a 403 error such as:
+
+```
+ERROR: HTTP error 403 while getting <https://dl.cloudsmith.io/…/requests-2.6.1…>
+```
+
+This message confirms that a package is quarantined.

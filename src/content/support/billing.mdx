@@ -42,7 +42,11 @@ You can upgrade at any time, and you'll immediately benefit from the increased l
 
 ## How is the package delivery usage calculated?
 
-Uploads (putting artifacts into Cloudsmith repositories) are free of charge, and do not count toward package delivery costs. Successful downloads, including partial downloads, contribute to your package delivery usage costs; we'll add the sent server/client bytes to your total usage. We don't charge by the number of requests; only outgoing bytes (downloads) are counted within a billing period. **Please Note** 1GB = 1,000,000,000 (1000^3) bytes, not 1,073,741,824 (1024^3) bytes. 
+Uploads (putting artifacts into Cloudsmith repositories) are free of charge, and do not count toward package delivery costs. Successful deliveries, including partial deliveries, contribute to your package delivery usage costs; we'll add the sent server/client bytes to your total usage. We don't charge by the number of requests; only outgoing bytes (downloads) are counted within a billing period. **Please Note** 1GB = 1,000,000,000 (1000^3) bytes, not 1,073,741,824 (1024^3) bytes. 
+
+## What's a "partial delivery?"
+
+A partial delivery occurs when a client initiates a download but then cuts it off for any reason, e.g. a 1GB artifact that is cut off after 500MB are delivered. In this case, Cloudsmith will bill for 500MB of package delivery, not 1GB. A partial delivery is not always a client side error; some clients take advantage of ranges to download multiple parts/sections of files in parallel (for performance reasons or otherwise).
 
 ## How is the artifact data usage calculated?
 

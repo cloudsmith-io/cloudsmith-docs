@@ -47,6 +47,7 @@ Actions can be assigned to policies to act on packages following policy evaluati
 
 - `set_state`. This allows you to control the state of the package. For example, whether to delete or quarantine the package. See the [PackageStateEnum](https://api.cloudsmith.io/v2/swagger/#/:~:text=MovePackageActionTyped-,PackageStateEnum,string,-AVAILABLE%20%2D%20The%20package) for more information.
 - `add_package_tags`. Add a set of tags to the package.
+- Note on quarantining action: If you set the action to quarantine, any request for the package returns a **403 Forbidden** error code.
 
 For more detail on creating Enterprise policy management policies and actions, see the [Getting Started with Enterprise Policy Management guide](/supply-chain-security/epm/getting-started).
 
