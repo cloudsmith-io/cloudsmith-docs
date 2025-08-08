@@ -1,0 +1,20 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 14: Avoid Upload Packages With No Tags 
+
+To complement the previous Tag Sprawl policy, you could create an additional EPM policy that flags packages with no tags at all, which is a useful approach to ensure all packages are categorised in some way.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-14/policy.rego"
+/>
+
+**Trigger Condition:**  
+count(pkg.tags) == 0
+
+**When and How It's Triggered**  
+When submitting raw packages to Cloudsmith, you'll notice that no tags are assigned if not specified in the package metadata or on upload via the CLI:
+
+echo 'goodmorning' > goodmorning  
+cloudsmith push raw acme-corporation/acme-repo-one goodmorning -k "$CLOUDSMITH_API_KEY"
+

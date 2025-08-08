@@ -1,0 +1,15 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 7: CVSS Score with Tagging and is Time-Based 
+
+Combine tag requirements with older vulnerabilities that surpass a threshold. This requires the package to have a tag containing "internal-only" Only triggers if a vulnerability is older than 21 days, fixed, and has a CVSS ≥ 7.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-7/policy.rego"
+/>
+
+**Trigger Condition:**
+
+**When and How It's Triggered**
+

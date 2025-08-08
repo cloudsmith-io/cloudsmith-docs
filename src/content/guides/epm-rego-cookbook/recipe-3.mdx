@@ -1,0 +1,30 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 3: Copy-Left policy that matches license strings 
+
+This policy is designed to detect a broad range of copyleft licenses, including free-text and SPDX variants.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-3/policy.rego"
+/>
+
+**Trigger Condition:**  
+The license trigger conditions are highlighted in our detailed schema which is available towards the bottom of [https://api.cloudsmith.io/v2/swagger](https://api.cloudsmith.io/v2/swagger) under **PolicyPackageLicense**, but at a high level the schema definition looks like this:
+
+```json
+"license": {  
+    "raw_license": "Apache-2.0",  
+    "raw_license_file_path": "requests-2.32.0.dist-info/LICENSE",  
+    "raw_license_file_contents": null,  
+    "license_url": "https://spdx.org/licenses/Apache-2.0.html",  
+    "source": "AUTOMATIC",  
+    "match": "OSS_EXACT",  
+    "similarity": 100,  
+    "override": "NONE"  
+}
+```
+
+**When and How It's Triggered**  
+This example runs the risk of false positives with partial string matches (e.g., might flag "Not-GPL" if carelessly constructed). Whereas, the previous example (recipe 3) could also miss variants like "GPLv3+" or "GNU General Public License" unless specifically added to the list.
+

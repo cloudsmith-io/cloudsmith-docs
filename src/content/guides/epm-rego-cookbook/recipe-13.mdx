@@ -1,0 +1,30 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 13: Limit Tag Sprawl 
+
+Flag packages that have more than a threshold number of tags to avoid ungoverned tagging behaviors.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-13/policy.rego"
+/>
+
+**Trigger Condition:**  
+max_tags := 5
+
+**When and How It's Triggered**  
+Regardless of package format, you can trigger this detection by adding 5 tags to the package when pushing it to Cloudsmith. 
+
+pip download transformers --no-deps && cloudsmith push python acme-corporation/acme-repo-one transformers-4.53.1-py3-none-any.whl -k "$CLOUDSMITH_API_KEY" --tags TAG1,TAG2,TAG3,TAG4,TAG5
+
+Please note: if a version tag is not assigned to the package, Cloudsmith will assign the package an additional 6 “latest' tag by default:
+
+![][image16]
+
+While this example had a package action set to “Quarantine”, in reality you likely wouldn't quarantine a package based on assigned tags. If not action was set on the policy, it will still show the match for your package:  
+![][image17]
+
+In the package view, you can see the 5 manually assigned tags on upload as well as the “latest” tag that was assigned instead of a semantic version for the package:
+
+![][image18]
+
