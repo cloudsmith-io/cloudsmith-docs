@@ -98,13 +98,14 @@ export async function getLastUpdated(mdxInfo: MdxInfo): Promise<string | undefin
   if (lastUpdated) {
     return lastUpdated;
   } else {
-    const fullPath = path.join('src/content', mdxInfo.file);
-    const gitDate = execSync(`git log -1 --format=%cI -- ${fullPath}`)?.toString().trim();
-
-    if (gitDate) {
-      return gitDate;
-    } else {
-      return undefined;
-    }
+    try {
+        const fullPath = path.join('src/content', mdxInfo.file);
+        const gitDate = execSync(`git log -1 --format=%cI -- ${fullPath}`)?.toString().trim();
+        return gitDate;
+      } catch (error) {
+        // This will catch the "git: command not found" error and prevent a crash.
+        console.warn(`Could not get last updated date from Git for ${mdxInfo.file}. Is Git installed in the build environment?`);
+        return undefined;
+      }
   }
 }
