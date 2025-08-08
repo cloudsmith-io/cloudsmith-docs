@@ -454,10 +454,6 @@
           {
             "title": "Managing Permissions in Cloudsmith",
             "path": "/guides/managing-permissions"
-          },
-          {
-            "title": "Dependency Firewall",
-            "path": "/guides/dependency-firewall"
           }
         ]
       },
@@ -471,7 +467,7 @@
         "children": [
           {
             "title": "Introduction",
-            "path": "/api/introduction"
+            "path": "/api"
           },
           {
             "title": "Rate Limits",
