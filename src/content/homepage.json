@@ -64,7 +64,7 @@
         {
           "title": "Broadcasts",
           "description": "Distribute your packages with your own branding",
-          "href": "/software-delivery/broadcasts/",
+          "href": "/software-distribution/broadcasts/",
           "linkText": "Broadcasts",
           "icon": "homepage/guide",
           "size": "s",
@@ -100,7 +100,7 @@
         {
           "title": "Adding users",
           "description": "Cloudsmith helps people work together. Here's how to invite new members.",
-          "href": "/accounts-and-teams/invite-users/",
+          "href": "/accounts-and-teams/users/",
           "linkText": "Read the doc",
           "icon": "homepage/documentation",
           "size": "s",
