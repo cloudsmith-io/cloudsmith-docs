@@ -1,0 +1,15 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 15: Prevent Uploads from Specific Users or Roles 
+
+Block or quarantine packages uploaded by known test/service accounts or deprecate manual uploads.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-15/policy.rego"
+/>
+
+**Trigger Condition:**
+
+**When and How It's Triggered**
+

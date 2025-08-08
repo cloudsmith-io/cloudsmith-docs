@@ -1,0 +1,65 @@
+import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+# Recipe 2: Restricting Package Based on Tags
+
+This policy checks whether a package includes a specific "**maven-central**" tag and marks it as a match if it does.
+
+<RemoteCodeBlock
+  lang="rego"
+  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-2/policy.rego"
+/>
+
+**Trigger Condition:**
+
+```
+required_tag := "maven-central"
+```
+
+If the package contains a tag named "maven-central", this block:
+
+- Sets a reason message:  
+  “*Package has required tag: 'maven-central'*"
+
+**When and How It's Triggered**  
+The policy officially matches (i.e., triggers) if at least one reason was recorded -  in this case, finding the required tag.
+
+```
+match if count(reason) > 0
+```
+
+To trigger the policy, download the Python package below:   
+(it really doesn't matter what package you use since it's the tag that causes the match).
+
+```bash
+pip download h11==0.14.0
+```
+
+Once ready, push the package to Cloudsmith via the Cloudsmith CLI and insert the tag to cause the policy violation:
+
+```
+cloudsmith push python acme-corporation/acme-repo-one h11-0.14.0-py3-none-any.whl -k "$CLOUDSMITH_API_KEY"  --tags maven-central
+```
+
+Screenshot of terminal after applying the policy successfully:
+
+![][image6]
+
+Screenshot of the policy in the Web UI:  
+![][image7]
+
+Screenshot of the policy after adding a quarantine action:  
+(If you're unsure how to set quarantine actions, skip to [**Set Policy Actions**](#set-policy-actions) section)
+
+![][image8]  
+By pushing a package to Cloudsmith with the deprecated tag, the package was quarantined.
+
+![][image9]
+
+The web user interface identifies the package that was recently matched:
+
+![][image10]
+
+Clicking into the package information you can see the status of the package, as well as the tags that caused the policy match:
+
+![][image11]
+

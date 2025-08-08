@@ -456,6 +456,10 @@
             "path": "/guides/managing-permissions"
           },
           {
+            "title": "EPM Rego Cookbook",
+            "path": "/guides/epm-rego-cookbook"
+          },
+          {
             "title": "Dependency Firewall",
             "path": "/guides/dependency-firewall"
           }

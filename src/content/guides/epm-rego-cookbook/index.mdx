@@ -1,12 +1,253 @@
-// Example in a page like src/pages/my-guide.mdx
-
+import { GuideLink, BlockImage } from '@/components';
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { Icon, IconName } from '@/icons';
+import { iconRegistry } from '../icons/icon-registry';
+import styles from '../../../app/(documentation)/design-system/page.module.css';
 
-## My Guide with a Remote Code Example
+# Cloudsmith EPM Rego Policies Cookbook
 
-Here is a Rego policy loaded directly from GitHub. It will always show the latest version from the `main` branch.
+This cookbook provides a collection of Rego policy examples for Cloudsmith Enterprise Policy Management (EPM). These policies are designed to help enforce best practices, compliance, and security within your software supply chain.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-1/policy.rego"
-/>
+**Introduction to Rego and Cloudsmith EPM**  
+Rego is a high-level declarative language designed for expressing policies over complex hierarchical data. Cloudsmith EPM leverages Rego to allow organizations to define and enforce fine-grained access control, security, and compliance policies across their repositories and packages.
+
+
+## Policy Categories
+The policies in this cookbook are categorized to help you find relevant examples quickly:
+
+* **Security Policies**: Enforce rules related to package vulnerabilities, signing, and approved sources.  
+* **Compliance Policies**: Ensure adherence to internal or external regulatory standards.  
+* **Best Practice Policies**: Promote consistent and efficient usage of Cloudsmith.
+
+## Getting Started
+
+To use these policies:
+
+1. Access the Cloudsmith console.  
+2. Navigate to the Policies section of your console.  
+https://app.cloudsmith.com/your-workspace/policies  
+3. Click “**Create new policy**” and paste the Rego code.  
+4. Configure the policy's scope and enforcement mode.
+
+For detailed instructions on policy management, refer to the official Cloudsmith EPM documentation: [https://help.cloudsmith.io/docs/enterprise-policy-management](https://help.cloudsmith.io/docs/enterprise-policy-management).
+
+
+## Cookbook Recipes
+
+<div className={styles.iconGrid}>
+  <a href="epm-rego-cookbook/recipe-1" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 1: Enforcing Signed Packages</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-2" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 2: Restricting Package Based on Tags</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-3" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 3: Copy-Left policy that matches license strings</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-4" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 4: Limiting Package Size</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-5" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 5: Time-Based CVSS Policy</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-6" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 6: CVSS Score with Fix Version and CVE Exclusion</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-7" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 7: CVSS Score with Tagging and is Time-Based</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-8" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 8: CVSS Score enriched with EPSS context</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-9" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 9: Specific format from unapproved source repo</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-10" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 10: Flagging "Zombie" Packages</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-11" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 11: Enforce Upload Time Window</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-12" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 12: Quarantine Debug Builds</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-13" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 13: Limit Tag Sprawl</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-14" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 14: Avoid Upload Packages With No Tags</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-15" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 15: Prevent Uploads from Specific Users or Roles</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-16" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 16: Ensure Required Metadata Fields Are Present</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-17" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 17: Enforce Consistent Filename Convention</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-18" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 18: Ban Deprecated Formats</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="epm-rego-cookbook/recipe-19" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Recipe 19: Enforce Known Vendor Prefix</span>
+    </header>
+    <footer>
+      <Icon name={'rego'} as="svg" title="Recipe" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Go to recipe" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+</div>
+
+
+
+## Decision Log 
+
+The details of every policy evaluation and its outcome are captured in a decision log. Decision logs record the result of policy evaluations, including why the decision was made and what actions were taken as a result.
+
+```
+curl -X GET  "https://api.cloudsmith.io/v2/workspaces/acme-corporation/policies/decision_logs/?policy=$SLUG_PERM"   
+  -H "Accept: application/json"   
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
+```
+
+## Advanced Policy Considerations  
+
+* **Policy Granularity:**   
+  Consider how granular you want your policies to be. You can create very specific policies or broader ones depending on your needs.  
+* **Testing Policies:**  
+  Thoroughly test your Rego policies in a staging environment before deploying them to production.  
+* **Version Control:**  
+  Store your Rego policies in a version control system (e.g., Git) to track changes and facilitate collaboration.
+
+**Troubleshooting**  
+If you encounter issues with your Rego policies, consider the following:
+
+* **Review Policy Logic:**   
+  Double-check your Rego code for any logical errors or typos.  
+* **Check Input Data:**   
+  Ensure that the input data (e.g., package metadata, user attributes) matches what your policy expects.  
+* **Cloudsmith EPM Logs:**  
+  Consult the Cloudsmith EPM logs for detailed information on policy evaluations and failures.
+
+**Contributing to the Cookbook**  
+We encourage contributions to this cookbook! If you have useful Rego policies you'd like to share, please submit them for review to the Cloudsmith EPM Team Contact - **Claire McDyre**.
+
+**Next Steps**
+
+* Complete our free Cloudsmith EPM Labs:
+
+* Check out the official EPM documentation::  
+  https://help.cloudsmith.io/docs/enterprise-policy-management
+
+* Check out the Cloudsmith API documentation for a full, up-to-date, supported list of fields for EPM policies:  
+  https://api.cloudsmith.io/v2/swagger/#/workspaces/workspaces_policies_list
