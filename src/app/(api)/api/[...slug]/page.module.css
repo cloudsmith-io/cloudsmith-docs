@@ -10,6 +10,38 @@
   grid-template-columns: minmax(100px, min-content) minmax(150px, auto) 1fr;
 }
 
+.sectionHeading {
+  color: var(--brand-color-grey-7);
+  margin-bottom: var(--space-s);
+}
+
 .fullWidth {
   grid-column: 1 / -1;
+}
+
+.description {
+  display: block;
+
+  .sandboxLink {
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    width: fit-content;
+
+    &:hover {
+      color: var(--brand-color-blue-7);
+    }
+  }
+}
+
+.experimentalTag {
+  margin-bottom: var(--space-s);
+}
+
+@media (--tablet-up) {
+  .description {
+    display: flex;
+    justify-content: space-between;
+  }
 }

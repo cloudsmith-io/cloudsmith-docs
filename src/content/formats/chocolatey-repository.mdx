@@ -1,8 +1,5 @@
----
-title: "Chocolatey Repository"
----
-
 import { Note } from '@/components';
+
 
 # Chocolatey Repository
 
@@ -83,7 +80,7 @@ choco install packageName -dv -s .
 
 You can upload your package using the Chocolatey CLI.
 
-You can publish a nupkg file that you've generated from your project, using [nuget](https://www.nuget.org/downloads).
+You can publish a nupkg file that you've generated from your project, using [NuGet](https://www.nuget.org/downloads).
 
 Then you can publish your package using:
 
@@ -97,7 +94,7 @@ As of Chocolatey V 2.0.0, Chocolatey can use NuGet V3 feeds as sources.
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command-Line Interface](/getting-started/cli) .
+For full details of how to install and setup the Cloudsmith CLI, see [Command-Line Interface](/developer-tools/cli) .
 
 The command to upload a Chocolatey package via the Cloudsmith CLI is:
 
@@ -129,7 +126,7 @@ choco source add -n example-repo -s https://nuget.cloudsmith.io/OWNER/REPOSITORY
 choco sources add -n example-repo -s https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2 -u "USERNAME" -p "API-KEY"
 ```
 
-<Note variant="warning" headline="warning">
+<Note variant="warning" headline="Warning">
 Entitlement Tokens, User Credentials and API-Keys should be treated as secrets and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
 </Note>
 
@@ -143,4 +140,4 @@ choco install PACKAGE_NAME -Source example-repo
 
 ## Nuget and Cloudsmith CLI
 
-See, [NuGet Feed](/formats/nuget-feed), for how to create chocolatey packages using Nuget or the cloudsmith CLI.
+See, [NuGet Feed](/formats/nuget-feed), for how to create chocolatey packages using Nuget or the Cloudsmith CLI.

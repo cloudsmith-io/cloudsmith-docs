@@ -1,19 +1,22 @@
 {
   "hero": {
-    "title": "Cloudsmith Documentation",
+    "title": "Cloudsmith <br/> <strong>Documentation</strong>",
     "description": "Cloudsmith is a fully-managed artifact management, software supply chain security, and software distribution platform. ",
     "buttons": [
       {
         "label": "Documentation",
-        "href": "/documentation"
+        "href": "/about-cloudsmith",
+        "icon": "action/documentation"
       },
       {
         "label": "Guides",
-        "href": "/guides"
+        "href": "/guides/getting-started",
+        "icon": "utility/guide"
       },
       {
         "label": "API Reference",
-        "href": "/api"
+        "href": "/api",
+        "icon": "action/api"
       }
     ]
   },
@@ -24,30 +27,71 @@
       "cards": [
         {
           "title": "Key concepts",
-          "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
-          "href": "/getting-started/key-concepts/",
+          "description": "Learn the fundamentals of package management and discover how Cloudsmith's features provide a secure, visible, and collaborative solution.",
+          "href": "/about-cloudsmith/key-concepts/",
           "linkText": "Read the doc",
-          "icon": "utility/documentation"
+          "icon": "homepage/documentation",
+          "size": "s",
+          "width": "third",
+          "type": "default"
+        },
+        {
+          "title": "Supported Formats",
+          "description": "Cloudsmith is a single solution for all of your software assets.",
+          "href": "/formats/",
+          "linkText": "Go to formats",
+          "icon": "homepage/guide",
+          "size": "s",
+          "width": "third",
+          "type": "default"
         },
         {
           "title": "Quickstart guide",
           "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
-          "href": "/guides/cloudsmith-quickstart-guide/",
+          "href": "/guides/getting-started",
           "linkText": "Go to guide",
-          "icon": "utility/guide"
-        }
-        ,
-        {
-          "title": "Evaluating Cloudsmith",
-          "description": "If you're considering Cloudsmith, we've compiled a guide covering steps typically taken by customers during an evaluation.",
-          "href": "/guides/evaluating-cloudsmith/",
-          "linkText": "Go to guide",
-          "icon": "utility/guide"
+          "icon": "homepage/api",
+          "size": "s",
+          "width": "third",
+          "type": "default"
         }
       ]
     },
     {
-      "type":"divider"
+      "heading": "Leveling up your artifact management and package delivery",
+      "type": "cards",
+      "cards": [
+        {
+          "title": "Broadcasts",
+          "description": "Distribute your packages with your own branding",
+          "href": "/software-distribution/broadcasts/",
+          "linkText": "Broadcasts",
+          "icon": "homepage/guide",
+          "size": "s",
+          "width": "third",
+          "type": "default"
+        },
+        {
+          "title": "Supply Chain Security",
+          "description": "Define your security policies as code, and enforce them across all your organization's artifacts",
+          "href": "/supply-chain-security",
+          "linkText": "Secure your artifacts",
+          "icon": "homepage/documentation",
+          "size": "s",
+          "width": "third",
+          "type": "default"
+        },
+        {
+          "title": "Upstreams",
+          "description": "Index, proxy, and cache popular public upstreams and control all your assets within a single repository.",
+          "href": "/repositories/upstreams",
+          "linkText": "Configure a new upstream",
+          "icon": "homepage/api",
+          "size": "s",
+          "width": "third",
+          "type": "default"
+        }
+      ]
     },
     {
       "heading": "Managing accounts and teams",
@@ -56,23 +100,32 @@
         {
           "title": "Adding users",
           "description": "Cloudsmith helps people work together. Here's how to invite new members.",
-          "href": "/accounts-and-teams/invite-users/",
+          "href": "/accounts-and-teams/users/",
           "linkText": "Read the doc",
-          "icon": "utility/documentation"
+          "icon": "homepage/documentation",
+          "size": "s",
+          "width": "third",
+          "type": "default"
         },
         {
           "title": "Creating teams",
           "description": "Grouping member and services togehter as teams gives you another layer of control. Here's how to manage teams.",
           "href": "/accounts-and-teams/teams",
           "linkText": "Read the doc",
-          "icon": "utility/documentation"
+          "icon": "homepage/guide",
+          "size": "s",
+          "width": "third",
+          "type": "default"
         },
         {
-          "title": "Setting permissions",
-          "description": "Anim ipsum eiusmod occaecat duis ullamco reprehenderit sint do sunt irure veniam ullamco mollit in. Veniam Lorem amet culpa ullamco voluptate ad anim esse officia.",
-          "href": "/accounts-and-teams/permissions",
-          "linkText": "Read the doc",
-          "icon": "utility/documentation"
+          "title": "Workspace RBAC",
+          "description": "Learn how to apply the principle of least privilege to secure your supply chain.",
+          "href": "/workspaces/privileges",
+          "linkText": "Privileges",
+          "icon": "homepage/api",
+          "size": "s",
+          "width": "third",
+          "type": "default"
         }
       ]
     }

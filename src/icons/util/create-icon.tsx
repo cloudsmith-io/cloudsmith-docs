@@ -5,13 +5,19 @@ const defaultProps = {
   viewBox: '0 0 16 16',
 };
 
+const smallProps = {
+  width: 12,
+  height: 12,
+  viewBox: '0 0 12 12',
+};
+
 export const createIcon = <Props extends RenderProps<Props>>(
   baseId: string,
   render: (props: Props) => React.SVGProps<SVGSVGElement>,
 ) => {
-  const Icon = ({ as, title, id, ...props }: Props & IconProps) => {
+  const Icon = ({ as, title, id, size = 'default', ...props }: Props & IconProps) => {
     const { children, ...svgProps } = render(props as Props);
-    const finalProps = { ...defaultProps, ...svgProps };
+    const finalProps = { ...(size === 'small' ? smallProps : defaultProps), ...svgProps };
 
     if (as === 'use') {
       return (
@@ -46,6 +52,7 @@ type BaseProps = {
   title: React.ReactNode;
   as?: 'svg' | 'use' | 'symbol';
   id?: string;
+  size?: 'default' | 'small';
 };
 
 type RenderProps<Props extends object> = {

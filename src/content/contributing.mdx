@@ -1,0 +1,105 @@
+# Contributing
+
+Contributing to Cloudsmith open-source products couldn't get any easier - provided that you've got a  the spark of an idea, and/or a git client and the will to implement, we'll welcome the contributions that you'd like to make.
+
+## Contributor License Agreement
+
+By making any contributions to Cloudsmith Ltd projects you agree to be bound by the terms of the Cloudsmith Ltd [Contributor License Agreement](/contributor-license-agreement).
+
+## Code/Documentation Changes
+
+### Coding Conventions
+
+The coding conventions for each product vary depending on the content of the repository and the primary programming languages used to implement it. Please adhere to the coding conventions set out in the `CONTRIBUTING` section in the repository for each product.
+
+### Contribution Process
+
+1. Forking:
+
+    - Fork the project on GitHub to your own user/organization.
+
+2. Branching:
+
+    - Create a feature branch based off of `master` via `checkout -b <branch>`
+    - For improvements, name your branch `feature-<foo>` where `<foo>` represents your improvements.
+    - For bugfixes, name your branch `bugfix-<foo>` where `<foo>` represents your bug fixes.
+
+3. Developing/Testing:
+
+    - Make your changes on the feature branch and make them public via pushes.
+    - Ensure that your commits are in digestable logically quantities (avoid mega-commits).
+    - Conversely, also ensure that mistake commits, reverse commits, (etc.) are squashed pre-PR.
+    - Ensure that your changes meet the _Code Conventions_ guidelines outlined above.
+    - Add tests for your code changes to ensure that code coverage doesn't drop.
+    - Run the test suite via tox to ensure that your changes don't break existing code.
+    - Code that doesn't pass the test suite, or doesn't merge cleanly, or doesn't have coverage may not be accepted.
+
+4. Submitting:
+
+    - When you're ready to re-integrate back upstream, open a pull request (PR).
+    - Ensure that the merge and build runs completely, and submit fixes if required.
+    - Take on-board any review feedback, incorporate changes (if required), rinse and repeat.
+    - When accepted the pull request the maintainer/reviewer will merge the pull request.
+
+5. Profiteering:
+
+    - Give yourself a heavy-handed pat on the back (or someone else will), for a job well done.
+
+## Raising Issues
+
+Issues can broadly be divided into several types:
+
+    - Bug Reports
+    - Ideas/Proposals (i.e. Feature Requests)
+    - Discussions
+    - Questions/Help
+
+Depending on the issue type we require different information, so please consult the sections below before raising an issue so that we can help you best.
+
+In general though, all issues should follow the following conventions:
+
+- Use clear capitalised titles and limit the length to less than 60 characters(-ish) if possible.
+- Use a tag prefix of some sort to indicate the type of issue (this will be the category, e.g. [Bug]).
+- Provide enough detail so that we have a good idea of your requirement/suggestion - we also like pictures.
+
+### Bug Reports
+
+The bread and butter of issues, raising a bug report with enough detail to provide developers a lead on fixing it will mean we can fix bugs better, faster, harder (no, wait, easier).
+
+Please provide the following for a bug report:
+
+- Titles should begin with: [Bug]
+- Titles (or body) should contain the applicable product version: e.g. [0.1.0]
+- The body should contain the following:
+  - A rough guess at the severity in your opinion (e.g. low, medium, high, critical).
+  - A paragraph describing the issue (break it into paragraphs or lists if required).
+  - A backtrace that adequately shows where the code breaks within the code.
+  - Details of your environment (python version, os/dist/version, maybe a `pip freeze`).
+  - If relevant you can provide a screenshot (probably not likely for this tool though).
+  - Any other details that you decide are relevant (we might request more).
+
+### Ideas/Proposals (i.e. Feature Requests)
+
+Ideas come in several forms - if you are suggesting a potential feature then the more detail you provide on how it works, the more likely we can implement it quickly and more importantly accurately.
+
+Ideas become fully blown proposals when the detail amounts to something that can be readily converted to code (perhaps as a precursor to a PR in which the proposer is looking for comments, i.e. an RFC / Request For Comments).
+
+Please provide the following for an idea/proposal:
+
+- Titles should begin with: `[Idea]` (if suggesting) or `[RFC]` if providing a full proposal.
+- The body should contain the following:
+  - As much detail as possible on the suggested feature.
+
+### Discussions
+
+Discussions are freeform and are used to discuss existing functionality, and may merit subsequent ideas/proposals and/or pull requests.
+
+Please provide the following for a discussion:
+
+- Titles should begin with: `[Discuss]`.
+- The body should contain the following:
+  - As much detail as possible on in order to generate discussion on the topic.
+
+### Questions/Help
+
+For questions/help we would prefer for users to either create questions on [Stack Overflow](https://stackoverflow.com/) or raise them on the [Cloudsmith Support Portal](https://support.cloudsmith.com)).

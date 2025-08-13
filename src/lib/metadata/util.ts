@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import fs from 'fs/promises';
 import path from 'path';
-import { MdxModule, MetadataOptions } from './types';
+import { MdxModule, MetadataOptions, MdxInfo } from './types';
+import { execSync } from 'child_process';
 
 /**
  * Generates default metadata for any page.
@@ -87,8 +88,23 @@ const extractFirstH1Title = (content: string): string | undefined => {
 };
 
 /**
- * Gets the last updated date using frontmatter
+ * Gets the last updated date using frontmatter,
+ * or Git if not present.
  */
-export function getLastUpdated(mdxModule: MdxModule) {
-  return mdxModule.frontmatter?.lastUpdated;
+export async function getLastUpdated(mdxInfo: MdxInfo): Promise<string | undefined> {
+  const mdxModule = (await import(`@/content/${mdxInfo.file}`)) as MdxModule;
+  const lastUpdated = mdxModule.frontmatter?.lastUpdated;
+
+  if (lastUpdated) {
+    return lastUpdated;
+  } else {
+    const fullPath = path.join('src/content', mdxInfo.file);
+    const gitDate = execSync(`git log -1 --format=%cI -- ${fullPath}`)?.toString().trim();
+
+    if (gitDate) {
+      return gitDate;
+    } else {
+      return undefined;
+    }
+  }
 }

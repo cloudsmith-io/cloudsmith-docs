@@ -1,6 +1,7 @@
 import { Note } from '@/components';
 import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
 
+
 # GitLab CI/CD
 
 How to integrate GitLab CI/CD with Cloudsmith.
@@ -9,13 +10,13 @@ GitLab is an open-source DevOps platform originally built as a Git-based source 
 
 <Note>📘 The Cloudsmith CLI gives you full control when connecting to any CI/CD process; allowing you to upload any of our support formats or query your repositories. Just configure your API Key, install the CLI, and you'll be all set.</Note>
 
-To upload a package to a Cloudsmith repository using a Gitlab CI/CD pipeline, you can either use the [Cloudsmith CLI](/getting-started/cli) or the native package management tooling, such as `gem push` or `cargo publish` (where supported)
+To upload a package to a Cloudsmith repository using a Gitlab CI/CD pipeline, you can either use the [Cloudsmith CLI](/developer-tools/cli) or the native package management tooling, such as `gem push` or `cargo publish` (where supported)
 
 In either case, you will need to add your Cloudsmith API Key to your GitLab CI/CD environment
 
 ## Adding your API Key to GitLab
 
-Retrieve your [Cloudsmith API Key](/getting-started/api-key).
+Retrieve your [Cloudsmith API Key](/about-cloudsmith/api-key).
 
 ### API Key use with the Cloudsmith CLI
 

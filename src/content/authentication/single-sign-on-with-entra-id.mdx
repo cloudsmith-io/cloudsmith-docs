@@ -1,0 +1,214 @@
+import { BlockImage } from '@/components'
+import imgeed4fe7_cloudsmith_entra_id_1 from './images/single-sign-on-with-entra-id/eed4fe7-cloudsmith-entra-id-1.png'
+import imgc5faa5f_cloudsmith_entra_id_2 from './images/single-sign-on-with-entra-id/c5faa5f-cloudsmith-entra-id-2.png'
+import img8bac474_cloudsmith_entra_id_3 from './images/single-sign-on-with-entra-id/8bac474-cloudsmith-entra-id-3.png'
+import img76a302f_cloudsmith_entra_id_4 from './images/single-sign-on-with-entra-id/76a302f-cloudsmith-entra-id-4.png'
+import img19dfed2_cloudsmith_entra_id_5 from './images/single-sign-on-with-entra-id/19dfed2-cloudsmith-entra-id-5.png'
+import img482a011_cloudsmith_entra_id_6 from './images/single-sign-on-with-entra-id/482a011-cloudsmith-entra-id-6.png'
+import img66f29c5_cloudsmith_entra_id_7 from './images/single-sign-on-with-entra-id/66f29c5-cloudsmith-entra-id-7.png'
+import img5aabb6f_cloudsmith_entra_id_8 from './images/single-sign-on-with-entra-id/5aabb6f-cloudsmith-entra-id-8.png'
+import img6a5ba58_cloudsmith_entra_id_9 from './images/single-sign-on-with-entra-id/6a5ba58-cloudsmith-entra-id-9.png'
+import imgd168a64_cloudsmith_entra_id_10 from './images/single-sign-on-with-entra-id/d168a64-cloudsmith-entra-id-10.png'
+import img6a260ed_cloudsmith_entra_id_11 from './images/single-sign-on-with-entra-id/6a260ed-cloudsmith-entra-id-11.png'
+import imgfc07a79_cloudsmith_entra_id_12 from './images/single-sign-on-with-entra-id/fc07a79-cloudsmith-entra-id-12.png'
+import img9bcf573_Screenshot_2023_04_04_at_13_31_53 from './images/single-sign-on-with-entra-id/9bcf573-Screenshot_2023-04-04_at_13.31.53.png'
+import img7b4aac5_Screenshot_2023_04_04_at_13_36_03 from './images/single-sign-on-with-entra-id/7b4aac5-Screenshot_2023-04-04_at_13.36.03.png'
+import img236c28f_Screenshot_2023_04_04_at_13_36_48 from './images/single-sign-on-with-entra-id/236c28f-Screenshot_2023-04-04_at_13.36.48.png'
+import img0235d82_Screenshot_2023_04_04_at_13_38_39 from './images/single-sign-on-with-entra-id/0235d82-Screenshot_2023-04-04_at_13.38.39.png'
+import img83b07ab_Screenshot_2023_04_04_at_13_42_02 from './images/single-sign-on-with-entra-id/83b07ab-Screenshot_2023-04-04_at_13.42.02.png'
+import img9259a0d_Screenshot_2023_04_04_at_13_43_25 from './images/single-sign-on-with-entra-id/9259a0d-Screenshot_2023-04-04_at_13.43.25.png'
+import img_logsiPad_Pro_2 from './images/single-sign-on-with-entra-id/97a8b842ef1d4f9591593e89e33727e0dd89279dc81ef9a4ea51dee493ee2df0-app.cloudsmith.com_demo_logsiPad_Pro_2.png'
+import img_logsiPad_Pro_3 from './images/single-sign-on-with-entra-id/423b58384411ad1aedae0d14f42f8901b4b228d5b88b0751d4ce9eae0c745b62-app.cloudsmith.com_demo_logsiPad_Pro_3.png'
+import img8172851_Screenshot_2023_03_28_at_16_34_31 from './images/single-sign-on-with-entra-id/8172851-Screenshot_2023-03-28_at_16.34.31.png'
+import img6e7cf72_Screenshot_2023_03_28_at_16_36_00 from './images/single-sign-on-with-entra-id/6e7cf72-Screenshot_2023-03-28_at_16.36.00.png'
+import img043acd5_Screenshot_2023_03_28_at_16_37_32 from './images/single-sign-on-with-entra-id/043acd5-Screenshot_2023-03-28_at_16.37.32.png'
+import imgdff57a3_Screenshot_2023_03_28_at_16_39_27 from './images/single-sign-on-with-entra-id/dff57a3-Screenshot_2023-03-28_at_16.39.27.png'
+import img23729bf_Screenshot_2023_03_28_at_16_42_10 from './images/single-sign-on-with-entra-id/23729bf-Screenshot_2023-03-28_at_16.42.10.png'
+import img4995811_Screenshot_2023_03_28_at_16_44_01 from './images/single-sign-on-with-entra-id/4995811-Screenshot_2023-03-28_at_16.44.01.png'
+import img4934353_Screenshot_2023_03_28_at_16_56_27 from './images/single-sign-on-with-entra-id/4934353-Screenshot_2023-03-28_at_16.56.27.png'
+import img1b6c2ec_Screenshot_2023_04_04_at_13_24_50 from './images/single-sign-on-with-entra-id/1b6c2ec-Screenshot_2023-04-04_at_13.24.50.png'
+
+# Single Sign-On with Microsoft Entra ID (formerly Azure Active Directory) 
+
+This guide provides step-by-step instructions on setting up [Microsoft Entra ID](https://www.microsoft.com/en-gb/security/business/identity-access/microsoft-entra-id) as a SAML IdP for your Cloudsmith Organization.
+
+## Adding Cloudsmith to Microsoft Entra ID
+
+Cloudsmith is not (yet) an integrated application in Microsoft Entra ID. You'll have to add Cloudsmith manually so you can configure SSO.
+
+### Step 1
+
+Log into the Microsoft Entra ID portal as an admin and click **Azure Active Directory** in the left menu, then **Enterprise Applications** in the menu that appears:
+
+<BlockImage src={imgeed4fe7_cloudsmith_entra_id_1} alt=""></BlockImage>
+
+### Step 2
+
+Choose + **New application** from the top menu:
+
+<BlockImage src={imgc5faa5f_cloudsmith_entra_id_2} alt=""></BlockImage>
+
+### Step 3
+
+Click **Non-gallery application** and enter "Cloudsmith" in the "Name" box:
+
+<BlockImage src={img8bac474_cloudsmith_entra_id_3} alt=""></BlockImage>
+
+### Step 4
+
+Click the blue **Add** button at the bottom of the page. After a short processing delay, you'll be redirected to the overview page for your new application.
+
+### Step 5
+
+Select **Single sign-on** from the left menu and choose **SAML**:
+
+<BlockImage src={img76a302f_cloudsmith_entra_id_4} alt=""></BlockImage>
+
+### Step 6
+
+Next, we'll configure SAML settings. Click the pencil symbol beside **Basic SAML Configuration** to begin editing:
+
+<BlockImage src={img19dfed2_cloudsmith_entra_id_5} alt=""></BlockImage>
+
+
+### Step 7
+
+To determine your **Identifier** and **Reply URL** (we use the same value for both) we use the following format: `https://cloudsmith.io/orgs/WORKSPACE/saml/acs/`, where "WORKSPACE" is replaced with your workspace's slug.
+
+<BlockImage src={img482a011_cloudsmith_entra_id_6} alt=""></BlockImage>
+
+Hit the **Save** button at the top of the page.
+
+### Step 8
+
+Next, we'll configure Azure to also send the user's first and last names during sign-in. Click the pencil icon on the **User Attributes & Claims** section:
+
+<BlockImage src={img66f29c5_cloudsmith_entra_id_7} alt=""></BlockImage>
+
+### Step 9
+
+Remove all attributes _except_ the **Name identifier value**, the screen should look as below:
+
+<BlockImage src={img5aabb6f_cloudsmith_entra_id_8} alt=""></BlockImage>
+
+### Step 10
+
+Next, we'll add first and last names to the attributes sent to Cloudsmith. Click + **Add new claim** at the top of the page, and add **FirstName** as follows:
+
+<BlockImage src={img6a5ba58_cloudsmith_entra_id_9} alt=""></BlockImage>
+
+### Step 11
+
+Repeat the process for **LastName** and hit **Save**. The attributes screen should now look as below:
+
+<BlockImage src={imgd168a64_cloudsmith_entra_id_10} alt=""></BlockImage>
+
+### Step 12
+
+Finally, we'll need to add any users that need to be able to access the application. Click** Users and groups** in the left sidebar and then **+Add user**. You can add as many users or groups as needed:
+
+<BlockImage src={img6a260ed_cloudsmith_entra_id_11} alt=""></BlockImage>
+
+## Providing configuration to Cloudsmith
+
+Once configured as above, you'll need to provide metadata to Cloudsmith to connect to your newly configured IdP.
+
+Go back to the **Single sign-on** tab in the sidebar, you should see, in section **3 (SAML Signing Certificate)** a link that provides metadata for dynamic configuration, it is labelled **App Federation Metadata Url**.
+
+Copy this link and add it to your SAML configuration in your [Cloudsmith organization settings](/authentication/single-sign-on#enable-saml)
+
+<BlockImage src={imgfc07a79_cloudsmith_entra_id_12} alt=""></BlockImage>
+
+## SAML Group Sync
+
+Once SAML has been setup, you can then use Microsoft Entra ID and Cloudsmith's group mapping in order to import your teams into Cloudsmith.
+
+To get started, head into your Cloudsmith Enterprise application on Azure and select "Single sign-on", then click on "Edit" under "Attributes & Claims":
+
+<BlockImage src={img9bcf573_Screenshot_2023_04_04_at_13_31_53} alt=""></BlockImage>
+
+Select "Add a group claim":
+
+<BlockImage src={img7b4aac5_Screenshot_2023_04_04_at_13_36_03} alt=""></BlockImage>
+
+Select "Security Groups" from the sidebar menu and click "Save", if your AD grouping is setup in a different way, you may choose the relevant fields that suit your infrastructure.
+
+<BlockImage src={img236c28f_Screenshot_2023_04_04_at_13_36_48} alt=""></BlockImage>
+
+You should now see a new entry in the table under "Additional Claims" called `user.groups`:
+
+<BlockImage src={img0235d82_Screenshot_2023_04_04_at_13_38_39} alt=""></BlockImage>
+
+Save the URL for later: `http://schemas.microsoft.com/ws/2008/06/identity/claims/groups`
+
+Now go back to your main Active Directory view and select "Groups" tab:
+
+<BlockImage src={img83b07ab_Screenshot_2023_04_04_at_13_42_02} alt=""></BlockImage>
+
+Copy the relevant "Object ID" for the group that you wish to sync Cloudsmith with:
+
+<BlockImage src={img9259a0d_Screenshot_2023_04_04_at_13_43_25} alt=""></BlockImage>
+
+In your Cloudsmith workspace, go to "Settings" -> "Authentication" -> "SAML Group Syc", click "Enable SAML Group Sync" then "Create Group Sync Mapping":
+
+<BlockImage src={img_logsiPad_Pro_2} alt=""></BlockImage>
+
+On the pop-up form, fill in the previously saved URL as the "Attribute Key" and the Object ID of the group as the value, click on "Create Group Sync Mapping":
+
+<BlockImage src={img_logsiPad_Pro_3} alt=""></BlockImage>
+
+Now when a user re-logs with SAML, they will be placed in the assigned group based on the mapping. 
+
+## SCIM De-provisioning
+
+You can use SCIM to automatically de-provision users from your Cloudsmith organization whenever you remove a user assignment for the Cloudsmith application in Microsoft Entra ID.
+
+General documentation on how SAML group sync works can be found [here](/authentication/single-sign-on#saml-group-sync).
+
+To set this up, you need to add an "Enterprise application" to your Active Directory on Azure:
+
+<BlockImage src={img8172851_Screenshot_2023_03_28_at_16_34_31} alt=""></BlockImage>
+
+Click on "New Application":
+
+<BlockImage src={img6e7cf72_Screenshot_2023_03_28_at_16_36_00} alt=""></BlockImage>
+
+Click on "Create your own application":
+
+<BlockImage src={img043acd5_Screenshot_2023_03_28_at_16_37_32} alt=""></BlockImage>
+
+On the right side, a new tab should appear, fill in the details of the name and select the "...(Non-galler)" option and click "Create":
+
+<BlockImage src={imgdff57a3_Screenshot_2023_03_28_at_16_39_27} alt=""></BlockImage>
+
+Once the application is created, select "Provisioning":
+
+<BlockImage src={img23729bf_Screenshot_2023_03_28_at_16_42_10} alt=""></BlockImage>
+
+Once the page loads, select "Provisioning" again, and select "Provisioning Mode" to "Automatic":
+
+<BlockImage src={img4995811_Screenshot_2023_03_28_at_16_44_01} alt=""></BlockImage>
+
+In Cloudsmith navigate to the following link: `https://app.cloudsmith.com/<WORKSPACE>/settings/authentication/scim/`
+
+Enable SCIM if it's not enabled and copy your SCIM Authentication token.
+
+Go back to Microsoft Entra ID and set the Tenatn URL to: `https://api.cloudsmith.io/scim/v2` and the "Secret token" to the copied token from Cloudsmith, click "Save" and "Test connection"
+
+Now under the same "Provisioning tab", select "Mappings" dropdown and select "Provision Azure Active Directory Users"
+
+<BlockImage src={img4934353_Screenshot_2023_03_28_at_16_56_27} alt=""></BlockImage>
+
+Under "Target Object Actions", select only "Updated, Delete" and click "Save":
+
+<BlockImage src={img1b6c2ec_Screenshot_2023_04_04_at_13_24_50} alt=""></BlockImage>
+
+Microsoft Entra ID should now have the necessary information to de-provision users from Cloudsmith.
+
+## All wrapped up
+
+Once you've added the link to your App Federation Metadata, and enabled SAML in your Cloudsmith organization settings, you will be able to access the landing page of your organization at the following URL:
+
+`https://app.cloudsmith.com/WORKSPACE/saml/login/`
+
+Where `WORKSPACE` is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).

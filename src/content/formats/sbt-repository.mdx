@@ -1,8 +1,5 @@
----
-title: "sbt Repository"
----
+import { Tag, Note, Video } from '@/components';
 
-import { Note, Video } from '@/components';
 
 # sbt Repository
 
@@ -97,7 +94,7 @@ lazy val root = (project in file("."))
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload via the Cloudsmith CLI is: 
 
@@ -183,7 +180,7 @@ credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 
 ### Specifying Dependencies
 
-After the repository is added to the `build.sbt` file, and your credentials are added to the `/.sbt/.credentials` file (required for private repositories if using HTTP Basic Authentication), all that is left is to [specify the dependency](https://www.scala-sbt.org/1.0/docs/Library-Dependencies.html) in the dependencies section of the project `build.sbt` file.
+After the repository is added to the `build.sbt` file, and your credentials are added to the `/.sbt/.credentials` file (required for private repositories if using HTTP Basic Authentication), all that is left is to [specify the dependency](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html) in the dependencies section of the project `build.sbt` file.
 
 ```scala
 libraryDependencies += "GROUP_ID" % "ARTIFACT_ID" % "PACKAGE_VERSION"
@@ -200,14 +197,18 @@ addMavenResolverPlugin
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Index</span> <span class="cs-tag cs-tag-midnight-blue">Packages</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
+<Tag variant="midnight-blue" theme="legacy">Packages</Tag>
 
 ## Troubleshooting
 
@@ -217,4 +218,4 @@ The underlying Maven toolchain supports encrypted credentials. You can also use 
 
 ## Still Need Help?
 
-Contact us [here](https://support.cloudsmith.com). We're always happy to help!
+Contact us [here](https://support.cloudsmith.com). We're always happy to help.

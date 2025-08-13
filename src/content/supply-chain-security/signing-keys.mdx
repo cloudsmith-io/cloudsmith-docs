@@ -1,3 +1,5 @@
+import { Tag } from '@/components';
+
 # Package signing
 
 Cloudsmith uses GPG or RSA signatures (where applicable) in addition to package checksums to detect tampering. 
@@ -10,26 +12,26 @@ For increased trust, you can also provide your own [GPG key](/repositories/repos
 
 |Package Format|Key Type|Key Use|
 |:--|:--|:--|
-|[Alpine](/formats/alpine-repository)|RSA|Index|
-|[Cargo](/formats/cargo-registry)||Not Supported by Format|
-|[CocoaPods](/formats/cocoapods-repository)||Not Supported by Format|
-|[Composer](/formats/composer-repository)|GPG||
-|[Conan](/formats/conan-repository)||Not Supported by Format|
+|[Alpine](/formats/alpine-repository)| <Tag variant="red" theme="legacy">RSA</Tag> | <Tag variant="purple" theme="legacy">Index</Tag> |
+|[Cargo](/formats/cargo-registry)||<Tag variant="dark-grey" theme="legacy">Not Supported by Format</Tag>|
+|[CocoaPods](/formats/cocoapods-repository)||<Tag variant="dark-grey" theme="legacy">Not Supported by Format</Tag>|
+|[Composer](/formats/composer-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> ||
+|[Conan](/formats/conan-repository)||<Tag variant="dark-grey" theme="legacy">Not Supported by Format</Tag>|
 |[CRAN](/formats/cran-repository)|||
-|[Dart](/formats/dart-repository)||Not Supported by Format|
-|[Debian](/formats/debian-repository)|GPG|Index|
-|[Docker](/formats/docker-registry)|RSA|Index|
+|[Dart](/formats/dart-repository)||<Tag variant="dark-grey" theme="legacy">Not Supported by Format</Tag>|
+|[Debian](/formats/debian-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> |<Tag variant="purple" theme="legacy">Index</Tag>|
+|[Docker](/formats/docker-registry)| <Tag variant="red" theme="legacy">RSA</Tag> | <Tag variant="purple" theme="legacy">Index</Tag> |
 |[Go](/formats/go-registry)|||
-|[Gradle](/formats/gradle-repository)|GPG|Index Packages|
-|[Helm Charts](/formats/helm-chart-repository)|GPG||
+|[Gradle](/formats/gradle-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> | <Tag variant="purple" theme="legacy">Index</Tag> <Tag variant="midnight-blue" theme="legacy">Package</Tag> |
+|[Helm Charts](/formats/helm-chart-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> ||
 |[LuaRocks](/formats/luarocks-repository)|||
-|[Maven](/formats/maven-repository)|GPG|Index Packages|
-|[npm](/formats/npm-registry)|GPG||
+|[Maven](/formats/maven-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> | <Tag variant="purple" theme="legacy">Index</Tag> <Tag variant="midnight-blue" theme="legacy">Package</Tag> |
+|[npm](/formats/npm-registry)| <Tag variant="blue" theme="legacy">GPG</Tag> ||
 |[NuGet](/formats/nuget-feed/)|||
-|[Python](/formats/python-repository)|GPG||
-|[Raw](/formats/raw-repository)|GPG||
-|[RPM](/formats/redhat-repository)|GPG|Index Packages|
-|[sbt](/formats/sbt-repository)|GPG|Index Packages|
-|[Terraform Modules](/formats/terraform-modules-repository)||Not Supported by Format|
-|[Unity](/formats/unity-registry)|GPG||
-|[Vagrant](/formats/vagrant-repository)|GPG||
+|[Python](/formats/python-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> ||
+|[Raw](/formats/raw-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> ||
+|[RPM](/formats/redhat-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> | <Tag variant="purple" theme="legacy">Index</Tag> <Tag variant="midnight-blue" theme="legacy">Package</Tag> |
+|[sbt](/formats/sbt-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> | <Tag variant="purple" theme="legacy">Index</Tag> <Tag variant="midnight-blue" theme="legacy">Package</Tag> |
+|[Terraform Modules](/formats/terraform-modules-repository)||<Tag variant="dark-grey" theme="legacy">Not Supported by Format</Tag>|
+|[Unity](/formats/unity-registry)| <Tag variant="blue" theme="legacy">GPG</Tag> ||
+|[Vagrant](/formats/vagrant-repository)| <Tag variant="blue" theme="legacy">GPG</Tag> ||

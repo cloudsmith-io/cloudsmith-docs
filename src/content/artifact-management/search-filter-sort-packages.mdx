@@ -6,9 +6,13 @@ import imga2f0d45_search_pkgs_cli_tag_and from './images/search-filter-sort-pack
 import imgac51e3f_search_pkgs_cli_size_dls from './images/search-filter-sort-packages/ac51e3f-search_pkgs_cli_size_dls.png'
 import img48c5e893304d7a8fbac85d7a4b1eea00afca6e145f4b0914ccd9a2ba0d1b334d_repo_sort from './images/search-filter-sort-packages/48c5e893304d7a8fbac85d7a4b1eea00afca6e145f4b0914ccd9a2ba0d1b334d-repo-sort.png'
 
-# Searching Packages
+# Package Search Syntax
 
-Searching for packages is simple and powerful with Cloudsmith. The search syntax is fully "boolean", in that you can combine queries together with `AND` (i.e. find this AND that), or `OR` (i.e. find this OR that), or `NOT` (i.e. find NOT this). This is optional, if you don't put any boolean operators (AND/OR) in, we'll just assume that you want `AND` by default.
+Cloudsmith provides a powerful and flexible query language that enables you to instantly find any package, in any repository, based on a comprehensive set of attributes. This syntax can be used in multiple areas of the product.
+
+Our search syntax allows you to move beyond simple name-based searches and build highly specific queries using a wide range of criteria, including package format, version, size, upload date, dependencies, and even policy violation status. By combining these terms with boolean operators (AND, OR, NOT) and advanced matching logic, you can construct precise filters to isolate the exact artifacts you need, directly from the Web UI, API, or CLI.
+
+<Note>📘 The search syntax is fully "boolean", in that you can combine queries together with `AND` (i.e. find this AND that), or `OR` (i.e. find this OR that), or `NOT` (i.e. find NOT this). This is optional, if you don't put any boolean operators (AND/OR) in, we'll just assume that you want `AND` by default.</Note>
 
 ## Search Terms
 
@@ -32,24 +36,24 @@ Searching for packages is simple and powerful with Cloudsmith. The search syntax
 |Entitlement Token Identifier (`token`)|`token:3lKPVJPosCsY` (packages visible for specified token)|
 |Dependencies (`dependency`)|`dependency:log4j` (search for packages that have a dependency with "log4j" in the name).<br />`dependency:log4j=1.2.17` (search for packages dependencies name including "log4j" & version matching 1.2.17).<br />`dependency:log4j<2.0.0` (search for packages dependencies with name including "log4j" & version less than 2.0.0).|
 |Repository (`repository`)|`repository:repo-name` (Search for packages within the repository named "repo-name")|
-|**Debian:** Component|`deb_component:component-name` (Search for packages by Debian Component)|
-|**Docker:** Image Digest|`docker_image_digest:sha256:abcdef` (Search for packages by Docker Image Digest)|
-|**Docker:** Layer Digest|`docker_layer_digest:sha256:abcdef` (Search for packages by Docker Layer Digest)|
-|**Maven:** GroupID|`maven_group_id:io.cloudsmith` (Search for packages by Maven GroupID)|
+|**Debian**: Component|`deb_component:component-name` (Search for packages by Debian Component)|
+|**Docker**: Image Digest|`docker_image_digest:sha256:abcdef` (Search for packages by Docker Image Digest)|
+|**Docker**: Layer Digest|`docker_layer_digest:sha256:abcdef` (Search for packages by Docker Layer Digest)|
+|**Maven**: GroupID|`maven_group_id:io.cloudsmith` (Search for packages by Maven GroupID)|
 |Packages that have violated a policy (`policy_violated`)|`true` (packages that have violated a policy)<br />`false` (packages have not violated a policy)|
 |Packages that have violated a vulnerability policy (`vulnerability_policy_violated`)|`true` (packages that have violated a vulnerability policy)<br />`false` (packages have not violated a vulnerability policy)|
 |Packages that have violated a license policy (`license_policy_violated`)|`true` (packages that have violated a license policy)<br /> `false` (packages have not violated a license policy)|
 |Packages that have violated a deny list policy (`deny_policy_violated`)|`true` (packages that have violated a deny list policy)<br />`false` (packages have not violated a deny list policy)|
 
-**For all queries you can use:**  
+**For all queries you can use**:  
 `~` for negation.  (Example: `~foo`)
 
-**For string queries you can use:**  
+**For string queries you can use**:  
 `^`   - to anchor to start of term.  (Example: `^foo`)  
 `$` -  to anchor to end of term.  (Example: `foo$`)  
 `*`  -  for fuzzy matching.  (Example: `foo*bar`)
 
-**For number or date queries you can use:**  
+**For number or date queries you can use**:  
 `>`   -  for values greater than.  (Example: `>foo`)  
 `>=` -  for values greater / equal.  (Example: `>=foo`)  
 `<`   -  for values less than.  (Example: `<foo`)  
@@ -57,7 +61,7 @@ Searching for packages is simple and powerful with Cloudsmith. The search syntax
 
 Please note, when you use a query like `uploaded: >'1 month ago'`, that becomes `uploaded > dd/mm/yy` (i.e, within the last month).
 
-**For version queries you can use:**  
+**For version queries you can use**:  
 `>`   -  for versions greater than.  (Example: `>1.2.3.`)  
 `>=` -  for versions greater / equal.  (Example: `>=1.2.3`)  
 `<`   -  for versions less than.  (Example: `<1.2.3`)  
@@ -104,7 +108,7 @@ Additional help and examples are available by hovering over the "? Search syntax
 ## Searching Packages via the Cloudsmith API
 
 Please see the Cloudsmith full API reference to learn how to:
-- List all of the packages in a [Workspace](/api/packages/org/list) (Organization).
+- List all of the packages in a [Workspace](/api/packages/list).
 - List all of the packages in a [Repository](/api/packages/list).
 
 Then, you can use the `query` field in the URL request to search a package by any of the next fields:
@@ -120,14 +124,14 @@ For example, to retrieve all packages named `ms`:
 
 ```bash
 curl -sL --request GET \
-  --url "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/<MY_REPO>/?query=name:ms" \
+  --url "https://api.cloudsmith.io/packages/<MY_WORKSPACE>/<MY_REPO>/?query=name:ms" \
   --header 'Authorization: Bearer <MY_API_TOKEN>'
 ```
 
 Alternatively, you can use `jq` to search for a package in a repository by using **any of the fields** available in the `json` returned by the request. For example:
 
 ```bash
-curl -sL "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/<MY_REPO>/" \
+curl -sL "https://api.cloudsmith.io/packages/<MY_WORKSPACE>/<MY_REPO>/" \
   --header 'Authorization: Bearer <MY_API_TOKEN>' \
   | jq '.[] | select(.name == "requests")'
 ```
@@ -185,7 +189,7 @@ The available sorting options are:
 - Total Downloads (Ascending) 
 - Total Downloads (Descending)
 
-Note that currently, the UI only supports sorting by one field at a time.
+<Note>📘 Note that the UI only supports sorting by one field at a time.</Note>
 
 ## Sorting Packages via the Cloudsmith API
 
@@ -199,7 +203,7 @@ For example, to retrieve all of the packages of the workspace `<MY_WORKSPACE>` o
 
 ```bash
 curl -sL --request GET \
-  --url "https://api.cloudsmith.io/v1/packages/<MY_WORKSPACE>/?sort=downloads" \
+  --url "https://api.cloudsmith.io/packages/<MY_WORKSPACE>/?sort=downloads" \
   --header 'Authorization: Bearer <MY_API_TOKEN>'
 ```
 
@@ -217,7 +221,7 @@ Sorting search results is simple with Cloudsmith. A collection of one or more fi
 | Downloads (`downloads`)            | `downloads` (sort by downloads ascending e.g. 0, 10, 50, 1,000)       |
 | Date (`date`)                      | `-date` (sort by uploaded time, most recent first)                    |
 
-**For all fields you can use:**  
+**For all fields you can use**:  
 `-` to sort by descending order. (Example: `-date`, `-version`)
 
 ## A Short Worked Example
@@ -231,7 +235,7 @@ Suppose that you had the following packages:
 | cloudsmith-java-app    | Maven  | 6910 | 1.0.0   | 2500      |
 | cloudsmith-example-pdf | Raw    | 309  | 2.0.0   | 100       |
 
-**To sort packages by size descending, your sort query would be:**
+**To sort packages by size descending, your sort query would be**:
 
 ```
 -size
@@ -244,7 +248,7 @@ Which would provide the following results
 - cloudsmith-example-cli, Size: 719 bytes
 - cloudsmith-example-pdf, Size: 309 bytes
 
-**To sort packages by format alphabetically, with version descending, your sort query would be:**
+**To sort packages by format alphabetically, with version descending, your sort query would be**:
 
 ```
 -format,-version

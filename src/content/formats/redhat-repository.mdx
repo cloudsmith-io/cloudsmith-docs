@@ -1,4 +1,5 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
+
 
 # RedHat Repository
 
@@ -52,7 +53,7 @@ You can also build a package from a tarball (`.tgz`) or even Python, Ruby or npm
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a RedHat package via the Cloudsmith CLI is: 
 
@@ -330,14 +331,18 @@ zypper rr OWNER-REPOSITORY-source
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream RedHat repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Index</span> <span class="cs-tag cs-tag-midnight-blue">Packages</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
+<Tag variant="midnight-blue" theme="legacy">Packages</Tag>
 
 <Note variant="note" headline="Note">
 As RPM packages are signed with a GPG key upon upload, this results in a new checksum being generated for the package.
@@ -354,4 +359,4 @@ The noarch index in RedHat is separate, unlike in Debian where it is blended int
 
 If you are manually setting up a Cloudsmith RedHat repository, or using something like Ansible, please be sure to configure the`noarch` repository also.
 
-Contact us [here](https://support.cloudsmith.com). We're always happy to help!
+Contact us [here](https://support.cloudsmith.com). We're always happy to help.

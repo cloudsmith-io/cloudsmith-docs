@@ -1,5 +1,6 @@
 import { Note, Video, BlockImage } from '@/components';
 
+
 import go_upstream from './images/go-registry/go_upstream.png';
 
 # Go Registry
@@ -66,7 +67,7 @@ For a full overview on building your own modules, please refer to Russ Cox's [Go
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Go module via the Cloudsmith CLI is: 
 
@@ -100,7 +101,11 @@ For examples of what your project should look like for packaging and publishing/
 
 #### Configure a new Upstream
 
-Cloudsmith supports [https://proxy.golang.org](https://proxy.golang.org) as an upstream. This allows you to proxy modules not yet in your repository through Cloudsmith for your Golang projects. Caching support is coming soon.
+<Note variant="note" headline="Note">
+Go upstreams are still in Early Access. [Contact us](https://cloudsmith.com/company/contact-us) to enable it for your organization.
+</Note>
+
+Cloudsmith supports [https://proxy.golang.org](https://proxy.golang.org) as an upstream. This allows you to **proxy** and **cache** modules not yet in your repository through Cloudsmith for your Golang projects.
 
 To enable it for your repository, browse to your repository overview page and click in the Upstreams tab. Then, click on **+ Add Upstream Proxy** and then choose the **Go** format Upstream.
 
@@ -115,7 +120,7 @@ Before you can install modules from your Cloudsmith repository, you'll need to c
 To define the `GOPROXY` environment variable for a public Cloudsmith repository: 
 
 <Note variant="warning" headline="Warning">
-Cloudsmith provides a dedicated endpoint for Go artifacts: [https://golang.cloudsmith.io](https://golang.cloudsmith.io). This endpoint supports native Golang Upstreams so you can access modules from [https://proxy.golang.org](https://proxy.golang.org).
+Cloudsmith provides a dedicated endpoint for Go artifacts: `https://golang.cloudsmith.io`. This endpoint supports native Golang Upstreams so you can access modules from [https://proxy.golang.org](https://proxy.golang.org).
 
 While the legacy endpoint ([https://dl.cloudsmith.io](https://dl.cloudsmith.io)) is still maintained, we recommend to use the new one.
 </Note>
@@ -188,7 +193,7 @@ $env:GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
 The Go sumdb cannot record the hash value of a private repository and this will cause the local Go command to fail the verification after downloading. You can see more details running the `go mod download` with the `-x` option.
 
 It is recommended to use the environment variable `GONOSUMDB` and set its value to `cloudsmith.io`.
-This will skip verification for modules in your Cloudsmith repositories with a module name beginning with `cloudsmith.io`. Verification is performed against the global checksum database [sum.golang.org](sum.golang.org) (this service provides an auditable checksum database service used by the go command to authenticate modules).
+This will skip verification for modules in your Cloudsmith repositories with a module name beginning with `cloudsmith.io`. Verification is performed against the global checksum database [sum.golang.org](https://sum.golang.org) (this service provides an auditable checksum database service used by the go command to authenticate modules).
 
 `GONOSUMDB` should be a [list of module path prefixes](https://go.dev/ref/mod#module-proxy:~:text=GONOSUMDB%20%E2%80%94%20list%20of%20glob%20patterns%20of%20module%20path%20prefixes%20that%20should%20not%20be%20checked%20using%20the%20public%20checksum%20database%2C%20sum.golang.org.), like for example: `GONOSUMDB=demo-docs/awesome-repo,cloudsmith-test/acme2`.
 
@@ -216,7 +221,7 @@ go get PACKAGE_NAME@PACKAGE_VERSION
 ## Security Scanning
 
 Cloudsmith supports security scanning for Go modules.
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information about this capability.
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information about this capability.
 
 ## Troubleshooting
 

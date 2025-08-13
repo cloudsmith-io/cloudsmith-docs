@@ -1,5 +1,7 @@
 import { Note, BlockImage, Video } from '@/components';
 import NoCodeUploadingSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
+
+
 import preBuildStepImage from './images/buildkite/preBuildStep.png';
 import buildAndPushPackageStepImage from './images/buildkite/buildAndPushPackageStep.png';
 
@@ -21,7 +23,7 @@ Integrating Cloudsmith into your Buildkite pipeline is as simple as installing t
 
 For details on obtaining your Cloudsmith API-Key see:
 
-- [Retrieve your Cloudsmith API Key](/getting-started/api-key)
+- [Retrieve your Cloudsmith API Key](/about-cloudsmith/api-key)
 
 In order to use the Cloudsmith CLI within a Buildkite pipeline, you'll need to configure the environment on your build host(s) with your Cloudsmith API Key.  Your Cloudsmith API Key should be considered as a secret and should not be committed into any source repositories or stored as a plain text variable in the Buildkite pipeline. 
 
@@ -71,7 +73,7 @@ To push an artifact from your Buildkite pipeline to a Cloudsmith repository, you
     - cloudsmith push FORMAT OWNER/REPOSITORY FILENAME
 ```
 
-Please see the [Cloudsmith CLI](/getting-started/cli) documentation for more details of the syntax of the `cloudsmith push` command and the [Supported Formats](/package-formats) page for examples of the `cloudsmith push` command for each supported format. 
+Please see the [Cloudsmith CLI](/developer-tools/cli) documentation for more details of the syntax of the `cloudsmith push` command and the [Supported Formats](/formats) page for examples of the `cloudsmith push` command for each supported format. 
 
 An example of this command in a step that builds a Debian package would look like: 
 

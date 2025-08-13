@@ -1,4 +1,5 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
+
 
 # Debian Repository
 
@@ -47,7 +48,7 @@ fpm -f -s dir -t deb -n PACKAGE_NAME -v PACKAGE_VERSION .
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and set up the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and set up the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 #### Binary Packages
 
@@ -296,14 +297,17 @@ apt-get update
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream Debian repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Index</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
 
 ## Troubleshooting
 

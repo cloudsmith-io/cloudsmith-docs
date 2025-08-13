@@ -1,8 +1,5 @@
----
-title: "Vagrant Repository"
----
+import { Tag, Note } from '@/components';
 
-import { Note } from '@/components';
 
 # Vagrant Repository
 
@@ -12,9 +9,9 @@ Vagrant is an automation tool for building and managing virtual machine environm
 
 For more information on Vagrant, please see:
 
-- [Vagrant](https://www.vagrantup.com/): The official website for Vagrant
-- [Vagrant Docs](https://www.vagrantup.com/docs/index.html): The official docs for Vagrant
-- [Public Vagrant Repository](https://app.vagrantup.com/boxes/search): The official public repository for Vagrant boxes
+- [Vagrant](https://developer.hashicorp.com/vagrant): The official website for Vagrant
+- [Vagrant Docs](https://developer.hashicorp.com/vagrant/docs): The official docs for Vagrant
+- [Public Vagrant Repository](https://portal.cloud.hashicorp.com/vagrant/discover): The official public repository for Vagrant boxes
 
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -45,12 +42,12 @@ vagrant package --output BOX_NAME.box
 This generates a box file (.box) like `your-package-1.2.3.box` that you can upload.
 
 <Note variant="note" headline="Note">
-This assumes that you've created a Vagrantfile file for your project and that you have used `vagrant up` at least once. Please see the official [Vagrant docs](https://www.vagrantup.com/intro/getting-started/project_setup.html) for more information.
+This assumes that you've created a Vagrantfile file for your project and that you have used `vagrant up` at least once. Please see the official [Vagrant docs](https://developer.hashicorp.com/vagrant/tutorials/get-started/setup-project?in=vagrant%2Fgetting-started) for more information.
 </Note>
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload an (Objective-C or Swift) CocoaPods package via the Cloudsmith CLI is: 
 
@@ -159,11 +156,11 @@ vagrant up
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+<Tag variant="dark-grey" theme="legacy">Not Supported</Tag>
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
 
 ## Troubleshooting
 

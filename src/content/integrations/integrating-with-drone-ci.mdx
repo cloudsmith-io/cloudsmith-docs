@@ -1,5 +1,6 @@
 import { Note, Video } from '@/components';
 
+
 # Integrating with Drone CI
 
 <Video wistiaId="ym4oir5hjl"></Video>
@@ -11,7 +12,7 @@ Drone is a Continuous Integration platform that allows automation of build, test
 
 ## API Key Configuration
 
-You need to add your Cloudsmith [API Key](https://cloudsmith.io/user/settings/api/) within Drone CI. We recommend storing your Cloudsmith API Key as a [per-repository or per-organization secret](https://docs.drone.io/secret/) in the Drone Server and then injecting the `CLOUDSMITH_API_KEY` environment variable into your build jobs like: 
+You need to add your Cloudsmith [API Key](https://app.cloudsmith.com/settings/api-keys) within Drone CI. We recommend storing your Cloudsmith API Key as a [per-repository or per-organization secret](https://docs.drone.io/secret/) in the Drone Server and then injecting the `CLOUDSMITH_API_KEY` environment variable into your build jobs like: 
 
 ```yaml
 environment:
@@ -65,5 +66,5 @@ As the Docker image used for the pipeline in this example is hosted in a private
 
 You then use `image_pull_secrets`, with the name of the secrets file you created in Drone CI to enable your pipeline to authenticate to your Cloudsmith repository.
 <Note variant="note">
-The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb`. Please see the [Cloudsmith CLI](/getting-started/cli) for full details of the push command for other formats and additional help.
+The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb`. Please see the [Cloudsmith CLI](/developer-tools/cli) for full details of the push command for other formats and additional help.
 </Note>

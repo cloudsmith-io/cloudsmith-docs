@@ -1,4 +1,6 @@
 import { Note, BlockImage, Video } from '@/components';
+
+
 import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
 
 # Integrating AWS CodeBuild
@@ -31,7 +33,7 @@ env:
 
 For further details on obtaining your Cloudsmith API-Key see:
 
-- [Retrieve your Cloudsmith API Key](/getting-started/api-key)
+- [Retrieve your Cloudsmith API Key](/about-cloudsmith/api-key)
 
 For further details on using AWS Secrets Manager with AWS CodeBuild see: 
 
@@ -58,7 +60,7 @@ post_build:
     - cloudsmith push FORMAT OWNER/REPOSITORY FILENAME
 ```
 
-Please see the [Cloudsmith CLI](/getting-started/cli) documentation for more details of the syntax of the `cloudsmith push` command and the [Supported Formats](/package-formats) page for examples of the `cloudsmith push` command for each supported format. 
+Please see the [Cloudsmith CLI](/developer-tools/cli) documentation for more details of the syntax of the `cloudsmith push` command and the [Supported Formats](/formats) page for examples of the `cloudsmith push` command for each supported format. 
 
 ## Example buildspec.yaml
 

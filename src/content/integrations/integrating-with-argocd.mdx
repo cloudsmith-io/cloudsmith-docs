@@ -5,12 +5,13 @@ import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
 
 You can integrate Cloudsmith with Argo CD to automate the deployment of your Kubernetes applications using Helm charts and Docker images securely stored in Cloudsmith repositories. This guide covers the steps to set up both Helm charts and Docker images with Cloudsmith in Argo CD, including secure authentication for private repositories.
 
-It currently supports pulling:
+This integration supports pulling:
 
 - [Docker](/formats/docker-registry)
 - [Helm](/formats/helm-chart-repository)
 
 <NoCodeNoteSnippet />
+
 ## With this integration, you can
 
 - Use Cloudsmith to securely store and manage Helm charts and container images.
@@ -97,7 +98,7 @@ argocd repo add --name cloudsmith-helm --type helm https://dl.cloudsmith.io/basi
 Where possible, use Entitlement tokens instead of API keys for more secure and flexible authentication when integrating with ArgoCD. Entitlement tokens are easier to manage and can be rotated more frequently for enhanced security.
 </Note>
 
-In case of Entitlement token the command for adding the helm repo via ArgoCD CLI will be:
+In case of Entitlement token the command for adding the helm repository via ArgoCD CLI will be:
 
 ```text bash
 argocd repo add --name cloudsmith-helm --type helm \

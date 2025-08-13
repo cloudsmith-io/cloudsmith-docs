@@ -1,4 +1,5 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
+
 
 # LuaRocks Repository
 
@@ -44,13 +45,13 @@ This generates a `.rock` file like `MODULE_NAME-MODULE_VERSION.src.rock` that yo
 Please see the [official LuaRocks documentation](https://github.com/luarocks/luarocks/wiki/Creating-a-rock) for more information on building your own rocks.
 
 <Note variant="note" headline="Note">
-The `luarocks upload` command currently only supports uploading modules to the official public rocks repository.  To upload your modules to Cloudsmith, you can use the Web UI, the Cloudsmith CLI or the Cloudsmith API.
+The `luarocks upload` command only supports uploading modules to the official public rocks repository. To upload your modules to Cloudsmith, you can use the Web UI, the Cloudsmith CLI or the Cloudsmith API.
 </Note>
 
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Lua module via the Cloudsmith CLI is: 
 
@@ -151,14 +152,10 @@ rocks_servers = {
 }
 ```
 
-***
-
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
-
-***
+<Tag variant="dark-grey" theme="legacy">Not Supported</Tag>
 
 ## Troubleshooting
 
-Please see the [Troubleshooting](/troubleshooting-overview) page for further help and information.
+Please see the [Troubleshooting Overview](/troubleshooting) page for further help and information.

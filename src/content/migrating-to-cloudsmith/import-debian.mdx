@@ -2,16 +2,16 @@
 
 Bulk import your Debian packages to Cloudsmith using a script. There are a few prerequisites that need to be set up prior to importing the packages in order for the script to work, and this can be changed to automate according to your setup.
 
-**Setup:**
+**Setup**:
 
-1. [Install the Cloudsmith CLI ](/getting-started/cli#installation)
+1. [Install the Cloudsmith CLI ](/developer-tools/cli#installation)
 2. Create a folder to place the script and content into
 3. Create a folder with exactly the same name as your repository name in Cloudsmith
 4. Inside the created (repo) folder, create a distro folder you wish to upload, for a list of available distros, you can run `cloudsmith list distros deb` and use the right side of the table as name for the folder. **PLEASE NOTE** that since the distro/release includes a slash, please create a folder replacing it with a dot (`.`). 
 
 For example, if your distro is `debian/any-version`, the folder should be named `debian.any-version`. In full context: `<project_folder>/<repository_name>/<distro.release>`.
 
-**Example folder structure:**
+**Example folder structure**:
 
 ```text folder_structure
 deb_import/

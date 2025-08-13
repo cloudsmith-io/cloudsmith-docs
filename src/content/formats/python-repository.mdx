@@ -1,4 +1,9 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video, BlockImage } from '@/components';
+
+
+import uv_terminal from './images/python/uv_terminal.png';
+import uv_dependencies from './images/python/uv_dependencies.png';
+
 
 # Python Repository
 
@@ -6,7 +11,7 @@ Cloudsmith provides public & private repositories for Python packages
 
 <Video wistiaId="nh8mkpjak7"></Video>
 
-Python is an awesome general-purpose programming language (we use it!). Cloudsmith is proud to support fully-featured registries for managing your own public and private python packages.
+Python is an awesome general-purpose programming language. Cloudsmith is proud to support fully-featured registries for managing your own public and private python packages.
 
 For more information on Python, please see:
 
@@ -29,6 +34,9 @@ In the following examples:
 | API-KEY         | Your Cloudsmith API Key                                                                   |
 | PACKAGE_NAME    | The name of your package                                                                  |
 | PACKAGE_VERSION | The version number of your package                                                        |
+
+
+<Note>📘 The main examples in this docs use `pip` or the Cloudsmith CLI. If you use [UV](https://docs.astral.sh/uv/) and wants to learn how to integrate it with Cloudsmith, jump to the [UV Support section](#uv-support).</Note>
 
 ## Upload a Package
 
@@ -73,7 +81,7 @@ twine upload -r cloudsmith dist/PACKAGE_NAME-PACKAGE_VERSION.whl
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Python package via the Cloudsmith CLI is: 
 
@@ -102,7 +110,7 @@ You have a choice of 2 methods to set up your Cloudsmith repository:
 
 #### Public Repositories
 
-#### Set up via command line
+##### Set up via command line
 
 Tell pip the location of your Cloudsmith repository using the the `--index-url` option.
 
@@ -110,7 +118,7 @@ Tell pip the location of your Cloudsmith repository using the the `--index-url` 
 pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://dl.cloudsmith.io/public/OWNER/REPOSITORY/python/simple/
 ```
 
-#### Set up via Pip
+##### Set up via Pip
 
 Similar to set up via command-line, pip needs to be passed the `--index-url` configuration option. To do this add `--index-url` to the top of your `requirements.txt` (or similar) file:
 
@@ -129,7 +137,7 @@ The setup method will differ depending on what authentication type you choose to
 Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
 </Note>
 
-#### Set up via command line
+##### Set up via command line
 
 ```shell Entitlement Token Auth
 pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/python/simple/
@@ -144,7 +152,7 @@ pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://USERNAME:API-KEY@d
 pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/
 ```
 
-#### Set up via Pip
+##### Set up via Pip
 
 Similar to set up via command-line, pip needs to be passed the `--index-url` configuration option. To do this add `--index-url` to the top of your `requirements.txt` (or similar) file:
 
@@ -165,11 +173,13 @@ PACKAGE_NAME==PACKAGE_VERSION
 PACKAGE_NAME==PACKAGE_VERSION
 ```
 
-#### Private Repository Credential Security
+<Note variant="tip">
+_**Private Repository Credential Security**_
 
 As private repositories require authentication in order to access the repository content, when specifying a private repository in a `requirements.txt` file please bear in mind that the URL will contain the credentials (especially important if the `requirements.txt` file is shared.)
 
 You could choose to encrypt your `requirements.txt` file via something like [git-crypt](https://github.com/AGWA/git-crypt) (if you're using git or GitHub, for example).
+</Note>
 
 ### Removing Setup
 
@@ -184,7 +194,7 @@ There is an important distinction to be made between these parameters, especiall
 Specifying `--index-url` will override pip's default repository and _only_ search the specified repository. This is the recommended approach from Cloudsmith. This improves your security posture as it reduces the risk of malicious public packages being installed in place of your own.
 
 <Note variant="warning" headline="Dependency confusion">
-An attack known as [dependency confusion](https://cloudsmith.com/blog/dependency-confusion-attacks/): where an attacker can claim the package on the public repository in a way that will ensure it gets chosen over the private package.
+An attack known as [dependency confusion](https://cloudsmith.com/blog/dependency-confusion-attacks): where an attacker can claim the package on the public repository in a way that will ensure it gets chosen over the private package.
 </Note>
 
 If you still wish to access third-party repositories, like `pypi.org`, paid-for Cloudsmith plans include upstream proxying. This allows your repository to call out to other python repositories whenever a package cannot be found in your repository. See the Upstream Proxying section below.
@@ -197,22 +207,148 @@ See [pip install](https://pip.pypa.io/en/stable/cli/pip_install/#pip-install) fo
 To search your Cloudsmith repository for packages use the `--index-url` Pip configuration argument. Using the `--index-url` configuration option will force pip to search only the Cloudsmith repository and will result in pip not being able to install public (PyPi) packages that your private package may depend on. This reduces your exposure to dependency confusion attacks.
 </Note>
 
+## UV Support
+
+`uv` is quickly gaining traction as a Python package and project manager. It stands out for its ultra-fast dependency resolution, native lock-file support (which enables reproducible builds, as we'll discuss later), and a built-in publisher.
+
+In the following sections, you'll learn how to install and publish your Python packages with uv in your private Cloudsmith repositories.
+
+### Project setup
+
+#### Requirements
+
+In case you don't have it yet, use `pip` to install `uv` and `build`.
+```bash
+pip install uv --upgrade
+uv pip install build
+```
+
+#### Create project assets
+
+Let's start defining a new `pyproject.toml` file for your project. Replace `OWNER`, `REPOSITORY` with your own Cloudsmith Workspace and Repository names:
+
+```toml
+[project]
+name            = "sample-flask-app"
+version         = "0.1.0"
+requires-python = ">=3.10"
+dependencies    = [
+  "requests==2.32.3"
+]
+
+[[tool.uv.index]]
+name = "cloudsmith"
+url  = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/"
+# optional, but recommended for publish:
+publish-url = "https://python.cloudsmith.io/OWNER/REPOSITORY/"
+```
+
+Then, define the next environmental variables for `uv` to perform basic HTTP Auth. Replace `API-KEY` with your user API Token:
+
+```bash
+# install / resolution
+export UV_INDEX_CLOUDSMITH_USERNAME=token       # literal string
+export UV_INDEX_CLOUDSMITH_PASSWORD=API-KEY
+
+# optional: forbid fallback to PyPI
+export UV_PIP_NO_INDEX=1
+
+# publishing
+export UV_PUBLISH_USERNAME=token
+export UV_PUBLISH_PASSWORD=<API-KEY>
+```
+
+`uv` will use them to authenticate against your Cloudsmith repository.
+Now, execute the next command to fetch and install all the required dependencies in your active virtual environment:
+
+```bash
+# create a venv first:
+uv venv && source .venv/bin/activate 
+# install dependencies
+uv pip install --system -r pyproject.toml
+```
+
+You'll find information about the dependencies being fetched:
+
+<BlockImage src={uv_terminal} alt=""></BlockImage>
+
+This will result in all required packages being fetched directly from your Cloudsmith repository (please note that an upstream needs to be configured).
+
+<BlockImage src={uv_dependencies} alt=""></BlockImage>
+
+Once installed, just run the next command to build your wheel package and the source distribution (.tar.gz) file, including your Python "source code" and everything required to run it:
+
+```bash
+python -m build && ls dist/
+```
+
+Once those assets are ready, just publish both artifacts to Cloudsmith. Remember to specify your `cloudsmith` index as defined in the `[[tool.uv.index.name]]` field in your project definition:
+
+```bash
+uv publish --index cloudsmith dist/*
+```
+
+Browse to your Cloudsmith repository to find your new application packages.
+
+<Note>📘 This example explain how to run it in your local machine, but instructions can be adjusted to run this process within any of the existing CI/CD tooling you might use: GitHub Actions, GitLab CI, Jenkins, TeamCity, etc. In this case, the only requirement is that the `uv` environmental variables are exported first, so you can push your artifacts into the private Cloudsmith repository. You can find a sample [GH Action workflow](https://github.com/ciaracarey/python-sample-vscode-flask-tutorial/blob/644b230e14bea3763b4c7b4a3f6500c1f664ee25/.github/workflows/python-app.yml) reproducing a similar workflow.</Note>
+
+### Reproducible builds via `uv compile`
+
+A software compiling process is reproducible when it ensures that it will always output the same binary.
+
+`uv compile` allows you to lock the exact versions so the environment can be reproduced in later builds. Without locking, the versions of dependencies could change over time, when using a different tool, or across platforms.
+
+For example, to freeze the dependencies of the previous `pyproject.toml` project and generate a deterministic lock‑file, execute:
+
+```bash
+uv pip compile pyproject.toml -o requirements.lock
+```
+
+This will generate a `requirements.lock` file like the following:
+
+```
+Resolved 5 packages in 581ms
+# This file was autogenerated by uv via the following command:
+#    uv pip compile pyproject.toml -o requirements.lock
+certifi==2025.6.15
+    # via requests
+charset-normalizer==3.4.2
+    # via requests
+idna==3.10
+    # via requests
+requests==2.32.3
+    # via sample-flask-app (pyproject.toml)
+urllib3==2.5.0
+    # via requests
+```
+
+This file specifies the version for each of the packages used and the its source. Adding the `uv` dependency freezing capabilities to Cloudsmith Upstreams caching will allow you to guarantee that the software you distribute remain stable and reproducible.
+
+Once you have the file, you just need to use it to install your project and guarantee all remains unchanged:
+
+```bash
+uv pip install --system --strict -r requirements.lock
+```
+
+To learn more about other dependency declaration formats supported, visit the [official documentation](https://docs.astral.sh/uv/pip/compile/#locking-environments).
+
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information. 
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>.
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag><Tag variant="orange" theme="legacy">Caching</Tag>
 
-Please see [Upstream Proxying](/tbc/upstream-proxying-and-caching) for more details.
+Please see [Upstream Proxying](/repositories/upstreams) for more details.
 
 Upstreams provide a way to _blend_ multiple Python repositories into a single repository. This allows your single Cloudsmith repository to serve packages from multiple 'upstream' repositories (like PyPi.org, Artifactory, DevPi etc). Please note, blended upstreams can be a source of dependency confusion attacks. 
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
 
 ## Troubleshooting
 

@@ -1,13 +1,14 @@
 import { Note, BlockImage, Card, Video } from '@/components';
 import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
 
+
 # Integrating GitHub Actions
 
 How to integrate GitHub Actions with Cloudsmith
 
 <Video wistiaId="a5qnzrtd52"></Video>
 
-The Cloudsmith GitHub Action allows you to use the Cloudsmith CLI to upload/push packages to Cloudsmith repositories.  It currently supports pushing: 
+The Cloudsmith GitHub Action allows you to use the Cloudsmith CLI to upload/push packages to Cloudsmith repositories. It supports pushing the next formats: 
 
 - [Alpine](https://github.com/cloudsmith-io/action?tab=readme-ov-file#alpine-package-push)
 - [Cargo](https://github.com/cloudsmith-io/action?tab=readme-ov-file#cargo-crate-push)
@@ -38,14 +39,14 @@ The Cloudsmith GitHub Action allows you to use the Cloudsmith CLI to upload/push
 
 ## Adding your API Key to GitHub
 
-Retrieve your [Cloudsmith API Key](/getting-started/api-key).
+Retrieve your [Cloudsmith API Key](/about-cloudsmith/api-key).
 
 You will need to add a secret to your GitHub repository named `CLOUDSMITH_API_KEY`, with the value of your API-Key. Secrets are added through your GitHub repository settings, please see the [Creating and Storing Encrypted Secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) documentation on GitHub for further details. 
 
 Pass your `CLOUDSMITH_API_KEY` secret to the Action as per the examples.
 
 <Note variant="note" headline="OIDC Authentication">
-When using [OIDC](/access-control/openid-connect) with GitHub Actions, save the JWT token to an environment variable called `CLOUDSMITH_API_KEY` and **do not** include `api-key` in the `.yaml` push action - the API key will be taken from the environment variable instead.
+When using [OIDC](/authentication/openid-connect) with GitHub Actions, save the JWT token to an environment variable called `CLOUDSMITH_API_KEY` and **do not** include `api-key` in the `.yaml` push action - the API key will be taken from the environment variable instead.
 </Note>
 
 

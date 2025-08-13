@@ -20,19 +20,19 @@ Depending on your package repository and/or package format, you will have to use
 - [Export from Nexus Sonatype](/migrating-to-cloudsmith/export-from-nexus-sonatype)  
 - [Export NuGet packages from any package repository](/migrating-to-cloudsmith/exporting-nuget)
 
-> 📘 Export details not here? Contact us and we'll help!
+> 📘 Export details not here? Contact us and we'll help.
 
 ## Import into Cloudsmith
 
-After the export, you are ready to import the packages into your new Cloudsmith repository - Yay!  
+After the export, you are ready to import the packages into your new Cloudsmith repository .  
 We will assume you have exported all your packages/artifact-management/binaries into a folder or a shared location (e.g. S3 bucket).
 
 Importing your packages into Cloudsmith should be a stress-free process; you will need to:
 
 <Video wistiaId="kgpk8pk1h6"></Video>
 
-- Create an [organization](/getting-started/workspaces) and at least one [repository](/repositories) on your Cloudsmith account.
-- Install the [Cloudsmith CLI](/getting-started/cli) and export your API token.
+- Create an [organization](/workspaces) and at least one [repository](/repositories) on your Cloudsmith account.
+- Install the [Cloudsmith CLI](/developer-tools/cli) and export your API token.
 - Do a bulk import of your packages per package format using the Cloudsmith CLI. For a build import from a folder, follow the instructions [here](/migrating-to-cloudsmith/import-files-from-a-folder). 
 - We have specific instructions for certain package types :
   - [Import Maven](/migrating-to-cloudsmith/import-maven) 
@@ -41,17 +41,17 @@ Importing your packages into Cloudsmith should be a stress-free process; you wil
   - [Import Docker](/migrating-to-cloudsmith/import-docker) 
   - [Import Python](/migrating-to-cloudsmith/import-python)
 
-> 📘 Import details not here? Contact us and we'll help!
+> 📘 Import details not here? Contact us and we'll help.
 
 ## Other settings to consider
 
 If you are migrating packages and setting up Cloudsmith for the first time, you may need to consider other tasks when getting started, including:
 
-- Update your build tools and configurations to push/pull to the new Cloudsmith endpoints. You may have a configuration file for every package format in your code base, you will find information on how to set up Cloudsmith for each format [here](/package-formats).
-- Setup your [Single Sign-On](/access-control/single-sign-on) and [Group Mapping](/access-control/single-sign-on#saml-group-sync) instructions if this is your preferred way to log in to your users. 
-- Setup your [upstreams](/tbc/upstream-proxying-and-caching), which will set up Cloudsmith to fetch and cache your 3rd party dependencies hosted on public repositories like NuGet Gallery, RubyGems.org or Maven Central.
-- Setup [signing keys](/policy-management/signing-keys).
+- Update your build tools and configurations to push/pull to the new Cloudsmith endpoints. You may have a configuration file for every package format in your code base, you will find information on how to set up Cloudsmith for each format [here](/formats).
+- Setup your [Single Sign-On](/authentication/single-sign-on) and [Group Mapping](/authentication/single-sign-on#saml-group-sync) instructions if this is your preferred way to log in to your users. 
+- Setup your [upstreams](/repositories/upstreams), which will set up Cloudsmith to fetch and cache your 3rd party dependencies hosted on public repositories like NuGet Gallery, RubyGems.org or Maven Central.
+- Setup [signing keys](/supply-chain-security/signing-keys).
 - Setup your [service accounts](/accounts-and-teams/service-accounts).
 - Setup your [logs export to s3](/logs-and-observability/access-log-exports-to-s3).
 - If you are a distributor, you may want to set up [Entitlement tokens](/software-distribution/entitlement-tokens) to distribute to 3rd parties
-- Setup [Custom Domains](/getting-started/custom-domains), which allow you to present your brand and domain when distributing from Cloudsmith.
+- Setup [Custom Domains](/workspaces/custom-domains), which allow you to present your brand and domain when using native tooling or pulling packages from your Cloudsmith Workspace.

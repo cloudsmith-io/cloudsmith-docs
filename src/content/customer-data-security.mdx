@@ -1,0 +1,37 @@
+# Data Security Posture Management at Cloudsmith
+
+Cloudsmith operates on a shared tenancy model. The platform is architected from the ground up with data segregation as a core principle, so that crossover between customer data is not  possible. This meets stringent regulatory and [compliance requirements like SOC 2](https://trust.cloudsmith.com).
+
+Here's a deeper look at the control measures that ensure data security.
+
+## Encryption at Rest of sensitive data and communication
+
+All customer data stored on the Cloudsmith platform is encrypted in transit, through all layers of the application and processing. Encryption at rest guarantees that all data is cryptographically protected when it is stored on a disk. This encryption is applied consistently across all data types, including primary packages, backups, and system logs. If a malicious actor were to physically access the hardware where the data is stored, the data itself would be unreadable without a specific key. This provides a fundamental layer of security against physical breaches and unauthorized hardware access.
+
+Encryption is based on a combination of AES-256 and AWS-based KMS for packages, along with, among other types, Fernet based encryption for sensitive data stored in relational databases.
+
+Universal encryption is a powerful safeguard that eliminates potential gaps where plaintext data could be exposed. It protects against misconfiguration at other layers of the stack, so that data remains cryptographically sealed and unreadable to users without access to a particular tenant.
+
+### Securing encryption keys with AWS KMS
+
+Encryption depends on the security of keys. Cloudsmith uses AWS Key Management Service (KMS) as a dedicated, highly secure vault. This creates a centralized and hardened system for all cryptographic operations, ensuring that internal Cloudsmith teams do not have direct access to customers keys.
+
+KMS ensures that the keys used to encrypt each customer's data are cryptographically isolated from other tenants. Access is governed by the principle of least privilege, and each use of a key is logged via AWS CloudTrail.
+
+## Direct Data Access Prevention and Ephemeral URLs
+
+Cloudsmith’s architecture enforces a strict, application-managed process for each request.
+
+- **Architectural Enforcement**: Artifacts stored in underlying AWS S3 storage are never directly accessible; access requests go through the application layer, which enforces two steps on every request:  
+    
+  1. **Authentication (AuthN)**: The system verifies the user’s identity.  
+  2. **Authorization (AuthZ)**: The system checks that the authenticated user has the correct permissions to access that specific data. This process is tracked via audit logs, so each access can be traced back to a specific user. 
+
+
+- **Logical Separation**:  Cloudsmith enforces a segregated storage structure by assigning each tenant a unique path prefix. This logical partitioning at the storage level, combined with the application-layer controls, provides strong isolation and prevents cross-tenant access.  
+    
+- **Ephemeral Pre-signed URLs**: Access is granted via an ephemeral, pre-signed URL. This is a unique, temporary URL that grants access to a specific file for a limited time. Each URL contains a cryptographic signature; modifications of the URL, or use after it expires, invalidate the signature.
+
+## Vulnerability disclosure and Bug Bounty program
+
+Cloudsmith operates a [bug bounty program](https://help.cloudsmith.io/docs/bug-bounty-programme) to encourage responsible reporting of security issues. Reported bugs are investigated promptly. We appreciate your help in disclosing bugs to us privately, so that we can fix them before publishing technical details.

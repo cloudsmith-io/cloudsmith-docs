@@ -3,124 +3,279 @@ import { Icon, IconName } from '@/icons';
 import { iconRegistry } from '../icons/icon-registry';
 import styles from '../app/(documentation)/design-system/page.module.css';
 
-
 # Package Formats
 
-Cloudsmith supports the following package formats: 
+Cloudsmith supports the following package formats:
 
 <div className={styles.iconGrid}>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/alpine'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/alpine-repository"><span>Alpine</span></a>
-     </div>
-    <div className={styles.iconWrapper}>
-            <Icon name={'format/cargo'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/cargo-registry"><span>Cargo</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/chocolatey'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/chocolatey-repository"><span>Chocolatey</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/cocoapods'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/cocoapods-repository"><span>Cocoapods</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/composer'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/composer-repository"><span>Composer</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/conan'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/conan-repository"><span>Conan</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/python'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/conda-repository"><span>Conda</span></a>
-     </div>
-    <div className={styles.iconWrapper}>
-            <Icon name={'format/cran'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/cran-repository"><span>CRAN</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/dart'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/dart-repository"><span>Dart</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/debian'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/debian-repository"><span>Debian</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/docker'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/docker-registry"><span>Docker</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/go'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/go-registry"><span>Go</span></a>
-    </div>
-
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/gradle'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/gradle-repository"><span>Gradle</span></a>
-     </div>
-    <div className={styles.iconWrapper}>
-            <Icon name={'format/helm'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/helm-chart-repository"><span>Helm</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/hex'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/hex-repository"><span>Hex</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/luarocks'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/luarocks-repository"><span>Lua Rocks</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/maven'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/maven-repository"><span>Maven</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/npm'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/npm-registry"><span>npm</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/nuget'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/nuget-feed"><span>NuGet</span></a>
-     </div>
-    <div className={styles.iconWrapper}>
-            <Icon name={'format/powershell'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/powershell-modules-repository"><span>Powershell Modules</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/python'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/python-repository"><span>Python</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/raw'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/raw-repository"><span>Raw</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/redhat'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/redhat-repository"><span>Red Hat</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/sbt'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/sbt-repository"><span>sbt</span></a>
-    </div>
-
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/swift'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/swift-registry"><span>Swift</span></a>
-     </div>
-    <div className={styles.iconWrapper}>
-            <Icon name={'format/terraform'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/terraform-modules-repository"><span>Terraform</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/unity'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/unity-registry"><span>Unity</span></a>
-    </div>
-    <div className={styles.iconWrapper}>
-        <Icon name={'format/vagrant'} as="svg" title="Test" width={24} height={24} />
-        <a href="/formats/vagrant-repository"><span>Vagrant</span></a>
-    </div>
+  <a href="/formats/alpine-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Alpine</span>
+    </header>
+    <footer>
+      <Icon name={'format/alpine'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/cargo-registry" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Cargo</span>
+    </header>
+    <footer>
+      <Icon name={'format/cargo'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/chocolatey-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Chocolatey</span>
+    </header>
+    <footer>
+      <Icon name={'format/chocolatey'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/cocoapods-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Cocoapods</span>
+    </header>
+    <footer>
+      <Icon name={'format/cocoapods'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/composer-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Composer</span>
+    </header>
+    <footer>
+      <Icon name={'format/composer'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/conan-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Conan</span>
+    </header>
+    <footer>
+      <Icon name={'format/conan'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/conda-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Conda</span>
+    </header>
+    <footer>
+      <Icon name={'format/python'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/cran-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>CRAN</span>
+    </header>
+    <footer>
+      <Icon name={'format/cran'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/dart-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Dart</span>
+    </header>
+    <footer>
+      <Icon name={'format/dart'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/debian-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Debian</span>
+    </header>
+    <footer>
+      <Icon name={'format/debian'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/docker-registry" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Docker</span>
+    </header>
+    <footer>
+      <Icon name={'format/docker'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/go-registry" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Go</span>
+    </header>
+    <footer>
+      <Icon name={'format/go'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/gradle-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Gradle</span>
+    </header>
+    <footer>
+      <Icon name={'format/gradle'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/helm-chart-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Helm</span>
+    </header>
+    <footer>
+      <Icon name={'format/helm'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/hex-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Hex</span>
+    </header>
+    <footer>
+      <Icon name={'format/hex'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/luarocks-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Lua Rocks</span>
+    </header>
+    <footer>
+      <Icon name={'format/luarocks'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/maven-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Maven</span>
+    </header>
+    <footer>
+      <Icon name={'format/maven'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/npm-registry" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>npm</span>
+    </header>
+    <footer>
+      <Icon name={'format/npm'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/nuget-feed" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>NuGet</span>
+    </header>
+    <footer>
+      <Icon name={'format/nuget'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/oci-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>OCI</span>
+    </header>
+    <footer>
+      <Icon name={'format/oci'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/powershell-modules-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Powershell Modules</span>
+    </header>
+    <footer>
+      <Icon name={'format/powershell'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/python-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Python</span>
+    </header>
+    <footer>
+      <Icon name={'format/python'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/raw-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Raw</span>
+    </header>
+    <footer>
+      <Icon name={'format/raw'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/redhat-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Red Hat</span>
+    </header>
+    <footer>
+      <Icon name={'format/redhat'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/ruby-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Ruby</span>
+    </header>
+    <footer>
+      <Icon name={'format/ruby'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/sbt-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>sbt</span>
+    </header>
+    <footer>
+      <Icon name={'format/sbt'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/swift-registry" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Swift</span>
+    </header>
+    <footer>
+      <Icon name={'format/swift'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/terraform-modules-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Terraform</span>
+    </header>
+    <footer>
+      <Icon name={'format/terraform'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/unity-registry" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Unity</span>
+    </header>
+    <footer>
+      <Icon name={'format/unity'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
+  <a href="/formats/vagrant-repository" className={styles.iconWrapper}>
+    <header>
+      <span className={'headlineXXXS'}>Vagrant</span>
+    </header>
+    <footer>
+      <Icon name={'format/vagrant'} as="svg" title="Test" className={styles.logo} width={24} height={24} />
+      <Icon name={'arrowRight'} as="svg" title="Test" className={styles.arrowIcon} width={24} height={24} />
+    </footer>
+  </a>
 </div>

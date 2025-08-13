@@ -1,4 +1,5 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
+
 
 # Ruby Repository
 
@@ -80,7 +81,7 @@ You can also set the `RUBYGEMS_HOST` environment variable instead of `--host`:
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Ruby gem package via the Cloudsmith CLI is: 
 
@@ -100,7 +101,7 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 
 ### Example Project
 
-For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later, but otherwise, just ask - we're here to help!
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later, but otherwise, just ask - we're here to help.
 
 ## Download / Install a Package
 
@@ -234,19 +235,22 @@ To install the latest version of a package:
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information. 
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream Ruby repositories that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
 
 ## Troubleshooting
 

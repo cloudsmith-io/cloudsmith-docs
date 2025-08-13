@@ -1,4 +1,5 @@
-import { Note, BlockImage, Video } from '@/components';
+import { Tag, Note, BlockImage, Video } from '@/components';
+
 
 # npm Registry
 
@@ -6,7 +7,7 @@ Cloudsmith provides public & private registries for npm (JavaScript)
 
 <Video wistiaId="yb24y37ume"></Video>
 
-npm is an extremely popular package manager for the [JavaScript](https://en.wikipedia.org/wiki/JavaScript), and is used for creating and using packaged [Node.js](https://en.wikipedia.org/wiki/Node.js) modules. A public index of packages is available from npm, inc. on [npmjs.org](https://npmjs.org). npm, Inc also develop and maintain the official  `npm` client, ecosystem and tooling.
+npm is an extremely popular package manager for [JavaScript](https://en.wikipedia.org/wiki/JavaScript), and is used for creating and using packaged [Node.js](https://en.wikipedia.org/wiki/Node.js) modules. A public index of packages is available from npm, inc. on [npmjs.org](https://npmjs.org). npm, Inc. also develop and maintain the official  `npm` client, ecosystem and tooling.
 
 For more information on npm, please see:
 
@@ -20,7 +21,7 @@ The Cloudsmith npm registry has been fully tested with the following:
 - `node` version: v6.11.3
 - `yarn` version: v1.9.4
 
-It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](/contact-us).
+It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](https://cloudsmith.com/company/contact-us).
 
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -96,7 +97,7 @@ For more details on `npm publish` see the official [npm documentation](https://d
 
 ## Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 To upload via the Cloudsmith CLI / API, you'll need to generate your package first. You can do this with:
 
@@ -107,7 +108,7 @@ npm pack
 This will generate a tarball file (.tgz) like `your-package-1.2.3.tgz` that you can upload.
 
 <Note variant="note" headline="Note">
-This assumes that you've created a `project.json` file for your project. Please see the official npmjs [package.json reference](https://docs.npmjs.com/files/package.json) (external link) for more information.
+This assumes that you've created a `package.json` file for your project. Please see the official npmjs [package.json reference](https://docs.npmjs.com/files/package.json) (external link) for more information.
 </Note>
 
 The command to upload an npm package via the Cloudsmith CLI is: 
@@ -155,7 +156,7 @@ Cloudsmith has full support for distribution tags and (mostly) follows the same 
 1. A specific tag can point at one version of a package only.
 2. A package version may have multiple unique tags.
 3. Unless specified otherwise, the default tag for the last package published is latest.
-4. When a package that is **latest** is deleted, the tag is moved to the next applicable version by [semver](https://docs.npmjs.com/misc/semver).
+4. When a package that is **latest** is deleted, the tag is moved to the next applicable version by [semver](https://semver.npmjs.com/).
 5. When a package is copied/moved to another repository, its tags are carried with it.
 6. If the **latest** package is moved/deleted, then existing packages are sorted via SemVer to determine the next latest.
 
@@ -317,7 +318,7 @@ echo -n 'User:APIKEY' | base64
 ```
 
 ## Upstream Proxying / Caching
-Configurable Proxying Caching. Please see [Upstream Proxying](https://docs.cloudsmith.com/tbc/upstream-proxying-and-caching) for more details.
+Configurable Proxying Caching. Please see [Upstream Proxying](/repositories/upstreams) for more details.
 
 Upstreams provide a way to blend multiple external repositories into a single repository. This allows your single Cloudsmith repository to serve packages from multiple 'upstream' repositories.
 
@@ -330,16 +331,16 @@ npm audit
 ```
 
 <Note variant="note" headline="Note">
-To use `npm audit`, you must authenticate using a Cloudsmith [API-Key](/getting-started/cli#getting-your-api-key), not an [Entitlement Token](/software-distribution/entitlement-tokens).
+To use `npm audit`, you must authenticate using a Cloudsmith [API-Key](/developer-tools/cli#getting-your-api-key), not an [Entitlement Token](/software-distribution/entitlement-tokens).
 </Note>
 
 You can find out more about [security auditing](https://docs.npmjs.com/getting-started/running-a-security-audit) in the npm documentation (external link).
 
 # Current Limitations
 
-The Cloudsmith npm registry implementation currently has the following limitations:
+The Cloudsmith npm registry implementation has the following limitations:
 
-- The maximum size per-package file is currently limited to 100MiB (100 megabytes), but only when utilising the native npm-cli for publishing. If uploading using the cloudsmith-cli, then the absolute maximum size per-package file limit will be the standard 5GiB.
+- The maximum size per-package file is limited to 100MiB (100 megabytes), but only when utilising the native npm-cli for publishing. If uploading using the cloudsmith-cli, then the absolute maximum size per-package file limit will be the standard 5GiB.
 
 Cloudsmith is unlikely to support the following (out-of-scope):
 
@@ -353,19 +354,22 @@ Additionally, any search terms used are not passed to upstream repositories and 
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+<Tag variant="dark-green" theme="legacy">Supported</Tag> 
+
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream NPM repositories you wish to use as additional package sources for your Cloudsmith repository. You can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
 
 ## Troubleshooting
 

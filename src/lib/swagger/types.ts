@@ -13,6 +13,8 @@ export interface ApiOperation {
   menuSegments: string[];
   slug: string;
   title: string;
+  version: string;
+  experimental?: boolean; // Whether this endpoint is in early access
 
   // From OpenAPIV3.OperationObject
   tags?: string[];
@@ -29,6 +31,7 @@ export interface ApiOperation {
   deprecated?: boolean;
   security?: SecurityRequirementObject[];
   servers?: ServerObject[];
+  sandboxLink?: string;
 }
 
 interface ServerObject {

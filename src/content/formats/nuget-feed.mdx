@@ -1,15 +1,19 @@
----
-title: "NuGet Feed"
----
-import { Note } from '@/components';
+import { Tag, Note, BlockImage } from '@/components';
+
+
+import img_nuget from './images/nuget/setting-nuget-signing.png';
 
 # NuGet Feed
 
-Cloudsmith provides public & private feeds for NuGet
+Cloudsmith provides public & private feeds for NuGet.
 
 NuGet is an open-source package manager designed for the Microsoft development technologies.
 
 The NuGet repository support at Cloudsmith is compatible with [Chocolatey](https://chocolatey.org/), so if you're looking to manage packages on Windows, that's our recommended approach.
+
+<Note variant="note" headline="NuGet Symbol Server">
+Visit the [NuGet Symbol Server](/formats/nuget-symbol-server) documentation page for more information about NuGet debugging symbols (PDB files) and source files for packages published.
+</Note>
 
 For more information on NuGet, please see:
 
@@ -85,7 +89,7 @@ dotnet nuget push PACKAGE_NAME-VERSION.nupkg -k API-KEY -s https://nuget.cloudsm
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a NuGet package via the Cloudsmith CLI is: 
 
@@ -105,7 +109,7 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 
 ### Example Project
 
-For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later, but otherwise just ask, we're here to help!
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later, but otherwise just ask, we're here to help.
 
 ## Download / Install a Package
 
@@ -250,21 +254,58 @@ Install-Package PACKAGE_NAME -Source example-repo
 
 ## Current Limitations
 
-The Cloudsmith NuGet feed implementation currently has the following limitations:
+The Cloudsmith NuGet feed implementation has the following limitations:
 
-- The maximum size per-package file is currently limited to 200MiB (~210 megabytes), but only when utilising the native nuget-cli for publishing. If uploading using the cloudsmith-cli, then the absolute maximum size per-package file limit will be the standard 5GiB.
+- The maximum size per-package file is limited to 200MiB (~210 megabytes), but only when utilising the native nuget-cli for publishing. If uploading using the cloudsmith-cli, then the absolute maximum size per-package file limit will be the standard 5GiB.
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>  
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 You can configure upstream NuGet feeds that you wish to use for packages that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions. 
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions. 
+
+## Signing NuGet Packages
+
+Cloudsmith supports natively signing all NuGet packages using an X.509 certificate, enabling consumers to verify package repository signatures in native tooling or the NuGet CLI command, ensuring the integrity and authenticity of the packages. 
+
+To get started, navigate to Repository Settings >> Miscellaneous, and check the box `"NuGet Native Signing Enabled?"`:
+
+<BlockImage src={img_nuget} alt=""></BlockImage>
+
+<Note variant="note" headline="Signing of existing packages">
+Packages uploaded prior to enabling NuGet Native Signing will not be signed or have a certificate in the index. Once this setting is enabled, you will need to resync existing NuGet packages to sign them.
+</Note>
+
+### How it works
+
+When native NuGet signing is enabled for a Cloudsmith repository, a unique X.509 certificate is issued for that repository.
+
+When a NuGet package is uploaded or resynced to that repository, Cloudsmith will create a repository signature. The certificate will be available in the `RepositorySignatures` resource in the [service index](https://learn.microsoft.com/en-us/nuget/api/service-index). If a NuGet package contains an author signature, Cloudsmith will countersign the package. 
+
+If the repository upstream NuGet repositories configured, Cloudsmith will index the RepositorySignature endpoint from the Nuget service index. The upstream repository's signing certificates will then be available for client-side verification as well. 
+
+#### Client-side verification
+
+To enable client-side verification, the trusted certificates need to be added to the consumer's machine. Cloudsmith issues signing certificates using our own Certificate Authority. The Certificate Authority chain will need to be added to NuGet's trusted roots bundle.
+
+#### Linux and MacOS
+
+For Linux and MacOS, this is located at: `/usr/local/share/dotnet/sdk/\<NUGET_SDK_VERSION>/trustedroots/codesignctl.pem` 
+
+#### Windows
+
+For Windows, this is managed by the operating system. Please reference Microsoft's [Trusted Root Certification Authorities Certificate Store](https://learn.microsoft.com/en-us/windows-hardware/drivers/install/trusted-root-certification-authorities-certificate-store) for more information. 
+
+You can download Cloudsmith’s root Certificate Authority chain by going to the Key Management tab in your repository or by calling the [x509-rsa API endpoint](/api/repos/x509/rsa/list).
 
 ## Troubleshooting
 
@@ -302,4 +343,4 @@ If you want to use an Entitlement Token instead of a username and password/API-K
 
 ## Still Need Help?
 
-Contact us [here](https://support.cloudsmith.com). We're always happy to help!
+Contact us [here](https://support.cloudsmith.com). We're always happy to help.

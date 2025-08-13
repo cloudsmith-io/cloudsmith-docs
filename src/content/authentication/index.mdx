@@ -1,0 +1,50 @@
+import { Note, BlockImage } from '@/components'
+
+import img_auth_settings from './images/0eae5024250d241c5d1bba1228990f707e72251fc86740061f1f0e6d19803f12-auth-settings.png'
+import img_saml from './images/2db51e96490046173aab8e5e306522f177c8f5d61e6a80a06946e649e5c0eba1-saml.png'
+import img_saml_group_sync from './images/75df13493e3495a67167702377ad5f544757f9b59c95bdaa9d34b5e665e5c0bf-saml-group-sync.png'
+import img_scim from './images/0d3164ccada96c7e05cfef347a7446d83389c218249a8916848a7099f769b781-scim.png'
+
+# Authentication
+
+In software, **authentication** refers to the process of verifying the identity of a user or agent. It's a crucial security measure to ensure that only authorized entities can access systems and its resources. Essentially, authentication confirms that someone or something is who or what they claim to be.
+
+In the next pages you can find more information about how to:
+
+- Set up and enforce SAML authentication
+- Configure and modify SAML Group Sync
+- Configure and modify SCIM
+- Enforce two-factor authentication
+- Create and manage OIDC provider settings 
+
+<BlockImage src={img_auth_settings} alt=""></BlockImage>
+
+Cloudsmith offers several methods for user authentication to integrate with your existing Identity Provider (IdP) and allow you to define _who_ can access _what_.
+
+## Supported Protocols
+
+- Security Assertion Markup Language (SAML)
+- System for Cross-domain Identity Management (SCIM) 
+- OpenID Connect
+
+### SAML
+
+Workspace SAML settings is where you can enable and enforce SAML authentication. To enable SAML Authentication, you just need to either provide a URL to remote fetch your SAML XML Metadata, or provide the SAML XML Metadata directly inline using the form.
+
+<BlockImage src={img_saml} alt=""></BlockImage>
+
+#### SAML Group Sync
+
+SAML Group Sync is where you can configure automatic mapping of your SAML Groups to Cloudsmith Teams. Please see the [SAML Group Sync](/authentication/single-sign-on#saml-group-sync)  documentation for further details.
+
+<BlockImage src={img_saml_group_sync} alt=""></BlockImage>
+
+### SCIM
+
+SCIM is where you can enable SCIM provisioning and de-provisioning and obtain your username and password to configure SCIM in your chosen Identity Provider. Please see the [Single Sign-On with Okta](/authentication/single-sign-on-with-okta) documentation for an example of how you can configure SCIM for an Identity Provider.
+
+<BlockImage src={img_scim} alt=""></BlockImage>
+
+### 2FA
+
+Workspace 2FA is where you can enable Two-Factor Authentication. This will force members to set up Two-Factor Authentication for additional security.

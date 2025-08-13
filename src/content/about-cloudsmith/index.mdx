@@ -1,0 +1,116 @@
+import { Card, Flex, Button } from '@/components';
+
+# About Cloudsmith
+
+## What is Cloudsmith?
+
+Cloudsmith is a fully managed, cloud-native artifact management platform that provides a single source of truth for all software artifacts. It serves as both the control plane and data plane for your software supply chain, helping teams control, secure, and distribute artifacts at global scale.
+
+Cloudsmith supports all major [package formats](/formats) - such as Docker, Python, Maven, npm, Helm, ML models, and more - and integrates with CI/CD systems, developer workflows, and security tools. Artifacts are delivered through a global Package Delivery Network (PDN) for fast, reliable access anywhere in the world.
+
+### Differentiators
+
+Cloudsmith is designed for organizations that want to:
+- **Move to the cloud**: Replace on-premises registries with a fully managed, globally available service.
+- **Secure their software supply chain**: Enforce policies, scan for vulnerabilities, and verify artifact provenance.
+- **Adopt AI**: Support AI-enabled development workflows, where models, datasets, and other artifacts become part of the software supply chain. Cloudsmith provides a single platform to manage these alongside traditional software artifacts, with consistent security and governance.
+- **Improve developer experience**: Provide developers with fast artifact access, CI/CD integrations, and reliable global delivery.
+- **Distribute software globally**: Deliver artifacts to customers, partners, or internal teams with low latency worldwide.
+
+Cloudsmith organizes artifacts into a simple hierarchy:
+- [**Workspace**](/workspaces): The top-level scope for managing users, billing, and policies.
+- [**Repository**](/repositories): A logical grouping of packages. Repositories are multi-format and can host any supported package type.
+- [**Package**](/artifact-management): An immutable software artifact, such as a container image, library, or dataset.
+
+For more details about these concepts, see [Key Concepts](/about-cloudsmith/key-concepts), or explore some practical examples in the [Common Use Cases](/about-cloudsmith/common-use-cases) section.
+
+Not sure where to start?
+
+<Flex gap="m" align="center">
+  <Button href="https://app.cloudsmith.com/signup" size="xlarge">
+    Start your trial.
+  </Button>
+</Flex>
+
+---
+
+{/* TODO I think this three should go away from here, merging some of its contents into the new common use cases section */}
+<Flex gap="s" align="stretch">
+  <Card
+    title="For Developers"
+    description="Dependencies"
+    href="/about-cloudsmith/dependencies-for-developers"
+    icon="homepage/guide"
+    type="simple"
+    width="full"
+  />
+  <Card
+    title="For Operations"
+    description="Deployment"
+    href="/about-cloudsmith/deployment-for-operations"
+    icon="homepage/guide"
+    type="simple"
+    width="full"
+  />
+  <Card
+    title="For Vendors"
+    description="Distribution"
+    href="./software-distribution"
+    icon="homepage/guide"
+    type="simple"
+    width="full"
+  />
+</Flex>
+
+## Developer tools
+
+Cloudsmith is built by developers, for developers. We understand the workflows and processes that developers use and need, and we try to ensure that what we build brings value to our customers, and generally makes their lives easier.
+
+We maintain a set of tools to programmatically manage your workspaces, repositories, and artifacts. Along with other elements within Cloudsmith that helps you manage your organization: like teams, user accounts, service accounts, or tokens to conveniently automate configuration through scripts or any of the existing tooling you already use.
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Cloudsmith CLI"
+    description="Integrate smoothly with Cloudsmith without requiring explicit plugins or tools"
+    href="/developer-tools/cli"
+    icon="homepage/api"
+    linkText="CLI Reference"
+    type="simple"
+  />
+  <Card
+    title="REST API"
+    description="Retrieve information, upload packages, or take actions programmatically through our API."
+    href="/api"
+    icon="homepage/api"
+    linkText="API Reference"
+    type="simple"
+  />
+  <Card
+    title="Visual Studio Code Extension"
+    description="View and manage your Cloudsmith packages directly within VS Code."
+    href="/developer-tools/vscode"
+    icon="homepage/api"
+    linkText="Integrate with your IDE"
+    type="simple"
+  />
+  <Card
+    title="Webhooks"
+    description="Reveive notifications when particular actions take place within Cloudsmith."
+    href="./developer-tools/webhooks"
+    icon="homepage/api"
+    linkText="Get started with Webhooks"
+    type="simple"
+  />
+  <Card
+    title="Terraform Provider"
+    description="Automate administrative actions with our Terraform provider."
+    href="./developer-tools/terraform-provider"
+    icon="homepage/api"
+    linkText="Cloudsmith Terraform Provider"
+    type="simple"
+  />
+</Flex>
+<br></br>
+We believe in what we have built. We love to talk to other developers about what we have created, how it can
+fit into their development processes, and how we can help. If you have questions or would like to chat, please
+just [contact us](https://cloudsmith.com/company/contact-us).

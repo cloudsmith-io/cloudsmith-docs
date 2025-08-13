@@ -1,0 +1,85 @@
+import { BlockImage, Video, Note } from '@/components'
+
+import img_repo_access_controls from './images/access-controls/7777990f16d3b240b854f7a0cef6d1978cc5ad2c2308f935b28ed338db2db3e5-repo-access-controls.png'
+
+
+{/* <Video wistiaId="h2etz7w2eh"></Video> */}
+
+# Per-repository privileges
+
+There are three different repository settings defining user's access to artifacts and repository settings:
+
+- [Repository Privileges](#repository-privileges): Defines the minimum level of privilege required for a user to perform specific actions. This setting is override by _User/Self_ privileges when the user is the ownser of a package.
+- [Self Privileges](#self-privileges): Defines which actions users can always do with their own packages, no matter what are the privileges defined at other privilege levels (workspace, repository, team).
+- [Access control](#access-control): Defines the default level of privilege assigned to all workspace members (no collaborators) for this repository.
+
+Before we dig deeper into each of them, here we can find the different levels of access that you can assign to users, services and members of teams in a repository:
+
+| Privilege | Description        |
+| :-------- | :----------------- |
+| **Admin** | Can manage entitlements, privileges, and settings, in addition to those permissions granted by Write and Read access. |
+| **Write** | Can upload packages and edit existing packages, in addition to those permissions granted by Read access.              |
+| **Read**  | Can view and download packages.     |
+
+<Note>📘 Note that this privileges can be fine tuned per action (see [Repository privileges](#repository-privileges)).</Note>
+
+<Note>📘 Public repositories are open by definition, hence there's no level of privileges or belonging to the workspace required to have read access to its assets.</Note>
+
+## Repository privileges
+
+With this options, you can define the **minimun level of privileges granted** required to perform certain actions within a repository:
+
+| Action | Minimum Privilege |
+| :--- | :--- |
+| Copy packages | Admin, Write, Read |
+| Move packages | Admin, Write, Read |
+| Delete packages | Admin, Write |
+| Resync packages | Admin, Write |
+| Scan packages | Admin, Write, Read |
+| Replace packages | Admin, Write |
+| View statistics packages| Admin, Write, Read |
+| Manage entitlements | Admin, Write, Read |
+| See/Use entitlements | Admin, Write, Read |
+
+## Self privileges
+
+With this option, we can define which of the following actions can always be performed by users with their own packages, no matter which other permissions are stablised per workspace, repository, team, or user:
+  - Scan
+  - Copy
+  - Move
+  - Delete
+  - Resync
+
+Additionally, we can enable/disable user entitlements for a private repository. This setting allows users to use and manage their own entitlement token for the repository.
+
+## Access Control
+
+Access Controls allows you to configure the default level of privilege assigned to all workspace members (no collaborators) for this repository:
+- Admin
+- Write
+- Read
+- None
+
+<BlockImage src={img_repo_access_controls} alt="Access Controls"></BlockImage>
+
+### Privileges for Specific Users, Services and Teams
+
+Additionally, you can increase the level of repository privileges for specific:
+- Users
+- Services
+- Teams
+
+## Effective privilege
+
+The effective privilege for an account (User or Service) is the greatest privilege granted to them via:
+
+- Assignment to them directly, via [Privileges for Specific Users/Services](#privileges-for-specific-users,-services-and-teams).
+- Derived from their team membership via [Privileges for Specific Teams](#privileges-for-specific-users,-services-and-teams).
+- By default on the repository, via [Default Privileges](#access-control).
+- By default on the workspace, via the org-wide "Default Object Privileges" (see [Workspace Settings](/workspaces/privileges#default-object-privileges).
+
+When granting a Team or User access to a repository, you can select from the following privilege levels. 
+
+## External User Access
+
+To allow external (non-Cloudsmith) users access to a private repository, please see our [Entitlement Tokens](/software-distribution/entitlement-tokens) documentation.

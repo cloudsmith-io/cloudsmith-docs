@@ -1,8 +1,8 @@
----
-title: "Swift Registry"
----
 
-import { Note } from '@/components';
+import { Tag, Note, BlockImage } from '@/components';
+
+
+import swift from './images/swift/swift.png';
 
 # Swift Registry
 
@@ -19,19 +19,17 @@ For more information on Swift, please see:
 - The [Swift package manager](https://www.swift.org/documentation/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies. 
 - [Creating a Swift package](https://www.swift.org/getting-started/library-swiftpm/): Creating a Swift package
 
-More detailed information about registry configuration can be found at: [Package Registry Usage.](https://cloudsmith.io/~cloudsmith-test/repos/buildkite-demo/setup/?show_all_formats=true#formats-swift:~:text=Package%20Registry%20Usage)
-
 In the following examples: 
 
 | Identifier         | Description                                                                               |
 | :----------------- | :---------------------------------------------------------------------------------------- |
-| OWNER              | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE              | Your Cloudsmith account name or organization name (namespace)                             |
 | REPOSITORY         | Your Cloudsmith Repository name (also called "slug")                                      |
 | GIT_REPOSITORY_URL | GIT repository URL                                                                        |
 | TOKEN              | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME           | Your Cloudsmith username                                                                  |
 | PASSWORD           | Your Cloudsmith password                                                                  |
-| API-KEY            | Your Cloudsmith API Key                                                                   |
+| API-TOKEN            | Your Cloudsmith API Key                                                                   |
 | PACKAGE_NAME       | The name of your package                                                                  |
 | APP_NAME           | The name of your application                                                              |
 | VERSION            | The version number of your package                                                        |
@@ -41,18 +39,25 @@ In the following examples:
 
 ## Create a Cloudsmith Repository
 
-If you haven't already, create a repository in Cloudsmith where you'll publish your package. Note down the repository URL, which should resemble:
+If you haven't already, [create a repository](/repositories/create-a-repository) in Cloudsmith where you'll publish your package. Note down the repository URL, which should resemble:
 
-`https://swift.cloudsmith.io/ORGANIZATION/REPOSITORY`
+`https://swift.cloudsmith.io/WORKSPACE/REPOSITORY`
 
-Replace ORGANIZATION with your Cloudsmith organization name and REPOSITORY with the name of your repository.
+Replace `WORKSPACE` with your Cloudsmith Workspace name and `REPOSITORY` with the name of your repository.
 
 ## Creating a Swift package
 
-If you haven't created a package already, Swift can create a new package
+If you don't have a sample package to test this, use `swift package init` to create a new one:
 
 ```shell
+mkdir swift_sample
+cd swift_sample
 swift package init --name PACKAGE_NAME --type executable
+```
+
+A successful run will output:
+
+```shell
 Creating executable package: your-package
 Creating Package.swift
 Creating .gitignore
@@ -60,27 +65,25 @@ Creating Sources/
 Creating Sources/main.swift
 ```
 
-Create the Swift package by using the `swift package archive-source` command:
+Now, package its assets using the `swift package archive-source` command:
 
 ```shell
 swift package archive-source
 ```
 
-The terminals will output `Created PACKAGE_NAME.zip` if successful.
+The terminal will output `Created PACKAGE_NAME.zip` if successful.
 
 ## Configure Cloudsmith as your Swift Registry
 
-Use Swift version 5.9 or above to publish Swift package to Cloudsmith using the Swift Package Manager. You can verify by running swift -version
-
-Set your Cloudsmith repository for the project.
+Use Swift version 5.9 or above (verify your version with `swift -version`) to publish Swift package to Cloudsmith using the Swift Package Manager. Then, set your Cloudsmith repository for the project:
 
 ```shell
-swift package-registry set https://swift.cloudsmith.io/OWNER/REPOSITORY/
+swift package-registry set https://swift.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 This creates a configuration file at `.swiftpm/configuration/registries.json`that looks like this:
 
-```shell
+```json
 {
   "authentication" : {
 
@@ -94,239 +97,247 @@ This creates a configuration file at `.swiftpm/configuration/registries.json`tha
   "version" : 1
 ```
 
-Login to your private Cloudsmith Swift registry
+<Note>
+📘 Instead of configuring the registry per-project, you can set it globally using the `--global` flag. This is useful for configuring a build machine or your main development environment.
 
-```shell username and token
-swift package-registry login https://swift.cloudsmith.io/OWNER/REPOSITORY/ --username USERNAME --password API-KEY
+```bash
+swift package-registry set --global "https://swift.cloudsmith.io/WORKSPACE/REPOSITORY/"
 ```
-```shell token
-swift package-registry login --token API-KEY
-```
-
-<Note variant="note" headline="Note">
-The `swift package-registry set` command sets the registry for your current project. However, it is possible to configure this registry as Swift's global package registry using the --global flag. It will write the registry configuration into the user configuration file at `~/.swiftpm/configuration/registries.json`.
 </Note>
 
+Then, [get your API_TOKEN](/about-cloudsmith/api-key#getting-your-api-key) and login to your private Cloudsmith Swift registry with:
 
-# Upload a Package
+```shell
+swift package-registry login https://swift.cloudsmith.io/WORKSPACE/REPOSITORY/ --username USERNAME --password API_TOKEN
+```
 
-## Upload using Swift Package Manager
+## Upload a Package
 
-A Swift package consists of Swift source files and a manifest file. The manifest file, called Package.swift, defines the package’s name and its contents using the PackageDescription module.
+### Upload using Swift Package Manager
 
-Navigate to the Swift project directory that contains the Package.swift file for your package. 
+A Swift package consists of Swift source files and a manifest file. The manifest file, called `Package.swift`, defines the package’s name and its contents using the `PackageDescription` module.
+
+Navigate to the Swift project directory that contains the `Package.swift` file for your package. Replace `SCOPE`, `PACKAGE_NAME` and `VERSION` with the scope of the package, package name and package version respectively. 
 
 ```shell
 swift package-registry publish SCOPE.PACKAGE_NAME VERSION
 ```
 
-replace SCOPE, PACKAGE_NAME and VERSION with the scope of the package, package name and package version respectively. 
+<Note variant="note" headline="Swift scopes">
+In Swift, scope are namespaces for package names. You can publish any scope to your Cloudsmith repository. Package scopes are case-insensitive (for example, mona ≍ MONA).
 
-<Note variant="note" headline="Note">
-- replace `SCOPE` below with the scope you want to use to publish the package with. In Swift, scope's are namespaces for package names. You can publish any scope to your Cloudsmith repository.
-- Package scopes are case-insensitive (for example, mona ≍ MONA).
-- Version numbers should follow semantic versioning
+**Version numbers** should follow semantic versioning.
 </Note>
 
-
-### Verification
+#### Upload Verification
 
 After publishing, You should receive a confirmation message similar to the following:
 
-```shell
-PACKAGE_NAME version VERSION was successfully published to <https://swift.cloudsmith.io/ORGANIZATION/REPOSITORY> and is available at <https://swift.cloudsmith.io/ORGANIZATION/REPOSITORY/SCOPE/PACKAGE_NAME/VERSION`>
+```
+SCOPE.PACKAGE_NAME version VERSION was successfully published to https://swift.cloudsmith.io/WORKSPACE/REPOSITORY and is available at 'https://swift.cloudsmith.io/WORKSPACE/REPOSITORY/SCOPE/PACKAGE_NAME/VERSION'
 ```
 
-You can verify that your package is available in your Cloudsmith repository by navigating to the repository URL in your browser or using Cloudsmith's CLI tools.
+You can verify that your package is available in your Cloudsmith repository by navigating to the repository URL in your browser or using the Cloudsmith CLI.
 
-## Upload via the Cloudsmith CLI
+<BlockImage src={swift} alt=""></BlockImage>
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+### Alternative example: from source code
 
-To upload via the Cloudsmith CLI / API, you'll need to generate your package first. You can do this with:
+In the next steps we cover how to package an existing swift project from its source code in GitHub, and then upload it to a Cloudsmith repository. For this example, we'll be using **Alamofire**: a popular HTTP networking library written in Swift.
 
-```shell
-swift package archive-source 
+Download its source code and checkout version `5.9.1`:
+
+```bash
+cd .. # get back to the previous dir
+git clone https://github.com/Alamofire/Alamofire.git --depth 1
+cd Alamofire
+git fetch --depth 1 origin tag 5.9.1
+git checkout 5.9.1
 ```
 
-This will generate a zip file like`your-package.zip`that you can upload.
+To publish a package, you need to create a `package-metadata.json` file. This file provides essential details about the package.
 
-The command to upload a swift package via the Cloudsmith CLI is: 
+Create this file in the root of the `Alamofire` directory and paste in the following content:
 
-```shell
-cloudsmith push swift OWNER/REPOSITORY PACKAGE_NAME.zip --name PACKAGE_NAME --version VERSION --scope SCOPE
-```
-
-Example:
-
-```shell
-cloudsmith push swift cloudsmith-test-org/cloudsmith-test-repo MyCLI.zip --version 1.0.0 --name MyCLI --scope swift
-```
-
-## Upload via Cloudsmith web app
-
-Please see [Upload a Package](/artifact-management/package-upload#upload-via-website-ui) for details of how to upload via the Cloudsmith web app.
-
-## Republish a git project to Cloudsmith
-
-[This guide](https://github.com/spqw/swift-package-registry-demo/blob/main/README.md) may help you in this process
-
-To configure your existing Git project to publish Swift packages to Cloudsmith do the following:
-
-### Clone the Repository
-
-```shell
-git clone GIT_REPOSITORY_URL --depth 1
-cd GIT_REPOSITORY_URL
-```
-
-Replace GIT_REPOSITORY_URL with the projects git repository url.
-
-### Checkout the Desired Version
-
-Before publishing your package, ensure that you're on the correct version tag or commit hash that you want to publish. If you have a specific release tag, you can fetch and checkout that tag using Git commands:
-
-```shell
-# Fetch the desired version tag
-git fetch --depth 1 origin tag VERSION
-
-# Checkout the specific tag
-git checkout VERSION
-```
-
-Replace VERSION with the tag of the version you intend to publish.
-
-### Prepare the sub modules
-
-If your project has submodules, you would need to update them
-
-```shell
-git submodule update --init
-```
-
-### Prepare Package Metadata
-
-Create a file named package-metadata.json in the root of your repository and fill it with package metadata. Here's an example:
-
-```shell
+```json
 {
     "author": {
-        "name": "Your Name",
-        "email": "your_email@example.com",
+        "name": "Alamofire Software Foundation",
+        "email": "info@alamofire.org",
         "organization": {
-            "name": "Your Organization"
+            "name": "Alamofire Software Foundation"
         }
     },
-    "description": "Your package description",
-    "licenseURL": "https://github.com/your_organization/your_repository/blob/main/LICENSE",
-    "readmeURL": "https://github.com/your_organization/your_repository/blob/main/README.md",
+    "description": "Elegant HTTP Networking in Swift",
+    "licenseURL": "https://github.com/Alamofire/Alamofire/blob/master/LICENSE",
+    "readmeURL": "https://github.com/Alamofire/Alamofire/blob/master/README.md",
     "repositoryURLs": [
-        "https://github.com/your_organization/your_repository.git",
-        "git@github.com:your_organization/your_repository.git"
+        "https://github.com/Alamofire/Alamofire.git"
     ]
 }
 ```
 
-### Configure Cloudsmith URL
+You are ready to publish the package to your Cloudsmith Registry. Follow the previous steps to configure and login to your registry (no need to run it again if you executed the previous example) and replace `WORKSPACE` and `REPOSITORY` with your own:
 
-Follow the steps in [Configure Cloudsmith as your Swift Registry](/formats/swift-registry#configure-cloudsmith-as-your-swift-registry) to configure Cloudsmith as your Swift registry.
-
-### Publish the Package
-
-```shell
-swift package-registry publish PACKAGE_NAME VERSION --metadata-path ${HOME}/path/to/package-metadata.json
+```bash
+# swift package-registry set "https://swift.cloudsmith.io/WORKSPACE/REPOSITORY/"
+# swift package-registry login https://swift.cloudsmith.io/WORKSPACE/REPOSITORY/ --username USERNAME --password API-TOKEN
+swift package-registry publish alamofire.alamofire 5.9.1 --metadata-path ./package-metadata.json
 ```
 
-Replace PACKAGE_NAME with the name of your package and VERSION with the git tag version number.
+**Done**. You've successfully published your Swift package to a Cloudsmith registry. You can now view the package in your Cloudsmith web app.
 
-# Download / Install a Package
+## Upload via the Cloudsmith CLI
 
-## Configure Cloudsmith
+<Note variant="tip" headline="CLI Install and Auth">
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli) documentation:
+- [Installation](/developer-tools/cli#installation).
+- [Authentication](/developer-tools/cli#getting-your-api-key).
+</Note>
 
-Follow the steps in [Configure Cloudsmith as your Swift Registry](/formats/swift-registry#configure-cloudsmith-as-your-swift-registry) to configure Cloudsmith as your Swift registry.
-
-## Add a swift package from Cloudsmith as a dependancy
-
-Follow the instructions below to configure the Swift Package Manager to consume Swift packages from a Cloudsmith Swift registry.
-
-### Configure your dependancies
-
-A package dependency is declared in Package.swift. Edit the Package.swift file in your application project folder to update the package dependencies to be used by your project.
-
-1. In the dependencies section of Package.swift, add the package you want to use by adding its package identifier. The package identifier consists of the scope and package name separated by a period. See the code snippet following a later step for an example.
-2. In the targets section of Package.swift, add the targets that will need to use the dependency.
-
-The following is an example showing configured dependencies and targets sections in a Package.swift file:
+To upload via the Cloudsmith CLI (or via API), you'll need to generate your package first:
 
 ```shell
-...
-    ],
+swift package archive-source
+```
+
+This will generate a zip file named `Alamofire.zip` that you can upload. Use the previous command to upload your new swift package via the Cloudsmith CLI and rememver to use a different version number (for example `5.9.2`):
+
+```shell
+cloudsmith push swift WORKSPACE/REPOSITORY PACKAGE_NAME.zip --name PACKAGE_NAME --version VERSION --scope SCOPE
+```
+
+The next output will be displayed:
+
+```text
+Checking swift package upload parameters ... OK
+Checking Alamofire.zip file upload parameters ... OK
+Requesting file upload for Alamofire.zip ... OK
+Uploading Alamofire.zip:  [####################################]  100%
+Creating a new swift package ... OK
+Created: demo-docs/awesome-repo/alamofirezip-z54v (DIElCIDoFtvd)
+
+Synchronising alamofirezip-z54v:  [####################################]  100%  Completed / Fully Synchronised                      
+
+Package synchronised successfully in 51.71964 second(s)!
+```
+
+## Upload via Cloudsmith web app
+
+Please see [Upload a Package](/artifact-management/package-upload#upload-via-website-ui) for details of how to upload via the Cloudsmith web app. Generate your package first using `swift package archive-source`.
+
+## Download / Install a Package
+
+Now, let's see how to use the package from your registry in a new project:
+
+1. Create a new directory for a sample project and `cd` into it.
+
+```bash
+cd ..
+mkdir MySwiftApp && cd MySwiftApp
+swift package init --type executable
+```
+
+2. **Configure the Registry for the New Project**: following the steps described above to configure Swift to use your Cloudsmith registry URL and then login to it. 
+
+3. **Add your project dependencies**:
+
+<Note variant="tip" headline="Swift dependencies file">
+Package dependencies are declared in the `Package.swift` file. Edit the `Package.swift` file in your application project folder to update the package dependencies to be used by your project:
+1. In the dependencies section of `Package.swift`, add the package you want to use by adding its package identifier. The package identifier consists of the scope and package name separated by a period. See the code snippet following a later step for an example.
+2. In the targets section of `Package.swift`, add the targets that will need to use the dependency.
+</Note>
+
+The following is an example showing configured dependencies and targets sections in a `Package.swift` file to include Alamofire as a dependency:
+
+```
+// swift-tools-version: 5.9
+import PackageDescription
+
+let package = Package(
+    name: "MySwiftApp",
     dependencies: [
-        .package(id: "SCOPE.PACKAGE_NAME", from: "1.0.0")
+        .package(id: "alamofire.alamofire", from: "5.9.1") // Add this line
     ],
     targets: [
-      .target(
-         name: "APP_NAME",
-         dependencies: ["SCOPE.PACKGE_NAME"]
-      ),...
-    ],
-...
+        .executableTarget(
+            name: "MySwiftApp",
+            dependencies: [
+                .product(name: "Alamofire", package: "alamofire.alamofire") // And this one
+            ]
+        ),
+    ]
+)
 ```
 
-### (Optional) Clear Build Products and Cache
+After this, use the `--replace-scm-with-registry` flag to prioritize fetching from your registry instead of Git.
 
-```shell
-swift package reset
-swift package purge-cache
+```bash
+swift package --replace-scm-with-registry resolve
 ```
 
-### Resolve Dependencies
+You will see output indicating that Swift is downloading `alamofire.alamofire` directly from your Cloudsmith registry. You should see the following printed out when resolving dependancies
 
-Now, resolve dependencies for your project using the following command to download the package dependencies from Cloudsmith.
-
-```shell
-swift package resolve
+```
+Computing version for alamofire.alamofire
+Computed alamofire.alamofire at 5.9.2 (1.84s)
+Fetching alamofire.alamofire
+warning: 'alamofire.alamofire': alamofire.alamofire version 5.9.2 source archive from https://swift.cloudsmith.io/demo-docs/awesome-repo is not signed
+Fetched alamofire.alamofire from cache (4.07s)
 ```
 
-### Verify Dependency Resolution
+<Note variant="tip" headline="Swift registry resolve">
+📘 Using `id:` in your `Package.swift` is powerful. When you run `resolve` with the flag, Swift Package Manager will first try to find a matching version in your configured registry. If it fails, it can fall back to the Git repository specified in the `package-metadata.json` file. This provides a robust, hybrid approach.
 
-You should see the following printed out when resolving dependancies
+Downloading a large repository like Alamofire can take a significant amount of time, as you're cloning the entire history. Pulling a package from a registry is much faster. You only download a lightweight source archive (`.zip`) for the specific version you need, drastically reducing download times and CI/CD pipeline durations.
+</Note>
 
-```shell
-Fetching <dependency_url>
-Computing version for <dependency_name>
-Fetched <dependency_name> (<version>) (<time>)
-```
+For a more detailed overview of Package Registries usage with Swift, visit their [docs](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/PackageRegistryUsage.md).
 
-## Removing Setup
+## Resetting your registry configuration
 
-If you no longer want to install packages from the repository, you can remove it with:
+To reset your configuration: 
 
 ```shell
 swift package-registry unset
 ```
 
+Or simply delete the `registries.json` files from your project and/or home directory:
+
+```bash
+rm -f ./.swiftpm/configuration/registries.json
+```
+
+To force Swift to re-resolve all your dependencies from scratch the next time you build or run your project and clear out the global Swift Package Manager cache on your machine, run:
+
+```bash
+swift package reset
+swift package purge-cache
+```
+
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span>  
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
+
 
 You can configure to proxy a private or public swift registry you wish to use for packages that are not available in your current Cloudsmith repository e.g. you can point to another Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
 <Note variant="note" headline="Note">
 There is currently no public swift repository. HTML catalogs of Swift Packages such as [Swift Package Registry](https://swiftpackageregistry.com/) that point to third-party Git repositories do not host any actual packages and so can't be added as an upstream.
-
 </Note>
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions.
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">Not supported</span>
+<Tag variant="red" theme="legacy">Not supported</Tag>
 
 ## Troubleshooting
 

@@ -1,104 +1,36 @@
-import { BlockImage } from '@/components'
+import { Note } from '@/components'
 
+# Continuous Security
 
+Continuous Security is a feature that provides an hourly feed of vulnerability data from multiple sources (see [refresh intervals]() for each source). When new vulnerabilities are published, we check them against existing artifacts in your Cloudsmith repositories. This enables faster identification of affected artifacts compared to scheduled or on-demand [vulnerability scanning](./vulnerability-scanning).
 
-import scans_repo_overview from './images/security-scanning/scans_repo_overview.png'
-import package_vulns from './images/security-scanning/package_vulns.png'
-import additional_scan from './images/security-scanning/additional_scan.png'
+<Note>📘 Continuous Security is in Early Access (EA) through Cloudsmith’s Enterprise Policy Management. </Note>
 
-# Continuous security
+## Vulnerability Scanning vs. Continuous Security
 
-Cloudsmith Security Scanning will automatically scan supported package types for CVEs upon upload of a package. You can also trigger subsequent scans manually via the Web UI, and via the Cloudsmith API. 
+### Vulnerability Scanning
 
-You can use the results of a Cloudsmith Security Scan to drive other actions such as to [quarantine a package](/artifact-management/package-quarantine), or as part of a package promotion workflow. 
+Cloudsmith [scans](./vulnerability-scanning) artifacts as they are introduced into a repository for the first time. This scan analyzes the components of a package and then checks for vulnerabilities associated with them, which are listed in a vulnerability report. Note that when new vulnerabilities are disclosed, any existing report for impacted artifacts won’t flag them; a re-scan will be required to get the most up-to-date information.
 
-Scan results are available via the [Web UI](/policy-management/security-scanning#scan-results-via-the-cloudsmith-web-ui), the [Cloudsmith API](/api/vulnerabilities/read) or even as a [Webhook](/logs-and-observability/webhooks).
+### Continuous Security
 
-## Supported Formats
+<Note>📘 Continuous Security is only available for Cloudsmith workspace where EPM has been enabled.</Note>
 
-Cloudsmith's Security Scanning feature is available for the following package formats:
+When artifacts are first scanned, Cloudsmith stores the list of identified components. Continuous Security uses that stored list to check for vulnerabilities using an advisory database that is refreshed hourly. When a new threat is discovered that affects an artifact in your workspace, Continuous Security will flag it via EPM without the need for a full manual or scheduled re-scan.
 
-- [Cargo](/formats/cargo-registry) 
-- [Composer](/formats/composer-repository) 
-- [Conan](/formats/conan-repository)
-- [Dart](/formats/dart-repository)
-- [Docker](/formats/docker-registry) 
-- [GoLang](/formats/go-registry)
-- [Hex](/formats/hex-repository)
-- [Maven](/formats/maven-repository)
-- [npm](/formats/npm-registry) 
-- [NuGet](/formats/nuget-feed) 
-- [Python](/formats/python-repository) 
-- [Ruby](/formats/ruby-repository) 
-- [Swift](/formats/swift-registry)
+For more information about using EPM to address vulnerabilities identified by Continuous Security, see [Getting Started with Enterprise Policy Management](./epm/getting-started) and [Rego Recipes](./epm/rego).
 
-## Data Sources
+Details of the specific vulnerability data available via Continuous Security are available in our API documentation under the vulnerabilities object in the [PolicyInputV0 schema](https://api.cloudsmith.io/v2/swagger/).
 
-| Language / Framework | Source                                                                                                                                                                                     |
-| :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| C, C++               | 1. [GitLab Advisories Community](https://gitlab.com/gitlab-org/advisories-community)                                                                                                       |
-| Dart                 | 1. [GitHub Advisory Database](https://github.com/advisories?query=ecosystem%3Apub)                                                                                                         |
-| Go                   | 1. [GitLab Security Advisories](https://gitlab.com/gitlab-org/advisories-community) 2. [Go Vulnerability Database](https://pkg.go.dev/vuln/)                                               |
-| Hex                  | 1. [GitHub Advisory Database](https://github.com/advisories?query=ecosystem%3Aerlang)                                                                                                      |
-| Java                 | 1. [GitHub Maven Security Advisories](https://github.com/advisories?query=ecosystem%3Amaven) 2. [GitLab Security Advisories](https://gitlab.com/gitlab-org/advisories-community)           |
-| .NET                 | 1. [GitHub .NET Security Advisories](https://github.com/advisories?query=ecosystem%3Anuget)                                                                                                |
-| Node.js              | 1. [GitHub NodeJS Security Advisories](https://github.com/advisories?query=ecosystem%3Anpm) 2. [NodeJS Ecosystem Security Working Group](https://github.com/nodejs/security-wg)            |
-| PHP                  | 1. [GitHub PHP Security Advisories](https://github.com/advisories?query=ecosystem%3Acomposer) 2. [Friends of PHP Security Advisories](https://github.com/FriendsOfPHP/security-advisories) |
-| Python               | 1. [GitHub Python Security Advisories](https://github.com/advisories?query=ecosystem%3Apip) 2. [Safety DB](https://github.com/pyupio/safety-db)                                            |
-| Ruby                 | 1. [GitHub Ruby Security Advisories](https://github.com/advisories?query=ecosystem%3Arubygems) 2. [Ruby Advisory Database](https://github.com/rubysec/ruby-advisory-db)                    |
-| Rust                 | 1. [RustSec Advisory Database](https://github.com/RustSec/advisory-db)                                                                                                                     |
-| Swift                | 1. [GitHub Advisory Database](https://github.com/advisories?query=ecosystem%3Aswift)                                                                                                       |
+#### Data Sources
 
-### NVD
+Continuous Security uses the following data sources:
 
-| Name                            | Source                          |
-| :------------------------------ | :------------------------------ |
-| National Vulnerability Database | 1. [NVD](https://nvd.nist.gov/) |
+| Source                                                                                  | Refresh Interval |
+| :-------------------------------------------------------------------------------------- | :--------------: | 
+| Common Vulnerabilities and Exposures (CVE) databases aggregated in [Aqua Trivy DB](https://trivy.dev/v0.39/docs/vulnerability/detection/data-source/) |   6 hours   |
+| [Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/) |   24 hours  |
 
-If an advisory does not provide severity information, it falls back to NVD's CVSS scoring.
+#### Supported Formats
 
-## Security Scan Results
-
-The results of a security scan are available from the Cloudsmith Web UI, the Cloudsmith API and also via a Webhook. 
-
-### Scan results via the Cloudsmith Web UI
-
-You can find an overview of all the packages that have been scanned, or are awaiting an additional scan, via the "Compliance / Security" page in any repository: 
-
-<BlockImage src={scans_repo_overview} alt=""></BlockImage>
-
-The Security Scanning page shows a list of packages scanned, with information about:
-- Maximum severity of vulnerabilities.
-- Affected package.
-- Number of vulnerabilities found.
-- Time since last scan.
-
-For more information and details, you can view the individual vulnerabilities found on the "Security" tab on any package detail page (alternatively, from the overview page click in the **Vulnerabilities Found** card): 
-
-<BlockImage src={package_vulns} alt=""></BlockImage>
-
-### Scan results via the Cloudsmith API
-
-You can use the Cloudsmith [Vulnerabilities API endpoints](/api/vulnerabilities/namespace/list) to return the scan results for an entire organization account, a specific repository, an individual package or just a single scan id. 
-
-### Scan results via Webhook.
-
-Please see our [Webhooks](/logs-and-observability/webhooks) documentation for details of how to create a webhook and the full range of package events that are supported. 
-
-## Performing additional security scans
-
-You can perform additional security scans after the scan that is performed when the package is uploaded using the Cloudsmith UI or API. 
-
-### Additional security scans via the Cloudsmith Web UI
-
-You can request an additional scan for an individual package from the package details page: 
-
-<BlockImage src={additional_scan} alt=""></BlockImage>
-
-### Additional security scans via the Cloudsmith API
-
-You can request an additional security scan for a package using the [packages_scan API endpoint](/api/packages/scan).
-
-### Early Access: Recurring security scans
-
-You can now also set up security scans to occur on a recurring basis. This feature is currently in Early Access. To set up recurring security scans for your workspace, contact us to be added to Early Access.
+Continuous Security is available for [all package formats](./vulnerability-scanning) supported by Cloudsmith’s Vulnerability Scanning feature.

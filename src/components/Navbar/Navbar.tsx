@@ -54,9 +54,20 @@ export const Navbar = () => {
 
             <div className={styles.right}>
               <SearchDialog />
+              <Link
+                href="https://app.cloudsmith.com/login"
+                target={'_blank'}
+                className={cx(styles.openCloudsmith, 'bodyS', pathname === '/' && styles.light)}
+                aria-label="Open Cloudsmith">
+                Open Cloudsmith
+              </Link>
 
-              <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
-                <Icon name="menu" title="" />
+              <button
+                type="button"
+                className={cx(styles.menuButton, pathname === '/' && styles.light)}
+                aria-label="Menu"
+                onClick={toggle}>
+                <Icon name="menu" title="" className={styles.menuIcon} />
               </button>
             </div>
           </div>
@@ -65,9 +76,7 @@ export const Navbar = () => {
               <Link
                 key={`${item.path}-${i}`}
                 href={item.path!}
-                className={cx(styles.navLink, {
-                  [styles.navLinkActive]: activeMenuItem === item,
-                })}>
+                className={cx(styles.navLink, { [styles.navLinkActive]: activeMenuItem === item }, 'bodyM')}>
                 <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
                 {item.title}
               </Link>

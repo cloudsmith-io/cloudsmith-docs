@@ -1,8 +1,5 @@
----
-title: "OCI Repository"
----
+import { Tag, Note } from '@/components';
 
-import { Note } from '@/components';
 
 # OCI Repository
 
@@ -30,16 +27,16 @@ For clarity, it's important to note some of the differences between a registry s
 
 Docker defines the following names (this is not the official wording):
 
-- **Layer:** A blob (big object of bytes) containing software and configuration.
-- **Image:** A collection of Docker layers plus metadata that represent an application.
-- **Container:** A running instance of a Docker image in-memory.
-- **Repository:** A collection of Docker images, separated by hashref and version tags.
-- **Registry:** A collection of all Docker repositories, separated by namespaces.
+- **Layer**: A blob (big object of bytes) containing software and configuration.
+- **Image**: A collection of Docker layers plus metadata that represent an application.
+- **Container**: A running instance of a Docker image in-memory.
+- **Repository**: A collection of Docker images, separated by hashref and version tags.
+- **Registry**: A collection of all Docker repositories, separated by namespaces.
 
 For comparison purposes, where terms differ from Cloudsmith:
 
-- **Package:** A specific identifiable and versionable artifact.
-- **Repository:** A collection of versionable artifacts, with multiple allowed per account.
+- **Package**: A specific identifiable and versionable artifact.
+- **Repository**: A collection of versionable artifacts, with multiple allowed per account.
 
 Therefore, based on the above, the following terms are equivalent:
 
@@ -53,7 +50,7 @@ For consistency, the terms will be used within all of the OCI-related documentat
 ## Upload an Generic Artifact with ORAS
 
 <Note variant="note" headline="Note">
-If you have added a [Custom Domain](/getting-started/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
+If you have added a [Custom Domain](/workspaces/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
 </Note>
 
 [ORAS (OCI Registry As Storage)](https://oras.land/)  is an open-source tool that enables users to push, pull, and manage non-container artifacts in OCI-compliant registries. It extends the OCI specification beyond container images, turning registries into a general-purpose storage system for diverse artifact types.
@@ -88,7 +85,7 @@ ORAS allows you to specify the type of the artifact by using the `--artifact-typ
 $ oras push docker.cloudsmith.io/OWNER/REPOSITORY/ARTIFACT_NAME:TAG --artifact-type application/vnd.cloudsmith.v1 ./FILENAME_PATH
 ```
 
-For more information on how to define a unique artifact type check the [official documentation](https://github.com/opencontainers/artifact-management/blob/main/artifact-authors.md#defining-a-unique-artifact-type) .
+For more information on how to define a unique artifact type check the [official documentation](https://github.com/opencontainers/artifacts/blob/main/artifact-authors.md#defining-a-unique-artifact-type).
 
 ## Attach file to an existing Artifact
 
@@ -226,19 +223,21 @@ Provenance files allow for verification of both the integrity and source of a He
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span> 
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
 
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information. 
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Chaching</Tag>
 
 You can configure upstream OCI registries you wish to use by using our Docker Upstream feature. In addition, you can also choose to cache any requested artifacts for future use.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">RSA</span> <span class="cs-tag cs-tag-purple">Index</span>
+<Tag variant="red" theme="legacy">RSA</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
 
 ## Troubleshooting
 

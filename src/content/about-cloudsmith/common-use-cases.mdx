@@ -1,0 +1,254 @@
+import { Card, Flex } from '@/components';
+
+# Common Use Cases
+
+This section outlines the primary and supporting use cases for Cloudsmith, detailing the benefits and key features for each:
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Artifact Management for the SDLC"
+    description="Centralized storage, management, and control of all software artifacts in one location."
+    href="/about-cloudsmith/common-use-cases#artifact-management-for-the-software-development-lifecycle-sdlc"
+    icon="homepage/documentation"
+    type="simple"
+    width="full"
+    linkText="Rego-based Policies-as-Code"
+  />
+  <Card
+    title="Software Distribution"
+    description="A platform to securely and reliably distributing software to customers at scale."
+    href="/about-cloudsmith/common-use-cases#software-distribution"
+    icon="homepage/api"
+    type="simple"
+    width="full"
+    linkText="Reduce risks"
+  />
+  <Card
+    title="Software Supply Chain Security"
+    description="Identify and mitigate security vulnerabilities and license compliance risks."
+    href="/about-cloudsmith/common-use-cases#software-supply-chain-security"
+    icon="homepage/api"
+    type="simple"
+    width="full"
+    linkText="Secure your artifacts."
+  />
+  <Card
+    title="Software Supply Chain Observability"
+    description="Get insights about your artifact management and distribution workflows."
+    href="/about-cloudsmith/common-use-cases#software-supply-chain-observability"
+    icon="homepage/api"
+    type="simple"
+    width="full"
+    linkText=""
+  />
+</Flex>
+<br></br>
+
+---
+
+## Artifact Management for the Software Development Lifecycle (SDLC)
+
+At its core, Cloudsmith provides a centralized, single source of truth for all your software artifacts. This is fundamental to modern DevOps practices, enabling organizations to store, manage, and control the vast number of packages, containers, and other assets generated throughout the software development lifecycle. By having one place to manage all software assets, teams can streamline their workflows, improve collaboration, and gain crucial visibility over their development processes.
+
+### Benefits
+
+- **Universal Package Support**: Manage all your different package formats in one place, reducing the complexity and toolchain sprawl associated with polyglot development environments.
+- **Centralized Control and Visibility**: Gain a comprehensive overview of all your software assets, making it easier to manage dependencies, track versions, and understand what's in your software.
+- **Improved Developer Productivity**: Developers can easily push and pull artifacts using familiar, native tooling without needing to learn a new set of commands. This reduces friction and speeds up development cycles.
+- **Reliable and Repeatable Builds**: By managing all dependencies and artifacts in a central repository, you ensure that builds are consistent and repeatable, eliminating "works on my machine" issues.
+- **Scalability**: Cloudsmith's cloud-native architecture is designed to scale with your organization's needs, from small teams to large enterprises, without the overhead of managing your own infrastructure.
+
+### Learn more about related features
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Multi-format Repositories"
+    description="Support for over 30 package formats, including Docker, Maven, npm, Python, and RubyGems."
+    href="/formats"
+    icon="homepage/documentation"
+    type="simple"
+    width="full"
+    linkText="Formats"
+  />
+  <Card
+    title="Native Tooling Integration"
+    description="Seamless integration with the package managers and tools your developers already use. Start with our Python examples."
+    href="/formats/python-repository"
+    icon="homepage/api"
+    type="simple"
+    width="full"
+    linkText="Native tooling"
+  />
+  <Card
+    title="Role-Based Access Controls (RBAC)"
+    description="Fine-grained permissions to control who can read, write, and manage artifacts."
+    href="/accounts-and-teams/about-privileges"
+    icon="homepage/guide"
+    type="simple"
+    width="full"
+    linkText="Privileges"
+  />
+  <Card
+    title="Upstream Proxying and Caching"
+    description="Proxy and cache public repositories to protect against upstream outages and improve performance."
+    href="/repositories/upstreams"
+    icon="homepage/documentation"
+    type="simple"
+    width="full"
+    linkText="Upstreams"
+  />
+</Flex>
+<br></br>
+
+## Software Distribution
+
+For organizations that need to distribute their software to end-users and customers, Cloudsmith offers a robust and secure platform. It simplifies the complexities of software distribution at scale, ensuring that your customers can access the software they are entitled to quickly and reliably, anywhere in the world.
+
+### Benefits
+
+- **Global, High-Speed Delivery**: Leverage Cloudsmith's global Content Delivery Network (CDN) to ensure fast and reliable software distribution to your customers, regardless of their location.
+- **Secure and Controlled Access**: Protect your intellectual property by managing who can download your software through entitlement tokens and fine-grained access controls.
+- **Simplified Customer Experience**: Provide your customers with a seamless and straightforward way to download and install your software.
+- **Reduced Infrastructure Overhead**: Offload the complexities of building and maintaining a global distribution infrastructure to Cloudsmith.
+- **Usage Insights**: Understand how your software is being consumed with detailed analytics on downloads and bandwidth usage.
+
+### Learn more about related features
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Entitlement Tokens"
+    description="Securely grant access to your private repositories for specific customers or users."
+    href="/software-distribution/entitlement-tokens"
+    icon="utility/documentation"
+    type="simple"
+    width="full"
+    linkText="Formats"
+  />
+  <Card
+    title="Public, Open Source, and Private Repositories"
+    description="Choose the right level of access for your different software packages."
+    href="/repositories"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText=""
+  />
+  <Card
+    title="Broadcasts"
+    description="Enterprise grade features to share your repository artifacts to the world."
+    href="/software-distribution/broadcasts"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText=""
+  />
+  <Card
+    title="Detailed Usage Logs and Analytics"
+    description="Track download statistics, bandwidth consumption, and more to understand user engagement."
+    href="/logs-and-observability/"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText=""
+  />
+</Flex>
+<br></br>
+
+## Software Supply Chain Security
+
+Ensuring the integrity and security of the software you build and use is paramount. Cloudsmith provides a suite of features designed to help you secure your software supply chain by identifying and mitigating risks from vulnerabilities and non-compliant licenses in your third-party and open-source dependencies.
+
+### Benefits
+
+- **Reduced Risk of Vulnerabilities**: Proactively identify and block packages with known vulnerabilities from entering your software supply chain.
+- **License Compliance**: Automatically scan for and identify the licenses of your dependencies, ensuring compliance with your organization's policies.
+- **Proactive Threat Mitigation**: Quarantine suspicious or non-compliant packages for manual review before they can be used by developers.
+- **Improved Security Posture**: Gain a comprehensive understanding of the security and license profile of all the artifacts in your repositories.
+- **Automated Policy Enforcement**: Define and enforce security and license policies across your entire organization, ensuring consistency and reducing manual overhead.
+
+### Learn more about related features
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Enterprise Policy Management"
+    description="Define granular, automated policies for vulnerability severity, license compliance, and more."
+    href="/supply-chain-security/epm"
+    icon="utility/documentation"
+    type="simple"
+    width="full"
+    linkText="Rego-based Policies-as-Code"
+  />
+  <Card
+    title="Vulnerability Scans"
+    description="Automatically scan your artifacts for known vulnerabilities and receive detailed reports."
+    href="/repositories"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText="Reduce risks"
+  />
+  <Card
+    title="Package Quarantine"
+    description="Automatically move packages that violate policies to a quarantine repository for further inspection."
+    href="/software-distribution/broadcasts"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText="Start reducing risks."
+  />
+  <Card
+    title="Digital Signatures"
+    description="Verify the integrity and authenticity of your software artifacts."
+    href="/"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText="Verify your packages."
+  />
+</Flex>
+<br></br>
+
+## Software Supply Chain Observability
+
+Regardless of your primary goal, having deep visibility into your software supply chain is crucial. Cloudsmith's observability features provide the insights you need to understand what's happening across your artifact management and distribution workflows. This allows you to monitor usage, troubleshoot issues, and make data-driven decisions.
+
+### Benefits
+
+- **Actionable Insights**: Gain a clear understanding of how your artifacts are being used, who is accessing them, and where potential bottlenecks exist.
+- **Proactive Troubleshooting**: Identify and diagnose issues quickly with detailed logs and event feeds.
+- **Informed Decision-Making**: Use rich metadata and analytics to make better decisions about your software development and distribution strategies.
+- **Comprehensive Audit Trail**: Maintain a complete record of all activities within your repositories for security and compliance purposes.
+- **Integration with Existing Tools**: Feed observability data into your existing monitoring and analytics platforms for a unified view of your operations.
+
+### Learn more about related features
+
+<Flex gap="s" align="stretch">
+  <Card
+    title="Detailed Audit Logs"
+    description="A comprehensive, immutable log of all events that occur within your organization and repositories."
+    href="/logs-and-observability/audit-logs"
+    icon="utility/documentation"
+    type="simple"
+    width="full"
+    linkText="Inspect workspace activity"
+  />
+  <Card
+    title="Client and logs and stats"
+    description="Visualize and analyze data on downloads, bandwidth, and storage."
+    href="/logs-and-observability"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText="Get insights from your supply chain"
+  />
+  <Card
+    title="Webhook Integrations"
+    description="Push real-time event data to your other tools and services."
+    href="/"
+    icon="utility/api"
+    type="simple"
+    width="full"
+    linkText="Integrate with your data pipelines"
+  />
+</Flex>
+<br></br>

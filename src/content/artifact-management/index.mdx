@@ -1,3 +1,84 @@
+import { Note } from '@/components'
+
 # Artifact Management
 
-Placeholder
+With Cloudsmith's our code **Artifact Management** capabilities, you can control the flow of all software components throughout your software development lifecycle. Artifact Management includes operations with both:
+- the artifacts your teams **generate** (like binaries and container images)
+- and the dependencies they **consume** from internal and third-party sources.
+
+These software components and their corresponding metadata are collectively known as **artifacts**. Effective artifact management ensures these critical assets are versioned, secured, and reliably accessible, forming the backbone of a modern software supply chain.
+
+As complexity grows, particularly with popular formats such as Maven and npm, it becomes important to manage packages through a package management system such as Cloudsmith.
+
+## What's a package?
+
+Packages are a logical grouping of files containing software and metadata about the software and its dependencies. Packages are typically versioned to provide a better and more manageable understanding of what software is being deployed.
+
+<Note>
+While related, there's a key difference between artifacts and packages.
+
+An **artifact** is a raw output, like a `.jar` file or a Docker image. A **package** is an artifact bundled with metadata (name, version, dependencies) that tools can understand. Essentially, **all packages are artifacts, but not all artifacts are packages.** This structured metadata is crucial for reliable software deployment. For a more detailed comparison, please see our blog post: [Artifacts vs. Packages: What Is the Difference?](https://cloudsmith.com/blog/artifacts-vs-packages-what-is-the-difference)
+</Note>
+
+Cloudsmith supports packages (and containers) of many types, supporting their native tooling and most popular upstreams. With Cloudsmith, you can automate the publishing and delivery of packages through native interface (e.g using "maven publish"), or through the Cloudsmith CLI, API or manually through the UI.
+
+## What package types are supported?
+
+Our mission is to support the developer community with a best-in-class package management solution that doesn't just cater to the most used formats for development and deployment but brings the same level of control, management, and visibility for every format we add.
+
+For an exhaustive list, visit our [Supported Formats](/formats) page.
+
+## Search Query Syntax
+
+Quickly locate any package using Cloudsmith's advanced search functionality: [Search Query Syntax](/artifact-management/search-filter-sort-packages). The flexible query syntax allows you to combine multiple criteria, such as name, version, and dependencies, to build highly targeted searches.
+
+## Package Actions
+
+You can manage your packages using different tools:
+- Cloudsmith CLI
+- Cloudsmith web app
+- Native tooling (docker, pip, npm, etc.)
+- Cloudsmith API
+
+Here's a list of supported actions with references to learn more about each of them.
+
+| Action                                | Description                                                |
+| :------------------------------------ | :------------------------------------------------------------------------- |
+| [Identification](/artifact-management/identifying-a-package) | Get package ID   |
+| [Upload](/artifact-management/package-upload)          | Publish from your development environment or CI pipeline   |
+| [Download](/artifact-management/download-a-package)    | Download packages and dependencies to any environment      |
+| [Tag](/artifact-management/package-tags)              | Tag a package              |
+| [Copy](/artifact-management/copy-a-package)            | Copy a package from one repository to another              |
+| [Move](/artifact-management/package-move)              | Move a package from one repository to another              |
+| [Delete](/artifact-management/delete-a-package)        | Delete a package from a repository                         |
+| [Quarantine](/artifact-management/package-quarantine)| Package Quarantine |
+| [Resynchronize](/artifact-management/resync-a-package) | Republish (delete/add) a package (usually to retry a package sync failure) |
+| [Share Private](/artifact-management/) | Share a private package |
+| [About Package SBOMs](/artifact-management/sbom/) | Learn how to get your package SBOM and sign it with cosign |
+
+<Note>
+📘 **Promote Packages**
+Cloudsmith allows you to "promote" packages between repositories through either a [move](/artifact-management/package-move) or [copy](/artifact-management/copy-a-package) function, preventing unnecessary uploads/downloads, for an accelerated pipeline.
+</Note>
+
+{/* ## Package Recycle Bin */}
+
+## Package groups
+
+[Package Groups](artifact-management/package-groups) provide a streamlined, high-level overview of your repository by consolidating all component versions into a single entry for each package.
+
+## Retention rules
+
+[Retention rules](artifact-management/retention-rules) automate repository storage management by systematically deleting packages based on configurable criteria for count, size, age, or a filtered search query.
+
+## Artifact Management Policies
+
+### Package Deny policies
+
+Package [deny policy rules](/policy-management/deny-policy) let you control which packages can be downloaded from your workspace's repositories. By defining these rules, organizations can enforce stricter security measures and maintain tighter control over their software artifacts.
+
+### Block Until Scan
+
+[Block Until Scan](/policy-management/block-until-scan) is a security feature designed to enhance the integrity and security of software packages served by Cloudsmith, guaranteeing that all relevant security and compliance policy checks (licenses, vulnerabilities, package deny policies) are fully completed before a package is made available for download.
+
+To learn more about it, browse to [Supply Chain Security > Policies > Block Until Scan](/policy-management/block-until-scan).

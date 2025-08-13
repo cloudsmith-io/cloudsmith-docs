@@ -1,0 +1,13 @@
+# Teams and Accounts Privileges
+
+Cloudsmith provides a powerful and flexible permissions system to ensure you can implement a least-privilege approach for your software supply chain. Access control is managed at three distinct levels: the Workspace, Teams, and individual Repositories.
+
+It is helpful to think of Cloudsmith's permissions as a top-down hierarchy, where settings at a higher level provide defaults that can be refined or overridden by settings at a more specific level.
+
+- [**Workspace Level**](/workspaces/privileges): The broadest level of control. It defines user roles for the entire workspace and sets default permissions that apply to all repositories within it.
+- [**Team-Based Permissions**](/accounts-and-teams/teams): Teams are groups of workspace users. You don't assign privileges to a team directly; instead, you grant a team specific access to a repository. All members of that team then inherit those repository privileges. This is the primary mechanism for managing access for groups of users.
+- [**Repository Level**](/repositories/repository-privileges): The most granular level of control. Here, you can override workspace defaults for a specific repository, grant unique permissions to specific users and teams, and fine-tune what actions are permissible within that repository.
+
+A user's final, **effective privilege** is the greatest privilege granted to them from any of these levels.
+
+To learn more about privileges, visit each of the sections linked above, or complete our [Permissions guide](/guides/managing-permissions).

@@ -1,6 +1,7 @@
 import { Icon } from '@/icons';
 import { quickNavContentId } from '@/lib/constants/quickNav';
 import { QuickNav } from '../QuickNav';
+import { PageInfo } from '../PageInfo';
 
 import styles from './WithQuicknav.module.css';
 
@@ -9,7 +10,7 @@ import styles from './WithQuicknav.module.css';
   See next.config.mjs for the SVG symbol usage.
 */
 
-const WithQuicknav = ({ children }: WithQuicknavProps) => {
+const WithQuicknav = ({ children, showPageInfo = false, path = '', lastUpdated }: WithQuicknavProps) => {
   return (
     <main className={styles.root}>
       <article className={styles.content} id={quickNavContentId}>
@@ -17,7 +18,10 @@ const WithQuicknav = ({ children }: WithQuicknavProps) => {
         {children}
       </article>
       <aside className={styles.nav}>
-        <QuickNav />
+        <div className={styles.navWrapper}>
+          <QuickNav />
+          {showPageInfo && <PageInfo path={path} lastUpdated={lastUpdated} />}
+        </div>
       </aside>
     </main>
   );
@@ -25,6 +29,9 @@ const WithQuicknav = ({ children }: WithQuicknavProps) => {
 
 interface WithQuicknavProps {
   children: React.ReactNode;
+  showPageInfo?: boolean;
+  path?: string;
+  lastUpdated?: string;
 }
 
 export default WithQuicknav;

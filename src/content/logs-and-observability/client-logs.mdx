@@ -47,7 +47,7 @@ The Client Logs area displays the following information:
 
 | Section | Description |
 | :--------------------- | :---------- |
-| Filters | A Filter menu in the left to scope your search by any Target or Actor parameters. Learn more about fields available in [Fields and filters](./#Filters). |
+| Filters | A Filter menu in the left to scope your search by any Target or Actor parameters. Learn more about fields available in [Fields and filters](#filters). |
 | Time-graph | An interactive time-frame graph in the top of the screen to visualize how events distribute across the time-frame selected. Use this visualization to zoom into your data. |
 | Log details | A list of events result from applying the filters to the search. Here you can visualize every single package downloaded from your workspace. You can review a detailed sample entry [here](/logs-and-observability/client-logs#analyzing-a-specific-entry). |
 | Actions | Two action buttons in the top right corner to fetch new data or download a report of events with your selected scope. |
@@ -183,7 +183,7 @@ This section provides information about the entity (user or token) that initiate
 Once you have found what you were looking for, click in the top right corner download button and then confirm the **Download** to get a report of all the download actions in CSV format.
 
 <Note variant="note" headline="Log entries limit">
-  Currently, the system imposes a limit of 500 log entries for download operations.
+  There is a limit of 500 log entries for download operations.
 </Note>
 
 ## FAQs and troubleshooting
@@ -197,9 +197,3 @@ There are two possible reasons:
 ### Why is a repository/user/token field not populated?
 
 Logs only contain anonymous identifiers for certain objects like packages, users, or repositories. So, if the field is empty, it's likely the repository/user/token has been deleted since the download occurred.
-
-{/* 
-- TODO: ask @alison about any product doc with any extra info to add about use cases and user pains solved with this.
-- TODO: ask about retention. @
-- TODO: define what are the different types of events: cache miss events. @paddy
-- TODO: public API support? wait for @John */}

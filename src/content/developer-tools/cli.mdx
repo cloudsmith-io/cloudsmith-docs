@@ -1,0 +1,397 @@
+import { Note } from '@/components'
+
+# Command-Line Interface
+
+The Cloudsmith Command Line Interface (CLI) is a Py2/Py3 text-based interface to the <a href="https://api.cloudsmith.io">API</a>. This allows users, machines and other services to access and integrate smoothly with Cloudsmith without requiring explicit plugins or tools.
+
+## Installation
+
+You can install or deploy the latest CLI application from:
+
+- [Cloudsmith](https://broadcasts.cloudsmith.com/cloudsmith/cli/)
+- [PyPi](https://pypi.python.org/pypi/cloudsmith-cli)
+- [Homebrew Tap](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli)
+- [DockerHub](https://hub.docker.com/r/cloudsmith/cloudsmith-cli)
+
+### Installing with pip
+
+The easiest way is to use `pip`, such as:
+
+```shell
+pip install --upgrade cloudsmith-cli
+```
+
+Or you can get the latest pre-release version from Cloudsmith:
+
+```shell
+pip install --upgrade cloudsmith-cli --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
+```
+### Installing with zipapp
+
+Distributing Python applications can be challenging because, as an interpreted language, Python requires an interpreter to run code, unlike compiled languages that produce standalone executables. However, for smaller, pure-Python programs, a Python Zip application offers a straightforward solution for bundling and sharing your work. This method packages all the necessary code into a single ZIP file.
+
+<Note variant="note" headline="Requirements">
+`python3` required to use this installation method.
+</Note>
+
+```bash
+# download latest release and make it executable
+curl -s https://api.github.com/repos/cloudsmith-io/cloudsmith-cli/releases/latest | sed -n 's/"browser_download_url": //p' | xargs wget -qO cloudsmith.pyz
+chmod +x ./cloudsmith.pyz
+# move it into your $PATH
+sudo mv ./cloudsmith.pyz /usr/local/bin/cloudsmith
+```
+You are ready to use it:
+
+```bash
+cloudsmith -h
+```
+
+### Installing with Homebrew Tap
+
+Homebrew is a package manager that can be [installed](<https://brew.sh/>) and used in different operative systems (MacOS, Linux, and also Windows). To install the Cloudsmith CLI with Brew, add the tap first:
+
+```bash
+brew tap cloudsmith-io/cloudsmith-cli
+```
+
+Then, install it with:
+
+```bash
+brew install cloudsmith-cli
+```
+
+And you should be able to start using it. If you need to upgrade:
+
+```bash
+brew upgrade cloudsmith-cli
+```
+
+For issues with the tap, please open a [GitHub issue](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli/issues/new) or contact [support@cloudsmith.io](mailto:support@cloudsmith.io).
+
+### Installing on Windows
+
+The instructions below detail how to install the Cloudsmith CLI using [chocolatey](https://chocolatey.org/):
+
+1. Click Start on your Windows machine and type “powershell“
+2. Right-click Windows Powershell and select to “Run as Administrator“
+3. To install chocolatey, type the following command into the Powershell terminal:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; `
+  iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
+4. Close and reopen Powershell in Administrator mode.
+5. Install the cloudsmith cli using chocolately:
+
+```powershell
+choco install python -y
+refreshenv
+choco install cloudsmith-cli --source python
+```
+
+### Deploying the CLI containerized
+
+Cloudsmith maintains a [Docker image for the Cloudsmith CLI](https://hub.docker.com/r/cloudsmith/cloudsmith-cli)⁠ built for use in CI/CD pipelines and automation environments.
+
+To deploy it, replace the `API_TOKEN` with the API Token associated to the service account you want to use, specifiying the Cloudsmith CLI command you want to use. For example, you can run `cloudsmith whoami`:
+
+```bash
+docker run --rm \
+-e CLOUDSMITH_API_KEY=API_TOKEN \
+cloudsmith/cloudsmith-cli:1.8.3 \
+whoami
+```
+
+Successful execution of the command above will return the member or service account associated to the API Token used:
+
+```text
+Retrieving your authentication status from the API ... OK
+You are authenticated as:
+M. Bolton (slug: mbolton, email: mbolton@initech.com)
+```
+
+For example, you can use the Cloudsmith CLI container to push a python package to your workspace/repository `WORKSPACE/REPOSITORY`. In this example, the python package `PACKAGE.whl` is located in `/path_to_package/`, and the package is being mounted in the container filesystem in `/tmp/` as `my_package.whl`:
+
+```bash
+docker run --rm \
+-e CLOUDSMITH_API_KEY=API_TOKEN \
+-v "/path_to_package/PACKAGE.whl:/tmp/my_package.whl" \
+cloudsmith/cloudsmith-cli:1.8.3 \
+push python WORKSPACE/REPOSITORY /tmp/my_package.whl 
+```
+
+Successful execution of the command will return:
+
+```text
+Checking python package upload parameters ... OK
+Checking PACKAGE.whl file upload parameters ... OK
+Requesting file upload for PACKAGE.whl ... OK
+Uploading PACKAGE.whl:
+Creating a new python package ... OK
+Created: WORKSPACE/REPOSITORY/PACKAGEwhl (package_slug)
+
+Synchronising PACKAGEwhl:
+
+Package synchronised successfully in 6.001236 second(s)!
+```
+
+### Getting your API Key
+
+You'll need to authenticate Cloudsmith for any CLI actions that result in accessing private data or changing resources (such as pushing a new package to a repository). There are two ways to retrieve your API Key:
+
+**1. Via the Cloudsmith web app**
+
+Go to the [API Key](https://app.cloudsmith.com/settings/api-keys) page in your user settings to view the API Key.
+
+**2. via the Cloudsmith CLI**
+
+You can retrieve your API key using the `cloudsmith login` command:
+
+```bash
+cloudsmith login
+Login: you@example.com
+Password: PASSWORD
+Repeat for confirmation: PASSWORD
+```
+
+<Note variant="note" headline="Use email for login">
+Please ensure you use your email for the 'Login' prompt and not your user slug/identifier.
+</Note>
+
+The resulting output is:
+
+```
+Retrieving API token for 'you@example.com' ... OK
+Your API token is: 1234567890abcdef1234567890abcdef
+```
+
+Once you have your API key, you can put it in your `credentials.ini` file, use it as an environment variable `export CLOUDSMITH_API_KEY=<YOUR_API_KEY>`,  or pass it to the CLI using the `-k <YOUR_API_KEY>` flag.
+
+For convenience, the CLI will ask you if you want to install the default configuration files, complete with your API key, if they don't already exist. Enter `y` or `yes` to create the configuration files. 
+
+If the configuration files already exist, you'll have to put the API key into the configuration files manually, but the CLI will print out their locations.
+
+<Note variant="note" headline="SAML Single Sign On Users">
+SSO Users do not have a Cloudsmith password and cannot use the `cloudsmith login`command to retrieve their API-Key.  
+
+SSO Users should instead use the `cloudsmith auth`command and pass their workspace identifier like:  
+`cloudsmith auth -o my-workspace`
+
+You will then be prompted to complete the SSO login process via your web browser (if not already signed in), and 2FA if applicable. Once authentication is complete, the CLI is issued an access token for your account.
+
+To authenticate in environments without a web browser, such as a remote terminal session, set the CLOUDSMITH_API_KEY environment variable. You can set it for your current session like this:
+
+```bash
+📘 export CLOUDSMITH_API_KEY="your-api-key-here"
+```
+</Note>
+
+## Configuration / Setup
+
+There are two configuration files used by the CLI:
+
+- `config.ini`: For non-credentials configuration.
+- `credentials.ini`: For credentials (authentication) configuration.
+
+By default, the CLI will look for these in the following locations:
+
+- The current working directory.
+- A directory called cloudsmith in the OS-defined application directory. For example:
+
+**Linux**
+
+- `$HOME/.config/cloudsmith`
+- `$HOME/.cloudsmith`
+
+**Mac OS**
+
+- `$HOME/Library/Application Support/cloudsmith`
+- `$HOME/.cloudsmith`
+
+**Windows**
+
+- `C:\Users\<user>\AppData\Local\cloudsmith (Win7+, not roaming)`
+- `C:\Users\<user>\AppData\Roaming\cloudsmith (Win7+, roaming)`
+- `C:\Documents and Settings\<user>\Application Data\cloudsmith (WinXP, not roaming)`
+- `C:\Documents and Settings\<user>\Local Settings\Application Data\cloudsmith (WinXP, roaming)`
+
+### config.ini
+
+You can specify the following configuration options:
+
+`api_host:` The API host to connect to.  
+`api_proxy:` The API proxy to connect through.  
+`api_ssl_verify:` Whether or not to use SSL verification for requests.  
+`api_user_agent:` The user agent to use for requests.
+
+The default config is:
+
+```shell config.ini
+# Default configuration
+[default]
+# The API host to connect to (default: api.cloudsmith.io).
+api_host=
+
+# The API proxy to connect through (default: None).
+api_proxy=
+
+# Whether to verify SSL connection to the API (default: True)
+api_ssl_verify=true
+
+# The user agent to use for requests (default: calculated).
+api_user_agent=
+
+
+# Profile-based configuration
+# You can set as many additional profiles as you need to provide
+# for different configuration environments (e.g. prod vs staging).
+# Add your overrides in the sections and then specify one of:
+#  * -P your-profile-name (as an argument)
+#  * --profile your-profile-name (an an argument)
+#  * CLOUDSMITH_PROFILE=your-profile-name (as an env variable)
+[profile:your-profile-name]
+```
+
+### credentials.ini
+
+You can specify the following configuration options:
+
+`api_key:` The API key for authenticating with the API.
+
+```shell credentials.ini
+# Default configuration
+[default]
+# The API key for authenticating with the API.
+api_key=<YOUR_API_KEY>
+
+
+# Profile-based configuration
+# You can set as many additional profiles as you need to provide
+# for different configuration environments (e.g. prod vs staging).
+# Add your overrides in the sections and then specify one of:
+#  * -P your-profile-name (as an argument)
+#  * --profile your-profile-name (an an argument)
+#  * CLOUDSMITH_PROFILE=your-profile-name (as an env variable)
+[profile:your-profile-name]
+```
+
+## CLI Scripting
+
+The CLI provides a powerful interface for interacting with your packages and repositories in Cloudsmith. However, some operations require additional scripting to achieve the required result. Please see the examples below:
+
+## Copying/Moving Multiple Packages
+
+The CLI supports moving one package at a time. However, it is easy to script a solution for moving multiple packages.
+
+The following command will list all the packages returned by `YOUR-QUERY`. Extract the relevant metadata and run the copy command for each.
+
+```bash
+cloudsmith ls pkg YOUR-ACCOUNT/YOUR-REPO -q 'YOUR-QUERY' -F json \
+  | jq '.data[] | .namespace + "/" + .repository + "/" + .slug' -r \
+  | xargs -Ipackage cloudsmith copy package YOUR-DEST-REPO
+```
+
+<Note>📘 The destination is not qualified by a namespace (YOUR-ACCOUNT). This is because you can only copy/move packages from repositories within the same namespace.</Note>
+
+<Note>
+📘 You can remove the query (YOUR-QUERY) to target all packages. The only downside to this approach is that it might require multiple invocations if you have more packages than the page size limit.
+
+It's possible to navigate pages using -p  and increase the page size limit to 500 using -l 500
+</Note>
+
+### Example 
+The following moves all Maven packages named cloudsmith-api with version 0.21.\*  from `lskillen/test2` to `lskillen/test3` (Permissions permitting obviously).
+
+```bash
+cloudsmith ls pkg lskillen/test2 -q 'format:maven AND name:cloudsmith-api AND version:^0.21' -F json 
+  | jq '.data[] | .namespace + "/" + .repository + "/" + .slug' -r 
+  | xargs -Ipackage cloudsmith copy package test3
+```
+
+## Waiting for a package to complete synchronizing
+
+The `wait_for_package_sync` function below will wait for a package matching the provided query to either complete syncing or fail.
+
+For example `wait_for_package_sync "name:^foo$ AND version:0.0.1"` would wait for a package named `foo` with version `0.0.1` to either successfully complete synchronization, fail or time out after 180 seconds.
+
+The full list of available search parameters can be found in [our documentation on searching and filtering](/artifact-management/search-filter-sort-packages).
+
+```bash
+get_package_identifier() {
+    local query=${1:-""}
+    cloudsmith list packages --output-format json --query "$query" "$ORG/$REPOSITORY" 2> /dev/null | jq '.data[0].slug' | sed -e 's/^"//' -e 's/"$//'
+}
+
+get_package_status() {
+    local identifier=${1:-""}
+    cloudsmith status "$ORG/$REPOSITORY/$identifier" 2> /dev/null
+}
+
+wait_for_package_sync() {
+    local query=${1:-""}
+    local total_time_limit=${2:-180}
+    local identifier=""
+    local package_status=""
+    local total_time=0
+    local identifier=""
+    local package_sync_complete=1
+    local package_sync_failed=0
+    local sleep_time=10
+
+    while [[ $total_time -lt $total_time_limit ]]; do
+        if [[ -z "$identifier" ]] || [[ "$identifier" == "null" ]]; then
+            identifier=$(get_package_identifier "$query")
+            if [[ -z "$identifier" ]] || [[ "$identifier" == "null" ]]; then
+              echo "Waiting for package .. (query: $query)" > /dev/stderr
+              total_time=$((total_time+$sleep_time))
+              sleep $sleep_time
+              continue
+            fi
+        fi
+
+        package_status=$(get_package_status "$identifier")
+
+        echo "$package_status" | grep --quiet 'Completed'
+        package_sync_complete=$?
+
+        echo "$package_status" | grep --quiet 'Failed'
+        package_sync_failed=$?
+
+        if [[ $package_sync_complete -eq 0 ]] || [[ $package_sync_failed -eq 0 ]]; then
+            break
+        fi
+
+        echo "Waiting for package status ... (identifier: $identifier)" > /dev/stderr
+        total_time=$((total_time+$sleep_time))
+        sleep $sleep_time
+    done
+
+    if [[ $total_time -gt $total_time_limit ]]; then
+        echo "Timed out after waiting $total_time seconds for package to sync" > /dev/stderr
+        exit 1
+    fi
+
+    if [[ $package_sync_complete -ne 0 ]]; then
+      echo "Package failed to sync after $total_time seconds" > /dev/stderr
+      exit 1
+    fi
+
+    echo "Package synced successfully after $total_time seconds" > /dev/stderr
+}
+```
+
+# Troubleshooting
+
+When upgrading the Cloudsmith CLI, you may also need to update the Cloudsmith API using: 
+
+```shell
+pip install --upgrade cloudsmith-api
+```
+
+If using a proxy with self-signed / internal TLS Certificates, you may need to point to your custom certs with:
+
+```
+export REQUESTS_CA_BUNDLE=/path/to/converted/certificate.pem
+```

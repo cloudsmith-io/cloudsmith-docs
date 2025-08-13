@@ -1,5 +1,6 @@
 import { Note } from '@/components';
 
+
 # Integrating Codefresh
 
 How to integrate Codefresh CI/CD with Cloudsmith
@@ -10,21 +11,21 @@ How to integrate Codefresh CI/CD with Cloudsmith
 
 Cloudsmith can seamlessly work with Codefresh to authenticate, consume, and publish artifacts from Cloudsmith in your Codefresh CI/CD pipelines.
 
-## Prerequisites:
+## Prerequisites
 
 - **Cloudsmith Account**: Ensure you have an active Cloudsmith account with a repository where your artifacts will be stored.
 - **Codefresh Account**: Ensure you have an active Codefresh account.
-- **Kubernetes Cluster:** A Kubernetes cluster where you can deploy your applications.
+- **Kubernetes Cluster**: A Kubernetes cluster where you can deploy your applications.
 
 ## Artifact management with Cloudsmith and Codefresh
 
 You can manage artifacts between Cloudsmith and Codefresh in several ways:
 
-- **Uploading Packages:**
-  - Use the Cloudsmith [Command-Line Interface](/getting-started/cli).
+- **Uploading Packages**:
+  - Use the Cloudsmith [Command-Line Interface](/developer-tools/cli).
   - Use native package management tools such as Docker, pip gem or cargo.
   - Use Codefresh's native Docker build and push steps for containerized workflows.
-- **Deploying Artifacts:** Deploy Docker images and Helm charts stored in Cloudsmith repositories directly from Codefresh pipelines.
+- **Deploying Artifacts**: Deploy Docker images and Helm charts stored in Cloudsmith repositories directly from Codefresh pipelines.
 
 ## Authentication Options
 
@@ -55,7 +56,7 @@ Codefresh does not support OIDC for Docker integrations natively. You can use OI
 Set up **Codefresh as an OIDC provider** for Cloudsmith. This allows your Codefresh pipelines to request Cloudsmith API tokens dynamically, without manual credential management.
 
 1. **Create a [Service Account](/accounts-and-teams/service-accounts)** in Cloudsmith (required for OIDC to work with Cloudsmith).
-2. **Configure [OpenID Connect](/access-control/openid-connect) in Cloudsmith**:
+2. **Configure [OpenID Connect](/authentication/openid-connect) in Cloudsmith**:
    - Provider URL: `https://oidc.codefresh.io`
    - Claims: For example add your **Codefresh account ID** to restrict access. For more information on claims consult the [Codefresh documentation](https://codefresh.io/docs/docs/integrations/oidc-pipelines/#claims--conditions).
    - Assign the **service account** you created earlier.
@@ -74,7 +75,7 @@ obtain_id_token:
   type: obtain-oidc-id-token
 ```
 
-For more details, refer to the [Cloudsmith OIDC documentation](/access-control/openid-connect) and [Codefresh OIDC documentation](https://codefresh.io/docs/docs/integrations/oidc-pipelines/). 
+For more details, refer to the [Cloudsmith OIDC documentation](/authentication/openid-connect) and [Codefresh OIDC documentation](https://codefresh.io/docs/docs/integrations/oidc-pipelines/). 
 
 #### Example Pipeline: Publish a Python Package to Cloudsmith
 
@@ -129,13 +130,10 @@ For more information consult the [Docker Registry](/formats/docker-registry) or 
 - Add Existing Helm Repository:
   - Click on Add Existing Helm Repository.
   - Repository Name: Enter a unique name (e.g., Cloudsmith Helm).
-  - Repository URL:  
-    https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/helm/charts/
-    - Replace [OWNER] and [REPOSITORY] with your Cloudsmith organization and repository.
-  - HELMREPO_PASSWORD
-    - Add your  Cloudsmith API token.
-  - HELMREPO_USERNAME
-    - Add your Cloudsmith username.
+  - Repository URL: `https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/helm/charts/`
+    - Replace `WORKSPACE` and `REPOSITORY` with your Cloudsmith workspace and repository.
+  - `HELMREPO_PASSWORD`: Add your  Cloudsmith API token.
+  - `HELMREPO_USERNAME`: Add your Cloudsmith username.
 - Save the Repository.
 
 # Deploying Artifacts from Cloudsmith Using Codefresh
@@ -171,6 +169,6 @@ Cloudsmith Documentation:
 
 - [Helm Chart Repository](/formats/helm-chart-repository)
 - [Docker Registry](/formats/docker-registry)
-- [OpenID Connect](/access-control/openid-connect)
-- [ArgoCD](/integrations/argocd)
-- [Octopus Deploy](/integrations/integrating-octopus-deploy)
+- [OpenID Connect](/authentication/openid-connect)
+- [ArgoCD](/integrations/integrating-with-argocd)
+- [Octopus Deploy](/integrations/integrating-with-octopus-deploy)

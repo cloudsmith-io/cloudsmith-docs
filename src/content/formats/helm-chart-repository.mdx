@@ -1,4 +1,5 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
+
 
 # Helm Chart Repository
 
@@ -9,9 +10,9 @@ Cloudsmith provides public & private repositories for Helm Charts
 <Note>
 🚧 **Support for OCI and non-OCI Helm Registries**
 
-While Cloudsmith supports both OCI and non-OCI Helm registries, please note that for Helm OCI support the endpoint is: [helm.oci.cloudsmith.io](helm.oci.cloudsmith.io).
+While Cloudsmith supports both OCI and non-OCI Helm registries, please note that for Helm OCI support the endpoint is: `helm.oci.cloudsmith.io`.
 
-For support on OCI Helm Charts, please refer to our OCI Repository documentation [here](https://help.cloudsmith.io/docs/oci-repository).
+For support on OCI Helm Charts, please refer to our OCI Repository documentation [here](/formats/oci-repository).
 </Note>
 
 
@@ -61,12 +62,12 @@ Please see the [official Chart development](https://helm.sh/docs/developing_char
 </Note>
 
 <Note variant="note" headline="Note">
-OCI support is currently in Early Access. Helm Charts uploaded via OCI will show as "Docker Packages" on Cloudsmith. Helm Charts uploaded via OCI aren't available to download via the classic `Chart.yaml` repository method.
+OCI support is in Early Access. Helm Charts uploaded via OCI will show as "Docker Packages" on Cloudsmith. Helm Charts uploaded via OCI aren't available to download via the classic `Chart.yaml` repository method.
 </Note>
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Helm chart via the Cloudsmith CLI is: 
 
@@ -86,7 +87,7 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 
 ### Example Project
 
-For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later but otherwise, just ask! - we're here to help.
+For examples of what your project should look like for packaging and publishing/uploading, please have a look at our [examples repository](http://github.com/cloudsmith-io/cloudsmith-examples) (on GitHub). We'll supplement these with more detailed guidance later but otherwise, just ask: we're here to help.
 
 ## Download / Install a Chart
 
@@ -226,15 +227,17 @@ Note that this will require the GPG public key of the repository to be installed
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
 
 You can configure upstream Helm repositories that you wish to use for charts that are not available in your Cloudsmith repository. In addition, you can also choose to cache any requested charts for future use.
 
-Please see our [Upstream Proxying](/tbc/upstream-proxying-and-caching) documentation for further instructions.
+Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-blue">GPG</span> <span class="cs-tag cs-tag-purple">Packages</span>
+<Tag variant="blue" theme="legacy">GPG</Tag>
+<Tag variant="purple" theme="legacy">Packages</Tag>
 
 ## Troubleshooting
 

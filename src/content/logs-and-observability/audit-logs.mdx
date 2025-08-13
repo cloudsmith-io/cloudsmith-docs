@@ -4,7 +4,7 @@ import imgiPad_Pro_1 from './images/audit-logs/4e9356d46f85b38b0939a0b3a5a19fbe4
 
 # Audit Logs
 
-Audit Logs provide a log of events across your organization, such as [creating](/repositories/create-a-repository)/[deleting](ref:repos_delete) a repository or modifications to repository settings/configuration. 
+Audit Logs provide a log of events across your organization, such as [creating](/repositories/create-a-repository)/[deleting](/repositories/repository-settings#dangerous-actions) a repository or modifications to repository settings/configuration. 
 
 <BlockImage src={imgiPad_Pro} alt="Audit Logs"></BlockImage>
 
@@ -50,3 +50,128 @@ You can Search and Filter the Audit Log using the search box at the top. You can
   `>=foo` for values greater / equal  
   `<foo` for values less than  
   `<=foo` for values less / equal
+
+## 🔐 Audit Log Event Types (User and Organization)
+
+Cloudsmith tracks a wide range of user and organization-level activities. The following audit events help you monitor security, access control, policy enforcement, and team collaboration across your organization.
+
+| **Event**                           | **Identifier**                            | **Description**                                     | **Content Type** |
+| ----------------------------------- | ----------------------------------------- | --------------------------------------------------- | ---------------- |
+| API Token Refreshed                 | `user.api_token.refreshed`                | A user refreshed their API token.                   | User             |
+| API Token Refresh Enforced          | `user.api_token.enforced_refresh`         | An API token refresh was enforced.                  | User             |
+| API Token Expiry Notified           | `user.api_token.expiring_soon`            | User notified of upcoming API token expiration.     | User             |
+| API Token Expired Notified          | `user.api_token.expired`                  | User notified that their API token has expired.     | User             |
+| Password Updated                    | `user.password.updated`                   | User password was updated.                          | User             |
+| User Login                          | `user.login`                              | User successfully logged in.                        | User             |
+| Service Created                     | `user.service.created`                    | Created a new service user.                         | User             |
+| Service Deleted                     | `user.service.deleted`                    | Deleted a service user.                             | User             |
+| Service Key Refreshed               | `user.service.key_refreshed`              | Refreshed the key for a service user.               | User             |
+| User Deactivated                    | `user.deleted`                            | A user account was deactivated.                     | User             |
+| User Restored                       | `user.restored`                           | A previously deactivated user account was restored. | User             |
+| Member Invited                      | `org.invite.invited`                      | Invited a new member to the organization.           | Org              |
+| Invitation Canceled                 | `org.invite.canceled`                     | Canceled an organization invitation.                | Org              |
+| Invitation Extended                 | `org.invite.extended`                     | Extended an existing invitation.                    | Org              |
+| Invitation Accepted                 | `org.invite.accepted`                     | A user accepted an organization invitation.         | Org              |
+| Member Added                        | `org.member.added`                        | A user was added to the organization.               | Org              |
+| Member Removed                      | `org.member.removed`                      | A user was removed from the organization.           | Org              |
+| OIDC Settings Created               | `org.oidc.created`                        | Created OpenID Connect (OIDC) settings.             | Org              |
+| OIDC Settings Updated               | `org.oidc.updated`                        | Updated OIDC settings.                              | Org              |
+| OIDC Settings Deleted               | `org.oidc.deleted`                        | Deleted OIDC settings.                              | Org              |
+| Organization Deleted                | `org.deleted`                             | Deleted an organization.                            | Org              |
+| Organization Renamed                | `org.renamed`                             | Renamed an organization.                            | Org              |
+| Repo Creation Enabled               | `org.create_repos_enabled`                | Enabled repository creation in the organization.    | Org              |
+| Repo Creation Disabled              | `org.create_repos_disabled`               | Disabled repository creation.                       | Org              |
+| Team Creation Enabled               | `org.create_teams_enabled`                | Enabled creation of new teams.                      | Org              |
+| Team Creation Disabled              | `org.create_teams_disabled`               | Disabled creation of new teams.                     | Org              |
+| Invite Collaborators Enabled        | `org.invite_collaborators_enabled`        | Enabled collaborator invites.                       | Org              |
+| Invite Collaborators Disabled       | `org.invite_collaborators_disabled`       | Disabled collaborator invites.                      | Org              |
+| Invite Users Enabled                | `org.invite_users_enabled`                | Enabled user invites.                               | Org              |
+| Invite Users Disabled               | `org.invite_users_disabled`               | Disabled user invites.                              | Org              |
+| Unredacted Email View Enabled       | `org.view_unredacted_members_enabled`     | Enabled viewing member emails without redaction.    | Org              |
+| Unredacted Email View Disabled      | `org.view_unredacted_members_disabled`    | Disabled viewing member emails without redaction.   | Org              |
+| SCIM Provisioning Allowed           | `org.scim_allowed`                        | Allowed SCIM provisioning.                          | Org              |
+| SCIM Provisioning Blocked           | `org.scim_blocked`                        | Blocked SCIM provisioning.                          | Org              |
+| SAML Login Enabled                  | `org.saml_enabled`                        | Enabled SAML-based login.                           | Org              |
+| SAML Login Disabled                 | `org.saml_disabled`                       | Disabled SAML-based login.                          | Org              |
+| SAML Enforce Enabled                | `org.saml_enforce_enabled`                | Enforced SAML login for all users.                  | Org              |
+| SAML Enforce Disabled               | `org.saml_enforce_disabled`               | Disabled SAML enforcement.                          | Org              |
+| SAML Group Sync Enabled             | `org.saml_group_sync_enabled`             | Enabled SAML group synchronization.                 | Org              |
+| SAML Group Sync Disabled            | `org.saml_group_sync_disabled`            | Disabled SAML group synchronization.                | Org              |
+| Enforce 2FA Enabled                 | `org.enforce_2fa_enabled`                 | Enforced Two-Factor Authentication.                 | Org              |
+| Enforce 2FA Disabled                | `org.enforce_2fa_disabled`                | Disabled 2FA enforcement.                           | Org              |
+| License Policy Created              | `org.policy.license.created`              | Created a package license policy.                   | Org              |
+| License Policy Updated              | `org.policy.license.updated`              | Updated a package license policy.                   | Org              |
+| License Policy Deleted              | `org.policy.license.deleted`              | Deleted a package license policy.                   | Org              |
+| Vulnerability Policy Created        | `org.policy.vulnerability.created`        | Created a vulnerability policy.                     | Org              |
+| Vulnerability Policy Updated        | `org.policy.vulnerability.updated`        | Updated a vulnerability policy.                     | Org              |
+| Vulnerability Policy Deleted        | `org.policy.vulnerability.deleted`        | Deleted a vulnerability policy.                     | Org              |
+| API Key Policy Created              | `org.policy.api.policy_created`           | Created an API key policy.                          | Org              |
+| API Key Policy Deleted              | `org.policy.api.policy_deleted`           | Deleted an API key policy.                          | Org              |
+| API Key Auto-Refresh Enabled        | `org.policy.api.enforce_refresh_enabled`  | Enabled automatic API key refresh.                  | Org              |
+| API Key Auto-Refresh Disabled       | `org.policy.api.enforce_refresh_disabled` | Disabled automatic API key refresh.                 | Org              |
+| API Key Max Age Updated             | `org.policy.api.max_age_changed`          | Changed maximum allowed API key age.                | Org              |
+| Package Deny Policy Created         | `org.policy.deny.created`                 | Created a package deny policy.                      | Org              |
+| Package Deny Policy Updated (Name)  | `org.policy.deny.name_updated`            | Updated deny policy name.                           | Org              |
+| Package Deny Policy Updated (Desc)  | `org.policy.deny.description_updated`     | Updated deny policy description.                    | Org              |
+| Package Deny Policy Updated (Query) | `org.policy.deny.query_updated`           | Updated deny policy query.                          | Org              |
+| Package Deny Policy Enabled         | `org.policy.deny.enabled`                 | Enabled a deny policy.                              | Org              |
+| Package Deny Policy Disabled        | `org.policy.deny.disabled`                | Disabled a deny policy.                             | Org              |
+| Package Deny Policy Deleted         | `org.policy.deny.deleted`                 | Deleted a deny policy.                              | Org              |
+| Team Created                        | `org.team.created`                        | Created a team.                                     | Org              |
+| Team Deleted                        | `org.team.deleted`                        | Deleted a team.                                     | Org              |
+| Team Renamed                        | `org.team.renamed`                        | Renamed a team.                                     | Org              |
+| Team Slug Renamed                   | `org.team.renamed_slug`                   | Changed the team’s slug.                            | Org              |
+| Added to Team                       | `org.team.member_added`                   | Added a user to a team.                             | Org              |
+| Removed from Team                   | `org.team.member_removed`                 | Removed a user from a team.                         | Org              |
+| Team Role Changed                   | `org.team.role_changed`                   | Updated a team member’s role.                       | Org              |
+
+
+
+## 🔐 Audit Log Event Types (Repository)
+
+The following events are logged for repository-level actions, including package changes, key management, entitlement tokens, retention rules, and more.
+
+| **Event**                         | **Identifier**                            | **Description**                                    | **Content Type** |
+| --------------------------------- | ----------------------------------------- | -------------------------------------------------- | ---------------- |
+| Repository Created                | `repo.created`                            | Created a new repository.                          | Repo             |
+| Repository Deleted                | `repo.deleted`                            | Deleted a repository.                              | Repo             |
+| EULA Enforcement Enabled          | `repo.eula_enforcement_enabled`           | Enabled EULA enforcement on a repository.          | Repo             |
+| EULA Enforcement Disabled         | `repo.eula_enforcement_disabled`          | Disabled EULA enforcement on a repository.         | Repo             |
+| Retention Rules Enabled           | `repo.retention_enabled`                  | Enabled retention rules on a repository.           | Repo             |
+| Retention Rules Disabled          | `repo.retention_disabled`                 | Disabled retention rules on a repository.          | Repo             |
+| Retention Days Updated            | `repo.retention_days_updated`             | Updated 'limit by days' rule for retention.        | Repo             |
+| Retention Count Updated           | `repo.retention_count_limit_updated`      | Updated 'limit by count' rule for retention.       | Repo             |
+| Retention Size Updated            | `repo.retention_size_limit_updated`       | Updated 'limit by size' rule for retention.        | Repo             |
+| Retention Group by Name Updated   | `repo.retention_group_by_name_updated`    | Updated retention rule to group by package name.   | Repo             |
+| Retention Group by Format Updated | `repo.retention_group_by_backend_updated` | Updated retention rule to group by package format. | Repo             |
+| Retention Group by Type Updated   | `repo.retention_group_by_type_updated`    | Updated retention rule to group by package type.   | Repo             |
+| Storage Region Updated            | `repo.storage_region_updated`             | Changed the storage region of a repository.        | Repo             |
+| Verify Signatures Enabled         | `repo.verify_signatures_enabled`          | Enabled signature verification for packages.       | Repo             |
+| Verify Signatures Disabled        | `repo.verify_signatures_disabled`         | Disabled signature verification for packages.      | Repo             |
+| Entitlement Tokens Synced         | `repo.token_synced`                       | Synced entitlement tokens for the repository.      | Repo             |
+| Cache Rule Created                | `repo.edge_cache.created`                 | Created a new edge cache rule.                     | Repo             |
+| Cache Rule Deleted                | `repo.edge_cache.deleted`                 | Deleted an edge cache rule.                        | Repo             |
+| Cache Metadata TTL Updated        | `repo.edge_cache.dynamic_ttl_updated`     | Updated metadata TTL for edge caching.             | Repo             |
+| Cache Storage TTL Updated         | `repo.edge_cache.storage_ttl_updated`     | Updated package TTL for edge caching.              | Repo             |
+| Entitlement Token Created         | `repo.entitlement.created`                | Created an entitlement token.                      | Repo             |
+| Entitlement Token Deleted         | `repo.entitlement.deleted`                | Deleted an entitlement token.                      | Repo             |
+| Entitlement Token Enabled         | `repo.entitlement.enabled`                | Enabled an entitlement token.                      | Repo             |
+| Entitlement Token Disabled        | `repo.entitlement.disabled`               | Disabled an entitlement token.                     | Repo             |
+| Entitlement Token Secret Updated  | `repo.entitlement.secret_updated`         | Updated the secret for an entitlement token.       | Repo             |
+| EULA Revision Created             | `repo.eula.created`                       | Created a new EULA revision.                       | Repo             |
+| EULA Revision Deleted             | `repo.eula.deleted`                       | Deleted a EULA revision.                           | Repo             |
+| EULA Content Updated              | `repo.eula.content_updated`               | Updated the content of a EULA revision.            | Repo             |
+| EULA Identifier Updated           | `repo.eula.identifier_updated`            | Updated the identifier of a EULA revision.         | Repo             |
+| GPG Key Created                   | `repo.gpg_key.created`                    | Created a GPG key for the repository.              | Repo             |
+| GPG Key Deleted                   | `repo.gpg_key.deleted`                    | Deleted a GPG key from the repository.             | Repo             |
+| GPG Key Enabled                   | `repo.gpg_key.enabled`                    | Enabled a GPG key.                                 | Repo             |
+| GPG Key Disabled                  | `repo.gpg_key.disabled`                   | Disabled a GPG key.                                | Repo             |
+| GPG Key Set as Default            | `repo.gpg_key.updated_default`            | Set a GPG key as the default for signing.          | Repo             |
+| RSA Key Created                   | `repo.rsa_key.created`                    | Created an RSA key for the repository.             | Repo             |
+| RSA Key Deleted                   | `repo.rsa_key.deleted`                    | Deleted an RSA key from the repository.            | Repo             |
+| RSA Key Enabled                   | `repo.rsa_key.enabled`                    | Enabled an RSA key.                                | Repo             |
+| RSA Key Disabled                  | `repo.rsa_key.disabled`                   | Disabled an RSA key.                               | Repo             |
+| RSA Key Set as Default            | `repo.rsa_key.updated_default`            | Set an RSA key as the default for signing.         | Repo             |
+| Signature Key Created             | `repo.signature_key.created`              | Created a signature key.                           | Repo             |
+| Signature Key Deleted             | `repo.signature_key.deleted`              | Deleted a signature key.                           | Repo             |
+| Signature Key Type Changed        | `repo.signature_key.type_changed`         | Changed the type of a repository signature key.    | Repo             |

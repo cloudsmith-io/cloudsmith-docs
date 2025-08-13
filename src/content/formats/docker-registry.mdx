@@ -1,4 +1,5 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
+
 
 # Docker Registry
 
@@ -7,7 +8,7 @@ Cloudsmith provides public & private registries for Docker images.
  <Video wistiaId="fgbw8fb94o"></Video>
 
 <Note>📘 **OCI SUpport**
-Cloudsmith provides public & private registries for OCI artifacts, to learn more about it visit our [OCI Repository ](https://help.cloudsmith.io/docs/oci-repository) documentation.</Note>
+Cloudsmith provides public & private registries for OCI artifacts, to learn more about it visit our [OCI Repository ](/formats/oci-repository) documentation.</Note>
 
 [Docker](https://www.docker.com/) is an ecosystem used to run packaged software known as containers. A container image is bundled with all of the software and configured to run as an independent process (or collection of processes), and an executing container is isolated from other containers and processes.
 
@@ -31,16 +32,16 @@ For clarity, it's important to note some of the differences between a registry s
 
 Docker defines the following names (this is not the official wording):
 
-- **Layer:** A blob (big object of bytes) containing software and configuration.
-- **Image:** A collection of Docker layers plus metadata that represent an application.
-- **Container:** A running instance of a Docker image in-memory.
-- **Repository:** A collection of Docker images, separated by hashref and version tags.
-- **Registry:** A collection of all Docker repositories, separated by namespaces.
+- **Layer**: A blob (big object of bytes) containing software and configuration.
+- **Image**: A collection of Docker layers plus metadata that represent an application.
+- **Container**: A running instance of a Docker image in-memory.
+- **Repository**: A collection of Docker images, separated by hashref and version tags.
+- **Registry**: A collection of all Docker repositories, separated by namespaces.
 
 For comparison purposes, where terms differ from Cloudsmith:
 
-- **Package:** A specific identifiable and versionable artifact.
-- **Repository:** A collection of versionable artifacts, with multiple allowed per account.
+- **Package**: A specific identifiable and versionable artifact.
+- **Repository**: A collection of versionable artifacts, with multiple allowed per account.
 
 Therefore, based on the above, the following terms are equivalent:
 
@@ -82,7 +83,7 @@ In the following examples:
 ## Upload an Image
 
 <Note variant="note" headline="Note">
-If you have added a [Custom Domain](/getting-started/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
+If you have added a [Custom Domain](/workspaces/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
 </Note>
 
 ### Publish via Docker
@@ -138,7 +139,7 @@ This exports the full contents of the image, including all metadata and layers.
 
 #### Upload via Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Docker image via the Cloudsmith CLI is: 
 
@@ -239,27 +240,29 @@ FROM docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported</span> 
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
 
-Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information. 
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information. 
 
 ## Current Limitations
 
-The Cloudsmith Docker registry implementation currently has the following limitations:
+The Cloudsmith Docker registry implementation has the following limitations:
 
-- Remote layer mounting (for non-distributable layers, such as Windows) is currently not supported.
+- Remote layer mounting (for non-distributable layers, such as Windows) is not supported.
 - Digests for images will not match those pushed to Docker Hub (but layers will match).
 - Digests for offline image uploads (via `docker save`) will not match those from `docker push`.
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-green">Configurable Proxying</span> <span class="cs-tag cs-tag-orange">Caching</span>
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
+<Tag variant="orange" theme="legacy">Caching</Tag>
 
 You can configure upstream Docker registries you wish to use for images. In addition, you can also choose to cache any requested images for future use.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-red">RSA</span> <span class="cs-tag cs-tag-purple">Index</span>
+<Tag variant="red" theme="legacy">RSA</Tag>
+<Tag variant="purple" theme="legacy">Index</Tag>
 
 ## Troubleshooting
 

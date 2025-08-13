@@ -1,4 +1,5 @@
-import { Note, Video } from '@/components';
+import { Tag, Note, Video } from '@/components';
+
 
 # Terraform Modules Repository
 
@@ -10,8 +11,8 @@ Terraform is an infrastructure-as-code tool to provision and manage any cloud, i
 
 For more information on Terraform, please see:
 
-- [Terraform](https://www.terraform.io/): The official website for Terraform
-- [Terraform Documentation](https://www.terraform.io/docs/index.html): The official docs for Terraform
+- [Terraform](https://developer.hashicorp.com/terraform): The official website for Terraform
+- [Terraform Documentation](https://developer.hashicorp.com/terraform/docs): The official docs for Terraform
 
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -35,7 +36,7 @@ In the following examples:
 
 ### Upload via the Cloudsmith CLI or Website
 
-To upload via the Cloudsmith API/CLI, you'll need to generate a module first. While we expect the tooling in this area to improve over time, currently the process is a manual one, and can be a little tricky.
+To upload via the Cloudsmith API/CLI, you'll need to generate a module first.
 
 You can build a package with standard command-line tooling like `tar.` To illustrate the process we'll use the [terraform vault module](https://github.com/hashicorp/terraform-aws-vault) for AWS as an example:
 
@@ -54,12 +55,12 @@ tar --exclude='.terraform' --exclude='*.tfstate*' --exclude='*_override.tf*' -cz
 ```
 
 <Note variant="note" headline="Note">
-Only lowercase alphanumeric characters, underscores and hyphens are supported for the module name. Please see the official [Terraform documentation](https://www.terraform.io/docs/modules/index.html) for more information on building your own modules.
+Only lowercase alphanumeric characters, underscores and hyphens are supported for the module name. Please see the official [Terraform documentation](https://developer.hashicorp.com/terraform/docs) for more information on building your own modules.
 </Note>
 
 #### Upload via Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a Terraform Module via the Cloudsmith CLI is: 
 
@@ -102,7 +103,7 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 
 ### Install a Module
 
-Once configured as above, your module can then depend on a module from your registry by specifying the module's source in your Terraform file(s) using the syntax as outlined by [Terraform](https://www.terraform.io/docs/registry/modules/use.html#private-registry-module-sources):
+Once configured as above, your module can then depend on a module from your registry by specifying the module's source in your Terraform file(s) using the syntax as outlined by [Terraform](https://developer.hashicorp.com/terraform#private-registry-module-sources):
 
 ```
 module "my_module" {
@@ -126,8 +127,6 @@ Once added, terraform will download the module to your project's `.terraform` di
 terraform init
 ```
 
-You can install the latest version of this crate by removing the version variable from its declaration in your source code.
-
 You can upgrade to the most recent version of this module matching your version constraints by running:
 
 ```shell
@@ -136,11 +135,11 @@ terraform init -upgrade=true
 
 ## Upstream Proxying / Caching
 
-<span class="cs-tag cs-tag-dark-grey">Not Supported</span>
+<Tag variant="dark-grey" theme="legacy">Not Supported</Tag>
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-dark-grey">Not Supported by Format</span>
+<Tag variant="dark-grey" theme="legacy">Not Supported by Format</Tag>
 
 ## Troubleshooting
 

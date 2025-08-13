@@ -1,14 +1,16 @@
 .root {
-  --color-neutral-base: var(--base-color-blue-100);
-  --color-neutral-text: var(--base-color-blue-500);
-  --color-green-base: var(--base-color-teal-100);
-  --color-green-text: var(--base-color-teal-300);
-  --color-yellow-base: var(--base-color-yellow-100);
-  --color-yellow-text: var(--base-color-yellow-700);
-  --color-red-base: var(--base-color-red-100);
-  --color-red-text: var(--base-color-red-700);
-  --color-grey-base: var(--base-color-grey-100);
-  --color-grey-text: var(--base-color-grey-500);
+  --color-neutral-base: var(--brand-color-blue-2);
+  --color-neutral-text: var(--brand-color-blue-7);
+  --color-green-base: var(--brand-color-green-2);
+  --color-green-text: var(--brand-color-green-7);
+  --color-yellow-base: var(--brand-color-yellow-2);
+  --color-yellow-text: var(--brand-color-yellow-7);
+  --color-lightyellow-base: var(--brand-color-yellow-1);
+  --color-lightyellow-text: var(--brand-color-yellow-7);
+  --color-red-base: var(--brand-color-red-2);
+  --color-red-text: var(--brand-color-red-7);
+  --color-grey-base: var(--brand-color-grey-2);
+  --color-grey-text: var(--brand-color-grey-7);
 
   display: inline-flex;
   flex-shrink: 0;
@@ -26,16 +28,18 @@
 
 @media (--tablet-down) {
   .root.mobileDarkMode {
-    --color-neutral-base: var(--base-color-blue-600);
-    --color-neutral-text: var(--base-color-blue-200);
-    --color-green-base: var(--base-color-teal-600);
-    --color-green-text: var(--base-color-teal-300);
-    --color-yellow-base: var(--base-color-yellow-800);
-    --color-yellow-text: var(--base-color-yellow-100);
-    --color-red-base: var(--base-color-red-700);
-    --color-red-text: var(--base-color-red-100);
-    --color-grey-base: var(--base-color-grey-500);
-    --color-grey-text: var(--base-color-grey-300);
+    --color-neutral-base: var(--brand-color-blue-7);
+    --color-neutral-text: var(--brand-color-blue-2);
+    --color-green-base: var(--brand-color-green-7);
+    --color-green-text: var(--brand-color-green-2);
+    --color-yellow-base: var(--brand-color-yellow-7);
+    --color-yellow-text: var(--brand-color-yellow-2);
+    --color-lightyellow-base: var(--brand-color-yellow-7);
+    --color-lightyellow-text: var(--brand-color-yellow-2);
+    --color-red-base: var(--brand-color-red-7);
+    --color-red-text: var(--brand-color-red-2);
+    --color-grey-base: var(--brand-color-grey-7);
+    --color-grey-text: var(--brand-color-grey-2);
   }
 }
 
@@ -86,6 +90,16 @@
   }
 }
 
+.lightyellow {
+  --method-bg-color: var(--color-lightyellow-base);
+  --method-text-color: var(--color-lightyellow-text);
+
+  &.active {
+    --method-bg-color: var(--color-lightyellow-text);
+    --method-text-color: var(--color-lightyellow-base);
+  }
+}
+
 .red {
   --method-bg-color: var(--color-red-base);
   --method-text-color: var(--color-red-text);
@@ -104,4 +118,67 @@
     --method-bg-color: var(--color-grey-text);
     --method-text-color: var(--color-grey-base);
   }
+}
+
+
+
+
+/* legacy tags */
+
+.legacy {
+  border-radius: 12px;
+  font-size: .75em;
+  font-weight: 500;
+  padding: 2px 10px 1px 10px;
+  text-decoration: none;
+  transition: background-color .4s;
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  letter-spacing: var(--letter-tags);
+  background-color: var(--method-bg-color);
+  color: var(--method-text-color);
+  font-family: var(--font-family-mono, monospace); /* Use variable, fallback to monospace */
+  line-height: var(--line-height-compact);
+}
+
+.blue {
+  --method-bg-color: #1478FF;
+  --method-text-color: #fff;
+}
+
+.red {
+  --method-bg-color: #c42c4a;
+  --method-text-color: #fff;
+}
+
+.purple {
+  --method-bg-color: #6f6fef;
+  --method-text-color: #fff;
+}
+
+.orange {
+  --method-bg-color: #ea701d;
+  --method-text-color: #fff;
+}
+
+.midnight-blue {
+  --method-bg-color: #021f2f;
+  --method-text-color: #fff;
+}
+
+.dark-grey {
+  --method-bg-color: #9D9D9D;
+  --method-text-color: #fff;
+}
+
+.dark-green {
+  --method-bg-color: #0D4449;
+  --method-text-color: #fff;
+}
+
+.tomato {
+  --method-bg-color: #d43f3a;
+  --method-text-color: #fff;
 }

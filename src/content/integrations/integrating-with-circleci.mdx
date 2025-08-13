@@ -1,4 +1,6 @@
 import { Note, BlockImage, Card, Video } from '@/components';
+
+
 import NoCodeUploadingSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
 import envVarimage from './images/circleci/ciEnvVar.png'
 
@@ -42,7 +44,6 @@ Note that you can check the [releases page on github](https://github.com/cloudsm
 You'll need to configure authentication credentials for the orb if you're not planning to use OIDC to authenticate with. To do so, you can add an environment variable named `CLOUDSMITH_API_KEY` within the CircleCI settings page for your project:
 
 <BlockImage src={envVarimage} alt=""></BlockImage>
-![](https://files.readme.io/c3ed739-Screen_Shot_2019-07-22_at_14.49.16.png "Screen Shot 2019-07-22 at 14.49.16.png")
 
 The orb (for now) requires that you have already built the package you wish to publish. Assuming you're publishing a Python library (though the same process applies to any package type), you'll want to run `setup.py sdist` as a step in your job:
 
@@ -160,4 +161,4 @@ workflows:
 
 ## Support
 
-As always, if you have any questions about integration or would like some general advice, please [contact support](/contact-us).
+As always, if you have any questions about integration or would like some general advice, please [contact support](https://cloudsmith.com/company/contact-us).

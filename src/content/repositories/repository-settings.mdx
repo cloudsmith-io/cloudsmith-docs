@@ -8,21 +8,19 @@ import img_repo_settingsiPad_Pro_3 from './images/repository-settings/751782b2e9
 
 # Repository Settings
 
-<Note variant="note">
-  When changing or modifying any repository settings please be sure to click the blue "Update Settings" button to apply your changes.
-</Note>
-
 ## Repository Name and Description
-
-<BlockImage src={img_rpm_cloudsmith_rpm_example_1_0_1_COhhH8fjPOlhiPad_Pro_2} alt="Repository Name and Description"></BlockImage>
 
 You can change the name or description of a repository at any time. 
 
-Please be aware that the name is just a descriptive name, it is not the repository slug / identifier.  Changing the name of the repository will not result in breaking any configurations used by client programs or other users.
+Please be aware that the name is just a descriptive name, it is not the repository slug / identifier. Changing the name of the repository will not result in breaking any configurations used by client programs or other users.
+
+<BlockImage src={img_rpm_cloudsmith_rpm_example_1_0_1_COhhH8fjPOlhiPad_Pro_2} alt="Repository Name and Description"></BlockImage>
 
 To change the repository slug / identifier, see the section on [Potentially Unsafe Actions](/repositories/repository-settings#potentially-unsafe-actions).
 
-***
+<Note variant="note">
+  When changing or modifying any repository settings please be sure to click the blue "Update Settings" button to apply your changes.
+</Note>
 
 ## Repository Privileges
 
@@ -30,12 +28,12 @@ To change the repository slug / identifier, see the section on [Potentially Unsa
 
 Repository privileges allow you to configure what permissions are required to perform actions on the repository.  
 
-You assign a permission level to a Team or User when you grant them access to the repository (see [Access Controls](/access-controls) for information on granting access to a repository), and then you can set precisely what actions that permission level can perform using the repository privileges
+You assign a permission level to a Team or User when you grant them access to the repository (see [Access Controls](/repositories/repository-privileges#access-control) for information on granting access to a repository), and then you can set precisely what actions that permission level can perform using the repository privileges
 
 For Example:  
 If you wanted a Team or User to only be able to set or use Entitlement Tokens, then you could set the permission level required for **Set/Use Entitlements** to **Read**, and set all other action to **Write** or above.  
 
-Then in the repository [Access Controls](/access-controls), you would set the Team or User to only have **Read** permissions on the repository.  As a result, they would be able to set or use Entitlement Tokens, but would not have permission for any other repository actions.
+Then in the repository [Access Controls](/repositories/repository-privileges#access-control), you would set the Team or User to only have **Read** permissions on the repository.  As a result, they would be able to set or use Entitlement Tokens, but would not have permission for any other repository actions.
 
 ***
 

@@ -1,4 +1,5 @@
-import { Note, Video, BlockImage } from '@/components';
+import { Tag, Note, Video, BlockImage } from '@/components';
+
 
 # Cargo Registry
 
@@ -120,7 +121,7 @@ Remember to rename the variable with your registry name.
 
 ### Upload via the Cloudsmith CLI
 
-For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/getting-started/cli).
+For full details of how to install and setup the Cloudsmith CLI, see [Command Line Interface](/developer-tools/cli).
 
 The command to upload a cargo crate via the Cloudsmith CLI is: 
 
@@ -173,6 +174,10 @@ token = "Token TOKEN"
 credential-provider = "cargo:token"
 ```
 
+<Note variant="note" headline="config.toml">
+Once you’ve configured your credentials in the config.toml file, there’s no need to run cargo login. Cargo will automatically authenticate using the token from the configuration.
+</Note>
+
 ### Cargo \< v1.74 (HTTP Sparse Registry)
 If you are using Cargo version `< 1.74`, the only way to authenticate with a private sparse registry is using Cloudsmith's URL-based authentication.
 
@@ -223,11 +228,17 @@ cargo install PACKAGE_NAME --registry REGISTRY_NAME`
 
 ## Security Scanning
 
-<span class="cs-tag cs-tag-dark-green">Supported.</span> Please see our [Security Scanning](/policy-management/security-scanning) documentation for further information.
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
+
+Please see our [Security Scanning](/policy-management/vulnerability-policy) documentation for further information.
 
 ## Key Signing Support
 
-<span class="cs-tag cs-tag-dark-grey">Not Supported.</span>
+<Tag variant="dark-grey" theme="legacy">Not Supported</Tag>
+
+## Known Limitations
+
+The cargo search command is not supported.
 
 ## Troubleshooting
 
@@ -241,4 +252,4 @@ If you previously set an override for `$CARGO_HOME`, the cache may be in a non-s
 
 ## Still Need Help?
 
-Contact us [here](https://support.cloudsmith.com). We're always happy to help!
+Contact us [here](https://support.cloudsmith.com). We're always happy to help.

@@ -1,3 +1,11 @@
-# Observability and Logging
+# Logs and Observability
 
-Placeholder
+Cloudsmith's observability features provide the tools to understand how your artifacts are being accessed, used, and managed. This section covers the key data sources that enable deep visibility into your artifact management lifecycle.
+
+- [Client Logs](/logs-and-observability/client-logs): these logs are the foundational data layer, capturing the granular, real-time interactions with your repository. They record every request, download, and deployment, providing a detailed view from the perspective of the developer machines and CI/CD pipelines that consume your artifacts. They are invaluable to understand package consumption patterns.
+
+- [Audit Logs](/logs-and-observability/audit-logs): Provides a critical security and compliance perspective of your Workspace. This feature tracks significant events related to governance of your Workspaces and repositories, such as user authentications, permission changes, or modifications to repository settings. This creates an immutable record of "_who did what, and when_" which is fundamental for security forensics and meeting regulatory requirements.
+
+- [Usage](/logs-and-observability/usage): analyzes and aggregates client logs information to provide insights and a general overview of your usage data.
+
+Together, these logging mechanisms offer a comprehensive view of your artifact ecosystem. While this section also touches on advanced capabilities like exporting this data for long-term retention or specialized analysis, the core principle is to provide you with the foundational visibility needed to secure and manage your software supply chain effectively.

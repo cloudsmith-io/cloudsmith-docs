@@ -3,10 +3,10 @@
   text-decoration: none;
   border-radius: var(--border-radius-2xl);
   background-color: var(--color-background-default);
-  border: 1px solid var(--color-background-info);
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  gap: var(--space-s);
+  gap: var(--space-m);
   padding: var(--space-m);
   min-height: 200px;
 }
@@ -33,7 +33,6 @@
 }
 
 .description {
-  font-family: var(--font-family-body);
   padding-bottom: var(--space-2xs);
 }
 
@@ -42,6 +41,7 @@
   align-items: center;
   gap: var(--space-2xs);
   font-family: var(--font-family-headline);
+  margin-top: var(--space-2xs);
 }
 
 /* Size variants */
@@ -82,54 +82,91 @@
 }
 
 .sizeSmall {
-  .title {
-    font-size: var(--text-body-m);
-  }
-
-  .description {
-    font-size: var(--text-body-s);
-  }
-
   .link {
     font-size: var(--text-body-xs);
   }
 }
 
 .sizeMedium {
-  .title {
-    font-size: var(--text-body-l);
-  }
-
-  .description {
-    font-size: var(--text-body-m);
-  }
-
   .link {
     font-size: var(--text-body-s);
   }
 }
 
 .sizeLarge {
-  .title {
-    font-size: var(--text-headline-s);
-  }
-
-  .description {
-    font-size: var(--text-body-m);
-  }
-
   .link {
     font-size: var(--text-body-m);
     justify-content: space-between;
   }
 }
 
-.root:hover .link {
-  text-decoration: underline;
+/* Type variants */
+
+.typeSimple {
+  padding: var(--space-s) var(--space-m);
+  gap: var(--space-2xs);
+  width: 100%;
+  min-height: unset;
+  height: fit-content;
+  position: relative;
+
+  .top,
+  .bottom {
+    max-width: calc(100% - var(--space-xl));
+  }
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+
+  .icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .description {
+    padding-bottom: 0;
+    color: var(--color-text-secondary);
+  }
+
+  .arrow {
+    position: absolute;
+    right: var(--space-m);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--brand-color-grey-7);
+  }
+
+  &:hover {
+    background-color: var(--brand-color-blue-7);
+    color: var(--brand-color-white);
+    border: 1px solid transparent;
+
+    .icon svg {
+      color: var(--brand-color-white);
+    }
+
+    .description {
+      color: var(--brand-color-white);
+      opacity: 0.6;
+    }
+
+    .arrow {
+      color: var(--brand-color-white);
+      opacity: 0.6;
+    }
+  }
 }
 
-.content:has(.description) .link {
-  margin-top: auto;
+.root:hover .link {
+  text-decoration: underline;
 }
 
 .content:not(:has(.description)) {

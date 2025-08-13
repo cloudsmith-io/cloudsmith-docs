@@ -1,11 +1,15 @@
-import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph } from '@/components';
+import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph, Tag, Note } from '@/components';
 import { loadMdxInfo } from '@/lib/markdown/util';
-import { parseSchema, toOperations } from '@/lib/swagger/parse';
+import { parseSchemas, toOperations } from '@/lib/swagger/parse';
 import { toRouteSegments, toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
+import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import WithQuicknav from '@/components/WithQuickNav';
+import { Icon } from '@/icons';
+import { Link } from '@/components';
+import { cx } from 'class-variance-authority';
 
 import styles from './page.module.css';
 
@@ -27,8 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   // For Swagger operations, use the operation details
-  const schema = await parseSchema();
-  const operations = toOperations(schema);
+  const schemas = await parseSchemas();
+  const operations = toOperations(schemas);
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {
@@ -55,8 +59,8 @@ export const generateStaticParams = async () => {
     .map((info) => ({ slug: info.segments }));
 
   // Generate swagger slugs
-  const schema = await parseSchema();
-  const operations = toOperations(schema);
+  const schemas = await parseSchemas();
+  const operations = toOperations(schemas);
   const operationSlugs = operations.map((op) => ({ slug: toRouteSegments(op.slug) }));
 
   return mdxSlugs.concat(operationSlugs);
@@ -70,13 +74,22 @@ const Page = async ({ params }: PageProps) => {
   const content = await loadMdxInfo('api');
   const mdxInfo = content.find((info) => info.slug === qualifiedSlug);
 
+  const pathname = `${qualifiedSlug}`;
+  const menuData = getMenuItem('api');
+  const ancestors = getActiveAncestors(pathname, [menuData]);
+  const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
+
   if (mdxInfo) {
-    const mdxModule = await import(`@/content/${mdxInfo.file}`);
-    const { default: Post } = mdxModule;
-    const lastUpdated = getLastUpdated(mdxModule);
+    const { default: Post } = await import(`@/content/${mdxInfo.file}`);
+    const lastUpdated = await getLastUpdated(mdxInfo);
 
     return (
       <WithQuicknav>
+        {parentTitle ? (
+          <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
+            {parentTitle}
+          </h2>
+        ) : null}
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
@@ -84,15 +97,42 @@ const Page = async ({ params }: PageProps) => {
   }
 
   // Otherwise render as an operation
-  const schema = await parseSchema();
-  const operations = toOperations(schema);
+  const schemas = await parseSchemas();
+  const operations = toOperations(schemas);
   const operation = operations.find((op) => op.slug === qualifiedSlug);
 
   if (operation) {
+    const operationParentTitle =
+      parentTitle ||
+      (operation.menuSegments.length > 1 ? operation.menuSegments[operation.menuSegments.length - 2] : null);
+
     return (
       <div className={styles.root}>
+        {operationParentTitle ? (
+          <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
+            {operationParentTitle}
+          </h2>
+        ) : null}
+        {operation.experimental ? (
+          <Tag variant="lightyellow" className={styles.experimentalTag}>
+            Early access
+          </Tag>
+        ) : null}
         <Heading size="h1">{operation.title}</Heading>
-        {operation.description ? <Paragraph>{operation.description}</Paragraph> : null}
+        <div className={styles.description}>
+          {operation.description && <Paragraph>{operation.description}</Paragraph>}
+          {operation.sandboxLink && (
+            <Link href={operation.sandboxLink} className={cx(styles.sandboxLink, 'bodyS')} target="_blank">
+              <span>Open API Sandbox</span>
+              <Icon name="external" title="Open API Sandbox" />
+            </Link>
+          )}
+        </div>
+        {operation.experimental ? (
+          <Note variant="warning" noHeadline>
+            This endpoint is in early access, and may not be available to you. Contact us to request access
+          </Note>
+        ) : null}
 
         <div className={styles.gridRoot}>
           <Heading size="h2" className={styles.fullWidth}>

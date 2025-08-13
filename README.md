@@ -13,6 +13,7 @@ Then refer to the following guides on how to manage the content of the website:
 - [Writing markdown](./docs/markdown.md)
 - [Using snippets](./docs/snippets.md)
 - [Editing menus](./docs/menus.md)
+- [OopenAPI Schemas](./docs/openapi.md)
 
 ## Getting started
 

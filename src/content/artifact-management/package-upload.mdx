@@ -30,7 +30,7 @@ In the following examples:
 | API-KEY         | Your Cloudsmith API Key                                       |
 | PACKAGE_NAME    | The name of your package                                      |
 | PACKAGE_VERSION | The version number of your package                            |
-| FORMAT          | The package formats e.g. Nuget, Cargo, Raw                    |
+| FORMAT          | The package formats e.g. NuGet, Cargo, Raw                    |
 | DISTRO          | Linux distribution                                            |
 
 
@@ -85,7 +85,7 @@ The response to this PUT req gives you an identifier that you will need for the 
 2. A POST req to create package endpoint 
 
 ```
-https://api.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/FORMAT/
+https://api.cloudsmith.io/packages/OWNER/REPOSITORY/upload/FORMAT/
 ```
 
 Postman is an application used for API testing that we can use to illustrate using the API to upload a raw package. You can install Postman [here](https://www.postman.com/)
@@ -112,7 +112,7 @@ https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
 1. Populate Postman with the POST request (see the image below, highlighted _1_): 
 
 ```
-https://api.cloudsmith.io/v1/packages/OWNER/REPOSITORY/upload/raw/
+https://api.cloudsmith.io/packages/OWNER/REPOSITORY/upload/raw/
 ```
 
 2. Select the ‘Body’ tab and populate it with your JSON:
@@ -172,6 +172,6 @@ There are a few options to consider to get around this today that are commonly u
 
 **Q. If we are pushing from CI (multiple branches) - can the tags like "latest" be set to allow us to set the branch or is the expectation that we would encode the branch in the version? e.g. `1.0.0+bugfix`**
 
-Tags are currently created by us automatically, and they wouldn't influence how a tool like `pip` can retrieve packages. So the way to go here would be to encode the information as Metadata into the version.
+Tags are created by us automatically, and they wouldn't influence how a tool like `pip` can retrieve packages. So the way to go here would be to encode the information as Metadata into the version.
 
 ***
