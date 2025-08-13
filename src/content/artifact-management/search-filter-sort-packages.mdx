@@ -141,7 +141,7 @@ curl -sL "https://api.cloudsmith.io/packages/<MY_WORKSPACE>/<MY_REPO>/" \
 To search packages using the Cloudsmith CLI, you use the `cloudsmith list packages` command in combination with the `-q` option: 
 
 ```shell
-cloudsmith list packages OWNER/REPOSITORY -q "SEARCH_TERMS"
+cloudsmith list packages WORKSPACE/REPOSITORY -q "SEARCH_TERMS"
 ```
 
 **Example**  
@@ -194,7 +194,7 @@ The available sorting options are:
 ## Sorting Packages via the Cloudsmith API
 
 Please see the Cloudsmith full API reference to learn how to:
-- List all of the packages in a [Workspace](/api/packages/org/list) (Organization).
+- List all of the packages in a [Workspace](/api/packages/workspace/list).
 - List all of the packages in a [Repository](/api/packages/list).
 
 Then, use the `sort` option to rank the result by any or many or the sort fields listed in the next section.

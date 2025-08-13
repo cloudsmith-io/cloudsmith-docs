@@ -15,7 +15,7 @@ You can get this either via the CLI or the Cloudsmith web app.
 You can get the Unique ID from the JSON output of the `cloudsmith list packages` command: 
 
 ```shell
-cloudsmith list packages OWNER/REPOSITORY -F pretty_json
+cloudsmith list packages WORKSPACE/REPOSITORY -F pretty_json
 ```
 
 The JSON output from this command includes the field `slug_perm` (Unique ID) 

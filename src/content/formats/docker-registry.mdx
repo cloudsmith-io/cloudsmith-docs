@@ -61,7 +61,7 @@ Referring to the naming differences section above, every Cloudsmith account can 
 As such, it is also not possible to have a global registry of all images on Cloudsmith. This may change in the future as we introduce different forms of Cloudsmith repositories and groupings.
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 
@@ -69,7 +69,7 @@ In the following examples:
 
 | Identifier | Description                                                                               |
 | :--------- | :---------------------------------------------------------------------------------------- |
-| OWNER      | Your Cloudsmith account name or organisation name (namespace)                             |
+| WORKSPACE  | Your Cloudsmith workspace name (or slug)                                                  |
 | REGISTRY   | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN      | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME   | Your Cloudsmith username                                                                  |
@@ -91,13 +91,13 @@ If you have added a [Custom Domain](/workspaces/custom-domains) for Docker, you 
 The endpoint for the native Docker API is:
 
 ```
-https://docker.cloudsmith.io/v2/OWNER/REGISTRY/
+https://docker.cloudsmith.io/v2/WORKSPACE/REGISTRY/
 ```
 
 Or if you're referring to it from `docker` commands:
 
 ```
-docker.cloudsmith.io/OWNER/REGISTRY
+docker.cloudsmith.io/WORKSPACE/REGISTRY
 ```
 
 In order to authenticate for native publishing, you'll need use `docker login`:
@@ -111,7 +111,7 @@ You will be prompted for your Username and Password. Enter your Cloudsmith usern
 To publish an image to a Cloudsmith-based Docker registry, you first need to tag your image:
 
 ```shell
-docker tag IMAGE_NAME:TAG docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+docker tag IMAGE_NAME:TAG docker.cloudsmith.io/WORKSPACE/REGISTRY/IMAGE_NAME:TAG
 ```
 
 <Note variant="note" headline="Note">
@@ -124,7 +124,7 @@ docker tag your-image:latest docker.cloudsmith.io/org/repo/your-image:latest
 You can then publish the tagged image using `docker push`:
 
 ```shell
-docker push docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+docker push docker.cloudsmith.io/WORKSPACE/REGISTRY/IMAGE_NAME:TAG
 ```
 
 ### Upload via the Cloudsmith CLI or Website
@@ -144,13 +144,13 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Docker image via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push docker OWNER/REGISTRY IMAGE_NAME.docker
+cloudsmith push docker WORKSPACE/REGISTRY IMAGE_NAME.docker
 ```
 
 Example: 
 
 ```shell
-cloudsmith push docker org/repo your-image.docker
+cloudsmith push docker my-workspace/my-repo your-image.docker
 ```
 
 #### Upload via Cloudsmith Website
@@ -182,7 +182,7 @@ You need to authenticate via `docker login` to pull images:
 ```shell 
 # Entitlement Token Auth
 docker login docker.cloudsmith.io
-Username: OWNER/REGISTRY
+Username: WORKSPACE/REGISTRY
 Password: TOKEN
 
 Login Succeeded
@@ -200,7 +200,7 @@ Login Succeeded
 ```shell 
 # HTTP Basic Auth (User & Pass)
 docker login docker.cloudsmith.io
-Username: OWNER/REGISTRY
+Username: WORKSPACE/REGISTRY
 Password: PASSWORD
 
 Login Succeeded
@@ -209,7 +209,7 @@ Login Succeeded
 ```shell
 # HTTP Basic Auth (API-Key)
 docker login docker.cloudsmith.io
-Username: OWNER/REGISTRY
+Username: WORKSPACE/REGISTRY
 Password: API-KEY
 
 Login Succeeded
@@ -218,7 +218,7 @@ Login Succeeded
 ```shell
 # HTTP Basic Auth (Token)
 docker login docker.cloudsmith.io
-Username: OWNER/REGISTRY
+Username: WORKSPACE/REGISTRY
 Password: TOKEN
 
 Login Succeeded
@@ -229,13 +229,13 @@ Login Succeeded
 Pulling (downloading) an image from the Cloudsmith Docker registry can be done using the standard `docker pull` command:
 
 ```shell
-docker pull docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+docker pull docker.cloudsmith.io/WORKSPACE/REGISTRY/IMAGE_NAME:TAG
 ```
 
 To refer to this image after pulling in a Dockerfile, specify the following:
 
 ```
-FROM docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
+FROM docker.cloudsmith.io/WORKSPACE/REGISTRY/IMAGE_NAME:TAG
 ```
 
 ## Security Scanning

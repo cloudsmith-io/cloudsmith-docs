@@ -15,14 +15,14 @@ For more information on sbt, please see:
 - [scala-sbt](https://www.scala-sbt.org/): The official sbt website
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                                  |
 | :-------------- | :------------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                                |
+| WORKSPACE           | Your Cloudsmith workspace name                                |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                         |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details)    |
 | USERNAME        | Your Cloudsmith username                                                                     |
@@ -39,7 +39,7 @@ In the following examples:
 The endpoint for the native Maven API is:
 
 ```
-https://maven.cloudsmith.io/OWNER/REPOSITORY/
+https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 By default, Sbt 1.x uses Maven-style publishing and no other plugins are required to publish to Cloudsmith. If you're using Sbt 0.x then you'll need to use the Maven Wagon integration approach (see the integrations tab within the repository on the Cloudsmith website for further details).
@@ -47,7 +47,7 @@ By default, Sbt 1.x uses Maven-style publishing and no other plugins are require
 Include a `publishTo` stanza in your `publish.sbt` file as follows:
 
 ```scala
-publishTo := { Some("Cloudsmith API" at "https://maven.cloudsmith.io/OWNER/REPOSITORY/") }
+publishTo := { Some("Cloudsmith API" at "https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/") }
 pomIncludeRepository := { x => false }
 ```
 
@@ -56,7 +56,7 @@ You then configure a `~/.sbt/.credentials` file with the authentication details 
 ```
 realm=Cloudsmith API
 host=maven.cloudsmith.io
-user=OWNER
+user=WORKSPACE
 password=API-KEY
 ```
 
@@ -99,7 +99,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push maven OWNER/REPOSITORY ARTIFACT_ID-PACKAGE_VERSION.jar --pom-file=ARTIFACT_ID-PACKAGE_VERSION.pom
+cloudsmith push maven WORKSPACE/REPOSITORY ARTIFACT_ID-PACKAGE_VERSION.jar --pom-file=ARTIFACT_ID-PACKAGE_VERSION.pom
 ```
 
 Example:
@@ -121,7 +121,7 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 To enable the retrieval of packages from a public Cloudsmith repository via sbt, add your repository your `build.sbt` file as follows:
 
 ```scala
-resolvers += "NAME" at "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/maven/"
+resolvers += "NAME" at "https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/maven/"
 ```
 
 #### Private Repositories
@@ -138,10 +138,10 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 To enable the retrieval of packages from a private Cloudsmith repository via sbt, add your repository your `build.sbt` file as follows:
 
 ```scala Entitlement Token Authentication
-resolvers += "NAME" at "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/maven/"
+resolvers += "NAME" at "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/maven/"
 ```
 ```scala HTTP Basic Authentication
-resolvers += "NAME" at "https://dl.cloudsmith.io/basic/OWNER/REPOSITIORY/maven/"
+resolvers += "NAME" at "https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITIORY/maven/"
 ```
 
 When using Entitlement Token Authentication, no further setup is required.  

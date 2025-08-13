@@ -19,7 +19,7 @@ In the following examples:
 
 | Identifier   | Description                                                |
 | :----------- | :--------------------------------------------------------- |
-| OWNER        | Your Cloudsmith organisation name (namespace)              |
+| WORKSPACE        | Your Cloudsmith workspace              |
 | REPOSITORY   | Your Cloudsmith Repository identifier (also called "slug") |
 | FORMAT       | The format of the package, i.e "deb", "maven", "npm" etc   |
 | PACKAGE_FILE | The filename of the package                                |
@@ -30,7 +30,7 @@ Add the following as a build step to perform the push to Cloudsmith:
 
 ```shell Jenkins Build Steps using CLI
 pip install cloudsmith-cli
-cloudsmith push FORMAT OWNER/REPOSITORY PACKAGE_FILE
+cloudsmith push FORMAT WORKSPACE/REPOSITORY PACKAGE_FILE
 ```
 
 ### Pipelines Example
@@ -40,7 +40,7 @@ Add the following as a build stage to perform the push to Cloudsmith:
 ```shell Jenkins Pipelines using CLI
 stage "Deploy"
 sh('pip install cloudsmith-cli')
-sh('cloudsmith push FORMAT OWNER/REPOSITORY PACKAGE_FILE')
+sh('cloudsmith push FORMAT WORKSPACE/REPOSITORY PACKAGE_FILE')
 ```
 
 <Note variant="note">

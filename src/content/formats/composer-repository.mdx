@@ -15,14 +15,14 @@ For more information on Composer, please see:
 - [Composer Documentation](https://getcomposer.org/doc/): The official docs for Composer
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -40,7 +40,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Composer package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push composer OWNER/REPOSITORY PACKAGE_NAME.phar
+cloudsmith push composer WORKSPACE/REPOSITORY PACKAGE_NAME.phar
 ```
 
 Example:
@@ -65,7 +65,7 @@ Add the following JSON snippet to your `composer.json` file:
 "repositories": [
   {
     "type": "composer",
-    "url": "https://composer.cloudsmith.io/OWNER/REPOSITORY/",
+    "url": "https://composer.cloudsmith.io/WORKSPACE/REPOSITORY/",
     "options": {
     }
   }
@@ -88,7 +88,7 @@ Add one of the following JSON snippets to your project `composer.json` file:
 "repositories": [
   {
     "type": "composer",
-    "url": "https://composer.cloudsmith.io/TOKEN/OWNER/REPOSITORY/",
+    "url": "https://composer.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/",
     "options": {
     }
   }
@@ -98,7 +98,7 @@ Add one of the following JSON snippets to your project `composer.json` file:
 "repositories": [
   {
     "type": "composer",
-    "url": "https://composer.cloudsmith.io/basic/OWNER/REPOSITORY/",
+    "url": "https://composer.cloudsmith.io/basic/WORKSPACE/REPOSITORY/",
     "options": {
     }
   }
@@ -183,7 +183,7 @@ The following is an example of a complete (but minimal) `composer.json` file wit
   "repositories": [
     {
       "type": "composer",
-      "url": "https://composer.cloudsmith.io/OWNER/REPOSITORY/",
+      "url": "https://composer.cloudsmith.io/WORKSPACE/REPOSITORY/",
       "options": {}
     }
   ],

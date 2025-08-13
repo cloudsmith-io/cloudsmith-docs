@@ -16,7 +16,7 @@ In the following examples:
 
 | Identifier  | Description                                                                               |
 | :---------- | :---------------------------------------------------------------------------------------- |
-| OWNER       | Your Cloudsmith organisation name (namespace)                                             |
+| WORKSPACE       | Your Cloudsmith workspace                                             |
 | REPOSITORY  | Your Cloudsmith Repository identifier (also called "slug")                                |
 | DISTRO      | Your distribution  (i.e el, fedora, debian etc)                                           |
 | VERSION     | Your version name (i.e 7, 29, hardy, buster etc)                                          |
@@ -40,9 +40,9 @@ Example `yum_repository` task:
     name: cloudsmith
     description: Cloudsmith
     file: cloudsmith
-    baseurl: https://dl.cloudsmith.io/public/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    baseurl: https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch
     repo_gpgcheck: yes
-    gpgkey: https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    gpgkey: https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     enabled: yes
   become: true
 ```
@@ -55,9 +55,9 @@ Example `yum_repository` task:
     name: cloudsmith
     description: Cloudsmith
     file: cloudsmith
-    baseurl: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    baseurl: https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch
     repo_gpgcheck: yes
-    gpgkey: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    gpgkey: https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     enabled: yes 
   become: true
 ```
@@ -67,9 +67,9 @@ Example `yum_repository` task:
     name: cloudsmith
     description: Cloudsmith
     file: cloudsmith
-    baseurl: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    baseurl: https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch
     repo_gpgcheck: yes
-    gpgkey: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    gpgkey: https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     username: USERNAME
     password: PASSWORD
     enabled: yes
@@ -81,9 +81,9 @@ Example `yum_repository` task:
     name: cloudsmith
     description: Cloudsmith
     file: cloudsmith
-    baseurl: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    baseurl: https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch
     repo_gpgcheck: yes
-    gpgkey: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    gpgkey: https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     username: USERNAME
     password: API-KEY
     enabled: yes
@@ -95,9 +95,9 @@ Example `yum_repository` task:
     name: cloudsmith
     description: Cloudsmith
     file: cloudsmith
-    baseurl: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch
+    baseurl: https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch
     repo_gpgcheck: yes
-    gpgkey: https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    gpgkey: https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     username: token
     password: TOKEN
     enabled: yes
@@ -128,13 +128,13 @@ Example `apt_key` and `apt_repository` tasks:
 ```yaml
 - name: Import Cloudsmith Repository GPG key
   apt_key:
-    url: https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    url: https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
   become: true
 
 - name: Add Cloudsmith Repository
   apt_repository:
-    repo: deb https://dl.cloudsmith.io/public/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    repo: deb https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/deb/DISTRO VERSION main
     state: present
   become: true
 ```
@@ -144,52 +144,52 @@ Example `apt_key` and `apt_repository` tasks:
 ```yaml Entitlement Token Auth
 - name: Import Cloudsmith Repository GPG key
   apt_key:
-    url: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    url: https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
   become: true
 
 - name: Add Cloudsmith Repository
   apt_repository:
-    repo: deb https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    repo: deb https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/deb/DISTRO VERSION main
     state: present
   become: true
 ```
 ```yaml HTTP Basic Auth (User & Pass)
 - name: Import Cloudsmith Repository GPG key
   apt_key:
-    url: https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    url: https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
   become: true
 
 - name: Add Cloudsmith Repository
   apt_repository:
-    repo: deb https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    repo: deb https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO VERSION main
     state: present
   become: true
 ```
 ```yaml HTTP Basic Auth (API-Key)
 - name: Import Cloudsmith Repository GPG key
   apt_key:
-    url: https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    url: https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
   become: true
 
 - name: Add Cloudsmith Repository
   apt_repository:
-    repo: deb https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    repo: deb https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO VERSION main
     state: present
   become: true
 ```
 ```yaml HTTP Basic Auth (Token)
 - name: Import Cloudsmith Repository GPG key
   apt_key:
-    url: https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
+    url: https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
   become: true
 
 - name: Add Cloudsmith Repository
   apt_repository:
-    repo: deb https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
+    repo: deb https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO VERSION main
     state: present
   become: true
 ```

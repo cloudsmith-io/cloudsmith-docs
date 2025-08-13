@@ -30,14 +30,14 @@ For more information on Helm, please see:
 - [Kubernetes Documentation](https://kubernetes.io/docs): Kubernetes Documentation
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier    | Description                                                                               |
 | :------------ | :---------------------------------------------------------------------------------------- |
-| OWNER         | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE         | Your Cloudsmith workspace name                             |
 | REPOSITORY    | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN         | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME      | Your Cloudsmith username                                                                  |
@@ -72,7 +72,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Helm chart via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push helm OWNER/REPOSITORY CHART_NAME-CHART_VERSION.tgz
+cloudsmith push helm WORKSPACE/REPOSITORY CHART_NAME-CHART_VERSION.tgz
 ```
 
 Example: 
@@ -99,7 +99,7 @@ Assuming you have helm already installed, it is straight-forward to add a Clouds
 
 ```shell
 helm repo add NAME \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/helm/charts/' 
+  'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/helm/charts/' 
 helm repo update
 ```
 
@@ -107,26 +107,26 @@ helm repo update
 
 ```shell Entitlement Token Auth
 helm repo add NAME \
-  'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/helm/charts/' 
+  'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/helm/charts/' 
 helm repo update
 ```
 ```shell HTTP Basic Auth (User & Pass)
 helm repo add NAME \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/helm/charts/'  \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/helm/charts/'  \
   --username USERNAME \
   --password PASSWORD
 helm repo update
 ```
 ```shell HTTP Basic Auth (API-Key)
 helm repo add NAME \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/helm/charts/'  \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/helm/charts/'  \
   --username USERNAME \
   --password API-KEY
 helm repo update
 ```
 ```shell HTTP Basic Auth (Token)
 helm repo add NAME \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/helm/charts/'  \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/helm/charts/'  \
   --username token \
   --password TOKEN
 helm repo update
@@ -208,7 +208,7 @@ Provenance files may be uploaded on the UI as above.
 Provenance files can be passed to the Cloudsmith CLI during a `push`. Please note this requires version `2.0.4` (or later) of the `cloudsmith-api` Python package:
 
 ```shell
-cloudsmith push helm OWNER/REPOSITORY --provenance-file CHART_NAME-CHART_VERSION.tgz.prov CHART_NAME-CHART_VERSION.tgz
+cloudsmith push helm WORKSPACE/REPOSITORY --provenance-file CHART_NAME-CHART_VERSION.tgz.prov CHART_NAME-CHART_VERSION.tgz
 ```
 
 ### Automated Generation of Provenance Files

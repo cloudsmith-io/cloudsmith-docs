@@ -18,7 +18,7 @@ In the following examples:
 
 |Identifier|Description|
 |:---|:---|
-|OWNER|A Cloudsmith organization / workspace / namespace account name|
+|WORKSPACE|A Cloudsmith workspace name|
 |REPO-NAME|A name for your repository. Maximum 50 characters.|
 |REPO-DESC|Description for your Repository|
 |REPO-TYPE|The type of repository - "Public" or "Private"|
@@ -42,7 +42,7 @@ Create a `REPO-CONFIG.json` file with the following:
 You can create then a repository via the [Cloudsmith CLI](/developer-tools/cli) using the following command: 
 
 ```
-cloudsmith repos create OWNER REPO-CONFIG.json
+cloudsmith repos create WORKSPACE REPO-CONFIG.json
 ```
 
 ### Example

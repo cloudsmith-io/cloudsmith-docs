@@ -13,7 +13,7 @@ In the following examples:
 
 | Identifier  | Description                                                                               |
 | :---------- | :---------------------------------------------------------------------------------------- |
-| OWNER       | Your Cloudsmith organisation name (namespace)                                             |
+| WORKSPACE       | Your Cloudsmith workspace                                             |
 | REPOSITORY  | Your Cloudsmith Repository identifier (also called "slug")                                |
 | DISTRO      | Your distribution  (i.e el, fedora, debian etc)                                           |
 | VERSION     | Your version name (i.e 7, 29, hardy, buster etc)                                          |
@@ -36,9 +36,9 @@ Example `yum_repository` resource configurations:
 ```ruby
 yum_repository 'Cloudsmith' do
   description 'Cloudsmith'
-  baseurl 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  baseurl 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
   gpgcheck 'true'
-  gpgkey 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  gpgkey 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
   action :create
 end
 ```
@@ -48,18 +48,18 @@ end
 ```ruby Entitlement Token Auth
 yum_repository 'Cloudsmith' do
   description 'Cloudsmith'
-  baseurl 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  baseurl 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
   gpgcheck 'true'
-  gpgkey 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  gpgkey 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
   action :create
 end
 ```
 ```ruby HTTP Basic Auth (User & Pass)
 yum_repository 'Cloudsmith' do
   description 'Cloudsmith'
-  baseurl 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  baseurl 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
   gpgcheck 'true'
-  gpgkey 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  gpgkey 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
   username 'USERNAME'
   password 'PASSWORD'
   action :create
@@ -68,9 +68,9 @@ end
 ```ruby HTTP Basic Auth (API-Key)
 yum_repository 'Cloudsmith' do
   description 'Cloudsmith'
-  baseurl 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  baseurl 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
   gpgcheck 'true'
-  gpgkey 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  gpgkey 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
   username 'USERNAME'
   password 'API-KEY'
   action :create
@@ -79,9 +79,9 @@ end
 ```ruby HTTP Basic Auth (Token)
 yum_repository 'Cloudsmith' do
   description 'Cloudsmith'
-  baseurl 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
+  baseurl 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/rpm/DISTRO/VERSION/$basearch'
   gpgcheck 'true'
-  gpgkey 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  gpgkey 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
   username 'token'
   password 'TOKEN'
   action :create
@@ -97,11 +97,11 @@ Example `apt_repository` resource configurations:
 
 ```ruby
 apt_repository 'Cloudsmith' do
-  uri          'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/deb/DISTRO'
+  uri          'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/deb/DISTRO'
   arch         'ARCH'
   distribution 'VERSION'
   components   ['main']
-  key          'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  key          'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
 end
 ```
 
@@ -109,37 +109,37 @@ end
 
 ```ruby Entitlement Token Auth
 apt_repository 'Cloudsmith' do
-  uri          'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/deb/DISTRO'
+  uri          'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/deb/DISTRO'
   arch         'ARCH'
   distribution 'VERSION'
   components   ['main']
-  key          'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  key          'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
 end
 ```
 ```ruby HTTP Basic Auth (User & Pass)
 apt_repository 'Cloudsmith' do
-  uri          'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO'
+  uri          'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO'
   arch         'ARCH'
   distribution 'VERSION'
   components   ['main']
-  key          'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  key          'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
 end
 ```
 ```ruby HTTP Basic Auth (API-Key)
 apt_repository 'Cloudsmith' do
-  uri          'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO'
+  uri          'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO'
   arch         'ARCH'
   distribution 'VERSION'
   components   ['main']
-  key          'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  key          'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
 end
 ```
 ```ruby HTTP Basic Auth (Token)
 apt_repository 'Cloudsmith' do
-  uri          'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO'
+  uri          'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO'
   arch         'ARCH'
   distribution 'VERSION'
   components   ['main']
-  key          'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+  key          'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
 end
 ```

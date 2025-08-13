@@ -16,14 +16,14 @@ For more information on Ruby, please see:
 - [Ruby Gem Documentation](https://guides.rubygems.org): The official docs for Ruby Gems
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -51,7 +51,7 @@ This assumes that you've created a `.gemspec` file for your project. Please see 
 The endpoint for the native Ruby API is:
 
 ```
-https://ruby.cloudsmith.io/OWNER/REPOSITORY/
+https://ruby.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 In order to authenticate for native publishing, you can either enter your credentials during the `gem push` command or add your credentials to your `$HOME/.gem/credentials` file:
@@ -70,7 +70,7 @@ To publish a gem, you can do so from your project directory using `gem push`:
 
 ```shell
 gem push PACKAGE_NAME-VERSION.gem \
-  --host 'https://ruby.cloudsmith.io/OWNER/REPOSITORY'
+  --host 'https://ruby.cloudsmith.io/WORKSPACE/REPOSITORY'
 ```
 
 If you haven't specified credentials above, you'll be asked for them during the push.
@@ -86,7 +86,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Ruby gem package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push ruby OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.gem
+cloudsmith push ruby WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.gem
 ```
 
 Example: 
@@ -114,7 +114,7 @@ Bundler from version 1.7 supports scoped sources, so you can install a gem from 
 #### Public Repositories
 
 ```shell
-source 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/' do
+source 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE-NAME', '~> PACKAGE_VERSION'
 end
 ```
@@ -131,22 +131,22 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 </Note>
 
 ```shell Entitlement Token Auth
-source 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/ruby/' do
+source 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE-NAME', '~> PACKAGE_VERSION'
 end
 ```
 ```shell HTTP Basic Auth (User & Pass)
-source 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/' do
+source 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE-NAME', '~> PACKAGE_VERSION'
 end
 ```
 ```shell HTTP Basic Auth (API-Key)
-source 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/' do
+source 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE-NAME', '~> PACKAGE_VERSION'
 end
 ```
 ```shell HTTP Basic Auth (Token)
-source 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/' do
+source 'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE-NAME', '~> PACKAGE_VERSION'
 end
 ```
@@ -158,7 +158,7 @@ You can also add Cloudsmith as a source for the Ruby CLI instead:
 #### Public Repositories
 
 ```shell
-gem sources --add 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/ruby/'
+gem sources --add 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/ruby/'
 ```
 
 #### Private Repositories
@@ -166,16 +166,16 @@ gem sources --add 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/ruby/'
 The Ruby CLI setup method will differ depending on what authentication type you choose to use.
 
 ```shell Entitlement Token Auth
-gem sources --add 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/ruby/'
+gem sources --add 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/ruby/'
 ```
 ```shell HTTP Basic Auth (User & Pass)
-gem sources --add 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/'
+gem sources --add 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/'
 ```
 ```shell HTTP Basic Auth (API-Key)
-gem sources --add 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/'
+gem sources --add 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/'
 ```
 ```shell HTTP Basic Auth (Token)
-gem sources --add 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/'
+gem sources --add 'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/'
 ```
 
 ### Specifying Dependencies
@@ -185,7 +185,7 @@ If you have a project **Gemfile** you can specify your Ruby gem package as a dep
 #### Public Repositories
 
 ```shell
-source 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/ruby/' do
+source 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE_NAME', 'PACKAGE_VERSION'
 end
 ```
@@ -193,22 +193,22 @@ end
 #### Private Repositories
 
 ```shell Entitlement Token Auth
-source 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/ruby/' do
+source 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE_NAME', 'PACKAGE_VERSION'
 end
 ```
 ```shell HTTP Basic Auth (User & Pass)
-source 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/' do
+source 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE_NAME', 'PACKAGE_VERSION'
 end
 ```
 ```shell HTTP Basic Auth (API-Key)
-source 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/' do
+source 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE_NAME', 'PACKAGE_VERSION'
 end
 ```
 ```shell HTTP Basic Auth (Token)
-source 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/ruby/' do
+source 'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/ruby/' do
   gem 'PACKAGE_NAME', 'PACKAGE_VERSION'
 end
 ```

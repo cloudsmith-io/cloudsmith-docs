@@ -26,7 +26,7 @@ In the following examples:
 
 | Identifier   | Description                                                   |
 | :----------- | :------------------------------------------------------------ |
-| OWNER        | Your Cloudsmith account name or organisation name (namespace) |
+| WORKSPACE        | Your Cloudsmith account name or workspace |
 | REPOSITORY   | Your Cloudsmith Repository name (also called "slug")          |
 | FORMAT       | The format of the package, i.e "deb", "maven", "npm" etc      |
 | PACKAGE_FILE | The filename of the package                                   |
@@ -38,7 +38,7 @@ To push an artifact from a build step, you just need to add the commands to inst
 ```yaml
 steps:
   - pip install cloudsmith-cli 
-  - cloudsmith push FORMAT OWNER/REPOSITORY/PACKAGE_FILE
+  - cloudsmith push FORMAT WORKSPACE/REPOSITORY/PACKAGE_FILE
 ```
 
 ### Docker Pipeline Example
@@ -50,14 +50,14 @@ For example, you can use a Docker pipeline with your own Docker image that inclu
 ```yaml
 steps:
 - name: Build and Push Package
-  image: docker.cloudsmith.io/OWNER/REPOSITORY/IMAGE_NAME:latest
+  image: docker.cloudsmith.io/WORKSPACE/REPOSITORY/IMAGE_NAME:latest
   environment:
     CLOUDSMITH_API_KEY:
       from_secret: CLOUDSMITH_API_KEY
   commands:
     - .......
     - .......
-    - cloudsmith push FORMAT OWNER/REPOSITORY/PACKAGE_FILENAME
+    - cloudsmith push FORMAT WORKSPACE/REPOSITORY/PACKAGE_FILENAME
 image_pull_secrets:
  - dockerconfigjson
 ```

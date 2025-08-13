@@ -20,7 +20,7 @@ In the following examples:
 
 |Identifier|Description|
 |:---|:---|
-|OWNER|Your Cloudsmith account name or organization name (namespace)|
+|WORKSPACE|Your Cloudsmith workspace name|
 |REPOSITORY|Your Cloudsmith Repository name (also called "slug")|
 |IDENTIFIER|The unique identifier for an Entitlement Token|
 |TOKEN-NAME|The name of an Entitlement Token|
@@ -31,7 +31,7 @@ In the following examples:
 To view all entitlement tokens for a repository, you use the `cloudsmith ents list` command:
 
 ```shell
-cloudsmith ents list OWNER/REPOSITORY
+cloudsmith ents list WORKSPACE/REPOSITORY
 ```
 
 Example: 
@@ -56,7 +56,7 @@ cloudsmith ents list demo/examples-repo --show-tokens
 To create an entitlement token via the Cloudsmith CLI, you use the `cloudsmith ents` command: 
 
 ```shell
-cloudsmith ents create OWNER/REPOSITORY --name=TOKEN-NAME
+cloudsmith ents create WORKSPACE/REPOSITORY --name=TOKEN-NAME
 ```
 
 Example:
@@ -86,14 +86,14 @@ If you wanted to create a batch of Entitlement Tokens at once, you could script 
 
 ```shell bash
 for I in $(seq 1 10); do
-  cloudsmith ents create OWNER/REPOSITORY --name "Customer $I"
+  cloudsmith ents create WORKSPACE/REPOSITORY --name "Customer $I"
 done
 ```
 
 You could then retrieve a list of all entitlements, plus their tokens with:
 
 ```shell
-cloudsmith ents ls OWNER/REPOSITORY --show-tokens -F json | jq -r '.data[] | "\(.name) = \(.token)"'
+cloudsmith ents ls WORKSPACE/REPOSITORY --show-tokens -F json | jq -r '.data[] | "\(.name) = \(.token)"'
 ```
 
 ## Deleting Entitlement Tokens
@@ -103,7 +103,7 @@ Before you can delete an entitlement token, you need to get the identifier for t
 To delete an entitlement token, you use the `cloudsmith ents delete` command:
 
 ```shell
-cloudsmith ents delete OWNER/REPOSITORY/IDENTIFIER
+cloudsmith ents delete WORKSPACE/REPOSITORY/IDENTIFIER
 ```
 
 Example:
@@ -125,7 +125,7 @@ Refreshing an entitlement token generates a new token, but retains any permissio
 You can refresh an entitlement token using the `cloudsmith ents refresh` command: 
 
 ```shell
-cloudsmith ents refresh OWNER/REPOSITORY/IDENTIFIER
+cloudsmith ents refresh WORKSPACE/REPOSITORY/IDENTIFIER
 ```
 
 Example: 
@@ -144,7 +144,7 @@ The example above shows the **TestToken** before and after using the `cloudsmith
 To modify a token name or the token itself, you use the `cloudsmith ents update` command: 
 
 ```shell
-cloudsmith ents update OWNER/REPOSITORY/IDENTIFIER --name=TOKEN-NAME --token=TOKEN-STRING
+cloudsmith ents update WORKSPACE/REPOSITORY/IDENTIFIER --name=TOKEN-NAME --token=TOKEN-STRING
 ```
 
 Examples: 
@@ -170,7 +170,7 @@ cloudsmith ents update demo/examples-repo/RJol6tyAIssl --token=abcedf123456
 You can synchronise all of the entitlement tokens from one Repository to another Repository using the `cloudsmith ents sync` command: 
 
 ```shell
-cloudsmith ents sync OWNER/TARGET-REPO  SOURCE-REPO
+cloudsmith ents sync WORKSPACE/TARGET-REPO  SOURCE-REPO
 ```
 
 Example:
@@ -198,7 +198,7 @@ If we now list the entitlement tokens in each of these repositories, we can see 
 You can add usage restrictions to a token with the `cloudsmith ents restrict` command:
 
 ```shell
-cloudsmith ents restrict OWNER/REPOSITORY/IDENTIFIER <restriction-flags>
+cloudsmith ents restrict WORKSPACE/REPOSITORY/IDENTIFIER <restriction-flags>
 ```
 
 The available flags that you can add to set restrictions are: 
@@ -239,7 +239,7 @@ You can check the bandwidth usage and token metrics for a repository with the `c
 You can check the total bandwidth usage for a repository with the `cloudsmith metrics tokens` command: 
 
 ```shell
-cloudsmith metrics tokens OWNER/REPOSITORY
+cloudsmith metrics tokens WORKSPACE/REPOSITORY
 ```
 
 Example:
@@ -255,7 +255,7 @@ cloudsmith metrics tokens demo/examples-repo
 To check the bandwidth used by a specific token you add the `--tokens` parameter and the token identifier, or a comma-separated list of token identifiers, to the `cloudsmith metrics tokens` command:
 
 ```shell
-cloudsmith metrics tokens OWNER/REPOSITORY --tokens=IDENTIFIER
+cloudsmith metrics tokens WORKSPACE/REPOSITORY --tokens=IDENTIFIER
 ```
 
 Example: 

@@ -17,14 +17,14 @@ For more information on R, please see:
 
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -52,7 +52,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a R/CRAN package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push cran OWNER/REPOSITORY PACKAGE_NAME_PACKAGE_VERSION.tar.gz
+cloudsmith push cran WORKSPACE/REPOSITORY PACKAGE_NAME_PACKAGE_VERSION.tar.gz
 ```
 
 For a source package:
@@ -90,7 +90,7 @@ To install a package, use the `install.packages` method directly in your R sessi
 ```r
 install.packages(
   "PACKAGE_NAME",
-  repos = c(cloudsmith = "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cran/")
+  repos = c(cloudsmith = "https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cran/")
 )
 ```
 
@@ -107,25 +107,25 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 ```r Entitlement Token Auth
 install.packages(
   "PACKAGE_NAME",
-  repos = c(cloudsmith = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cran/")
+  repos = c(cloudsmith = "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cran/")
 )
 ```
 ```r HTTP Basic Auth (User & Pass)
 install.packages(
   "PACKAGE_NAME",
-  repos = c(cloudsmith = "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cran/")
+  repos = c(cloudsmith = "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cran/")
 )
 ```
 ```r HTTP Basic Auth (API-Key)
 install.packages(
   "PACKAGE-NAME",
-  repos = c(cloudsmith = "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cran/")
+  repos = c(cloudsmith = "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cran/")
 )
 ```
 ```r HTTP Basic Auth (Token)
 install.packages(
   "PACKAGE-NAME",
-  repos = c(cloudsmith = "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cran/")
+  repos = c(cloudsmith = "https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cran/")
 )
 ```
 
@@ -136,7 +136,7 @@ For most use cases, users will probably want to persist their repository setting
 ```r
 print("Configuring CRAN repositories")
 r = getOption("repos")
-r["cloudsmith"] = "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cran/"
+r["cloudsmith"] = "https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cran/"
 r["CRAN"] = "https://cloud.r-project.org"
 options(repos = r)
 rm(r)
@@ -147,7 +147,7 @@ rm(r)
 ```r Entitlement Token Auth
 print("Configuring CRAN repositories")
 r = getOption("repos")
-r["cloudsmith"] = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cran/"
+r["cloudsmith"] = "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cran/"
 r["CRAN"] = "https://cloud.r-project.org"
 options(repos = r)
 rm(r)
@@ -155,7 +155,7 @@ rm(r)
 ```r HTTP Basic Auth (User & Pass)
 print("Configuring CRAN repositories")
 r = getOption("repos")
-r["cloudsmith"] = "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cran/"
+r["cloudsmith"] = "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cran/"
 r["CRAN"] = "https://cloud.r-project.org"
 options(repos = r)
 rm(r)
@@ -163,7 +163,7 @@ rm(r)
 ```r HTTP Basic Auth (API-Key)
 print("Configuring CRAN repositories")
 r = getOption("repos")
-r["cloudsmith"] = "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cran/"
+r["cloudsmith"] = "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cran/"
 r["CRAN"] = "https://cloud.r-project.org"
 options(repos = r)
 rm(r)
@@ -171,7 +171,7 @@ rm(r)
 ```r HTTP Basic Auth (Token)
 print("Configuring CRAN repositories")
 r = getOption("repos")
-r["cloudsmith"] = "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cran/"
+r["cloudsmith"] = "https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cran/"
 r["CRAN"] = "https://cloud.r-project.org"
 options(repos = r)
 rm(r)

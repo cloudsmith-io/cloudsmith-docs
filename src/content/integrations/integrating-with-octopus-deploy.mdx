@@ -71,10 +71,10 @@ Create a new Octopus Feed by navigating to **Library->External Feeds** and selec
 - Enter the HTTP/HTTPS URL of the feed for your Cloudsmith NuGet repository following the instructions in the box below: 
 
 ```text NuGet V3
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 ```text NuGet V2
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2
 ```
 
 Private repositories require authentication- refer to the [section below](#adding-credentials-for-private-repositories) for information on how to add your credentials.
@@ -88,7 +88,7 @@ Create a new Octopus Feed by navigating to **Library->External Feeds** and selec
 - Enter the HTTP/HTTPS URL of the feed for your Cloudsmith Docker repository following the instructions in the box below: 
 
 ```
-https://docker.cloudsmith.io/v2/OWNER/REGISTRY/
+https://docker.cloudsmith.io/v2/WORKSPACE/REGISTRY/
 ```
 
 Private repositories require authentication- refer to the [section below](#adding-credentials-for-private-repositories) for information on how to add your credentials.
@@ -102,10 +102,10 @@ Create a new Octopus Feed by navigating to **Library->External Feeds** and selec
 - Enter the HTTP/HTTPS URL of the feed for your Cloudsmith Maven repository following the instructions in the box below: 
 
 ```text Public URL with no authentication
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/maven/
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/maven/
 ```
 ```text Entitlement Token Authentication
-https://dl.cloudsmith.xyz/TOKEN/OWNER/REPOSITORY/maven/
+https://dl.cloudsmith.xyz/TOKEN/WORKSPACE/REPOSITORY/maven/
 ```
 ```text HTTP Basic Authentication
 https://dl.cloudsmith.io/basic/cloudsmith-test/ciara-repo1/maven/
@@ -122,13 +122,13 @@ Create a new Octopus Feed by navigating to **Library->External Feeds** and selec
 - Enter the HTTP/HTTPS URL of the feed for your Cloudsmith Helm repository following the instructions in the box below:
 
 ```shell Entitlement Token Authentication
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/helm/charts/
+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/helm/charts/
 ```
 ```text Public URL with no authentication
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/helm/charts/
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/helm/charts/
 ```
 ```text
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/helm/charts/
+https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/helm/charts/
 ```
 
 Private repositories require authentication- refer to the [section below](#adding-credentials-for-private-repositories) for information on how to add your credentials.

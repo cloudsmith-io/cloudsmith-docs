@@ -22,14 +22,14 @@ For more information on NuGet, please see:
 - [Introduction to NuGet](https://docs.microsoft.com/en-us/nuget/what-is-nuget): Official guide to getting started with NuGet
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -61,7 +61,7 @@ This generates a nupkg (`.nupkg`) file like `your-package-1.2.3.nupkg` that you 
 The endpoint for the native NuGet API is:
 
 ```
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 You can upload your package using the NuGet CLI or the .NET Core CLI.
@@ -71,7 +71,7 @@ You can publish a nupkg file that you've generated from your project, using [nug
 As a shortcut, you can set up the source (upstream) ahead of time, using `nuget source`:
 
 ```shell
-nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 Then you can publish your package using:
@@ -84,7 +84,7 @@ nuget push PACKAGE_NAME-PACKAGE_VERSION.nupkg -Source example-repo -ApiKey API-K
 You can publish a nupkg file that you've generated from your project, using [dotnet](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet?tabs=netcore21):
 
 ```shell
-dotnet nuget push PACKAGE_NAME-VERSION.nupkg -k API-KEY -s https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+dotnet nuget push PACKAGE_NAME-VERSION.nupkg -k API-KEY -s https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 ### Upload via the Cloudsmith CLI
@@ -94,7 +94,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a NuGet package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push nuget OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.nupkg
+cloudsmith push nuget WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.nupkg
 ```
 
 Example:
@@ -122,21 +122,21 @@ To consume packages in NuGet from a Cloudsmith NuGet Feed , you'll need to confi
 **NuGet CLI**
 
 ```shell
-nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 **.NET Core CLI**  
 When specifying the source in commands via `-s`, use the following URL:
 
 ```
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 **Paket CLI**  
 You can add the source to your `paket.dependencies` file:
 
 ```
-source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 If you don't want to check your username into source control, you can use environment variables instead
@@ -145,7 +145,7 @@ If you don't want to check your username into source control, you can use enviro
 When specifying the source in commands via `-Source`, use the following URL:
 
 ```
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 #### Private Repositories
@@ -162,48 +162,48 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 **NuGet CLI**
 
 ```shell Entitlement Token Auth
-nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username token -Password TOKEN -StorePasswordInClearText
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json -Username token -Password TOKEN -StorePasswordInClearText
 ```
 ```shell HTTP Basic Auth (User & Pass)
-nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username USERNAME -Password PASSWORD -StorePasswordInClearText
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json -Username USERNAME -Password PASSWORD -StorePasswordInClearText
 ```
 ```shell HTTP Basic Auth (API-Key)
-nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username USERNAME -Password API-KEY -StorePasswordInClearText
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json -Username USERNAME -Password API-KEY -StorePasswordInClearText
 ```
 ```shell HTTP Basic Auth (Token)
-nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json -Username token -Password TOKEN -StorePasswordInClearText
+nuget sources add -Name example-repo -Source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json -Username token -Password TOKEN -StorePasswordInClearText
 ```
 
 **.NET Core CLI**  
 When specifying the source in commands via `-s`, use the following URL:
 
 ```shell Entitlement Token Auth
-https://token:TOKEN@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://token:TOKEN@nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 ```shell HTTP Basic Auth (User & Pass)
-https://USERNAME:PASSWORD@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://USERNAME:PASSWORD@nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 ```shell HTTP Basic Auth (API-Key)
-https://USERNAME:API-KEY@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://USERNAME:API-KEY@nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 ```shell HTTP Basic Auth (Token)
-https://token:TOKEN@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://token:TOKEN@nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 **Paket CLI**  
 You can add the source to your `paket.dependencies` file:
 
 ```shell Entitlement Token Auth
-source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "token" password: "TOKEN" authtype: "basic"
+source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json username: "token" password: "TOKEN" authtype: "basic"
 ```
 ```shell HTTP Basic Auth (User & Pass)
-source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "USERNAME" password: "PASSWORD" authtype: "basic"
+source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json username: "USERNAME" password: "PASSWORD" authtype: "basic"
 ```
 ```shell HTTP Basic Auth (API-Key)
-source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "USERNAME" password: "API-KEY" authtype: "basic"
+source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json username: "USERNAME" password: "API-KEY" authtype: "basic"
 ```
 ```shell HTTP Basic Auth (Token)
-source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json username: "token" password: "TOKEN" authtype: "basic"
+source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json username: "token" password: "TOKEN" authtype: "basic"
 ```
 
 If you don't want to check your username into source control, you can use environment variables instead.
@@ -212,16 +212,16 @@ If you don't want to check your username into source control, you can use enviro
 When specifying the source in commands via `-Source`, use the following URL:
 
 ```shell Entitlement Token Auth
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 ```shell HTTP Basic Auth (User & Pass)
-https://USERNAME:PASSWORD@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://USERNAME:PASSWORD@nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 ```shell HTTP Basic Auth (API-Key)
-https://USERNAME:API-KEY@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://USERNAME:API-KEY@nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 ```shell HTTP Basic Auth (Token)
-https://token:TOKEN@nuget.cloudsmith.io/OWNER/REPOSITORY/v3/index.json
+https://token:TOKEN@nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v3/index.json
 ```
 
 ### Install a Package
@@ -237,7 +237,7 @@ nuget install PACKAGE_NAME -Source example-repo -DependencyVersion Highest
 **.NET Core CLI**
 
 ```
-dotnet add package PACKAGE_NAME -s https://nuget.cloudsmith.io/OWNER/REPOSITOY/v3/index.json
+dotnet add package PACKAGE_NAME -s https://nuget.cloudsmith.io/WORKSPACE/REPOSITOY/v3/index.json
 ```
 
 **Paket CLI**

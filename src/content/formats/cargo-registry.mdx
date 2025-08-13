@@ -14,14 +14,14 @@ For more information on Rust, please see:
 - [Crates Public Registry](https://crates.io/): The official Rust community's crate registry
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -42,7 +42,7 @@ A name and URL for the registry must be added to your `.cargo/config` file as fo
 
 ```toml
 [registries]
-REGISTRY_NAME = { index = "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cargo/index.git" }
+REGISTRY_NAME = { index = "https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cargo/index.git" }
 ```
 
 ### Private Repositories
@@ -59,13 +59,13 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 ```toml
 # Entitlement Token Auth
 [registries]
-REGISTRY_NAME = { index = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/index.git" }
+REGISTRY_NAME = { index = "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cargo/index.git" }
 ```
 
 ```toml
 # HTTP Basic Auth
 [registries]
-REGISTRY_NAME = { index = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cargo/index.git" }
+REGISTRY_NAME = { index = "https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cargo/index.git" }
 ```
 
 If using HTTP basic authentication, you'll need to configure Git with credentials. Git's standard authentication mechanisms are used by Cargo and can be configured in the normal way. For example, you could use git's per-user credential store as follows: 
@@ -126,7 +126,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a cargo crate via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push cargo OWNER/REPOSITORY PACKAGE_NAME.crate
+cloudsmith push cargo WORKSPACE/REPOSITORY PACKAGE_NAME.crate
 ```
 
 Example:
@@ -162,14 +162,14 @@ First, the name and config for the registry must be added to your `.cargo/config
 ### Cargo >= v1.74 (HTTP Sparse Registry)
 
 ```toml API Key Auth
-[registries.OWNER-REPOSITORY]
-index = "sparse+https://cargo.cloudsmith.io/OWNER/REPOSITORY/"
+[registries.WORKSPACE-REPOSITORY]
+index = "sparse+https://cargo.cloudsmith.io/WORKSPACE/REPOSITORY/"
 token = "Token API-KEY"
 credential-provider = "cargo:token"
 ```
 ```toml Entitlement Token Auth
-[registries.OWNER-REPOSITORY]
-index = "sparse+https://cargo.cloudsmith.io/OWNER/REPOSITORY/"
+[registries.WORKSPACE-REPOSITORY]
+index = "sparse+https://cargo.cloudsmith.io/WORKSPACE/REPOSITORY/"
 token = "Token TOKEN"
 credential-provider = "cargo:token"
 ```
@@ -182,19 +182,19 @@ Once you’ve configured your credentials in the config.toml file, there’s no 
 If you are using Cargo version `< 1.74`, the only way to authenticate with a private sparse registry is using Cloudsmith's URL-based authentication.
 
 ```toml Entitlement Token Auth
-[registries.OWNER-REPOSITORY]
-index = "sparse+https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/"
+[registries.WORKSPACE-REPOSITORY]
+index = "sparse+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cargo/"
 ```
 
 ### Cargo < v1.68 (Legacy Git Registry)
 
 ```toml HTTP Basic Auth (API-Key)
 [registries]
-OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cargo/index.git" }
+WORKSPACE-REPOSITORY = { index = "https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cargo/index.git" }
 ```
 ```toml URL Auth (Entitlement Token)
 [registries]
-OWNER-REPOSITORY = { index = "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cargo/index.git" }
+WORKSPACE-REPOSITORY = { index = "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cargo/index.git" }
 ```
 
 ### Registry Authentication

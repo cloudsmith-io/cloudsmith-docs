@@ -19,14 +19,14 @@ For more information on Python, please see:
 - [PyPi](https://pypi.org): The Python Package Index
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -57,7 +57,7 @@ This assumes that you've created a `setup.py` file for your project. Please see 
 The endpoint for the native Python API is:
 
 ```
-https://python.cloudsmith.io/OWNER/REPOSITORY/
+https://python.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 In order to authenticate for native publishing, you'll need to create a `.pypirc` file (in your `$HOME` or project directory), with the following:
@@ -68,7 +68,7 @@ index-servers =
   pypi
   cloudsmith
 [cloudsmith]
-  repository: https://python.cloudsmith.io/OWNER/REPOSITORY/
+  repository: https://python.cloudsmith.io/WORKSPACE/REPOSITORY/
   username: USERNAME
   password: API-KEY
 ```
@@ -86,7 +86,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Python package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push python OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.whl
+cloudsmith push python WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.whl
 ```
 
 Example: 
@@ -115,7 +115,7 @@ You have a choice of 2 methods to set up your Cloudsmith repository:
 Tell pip the location of your Cloudsmith repository using the the `--index-url` option.
 
 ```shell
-pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://dl.cloudsmith.io/public/OWNER/REPOSITORY/python/simple/
+pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/python/simple/
 ```
 
 ##### Set up via Pip
@@ -123,7 +123,7 @@ pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://dl.cloudsmith.io/p
 Similar to set up via command-line, pip needs to be passed the `--index-url` configuration option. To do this add `--index-url` to the top of your `requirements.txt` (or similar) file:
 
 ```
---index-url https://dl.cloudsmith.io/public/OWNER/REPOSITORY/python/simple/
+--index-url https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/python/simple/
 PACKAGE_NAME==PACKAGE_VERSION
 ```
 
@@ -140,16 +140,16 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 ##### Set up via command line
 
 ```shell Entitlement Token Auth
-pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/python/simple/
+pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/python/simple/
 ```
 ```shell HTTP Basic Auth (User & Pass)
-pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/
+pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/python/simple/
 ```
 ```shell HTTP Basic Auth (API-Key)
-pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/
+pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/python/simple/
 ```
 ```shell HTTP Basic Auth (Token)
-pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/
+pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/python/simple/
 ```
 
 ##### Set up via Pip
@@ -157,19 +157,19 @@ pip install PACKAGE_NAME==PACKAGE_VERSION --index-url https://token:TOKEN@dl.clo
 Similar to set up via command-line, pip needs to be passed the `--index-url` configuration option. To do this add `--index-url` to the top of your `requirements.txt` (or similar) file:
 
 ```text Entitlement Token Auth
---index-url https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/python/simple/
+--index-url https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/python/simple/
 PACKAGE_NAME==PACKAGE_VERSION
 ```
 ```text HTTP Basic Auth (User & Pass)
---index-url https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/
+--index-url https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/python/simple/
 PACKAGE_NAME==PACKAGE_VERSION
 ```
 ```text HTTP Basic Auth (API-Key)
---index-url https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/
+--index-url https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/python/simple/
 PACKAGE_NAME==PACKAGE_VERSION
 ```
 ```text HTTP Basic Auth (Token)
---index-url https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/
+--index-url https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/python/simple/
 PACKAGE_NAME==PACKAGE_VERSION
 ```
 
@@ -225,7 +225,7 @@ uv pip install build
 
 #### Create project assets
 
-Let's start defining a new `pyproject.toml` file for your project. Replace `OWNER`, `REPOSITORY` with your own Cloudsmith Workspace and Repository names:
+Let's start defining a new `pyproject.toml` file for your project. Replace `WORKSPACE`, `REPOSITORY` with your own Cloudsmith Workspace and Repository names:
 
 ```toml
 [project]
@@ -238,9 +238,9 @@ dependencies    = [
 
 [[tool.uv.index]]
 name = "cloudsmith"
-url  = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/"
+url  = "https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/python/simple/"
 # optional, but recommended for publish:
-publish-url = "https://python.cloudsmith.io/OWNER/REPOSITORY/"
+publish-url = "https://python.cloudsmith.io/WORKSPACE/REPOSITORY/"
 ```
 
 Then, define the next environmental variables for `uv` to perform basic HTTP Auth. Replace `API-KEY` with your user API Token:

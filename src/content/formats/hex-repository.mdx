@@ -16,14 +16,14 @@ For more information on Hex, please see:
 - [Publishing a Hex package](https://hex.pm/docs/publish): How to Publish a Hex package.
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -46,12 +46,12 @@ Assuming you have mix already installed, it is straightforward to add a Cloudsmi
 
 ### Add and Configure a Cloudsmith Repository
 
-First, you'll need to set some environment variables to assist in the process, replacing OWNER with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository:
+First, you'll need to set some environment variables to assist in the process, replacing WORKSPACE with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository:
 
 ```shell
 export CLOUDSMITH_API_KEY='YOUR-API-KEY'
 export CLOUDSMITH_API_HOST='https://api.cloudsmith.io'
-export CLOUDSMITH_REPOSITORY='OWNER/REPOSITORY'
+export CLOUDSMITH_REPOSITORY='WORKSPACE/REPOSITORY'
 ```
 
 While documented as optional, it's necessary to obtain the repository's fingerprint via Cloudsmith's API. This fingerprint ensures secure communication between your project and Cloudsmith.
@@ -90,13 +90,13 @@ To configure your Hex package for publishing to your Cloudsmith repository, foll
 ```shell
 defp hex do
     [
-      api_url: "https://hex.cloudsmith.io/OWNER/REPOSITORY",
+      api_url: "https://hex.cloudsmith.io/WORKSPACE/REPOSITORY",
       api_key: "API-KEY"
     ]
   end
 ```
 
-Replace OWNER with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository. Additionally, replace API-KEY with your Cloudsmith API key.
+Replace WORKSPACE with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository. Additionally, replace API-KEY with your Cloudsmith API key.
 
 Next, integrate with Mix Tasks: After adding the defp function, the project function needs to have the hex and project variables defined. 
 
@@ -138,10 +138,10 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Hex package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push hex OWNER/REPOSITORY PACKAGE_NAME.tar
+cloudsmith push hex WORKSPACE/REPOSITORY PACKAGE_NAME.tar
 ```
 
-Replace OWNER with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository.
+Replace WORKSPACE with your Cloudsmith account's organization and REPOSITORY with the name of your Cloudsmith repository.
 
 ### Upload via Cloudsmith web app
 

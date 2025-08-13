@@ -23,7 +23,7 @@ You will need to update the distribution and dependency values in the POM for ea
 The endpoint for the native Maven API is:
 
 ```
-https://maven.cloudsmith.io/OWNER/REPOSITORY/
+https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 ### Update your distributionManagement
@@ -36,11 +36,11 @@ The distribution repositories define where to push your artifacts. In this case 
 <distributionManagement>
   <snapshotRepository>
     <id>NAME</id>
-    <url>https://maven.cloudsmith.io/OWNER/REPOSITORY/</url>
+    <url>https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/</url>
   </snapshotRepository>
   <repository>
     <id>NAME</id>
-    <url>https://maven.cloudsmith.io/OWNER/REPOSITORY/</url>
+    <url>https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/</url>
   </repository>
 </distributionManagement>
 ```

@@ -19,14 +19,14 @@ For more information on Dart, please see:
 - [Pub.dev](https://pub.dev/): The official public repository for Dart packages
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -47,21 +47,21 @@ Please note that Dart SDK >= 2.15 is required to use Dart Repositories.
 The endpoint for the native Dart API is:
 
 ```
-https://dart.cloudsmith.io/OWNER/REPOSITORY/
+https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 Your project `pubspec.yaml` defines the location that artifacts should be published to. Add the following to the root of this file:
 
 ```yaml
-publish_to: https://dart.cloudsmith.io/OWNER/REPOSITORY/
+publish_to: https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 In order to authenticate for native publishing, you'll need run `dart pub token`, as follows:
 
 ```shell
-echo 'API-KEY' | dart pub token add https://dart.cloudsmith.io/OWNER/REPOSITORY/
+echo 'API-KEY' | dart pub token add https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 Enter secret token:
-Requests to "https://dart.cloudsmith.io/OWNER/REPOSITORY/" will now be authenticated using the secret token.
+Requests to "https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/" will now be authenticated using the secret token.
 ```
 
 You can then publish from your project directory using `dart pub publish`:
@@ -103,7 +103,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Dart package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push dart OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tgz
+cloudsmith push dart WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tgz
 ```
 
 Example:
@@ -129,24 +129,24 @@ No further setup is required with public repositories, you can add a dependency 
 In order to authenticate, you need to run `dart pub token`, as follows:
 
 ```shell Entitlement Token Auth
-echo 'TOKEN' | dart pub token add https://dart.cloudsmith.io/OWNER/REPOSITORY/
+echo 'TOKEN' | dart pub token add https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 Enter secret token:
-Requests to "https://dart.cloudsmith.io/OWNER/REPOSITORY/" will now be authenticated using the secret token.
+Requests to "https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/" will now be authenticated using the secret token.
 ```
 ```yaml HTTP Basic Auth (User & Pass)
-echo 'PASSWORD' | dart pub token add https://dart.cloudsmith.io/OWNER/REPOSITORY/
+echo 'PASSWORD' | dart pub token add https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 Enter secret token:
-Requests to "https://dart.cloudsmith.io/OWNER/REPOSITORY/" will now be authenticated using the secret token.
+Requests to "https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/" will now be authenticated using the secret token.
 ```
 ```yaml HTTP Basic Auth (API-Key)
-echo 'API-KEY' | dart pub token add https://dart.cloudsmith.io/OWNER/REPOSITORY/
+echo 'API-KEY' | dart pub token add https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 Enter secret token:
-Requests to "https://dart.cloudsmith.io/OWNER/REPOSITORY/" will now be authenticated using the secret token.
+Requests to "https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/" will now be authenticated using the secret token.
 ```
 ```yaml HTTP Basic Auth (Token)
-echo 'TOKEN' | dart pub token add https://dart.cloudsmith.io/OWNER/REPOSITORY/
+echo 'TOKEN' | dart pub token add https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 Enter secret token:
-Requests to "https://dart.cloudsmith.io/OWNER/REPOSITORY/" will now be authenticated using the secret token.
+Requests to "https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/" will now be authenticated using the secret token.
 ```
 
 ## Installing a package
@@ -156,7 +156,7 @@ Requests to "https://dart.cloudsmith.io/OWNER/REPOSITORY/" will now be authentic
 **Public Or Private Repositories**
 
 ```shell
-dart pub add PACKAGE_NAME:PACKAGE_VERSION --hosted-url https://dart.cloudsmith.io/OWNER/REPOSITORY/
+dart pub add PACKAGE_NAME:PACKAGE_VERSION --hosted-url https://dart.cloudsmith.io/WORKSPACE/REPOSITORY/
 Resolving dependencies...
 + your-package 1.2.3
 Downloading your-package 1.2.3...

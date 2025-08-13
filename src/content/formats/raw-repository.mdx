@@ -17,7 +17,7 @@ Cloudsmith provides public & private repositories for Raw files
 Cloudsmith supports "Raw" files. Any file, any extension, suitable for datasets, images or whatever you want to throw at it. You get all the benefits of a Cloudsmith repository such as CLI uploads for automation, fine-grained access controls and logging/statistics (among others) - but for any file type at all. 
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 <Note variant="note" headline="Note">
@@ -28,7 +28,7 @@ In the following examples:
 
 | Identifier | Description                                                                               |
 | :--------- | :---------------------------------------------------------------------------------------- |
-| OWNER      | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE      | Your Cloudsmith workspace name                             |
 | REPOSITORY | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN      | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME   | Your Cloudsmith username                                                                  |
@@ -51,7 +51,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push raw OWNER/REPOSITORY FILENAME
+cloudsmith push raw WORKSPACE/REPOSITORY FILENAME
 ```
 
 Example:
@@ -94,16 +94,16 @@ This URL is in the following formats; it varies based on if you uploaded the raw
 #### Public Repositories
 
 ```text Package Version
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/versions/VERSION_NO/FILENAME
 ```
 ```text Package Name and Version
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/names/NAME/versions/VERSION_NO/FILENAME
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/names/NAME/versions/VERSION_NO/FILENAME
 ```
 ```text Package Name
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/names/NAME/files/FILENAME
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/names/NAME/files/FILENAME
 ```
 ```text None
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/files/FILENAME
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/files/FILENAME
 ```
 
 Some example `curl` commands to download a raw package from a public repository:
@@ -111,19 +111,19 @@ Some example `curl` commands to download a raw package from a public repository:
 A package with no package name or version specified at upload
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/files/FILENAME'
+curl -1sLf -O 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/files/FILENAME'
 ```
 
 A specific version of a package 
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
+curl -1sLf -O 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
 ```
 
 The latest version of the package
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/versions/latest/FILENAME'
+curl -1sLf -O 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/versions/latest/FILENAME'
 ```
 
 #### Private Repositories
@@ -140,37 +140,37 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 Raw Package uploaded with a version number:
 
 ```shell Entitlement Token Auth
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME
+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/versions/VERSION_NO/FILENAME
 ```
 ```shell HTTP Basic Auth
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
+https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
 ```
 
 Raw Package uploaded with a package name and version number:
 
 ```shell Entitlement Token Auth
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/names/NAME/versions/VERSION_NO/FILENAME
+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/names/NAME/versions/VERSION_NO/FILENAME
 ```
 ```shell HTTP Basic Auth
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/names/NAME/versions/VERSION_NO/FILENAME'
+https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/raw/names/NAME/versions/VERSION_NO/FILENAME'
 ```
 
 Raw Package uploaded with a package name 
 
 ```shell Entitlement Token Auth
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/names/NAME/files/FILENAME
+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/names/NAME/files/FILENAME
 ```
 ```shell HTTP Basic Auth
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/names/NAME/files/FILENAME
+https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/raw/names/NAME/files/FILENAME
 ```
 
 Raw Package uploaded without a package name or version number
 
 ```shell Entitlement Token Auth
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/files/FILENAME
+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/files/FILENAME
 ```
 ```shell HTTP Basic Auth
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/files/FILENAME
+https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/raw/files/FILENAME
 ```
 
 Some example `curl` commands to download a raw package from a private repository:
@@ -178,13 +178,13 @@ Some example `curl` commands to download a raw package from a private repository
 A package with no package name or version specified at upload using HTTP basic authentication:
 
 ```shell
-curl -1sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/files/FILENAME'
+curl -1sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/raw/files/FILENAME'
 ```
 
 A specific version of a package using Entitlement Token authentication:
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
+curl -1sLf -O 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
 ```
 
 ## HTML / JSON Indexes
@@ -196,16 +196,16 @@ When enabled, the HTML index is available at:
 #### Public Repositories
 
 ```
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/
 ```
 
 #### Private Repositories
 
 ```shell Entitlement Token Auth
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/
+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/
 ```
 ```shell HTTP Basic Auth
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/
+https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/raw/
 ```
 
 The JSON index is available at: 
@@ -213,16 +213,16 @@ The JSON index is available at:
 #### Public Repositories
 
 ```
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/index.json
+https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/raw/index.json
 ```
 
 #### Private Repositories
 
 ```shell Entitlement Token Auth
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/index.json
+https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/index.json
 ```
 ```shell HTTP Basic Auth (User & Pass)
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/index.json
+https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/raw/index.json
 ```
 
 ***
@@ -260,7 +260,7 @@ JSON indexes will attach the package signature URL and checksum values under the
          "name" : "PACKAGE_NAME",
          "signature" : {
             "checksum_sha256" : "SIGNATURE_CHECKSUM",
-            "url" : "https://dl.cloudsmith.io/TOKEN/OWNER/REPO/PACKAGE_IDENTIFIER/gpg.FILE_IDENTIFIER.asc"
+            "url" : "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPO/PACKAGE_IDENTIFIER/gpg.FILE_IDENTIFIER.asc"
          },
          ...
       }
@@ -276,10 +276,10 @@ For convenience, each of the file URLs listed above in 'Download a Package' can 
 FILENAME="foo.zip"
 
 # Retreive a file
-curl -1sLf -O https://dl.cloudsmith.io/TOKEN/OWNER/REPO/raw/files/$FILENAME
+curl -1sLf -O https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPO/raw/files/$FILENAME
 
 # Retreive the signature for the file
-curl -1sLf -O https://dl.cloudsmith.io/TOKEN/OWNER/REPO/raw/files/$FILENAME.asc
+curl -1sLf -O https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPO/raw/files/$FILENAME.asc
 ```
 
 ## Troubleshooting

@@ -13,14 +13,14 @@ For more information on Alpine, please see:
 - [Alpine Linux Wiki](https://wiki.alpinelinux.org): The official wiki for Alpine Linux
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                                                                     |
 | :-------------- | :------------------------------------------------------------------------------------------------------------------------------ |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                                                                   |
+| WORKSPACE           | Your Cloudsmith workspace name                                                                   |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                                                            |
 | VERSION         | Alpine distribution version, i.e. v3.8. You can also use "any-version" if your package is compatible with more than one version |
 | FINGERPRINT     | the 8 Byte fingerprint of the Public RSA key for the repository                                                                 |
@@ -40,7 +40,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload an Alpine package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push alpine OWNER/REPOSITORY/alpine/VERSION PACKAGE_NAME-PACKAGE_VERSION.apk
+cloudsmith push alpine WORKSPACE/REPOSITORY/alpine/VERSION PACKAGE_NAME-PACKAGE_VERSION.apk
 ```
 
 Example: Upload a package for Alpine v3.8
@@ -74,7 +74,7 @@ To install Alpine packages from a public Cloudsmith repository , you can quickly
 ```shell
 sudo apk add --no-cache bash
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo bash
 ```
 
@@ -83,15 +83,15 @@ If you need to force a specific distribution:
 ```shell
 sudo apk add --no-cache bash
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo distro=alpine codename=VERSION bash
 ```
 
 Or, you can manually configure the repository
 
 ```shell
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
+curl -1sLf 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@WORKSPACE-FINGERPRINT.rsa.pub
+curl -1sLf 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
 apk update
 ```
 ### Private Repositories
@@ -107,25 +107,25 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 To install Alpine packages from a private Cloudsmith repository, you can quickly set up the repository automatically:
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
 | sudo bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
 sudo apk add --no-cache bash
 curl -u "USERNAME:PASSWORD" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (API-Key)
 sudo apk add --no-cache bash
 curl -u "USERNAME:API-KEY" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (Token)
 sudo apk add --no-cache bash
 curl -u "token:TOKEN" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo bash
 ```
 
@@ -133,48 +133,48 @@ If you need to force a specific distribution:
 
 ```shell Entitlement Token Auth
 sudo apk add --no-cache bash
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
 | sudo distro=alpine codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
 sudo apk add --no-cache bash
 curl -u "USERNAME:PASSWORD" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo distro=alpine codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (API-Key)
 sudo apk add --no-cache bash
 curl -u "USERNAME:API-KEY" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo distro=alpine codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (Token)
 sudo apk add --no-cache bash
 curl -u "token:TOKEN" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo distro=alpine codename=VERSION bash
 ```
 
 Or, you can manually configure the repository:
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@WORKSPACE-FINGERPRINT.rsa.pub
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
 apk update
 ```
 ```shell HTTP Basic Auth (User & Pass)
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@WORKSPACE-FINGERPRINT.rsa.pub
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
 apk update
 ```
 ```shell HTTP Basic Auth (API-Key)
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@WORKSPACE-FINGERPRINT.rsa.pub
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
 apk update
 ```
 ```shell HTTP Basic Auth (Token)
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@WORKSPACE-FINGERPRINT.rsa.pub
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.alpine.txt?distro=alpine&codename=VERSION' >> /etc/apk/repositories
 apk update
 ```
 ### Installing a package
