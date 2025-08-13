@@ -39,7 +39,7 @@ To push a Ruby package via `gem push` using GitLab CI/CD, you will need to add t
 
 ```yaml
 variables:
-  RUBYGEMS_HOST: "https://ruby.cloudsmith.io/OWNER/REPOSITORY"
+  RUBYGEMS_HOST: "https://ruby.cloudsmith.io/WORKSPACE/REPOSITORY"
 ```
 
 2. A file variable, called `CLOUDSMITH_API_KEY`, to your repository CI/CD settings: 

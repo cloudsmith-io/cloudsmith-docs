@@ -16,14 +16,14 @@ For more information on RedHat, please see:
 - [RPM Documentation](https://rpm.org/documentation.html): The official docs for RPM
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                                                                                  |
 | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                                                                                |
+| WORKSPACE           | Your Cloudsmith workspace name                                                                                |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                                                                         |
 | DISTRO          | Your distribution  (i.e el, fedora or opensuse). You can also use "any-distro" if your package is compatible with more than one distribution |
 | VERSION         | Your version name (i.e 7, 29). You can also use "any-version" if your package is compatible with more than one version                       |
@@ -58,7 +58,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a RedHat package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push rpm OWNER/REPOSITORY/DISTRO/VERSION PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH.rpm
+cloudsmith push rpm WORKSPACE/REPOSITORY/DISTRO/VERSION PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH.rpm
 ```
 
 Example: Upload a package for RedHat 5
@@ -101,7 +101,7 @@ To install RPM packages from a public Cloudsmith repository, you can quickly set
 
 ```shell
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 
@@ -109,7 +109,7 @@ Alternatively, if you need to force a specific distribution:
 
 ```shell
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 
@@ -119,28 +119,28 @@ Or, you can manually configure the repository:
 
 ```shell
 yum install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
-yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+rpm --import 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/WORKSPACE-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY'
 ```
 
 **Dnf (Fedora)**
 
 ```shell
 dnf install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
-dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+rpm --import 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/WORKSPACE-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY' --enablerepo='WORKSPACE-REPOSITORY-source'
 ```
 
 **Zypper (Suse)**
 
 ```shell
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
-zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
-zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+curl -1sLf 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/WORKSPACE-REPOSITORY.repo
+zypper ar -f '/tmp/WORKSPACE-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh WORKSPACE-REPOSITORY WORKSPACE-REPOSITORY-source
 ```
 
 #### Private Repositories
@@ -160,22 +160,22 @@ To install RPM packages from a private Cloudsmith repository, you can quickly se
 
 ```shell Entitlement Token Auth
 curl -1sLf \
-  'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
 curl -u "USERNAME:PASSWORD" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (API-Key)
 curl -u "USERNAME:API-KEY" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (Token)
 curl -u "token:TOKEN" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 
@@ -183,22 +183,22 @@ Alternatively, if you need to force a specific distribution:
 
 ```shell Entitlement Token Auth
 curl -1sLf \
-  'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
 curl -u "USERNAME:PASSWORD" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (API-Key)
 curl -u "USERNAME:API-KEY" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (Token)
 curl -u "token:TOKEN" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 
@@ -208,85 +208,85 @@ Or, you can manually configure the repository:
 
 ```shell Entitlement Token Auth
 yum install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+rpm --import 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY'
 ```
 ```shell HTTP Basic Auth (User & Pass)
 yum install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+rpm --import 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY'
 ```
 ```shell HTTP Basic Auth (API-Key)
 yum install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+rpm --import 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY'
 ```
 ```shell HTTP Basic Auth (Token)
 yum install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
+rpm --import 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+yum-config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+yum -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY'
 ```
 
 **Dnf (Fedora)**
 
 ```shell Entitlement Token Auth
 dnf install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+rpm --import 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY' --enablerepo='WORKSPACE-REPOSITORY-source'
 ```
 ```shell HTTP Basic Auth (User & Pass)
 dnf install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+rpm --import 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY' --enablerepo='WORKSPACE-REPOSITORY-source'
 ```
 ```shell HTTP Basic Auth (API-Key)
 dnf install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+rpm --import 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY' --enablerepo='WORKSPACE-REPOSITORY-source'
 ```
 ```shell HTTP Basic Auth (Token)
 dnf install yum-utils pygpgme
-rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
-dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
+rpm --import 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+dnf config-manager --add-repo '/tmp/WORKSPACE-REPOSITORY.repo'
+dnf -q makecache -y --disablerepo='*' --enablerepo='WORKSPACE-REPOSITORY' --enablerepo='WORKSPACE-REPOSITORY-source'
 ```
 
 **Zypper (Suse)**
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
-zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+zypper ar -f '/tmp/WORKSPACE-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh WORKSPACE-REPOSITORY WORKSPACE-REPOSITORY-source
 ```
 ```shell HTTP Basic Auth (User & Pass)
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
-zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+zypper ar -f '/tmp/WORKSPACE-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh WORKSPACE-REPOSITORY WORKSPACE-REPOSITORY-source
 ```
 ```shell HTTP Basic Auth (API-Key)
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
-zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+zypper ar -f '/tmp/WORKSPACE-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh WORKSPACE-REPOSITORY WORKSPACE-REPOSITORY-source
 ```
 ```shell HTTP Basic Auth (Token)
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
-zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
-zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/WORKSPACE-REPOSITORY.repo
+zypper ar -f '/tmp/WORKSPACE-REPOSITORY.repo'
+zypper --gpg-auto-import-keys refresh WORKSPACE-REPOSITORY WORKSPACE-REPOSITORY-source
 ```
 
 ### Installing a Package
@@ -318,15 +318,15 @@ If you no longer want to install packages from your Cloudsmith repository, you c
 **Yum (RedHat, CentOS, Amazon) and Dnf (Fedora)**
 
 ```shell
-rm /etc/yum.repos.d/OWNER-REPOSITORY.repo
-rm /etc/yum.repos.d/OWNER-REPOSITORY-source.repo
+rm /etc/yum.repos.d/WORKSPACE-REPOSITORY.repo
+rm /etc/yum.repos.d/WORKSPACE-REPOSITORY-source.repo
 ```
 
 **Zypper (Suse)**
 
 ```shell
-zypper rr OWNER-REPOSITORY
-zypper rr OWNER-REPOSITORY-source
+zypper rr WORKSPACE-REPOSITORY
+zypper rr WORKSPACE-REPOSITORY-source
 ```
 
 ## Upstream Proxying / Caching

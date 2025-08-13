@@ -24,7 +24,7 @@ In the following examples:
 
 | Identifier | Description                                                                                                                                  |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| OWNER      | Your Cloudsmith account name or organization name (namespace)                                                                                |
+| WORKSPACE      | Your Cloudsmith workspace name                                                                         |
 | REPOSITORY | Your Cloudsmith Repository name (also called "slug")                                                                                         |
 | PACKAGE    | The unique identifier for a package, see [Package Identification](/artifact-management/identifying-a-package) for further details |
 
@@ -62,7 +62,7 @@ Before you can add or remove a package from quarantine using the CLI, you first 
 
 To quarantine a package, use the command `cloudsmith quarantine add` as follows: 
 
-`cloudsmith quarantine add OWNER/REPOSITORY/PACKAGE`
+`cloudsmith quarantine add WORKSPACE/REPOSITORY/PACKAGE`
 
 For example: 
 
@@ -74,7 +74,7 @@ For example:
 
 To release a package from quarantine, use the command `cloudsmith quarantine remove|rm|restore` as follows: 
 
-`cloudsmith quarantine remove OWNER/REPOSITORY/PACKAGE`
+`cloudsmith quarantine remove WORKSPACE/REPOSITORY/PACKAGE`
 
 For example: 
 

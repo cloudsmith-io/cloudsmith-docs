@@ -37,7 +37,7 @@ To add or modify tags using the Cloudsmith CLI, you first need to identify the p
 The command to list all tags for a package is: 
 
 ```shell
-cloudsmith tags list OWNER/REPOSITORY/IDENTIFIER
+cloudsmith tags list WORKSPACE/REPOSITORY/IDENTIFIER
 ```
 
 Example:
@@ -52,13 +52,13 @@ cloudsmith tags list demo/examples-repo/ptqbzjgm2pq1
 The command to add a tag to a package is: 
 
 ```shell
-cloudsmith tags add OWNER/REPOSITORY/IDENTIFIER TAG
+cloudsmith tags add WORKSPACE/REPOSITORY/IDENTIFIER TAG
 ```
 
 You can add also add multiple tags: 
 
 ```shell
-cloudsmith tags add OWNER/REPOSITORY/IDENTIFIER TAG1,TAG2,TAG3
+cloudsmith tags add WORKSPACE/REPOSITORY/IDENTIFIER TAG1,TAG2,TAG3
 ```
 
 Example: 
@@ -82,7 +82,7 @@ You may also add tags when a package is uploaded via the `cloudsmith push` comma
 Example: 
 
 ```shell
-cloudsmith push deb OWNER/REPOSITORY/DISTRO/VERSION PACKAGE-NAME.deb --tags TAG1, TAG2 
+cloudsmith push deb WORKSPACE/REPOSITORY/DISTRO/VERSION PACKAGE-NAME.deb --tags TAG1, TAG2 
 ```
 
 ### Replace Tags
@@ -90,7 +90,7 @@ cloudsmith push deb OWNER/REPOSITORY/DISTRO/VERSION PACKAGE-NAME.deb --tags TAG1
 The command to replace all tags (except immutable tags) on a package is: 
 
 ```shell
-cloudsmith tags replace OWNER/REPOSITORY/IDENTIFIER TAG
+cloudsmith tags replace WORKSPACE/REPOSITORY/IDENTIFIER TAG
 ```
 
 Example:
@@ -106,7 +106,7 @@ cloudsmith tags replace demo/examples-repo/ptqbzjgm2pq1 buzz
 The command to remove tags from a package is:
 
 ```shell
-cloudsmith tags remove OWNER/REPOSITORY/IDENTIFIER TAG
+cloudsmith tags remove WORKSPACE/REPOSITORY/IDENTIFIER TAG
 ```
 <Note variant="note">
 You need to have repository admin privileges or be the package owner to remove immutable tags.
@@ -125,7 +125,7 @@ cloudsmith tags remove demo/examples-repo/ptqbzjgm2pq1 baz
 The command to clear all tags (except immutable tags) from a package is:
 
 ```shell
-cloudsmith tags clear OWNER/REPOSITORY/IDENTIFIER
+cloudsmith tags clear WORKSPACE/REPOSITORY/IDENTIFIER
 ```
 
 Example:

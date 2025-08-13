@@ -13,7 +13,7 @@ For more information on Debian, please see:
 - [Debian Packages Documentation](https://www.debian.org/distrib/packages): The official docs for Debian Packages 
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 
@@ -21,7 +21,7 @@ In the following examples:
 
 | Identifier        | Description                                                                                                                           |
 | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| OWNER             | Your Cloudsmith account name or organization name (namespace)                                                                         |
+| WORKSPACE             | Your Cloudsmith workspace name                                                                         |
 | REPOSITORY        | Your Cloudsmith Repository name (also called "slug")                                                                                  |
 | DISTRO            | Your distribution (i.e debian, ubuntu).  You can also use "any-distro" if your package is compatible with more than more distribution |
 | VERSION           | Your version name (i.e xenial, buster). You can also use "any-version" if your package is compatible with more than more version      |
@@ -55,7 +55,7 @@ For full details of how to install and set up the Cloudsmith CLI, see [Command L
 The command to upload a Debian binary package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push deb OWNER/REPOSITORY/DISTRO/VERSION PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH.deb
+cloudsmith push deb WORKSPACE/REPOSITORY/DISTRO/VERSION PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH.deb
 ```
 
 Example: Upload a binary package for Ubuntu Xenial
@@ -95,7 +95,7 @@ When uploading a DSC package, the following files are involved:
 The command to upload a Debian **source** package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push deb OWNER/REPOSITORY/DISTRO/VERSION PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH.dsc --sources-file SOURCES_FILENAME
+cloudsmith push deb WORKSPACE/REPOSITORY/DISTRO/VERSION PACKAGE_NAME-PACKAGE_VERSION.PACKAGE_ARCH.dsc --sources-file SOURCES_FILENAME
 ```
 
 Example:  Upload a source package for Ubuntu Xenial
@@ -153,7 +153,7 @@ To install Debian packages from a public Cloudsmith repository, you can quickly 
 
 ```shell
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
 
@@ -161,7 +161,7 @@ If you need to force a specific distribution:
 
 ```shell
 curl -1sLf \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 
@@ -173,14 +173,14 @@ apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
 
 # For Debian Stretch, Ubuntu 16.04 and later
-keyring_location=/usr/share/keyrings/OWNER-REPOSITORY-archive-keyring.gpg
+keyring_location=/usr/share/keyrings/WORKSPACE-REPOSITORY-archive-keyring.gpg
 
 # For Debian Jessie, Ubuntu 15.10 and earlier
-keyring_location=/etc/apt/trusted.gpg.d/OWNER-REPOSITORY.gpg
+keyring_location=/etc/apt/trusted.gpg.d/WORKSPACE-REPOSITORY.gpg
 
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/gpg.FINGERPRINT.key' |  gpg --dearmor > ${keyring_location}
+curl -1sLf 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/gpg.FINGERPRINT.key' |  gpg --dearmor > ${keyring_location}
 
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/config.deb.txt?distro=DISTRO&codename=VERSION' > /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -1sLf 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/config.deb.txt?distro=DISTRO&codename=VERSION' > /etc/apt/sources.list.d/WORKSPACE-REPOSITORY.list
 ```
 
 #### Private Repositories
@@ -197,47 +197,47 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 To install Debian packages from a private Cloudsmith repository, you can quickly set up the repository automatically:
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
 | sudo bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
 sudo apk add --no-cache bash
 curl -u "USERNAME:PASSWORD" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (API-Key)
 sudo apk add --no-cache bash
 curl -u "USERNAME:API-KEY" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (Token)
 sudo apk add --no-cache bash
 curl -u "token:TOKEN" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
 
 If you need to force a specific distribution:
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
 | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
 curl -u "USERNAME:PASSWORD" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (API-Key)
 curl -u "USERNAME:API-KEY" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (Token)
 curl -u "token:TOKEN" -1sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+  'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 
@@ -247,32 +247,32 @@ Or, you can manually configure the repository:
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -1sLf 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/WORKSPACE-REPOSITORY.list
 apt-get update
 ```
 ```shell HTTP Basic Auth (User & Pass)
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/WORKSPACE-REPOSITORY.list
 apt-get update
 ```
 ```shell HTTP Basic Auth (API-Key)
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/WORKSPACE-REPOSITORY.list
 apt-get update
 ```
 ```shell HTTP Basic Auth (Token)
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/WORKSPACE-REPOSITORY.list
 apt-get update
 ```
 
@@ -289,7 +289,7 @@ sudo apt-get install PACKAGE_NAME=PACKAGE_VERSION
 If you no longer want to install packages from your Cloudsmith repository, you can remove it with:
 
 ```shell
-rm /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+rm /etc/apt/sources.list.d/WORKSPACE-REPOSITORY.list
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 apt-get update

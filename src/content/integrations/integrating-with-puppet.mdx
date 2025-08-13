@@ -16,7 +16,7 @@ In the following examples:
 
 | Identifier       | Description                                                                               |
 | :--------------- | :---------------------------------------------------------------------------------------- |
-| OWNER            | Your Cloudsmith organisation name (namespace)                                             |
+| WORKSPACE            | Your Cloudsmith workspace                                             |
 | REPOSITORY       | Your Cloudsmith Repository identifier (also called "slug")                                |
 | DISTRO           | Your distribution  (i.e el, fedora, debian etc)                                           |
 | VERSION          | Your version name (i.e 7, 29, hardy, buster etc)                                          |
@@ -45,12 +45,12 @@ class cloudsmith_repo {
 
   apt::key { 'cloudsmith':
     id      => 'FINGERPRINT-LONG,
-    source  => 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+    source  => 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
   }
 
   apt::source { 'cloudsmith':
     comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
-    location => 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/deb/DISTRO',
+    location => 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/deb/DISTRO',
     release  => 'VERSION',
     repos    => 'main',
     pin      => 500,
@@ -71,12 +71,12 @@ class cloudsmith_repo {
 
   apt::key { 'cloudsmith':
     id      => 'FINGERPRINT-LONG,
-    source  => 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+    source  => 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
   }
 
   apt::source { 'cloudsmith':
     comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
-    location => 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/deb/DISTRO',
+    location => 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/deb/DISTRO',
     release  => 'VERSION',
     repos    => 'main',
     pin      => 500,
@@ -94,12 +94,12 @@ class cloudsmith_repo {
 
   apt::key { 'cloudsmith':
     id      => 'FINGERPRINT-LONG,
-    source  => 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+    source  => 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
   }
 
   apt::source { 'cloudsmith':
     comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
-    location => 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO',
+    location => 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO',
     release  => 'VERSION',
     repos    => 'main',
     pin      => 500,
@@ -118,12 +118,12 @@ class cloudsmith_repo {
 
   apt::key { 'cloudsmith':
     id      => 'FINGERPRINT-LONG,
-    source  => 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+    source  => 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
   }
 
   apt::source { 'cloudsmith':
     comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
-    location => 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO',
+    location => 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO',
     release  => 'VERSION',
     repos    => 'main',
     pin      => 500,
@@ -141,12 +141,12 @@ class cloudsmith_repo {
 
   apt::key { 'cloudsmith':
     id      => 'FINGERPRINT-LONG,
-    source  => 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
+    source  => 'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key',
   }
 
   apt::source { 'cloudsmith':
     comment  => 'A Description added to repo config in /etc/apt/sources.list.d/',
-    location => 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO',
+    location => 'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/deb/DISTRO',
     release  => 'VERSION',
     repos    => 'main',
     pin      => 500,

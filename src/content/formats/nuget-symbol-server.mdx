@@ -22,14 +22,14 @@ For more information on Symbol Server, please see:
 - [Symbols in the Visual Studio Debugger](https://docs.microsoft.com/en-us/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger): Official guide on configuring a Symbol Server on Visual Studio
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples:
 
 | Identifier   | Description                                                                               |
 | :----------- | :---------------------------------------------------------------------------------------- |
-| OWNER        | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE        | Your Cloudsmith workspace name                             |
 | REPOSITORY   | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN        | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME     | Your Cloudsmith username                                                                  |
@@ -53,7 +53,7 @@ In Visual Studio, go to `Tools > Options`
 Inside Options, on the menu to the left navigate to `Debugging > Symbols`, using the plus icon on the top-right, enter the URL of your repository, as follows:
 
 ```text Nuget - Symbol Server URL
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/download/symbols
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/download/symbols
 ```
 <BlockImage src={debuggingSymbols} alt="npm Proxy Settings"></BlockImage>
 

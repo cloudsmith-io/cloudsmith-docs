@@ -15,14 +15,14 @@ For more information on Lua, please see:
 - [LuaRocks](https://luarocks.org/): The official website for LuaRocks
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier     | Description                                                                               |
 | :------------- | :---------------------------------------------------------------------------------------- |
-| OWNER          | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE          | Your Cloudsmith workspace name                             |
 | REPOSITORY     | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN          | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME       | Your Cloudsmith username                                                                  |
@@ -56,7 +56,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Lua module via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push luarocks OWNER/REPOSITORY MODULE_NAME-MODULE_VERSION.src.rock
+cloudsmith push luarocks WORKSPACE/REPOSITORY MODULE_NAME-MODULE_VERSION.src.rock
 ```
 
 Example: 
@@ -80,7 +80,7 @@ You can install modules directly by using the `--server` command-line flag when 
 #### Public Repositories
 
 ```shell
-luarocks install MODULE_NAME MODULE_VERSION --server https://dl.cloudsmith.io/public/OWNER/REPOSITORY/luarocks/
+luarocks install MODULE_NAME MODULE_VERSION --server https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/luarocks/
 ```
 
 #### Private Repositories
@@ -95,16 +95,16 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 </Note>
 
 ```shell Entitlement Token Auth
-luarocks install MODULE_NAME MODULE_VERSION --server https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/luarocks/
+luarocks install MODULE_NAME MODULE_VERSION --server https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/luarocks/
 ```
 ```shell HTTP Basic Auth (User & Pass)
-luarocks install MODULE_NAME MODULE_VERSION --server https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/
+luarocks install MODULE_NAME MODULE_VERSION --server https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/luarocks/
 ```
 ```shell HTTP Basic Auth (API-Key)
-luarocks install MODULE_NAME MODULE_VERSION --server https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/
+luarocks install MODULE_NAME MODULE_VERSION --server https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/luarocks/
 ```
 ```shell HTTP Basic Auth (Token)
-luarocks install MODULE_NAME MODULE_VERSION --server https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/
+luarocks install MODULE_NAME MODULE_VERSION --server https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/luarocks/
 ```
 
 <Note variant="note" headline="Note">
@@ -121,7 +121,7 @@ To add your private repository, adjust the `rocks_servers` section of your confi
 ```json
 rocks_servers = {
   "http://luarocks.org/repositories/rocks",
-  "https://dl.cloudsmith.io/public/OWNER/REPOSITORY/luarocks/"
+  "https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/luarocks/"
 }
 ```
 
@@ -130,25 +130,25 @@ rocks_servers = {
 ```json Entitlement Token Auth
 rocks_servers = {
   "http://luarocks.org/repositories/rocks",
-  "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/luarocks/"
+  "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/luarocks/"
 }
 ```
 ```json HTTP Basic Auth (User & Pass)
 rocks_servers = {
   "http://luarocks.org/repositories/rocks",
-  "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/"
+  "https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/luarocks/"
 }
 ```
 ```json HTTP Basic Auth (API-Key)
 rocks_servers = {
   "http://luarocks.org/repositories/rocks",
-  "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/"
+  "https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/luarocks/"
 }
 ```
 ```json HTTP Basic Auth (Token)
 rocks_servers = {
   "http://luarocks.org/repositories/rocks",
-  "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/"
+  "https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/luarocks/"
 }
 ```
 

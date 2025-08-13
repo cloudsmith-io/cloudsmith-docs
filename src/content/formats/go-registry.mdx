@@ -18,14 +18,14 @@ For more information on Go, please see:
 - [GoDoc](https://godoc.org): Documentation/search for Community Go packages
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -72,7 +72,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Go module via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push go OWNER/REPOSITORY PACKAGE_NAME.zip
+cloudsmith push go WORKSPACE/REPOSITORY PACKAGE_NAME.zip
 ```
 
 Example:
@@ -126,26 +126,26 @@ While the legacy endpoint ([https://dl.cloudsmith.io](https://dl.cloudsmith.io))
 </Note>
 
 <Note variant="note" headline="Note">
-`GOPROXY` allows the concatenation of multiple servers separated by commas. For example, for `GOPROXY=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct`, all requests not satisfied by the first server will fallback the the next one (`https://proxy.golang.org`).
+`GOPROXY` allows the concatenation of multiple servers separated by commas. For example, for `GOPROXY=https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/go/,https://proxy.golang.org,direct`, all requests not satisfied by the first server will fallback the the next one (`https://proxy.golang.org`).
 </Note>
 
 
 ##### **Linux / Mac**
 
 ```shell
-export GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
+export GOPROXY=https://golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 ##### **Windows (cmd)**
 
 ```shell
-set GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
+set GOPROXY=https://golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 ##### **Windows (Powershell)** 
 
 ```shell
-$env:GOPROXY=https://golang.cloudsmith.io/OWNER/REPOSITORY/
+$env:GOPROXY=https://golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 #### Private Repositories
@@ -163,30 +163,30 @@ To define the `GOPROXY` environment variable for a private Cloudsmith repository
 
 ```shell
 # HTTP Basic Auth (with Entitlement Token)
-export GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
+export GOPROXY=https://token:TOKEN@golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 
 # HTTP Basic Auth (API-Key)
-export GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
+export GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 ##### **Windows (cmd)**
 
 ```shell
 # HTTP Basic Auth (with Entitlement Token)
-set GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
+set GOPROXY=https://token:TOKEN@golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 
 # HTTP Basic Auth (API-Key)
-set GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
+set GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 ##### **Windows (Powershell)** 
 
 ```powershell
 # HTTP Basic Auth (with Entitlement Token)
-$env:GOPROXY=https://token:TOKEN@golang.cloudsmith.io/OWNER/REPOSITORY/
+$env:GOPROXY=https://token:TOKEN@golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 
 # HTTP Basic Auth (API-Key)
-$env:GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/OWNER/REPOSITORY/
+$env:GOPROXY=https://USERNAME:API-KEY@golang.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 <Note variant="note" headline="About Go modules authentication">

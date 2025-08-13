@@ -23,7 +23,7 @@ In the following examples:
 
 | Identifier      | Description                                                   |
 | :-------------- | :------------------------------------------------------------ |
-| OWNER           | Your Cloudsmith account name or organization name (namespace) |
+| WORKSPACE           | Your Cloudsmith workspace name |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")          |
 | USERNAME        | Your Cloudsmith username                                      |
 | PASSWORD        | Your Cloudsmith password                                      |
@@ -49,7 +49,7 @@ Documentation for package-specific native CLI and tooling is available on the we
 To upload a package via the Cloudsmith CLI, use the `cloudsmith push` command: 
 
 ```shell
-cloudsmith push <format> OWNER/REPOSITORY <package_file>
+cloudsmith push <format> WORKSPACE/REPOSITORY <package_file>
 ```
 
 For example: 
@@ -63,7 +63,7 @@ Context-specific documentation, including copy and paste commands (with the owne
 </Note>
 
 ```shell
-cloudsmith push deb OWNER/REPOSITORY/DISTRO/VERSION PACKAGE-NAME.deb --tags TAG1,TAG2 
+cloudsmith push deb WORKSPACE/REPOSITORY/DISTRO/VERSION PACKAGE-NAME.deb --tags TAG1,TAG2 
 ```
 
 We also support the optional functionality to tag packages with pre-release components as `latest`. By default this functionality is turned on, however can be turned off in the main settings of a repository with the setting `Apply Latest Tag for Pre-Release Versions?`.
@@ -77,7 +77,7 @@ Uploading a package to Cloudsmith via the URL is a 2 step process
 1. A PUT req against the upload URL: 
 
 ```
-https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
+https://upload.cloudsmith.io/WORKSPACE/REPOSITORY/PACKAGE_NAME
 ```
 
 The response to this PUT req gives you an identifier that you will need for the next stage.
@@ -85,7 +85,7 @@ The response to this PUT req gives you an identifier that you will need for the 
 2. A POST req to create package endpoint 
 
 ```
-https://api.cloudsmith.io/packages/OWNER/REPOSITORY/upload/FORMAT/
+https://api.cloudsmith.io/packages/WORKSPACE/REPOSITORY/upload/FORMAT/
 ```
 
 Postman is an application used for API testing that we can use to illustrate using the API to upload a raw package. You can install Postman [here](https://www.postman.com/)
@@ -97,7 +97,7 @@ Lets see how you can upload a raw package using Postman:
 1. Populate Postman with the PUT request URL (see the image below, highlighted _1_)
 
 ```
-https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
+https://upload.cloudsmith.io/WORKSPACE/REPOSITORY/PACKAGE_NAME
 ```
 
 2. Switch to the ‘Authorization’ tab and populate your credentials with either Basic Auth or your API Key
@@ -112,7 +112,7 @@ https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
 1. Populate Postman with the POST request (see the image below, highlighted _1_): 
 
 ```
-https://api.cloudsmith.io/packages/OWNER/REPOSITORY/upload/raw/
+https://api.cloudsmith.io/packages/WORKSPACE/REPOSITORY/upload/raw/
 ```
 
 2. Select the ‘Body’ tab and populate it with your JSON:

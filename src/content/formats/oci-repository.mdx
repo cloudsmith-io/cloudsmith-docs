@@ -76,13 +76,13 @@ Login Succeeded
 After authentication you can push the artifact by doing:
 
 ```shell Shell
-$ oras push docker.cloudsmith.io/OWNER/REPOSITORY/ARTIFACT_NAME:TAG ./FILENAME_PATH
+$ oras push docker.cloudsmith.io/WORKSPACE/REPOSITORY/ARTIFACT_NAME:TAG ./FILENAME_PATH
 ```
 
 ORAS allows you to specify the type of the artifact by using the `--artifact-type` parameter, you can use it in the following way:
 
 ```shell Shell
-$ oras push docker.cloudsmith.io/OWNER/REPOSITORY/ARTIFACT_NAME:TAG --artifact-type application/vnd.cloudsmith.v1 ./FILENAME_PATH
+$ oras push docker.cloudsmith.io/WORKSPACE/REPOSITORY/ARTIFACT_NAME:TAG --artifact-type application/vnd.cloudsmith.v1 ./FILENAME_PATH
 ```
 
 For more information on how to define a unique artifact type check the [official documentation](https://github.com/opencontainers/artifacts/blob/main/artifact-authors.md#defining-a-unique-artifact-type).
@@ -100,7 +100,7 @@ Referrers allow artifacts to reference related objects, enabling a parent artifa
 To attach a file to an existing artifact, execute:
 
 ```shell Shell
-$ oras attach --artifact-type application/vnd.cloudsmith.attachment.v1 docker.cloudsmith.io/OWNER/REPOSITORY/ARTIFACT_NAME:TAG ./FILE_TO_ATTACH
+$ oras attach --artifact-type application/vnd.cloudsmith.attachment.v1 docker.cloudsmith.io/WORKSPACE/REPOSITORY/ARTIFACT_NAME:TAG ./FILE_TO_ATTACH
 ```
 
 ## Download / Pull an Generic Artifact with ORAS
@@ -144,7 +144,7 @@ Login Succeeded
 Pulling (downloading) an artifact from the Cloudsmith OCI registry can be done using the standard `oras pull` command:
 
 ```shell
-$ oras pull docker.cloudsmith.io/OWNER/REPOSITORY/ARTIFACT_NAME:TAG
+$ oras pull docker.cloudsmith.io/WORKSPACE/REPOSITORY/ARTIFACT_NAME:TAG
 ```
 
 ## Helm v3 charts via OCI
@@ -159,7 +159,7 @@ While Cloudsmith OCI Registries are GA, our Helm OCI registry is in Early Access
 Before you can push your chart you need to login to Cloudsmith's registry.
 
 ```shell Entitlement Token Auth
-helm registry login helm.oci.cloudsmith.io -u OWNER/REPOSITORY -p TOKEN
+helm registry login helm.oci.cloudsmith.io -u WORKSPACE/REPOSITORY -p TOKEN
 ```
 ```shell HTTP Basic Auth (User & Pass)
 helm registry login helm.oci.cloudsmith.io -u USERNAME -p PASSWORD
@@ -175,7 +175,7 @@ With public repositories, you don't need any sort of authentication and you can 
 The command to upload a Helm Chart via OCI using the Helm CLI is:
 
 ```shell
-helm push CHART_NAME-CHART_VERSION.tgz oci://helm.oci.cloudsmith.io/OWNER/REPOSITORY
+helm push CHART_NAME-CHART_VERSION.tgz oci://helm.oci.cloudsmith.io/WORKSPACE/REPOSITORY
 ```
 
 ### Installing a Chart
@@ -183,19 +183,19 @@ helm push CHART_NAME-CHART_VERSION.tgz oci://helm.oci.cloudsmith.io/OWNER/REPOSI
 To install/use a specific version of a chart: 
 
 ```shell
-helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME --version CHART_VERSION
+helm install oci://docker.cloudsmith.io/WORKSPACE/REPOSITORY/CHART_NAME --version CHART_VERSION
 ```
 
 To install the latest version of a chart:
 
 ```shell
-helm install oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
+helm install oci://docker.cloudsmith.io/WORKSPACE/REPOSITORY/CHART_NAME
 ```
 
 Or you can upgrade to the most recent version of a chart if you've already installed:
 
 ```shell
-helm upgrade oci://docker.cloudsmith.io/OWNER/REPOSITORY/CHART_NAME
+helm upgrade oci://docker.cloudsmith.io/WORKSPACE/REPOSITORY/CHART_NAME
 ```
 
 If you've got a `requirements.yaml` file in your chart, you can specify this as a dependency:

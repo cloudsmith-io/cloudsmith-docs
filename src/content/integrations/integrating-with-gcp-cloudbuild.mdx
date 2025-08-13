@@ -69,7 +69,7 @@ To add the Cloudsmith CLI to your Google CloudBuild Project, add the following c
 To upload an artifact from a build to a Cloudsmith repository, add the `cloudsmith push` command in `cloudbuild.yaml` file: 
 
 ```yaml
-    - cloudsmith push FORMAT OWNER/REPOSITORY FILENAME
+    - cloudsmith push FORMAT WORKSPACE/REPOSITORY FILENAME
 ```
 
 Please see the [Cloudsmith CLI](/developer-tools/cli) documentation for more details of the syntax of the `cloudsmith push` command and the [Supported Formats](/formats) page for examples of the `cloudsmith push` command for each supported format.

@@ -22,14 +22,14 @@ If using Gradle - please see our [Gradle documentation](/formats/gradle-reposito
 If using sbt - please see our [sbt documentation](/formats/sbt-repository)
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                                                                         |
 | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                                                                       |
+| WORKSPACE           | Your Cloudsmith workspace name                                                                       |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                                                                |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details)                                           |
 | USERNAME        | Your Cloudsmith username                                                                                                            |
@@ -68,7 +68,7 @@ The disadvantage of creating an all-in-one jar mean that you have to deploy ever
 The endpoint for the native Maven API is:
 
 ```
-https://maven.cloudsmith.io/OWNER/REPOSITORY/
+https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 The distribution repositories define where to push your artifacts. In this case it will be a single repository, but you can configure alternatives. Add the following to your project `pom.xml` file:
@@ -77,11 +77,11 @@ The distribution repositories define where to push your artifacts. In this case 
 <distributionManagement>
   <snapshotRepository>
     <id>NAME</id>
-    <url>https://maven.cloudsmith.io/OWNER/REPOSITORY/</url>
+    <url>https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/</url>
   </snapshotRepository>
   <repository>
     <id>NAME</id>
-    <url>https://maven.cloudsmith.io/OWNER/REPOSITORY/</url>
+    <url>https://maven.cloudsmith.io/WORKSPACE/REPOSITORY/</url>
   </repository>
 </distributionManagement>
 ```
@@ -121,7 +121,7 @@ You can find out more about Maven publishing in the official [Maven documentatio
 The command to upload a Maven package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push maven OWNER/REPOSITORY ARTIFACT_ID-PACKAGE_VERSION.jar --pom-file=ARTIFACT_ID-PACKAGE_VERSION.pom
+cloudsmith push maven WORKSPACE/REPOSITORY ARTIFACT_ID-PACKAGE_VERSION.jar --pom-file=ARTIFACT_ID-PACKAGE_VERSION.pom
 ```
 
 Example:
@@ -188,7 +188,7 @@ To do this add one of the following XML examples to your project `pom.xml` file:
 <repositories>
   <repository>
     <id>NAME</id>
-    <url>https://dl.cloudsmith.io/public/OWNER/REPOSITORY/maven/</url>
+    <url>https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/maven/</url>
     <releases>
       <enabled>true</enabled>
       <updatePolicy>always</updatePolicy>
@@ -215,7 +215,7 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 <repositories>
   <repository>
     <id>NAME</id>
-    <url>https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/maven/</url>
+    <url>https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/maven/</url>
     <releases>
       <enabled>true</enabled>
       <updatePolicy>always</updatePolicy>
@@ -231,7 +231,7 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 <repositories>
   <repository>
     <id>NAME</id>
-    <url>https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/maven/</url>
+    <url>https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/maven/</url>
     <releases>
       <enabled>true</enabled>
       <updatePolicy>always</updatePolicy>

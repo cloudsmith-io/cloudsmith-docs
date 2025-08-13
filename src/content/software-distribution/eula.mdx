@@ -42,7 +42,7 @@ Once the user has clicked the "Yes, I Agree + Download File" button, the downloa
 If a user wishes to accept the EULA without visiting the HTML page, `?accept_eula=1` can be suffixed onto the URL link for the raw package (which would otherwise display the EULA) to accept it. The number appended to the `accept_eula` parameter specifies the revision of the EULA that is being accepted:
 
 ```shell
-curl https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/files/FILENAME.zip?accept_eula=1
+curl https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/raw/files/FILENAME.zip?accept_eula=1
 ```
 
 Where:
@@ -50,7 +50,7 @@ Where:
 | Identifier | Description                                                                               |
 | :--------- | :---------------------------------------------------------------------------------------- |
 | TOKEN      | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
-| OWNER      | Your Cloudsmith account name or organisation name (namespace)                             |
+| WORKSPACE      | Your Cloudsmith account name or workspace                             |
 | REPOSITORY | Your Cloudsmith Repository name (also called "slug")                                      |
 | FILENAME   | The name of the raw file                                                                  |
 

@@ -16,11 +16,11 @@ Custom domains are available with our Ultra and Enterprise plans. We strongly re
 
 ## Configuration Options
 
-### Account-wide vs per-repository
+### Workspace-level vs per-repository
 
-An **account-wide** (also called organizational-level) custom domain works across all repositories in your Cloudsmith organization. When using an account-wide custom domain, the organization/account identifier (slug) will be removed from the URI for a repository.   
+A **workspace-level** custom domain works across all repositories in your Cloudsmith workspace. When using a workspace-level custom domain, the workspace identifier (slug) will be removed from the URI for a repository.   
 
-A **per-repository** custom domain works for a single repository in your Cloudsmith organization. When using a per-repository custom domain, the organization/account identifier (slug) and the repository identifier are both removed from the URI for the repository.   
+A **per-repository** custom domain works for a single repository in your Cloudsmith workspace. When using a per-repository custom domain, the workspace identifier (slug) and the repository identifier are both removed from the URI for the repository.   
 
 ### Package support (Download vs Native API)
 
@@ -63,14 +63,14 @@ If you'd like to configure this, please include it in your request.
 To configure a custom domain within Cloudsmith, we require you to provide:
 
 - A list of domains that you wish to have for each package type (refer to the table above). We recommend having only 1 domain for Download types, but this can be set up to include multiple if needed.
-- For each domain, do you wish to have an account-wide or per-repository domain
+- For each domain, do you wish to have a workspace-level or per-repository domain
 - Finally, would you like to have a top level redirect for your domain
 
 Example request:
 
 ```
 Domain: `docker.mycompany.com` (Docker)  
-Account wide  
+Workspace-level
 No redirect
 ```
 
@@ -82,7 +82,7 @@ Once created within Cloudsmith, you will need to create two DNS CNAME entries fo
 
 ### Step 2
 
-- After confirming the domains you need, a member of the team will review and configure them within Cloudsmith. Once set, the DNS CNAME entries will be visible in your account (in the "Custom Domains" section of any repository)  
+- After confirming the domains you need, a member of the team will review and configure them within Cloudsmith. Once set, the DNS CNAME entries will be visible in your workspace (in the "Custom Domains" section of any repository)  
 
 ### Step 3
 

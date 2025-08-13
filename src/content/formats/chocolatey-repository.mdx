@@ -18,14 +18,14 @@ For more information on Chocolatey, please see:
 Chocolatey packages are known as nupkg files, which is a compiled NuSpec or a fancy zip file that knows about package metadata (including dependencies and versioning). These packages are an enhanced NuGet package, they have additional metadata that is specific to Chocolatey. Chocolatey is also compatible with vanilla NuGet packages. A Chocolatey package can contain embedded software and/or automation scripts. For more information on how Chocolatey works see: [How Does Chocolatey Work](https://docs.chocolatey.org/en-us/getting-started#how-does-chocolatey-work)
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -55,7 +55,7 @@ The following are the main elements of a Chocolatey package. Only the Nuspec is 
 The endpoint for the chocolatey packages API is:
 
 ```
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2
 ```
 
 ### Create a Chocolatey Package using the Chocolatey CLI
@@ -85,7 +85,7 @@ You can publish a nupkg file that you've generated from your project, using [NuG
 Then you can publish your package using:
 
 ```shell
-choco push PACKAGE_NAME-PACKAGE_VERSION.nupkg -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2 -ApiKey API-KEY
+choco push PACKAGE_NAME-PACKAGE_VERSION.nupkg -Source https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2 -ApiKey API-KEY
 ```
 
 <Note variant="note" headline="Note">
@@ -99,7 +99,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command-Li
 The command to upload a Chocolatey package via the Cloudsmith CLI is:
 
 ```shell
-cloudsmith push nuget OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.nupkg
+cloudsmith push nuget WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.nupkg
 ```
 
 Example:
@@ -117,13 +117,13 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 As a shortcut, you can set up the source (upstream) ahead of time, using `choco source`:
 
 ```shell Entitlement Token
-choco source add -n example-repo -s https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2 -u "token" -p "TOKEN"
+choco source add -n example-repo -s https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2 -u "token" -p "TOKEN"
 ```
 ```shell Username & Password
-choco source add -n example-repo -s https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2 -u "USERNAME" -p "PASSWORD"
+choco source add -n example-repo -s https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2 -u "USERNAME" -p "PASSWORD"
 ```
 ```shell Username & API-Key
-choco sources add -n example-repo -s https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2 -u "USERNAME" -p "API-KEY"
+choco sources add -n example-repo -s https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2 -u "USERNAME" -p "API-KEY"
 ```
 
 <Note variant="warning" headline="Warning">

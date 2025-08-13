@@ -13,14 +13,14 @@ For more information on Conda, please see:
 - [Anaconda](https://www.anaconda.com/)
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples:
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -48,7 +48,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload Conda package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push conda OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tar.bz2
+cloudsmith push conda WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tar.bz2
 ```
 
 Example:
@@ -68,14 +68,14 @@ Please see [Upload a Package](/artifact-management/package-upload) for details o
 Adding a new channel can be accomplished by using the `conda` CLI:
 
 ```shell
-conda config --add channels https://conda.cloudsmith.io/OWNER/REPOSITORY/
+conda config --add channels https://conda.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 Alternatively, the channel can be added directly to your `.condarc`:
 
 ```yaml
 channels:
-  - https://conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 ```
 
@@ -84,7 +84,7 @@ Or if you prefer, directly in your `environment.yml` file:
 ```yaml
 name: env-name
 channels:
-  - https://conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 dependencies:
   - python=3.7
@@ -104,30 +104,30 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 Adding a new channel can be accomplished by using the `conda` CLI:
 
 ```shell HTTP Basic Auth (User & Pass)
-conda config --add channels https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
+conda config --add channels https://USERNAME:PASSWORD@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 ```shell HTTP Basic Auth (API-Key)
-conda config --add channels https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
+conda config --add channels https://USERNAME:API-KEY@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 ```shell HTTP Basic Auth (Token)
-conda config --add channels https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
+conda config --add channels https://token:TOKEN@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 Alternatively, the channel can be added directly to your `.condarc`:
 
 ```yaml HTTP Basic Auth (User & Pass)
 channels:
-  - https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://USERNAME:PASSWORD@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 ```
 ```yaml HTTP Basic Auth (API-Key)
 channels:
-  - https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://USERNAME:API-KEY@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 ```
 ```yaml HTTP Basic Auth (Token)
 channels:
-  - https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://token:TOKEN@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 ```
 
@@ -136,7 +136,7 @@ Or if you prefer, directly in your `environment.yml` file:
 ```yaml HTTP Basic Auth (User & Pass)
 name: env-name
 channels:
-  - https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://USERNAME:PASSWORD@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 dependencies:
   - python=3.7
@@ -145,7 +145,7 @@ dependencies:
 ```yaml HTTP Basic Auth (API-Key)
 name: env-name
 channels:
-  - https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://USERNAME:API-KEY@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 dependencies:
   - python=3.7
@@ -154,7 +154,7 @@ dependencies:
 ```yaml HTTP Basic Auth (Token)
 name: env-name
 channels:
-  - https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
+  - https://token:TOKEN@conda.cloudsmith.io/WORKSPACE/REPOSITORY/
   - defaults
 dependencies:
   - python=3.7

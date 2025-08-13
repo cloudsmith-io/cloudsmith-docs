@@ -15,14 +15,14 @@ For more information on Unity, please see:
 - [Unity UPM Scoped Registry](https://docs.unity3d.com/Manual/upm-scoped.html): Documentation to setup a Scoped Package Registry
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | API-KEY         | Your Cloudsmith API Key                                                                   |
@@ -40,7 +40,7 @@ As Unity packages are compatible with npm registries,  you can publish your Unit
 The endpoint for the native npm API is:
 
 ```
-https://npm.cloudsmith.io/OWNER/REPOSITORY/
+https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 In order to authenticate for native publishing, you can either use `npm login` or create an `npmrc` file (in your **$HOME** or in the project directory)
@@ -48,7 +48,7 @@ In order to authenticate for native publishing, you can either use `npm login` o
 Use `npm login`:
 
 ```shell
-npm login --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm login --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 Username: USERNAME
 Password: API-KEY
 Email: YOUR-EMAIL-ADDRESS
@@ -57,8 +57,8 @@ Email: YOUR-EMAIL-ADDRESS
 Or create an `.npmrc` file with the following:
 
 ```
-registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
-//npm.cloudsmith.io/OWNER/REPOSITORY/:_authToken=API-KEY
+registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:_authToken=API-KEY
 ```
 
 ### Publish
@@ -66,7 +66,7 @@ registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
 Once you have set up the registry, you can then publish from your project directory using `npm publish`: 
 
 ```shell
-npm publish --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm publish --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 For more details on `npm publish` see the official [npm documentation](https://docs.npmjs.com/cli/publish). (external link)
@@ -90,7 +90,7 @@ This assumes that you've created a `project.json` file for your project. Please 
 The command to upload a Unity package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push npm OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tgz
+cloudsmith push npm WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tgz
 ```
 
 Example:
@@ -113,7 +113,7 @@ To download/install a Unity package, you need to add your Cloudsmith registry to
 "scopedRegistries": [
     {
       "name": "NAME",
-      "url": "https://npm.cloudsmith.io/OWNER/REPOSITORY/",
+      "url": "https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/",
       "scopes": [
         "SCOPE"
       ]
@@ -160,13 +160,13 @@ To download/install a Unity package from a private Cloudsmith registry:
 2. Locate the `upmconfig.toml` file and add the one of the following, depending on which authentication method you wish to use:  
 
 ```toml Entitlement Token Auth
-[npmAuth."https://npm.cloudsmith.io/OWNER/REPOSITORY/"]
+[npmAuth."https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/"]
 token = "TOKEN"
 email = "EMAIL"    OPTIONAL
 alwaysAuth = true  OPTIONAL
 ```
 ```toml API Key Auth
-[npmAuth."https://npm.cloudsmith.io/OWNER/REPOSITORY/"]
+[npmAuth."https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/"]
 token = "API-KEY"
 email = "EMAIL"    OPTIONAL
 alwaysAuth = true  OPTIONAL

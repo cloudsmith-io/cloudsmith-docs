@@ -15,7 +15,7 @@ For more information on PowerShell modules, please see:
 - [PowerShell Module Browser](https://docs.microsoft.com/en-us/powershell/module/): Browser for Microsoft PowerShell Modules
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 
@@ -23,7 +23,7 @@ In the following examples:
 
 | Identifier     | Description                                                                               |
 | :------------- | :---------------------------------------------------------------------------------------- |
-| OWNER          | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE          | Your Cloudsmith workspace name                             |
 | REPOSITORY     | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN          | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME       | Your Cloudsmith username                                                                  |
@@ -41,7 +41,7 @@ PowerShell modules use the NuGet package format, and Cloudsmith NuGet Feeds are 
 The endpoint for the PowerShell Modules API is:
 
 ```
-https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2
+https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2
 ```
 
 ### Create a PowerShell Module
@@ -73,7 +73,7 @@ $credential = New-Object PSCredential('USERNAME',$(ConvertTo-SecureString 'API-K
 ```
 
 ```powershell
-Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -PublishLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -PublishLocation 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
 ```
 
 Then you can publish a module with: 
@@ -89,7 +89,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command-Li
 The command to upload a PowerShell Module via the Cloudsmith CLI is:
 
 ```shell
-cloudsmith push nuget OWNER/REPOSITORY MODULE_NAME-MODULE_VERSION.nupkg
+cloudsmith push nuget WORKSPACE/REPOSITORY MODULE_NAME-MODULE_VERSION.nupkg
 ```
 
 Example:
@@ -111,11 +111,11 @@ You can set up the source ahead of time, using ` Register-PackageSource` and `Re
 #### Public Repositories
 
 ```powershell
-Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -Trusted -ProviderName NuGet
 ```
 
 ```powershell
-Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted'
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -InstallationPolicy 'trusted'
 ```
 
 For example: 
@@ -144,23 +144,23 @@ In order to authenticate to a private Cloudsmith repository, you must first crea
 ```powershell Entitlement Token
 $credential = New-Object PSCredential('token',$(ConvertTo-SecureString 'TOKEN' -AsPlainText -Force))
 
-Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
 
-Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
 ```
 ```powershell Username & Password
 $credential = New-Object PSCredential('USERNAME',$(ConvertTo-SecureString 'PASSWORD' -AsPlainText -Force))
 
-Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
 
-Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
 ```
 ```powershell Username & API-Key
 $credential = New-Object PSCredential('USERNAME',$(ConvertTo-SecureString 'API-KEY' -AsPlainText -Force))
 
-Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
+Register-PackageSource -Name 'NAME' -Location 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -Trusted -ProviderName NuGet -Credential $credential
 
-Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
+Register-PSRepository -Name 'NAME' -SourceLocation 'https://nuget.cloudsmith.io/WORKSPACE/REPOSITORY/v2/' -InstallationPolicy 'trusted' -Credential $credential
 ```
 
 ### Install a Package

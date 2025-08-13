@@ -54,11 +54,11 @@ You then run `terraform init` and Terraform will automatically install the provi
 
 ### namespace
 
-The namespace data source allows fetching of metadata about a given Cloudsmith namespace. The fetched data can be used to resolve permanent identifiers from a namespace's user-facing name. These identifiers can then be passed to other resources to allow more consistent identification as user-facing names can change.
+The namespace data source allows fetching of metadata about a given Cloudsmith workspace. The fetched data can be used to resolve permanent identifiers from a workspace's user-facing name. These identifiers can then be passed to other resources to allow more consistent identification as user-facing names can change.
 
 ```
 data "cloudsmith_namespace" "my_namespace" {
-    slug = "my-namespace"
+    slug = "my-workspace"
 }
 ```
 
@@ -70,7 +70,7 @@ data "cloudsmith_namespace" "my_namespace" {
 
 ### repository
 
-The repository resource allows the creation and management of package repositories within a Cloudsmith namespace. Repositories store packages and are the main entities with which Cloudsmith users interact. 
+The repository resource allows the creation and management of package repositories within a Cloudsmith workspace. Repositories store packages and are the main entities with which Cloudsmith users interact. 
 
 ```
 resource "cloudsmith_repository" "my_repository" {
@@ -83,7 +83,7 @@ resource "cloudsmith_repository" "my_repository" {
 |Argument|	Description|	Required|
 |--|--|--|
 `name`|	A descriptive name for the repository.	|Yes
-`namespace`|	Namespace / account to which this repository belongs.	|Yes
+`namespace`|	Workspace to which this repository belongs.	|Yes
 `description`|	A description of the repository's purpose/contents.	|No
 `index_files`|	If checked, files contained in packages will be indexed, which increase the synchronisation time required for packages. Note that it is recommended you keep this enabled unless the synchronisation time is significantly impacted.	|No
 `repository_type`|	Private repositories are visible only to users that have been granted access. Public repositories are visible to all Cloudsmith users.	|No

@@ -23,7 +23,7 @@ To copy a package using the Cloudsmith CLI, you first need to identify the packa
 Once you have identified the package, you use the `cloudsmith copy` command to copy it: 
 
 ```shell
-cloudsmith copy OWNER/SOURCE_REPO/UNIQUE_ID  DESTINATION_REPO
+cloudsmith copy WORKSPACE/SOURCE_REPO/UNIQUE_ID  DESTINATION_REPO
 ```
 
 For example: 
@@ -39,10 +39,10 @@ In the above example, we identified that the package we wished to copy had the U
 
 ### Advanced Example
 
-The example below would move all packages defined by the `-q` query from `YOUR-ACCOUNT/YOUR-REPO` to `YOUR-DEST-REPO` (note that the destination is NOT qualified by a `YOUR-ACCOUNT` namespace - This is because you can only copy/move packages from repositories in the same account, and not across accounts yet).
+The example below would move all packages defined by the `-q` query from `YOUR-WORKSPACE/YOUR-REPO` to `YOUR-DEST-REPO` (note that the destination is NOT qualified by a `YOUR-WORKSPACE` namespace - This is because you can only copy/move packages from repositories in the same workspace, and not across workspaces yet).
 
 ```shell bash
-cloudsmith ls pkg OWNER/SOURCE_REPO -q 'YOUR-QUERY'/
+cloudsmith ls pkg WORKSPACE/SOURCE_REPO -q 'YOUR-QUERY'/
 -F json | jq '.data[] | .namespace + "/" + .repository + "/" + .slug' -r / 
 | xargs -Ipackage cloudsmith copy package DESTINATION_REPO
 ```

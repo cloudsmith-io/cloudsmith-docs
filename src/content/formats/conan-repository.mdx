@@ -22,7 +22,7 @@ In the following examples:
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -38,42 +38,42 @@ In the following examples:
 The endpoint for the native Conan API is:
 
 ```
-https://conan.cloudsmith.io/OWNER/REPOSITORY/
+https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 First, you need to set up the Repository as a Conan remote, with your Cloudsmith API-Key and Username for authentication:
 
 ```shell
 # Shell - Conan v1
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan user -p API-KEY -r OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan user -p API-KEY -r WORKSPACE-REPOSITORY USERNAME
 ```
 ```shell
 # Shell - Conan v2
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan remote login -p API-KEY OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan remote login -p API-KEY WORKSPACE-REPOSITORY USERNAME
 ```
 
 You can then upload natively using [Conan](https://docs.conan.io/en/latest/reference/commands/creator/export.html) with the command:
 
 ```shell
 # Shell - Conan v1
-conan upload PACKAGE_NAME/PACKAGE_VERSION --all -r OWNER-REPOSITORY
+conan upload PACKAGE_NAME/PACKAGE_VERSION --all -r WORKSPACE-REPOSITORY
 ```
 ```shell
 # Shell - Conan v2
-conan upload PACKAGE_NAME/PACKAGE_VERSION -r OWNER-REPOSITORY
+conan upload PACKAGE_NAME/PACKAGE_VERSION -r WORKSPACE-REPOSITORY
 ```
 
 An optional USER/CHANNEL can also be provided when uploading a package; this enables multiple versions of the same package to coexist using the user/channel to create a unique version of the package version:
 
 ```shell
 # Shell - Conan v1
-conan upload PACKAGE_NAME/PACKAGE_VERSION@USER/CHANNEL --all -r OWNER-REPOSITORY
+conan upload PACKAGE_NAME/PACKAGE_VERSION@USER/CHANNEL --all -r WORKSPACE-REPOSITORY
 ```
 ```shell
 # Shell - Conan v2
-conan upload PACKAGE_NAME/PACKAGE_VERSION@USER/CHANNEL -r OWNER-REPOSITORY
+conan upload PACKAGE_NAME/PACKAGE_VERSION@USER/CHANNEL -r WORKSPACE-REPOSITORY
 ```
 
 The user/channel will also be used as a tag on the package which will allow for filtering within the UI.
@@ -107,7 +107,7 @@ conan export .
 To create a package, files need to be extracted from the Conan home directory:
 
 ```shell
-export CLOUDSMITH_REPOSITORY=OWNER/REPOSITORY
+export CLOUDSMITH_REPOSITORY=WORKSPACE/REPOSITORY
 ```
 
 use `_` when user/channel is treated
@@ -162,13 +162,13 @@ First, the remote repository must be created and then credentials can be added f
 
 ```shell
 # Shell - Conan v1
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan user -p API-KEY -r OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan user -p API-KEY -r WORKSPACE-REPOSITORY USERNAME
 ```
 ```shell
 # Shell - Conan v2
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan remote login -p API-KEY OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan remote login -p API-KEY WORKSPACE-REPOSITORY USERNAME
 ```
 
 ### Private Repositories
@@ -184,44 +184,44 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 
 ```shell
 # Entitlement Token Auth - Conan v1
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan user -p TOKEN -r OWNER-REPOSITORY OWNER/REPOSITORY
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan user -p TOKEN -r WORKSPACE-REPOSITORY WORKSPACE/REPOSITORY
 ```
 ```shell
 # HTTP Basic Auth (User & Pass) - Conan v1
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan user -p PASSWORD -r OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan user -p PASSWORD -r WORKSPACE-REPOSITORY USERNAME
 ```
 ```shell
 # HTTP Basic Auth (API Key) - Conan v1
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan user -p API-KEY -r OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan user -p API-KEY -r WORKSPACE-REPOSITORY USERNAME
 ```
 ```shell
 # HTTP Basic Auth (Token) - Conan v1
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan user -p TOKEN -r OWNER-REPOSITORY token
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan user -p TOKEN -r WORKSPACE-REPOSITORY token
 ```
 
 ```shell
 # Entitlement Token Auth - Conan v2
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan remote login -p TOKEN OWNER-REPOSITORY OWNER/REPOSITORY
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan remote login -p TOKEN WORKSPACE-REPOSITORY WORKSPACE/REPOSITORY
 ```
 ```shell
 # HTTP Basic Auth (User & Pass) - Conan v2
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan remote login -p PASSWORD OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan remote login -p PASSWORD WORKSPACE-REPOSITORY USERNAME
 ```
 ```shell
 # HTTP Basic Auth (API Key) - Conan v2
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan remote login -p API-KEY OWNER-REPOSITORY USERNAME
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan remote login -p API-KEY WORKSPACE-REPOSITORY USERNAME
 ```
 ```shell
 # HTTP Basic Auth (Token) - Conan v2
-conan remote add OWNER-REPOSITORY https://conan.cloudsmith.io/OWNER/REPOSITORY/
-conan remote login -p TOKEN OWNER-REPOSITORY token
+conan remote add WORKSPACE-REPOSITORY https://conan.cloudsmith.io/WORKSPACE/REPOSITORY/
+conan remote login -p TOKEN WORKSPACE-REPOSITORY token
 ```
 
 ### Install a Package
@@ -230,7 +230,7 @@ Once set up, Conan can download the package by running:
 
 ```shell
 # Shell - Conan v1/v2
-conan download PACKAGE_NAME/PACKAGE_VERSION@ -r OWNER-REPOSITORY
+conan download PACKAGE_NAME/PACKAGE_VERSION@ -r WORKSPACE-REPOSITORY
 ```
 
 ## Conan Revisions

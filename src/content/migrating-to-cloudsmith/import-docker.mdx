@@ -25,13 +25,13 @@ If you are an Ultra or Enterprise customer, you are entitled to a [custom domain
 <Note variant="caution" heading="Be careful">
 Before you proceed:
 1. Make sure that you are logged into the Cloudsmith repository you wish to push the images to. More information can be found in our [docs](/formats/docker-registry#publish-via-docker).
-2. The format that we will be tagging the images is as follows: `docker.cloudsmith.io/v2/OWNER/REGISTRY/`
-3. If you are using a custom domain, the URL will change to `<custom-domain>/v2/OWNER/REGISTRY/`
+2. The format that we will be tagging the images is as follows: `docker.cloudsmith.io/v2/WORKSPACE/REGISTRY/`
+3. If you are using a custom domain, the URL will change to `<custom-domain>/v2/WORKSPACE/REGISTRY/`
 </Note>
 
 Once all of the images are saved either to variable or file, they now need to be parsed into `docker tag` command to include the new name for the docker image.
 
-1. Configure your script to insert the following: `docker tag old_image:version docker.cloudsmith.io/v2/OWNER/REGISTRY/image_name:version`
+1. Configure your script to insert the following: `docker tag old_image:version docker.cloudsmith.io/v2/WORKSPACE/REGISTRY/image_name:version`
 
 2. Then we can use `docker push <new_image_name>:<tag>`
 

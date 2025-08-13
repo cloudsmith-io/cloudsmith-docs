@@ -65,7 +65,7 @@ Enables the indexing of files within a package. This will increase the synchroni
 Enables uploaded packages to overwrite/replace any others with the same attributes (e.g version) by default. This only applies if the user has the required privilege for republishing AND has the required privilege to delete packages that they do not own. 
 
 **Contextual Authentication Realm**  
-If checked, missing credentials for this repository where basic authentication is required shall present an enriched value in the 'WWW-Authenticate' header containing the namespace and repository. This can be useful for tools such as SBT, where the authentication realm is used to distinguish and disambiguate credentials.
+If checked, missing credentials for this repository where basic authentication is required shall present an enriched value in the 'WWW-Authenticate' header containing the workspace and repository. This can be useful for tools such as SBT, where the authentication realm is used to distinguish and disambiguate credentials.
 
 **Strict Npm Validation**  
 Enables strict validation of npm packages to ensure that they match the specification. If you have packages that are old or slightly off-spec, you can disable this, but we can't guarantee that the packages will work with the npm CLI or other tooling.
@@ -128,10 +128,10 @@ For example, a Repository Transfer will require the repository users to update t
 
 A repository transfer is initiated from within the repository settings of the repository you wish to transfer. The action to perform the transfer is listed under "Actions (Danger)".
 
-When you initiate a repository transfer, the owner of the destination account/namespace will be notified that there is a transfer pending approval, and they then need to confirm that the transfer is accepted on the receiving repository.
+When you initiate a repository transfer, the owner of the destination workspace will be notified that there is a transfer pending approval, and they then need to confirm that the transfer is accepted on the receiving repository.
 
-Once the destination account/namespace has accepted the transfer, the repository will then be transferred to the destination account/namespace immediately. 
+Once the destination workspace has accepted the transfer, the repository will then be transferred to the destination workspace immediately. 
 
-The repository storage size will immediately count towards the storage limits for the destination account/namespace. Any Entitlement Tokens associated with the repository will also be transferred. 
+The repository storage size will immediately count towards the storage limits for the destination workspace. Any Entitlement Tokens associated with the repository will also be transferred. 
 
 Collaborators for the repository will be reset and any existing clients of the repository will need to update their URIs to point to the new location.

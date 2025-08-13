@@ -13,14 +13,14 @@ For more information on Cocoapods, please see:
 - [Cocoapods.org](https://cocoapods.org/): Official Cocoapods public repository and documentation
 
 <Note variant="note" headline="Contextual Documentation">
-  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+  The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -37,7 +37,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command-Li
 The command to upload an (Objective-C or Swift) CocoaPods package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push cocoapods OWNER/REPOSITORY PACKAGE_NAME.tar.gz
+cloudsmith push cocoapods WORKSPACE/REPOSITORY PACKAGE_NAME.tar.gz
 ```
 
 Example:
@@ -59,7 +59,7 @@ To add the repository to your project's Podfile, add the following:
 ### Public Repositories
 
 ```shell
-source 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cocoapods/index.git'
 ```
 
 ### Private Repositories
@@ -81,16 +81,16 @@ When using HTTP basic authentication, you'll need to configure Git with the prop
 </Note>
 
 ```shell Entitlement Token Auth
-source 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cocoapods/index.git'
 ```
 ```shell HTTP Basic Auth (User & Pass)
-source 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cocoapods/index.git'
 ```
 ```shell HTTP Basic Auth (API Key)
-source 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://USERNAME:API-KEY@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cocoapods/index.git'
 ```
 ```shell HTTP Basic Auth (Token)
-source 'https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://token:TOKEN@dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cocoapods/index.git'
 ```
 
 ### Specifying Dependencies
@@ -100,7 +100,7 @@ Add the latest version of a package to your Podfile using the syntax outlined by
 #### Public Repositories
 
 ```shell
-source 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://dl.cloudsmith.io/public/WORKSPACE/REPOSITORY/cocoapods/index.git'
 target 'MyApp' do
   pod 'PACKAGE_NAME', '~> PACKAGE_VERSION'
 end
@@ -109,13 +109,13 @@ end
 #### Private Repositories
 
 ```shell Entitlement Token Auth
-source 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/cocoapods/index.git'
 target 'MyApp' do
   pod 'PACKAGE_NAME', '~> PACKAGE_VERSION'
 end
 ```
 ```shell HTTP Basic Auth
-source 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cocoapods/index.git'
+source 'https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/cocoapods/index.git'
 target 'MyApp' do
   pod 'PACKAGE_NAME', '~> PACKAGE_VERSION'
 end

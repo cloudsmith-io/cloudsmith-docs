@@ -15,14 +15,14 @@ For more information on Terraform, please see:
 - [Terraform Documentation](https://developer.hashicorp.com/terraform/docs): The official docs for Terraform
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 In the following examples: 
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -65,7 +65,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The command to upload a Terraform Module via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push terraform OWNER/REPOSITORY terraform-MODULE_PROVIDER-MODULE_NAME-MODULE_VERSION.tar.gz
+cloudsmith push terraform WORKSPACE/REPOSITORY terraform-MODULE_PROVIDER-MODULE_NAME-MODULE_VERSION.tar.gz
 ```
 
 Example:
@@ -88,12 +88,12 @@ First, the namespace, repository and credentials must be added to your `.terrafo
 
 ```shell Entitlement Token Auth
 credentials "terraform.cloudsmith.io" {
-  token = "OWNER/REPOSITORY/TOKEN"
+  token = "WORKSPACE/REPOSITORY/TOKEN"
 }
 ```
 ```shell API Key Auth
 credentials "terraform.cloudsmith.io" {
-  token = "OWNER/REPOSITORY/API-KEY"
+  token = "WORKSPACE/REPOSITORY/API-KEY"
 }
 ```
 

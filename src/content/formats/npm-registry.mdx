@@ -24,7 +24,7 @@ The Cloudsmith npm registry has been fully tested with the following:
 It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](https://cloudsmith.com/company/contact-us).
 
 <Note variant="note" headline="Contextual Documentation">
-The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
+The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your workspace/repo/rsa-key pre-configured).
 </Note>
 
 
@@ -32,7 +32,7 @@ In the following examples:
 
 | Identifier      | Description                                                                               |
 | :-------------- | :---------------------------------------------------------------------------------------- |
-| OWNER           | Your Cloudsmith account name or organization name (namespace)                             |
+| WORKSPACE           | Your Cloudsmith workspace name                             |
 | REPOSITORY      | Your Cloudsmith Repository name (also called "slug")                                      |
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | USERNAME        | Your Cloudsmith username                                                                  |
@@ -53,7 +53,7 @@ You can publish your npm packages to a Cloudsmith-based npm registry via the nat
 The endpoint for the native npm API is:
 
 ```
-https://npm.cloudsmith.io/OWNER/REPOSITORY/
+https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 To authenticate for native publishing, you can either use `npm login` or create an `npmrc` file (in your **$HOME** or in the project directory)
@@ -66,13 +66,13 @@ Please see the official NPM release notes **[here](https://github.blog/changelog
 Use `npm login`:
 
 ```shell NPM \< v9
-npm login --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm login --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 Username: USERNAME
 Password: API-KEY
 Email: YOUR-EMAIL-ADDRESS
 ```
 ```shell NPM v9 +
-npm login --auth-type=legacy --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm login --auth-type=legacy --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 Username: USERNAME
 Password: API-KEY
 Email: YOUR-EMAIL-ADDRESS
@@ -81,8 +81,8 @@ Email: YOUR-EMAIL-ADDRESS
 Or create an `.npmrc` file with the following:
 
 ```
-registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
-//npm.cloudsmith.io/OWNER/REPOSITORY/:_authToken=API-KEY
+registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:_authToken=API-KEY
 ```
 
 ### Publish
@@ -90,7 +90,7 @@ registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
 Once you have set up the registry, you can then publish from your project directory using `npm publish`: 
 
 ```shell
-npm publish --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm publish --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 For more details on `npm publish` see the official [npm documentation](https://docs.npmjs.com/cli/publish). (external link)
@@ -114,7 +114,7 @@ This assumes that you've created a `package.json` file for your project. Please 
 The command to upload an npm package via the Cloudsmith CLI is: 
 
 ```shell
-cloudsmith push npm OWNER/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tgz
+cloudsmith push npm WORKSPACE/REPOSITORY PACKAGE_NAME-PACKAGE_VERSION.tgz
 ```
 
 Example:
@@ -163,20 +163,20 @@ Cloudsmith has full support for distribution tags and (mostly) follows the same 
 You can inspect a package to see what tags it has:
 
 ```shell
-npm dist-tags ls PACKAGE_NAME --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm dist-tags ls PACKAGE_NAME --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 You can add tags to a package:
 
 ```shell
 npm dist-tags add PACKAGE_NAME@PACKAGE_VERSION TAG -
--registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+-registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 You can also remove tags from a package:
 
 ```shell
-npm dist-tags rm PACKAGE_NAME TAG --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm dist-tags rm PACKAGE_NAME TAG --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 You can find out more about [distribution tags](https://docs.npmjs.com/adding-dist-tags-to-packages) in the npm documentation (external link).
@@ -195,7 +195,7 @@ You can configure npm to use a Cloudsmith-based npm registry in one of two ways:
 To use/set the registry as the default for your user, execute the following:
 
 ```shell
-npm config set registry https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm config set registry https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 You can set it globally (with permissions) by using the `-g` argument.
@@ -207,13 +207,13 @@ Setting the registry globally will impact **all** npm commands unless they expli
 You can also add the registry directly to your user or project `.npmrc` file as follows:
 
 ```text
-registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 Alternatively, you can specify the registry each time you execute `npm` commands, such as:
 
 ```shell
-npm install PACKAGE_NAME --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm install PACKAGE_NAME --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 ### Private Registries
@@ -230,22 +230,22 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 To set up the registry with authentication, add the one of the following to your user or project `.npmrc` file:
 
 ```text Entitlement Token Auth
-registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
-//npm.cloudsmith.io/OWNER/REPOSITORY/:_authToken=TOKEN
+registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:_authToken=TOKEN
 ```
 ```shell HTTP Basic Auth (User & Pass)
-registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
-//npm.cloudsmith.io/OWNER/REPOSITORY/:username=USERNAME
-//npm.cloudsmith.io/OWNER/REPOSITORY/:_password=PASSWORD
+registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:username=USERNAME
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:_password=PASSWORD
 ```
 ```shell HTTP Basic Auth (API-Key)
-registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
-//npm.cloudsmith.io/OWNER/REPOSITORY/:_authToken=API-KEY
+registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:_authToken=API-KEY
 ```
 ```shell HTTP Basic Auth (Token)
-registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
-//npm.cloudsmith.io/OWNER/REPOSITORY/:username=token
-//npm.cloudsmith.io/OWNER/REPOSITORY/:_password=TOKEN
+registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:username=token
+//npm.cloudsmith.io/WORKSPACE/REPOSITORY/:_password=TOKEN
 ```
 
 <Note variant="note" headline="Note">
@@ -263,7 +263,7 @@ npm install PACKAGE_NAME
 If you have added tags to the package, then these tags  can be used as an alternative to the package version when installing packages, such as:
 
 ```shell
-npm install PACKAGE_NAME@TAG --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm install PACKAGE_NAME@TAG --registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 ### Scoped Registries
@@ -272,13 +272,13 @@ Using a registry scope tells npm to route installs for packages in that scope to
 You can set it via the command-line using:
 
 ```shell
-npm config set '@SCOPE:registry' https://npm.cloudsmith.io/OWNER/REPOSITORY/
+npm config set '@SCOPE:registry' https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 You can also set it directly in your user or project `.npmrc` file:
 
 ```
-@SCOPE:registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
+@SCOPE:registry=https://npm.cloudsmith.io/WORKSPACE/REPOSITORY/
 ```
 
 Installing packages with a scope then requires putting the scope before the name:
