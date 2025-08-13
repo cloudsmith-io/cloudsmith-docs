@@ -28,7 +28,135 @@
       },
       {
         "title": "Supported Formats",
-        "path": "/formats/"
+        "path": "/formats/",
+        "children": [
+          {
+            "title": "Alpine",
+            "path": "/formats/alpine-repository"
+          },
+          {
+            "title": "Cargo",
+            "path": "/formats/cargo-registry"
+          },
+          {
+            "title": "Chocolatey",
+            "path": "/formats/chocolatey-repository"
+          },
+          {
+            "title": "Cocoapods",
+            "path": "/formats/cocoapods-repository"
+          },
+          {
+            "title": "Composer",
+            "path": "/formats/composer-repository"
+          },
+          {
+            "title": "Conan",
+            "path": "/formats/conan-repository"
+          },
+          {
+            "title": "Conda",
+            "path": "/formats/conda-repository"
+          },
+          {
+            "title": "CRAN",
+            "path": "/formats/cran-repository"
+          },
+          {
+            "title": "Dart",
+            "path": "/formats/dart-repository"
+          },
+          {
+            "title": "Debian",
+            "path": "/formats/debian-repository"
+          },
+          {
+            "title": "Docker",
+            "path": "/formats/docker-registry"
+          },
+          {
+            "title": "Go",
+            "path": "/formats/go-registry"
+          },
+          {
+            "title": "Gradle",
+            "path": "/formats/gradle-repository"
+          },
+          {
+            "title": "Helm",
+            "path": "/formats/helm-chart-repository"
+          },
+          {
+            "title": "Hex",
+            "path": "/formats/hex-repository"
+          },
+          {
+            "title": "LuaRocks",
+            "path": "/formats/luarocks-repository"
+          },
+          {
+            "title": "Maven",
+            "path": "/formats/maven-repository"
+          },
+          {
+            "title": "npm",
+            "path": "/formats/npm-registry"
+          },
+          {
+            "title": "NuGet Feed",
+            "path": "/formats/nuget-feed",
+            "children": [
+              {
+                "title": "NuGet Symbol Server",
+                "path": "/formats/nuget-symbol-server"
+              }
+            ]
+          },
+          {
+            "title": "OCI",
+            "path": "/formats/oci-repository"
+          },
+          {
+            "title": "PowerShell Modules",
+            "path": "/formats/powershell-modules-repository"
+          },
+          {
+            "title": "Python",
+            "path": "/formats/python-repository"
+          },
+          {
+            "title": "Raw",
+            "path": "/formats/raw-repository"
+          },
+          {
+            "title": "RedHat",
+            "path": "/formats/redhat-repository"
+          },
+          {
+            "title": "Ruby",
+            "path": "/formats/ruby-repository"
+          },
+          {
+            "title": "sbt",
+            "path": "/formats/sbt-repository"
+          },
+          {
+            "title": "Swift",
+            "path": "/formats/swift-registry"
+          },
+          {
+            "title": "Terraform",
+            "path": "/formats/terraform-modules-repository"
+          },
+          {
+            "title": "Unity",
+            "path": "/formats/unity-registry"
+          },
+          {
+            "title": "Vagrant",
+            "path": "/formats/vagrant-repository"
+          }
+        ]
       },
       {
         "title": "Workspaces",
@@ -346,7 +474,125 @@
       },
       {
         "title": "Integrations",
-        "path": "/integrations/"
+        "path": "/integrations/",
+        "children": [
+          {
+            "title": "Aikido",
+            "path": "/integrations/integrating-with-aikido"
+          },
+          {
+            "title": "Ansible",
+            "path": "/integrations/integrating-with-ansible"
+          },
+          {
+            "title": "ArgoCD",
+            "path": "/integrations/integrating-with-argocd"
+          },
+          {
+            "title": "AWS CodeBuild",
+            "path": "/integrations/integrating-with-aws-codebuild"
+          },
+          {
+            "title": "Azure DevOps",
+            "path": "/integrations/integrating-with-azure-devops"
+          },
+          {
+            "title": "Bitbucket Pipelines",
+            "path": "/integrations/integrating-with-bitbucket-pipelines"
+          },
+          {
+            "title": "Buildkite",
+            "path": "/integrations/integrating-with-buildkite"
+          },
+          {
+            "title": "Chainguard Images",
+            "path": "/integrations/integrating-with-chainguard-images"
+          },
+          {
+            "title": "Chef",
+            "path": "/integrations/integrating-with-chef"
+          },
+          {
+            "title": "CircleCI",
+            "path": "/integrations/integrating-with-circleci"
+          },
+          {
+            "title": "Codefresh",
+            "path": "/integrations/integrating-with-codefresh"
+          },
+          {
+            "title": "Datadog",
+            "path": "/integrations/integrating-with-datadog"
+          },
+          {
+            "title": "Dependabot",
+            "path": "/integrations/integrating-with-dependabot"
+          },
+          {
+            "title": "Docker Hub",
+            "path": "/integrations/integrating-with-docker-hub"
+          },
+          {
+            "title": "Drone CI",
+            "path": "/integrations/integrating-with-drone-ci"
+          },
+          {
+            "title": "GitHub Actions",
+            "path": "/integrations/integrating-with-github-actions"
+          },
+          {
+            "title": "GitLab CI/CD",
+            "path": "/integrations/integrating-with-gitlab-cicd"
+          },
+          {
+            "title": "Harness CD",
+            "path": "/integrations/integrating-with-harness"
+          },
+          {
+            "title": "Jenkins",
+            "path": "/integrations/integrating-with-jenkins"
+          },
+          {
+            "title": "Octopus Deploy",
+            "path": "/integrations/integrating-with-octopus-deploy"
+          },
+          {
+            "title": "Puppet",
+            "path": "/integrations/integrating-with-puppet"
+          },
+          {
+            "title": "Roadie",
+            "path": "/integrations/integrating-with-roadie"
+          },
+          {
+            "title": "Renovate",
+            "path": "/integrations/integrating-with-renovate"
+          },  
+          {
+            "title": "Semaphore CI",
+            "path": "/integrations/integrating-with-semaphore-ci"
+          },
+          {
+            "title": "Terraform Provider",
+            "path": "/integrations/integrating-with-terraform"
+          },
+          {
+            "title": "TeamCity",
+            "path": "/integrations/integrating-with-teamcity"
+          },          
+          {
+            "title": "Travis-CI",
+            "path": "/integrations/integrating-with-travis-ci"
+          },
+          {
+            "title": "VS Code Extension",
+            "path": "/developer-tools/vscode"
+          },
+          {
+            "title": "Zapier",
+            "path": "/integrations/integrating-with-zapier"
+          }
+        ]
       },
       {
         "title": "Developer Tools",
