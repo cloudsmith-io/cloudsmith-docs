@@ -5,7 +5,7 @@ import malicious_package from './images/malicious_package.png';
 
 # Malicious Packages
 
-As part of the Supply Chain Security features in Cloudsmith, you can detect packages that were compromise at some stages of the supply chain and reduce exposure to risk. Malicious packages are software components published to public registries like npm, PyPI, or RubyGems, that have been **intentionally crafted by an attacker to cause harm** (for example, the [SolarWinds attack](https://www.fortinet.com/resources/cyberglossary/solarwinds-cyber-attack)). When developers unknowingly include these packages in their applications, they open the door to data theft, ransomware, and other damaging attacks for anyone using the affected artifacts.
+Malicious packages are software components published to public registries like npm, PyPI, or RubyGems, that have been **intentionally crafted by an attacker to cause harm**. For example, a PyPi package named [django-log-tracker](https://thehackernews.com/2024/02/dormant-pypi-package-compromised-to.html) was compromised in 2024 after 2 years without new releases. When developers unknowingly include these packages in their applications, they open the door to data theft, ransomware, and other damaging attacks for anyone using the affected artifacts.
 
 One example of a malicious package named `ctx` was discovered on the PyPI (Python Package Index) repository. It mimicked a popular but previously removed package. The malicious version was designed to steal developers' environment variables, which often contain sensitive credentials and API keys.
 
@@ -36,9 +36,9 @@ While OSV tracks all types of vulnerabilities, it has a specific and important r
 Malicious package detection via OSV.dev is available for Ultra and Enterprise customers.
 </Note>
 
-Malicious packages information is available via Enterprise Policy Management and Continuous Security features. This means, you can create your own policies to take action when a malicious package is detected.
+Malicious packages information is available via [Enterprise Policy Management](/supply-chain-security/continuous-security) and [Continuous Security](/supply-chain-security/epm/) features (both in Early Access). This means, you can create your own policies to take action when a malicious package is detected.
 
-For example, here we can see an EPM policy that quarantines any package that is considered malicious by the OSV database (and tags it with `MALICIOUS_PACKAGE`):
+For example, here we can see an EPM policy that quarantines any package that is considered malicious in the OSV database (and tags it with `MALICIOUS_PACKAGE`):
 
 <BlockImage src={policy_malicious_packages} alt=""></BlockImage>
 
@@ -46,9 +46,26 @@ If we try to upload a package that is considered malicious, the policy will be t
 
 <BlockImage src={malicious_package} alt=""></BlockImage>
 
+<Note variant="note" headline="Cached packages">
+Due to the early access nature of this feature, the malicious package detection is only available for packages that are uploaded to Cloudsmith. This means that cached packages won't be matched against new updates in the malicious packages feed.
+</Note>
+
 ### Example Rego policy
 
-Creating a policy in Cloudsmith that flags any artifact considered malicious is as simple as checking the `vulnerability.id` field and checking if it starts with the prefix `MAL-`, as all malicious packages are identified with this string. Check one example policy in the EPM [Rego](./epm/rego#recipe-6-detect-malicious-packages) section.
+Creating a policy in Cloudsmith that flags any artifact considered malicious is as simple as checking the `vulnerability.id` field and checking if it starts with the prefix `MAL-`, as all malicious packages are identified with this string. Check one example policy below:
+
+```rego
+package cloudsmith
+
+default match := false
+
+match if count(malicious_packages) > 0
+
+malicious_packages := [vulnerability.id |
+	some vulnerability in input.v0.osv
+	startswith(vulnerability.id, "MAL-")
+]
+```
 
 ### Supported Formats
 
