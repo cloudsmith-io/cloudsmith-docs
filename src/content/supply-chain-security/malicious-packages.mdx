@@ -1,20 +1,21 @@
 import { Note, BlockImage } from '@/components';
 
-import vuln_list from './images/vuln_list.png';
+import policy_malicious_packages from './images/policy_malicious_packages.png';
+import malicious_package from './images/malicious_package.png';
 
 # Malicious Packages
 
-As part of the Supply Chain Security features in Cloudsmith, you can detect packages that were compromise in some of the stages of the supply chain and reduce exposure to risk. Malicious packages are software components published to public registries like npm, PyPI, or RubyGems, that have been **intentionally crafted by an attacker to cause harm**. When developers unknowingly include these packages in their applications, they open the door to data theft, ransomware, and other damaging attacks.
+As part of the Supply Chain Security features in Cloudsmith, you can detect packages that were compromise at some stages of the supply chain and reduce exposure to risk. Malicious packages are software components published to public registries like npm, PyPI, or RubyGems, that have been **intentionally crafted by an attacker to cause harm** (for example, the [SolarWinds attack](https://www.fortinet.com/resources/cyberglossary/solarwinds-cyber-attack)). When developers unknowingly include these packages in their applications, they open the door to data theft, ransomware, and other damaging attacks for anyone using the affected artifacts.
 
 One example of a malicious package named `ctx` was discovered on the PyPI (Python Package Index) repository. It mimicked a popular but previously removed package. The malicious version was designed to steal developers' environment variables, which often contain sensitive credentials and API keys.
 
-<Note variant="note" headline="Software Vulnerability (CVE) vs. Malicious Package">
-A **software vulnerability**, often identified by a Common Vulnerabilities and Exposures (CVE) ID, is an *unintentional* flaw in the code. It's a bug that, if exploited by an attacker, could lead to a security breach. These vulnerabilities are typically the result of errors in design, coding, or implementation. The key takeaway is that vulnerabilities are accidental mistakes made by developers. 
+<Note variant="note" headline="Software Vulnerabilities (CVE) vs. Malicious Packages">
+A **software vulnerability**, often identified by a Common Vulnerabilities and Exposures (CVE) ID, is an *unintentional* flaw in the code. It's a bug that, if exploited by an attacker, could lead to a security breach. These vulnerabilities are typically the result of errors in design or implementation.
 
-For example, the **Log4Shell** vulnerability (**CVE-2021-44228**): it was a flaw in the popular Log4j logging library for Java that allowed attackers to gain  remote code execution over compromised systems. The library itself was not created with malicious intent.
+For example, the **Log4Shell** vulnerability (**CVE-2021-44228**): it was a flaw in the popular Log4j logging library for Java that allowed attackers to gain remote code execution over compromised systems. The library itself was not created with malicious intent.
 </Note>
 
-## How Malicious Packages are introduced in Dependencies
+## How malicious packages are introduced in dependencies
 
 Attackers use several techniques to infiltrate the software supply chain by tricking developers into using malicious packages. Understanding these methods is key to building effective defenses.
 
@@ -27,7 +28,7 @@ Attackers use several techniques to infiltrate the software supply chain by tric
 
 Cloudsmith uses the **Open Source Vulnerability (OSV)** project as a trusted source to detect malicious packages in open-source software. This database was initiated by Google and it provides a unified, open, and distributed database for vulnerabilities found in open-source software. Its goal is to provide precise vulnerability information that can be easily consumed by developers and automated security tools.
 
-While OSV tracks all types of vulnerabilities, it has a specific and important role in cataloging **malicious packages** with the OpenSSF Malicious Packages repository. This is a community-driven effort to collect and document reports of malicious packages discovered in the wild. By centralizing this information, OSV provides a critical resource for developers and organizations to protect their software supply chains from this growing threat.
+While OSV tracks all types of vulnerabilities, it has a specific and important role in cataloging **malicious packages** with the OpenSSF Malicious Packages repository. This is a community-driven effort to collect and document reports of malicious packages discovered in the wild. By centralizing this information, OSV provides a critical resource for developers and organizations to protect their software supply chain from this growing threat.
 
 ## Malicious package detection in Cloudsmith
 
@@ -37,7 +38,19 @@ Malicious package detection via OSV.dev is available for Ultra and Enterprise cu
 
 Malicious packages information is available via Enterprise Policy Management and Continuous Security features. This means, you can create your own policies to take action when a malicious package is detected.
 
-## Supported Formats
+For example, here we can see an EPM policy that quarantines any package that is considered malicious by the OSV database (and tags it with `MALICIOUS_PACKAGE`):
+
+<BlockImage src={policy_malicious_packages} alt=""></BlockImage>
+
+If we try to upload a package that is considered malicious, the policy will be triggered and the package will be quarantined.
+
+<BlockImage src={malicious_package} alt=""></BlockImage>
+
+### Example Rego policy
+
+Creating a policy in Cloudsmith that flags any artifact considered malicious is as simple as checking the `vulnerability.id` field and checking if it starts with the prefix `MAL-`, as all malicious packages are identified with this string. Check one example policy in the EPM [Rego](./epm/rego#recipe-6-detect-malicious-packages) section.
+
+### Supported Formats
 
 Below you can find the package [formats supported](https://github.com/ossf/malicious-packages/tree/main/osv/malicious) by the OSSF Malicious Packages project:
 
@@ -50,7 +63,3 @@ Below you can find the package [formats supported](https://github.com/ossf/malic
 | `nuget`            | .NET                 |
 | `pypi`             | Python               |
 | `rubygems`         | Ruby                 |
-
-## Example Rego policy
-
-Creating a policy in Cloudsmith that flags any artifact considered malicious is as simple as checking the `vulnerability.id` field and checking if it starts with the prefix `MAL-`, as all malicious packages are identified with this string. Check one example policy in the EPM [Rego](./epm/rego) section.
