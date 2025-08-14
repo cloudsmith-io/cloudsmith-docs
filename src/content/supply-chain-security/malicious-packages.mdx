@@ -19,7 +19,7 @@ For example, the **Log4Shell** vulnerability (**CVE-2021-44228**): it was a flaw
 
 Attackers use several techniques to infiltrate the software supply chain by tricking developers into using malicious packages. Understanding these methods is key to building effective defenses.
 
-- **Typosquatting**: A new package is published with a name that is common misspelling of a popular one. For example, publishing `reqeusts` to trick developers who meant to install the legitimate `requests` library in Python.
+- **Typosquatting**: A new package is published with a name that is a common misspelling of a popular one. For example, publishing `reqeusts` to trick developers who meant to install the legitimate `requests` library in Python.
 - **Dependency Confusion**: This technique targets corporate build systems. An attacker discovers the name of a private, internal package (e.g., `acme-auth`) and publishes a malicious package with the same name to a public registry, often with a higher version number, tricking automated tools into downloading it.
 - **Account Takeover**: Attackers compromise the account of a legitimate package maintainer. They then publish a new, malicious version of the trusted package. For instance, if the maintainer of `super-utils` gets their account stolen, an attacker could release version `1.2.4` containing code to steal credit card information.
 - **Protestware/Malicious Maintainers**: Sometimes, the threat comes from the package maintainer themselves. As an act of protest or malice, they might add harmful code to their own popular library. For example, the maintainer of `node-ipc` added code that would delete files on systems with specific IP addresses as a form of protest.
