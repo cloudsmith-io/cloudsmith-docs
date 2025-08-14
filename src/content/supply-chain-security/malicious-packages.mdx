@@ -7,7 +7,7 @@ import malicious_package from './images/malicious_package.png';
 
 Malicious packages are software components published to public registries like npm, PyPI, or RubyGems, that have been **intentionally crafted by an attacker to cause harm**. For example, a PyPi package named [django-log-tracker](https://thehackernews.com/2024/02/dormant-pypi-package-compromised-to.html) was compromised in 2024 after 2 years without new releases. When developers unknowingly include these packages in their applications, they open the door to data theft, ransomware, and other damaging attacks for anyone using the affected artifacts.
 
-One example of a malicious package named `ctx` was discovered on the PyPI (Python Package Index) repository. It mimicked a popular but previously removed package. The malicious version was designed to steal developers' environment variables, which often contain sensitive credentials and API keys.
+Another example of a malicious package named `ctx` was discovered on the PyPI (Python Package Index) repository. It mimicked a popular but previously removed package. The malicious version was designed to steal developers' environment variables, which often contain sensitive credentials and API keys.
 
 <Note variant="note" headline="Software Vulnerabilities (CVE) vs. Malicious Packages">
 A **software vulnerability**, often identified by a Common Vulnerabilities and Exposures (CVE) ID, is an *unintentional* flaw in the code. It's a bug that, if exploited by an attacker, could lead to a security breach. These vulnerabilities are typically the result of errors in design or implementation.
@@ -22,7 +22,7 @@ Attackers use several techniques to infiltrate the software supply chain by tric
 - **Typosquatting**: A new package is published with a name that is a common misspelling of a popular one. For example, publishing `reqeusts` to trick developers who meant to install the legitimate `requests` library in Python.
 - **Dependency Confusion**: This technique targets corporate build systems. An attacker discovers the name of a private, internal package (e.g., `acme-auth`) and publishes a malicious package with the same name to a public registry, often with a higher version number, tricking automated tools into downloading it.
 - **Account Takeover**: Attackers compromise the account of a legitimate package maintainer. They then publish a new, malicious version of the trusted package. For instance, if the maintainer of `super-utils` gets their account stolen, an attacker could release version `1.2.4` containing code to steal credit card information.
-- **Protestware/Malicious Maintainers**: Sometimes, the threat comes from the package maintainer themselves. As an act of protest or malice, they might add harmful code to their own popular library. For example, the maintainer of `node-ipc` added code that would delete files on systems with specific IP addresses as a form of protest.
+- **Protestware/Malicious Maintainers**: Sometimes, the threat comes from the package maintainers themselves. As an act of protest or malice, they might add harmful code to their own popular library. For example, the maintainer of `node-ipc` added code that would delete files on systems with specific IP addresses as a form of protest.
 
 ## OSV and OpenSSF Malicious Packages
 
@@ -36,7 +36,7 @@ While OSV tracks all types of vulnerabilities, it has a specific and important r
 Malicious package detection via OSV.dev is available for Ultra and Enterprise customers.
 </Note>
 
-Malicious packages information is available via [Enterprise Policy Management](/supply-chain-security/continuous-security) and [Continuous Security](/supply-chain-security/epm/) features (both in Early Access). This means, you can create your own policies to take action when a malicious package is detected.
+Malicious packages information is available via [Enterprise Policy Management](/supply-chain-security/epm) and [Continuous Security](/supply-chain-security/continuous-security) features (both in Early Access). This means, you can create your own policies to take action when a malicious package is detected.
 
 For example, here we can see an EPM policy that quarantines any package that is considered malicious in the OSV database (and tags it with `MALICIOUS_PACKAGE`):
 
