@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react'; // 1. Import useRef
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './LegacySiteBanner.module.css';
 
 export default function LegacySiteBanner(): JSX.Element | null {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const bannerRef = useRef<HTMLDivElement>(null); // 2. Create a ref to attach to our banner
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const isDismissed = sessionStorage.getItem('legacyBannerDismissed');
@@ -14,21 +14,17 @@ export default function LegacySiteBanner(): JSX.Element | null {
     }
   }, []);
 
-  // 3. Add a new effect that runs when the banner's visibility changes
   useEffect(() => {
     if (isVisible && bannerRef.current) {
-      // If the banner is visible, get its exact height
       const bannerHeight = bannerRef.current.offsetHeight;
-      // Set that height as a CSS variable on the root <html> element
       document.documentElement.style.setProperty('--banner-height', `${bannerHeight}px`);
     }
 
     // This is a cleanup function. It runs when the banner is closed or hidden.
     return () => {
-      // Remove the CSS variable so the page content moves back up.
       document.documentElement.style.removeProperty('--banner-height');
     };
-  }, [isVisible]); // This effect depends on the 'isVisible' state
+  }, [isVisible]);
 
   const handleClose = (): void => {
     setIsVisible(false);
@@ -40,7 +36,6 @@ export default function LegacySiteBanner(): JSX.Element | null {
   }
 
   return (
-    // 4. Attach the ref to the banner's main div
     <div ref={bannerRef} className={styles.bannerContainer}>
       <div className={styles.bannerContent}>
         <span>Are you looking for the legacy documentation site?</span>
