@@ -28,7 +28,7 @@
 }
 
 .bannerLink {
-  color: #FFFFFF;
+  color: grey;
   font-weight: 600;
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
@@ -47,7 +47,7 @@
   border: none;
   padding: 4px;
   cursor: pointer;
-  color: #FFFFFF;
+  color: grey;
   border-radius: 50%;
   display: flex;
   transition: background-color 0.2s ease;
