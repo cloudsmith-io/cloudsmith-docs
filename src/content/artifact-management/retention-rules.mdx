@@ -29,7 +29,9 @@ The cutoff date is calculated by subtracting the retention days from the uploade
 
 For example: if the newest package was uploaded on June 10th and the retention period is 4 days, the cutoff date is June 6th. Any packages uploaded before June 6th are eligible for deletion.
 
-<Note>📘 Although a re-sync process will re-evaluate retention rules, it won't alter the upload date on a package.</Note>
+<Note variant="note" headline="Upload date">
+Although a re-sync process will re-evaluate retention rules, it won't alter the upload date on a package.
+</Note>
 
 ## Enabling Retention Rules
 
@@ -59,8 +61,10 @@ curl --request PATCH \
 | Group packages by Type |  `retention_group_by_package_type` | If checked, retention will apply to packages by package type (e.g. by binary, by source, etc.), rather than across all package types for one or more formats. For example, when retaining by a limit of 1 and packages `DebPackage 1.0` and `DebSourcePackage 1.0` are uploaded, no packages are deleted because they are different package types, binary and source respectively.         |    
 | Query String   |  `retention_package_query_string` | A package search expression which, if provided, filters the packages to be deleted. For example, a search expression of `name:foo` will result in only packages called `foo` being deleted, or a search expression of `tag:~latest` will prevent any packages tagged `latest` from being deleted. Refer to the Cloudsmith documentation for package query syntax.  |         
 
-<Note>📘 From the UI, use the sliders to configure rule values, and finally click the green "Update" button to apply it.
-Please note that the `Query String` is not available in the UI, use the API instead to consult or edit it.</Note>
+<Note variant="note" headline="UI vs. API fields">
+From the UI, use the sliders to configure rule values, and finally click the green "Update" button to apply it.
+Please note that the `Query String` is not available in the UI, use the API instead to consult or edit it.
+</Note>
 
 ### Configuration parameters via API
 

@@ -42,7 +42,7 @@ gem build PACKAGE_NAME.gemspec
 
 This generates a gem package file (.gem) like `PACKAGE_NAME-PACKAGE_VERSION.gem` that you can upload.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline=".gemspec required">
 This assumes that you've created a `.gemspec` file for your project. Please see the official [Rubygems guide](https://guides.rubygems.org/make-your-own-gem/) on how to make your own gem for more information. (external link)
 </Note>
 
@@ -75,7 +75,7 @@ gem push PACKAGE_NAME-VERSION.gem \
 
 If you haven't specified credentials above, you'll be asked for them during the push.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="envvar alternative">
 You can also set the `RUBYGEMS_HOST` environment variable instead of `--host`:
 </Note>
 

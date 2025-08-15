@@ -35,7 +35,7 @@ docker tag your-existing-image:latest docker.cloudsmith.io/your-namespace/your-r
 docker push docker.cloudsmith.io/your-namespace/your-repo/image-name:latest
 ```
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Update pull string">
 Replace `your-existing-image:latest` with the name of your Docker image, and ensure that the target repository details (your-namespace/your-repo) match your Cloudsmith setup.
 </Note>
 
@@ -86,15 +86,15 @@ Argo CD requires that you add the Helm repository from Cloudsmith to access the 
 **Adding the Helm Repository via ArgoCD CLI**
 
 ```text bash
-argocd repo add --name cloudsmith-helm --type helm https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/helm/charts/ \
+argocd repo add --name cloudsmith-helm --type helm https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/helm/charts/ \
   --username your-username \
   --password your-api-key
 ```
 
-- dl.cloudsmith.io/basic/OWNER/REPOSITORY/helm/charts/: Replace with the correct URL of your Cloudsmith Helm repository.
+- dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/helm/charts/: Replace with the correct URL of your Cloudsmith Helm repository.
 - \--username and --password: Please use your Cloudsmith username with the API key for authentication, as using username and password is deprecated.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Entitlement Tokens">
 Where possible, use Entitlement tokens instead of API keys for more secure and flexible authentication when integrating with ArgoCD. Entitlement tokens are easier to manage and can be rotated more frequently for enhanced security.
 </Note>
 
@@ -102,7 +102,7 @@ In case of Entitlement token the command for adding the helm repository via Argo
 
 ```text bash
 argocd repo add --name cloudsmith-helm --type helm \
-  https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/helm/charts/
+  https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/helm/charts/
 ```
 
 ### Step 5: Create an Argo CD Application Manifest
@@ -118,7 +118,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/helm/charts/"
+    repoURL: "https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/helm/charts/"
     targetRevision: "0.1.0"
     chart: my-test-app
   destination:
@@ -159,5 +159,5 @@ spec:
 
 ## Troubleshooting
 
-- **Image Pull Issues**: Verify that the image pull secret is correctly configured in the namespace where your application is running.
+- **Image Pull Issues**: Verify that the image pull secret is correctly configured in the workspace where your application is running.
 - **Helm Chart Errors**: Ensure that the Helm chart version specified in the Argo CD manifest exists in the Cloudsmith repository.

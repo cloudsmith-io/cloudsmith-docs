@@ -257,13 +257,13 @@ import PackageDescription
 let package = Package(
     name: "MySwiftApp",
     dependencies: [
-        .package(id: "alamofire.alamofire", from: "5.9.1") // Add this line
+        .package(id: "alamofire.alamofire", from: "5.9.1")
     ],
     targets: [
         .executableTarget(
             name: "MySwiftApp",
             dependencies: [
-                .product(name: "Alamofire", package: "alamofire.alamofire") // And this one
+                .product(name: "Alamofire", package: "alamofire.alamofire")
             ]
         ),
     ]
@@ -329,7 +329,7 @@ Please see our [Security Scanning](/policy-management/vulnerability-policy) docu
 
 You can configure to proxy a private or public swift registry you wish to use for packages that are not available in your current Cloudsmith repository e.g. you can point to another Cloudsmith repository. In addition, you can also choose to cache any requested packages for future use.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Public upstreams">
 There is currently no public swift repository. HTML catalogs of Swift Packages such as [Swift Package Registry](https://swiftpackageregistry.com/) that point to third-party Git repositories do not host any actual packages and so can't be added as an upstream.
 </Note>
 

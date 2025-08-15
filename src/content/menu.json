@@ -694,7 +694,7 @@
     "icon": "action/guide",
     "children": [
           {
-            "title": "Getting started",
+            "title": "Getting Started",
             "path": "/guides/getting-started"
           },
           {
