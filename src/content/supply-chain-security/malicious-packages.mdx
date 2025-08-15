@@ -46,10 +46,6 @@ If you upload a package flagged as malicious, the policy automatically triggers 
 
 <BlockImage src={malicious_package} alt=""></BlockImage>
 
-<Note variant="note" headline="Cached packages">
-Due to the early access nature of this feature, the malicious package detection is only available for packages that are uploaded to Cloudsmith. This means that cached packages won't be matched against new updates in the malicious packages feed.
-</Note>
-
 ### Example Rego policy
 
 To flag any artifact considered malicious in Cloudsmith, check whether the`vulnerability.id` field starts with the prefix `MAL-` - all malicious packages are identified with this string. 
