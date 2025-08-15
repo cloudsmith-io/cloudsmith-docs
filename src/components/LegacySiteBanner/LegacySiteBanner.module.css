@@ -1,7 +1,7 @@
 
 .bannerContainer {
-  background-color: #7A5FF6;
-  color: #FFFFFF;
+  background-color: #B7D2FF;
+  color: #041e2e;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,6 +10,8 @@
   box-sizing: border-box;
   font-family: sans-serif;
   font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
   position: relative;
   z-index: 1000;
 }
@@ -31,6 +33,13 @@
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   white-space: nowrap; /* Prevents the link text from breaking */
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.bannerLink:hover {
+  color: #041e2e;
 }
 
 .closeButton {
