@@ -1,3 +1,4 @@
+import LegacySiteBanner from '../components/LegacySiteBanner';
 import { Navbar } from '@/components';
 import { cx } from 'class-variance-authority';
 import type { Metadata } from 'next';
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={cx(mdSystem.variable, replica.variable, replicaMono.variable)}>
       <body>
+        <LegacySiteBanner />
         <NavigationProvider>
           <Navbar />
           {children}

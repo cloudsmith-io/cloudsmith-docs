@@ -1,0 +1,54 @@
+
+.bannerContainer {
+  background-color: #7A5FF6;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 14px;
+  position: relative;
+  z-index: 1000;
+}
+
+.bannerContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* Make content take up available space to center it when the close button is absolute */
+  flex-grow: 1;
+  padding-right: 24px; /* Add padding to avoid text overlapping with the close button */
+}
+
+.bannerLink {
+  color: #FFFFFF;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  white-space: nowrap; /* Prevents the link text from breaking */
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  transition: background-color 0.2s ease;
+  /* Position button relative to the main container */
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
