@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './LegacySiteBanner.module.css';
 
-export default function LegacySiteBanner(): JSX.Element | null {
+export default function LegacySiteBanner() {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const bannerRef = useRef<HTMLDivElement>(null);
 
