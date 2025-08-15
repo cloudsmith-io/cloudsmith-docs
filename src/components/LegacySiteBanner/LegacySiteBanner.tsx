@@ -38,7 +38,7 @@ export default function LegacySiteBanner() {
   return (
     <div ref={bannerRef} className={styles.bannerContainer}>
       <div className={styles.bannerContent}>
-        <span>Are you looking for the legacy documentation site?</span>
+        <span>Looking for the legacy documentation site?</span>
         <a href="https://help.cloudsmith.io" target="_blank" rel="noopener noreferrer" className={styles.bannerLink}>
         Visit help.cloudsmith.io <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m8.537 12.938 4.596-4.084V7.13L8.537 3.062l-.663.75 4.162 3.682h-9.17v1h9.166L7.873 12.19l.664.748Z" fill="currentColor"></path>
             </svg>

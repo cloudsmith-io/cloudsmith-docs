@@ -28,10 +28,8 @@
 }
 
 .bannerLink {
-  color: grey;
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
+  color: black;
+  text-decoration: none;
   white-space: nowrap; /* Prevents the link text from breaking */
   display: flex;
   align-items: center;
@@ -39,7 +37,7 @@
 }
 
 .bannerLink:hover {
-  color: #041e2e;
+  opacity: 0.6;
 }
 
 .closeButton {
