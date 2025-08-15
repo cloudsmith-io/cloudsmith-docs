@@ -5,19 +5,19 @@ import malicious_package from './images/malicious_package.png';
 
 # Malicious Packages
 
-Malicious packages are software components published to public registries like npm, PyPI, or RubyGems, that have been **intentionally crafted by an attacker to cause harm**. For example, a PyPi package named [django-log-tracker](https://thehackernews.com/2024/02/dormant-pypi-package-compromised-to.html) was compromised in 2024 after 2 years without new releases. When developers unknowingly include these packages in their applications, they open the door to data theft, ransomware, and other damaging attacks for anyone using the affected artifacts.
+Malicious packages are artifacts published to public registries like NPM, PyPI, or RubyGems, that have been **intentionally crafted by an attacker to cause harm**. When developers unwittingly include these packages in their applications, they open the door to data theft, ransomware, and other damaging attacks for anyone using the affected artifacts. Malicious packages are a subset of malware (it's malicious software) and a delivery vehicle for malware. 
 
-Another example of a malicious package named `ctx` was discovered on the PyPI (Python Package Index) repository. It mimicked a popular but previously removed package. The malicious version was designed to steal developers' environment variables, which often contain sensitive credentials and API keys.
+A recent example of a malicious package is the PyPi package `django-log-tracker`. ` django-log-tracker` was a dormant package that was updated in 2024 after nearly two years without new releases in order to propagate information stealer malware. The threat of malicious packages has grown in recent years, even as public registries introduce stronger security controls.
 
 <Note variant="note" headline="Software Vulnerabilities (CVE) vs. Malicious Packages">
-A **software vulnerability**, often identified by a Common Vulnerabilities and Exposures (CVE) ID, is an *unintentional* flaw in the code. It's a bug that, if exploited by an attacker, could lead to a security breach. These vulnerabilities are typically the result of errors in design or implementation.
+A **software vulnerability**, often identified by a Common Vulnerabilities and Exposures (CVE) ID, is an _unintentional_ flaw in the code. It's a bug that, if exploited by an attacker, could lead to a security breach. These vulnerabilities are typically the result of errors in design or implementation.
 
-For example, the **Log4Shell** vulnerability (**CVE-2021-44228**): it was a flaw in the popular Log4j logging library for Java that allowed attackers to gain remote code execution over compromised systems. The library itself was not created with malicious intent.
+For example, the **Log4Shell** vulnerability (**CVE-2021-44228**) was a flaw in the popular Log4j logging library for Java that allowed attackers to gain remote code execution over compromised systems. The library itself was not created with malicious intent.
 </Note>
 
 ## How malicious packages are introduced in dependencies
 
-Attackers use several techniques to infiltrate the software supply chain by tricking developers into using malicious packages. Understanding these methods is key to building effective defenses.
+Malicious actors attempt to breach the software supply chain by disguising harmful packages as legitimate, tricking developers into including them in their projects. Common techniques include:
 
 - **Typosquatting**: A new package is published with a name that is a common misspelling of a popular one. For example, publishing `reqeusts` to trick developers who meant to install the legitimate `requests` library in Python.
 - **Dependency Confusion**: This technique targets corporate build systems. An attacker discovers the name of a private, internal package (e.g., `acme-auth`) and publishes a malicious package with the same name to a public registry, often with a higher version number, tricking automated tools into downloading it.
@@ -26,9 +26,9 @@ Attackers use several techniques to infiltrate the software supply chain by tric
 
 ## OSV and OpenSSF Malicious Packages
 
-Cloudsmith uses the **Open Source Vulnerability (OSV)** project as a trusted source to detect malicious packages in open-source software. This database was initiated by Google and it provides a unified, open, and distributed database for vulnerabilities found in open-source software. Its goal is to provide precise vulnerability information that can be easily consumed by developers and automated security tools.
+Cloudsmith uses the **OpenSSF Malicious Packages project** - distributed through [OSV.dev](https://osv.dev/) - as a trusted source for detecting malicious packages in open-source software. The OpenSSF Malicious Packages project is a community-driven effort to collect and document confirmed malicious packages found in the wild across multiple package registries.
 
-While OSV tracks all types of vulnerabilities, it has a specific and important role in cataloging **malicious packages** with the OpenSSF Malicious Packages repository. This is a community-driven effort to collect and document reports of malicious packages discovered in the wild. By centralizing this information, OSV provides a critical resource for developers and organizations to protect their software supply chain from this growing threat.
+OSV.dev, initiated by Google, provides a unified, open, and distributed database for vulnerability information, making it easy for developers and automated security tools to consume. By cataloging malicious packages within OSV.dev, the OpenSSF project centralizes intelligence that helps developers and organizations quickly identify threats and strengthen their software supply chains.
 
 ## Malicious package detection in Cloudsmith
 
@@ -36,23 +36,21 @@ While OSV tracks all types of vulnerabilities, it has a specific and important r
 Malicious package detection via OSV.dev is available for Ultra and Enterprise customers.
 </Note>
 
-Malicious packages information is available via [Enterprise Policy Management](/supply-chain-security/epm) and [Continuous Security](/supply-chain-security/continuous-security) features (both in Early Access). This means, you can create your own policies to take action when a malicious package is detected.
+The malicious packages dataset is integrated into [Enterprise Policy Management](/supply-chain-security/epm) and [Continuous Security](/supply-chain-security/continuous-security) (both in Early Access). This allows you to define policies that automatically take action when a malicious package is detected.
 
 For example, here we can see an EPM policy that quarantines any package that is considered malicious in the OSV database (and tags it with `MALICIOUS_PACKAGE`):
 
 <BlockImage src={policy_malicious_packages} alt=""></BlockImage>
 
-If we try to upload a package that is considered malicious, the policy will be triggered and the package will be quarantined.
+If you upload a package flagged as malicious, the policy automatically triggers and quarantines it.
 
 <BlockImage src={malicious_package} alt=""></BlockImage>
 
-<Note variant="note" headline="Cached packages">
-Due to the early access nature of this feature, the malicious package detection is only available for packages that are uploaded to Cloudsmith. This means that cached packages won't be matched against new updates in the malicious packages feed.
-</Note>
-
 ### Example Rego policy
 
-Creating a policy in Cloudsmith that flags any artifact considered malicious is as simple as checking the `vulnerability.id` field and checking if it starts with the prefix `MAL-`, as all malicious packages are identified with this string. Check one example policy below:
+To flag any artifact considered malicious in Cloudsmith, check whether the`vulnerability.id` field starts with the prefix `MAL-` - all malicious packages are identified with this string. 
+
+Here’s an example policy:
 
 ```rego
 package cloudsmith
