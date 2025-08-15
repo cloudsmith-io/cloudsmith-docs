@@ -370,7 +370,7 @@ Mainly, it is because some people do it one way, and others do it another. Some 
 
 Snapshots are handled differently from release artifacts because there can be many snapshots of the same version, which is why it got renamed. If you uploaded `1.0.0-SNAPSHOT` multiple times, it would let you, and it would sync as `1.0.0-<DATETIME>-1` , then `1.0.0.-<DATETIME>-2` and so on. 
 
-It isn't possible (yet) to disable this behaviour. However, despite what the UI says, you should still be able to refer to your package in dependencies as `1.0.0-SNAPSHOT` and it will pick up the latest version of `1.0.0-SNAPSHOT` uploaded. This is pretty standard for Maven-based repositories but might be surprising unless you know about it.
+It isn't possible to disable this behaviour. However, despite what the UI says, you should still be able to refer to your package in dependencies as `1.0.0-SNAPSHOT` and it will pick up the latest version of `1.0.0-SNAPSHOT` uploaded. This is pretty standard for Maven-based repositories but might be surprising unless you know about it.
 
 ## Still Need Help?
 
