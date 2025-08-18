@@ -35,7 +35,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className={cx(styles.root, { [styles.isHome]: pathname === '/' })}>
+      <div className={cx('main-header', styles.root, { [styles.isHome]: pathname === '/' })}>
         <Container className={styles.container}>
           <div className={styles.top}>
             <div className={styles.left}>

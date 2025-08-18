@@ -1,5 +1,5 @@
 import { Tag, Note, Video } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 # Maven Repository
 
@@ -49,7 +49,7 @@ mvn package
 
 This generates a Maven package file (`.jar` or similar) like `your-package-1.2.3.jar` that you can upload.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Required Files">
 You will always need at least the package file and the POM file for uploading.
 </Note>
 
@@ -85,8 +85,8 @@ The distribution repositories define where to push your artifacts. In this case 
   </repository>
 </distributionManagement>
 ```
-<Note variant="note" headline="Note">
-You can configure different repositories for snapshots and releases, and you can replace **NAME** with your own identifier(s) (but make sure they match settings elsewhere).
+<Note variant="note" headline="Snapshot and Releases Repositories">
+You can configure different repositories for snapshots and releases, and you can replace **NAME** with your own identifier (but make sure they match settings elsewhere).
 </Note>
 
 You then can configure your `~/.m2/settings.xml` file with the API key of the uploading user:
@@ -111,10 +111,10 @@ You can now publish to the native API with:
 ```
 mvn deploy
 ```
-<Note variant="note" headline="Note">
+
+<Note variant="note" headline="Official Maven Documentation">
 You can find out more about Maven publishing in the official [Maven documentation](https://maven.apache.org/plugins/maven-deploy-plugin/usage.html).
 </Note>
-
 
 ### Upload via the Cloudsmith CLI
 
@@ -286,10 +286,10 @@ When using HTTP Basic Authentication you'll probably want to keep your credentia
 </settings>
 ```
 
-<Note variant="note" headline="Note">
-We would highly advise that you encrypt your credentials using something like `mvn encrypt-password`, of which you can refer to the mini [encryption guide](http://maven.apache.org/guides/mini/guide-encryption.html) for more detailed help (external link).
+<Note variant="note" headline="Credential Encryption">
+We would highly advise that you encrypt your credentials using something like `mvn encrypt-password`, of which you can refer to the mini [encryption guide](http://maven.apache.org/guides/mini/guide-encryption.html) for more detailed help.
 
-For more details on authentication in Maven, please refer to the official [Maven documentation](https://maven.apache.org/settings.html) (external link).
+For more details on authentication in Maven, please refer to the official [Maven documentation](https://maven.apache.org/settings.html).
 </Note>
 
 
@@ -370,7 +370,7 @@ Mainly, it is because some people do it one way, and others do it another. Some 
 
 Snapshots are handled differently from release artifacts because there can be many snapshots of the same version, which is why it got renamed. If you uploaded `1.0.0-SNAPSHOT` multiple times, it would let you, and it would sync as `1.0.0-<DATETIME>-1` , then `1.0.0.-<DATETIME>-2` and so on. 
 
-It isn't possible (yet) to disable this behaviour. However, despite what the UI says, you should still be able to refer to your package in dependencies as `1.0.0-SNAPSHOT` and it will pick up the latest version of `1.0.0-SNAPSHOT` uploaded. This is pretty standard for Maven-based repositories but might be surprising unless you know about it.
+It isn't possible to disable this behaviour. However, despite what the UI says, you should still be able to refer to your package in dependencies as `1.0.0-SNAPSHOT` and it will pick up the latest version of `1.0.0-SNAPSHOT` uploaded. This is pretty standard for Maven-based repositories but might be surprising unless you know about it.
 
 ## Still Need Help?
 

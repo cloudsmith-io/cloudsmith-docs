@@ -1,7 +1,7 @@
 
 import { BlockImage, Note } from '@/components';
 import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
-export const parentTitle = 'Integrations';
+
 
 import teamCityParameters from './images/teamcity/teamCityParameters.png';
 import teamCityBuildConfig from './images/teamcity/teamCityBuildConfig.png';
@@ -84,7 +84,9 @@ Go to Project Build Configuration in TeamCity and add the following build steps:
 
 ## Enable Versioned Settings in TeamCity
 
-<Note>📘 Optional: execute the next step only if you want to track build configuration in your VCS.</Note>
+<Note variant="note" headline="Optional step">
+Optional: execute the next step only if you want to track build configuration in your VCS.
+</Note>
 
 1. In Project Settings, navigate to Versioned Settings.
 2. Configure the following options:

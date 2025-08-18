@@ -53,7 +53,7 @@ In Step 3, _Basic information for your Custom App_, enter "Cloudsmith" (without 
 
 ### Step 7
 
-In Step 4, _Service Provider Details_, enter: `https://app.cloudsmith.com/WORKSPACE/saml/acs/` as the _ACS URL_ and _Entity ID_, where "WORKSPACE" is replaced with your organization's slug (i.e. what your normally see in the URL bar for your organization).
+In Step 4, _Service Provider Details_, enter: `https://cloudsmith.io/MY_ORG_NAME/saml/acs/` as the _ACS URL_ and _Entity ID_, where "MY_ORG_NAME" is replaced with your organization's slug (i.e. what your normally see in the URL bar for your organization).
 
 Leave the _Signed Response_ checkbox _unchecked_ (this is very important). Then for the _Name ID Format_, ensure that "EMAIL" is chosen from the dropdown list. Then click on _NEXT_ on the bottom right:
 
@@ -76,7 +76,6 @@ Your application is now configured on Google (G-Suite). Google states that it ma
 
 Once configured as above, you'll need to add the IdP Metadata XML to the [SAML Settings](/authentication/single-sign-on#enable-saml) for your Cloudsmith organization. 
 
-When you have added your IdP Metadata XML to your organization SAML settings and enabled SAML Authentication, you will be able to access the landing page of your organization at the following URL:  
-https://app.cloudsmith.com/WORKSPACE/saml/login/
+When you have added your IdP Metadata XML to your organization SAML settings and enabled SAML Authentication, you will be able to access the landing page of your organization at the following URL: `https://app.cloudsmith.com/WORKSPACE/saml/login/`.
 
 Where `WORKSPACE` is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).

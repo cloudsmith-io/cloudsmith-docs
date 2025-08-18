@@ -9,7 +9,7 @@ This is a great idea if you are:
 - A security-conscious DevOps team that is looking to control the source endpoint for artifacts
 
 <Note variant="note" headline="Disambiguation">
-If you are looking for Broadcast URL customization, please refer to the [Broadcasts](/software-delivery/broadcasts) documentation or [contact us](https://cloudsmith.com/company/contact-us).
+If you are looking for Broadcast URL customization, please refer to the [Broadcasts](/software-distribution/broadcasts) documentation or [contact us](https://cloudsmith.com/company/contact-us).
 </Note>
 
 Custom domains are available with our Ultra and Enterprise plans. We strongly recommend - and may require - custom domains for any customer with significant Cloudsmith package delivery traffic.
@@ -32,25 +32,37 @@ It is possible to have multiple download domains for a package type, however, al
 
 Please refer to the table below to see which package will utilize Download/API Native domains. 
 
-|Package Type|Download|Native Uploads|Native Downloads|
-| --- | --- | --- | --- |
-|Alpine|X|||
-|Cocoapods|X|||
-|Composer|X|||
-|Conda|||X|
-|Crates|X|X||
-|Cran|X|||
-|Deb|X|||
-|Docker||X|X|
-|Download(Raw)|X|||
-|Helm|X|||
-|Maven|X|X||
-|NPM||X|X|
-|Nuget||X|X|
-|PyPi|X|X||
-|RPM|X|||
-|Ruby||X||
-|Terraform|||X|
+| Package Type | Download | Native Uploads | Native Downloads |
+|:--- |:--- |:--- |:--- |
+| Alpine | ✅ | ❌ | ❌ |
+| Cargo (Rust) | ✅ | ❌ | ✅ |
+| Chocolatey | - | ✅ | ✅ |
+| Cocoapods | ✅ | ❌ | ❌ |
+| Composer | ✅ | ❌ | ✅ |
+| Conan | - | ✅ | ✅ |
+| Conda | ✅ | ❌ | ✅ |
+| CRAN | ✅ | ❌ | ❌ |
+| Dart | - | ✅ | ✅ |
+| Debian | ✅ | ❌ | ❌ |
+| Docker | - | ✅ | ✅ |
+| Go | ✅ | ❌ | ❌ |
+| Gradle | ✅ | ✅ | ❌ |
+| Helm | ✅ | ❌ | ❌ |
+| Hex | - | ✅ | ✅ |
+| LuaRocks | ✅ | ❌ | ❌ |
+| Maven | ✅ | ✅ | ❌ |
+| npm | - | ✅ | ✅ |
+| NuGet | - | ✅ | ✅ |
+| PowerShell | - | ✅ | ✅ |
+| Python | ✅ | ✅ | ❌ |
+| Raw | ✅ | - | - |
+| RPM | ✅ | ❌ | ❌ |
+| Ruby | - | ✅ | ✅ |
+| sbt | ✅ | ✅ | ❌ |
+| Swift | ✅ | ✅ | ❌ |
+| Terraform | ✅ | ❌ | ✅ |
+| Unity | - | ✅ | ✅ |
+| Vagrant | ✅ | ❌ | ❌ |
 
 ### Top Level Redirects
 

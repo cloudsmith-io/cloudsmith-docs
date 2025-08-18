@@ -1,5 +1,5 @@
 import { Tag, Note, Video } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 # Docker Registry
 
@@ -7,14 +7,15 @@ Cloudsmith provides public & private registries for Docker images.
 
  <Video wistiaId="fgbw8fb94o"></Video>
 
-<Note>📘 **OCI SUpport**
-Cloudsmith provides public & private registries for OCI artifacts, to learn more about it visit our [OCI Repository ](/formats/oci-repository) documentation.</Note>
+<Note variant="note" headline="OCI Support">
+Cloudsmith provides public & private registries for OCI artifacts, to learn more about it visit our [OCI Repository ](/formats/oci-repository) documentation.
+</Note>
 
 [Docker](https://www.docker.com/) is an ecosystem used to run packaged software known as containers. A container image is bundled with all of the software and configured to run as an independent process (or collection of processes), and an executing container is isolated from other containers and processes.
 
 Docker provides the concept of the registry as an artifact data service for storing and distributing image containers. The official one of which is [Docker Hub](https://hub.docker.com), which is owned and operated by Docker itself.
 
-Cloudsmith provides a fully-fledged Docker registry that is fully compatible with current and future versions of the Docker engine and container image formats. With Cloudsmith, you can push, pull, inspect, and manage container images privately and publicly.
+Cloudsmith provides a fully fledged Docker registry that is fully compatible with current and future versions of the Docker engine and container image formats. With Cloudsmith, you can push, pull, inspect, and manage container images privately and publicly.
 
 This is provided with the standard functionality and features offered in the Cloudsmith platform, such as collaboration, advanced permissions, white-labeled distribution, multi-tenancy with other packaging formats, etc.
 
@@ -82,7 +83,7 @@ In the following examples:
 
 ## Upload an Image
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Custom Domains">
 If you have added a [Custom Domain](/workspaces/custom-domains) for Docker, you must use it to authenticate and push. Please replace `docker.cloudsmith.io` in the following instructions with the Docker custom domain you have created.
 </Note>
 
@@ -114,8 +115,9 @@ To publish an image to a Cloudsmith-based Docker registry, you first need to tag
 docker tag IMAGE_NAME:TAG docker.cloudsmith.io/OWNER/REGISTRY/IMAGE_NAME:TAG
 ```
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="About 'latest' tags">
 Docker images are not automatically tagged as 'latest' based on upload date / time.  In order to ensure that you have an image tagged as 'latest' you need to explicitly tag the image. For example:
+
  ```shell
 docker tag your-image:latest docker.cloudsmith.io/org/repo/your-image:latest
 ```

@@ -44,6 +44,7 @@ import { FormatLuarocksIcon } from './svgs/format/Luarocks';
 import { FormatMavenIcon } from './svgs/format/Maven';
 import { FormatNpmIcon } from './svgs/format/Npm';
 import { FormatNugetIcon } from './svgs/format/Nuget';
+import { FormatOCIIcon } from './svgs/format/OCI';
 import { FormatPowershellIcon } from './svgs/format/Powershell';
 import { FormatPythonIcon } from './svgs/format/Python';
 import { FormatRawIcon } from './svgs/format/Raw';
@@ -149,6 +150,7 @@ export const iconRegistry = createIconRegistry({
   'format/maven': FormatMavenIcon,
   'format/npm': FormatNpmIcon,
   'format/nuget': FormatNugetIcon,
+  'format/oci': FormatOCIIcon,
   'format/powershell': FormatPowershellIcon,
   'format/python': FormatPythonIcon,
   'format/raw': FormatRawIcon,

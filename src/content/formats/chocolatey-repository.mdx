@@ -1,5 +1,5 @@
 import { Note } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 # Chocolatey Repository
 
@@ -88,7 +88,7 @@ Then you can publish your package using:
 choco push PACKAGE_NAME-PACKAGE_VERSION.nupkg -Source https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2 -ApiKey API-KEY
 ```
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="NuGet V3 feeds">
 As of Chocolatey V 2.0.0, Chocolatey can use NuGet V3 feeds as sources.
 </Note>
 
@@ -126,7 +126,7 @@ choco source add -n example-repo -s https://nuget.cloudsmith.io/OWNER/REPOSITORY
 choco sources add -n example-repo -s https://nuget.cloudsmith.io/OWNER/REPOSITORY/v2 -u "USERNAME" -p "API-KEY"
 ```
 
-<Note variant="warning" headline="warning">
+<Note variant="warning" headline="Warning">
 Entitlement Tokens, User Credentials and API-Keys should be treated as secrets and you should ensure that you do not commit them in configurations files along with source code, or expose them in any logs.
 </Note>
 
@@ -140,4 +140,4 @@ choco install PACKAGE_NAME -Source example-repo
 
 ## Nuget and Cloudsmith CLI
 
-See, [NuGet Feed](/formats/nuget-feed), for how to create chocolatey packages using Nuget or the cloudsmith CLI.
+See, [NuGet Feed](/formats/nuget-feed), for how to create chocolatey packages using Nuget or the Cloudsmith CLI.

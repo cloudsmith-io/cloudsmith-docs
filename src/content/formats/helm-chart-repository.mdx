@@ -1,5 +1,5 @@
 import { Tag, Note, Video } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 # Helm Chart Repository
 
@@ -57,11 +57,11 @@ helm package .
 
 This generates a chart package file (.tgz) like `CHART_NAME-CHART_VERSION.tgz` that you can upload.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Building Charts">
 Please see the [official Chart development](https://helm.sh/docs/developing_charts/) guide for more information on building your own Charts for distribution.
 </Note>
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Early Access">
 OCI support is in Early Access. Helm Charts uploaded via OCI will show as "Docker Packages" on Cloudsmith. Helm Charts uploaded via OCI aren't available to download via the classic `Chart.yaml` repository method.
 </Note>
 

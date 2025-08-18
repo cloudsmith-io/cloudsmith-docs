@@ -1,5 +1,5 @@
 import { Video, BlockImage, Note } from '@/components'
-export const parentTitle = 'Integrations';
+
 
 import aikido_auth from './images/aikido/aikido_auth.png';
 import aikido_linkImages from './images/aikido/aikido_linkImages.png';
@@ -41,7 +41,9 @@ The Cloudsmith-Aikido integration provides the following capabilities:
 
 <BlockImage src={aikido_auth} alt=""></BlockImage>
 
-<Note>📘 Ensure you use API keys or Entitlement token with appropriate permissions for accessing and scanning container images.</Note>
+<Note variant="note" headline="Permissions">
+Ensure you use API keys or Entitlement token with appropriate permissions for accessing and scanning container images.
+</Note>
 
 ### Step 3: Select Container Repositories
 

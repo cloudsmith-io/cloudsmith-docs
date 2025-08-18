@@ -1,5 +1,5 @@
 import { Tag, Note, Video } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 # Conan Repository
 
@@ -80,16 +80,16 @@ The user/channel will also be used as a tag on the package which will allow for 
 
 ### Upload via the Cloudsmith CLI or Website
 
-<Note variant="note" headline="Note">
-  Uploading using the Cloudsmith CLI or Website is only supported for Conan v1 packages. For v2 packages please use the Conan CLI tooling.
+<Note variant="note" headline="Conan v2">
+Uploading using the Cloudsmith CLI or Website is only supported for Conan v1 packages. For v2 packages please use the Conan CLI tooling.
 </Note>
 
 ### Create a Package
 
 To upload via the Cloudsmith API/CLI, you'll need to generate a package first. The following commands can be used to produce a package and collect the additional files required for upload (otherwise handled by `conan upload`).
 
-<Note variant="note" headline="Note">
-  Please see the [Conan documentation](https://docs.conan.io/en/latest/reference/commands/creator/create.html) on creating packages for more information on building your own packages.
+<Note variant="note" headline="Conan build native documentation">
+Please see the [Conan documentation](https://docs.conan.io/en/latest/reference/commands/creator/create.html) on creating packages for more information on building your own packages.
 </Note>
 
 You can build a package with Conan by creating a new example project using new, create, and export:
@@ -235,7 +235,7 @@ conan download PACKAGE_NAME/PACKAGE_VERSION@ -r OWNER-REPOSITORY
 
 ## Conan Revisions
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Support for Revisions">
 Package revisions uploads are only supported using Conan CLI. Uploading a v1 package with the Cloudsmith CLI or Website doesn't create a revision.
 </Note>
 

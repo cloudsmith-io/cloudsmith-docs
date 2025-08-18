@@ -1,5 +1,5 @@
 import { Tag, Note, Video } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 # RedHat Repository
 
@@ -47,7 +47,7 @@ fpm -f -s dir -t rpm -n PACKAGE_NAME -v PACKAGE_VERSION`
 
 This generates a RedHat package file (`.rpm`) like `your-package-1.2.3.rpm` that you can upload.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Existing Packages from other formats">
 You can also build a package from a tarball (`.tgz`) or even Python, Ruby or npm packages. In addition to that, you can provide additional information during the packaging, such as other metadata like packaging dependencies, authorship, etc. Please refer to the [official fpm documentation](https://fpm.readthedocs.io/en/latest/) for more information.
 </Note>
 
@@ -344,7 +344,7 @@ Please see our [Upstream Proxying](/repositories/upstreams) documentation for fu
 <Tag variant="purple" theme="legacy">Index</Tag>
 <Tag variant="midnight-blue" theme="legacy">Packages</Tag>
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Automatic GPG Key Generation">
 As RPM packages are signed with a GPG key upon upload, this results in a new checksum being generated for the package.
 </Note>
 

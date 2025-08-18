@@ -21,7 +21,7 @@ This guide provides step-by-step instructions on setting up [JumpCloud](https://
 
 ## Adding Cloudsmith to JumpCloud
 
-Cloudsmith is not (yet) an integrated application in JumpCloud. You'll have to add Cloudsmith manually so you can configure SSO.
+Cloudsmith is not an integrated application in JumpCloud. You'll have to add Cloudsmith manually so you can configure SSO.
 
 ### Step 1
 
@@ -50,7 +50,7 @@ For the next step, you'll need to generate a public and private key used to sign
 <BlockImage src={img010954d_HngkhoO} alt=""></BlockImage>
 
 ### Step 6
-Next, we'll fill in **SP Entity ID** and **ACS URL** with the same value. To determine the value we use the following format: `https://app.cloudsmith.com/WORKSPACE/saml/acs/`, where "WORKSPACE" is replaced with your organization's slug e.g. for the `cloudsmith` org we use `https://app.cloudsmith.com/cloudsmith/saml/acs/`:
+Next, we'll fill in **SP Entity ID** and **ACS URL** with the same value. To determine the value we use the following format: `https://cloudsmith.io/MY_ORG_NAME/saml/acs/` where "MY_ORG_NAME" is replaced with your organization's slug e.g. for the `cloudsmith` org we use `https://app.cloudsmith.com/cloudsmith/saml/acs/` (you can find your organization's slug in the URL bar when you are logged into Cloudsmith, or browsing to [User Settings > Workspaces](https://app.cloudsmith.com/settings/workspaces)):
 
 <BlockImage src={img8e49768_hAcXDjT} alt=""></BlockImage>
 
@@ -107,6 +107,6 @@ The Cloudsmith application should now appear on the JumpCloud portal as normal:
 
 You can then enable SAML in your Cloudsmith [SAML settings](/authentication/single-sign-on#enable-saml). 
 
-You'll be able to access the landing page of your organization at the following URL:  https://app.cloudsmith.com/WORKSPACE/saml/login/
+You'll be able to access the landing page of your organization at the following URL: `https://app.cloudsmith.com/WORKSPACE/saml/login/`.
 
 Where _WORKSPACE_ is your organization's slug/identifier (what you would normally see in the URL when accessing your organization within Cloudsmith).

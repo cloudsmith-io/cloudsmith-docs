@@ -12,7 +12,9 @@ Cloudsmith provides a powerful and flexible query language that enables you to i
 
 Our search syntax allows you to move beyond simple name-based searches and build highly specific queries using a wide range of criteria, including package format, version, size, upload date, dependencies, and even policy violation status. By combining these terms with boolean operators (AND, OR, NOT) and advanced matching logic, you can construct precise filters to isolate the exact artifacts you need, directly from the Web UI, API, or CLI.
 
-<Note>📘 The search syntax is fully "boolean", in that you can combine queries together with `AND` (i.e. find this AND that), or `OR` (i.e. find this OR that), or `NOT` (i.e. find NOT this). This is optional, if you don't put any boolean operators (AND/OR) in, we'll just assume that you want `AND` by default.</Note>
+<Note variant="note" headline="Boolean evaluation">
+The search syntax is fully "boolean", in that you can combine queries together with `AND` (i.e. find this AND that), or `OR` (i.e. find this OR that), or `NOT` (i.e. find NOT this). This is optional, if you don't put any boolean operators (AND/OR) in, we'll just assume that you want `AND` by default.
+</Note>
 
 ## Search Terms
 
@@ -108,7 +110,7 @@ Additional help and examples are available by hovering over the "? Search syntax
 ## Searching Packages via the Cloudsmith API
 
 Please see the Cloudsmith full API reference to learn how to:
-- List all of the packages in a [Workspace](/api/packages/org/list) (Organization).
+- List all of the packages in a [Workspace](/api/packages/list).
 - List all of the packages in a [Repository](/api/packages/list).
 
 Then, you can use the `query` field in the URL request to search a package by any of the next fields:
@@ -189,7 +191,9 @@ The available sorting options are:
 - Total Downloads (Ascending) 
 - Total Downloads (Descending)
 
-<Note>📘 Note that the UI only supports sorting by one field at a time.</Note>
+<Note variant="note" headline="Multiple Sorts">
+Note that the UI only supports sorting by one field at a time.
+</Note>
 
 ## Sorting Packages via the Cloudsmith API
 

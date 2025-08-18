@@ -1,5 +1,5 @@
 import { Note, BlockImage, Card, Video } from '@/components';
-export const parentTitle = 'Integrations';
+
 
 # Integrating GCP CloudBuild
 
@@ -13,7 +13,7 @@ Integrating Cloudsmith as part of your Google CloudBuild project is as simple as
 
 ### Adding your API Key to Google Cloud
 
-In order to use the Cloudsmith CLI with Google CloudBuild, we recommend you to create a **Cloudsmith [service account](/accounts-and-teams/service-account)** and use its API key instead of a personal API key. This is more secure, easier to audit, and better suited for CI/CD environments like Google CloudBuild.
+In order to use the Cloudsmith CLI with Google CloudBuild, we recommend you to create a **Cloudsmith [service account](/accounts-and-teams/service-accounts)** and use its API key instead of a personal API key. This is more secure, easier to audit, and better suited for CI/CD environments like Google CloudBuild.
 
 Once you’ve created a service account and generated its API key, we recommend that you add the key as an environment variable using **Google Secret Manager**. 
 

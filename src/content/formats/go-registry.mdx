@@ -1,5 +1,5 @@
 import { Note, Video, BlockImage } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 import go_upstream from './images/go-registry/go_upstream.png';
 
@@ -36,7 +36,7 @@ In the following examples:
 
 ## Upload a Package
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Raw GO binaries">
 Raw GO binaries are not supported and need to be uploaded as a RAW package format instead.
 </Note>
 
@@ -61,7 +61,7 @@ find -type f | while read f; do zip v1.4.2.zip "$f"; done
 
 Now, we have a go module ready to be uploaded to a Cloudsmith repository.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Building Go modules">
 For a full overview on building your own modules, please refer to Russ Cox's [Go Modules](https://research.swtch.com/vgo-module.pdf).
 </Note>
 
@@ -81,7 +81,7 @@ Example:
 cloudsmith push go org/repo v1.4.2.zip
 ```
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Go Modules format">
 Older Go projects may not be in the Go Modules format, and you may experience an error when pushing these to Cloudsmith. 
 You can add module support using `go mod init` and `go mod tidy`, then commit the new `go.mod` and `go.sum` files and add a new tag.
 </Note>
@@ -101,7 +101,7 @@ For examples of what your project should look like for packaging and publishing/
 
 #### Configure a new Upstream
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Early Access">
 Go upstreams are still in Early Access. [Contact us](https://cloudsmith.com/company/contact-us) to enable it for your organization.
 </Note>
 
@@ -125,7 +125,7 @@ Cloudsmith provides a dedicated endpoint for Go artifacts: `https://golang.cloud
 While the legacy endpoint ([https://dl.cloudsmith.io](https://dl.cloudsmith.io)) is still maintained, we recommend to use the new one.
 </Note>
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Multiple servers in GOPROXY">
 `GOPROXY` allows the concatenation of multiple servers separated by commas. For example, for `GOPROXY=https://dl.cloudsmith.io/public/OWNER/REPOSITORY/go/,https://proxy.golang.org,direct`, all requests not satisfied by the first server will fallback the the next one (`https://proxy.golang.org`).
 </Note>
 

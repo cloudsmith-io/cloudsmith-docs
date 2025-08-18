@@ -2,8 +2,9 @@ import { BlockImage, Note } from '@/components'
 
 ## Enterprise Policy Management
 
-<Note>📘 **Early Access Feature**
-Enterprise Policy Management is in early access; if you would like to try this feature, please [Contact Us](https://cloudsmith.com/company/contact-us).</Note>
+<Note variant="note" headline="Early Access">
+Enterprise Policy Management is in early access; if you would like to try this feature, please [Contact Us](https://cloudsmith.com/company/contact-us).
+</Note>
 
 Enterprise policy management provides a way for Workspaces (previously known as Organizations) to define policies that can match and act on packages within Cloudsmith. Enterprise policy management is implemented on top of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), a general-purpose and widely adopted policy evaluation engine. OPA provides a high-level declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) to define policies as code.
 
@@ -47,6 +48,7 @@ Actions can be assigned to policies to act on packages following policy evaluati
 
 - `set_state`. This allows you to control the state of the package. For example, whether to delete or quarantine the package. See the [PackageStateEnum](https://api.cloudsmith.io/v2/swagger/#/:~:text=MovePackageActionTyped-,PackageStateEnum,string,-AVAILABLE%20%2D%20The%20package) for more information.
 - `add_package_tags`. Add a set of tags to the package.
+- Note on quarantining action: If you set the action to quarantine, any request for the package returns a **403 Forbidden** error code.
 
 For more detail on creating Enterprise policy management policies and actions, see the [Getting Started with Enterprise Policy Management guide](/supply-chain-security/epm/getting-started).
 

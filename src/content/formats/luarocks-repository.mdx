@@ -1,5 +1,5 @@
 import { Tag, Note, Video } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 # LuaRocks Repository
 
@@ -44,7 +44,7 @@ This generates a `.rock` file like `MODULE_NAME-MODULE_VERSION.src.rock` that yo
 
 Please see the [official LuaRocks documentation](https://github.com/luarocks/luarocks/wiki/Creating-a-rock) for more information on building your own rocks.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Alternative Upload Methods">
 The `luarocks upload` command only supports uploading modules to the official public rocks repository. To upload your modules to Cloudsmith, you can use the Web UI, the Cloudsmith CLI or the Cloudsmith API.
 </Note>
 
@@ -107,7 +107,7 @@ luarocks install MODULE_NAME MODULE_VERSION --server https://USERNAME:API-KEY@dl
 luarocks install MODULE_NAME MODULE_VERSION --server https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/luarocks/
 ```
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Enforcing Server-only Search">
 To search only your Cloudsmith repository for modules use the `--only-server` command-line flag. This will force luarocks to search only the Cloudsmith repository and will result in luarocks not being able to install public modules that your private module may depend on.
 </Note>
 

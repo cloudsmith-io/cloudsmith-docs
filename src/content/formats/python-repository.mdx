@@ -1,5 +1,5 @@
 import { Tag, Note, Video, BlockImage } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 import uv_terminal from './images/python/uv_terminal.png';
 import uv_dependencies from './images/python/uv_dependencies.png';
@@ -36,7 +36,9 @@ In the following examples:
 | PACKAGE_VERSION | The version number of your package                                                        |
 
 
-<Note>📘 The main examples in this docs use `pip` or the Cloudsmith CLI. If you use [UV](https://docs.astral.sh/uv/) and wants to learn how to integrate it with Cloudsmith, jump to the [UV Support section](#uv-support).</Note>
+<Note variant="note" headline="UV Support">
+The main examples in this docs use `pip` or the Cloudsmith CLI. If you use [UV](https://docs.astral.sh/uv/) and wants to learn how to integrate it with Cloudsmith, jump to the [UV Support section](#uv-support).
+</Note>
 
 ## Upload a Package
 
@@ -48,8 +50,8 @@ python setup.py bdist_wheel --universal
 
 This generates a wheel package file (`.whl`) like `your-package-1.2.3.whl` that you can upload.
 
-<Note variant="note" headline="Note">
-This assumes that you've created a `setup.py` file for your project. Please see the [official PyPA](https://packaging.python.org/tutorials/packaging-projects/#creating-setup-py) packaging guide on how to create a `setup.py` for more information. There are also different types of distributions that you might be interested in, such as a source distribution, tarball distribution, etc.
+<Note variant="note" headline="setup.py required">
+This assumes that you've created a `setup.py` file for your project. Please see the [official PyPi](https://packaging.python.org/tutorials/packaging-projects/#creating-setup-py) packaging guide on how to create a `setup.py` for more information. There are also different types of distributions that you might be interested in, such as a source distribution, tarball distribution, etc.
 </Note>
 
 ### Upload via native Python tooling
@@ -203,7 +205,7 @@ If your Cloudsmith plan does not include upstream proxying and some of your depe
 
 See [pip install](https://pip.pypa.io/en/stable/cli/pip_install/#pip-install) for more information.
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Indexing external repositories">
 To search your Cloudsmith repository for packages use the `--index-url` Pip configuration argument. Using the `--index-url` configuration option will force pip to search only the Cloudsmith repository and will result in pip not being able to install public (PyPi) packages that your private package may depend on. This reduces your exposure to dependency confusion attacks.
 </Note>
 
@@ -290,7 +292,9 @@ uv publish --index cloudsmith dist/*
 
 Browse to your Cloudsmith repository to find your new application packages.
 
-<Note>📘 This example explain how to run it in your local machine, but instructions can be adjusted to run this process within any of the existing CI/CD tooling you might use: GitHub Actions, GitLab CI, Jenkins, TeamCity, etc. In this case, the only requirement is that the `uv` environmental variables are exported first, so you can push your artifacts into the private Cloudsmith repository. You can find a sample [GH Action workflow](https://github.com/ciaracarey/python-sample-vscode-flask-tutorial/blob/644b230e14bea3763b4c7b4a3f6500c1f664ee25/.github/workflows/python-app.yml) reproducing a similar workflow.</Note>
+<Note variant="note" headline="Integration with other CI/CD tooling">
+This example explain how to run it in your local machine, but instructions can be adjusted to run this process within any of the existing CI/CD tooling you might use: GitHub Actions, GitLab CI, Jenkins, TeamCity, etc. In this case, the only requirement is that the `uv` environmental variables are exported first, so you can push your artifacts into the private Cloudsmith repository. You can find a sample [GH Action workflow](https://github.com/ciaracarey/python-sample-vscode-flask-tutorial/blob/644b230e14bea3763b4c7b4a3f6500c1f664ee25/.github/workflows/python-app.yml) reproducing a similar workflow.
+</Note>
 
 ### Reproducible builds via `uv compile`
 

@@ -1,5 +1,5 @@
 import { Tag, Note, BlockImage } from '@/components';
-export const parentTitle = 'Supported Formats';
+
 
 import img_nuget from './images/nuget/setting-nuget-signing.png';
 
@@ -43,7 +43,7 @@ In the following examples:
 
 Before you can upload, you need to create your NuGet package using the NuGet CLI or the .NET Core CLI:
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="Required project file">
 This assumes that you've created a compatible `project.csproj` file for your project.
 </Note>
 
@@ -305,7 +305,7 @@ For Linux and MacOS, this is located at: `/usr/local/share/dotnet/sdk/\<NUGET_SD
 
 For Windows, this is managed by the operating system. Please reference Microsoft's [Trusted Root Certification Authorities Certificate Store](https://learn.microsoft.com/en-us/windows-hardware/drivers/install/trusted-root-certification-authorities-certificate-store) for more information. 
 
-You can download Cloudsmith’s root Certificate Authority chain by going to the Key Management tab in your repository or by calling the [x509-rsa API endpoint](https://docs.cloudsmith.com/api/repos/x509/rsa/list).
+You can download Cloudsmith’s root Certificate Authority chain by going to the Key Management tab in your repository or by calling the [x509-rsa API endpoint](/api/repos/x509/rsa/list).
 
 ## Troubleshooting
 
