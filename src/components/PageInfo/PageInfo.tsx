@@ -7,7 +7,7 @@ import { intlFormatDistance, parseISO } from 'date-fns';
 export const PageInfo = ({ path = '', lastUpdated }: PageInfoProps) => {
   const docsUrl = process.env.NEXT_PUBLIC_CLOUDSMITH_DOCS_URL;
   const docsBranch = process.env.NEXT_PUBLIC_CLOUDSMITH_DOCS_BRANCH;
-  const githubLink = `${docsUrl}/tree/${docsBranch}/${path}`;
+  const githubLink = `${docsUrl}/edit/${docsBranch}/${path}`;
 
   const getUpdatedLabel = (date: string) => {
     const compare = parseISO(date);
