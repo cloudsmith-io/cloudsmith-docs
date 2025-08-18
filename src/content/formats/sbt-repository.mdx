@@ -66,7 +66,7 @@ Then refer to the above in your `publish.sbt` file with:
 credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 ```
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="envvar alternative">
 You can also encode your credentials directly (and use an environment variable to pull in the API key).
 </Note>
 
@@ -188,8 +188,9 @@ libraryDependencies += "GROUP_ID" % "ARTIFACT_ID" % "PACKAGE_VERSION"
 
 ***
 
-<Note variant="note" headline="Note">
+<Note variant="note" headline="sbt 0.13.x">
 In sbt 0.13.x (not sbt 1.x or above) an extension point in the dependency resolution to use Maven-style resolvers is required. To enable this plugin add the following to `project/maven.sbt` (or `project/plugin.sbt`): 
+
 ```scala
 addMavenResolverPlugin
 ```

@@ -293,7 +293,9 @@ cloudsmith ls pkg YOUR-ACCOUNT/YOUR-REPO -q 'YOUR-QUERY' -F json \
   | xargs -Ipackage cloudsmith copy package YOUR-DEST-REPO
 ```
 
-<Note>📘 The destination is not qualified by a namespace (YOUR-ACCOUNT). This is because you can only copy/move packages from repositories within the same namespace.</Note>
+<Note variant="note" headline="Error message">
+`The destination is not qualified by a namespace (YOUR-ACCOUNT)`. This is because you can only copy/move packages from repositories within the same namespace.
+</Note>
 
 <Note>
 📘 You can remove the query (YOUR-QUERY) to target all packages. The only downside to this approach is that it might require multiple invocations if you have more packages than the page size limit.

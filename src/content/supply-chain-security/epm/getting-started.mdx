@@ -13,8 +13,9 @@ This guide offers an introduction to creating Enterprise policy management polic
 - Create actions to quarantine and tag matched packages, and assign these actions to the created policy.
 - Use the policy simulator to simulate this policy running without impacting any live packages or data.
 
-<Note>📘 **Policy Creation** 
-You must have administrator permissions within your Workspace to create or update a policy.</Note>
+<Note variant="note" headline="Policy Creation">
+You must have administrator permissions within your Workspace to create or update a policy.
+</Note>
 
 ## Step 1: Creating policy matching logic with rego
 
@@ -66,8 +67,9 @@ ignored_cve(vulnerability) if {
 
 ## Step 2: Create a policy using the API
 
-<Note>📘 **Placeholder Values**
-The example API requests in this guide below make use of placeholder variables for consistency and brevity.</Note>
+<Note variant="note" headline="Placeholder values">
+The example API requests in this guide below make use of placeholder variables for consistency and brevity.
+</Note>
 
 It is advised to export the following variables such that they can be used in any example requests:
 
@@ -94,8 +96,9 @@ EOF
 
 ```
 
-<Note>📘 **Policy testing**
-When creating a policy via the API, setting the `enabled` field to `false` prevents the policy from being triggered, but still allows it to be tested via the Simulation API.</Note>
+<Note variant="note" headline="Policy testing">
+When creating a policy via the API, setting the `enabled` field to `false` prevents the policy from being triggered, but still allows it to be tested via the Simulation API.
+</Note>
 
 Policies are created using the [workspaces_policies_create](https://api.cloudsmith.io/v2/redoc/#tag/workspaces/operation/workspaces_policies_create) REST API method. The following curl command makes a request to this method, providing in the request the `payload.json` payload created above:
 
@@ -188,8 +191,9 @@ Once enabled, if you wish to test the policy against an actual package, you can 
 
 ## Checking Decision Logs
 
-<Note>📘 **Decision Logs**
-Decision log entries are not added when a policy is simulated via the simulator.</Note>
+<Note variant="note" headline="Decision Logs">
+Decision log entries are not added when a policy is simulated via the simulator.
+</Note>
 
 When a package is scanned or triggers the policy, EPM creates a decision log entry. These logs can be viewed via the decision_logs_list REST API method. An example request to this method is shown below (this filters logs to a specific policy using the`?policy=$POLICY_SLUG` query parameter.)
 

@@ -75,7 +75,9 @@ When Block Until Scan is enabled, the initial download request for an uncached p
 
 If the package fails a policy check (e.g., due to a vulnerability or license issue), or if the scanning process encounters an unrecoverable error, the download will be blocked with a `403 Forbidden` error code.
 
-<Note>📘 Without Block Until Scan, the same package would be delivered to the user immediately, before the full evaluation phase of the synchronization process had taken place. Cloudsmith would then asynchronously cache and synchronize the package after the first download. At this point, the system would apply the policy to the package and could then quarantine it. While future downloads of the package would then be blocked, this asynchronous processing means the initial downloads of the package could not be prevented if required.</Note>
+<Note variant="note" headline="First download without Block Until Scan">
+Without Block Until Scan, the same package would be delivered to the user immediately, before the full evaluation phase of the synchronization process had taken place. Cloudsmith would then asynchronously cache and synchronize the package after the first download. At this point, the system would apply the policy to the package and could then quarantine it. While future downloads of the package would then be blocked, this asynchronous processing means the initial downloads of the package could not be prevented if required.
+</Note>
 
 ## Summary
 

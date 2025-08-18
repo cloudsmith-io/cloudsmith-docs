@@ -14,7 +14,9 @@ _How to integrate Mend Renovate with Cloudsmith._
 
 [Renovate](https://github.com/renovatebot/renovate) is a popular open-source dependency update automation tool. It can help you by automating the process of looking for references to dependencies (both public and private) and updating them if newer versions are available. Renovate supports a wide range of package ecosystems (Docker, npm, PyPI, Maven, NuGet, etc.) and works across multiple version control systems (GitHub, GitLab, Azure DevOps, Bitbucket).
 
-<Note>📘 This guide shows how to configure Renovate to work with a private Cloudsmith Docker repository, using the Renovate GitHub App (hosted by Mend) as its primary example.However, the same approach applies to other package types supported by Cloudsmith, including npm, PyPI, Maven, NuGet, and more.</Note>
+<Note variant="note" headline="Other Package Formats">
+This guide shows how to configure Renovate to work with a private Cloudsmith Docker repository, using the Renovate GitHub App (hosted by Mend) as its primary example.However, the same approach applies to other package types supported by Cloudsmith, including npm, PyPI, Maven, NuGet, and more.
+</Note>
 
 ## Why use Renovate with Cloudsmith?
 
@@ -32,7 +34,9 @@ _How to integrate Mend Renovate with Cloudsmith._
 - A private Cloudsmith repository for your chosen package type.
 - A valid authentication method (Entitlement Token, or User/Service API Key) for your Cloudsmith repository. Cloudsmith repositories are private by default. Renovate requires authentication to list available package versions and perform version checks.
 
-<Note>📘 We recommend using a Cloudsmith [Entitlement token](/software-distribution/entitlement-tokens) instead of an API key.</Note>
+<Note variant="note" headline="Entitlement Tokens">
+We recommend using a Cloudsmith [Entitlement token](/software-distribution/entitlement-tokens) instead of an API key.
+</Note>
 
 ### 1. Add your Cloudsmith Entitlement Token as a Secret
 
@@ -60,7 +64,9 @@ In the Mend Developer Dashboard, navigate to Settings → Host Rules → Add Hos
 
 <BlockImage src={host_rule} alt=""></BlockImage>
 
-<Note>📘  You do not need to add a renovate.json file to your repository — the hosted App manages this for you.</Note>
+<Note variant="note" headline="renovate.json">
+You do not need to add a renovate.json file to your repository — the hosted App manages this for you.
+</Note>
 
 ### 3. Example: version upgrade for docker
 
