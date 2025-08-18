@@ -2,10 +2,10 @@ import { Note } from '@/components'
 
 # Continuous Security
 
-Continuous Security is a feature that provides an hourly feed of vulnerability data from multiple sources (see [refresh intervals]() for each source). When new vulnerabilities are published, we check them against existing artifacts in your Cloudsmith repositories. This enables faster identification of affected artifacts compared to scheduled or on-demand [vulnerability scanning](./vulnerability-scanning).
+Continuous Security is a feature that provides an hourly feed of vulnerability and malicious package data from multiple sources (see [refresh intervals](#data-sources) for each source). When new vulnerabilities or malicious packages are published, we check them against existing artifacts in your Cloudsmith repositories. This enables faster identification of affected artifacts compared to scheduled or on-demand [vulnerability scanning](./vulnerability-scanning).
 
 <Note variant="note" headline="Early Access">
-Continuous Security is in Early Access (EA) through Cloudsmith’s Enterprise Policy Management.
+Continuous Security is an Early Access (EA) as part of the Cloudsmith's Enterprise Policy Management feature.
 </Note>
 
 ## Vulnerability Scanning vs. Continuous Security
@@ -16,11 +16,11 @@ Cloudsmith [scans](./vulnerability-scanning) artifacts as they are introduced in
 
 ### Continuous Security
 
-<Note variant="note" headline="Requirement: EPM">
-Continuous Security is only available for Cloudsmith workspace where EPM has been enabled.
+<Note variant="note" headline="EPM Required">
+Continuous Security is only available for Cloudsmith workspaces where Enterprise Policy Management (EPM) has been enabled.
 </Note>
 
-When artifacts are first scanned, Cloudsmith stores the list of identified components. Continuous Security uses that stored list to check for vulnerabilities using an advisory database that is refreshed hourly. When a new threat is discovered that affects an artifact in your workspace, Continuous Security will flag it via EPM without the need for a full manual or scheduled re-scan.
+When artifacts are first scanned, Continuous Security checks this stored list of identified components against an advisory database of vulnerabilities and known malicious packages. This advisory database is refreshed hourly. When a new threat is discovered that affects an artifact in your workspace, Continuous Security will flag it via EPM without the need for a full manual or scheduled re-scan.
 
 For more information about using EPM to address vulnerabilities identified by Continuous Security, see [Getting Started with Enterprise Policy Management](./epm/getting-started) and [Rego Recipes](./epm/rego).
 
@@ -34,6 +34,7 @@ Continuous Security uses the following data sources:
 | :-------------------------------------------------------------------------------------- | :--------------: | 
 | Common Vulnerabilities and Exposures (CVE) databases aggregated in [Aqua Trivy DB](https://trivy.dev/v0.39/docs/vulnerability/detection/data-source/) |   6 hours   |
 | [Exploit Prediction Scoring System (EPSS)](https://www.first.org/epss/) |   24 hours  |
+| Vulnerabilities and Malicious Packages from the [Open Source Vulnerability DB (OSV)](https://osv.dev/list) |   1 hour  |
 
 #### Supported Formats
 

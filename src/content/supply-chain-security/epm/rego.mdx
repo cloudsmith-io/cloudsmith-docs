@@ -194,3 +194,20 @@ match if {
     contains(lower_license, l)
 }
 ```
+
+## Recipe 6: Detect malicious packages
+
+**Use case**: Check if a package was part of a supply chain attack.
+
+```rego
+package cloudsmith
+
+default match := false
+
+match if count(malicious_packages) > 0
+
+malicious_packages := [vulnerability.id |
+	some vulnerability in input.v0.osv
+	startswith(vulnerability.id, "MAL-")
+]
+```
