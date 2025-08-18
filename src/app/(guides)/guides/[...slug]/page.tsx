@@ -3,6 +3,7 @@ import { toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
+import { TimeAgo } from '@/components';
 import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import WithQuicknav from '@/components/WithQuickNav';
 import { cx } from 'class-variance-authority';
@@ -53,13 +54,14 @@ const Page = async ({ params }: PageProps) => {
     const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
 
     return (
-      <WithQuicknav showPageInfo path={repoPath} lastUpdated={lastUpdated || null}>
+      <WithQuicknav showPageInfo path={repoPath} lastUpdated={lastUpdated}>
         {parentTitle ? (
           <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
             {parentTitle}
           </h2>
         ) : null}
         <Post />
+        {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
     );
   }
