@@ -72,15 +72,19 @@ Please see [Package Tags](/artifact-management/package-tags) for more informatio
 
 ## Upload via Cloudsmith API
 
-Uploading a package to Cloudsmith via the URL is a 2 step process
+Follow the next steps to upload a package to Cloudsmith via API:
 
-1. A PUT req against the upload URL: 
+1. A PUT req against the upload URL:
 
 ```
 https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
 ```
 
 The response to this PUT req gives you an identifier that you will need for the next stage.
+
+<Note variant="note" headline="Single-use Identifier">
+The identifier returned from the PUT request is for single-use only. You must make a new PUT request to get a new identifier for each file you wish to upload.
+</Note>
 
 2. A POST req to create package endpoint 
 
@@ -103,7 +107,7 @@ https://upload.cloudsmith.io/OWNER/REPOSITORY/PACKAGE_NAME
 2. Switch to the ‘Authorization’ tab and populate your credentials with either Basic Auth or your API Key
 3. Switch to the ‘Body’ tab and upload the file as a binary.
 4. Press send and receive the response.
-5. Read the identifier from the response to use in the next stage (see the image below, highlighted _5_)
+5. Read the identifier (single-use) from the response to use in the next stage (see the image below, highlighted _5_)
 
 <BlockImage src={img2728021_Screenshot_2022_03_28_at_18_05_32} alt=""></BlockImage>
 
