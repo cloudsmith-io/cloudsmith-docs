@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (mdxInfo) {
     return withMdxMetadata(mdxInfo.file, {
-      defaultTitle: 'Documentation',
+      defaultTitle: 'Guides',
     });
   }
 
