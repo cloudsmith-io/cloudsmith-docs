@@ -2,7 +2,6 @@ import { loadMdxInfo } from '@/lib/markdown/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
-import { TimeAgo } from '@/components';
 import WithQuicknav from '@/components/WithQuickNav';
 
 export const generateStaticParams = async () => {
@@ -34,12 +33,12 @@ const Page = async () => {
 
   if (mdxInfo) {
     const { default: Post } = await import(`@/content/${mdxInfo.file}`);
+    const repoPath = `src/content/${mdxInfo.file}`;
     const lastUpdated = await getLastUpdated(mdxInfo);
 
     return (
-      <WithQuicknav>
+      <WithQuicknav showPageInfo path={repoPath} lastUpdated={lastUpdated || null}>
         <Post />
-        {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
     );
   }
