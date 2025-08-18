@@ -1,6 +1,10 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { Flex } from '@/components/Flex';
+import { Link } from '@/components/Link';
+import { Icon } from '@/icons';
+import { cx } from 'class-variance-authority';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './LegacySiteBanner.module.css';
 
 export default function LegacySiteBanner() {
@@ -8,7 +12,7 @@ export default function LegacySiteBanner() {
   const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const isDismissed = sessionStorage.getItem('legacyBannerDismissed');
+    const isDismissed = sessionStorage.getItem('csm-legacy-banner-dismissed');
     if (isDismissed !== 'true') {
       setIsVisible(true);
     }
@@ -28,7 +32,7 @@ export default function LegacySiteBanner() {
 
   const handleClose = (): void => {
     setIsVisible(false);
-    sessionStorage.setItem('legacyBannerDismissed', 'true');
+    sessionStorage.setItem('csm-legacy-banner-dismissed', 'true');
   };
 
   if (!isVisible) {
@@ -36,19 +40,19 @@ export default function LegacySiteBanner() {
   }
 
   return (
-    <div ref={bannerRef} className={styles.bannerContainer}>
-      <div className={styles.bannerContent}>
+    <div ref={bannerRef} className={cx(styles.root, 'bodyS')}>
+      <Flex className={styles.content} gap="xs">
         <span>Looking for the legacy documentation site?</span>
-        <a href="https://help.cloudsmith.io" target="_blank" rel="noopener noreferrer" className={styles.bannerLink}>
-        Visit help.cloudsmith.io <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m8.537 12.938 4.596-4.084V7.13L8.537 3.062l-.663.75 4.162 3.682h-9.17v1h9.166L7.873 12.19l.664.748Z" fill="currentColor"></path>
-            </svg>
-        </a>
-        
-      </div>
-      <button onClick={handleClose} aria-label="Close this banner" className={styles.closeButton}>
-        <svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7.293 8 4.11 11.182l.707.707L8 8.707l3.182 3.182.707-.707L8.707 8l3.182-3.182-.707-.707L8 7.293 4.818 4.11l-.707.707L7.293 8Z" />
-        </svg>
+        <Link
+          href="https://help.cloudsmith.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cx(styles.link)}>
+          Visit help.cloudsmith.io <Icon name="arrowRight" title="" />
+        </Link>
+      </Flex>
+      <button onClick={handleClose} aria-label="Close this banner" className={styles.close}>
+        <Icon name="action/close" title="" />
       </button>
     </div>
   );

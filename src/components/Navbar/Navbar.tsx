@@ -1,17 +1,17 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { cx } from 'class-variance-authority';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { useNavigation } from '@/app/navigation';
 import { Container } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
-import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
+import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
 
 import styles from './Navbar.module.css';
 
@@ -35,7 +35,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className={cx('main-header', styles.root, { [styles.isHome]: pathname === '/' })}>
+      <div className={cx(styles.root, { [styles.isHome]: pathname === '/' })}>
         <Container className={styles.container}>
           <div className={styles.top}>
             <div className={styles.left}>
