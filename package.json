@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@csstools/postcss-global-data": "^3.0.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.6.2",
     "@lehoczky/postcss-fluid": "^1.0.3",
     "@next/env": "15.1.7",
     "@radix-ui/react-dialog": "^1.1.5",
@@ -47,7 +48,6 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
-    "@trivago/prettier-plugin-sort-imports": "^5.2.0",
     "@types/jest": "^29.5.14",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.10.10",

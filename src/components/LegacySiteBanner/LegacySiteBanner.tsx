@@ -1,10 +1,13 @@
 'use client';
 
+import React, { useEffect, useRef, useState } from 'react';
+
+import { cx } from 'class-variance-authority';
+
 import { Flex } from '@/components/Flex';
 import { Link } from '@/components/Link';
 import { Icon } from '@/icons';
-import { cx } from 'class-variance-authority';
-import React, { useEffect, useRef, useState } from 'react';
+
 import styles from './LegacySiteBanner.module.css';
 
 export default function LegacySiteBanner() {
