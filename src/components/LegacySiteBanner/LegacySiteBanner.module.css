@@ -1,55 +1,41 @@
-.bannerContainer {
+.root {
   background-color: var(--brand-color-blue-3);
-  height: var(--navbar-banner-height);
-  color: var(--brand-color-grey-10);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
-  font-size: var(--text-body-s);
+  padding: var(--space-xs) var(--space-m);
+  padding-right: var(--space-2xl);
   position: relative;
-  z-index: var(--layer-banner);
-}
-
-.bannerContent {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  flex-wrap: wrap;
+  color: var(--color-text-primary);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  flex-wrap: nowrap;
+  color: var(--color-text-primary);
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  flex-grow: 1;
-  padding-right: 24px;
+  cursor: pointer;
 }
 
-.bannerLink {
-  color: black;
-  text-decoration: none;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 0.25em;
-}
-
-.bannerLink:hover {
+.link:hover,
+.close:hover {
   opacity: 0.6;
 }
 
-.closeButton {
-  background: none;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
-  color: grey;
-  border-radius: 50%;
-  display: flex;
-  transition: background-color 0.2s ease;
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.closeButton:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+@media (--tablet-up) {
+  .root {
+    padding: var(--space-xs) var(--space-2xl);
+    justify-content: center;
+  }
 }

@@ -289,7 +289,6 @@
     --layer-navigation-mobile: 12;
     --layer-navigation: 10;
     --layer-overlay: 200;
-    --layer-banner: 1000;
 
     /* Specific measurements */
     --navbar-banner-height: 0px; /* Will be set by LegacySiteBanner. Remove when banner is removed.*/
