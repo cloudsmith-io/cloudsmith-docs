@@ -3,7 +3,7 @@
   color: var(--base-color-white);
   width: 100%;
   position: sticky;
-  top: var(--banner-height);
+  top: var(--banner-height, 0);
   z-index: var(--layer-navigation);
 }
 
