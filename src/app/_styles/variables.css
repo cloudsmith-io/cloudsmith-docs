@@ -178,7 +178,6 @@
     --letter-tags: 0.4px;
     --letter-http-type: 0.06px;
     --letter-http-rule: 0.06px;
-
     --letter-spacing-negative-6xl: -0.06em;
     --letter-spacing-negative-5xl: -0.04em;
     --letter-spacing-negative-4xl: -0.03em;
@@ -189,7 +188,6 @@
     --letter-spacing-negative-m: -0.0075em;
     --letter-spacing-negative-s: -0.005em;
     --letter-spacing-negative-xs: -0.0025em;
-
     --letter-spacing-positive-6xl: 0.06em;
     --letter-spacing-positive-5xl: 0.04em;
     --letter-spacing-positive-4xl: 0.03em;
@@ -294,6 +292,7 @@
     --navbar-top-height: 67px;
     --navbar-bottom-height: 50px;
     --navbar-height: calc(var(--navbar-top-height) + var(--navbar-bottom-height));
+    --banner-height: 0;
 
     @media (--phablet-up) {
       --navbar-top-height: 80px;
