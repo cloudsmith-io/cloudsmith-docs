@@ -3,7 +3,7 @@
   overflow: hidden;
   height: 518px;
 
-  --offset-top: calc(var(--space-xl) + var(--navbar-top-height));
+  --offset-top: calc(var(--space-xl) + var(--navbar-banner-height) + var(--navbar-top-height));
   --hero-illustration-overlap: min(20vh, 150px);
 }
 

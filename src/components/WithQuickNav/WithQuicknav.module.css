@@ -1,4 +1,3 @@
-/* TODO: Replace with real styles */
 .root {
   padding-block: var(--space-l);
   display: flex;
@@ -19,6 +18,14 @@
 .navWrapper {
   position: sticky;
   top: calc(var(--space-l) + var(--navbar-height));
+}
+
+/*
+  Offset anchors to all headings inside main, so they are not hidden by the navbar.
+  This is done by adding the navbar height to the top of the anchor.
+*/
+.content :is(h2, h3, h4, h5, h6) {
+  scroll-margin-top: calc(var(--space-l) + var(--navbar-height));
 }
 
 @media (--desktop-up) {

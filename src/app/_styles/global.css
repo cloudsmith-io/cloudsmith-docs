@@ -17,14 +17,4 @@
     color: var(--color-text-link);
     text-decoration: none;
   }
-  
-  .main-header {
-  position: sticky; /* Or 'fixed' */
-  top: 0;
-  width: 100%;
-  z-index: 50;
-  
-  /* Add this line 👇 */
-  padding-top: var(--banner-height, 0px);
-}
 }
