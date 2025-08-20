@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { useNavigation } from '@/app/navigation';
 import { Container } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
+import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
 import LegacySiteBanner from '../LegacySiteBanner';
