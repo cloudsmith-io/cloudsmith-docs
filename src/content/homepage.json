@@ -27,7 +27,7 @@
       "cards": [
         {
           "title": "Key concepts",
-          "description": "Learn the fundamentals of package management and discover how Cloudsmith's features provide a secure, scalable and developer-friendly solution.",
+          "description": "Learn the fundamentals of package management and discover how Cloudsmith provides a secure, scalable and developer-friendly solution.",
           "href": "/about-cloudsmith/key-concepts/",
           "linkText": "Read the doc",
           "icon": "homepage/documentation",
@@ -36,7 +36,7 @@
           "type": "default"
         },
         {
-          "title": "Supported Formats",
+          "title": "Supported formats",
           "description": "One platform for all your software artifacts.",
           "href": "/formats/",
           "linkText": "See supported formats",
@@ -72,7 +72,7 @@
           "type": "default"
         },
         {
-          "title": "Supply Chain Security",
+          "title": "Supply chain security",
           "description": "Define policies as code and enforce them across your organization’s artifacts.",
           "href": "/supply-chain-security",
           "linkText": "Secure your artifacts",
