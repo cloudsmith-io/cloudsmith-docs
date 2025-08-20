@@ -690,7 +690,7 @@
   },
   "guides": {
     "title": "Guides",
-    "path": "/guides/getting-started",
+    "path": "/guides",
     "icon": "action/guide",
     "children": [
           {

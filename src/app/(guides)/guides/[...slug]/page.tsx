@@ -3,8 +3,8 @@ import { toSlug } from '@/lib/util';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
-import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import { TimeAgo } from '@/components';
+import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
 import WithQuicknav from '@/components/WithQuickNav';
 import { cx } from 'class-variance-authority';
 
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (mdxInfo) {
     return withMdxMetadata(mdxInfo.file, {
-      defaultTitle: 'Documentation',
+      defaultTitle: 'Guides',
     });
   }
 
@@ -45,6 +45,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (mdxInfo) {
     const { default: Post } = await import(`@/content/${mdxInfo.file}`);
+    const repoPath = `src/content/${mdxInfo.file}`;
     const lastUpdated = await getLastUpdated(mdxInfo);
 
     const pathname = `/${qualifiedSlug}`;
@@ -53,7 +54,7 @@ const Page = async ({ params }: PageProps) => {
     const parentTitle = ancestors.length > 1 ? ancestors[ancestors.length - 2].title : null;
 
     return (
-      <WithQuicknav>
+      <WithQuicknav showPageInfo path={repoPath} lastUpdated={lastUpdated}>
         {parentTitle ? (
           <h2 data-quick-nav-ignore className={cx(styles.sectionHeading, 'monoXSUppercase')}>
             {parentTitle}
