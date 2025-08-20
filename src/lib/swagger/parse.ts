@@ -185,5 +185,27 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
     });
   };
 
-  return flattenMenuItems(items);
+  const sortMenuItems = (menuItems: MenuItem[]): MenuItem[] => {
+    return menuItems.slice().sort((a, b) => {
+      // Items with children should go first
+      if (a.children && !b.children) return -1;
+      if (!a.children && b.children) return 1;
+
+      // Otherwise, sort alphabetically
+      return a.title.localeCompare(b.title);
+    }).map((item) => {
+      if (item.children) {
+        const sortedChildren = sortMenuItems(item.children);
+        return {
+          ...item,
+          // Ensure that the parent item links to the first child in the sorted children
+          path: sortedChildren.find((child) => !child.children)?.path,
+          children: sortedChildren
+        };
+      }
+      return item;
+    });
+  };
+
+  return sortMenuItems(flattenMenuItems(items));
 };
