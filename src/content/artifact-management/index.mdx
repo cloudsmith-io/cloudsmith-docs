@@ -2,9 +2,9 @@ import { Note } from '@/components'
 
 # Artifact Management
 
-With Cloudsmith's our code **Artifact Management** capabilities, you can control the flow of all software components throughout your software development lifecycle. Artifact Management includes operations with both:
+With Cloudsmith for **Artifact Management**, you control how software components move through your SDLC, both what you build and what you consume. Artifact Management includes both:
 - the artifacts your teams **generate** (like binaries and container images)
-- and the dependencies they **consume** from internal and third-party sources.
+- and the dependencies they **consume** from internal and third-party sources
 
 These software components and their corresponding metadata are collectively known as **artifacts**. Effective artifact management ensures these critical assets are versioned, secured, and reliably accessible, forming the backbone of a modern software supply chain.
 
@@ -12,25 +12,25 @@ As complexity grows, particularly with popular formats such as Maven and npm, it
 
 ## What's a package?
 
-Packages are a logical grouping of files containing software and metadata about the software and its dependencies. Packages are typically versioned to provide a better and more manageable understanding of what software is being deployed.
+A package bundles software files with metadata (name, version, dependencies). Packages are typically versioned to provide a better and more manageable understanding of what software is being deployed.
 
 <Note>
 While related, there's a key difference between artifacts and packages.
 
-An **artifact** is a raw output, like a `.jar` file or a Docker image. A **package** is an artifact bundled with metadata (name, version, dependencies) that tools can understand. Essentially, **all packages are artifacts, but not all artifacts are packages.** This structured metadata is crucial for reliable software deployment. For a more detailed comparison, please see our blog post: [Artifacts vs. Packages: What Is the Difference?](https://cloudsmith.com/blog/artifacts-vs-packages-what-is-the-difference)
+An **artifact** is a raw output, like a `.jar` file or a Docker image. 
+A **package** is an artifact bundled with metadata (name, version, dependencies) that tools can understand. **all packages are artifacts, but not all artifacts are packages.** 
+For a more detailed comparison, please see [Artifacts vs. Packages: What Is the Difference?](https://cloudsmith.com/blog/artifacts-vs-packages-what-is-the-difference)
 </Note>
 
-Cloudsmith supports packages (and containers) of many types, supporting their native tooling and most popular upstreams. With Cloudsmith, you can automate the publishing and delivery of packages through native interface (e.g using "maven publish"), or through the Cloudsmith CLI, API or manually through the UI.
+Cloudsmith is a universal artifact management platform supporting 28+ formats, with native tooling integrations and registry upstreams to proxy and cache popular sources. Publish and deliver via native interfaces (e.g., Maven Publish) or the Cloudsmith CLI, API, or UI.
 
 ## What package types are supported?
 
-Our mission is to support the developer community with a best-in-class package management solution that doesn't just cater to the most used formats for development and deployment but brings the same level of control, management, and visibility for every format we add.
+See the full list in [Supported Formats](/formats). Each format gets first-class support with consistent controls for access, policy and visibility. 
 
-For an exhaustive list, visit our [Supported Formats](/formats) page.
+## Package Search Syntax
 
-## Search Query Syntax
-
-Quickly locate any package using Cloudsmith's advanced search functionality: [Search Query Syntax](/artifact-management/search-filter-sort-packages). The flexible query syntax allows you to combine multiple criteria, such as name, version, and dependencies, to build highly targeted searches.
+Quickly find packages with [Package Search Syntax](/artifact-management/search-filter-sort-packages), combining fields like name, version or dependency to narrow results.
 
 ## Package Actions
 
