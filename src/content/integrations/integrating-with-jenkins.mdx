@@ -28,7 +28,8 @@ In the following examples:
 
 Add the following as a build step to perform the push to Cloudsmith:
 
-```shell Jenkins Build Steps using CLI
+```bash 
+# Jenkins Build Steps using CLI
 pip install cloudsmith-cli
 cloudsmith push FORMAT OWNER/REPOSITORY PACKAGE_FILE
 ```
@@ -37,7 +38,7 @@ cloudsmith push FORMAT OWNER/REPOSITORY PACKAGE_FILE
 
 Add the following as a build stage to perform the push to Cloudsmith:
 
-```shell Jenkins Pipelines using CLI
+```groovy
 stage "Deploy"
 sh('pip install cloudsmith-cli')
 sh('cloudsmith push FORMAT OWNER/REPOSITORY PACKAGE_FILE')
