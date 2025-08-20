@@ -1,10 +1,13 @@
 'use client';
 
+import React, { useEffect, useRef, useState } from 'react';
+
+import { cx } from 'class-variance-authority';
+
 import { Flex } from '@/components/Flex';
 import { Link } from '@/components/Link';
 import { Icon } from '@/icons';
-import { cx } from 'class-variance-authority';
-import React, { useEffect, useRef, useState } from 'react';
+
 import styles from './LegacySiteBanner.module.css';
 
 export default function LegacySiteBanner() {
@@ -14,23 +17,14 @@ export default function LegacySiteBanner() {
   useEffect(() => {
     const isDismissed = sessionStorage.getItem('csm-legacy-banner-dismissed');
     if (isDismissed !== 'true') {
+      // Update the CSS variable to make AppShell work
+      document.documentElement.style.setProperty('--navbar-banner-height', '45px');
       setIsVisible(true);
     }
   }, []);
 
-  useEffect(() => {
-    if (isVisible && bannerRef.current) {
-      const bannerHeight = bannerRef.current.offsetHeight;
-      document.documentElement.style.setProperty('--banner-height', `${bannerHeight}px`);
-    }
-
-    // This is a cleanup function. It runs when the banner is closed or hidden.
-    return () => {
-      document.documentElement.style.removeProperty('--banner-height');
-    };
-  }, [isVisible]);
-
   const handleClose = (): void => {
+    document.documentElement.style.setProperty('--navbar-banner-height', '0px');
     setIsVisible(false);
     sessionStorage.setItem('csm-legacy-banner-dismissed', 'true');
   };

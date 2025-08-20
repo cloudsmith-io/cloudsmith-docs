@@ -11,7 +11,8 @@ import { Container } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
-import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
+import LegacySiteBanner from '../LegacySiteBanner';
+
 
 import styles from './Navbar.module.css';
 
@@ -36,6 +37,9 @@ export const Navbar = () => {
   return (
     <>
       <div className={cx(styles.root, { [styles.isHome]: pathname === '/' })}>
+
+        <LegacySiteBanner />
+
         <Container className={styles.container}>
           <div className={styles.top}>
             <div className={styles.left}>

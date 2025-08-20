@@ -5,7 +5,7 @@
 
 .secondaryNav {
   position: sticky;
-  top: var(--navbar-top-height);
+  top: calc(var(--navbar-banner-height) + var(--navbar-top-height));
   z-index: var(--layer-navigation);
   background-color: var(--base-color-grey-1000);
 
