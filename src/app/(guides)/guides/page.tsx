@@ -34,10 +34,11 @@ const Page = async () => {
 
   if (mdxInfo) {
     const { default: Post } = await import(`@/content/${mdxInfo.file}`);
+    const repoPath = `src/content/${mdxInfo.file}`;
     const lastUpdated = await getLastUpdated(mdxInfo);
 
     return (
-      <WithQuicknav>
+      <WithQuicknav showPageInfo path={repoPath} lastUpdated={lastUpdated}>
         <Post />
         {lastUpdated ? <TimeAgo date={lastUpdated} /> : null}
       </WithQuicknav>
