@@ -47,10 +47,12 @@
 
 .responseGridColumn {
   --column-block-padding: var(--space-xs);
+  --column-inline-padding: var(--space-2xs);
 
   border-top: 1px solid var(--color-border);
 
   line-height: var(--line-height-s);
+  padding-inline: var(--column-inline-padding);
   padding-block: var(--column-block-padding);
 }
 
