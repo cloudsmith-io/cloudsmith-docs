@@ -27,7 +27,7 @@
       "cards": [
         {
           "title": "Key concepts",
-          "description": "Learn the fundamentals of package management and discover how Cloudsmith's features provide a secure, visible, and collaborative solution.",
+          "description": "Learn the fundamentals of package management and discover how Cloudsmith provides a secure, scalable and developer-friendly solution.",
           "href": "/about-cloudsmith/key-concepts/",
           "linkText": "Read the doc",
           "icon": "homepage/documentation",
@@ -36,10 +36,10 @@
           "type": "default"
         },
         {
-          "title": "Supported Formats",
-          "description": "Cloudsmith is a single solution for all of your software assets.",
+          "title": "Supported formats",
+          "description": "One platform for all your software artifacts.",
           "href": "/formats/",
-          "linkText": "Go to formats",
+          "linkText": "See supported formats",
           "icon": "homepage/guide",
           "size": "s",
           "width": "third",
@@ -47,9 +47,9 @@
         },
         {
           "title": "Quickstart guide",
-          "description": "This guide will take you through the basic steps to help you get your Cloudsmith account up and running quickly.",
+          "description": "This guide will take you through the basic steps to get your Cloudsmith account up and running quickly.",
           "href": "/guides/getting-started",
-          "linkText": "Go to guide",
+          "linkText": "Get started",
           "icon": "homepage/api",
           "size": "s",
           "width": "third",
@@ -63,17 +63,17 @@
       "cards": [
         {
           "title": "Broadcasts",
-          "description": "Distribute your packages with your own branding",
+          "description": "Distribute packages with your own branding.",
           "href": "/software-distribution/broadcasts/",
-          "linkText": "Broadcasts",
+          "linkText": "Explore Broadcasts",
           "icon": "homepage/guide",
           "size": "s",
           "width": "third",
           "type": "default"
         },
         {
-          "title": "Supply Chain Security",
-          "description": "Define your security policies as code, and enforce them across all your organization's artifacts",
+          "title": "Supply chain security",
+          "description": "Define policies as code and enforce them across your organization’s artifacts.",
           "href": "/supply-chain-security",
           "linkText": "Secure your artifacts",
           "icon": "homepage/documentation",
@@ -83,9 +83,9 @@
         },
         {
           "title": "Upstreams",
-          "description": "Index, proxy, and cache popular public upstreams and control all your assets within a single repository.",
+          "description": "Index, proxy and cache packages from popular public registries so you can control everything in Cloudsmith.",
           "href": "/repositories/upstreams",
-          "linkText": "Configure a new upstream",
+          "linkText": "Set up an upstream",
           "icon": "homepage/api",
           "size": "s",
           "width": "third",

@@ -196,6 +196,48 @@ addMavenResolverPlugin
 ```
 </Note>
 
+## Configuring Cloudsmith as the only source for sbt packages
+
+In this section, we cover how to configure sbt to block incoming packages from any repository outside of your Cloudsmith repository.
+Note that these steps might vary depending on the platform you use. We recommend reviewing the [official sbt documentation](https://www.scala-sbt.org/1.x/docs/Proxy-Repositories.html) to learn about any specifics of your platform.
+
+1. In your `sbtopts` file in `~/.config/sbt/sbtopts`, set `Dsbt.override.build.repos` to `true`:
+
+```
+-Dsbt.override.build.repos=true
+-Dsbt.repository.config=/home/<user>/.sbt/repositories
+-Dsbt.boot.credentials=/home/<user>/.sbt/.cloudsmith.credentials
+```
+
+2. Then, if you haven't done yet, create a `~/.sbt/.cloudsmith.credentials` file to set your credentials to access your Cloudsmith repo:
+
+```
+realm=Private Repository: <org name>/<repo name>
+host=dl.cloudsmith.io
+user=<user>
+password=<API Key>
+```
+
+3. Configure your global resolvers to use your Cloudsmith repository and credentials in `~/.sbt/1.0/global.sbt`:
+
+```
+resolvers := Seq(“<cloudsmith_resolver_name>" at "https://dl.cloudsmith.io/basic/WORKSPACE/REPOSITORY/maven/")
+credentials += Credentials(Path.userHome / ".sbt" / ".cloudsmith.credentials")
+resolvers += “<internal_resolver_name>" at "<internal_repository_url>"
+externalResolvers := resolvers.value
+```
+
+Before proceeding to the next step, add the same configuration to `~/.sbt/1.0/plugins/plugins.sbt`.
+
+Finally, configure your repositories file in `~/.sbt/repositories` to use the resolver configured in the previous step:
+
+```
+[repositories]
+local
+<cloudsmith_resolver_name>: https://dl.cloudsmith.io/basic/<org name>/<repo name>/maven/
+<internal_resolver_name>: <internal_repository_url>
+```
+
 ## Upstream Proxying / Caching
 
 <Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
