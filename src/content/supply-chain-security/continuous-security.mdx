@@ -20,7 +20,7 @@ Cloudsmith [scans](./vulnerability-scanning) artifacts as they are introduced in
 Continuous Security is only available for Cloudsmith workspaces where Enterprise Policy Management (EPM) has been enabled.
 </Note>
 
-When artifacts are first scanned, Continuous Security checks this stored list of identified components against an advisory database of vulnerabilities and known malicious packages. This advisory database is refreshed hourly. When a new threat is discovered that affects an artifact in your workspace, Continuous Security will flag it via EPM without the need for a full manual or scheduled re-scan.
+Continuous Security matches the software artifacts in your Repository with vulnerability data from several sources. Unlike Vulnerability Scanning, Continuous Security responds automatically in real time as vulnerabilities are reported or modified in those sources, with no manual effort required. Whenever a threat that affects an artifact in your workspace is detected, Continuous Security triggers EPM policy evaluation, with the vulnerability data included in the policy input.
 
 For more information about using EPM to address vulnerabilities identified by Continuous Security, see [Getting Started with Enterprise Policy Management](./epm/getting-started) and [Rego Recipes](./epm/rego).
 
