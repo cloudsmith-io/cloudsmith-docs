@@ -403,7 +403,7 @@
                 "path": "/supply-chain-security/malware-detection/malware-scanning"
               }, 
               {
-                "title": "Rego Recipes",
+                "title": "Malicious Packages",
                 "path": "/supply-chain-security/malware-detection/malicious-packages"
               }
             ]
