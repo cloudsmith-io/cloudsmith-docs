@@ -1,5 +1,6 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
-import { Note } from '@/components';
+import { Note, Button } from '@/components';
+import { Icon } from '@/icons';
 
 # Recipe 1: Enforcing Signed Packages
 
@@ -9,6 +10,11 @@ This policy enforces **mandatory GPG/DSA signature checks** on packages during t
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-1/policy.rego"
 />
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+  </Button>
 
 ## Trigger Condition
 

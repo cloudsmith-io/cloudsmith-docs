@@ -1,4 +1,4 @@
-import { GuideLink, BlockImage } from '@/components';
+import { GuideLink, Button, Note, BlockImage } from '@/components';
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
 import { Icon, IconName } from '@/icons';
 import { iconRegistry } from '../../../icons/icon-registry';
@@ -9,6 +9,18 @@ import styles from '../../../app/(documentation)/design-system/page.module.css';
 This cookbook provides a collection of Rego policy examples for Cloudsmith Enterprise Policy Management (EPM). These policies are designed to help enforce best practices, compliance, and security within your software supply chain.
 
 If you are not a Cloudsmith user, these recipes still provide helpful guidance as it relates to thinking through software supply chain compliance and security and the role policy management can play. For a bit more background information on EPM, you can start with this [EPM overview blog](https://cloudsmith.com/blog/policy-as-code-automation-with-epm) and then come back to the cookbook afterward.
+
+## Access these Recipes in GitHub
+You can access this full list of recipes in GitHub any time [here}(https://github.com/cloudsmith-io/rego-recipes), but note that every recipe in this guide includes the full Rego code and instructions for use.
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes" withArrow>
+   <Icon title="View" name="github"/>
+   View recipes on GitHub
+</Button>
+
+<Note variant="note" headline="Contributing to the Cookbook">
+We encourage contributions to this cookbook! If you have useful Rego policies you'd like to share, please submit them for review to the Cloudsmith EPM Team Contact by contacting [devrel@cloudsmith.io](devrel@cloudsmith.io), or open a pull request on the [GitHub repository](https://github.com/cloudsmith-io/rego-recipes).
+</Note>
 
 ## Introduction to Rego and Cloudsmith EPM
 
@@ -259,7 +271,3 @@ If you encounter issues with your Rego policies, consider the following tips to 
 - **Review Policy Logic**:  Double-check your Rego code for any logical errors or typos.  
 - **Check Input Data**:  Ensure that the input data (e.g., package metadata, user attributes) matches what your policy expects.  
 - **Cloudsmith EPM Logs**: Consult the Cloudsmith EPM logs for detailed information on policy evaluations and failures.
-
-## Contributing to the Cookbook
-
-We encourage contributions to this cookbook! If you have useful Rego policies you'd like to share, please submit them for review to the Cloudsmith EPM Team Contact by contacting [devrel@cloudsmith.io](devrel@cloudsmith.io), or open a pull request on the [GitHub repository](https://github.com/cloudsmith-io/rego-recipes).

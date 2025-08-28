@@ -1,4 +1,6 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { Note, Button } from '@/components';
+import { Icon } from '@/icons';
 
 # Recipe 2: Restricting Package Based on Tags
 
@@ -8,6 +10,11 @@ This policy checks whether a package includes a specific "**maven-central**" tag
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-2/policy.rego"
 />
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+  </Button>
 
 ## Trigger Condition
 

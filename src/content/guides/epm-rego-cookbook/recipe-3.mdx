@@ -1,5 +1,6 @@
-import { BlockImage } from '@/components'
+import { Note, Button, BlockImage } from '@/components';
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
 
 import recipe3 from './images/recipe3.png';
 
@@ -11,6 +12,11 @@ This policy is designed to detect a broad range of copyleft or restrictive open-
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-3/policy.rego"
 />
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+  </Button>
 
 ## Trigger Condition
 

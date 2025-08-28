@@ -1,4 +1,6 @@
+import { Note, Button } from '@/components';
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
 
 # Recipe 8: CVSS with Fix Available
 
@@ -8,6 +10,11 @@ This policy is designed to match packages in a specific repository (`acme-repo-o
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-8/policy.rego"
 />
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+  </Button>
 
 ## Trigger Condition
 

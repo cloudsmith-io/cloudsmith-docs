@@ -1,4 +1,6 @@
+import { Note, Button } from '@/components';
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
 
 # Recipe 14: Block specific package and version
 
@@ -8,6 +10,11 @@ Alternatively, this policy will specifically block the Python package requests o
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-14/policy.rego"
 />
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+  </Button>
 
 ## Trigger Condition 
 
