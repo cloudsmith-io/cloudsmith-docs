@@ -1,18 +1,30 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
 
-# Recipe 9: Specific format from unapproved source repo 
+# Recipe 9: Time-Based CVSS Policy 
 
-Define specific approved source repositories and target only to specific package format, in this case “npm”.
+In many ways, this is just an advanced version of the previous policy. This rego sample is designed to flag packages in a specific repo that contain serious, **outdated**, but ultimately fixable vulnerabilities. In this case, we are also logging the reason for the policy match for further forensics.
 
 <RemoteCodeBlock
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-9/policy.rego"
 />
 
-**Trigger Condition:**  
-Approved source repos: "internal-tools", "trusted-upstreams"  
-Targeted format: "npm"
+## Trigger Condition
 
-**When and How It's Triggered**  
-The match is triggered if an npm package comes from a repo not listed in **approved_repos**.
+```rego
+older_than_days := -30
+```
+
+## When and How It's Triggered
+
+This CVE was published on 24 April 2025 - much older than the 30 day threshold specified in the policy.
+
+```bash
+pip download h11==0.14.0  
+cloudsmith push python WORKSPACE/REPO h11-0.14.0-py3-none-any.whl \-k "API_KEY"
+```
+
+The policy implements time-based filtering by comparing each vulnerability's PublishedDate to a calculated cutoff date (older_than_days ago). 
+If the vulnerability was published on or before that cutoff date, it's considered a match; anything newer is ignored.
+
 

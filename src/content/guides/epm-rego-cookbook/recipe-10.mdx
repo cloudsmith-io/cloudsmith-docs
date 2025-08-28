@@ -1,15 +1,34 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
 
-# Recipe 10: Flagging "Zombie" Packages 
+# Recipe 10: CVSS with EPSS context 
 
-Packages uploaded by users who are no longer active in your organization or workspace.
+EPM also supports the Exploit Prediction Scoring System ([**EPSS**](https://cloudsmith.com/blog/cloudsmith-introduces-epss-scoring-in-enterprise-policy-management-epm)), a data-driven metric designed to estimate the probability of a software vulnerability being exploited in the wild. Using CVSS alongside EPSS or even OSV (Open Source Vulnerabilities), we can make better informed decisions about whether to investigate, quarantine or promote a package based on multiple sources of risk data.
 
 <RemoteCodeBlock
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-10/policy.rego"
 />
 
-**Trigger Condition:**
+## Trigger Condition
 
-**When and How It's Triggered**
+```rego
+max_epss := 0.0001  
+val["score"] > max_epss
+```
+
+## When and How It's Triggered
+
+What's interesting about this specific Spotipy package [**example**](https://nvd.nist.gov/vuln/detail/CVE-2025-27154), is that it was picked up by EPSS but hasn't yet received a “vendor severity” scoring from NIST, emphasizing the need for EPSS as well as traditional vendor scoring sources within our EPM policies.
+
+```bash
+pip download spotipy==2.25.0  
+cloudsmith push python acme-corporation/acme-repo-one spotipy-2.25.0-py3-none-any.whl \-k "API_KEY"
+```
+
+## Business value from this policy
+
+EPSS is a metric that estimates the probability of a given vulnerability being exploited in the wild within the next 30 days. Unlike CVSS (Common Vulnerability Scoring System), which measures the inherent technical severity of a vulnerability, EPSS is focused on likelihood, using real-world data, threat intelligence feeds, and statistical models. CVSS might tell you that a vulnerability is “critical” because of the potential impact, but EPSS can indicate whether attackers are actually likely to exploit it soon. This makes EPSS a valuable complement to CVSS for prioritization because a high-severity vulnerability that is very unlikely to be exploited may not require immediate attention, while a lower-severity one with a high EPSS score might demand urgent mitigation.
+
+This policy example blends CVSS and EPSS to improve vulnerability triage in Cloudsmith EPM. It first filters for vulnerabilities specifically in the acme-corporation repository that are classified as “**HIGH**” severity under CVSS, ensuring that only technically significant issues are considered. It then applies an EPSS-based threshold (max_epss := 0.0001), flagging only those high-severity vulnerabilities whose exploitation probability exceeds this limit. By excluding vulnerabilities in the `ignored_cves` list, it allows for exceptions where risk is known to be acceptable or mitigated.   
+This dual-filter approach combines the impact assessment of CVSS with the real-world likelihood from EPSS, helping teams focus on vulnerabilities that are both severe and realistically exploitable.
 

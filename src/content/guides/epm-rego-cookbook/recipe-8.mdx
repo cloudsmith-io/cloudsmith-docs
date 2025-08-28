@@ -1,15 +1,31 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
 
-# Recipe 8: CVSS Score enriched with EPSS context 
+# Recipe 8: CVSS with Fix Available
 
-Combine High scoring with EPSS scores above a specific threshold. In this case, a patch has to be available and we are excluding or ignoring specific disclosed CVEs.
+This policy is designed to match packages in a specific repository (`acme-repo-one`) that have **high** or **critical** with a Fixed version available, excluding specific known CVEs.
 
 <RemoteCodeBlock
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-8/policy.rego"
 />
 
-**Trigger Condition:**
+## Trigger Condition
 
-**When and How It's Triggered**
+The package described below contains vulnerabilities matching the conditions defined in the policy above:
 
+- **Package**: h11  
+- **Affected Version**: 0.14.0  
+- **Fixed In**: 0.16.0  
+- **CVE Identifier**: CVE-2025-43859  
+- **Description**: An HTTP request smuggling vulnerability in python-h11.
+
+```bash
+pip download h11==0.14.0  
+cloudsmith push python WORKSPACE/REPO h11-0.14.0-py3-none-any.whl -k "API_KEY"
+```
+
+## Business value from this policy
+
+This EPM policy delivers tangible business value by automatically targeting a specific repository, it ensures security controls are applied where they matter most, avoiding unnecessary overhead on other projects. The policy flags packages with fixed high- or critical-severity vulnerabilities (CVSS score above 7\) that have been detected during the Cloudsmith security scan phase. This allows teams to identify and address risk before packages progress further in the lifecycle, reducing the likelihood of deploying insecure components into production environments. The ability to ignore specific CVEs, such as CVE-2023-45853, prevents distraction from known or accepted risks, enabling developers and security teams to focus on the most impactful issues.
+
+From a governance perspective, this policy supports compliance with internal and external security standards by providing a repeatable, automated enforcement point. It minimizes the manual effort needed to review vulnerability reports, shortens response times, and reduces the chance of human oversight. By codifying the decision logic in Rego, the business gains transparency and auditability since policy decisions can be explained and traced back to explicit rules. In short, this policy not only reduces the probability of a high-severity security breach but also helps balance security rigor with operational pragmatism, ensuring resources are spent on vulnerabilities that truly warrant immediate action.

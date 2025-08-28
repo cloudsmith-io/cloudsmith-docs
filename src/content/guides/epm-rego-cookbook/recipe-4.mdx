@@ -1,22 +1,44 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
 
-# Recipe 4: Limiting Package Size 
+# Recipe 4: Quarantine Debug Builds
 
-If a package is larger than 100MB, this policy will match it.
+This policy checks whether a package includes specific debug, test, or temp descriptors in the filename. This could be the simplest way for an organisation to state whether a package is a debug package, and therefore should not be ingested into, say, the production repository.
 
 <RemoteCodeBlock
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-4/policy.rego"
 />
 
-**Trigger Condition:**  
-max_size := 30 * 1024 * 1024  # 30MB
+## Trigger Condition
 
-**When and How It's Triggered**  
-The goal of this policy is to prevent packages larger than 30MB from being accepted during the sync process. Some packages, like b2gpopulate and ajenti, have large download sizes (36MB and 35MB respectively). These larger packages often contain a lot of code or data, making them bigger than typical packages.
+The below filename contains "**debug**" and will match your Rego pattern:
 
-Download and push the b2gpopulate tarball to Cloudsmith:  
-curl -LO https://files.pythonhosted.org/packages/source/b/b2gpopulate/b2gpopulate-0.29.tar.gz && cloudsmith push python acme-corporation/acme-repo-one b2gpopulate-0.29.tar.gz -k "$CLOUDSMITH_API_KEY"
+```rego
+pkg := input.v0["package"]  
+re_match(".*(debug|test|tmp).*", pkg.filename)
+```
 
-![][image12]
+Policy will trigger on these kind of examples:
 
+```plaintext
+debugpy-1.6.7...whl  
+pytest-...tar.gz  
+mylib-test-1.0.0.tar.gz  
+tmp-utils-0.1.0.whl  
+```
+
+## When and How It's Triggered
+
+Cloudsmith EPM allows users to easily match package filename metadata based on Regular Expression (RE) string matching patterns.   
+Once ready, download debugpy Python package and push it to Cloudsmith to cause the policy violation:
+
+```bash
+pip download --no-deps --dest . debugpy   
+&& cloudsmith push python acme-corporation/acme-repo-one debugpy-1.8.14-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl -k "$CLOUDSMITH_API_KEY"
+```
+
+## Business value from this policy
+
+Preventing debug builds from entering production has a clear business value: it safeguards the stability, security, and performance of your production environment. Debug, test, and temporary builds often include unoptimized code, verbose logging, or leftover experimental changes that were never intended for public release. If such artifacts slip into production, they can introduce vulnerabilities, degrade application performance, or leak sensitive internal details. By enforcing this policy at the ingestion point, organizations ensure that only production-ready packages make it downstream, reducing the risk of costly outages, data breaches, or compliance violations.
+
+The use of Regular Expressions (RegEx) adds a powerful layer of flexibility to this control. With a single concise pattern, an organization can detect a wide variety of disallowed naming conventions, whether they follow strict standards or evolve over time. This enables extremely granular decision-making without hardcoding multiple rules for every possible variation. In practice, RegEx matching allows teams to adapt policy enforcement to the natural naming habits of developers, vendors, or CI/CD pipelines, ensuring that policy stays both effective and easy to maintain as the software ecosystem grows and changes. The result is a balance of automation and adaptability that keeps production repositories clean without slowing down the development process.

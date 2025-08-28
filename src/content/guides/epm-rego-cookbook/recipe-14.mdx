@@ -1,20 +1,32 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
 
-# Recipe 14: Avoid Upload Packages With No Tags 
+# Recipe 14: Block specific package and version
 
-To complement the previous Tag Sprawl policy, you could create an additional EPM policy that flags packages with no tags at all, which is a useful approach to ensure all packages are categorised in some way.
+Alternatively, this policy will specifically block the Python package requests on the version 2.6.0:
 
 <RemoteCodeBlock
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-14/policy.rego"
 />
 
-**Trigger Condition:**  
-count(pkg.tags) == 0
+## Trigger Condition 
 
-**When and How It's Triggered**  
-When submitting raw packages to Cloudsmith, you'll notice that no tags are assigned if not specified in the package metadata or on upload via the CLI:
+```rego
+target_name := "requests"  
+target_versions := {"2.6.0"}
+```
 
-echo 'goodmorning' > goodmorning  
-cloudsmith push raw acme-corporation/acme-repo-one goodmorning -k "$CLOUDSMITH_API_KEY"
+## When and How It's Triggered
 
+Simply specify the exact package and package version mentioned in the deny-list style policy:
+
+```bash
+pip download requests==2.6.0  
+cloudsmith push python WORKSPACE/REPO requests-2.6.0-py2.py3-none-any.whl \-k "API_KEY"
+```
+
+## Business value from this policy
+
+Blocking specific package formats, filenames, or versions (even without a known CVE) is valuable because not all risks are tied to publicly disclosed vulnerabilities. Some packages may be deprecated, unmaintained, or known internally to cause reliability issues, even if they haven't been formally reported as insecure. For example, an old library version might lack necessary features, be incompatible with your environment, or contain undocumented bugs that lead to downtime. In some cases, organizations also want to enforce licensing restrictions, avoid non-compliant dependencies, or prevent inclusion of internal/test builds that were never meant for production. By enforcing such rules proactively, you reduce the risk of operational failures, licensing problems, and accidental regressions before they impact your systems.
+
+Additionally, the ability to block by format, filename, or version gives fine-grained control over your software supply chain. This is crucial in modern development pipelines where dozens of packages may be pulled from various sources automatically. Even if a package doesn't trigger a CVE scanner, it might be intentionally banned for business, legal, or quality reasons. Blocking at this level acts as a safety net, since it prevents accidental introduction of “bad” versions, enforces internal standards, and supports a defense-in-depth approach where security and stability aren't solely dependent on public vulnerability databases. This proactive control can catch issues before they escalate into incidents.

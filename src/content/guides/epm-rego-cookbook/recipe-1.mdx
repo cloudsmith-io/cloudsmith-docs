@@ -1,4 +1,5 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { Note } from '@/components';
 
 # Recipe 1: Enforcing Signed Packages
 
@@ -9,16 +10,19 @@ This policy enforces **mandatory GPG/DSA signature checks** on packages during t
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-1/policy.rego"
 />
 
-**Trigger Condition:**  
+## Trigger Condition
+
+```rego
 not pkg.signed
+```
 
 If the package is not signed (pkg.signed == false), it:
 
 - Triggers the policy (match := true)  
-- Adds a human-readable message:  
-  “*The package must be signed to be published to this repository.*"
+- Adds a human-readable message: “*The package must be signed to be published to this repository.*"
 
-**When and How It's Triggered**
+## When and How It's Triggered
+
 This policy is triggered during the Security Scan phase of a package's import/sync into Cloudsmith. Here's how it flows:
 
 1. A package is uploaded (e.g. via API, CI/CD pipeline, or CLI).  
@@ -32,8 +36,11 @@ This policy is triggered during the Security Scan phase of a package's import/sy
    2. emits the **reason message**  
    3. any associated actions (like SetPackageState: quarantine or AddPackageTags) are executed.
 
+## Testing the Policy
+
 Here's how you can perform a controlled test. Create a simply dummy python package locally that we know for certain is unsigned. Your policy will trigger, since input.v0.package.signed will not be present or will default to false.
 
+```bash
 mkdir dummy_unsigned  
 cd dummy_unsigned  
 echo "from setuptools import setup; setup(name='dummy_unsigned', version='0.0.1')" > setup.py  
@@ -41,18 +48,13 @@ python3 -m pip install --upgrade build
 apt install python3.10-venv  
 python3 -m build  # produces dist/dummy_unsigned-0.0.1.tar.gz  
 cloudsmith push python $CLOUDSMITH_ORG/$CLOUDSMITH_REPO dist/dummy_unsigned-0.0.1.tar.gz -k "$CLOUDSMITH_API_KEY"
+```
 
-Remember that in this workflow the file you're trying to push is located inside the dist/ directory, not in the root of your project folder. You can use the full path for the .tar.gz file, or alternatively ship the wheel (.whl) to Cloudsmith. 
+<Note variant="note" headline="Note">
+Remember that in this workflow the file you're trying to push is located inside the dist/ directory, not in the root of your project folder. You can use the full path for the .tar.gz file, or alternatively ship the wheel (.whl) to Cloudsmith.
 
+```bash
 cloudsmith push python $CLOUDSMITH_ORG/$CLOUDSMITH_REPO dist/dummy_unsigned-0.0.1-py3-none-any.whl -k "$CLOUDSMITH_API_KEY"
-
+```
 Both are equally acceptable formats and the policy should trigger equally on either.
-
-![][image2]
-
-![][image3]
-
-![][image4]
-
-![][image5]
-
+</Note>

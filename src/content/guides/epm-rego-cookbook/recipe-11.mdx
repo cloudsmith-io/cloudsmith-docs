@@ -1,15 +1,40 @@
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
 
-# Recipe 11: Enforce Upload Time Window 
+# Recipe 11: Architecture-specific allow list
 
-Only allow uploads during business hours (e.g., 9 AM – 5 PM UTC), to catch anomalous behaviour like late-night uploads.
+This policy only allows amd64 architecture packages and blocks others like arm64.
 
 <RemoteCodeBlock
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-11/policy.rego"
 />
 
-**Trigger Condition:**
+## Trigger Condition
 
-**When and How It's Triggered**
+```rego
+arch.name != "amd64"
+```
+
+## When and How It's Triggered
+
+To trigger the above policy (which blocks all architectures **except** amd64), you'd want to upload or sync a Python package that is built for a non-amd64 architecture - like arm64. However, pip by default fetches packages built for your local system architecture, so you typically won't download architecture-specific wheels unless they're explicitly tagged.
+
+Here's a command to download a known Python package with an ARM-specific wheel using pip download:
+
+```bash
+pip download numpy --platform manylinux2014_aarch64 --only-binary=:all: --python-version 38 --implementation cp --abi cp38  
+cloudsmith push python WORKSPACE/REPO numpy-1.24.4-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl -k "API_KEY" 
+```
+
+Additional context on the flags used during the pip download command:
+
+- `--platform manylinux2014_aarch64`: targets arm64 (aarch64)  
+- `--only-binary=:all`: avoid source dist, force binary wheel  
+- `--python-version 38 and --abi cp38`: simulate Python 3.8 CPython ABI
+
+## Business value from this policy
+
+This architecture-specific allow list policy helps businesses maintain consistency, compatibility, and stability across their environments by ensuring that only packages built for the amd64 architecture are permitted. In many organizations, especially those with standardized infrastructure such as x86-based servers, container images, or CI/CD pipelines, this mixing in packages for other architectures like arm64 can lead to runtime incompatibilities, build failures, or subtle platform-specific bugs. By blocking all non-amd64 architectures at the policy enforcement stage, the risk of accidental cross-architecture deployment is eliminated before the software ever reaches production or testing environments.
+
+From a security and operational standpoint, this policy also reduces attack surface and complexity. Different architectures may have unique vulnerabilities or require separate patching schedules, which can complicate security management. Keeping the architecture scope limited to a single, approved type simplifies dependency management, vulnerability scanning, and compliance verification. In effect, this policy enforces a uniform target environment, minimizes troubleshooting overhead, and helps guarantee that all deployed software behaves predictably across the business's infrastructure.
 

@@ -1,16 +1,20 @@
+import { BlockImage } from '@/components'
 import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+
+import recipe3 from './images/recipe3.png';
 
 # Recipe 3: Copy-Left policy that matches license strings 
 
-This policy is designed to detect a broad range of copyleft licenses, including free-text and SPDX variants.
+This policy is designed to detect a broad range of copyleft or restrictive open-source licenses, particularly those unsuitable for production use without legal review or approval. This policy includes free-text and SPDX variants.
 
 <RemoteCodeBlock
   lang="rego"
   src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-3/policy.rego"
 />
 
-**Trigger Condition:**  
-The license trigger conditions are highlighted in our detailed schema which is available towards the bottom of [https://api.cloudsmith.io/v2/swagger](https://api.cloudsmith.io/v2/swagger) under **PolicyPackageLicense**, but at a high level the schema definition looks like this:
+## Trigger Condition
+
+The license trigger conditions are highlighted in our detailed schema which is available towards the bottom of [Cloudsmith OpenAPI](https://api.cloudsmith.io/v2/swagger) under **PolicyPackageLicense**. At a high level the schema definition looks like this:
 
 ```json
 "license": {  
@@ -25,6 +29,16 @@ The license trigger conditions are highlighted in our detailed schema which is a
 }
 ```
 
-**When and How It's Triggered**  
-This example runs the risk of false positives with partial string matches (e.g., might flag "Not-GPL" if carelessly constructed). Whereas, the previous example (recipe 3) could also miss variants like "GPLv3+" or "GNU General Public License" unless specifically added to the list.
+## When and How It's Triggered
+
+Once ready, download the Python Gitlab v.3.1.1 package that we know has a LGPLv3 license that should trigger the policy:
+
+```bash
+pip download python-gitlab==3.1.1  
+cloudsmith push python WORKSPACE/REPO python\gitlab-3.1.1-py3-none-any.whl -k "API_KEY"
+```
+
+If you have a tagging response action attached to your policy, you could tag the package with non-compliant-license for further review.
+
+<BlockImage src={recipe3} alt=""></BlockImage>
 
