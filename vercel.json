@@ -3,6 +3,10 @@
     {
       "source": "/tbc/upstream-proxying-and-caching",
       "destination": "https://docs.cloudsmith.com/repositories/upstreams"
+    },
+    {
+      "source": "/supply-chain-security/malware-scanning",
+      "destination": "https://docs.cloudsmith.com/supply-chain-security/malware-detection"
     }
   ]
 }
