@@ -1,16 +1,17 @@
-# Software supply chain security
+# Supply Chain Security
 
-Modern software delivery pipelines face growing complexity and increasingly sophisticated supply chain attacks. Artifact management is the natural place to defend against these threats: every package and dependency passes through your registry, making it the control point for security. 
+Modern software delivery pipelines face growing complexities and a rising wave of sophisticated supply chain attacks, requiring artifact management to go beyond traditional storage. According to the [Cloudsmith 2025 Artifact Management Report](https://cloudsmith.com/campaigns/2025-artifact-management-report), this is top of mind for engineering teams, with 56% of respondents citing improved security as the leading benefit of their artifact management tools.
 
-Cloudsmith delivers both the **control plane** (defining and enforcing policies) and the **data plane** (continuously scanning and acting on artifacts). Our **continuous security** engine keeps vulnerability and package quality data up to date in near real time, automatically applying your policies as artifacts move through the pipeline.
+Our platform is designed to meet this challenge head-on. We provide a comprehensive suite of features to help you secure your software supply chain by enabling you to define your policies and responses to policy violations as code; identifying, mitigating, and blocking risks from vulnerabilities and non-compliant licenses in your dependencies.
 
-Cloudsmith helps you secure your software supply chain by enabling you to:
+In this section you can learn how to:
 
-- **Block until scan**: Stop unverified packages from being downloaded until a security scan is complete, creating a dependency firewall across your organization.  
-- **Vulnerability management**: Automatically identify and quarantine packages with known vulnerabilities before they enter your supply chain, reducing risk.  
-- **License compliance**: Detect and track the licenses of your dependencies to avoid conflicts with organizational policy.  
-- **Digital signatures**: Protect against tampering by verifying the integrity and authenticity of artifacts with GPG, PGP, and other signing standards.  
+- Ensure with [Block Until Scan](/policy-management/block-until-scan) that no package can be downloaded until a security scan is successfully completed, helping you enforce security mandates across the whole organization.
+- Reduce risk associated with [Software Vulnerabilities](/supply-chain-security/vulnerability-scanning), [Malware](/supply-chain-security/malware-detection/malware-scanning), and [Malicious Packages](/supply-chain-security/malware-detection/malicious-packages), by proactively quarantining packages and preventing them from entering your software supply chain.
+- **License Compliance**: Automatically scan for and identify the licenses of your dependencies, ensuring compliance with your organization's policies.
+- **Digital Signatures**: Verify the integrity and authenticity of your software artifacts using GPG, PGP, and other signing standards.
 
-### Enterprise Policy Management (EPM)
+Adding to this, Enterprise Policy Management (EPM) and Continuous Security:
 
-- **Policy-as-Code (Early Access)**: EPM brings together the control plane and the data plane, letting you use all the data Cloudsmith knows about a package - metadata, vulnerabilities, licenses, provenance, and more - to define your policies as code. Create a single, version-controlled source of truth for managing supply chain security at scale. While existing features remain supported, policy as code is designed to become the primary method for policy management going forward.  
+- [Policy-as-Code](./epm) (Early Access)**: The next evolution in policy management, using Open Policy Agent (OPA). This new feature allows you to define all your security and license compliance rules in rego. While our existing policy features remain fully supported, Policy-as-Code is intended to become the primary method for managing supply chain security rules at scale.
+- [Continuous Security](./continuous-security) (Early Access): Continuously monitor your dependencies to detect in real time and automatically act upon vulnerable and malicious packages.
