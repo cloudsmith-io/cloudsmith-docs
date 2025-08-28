@@ -395,6 +395,20 @@
             ]
           },
           {
+            "title": "Malware Detection",
+            "path": "/supply-chain-security/malware-detection",
+            "children":[   
+              {
+                "title": "Malware Scanning",
+                "path": "/supply-chain-security/malware-detection/malware-scanning"
+              }, 
+              {
+                "title": "Rego Recipes",
+                "path": "/supply-chain-security/malware-detection/malicious-packages"
+              }
+            ]
+          },
+          {
             "title": "Package Signing",
             "path": "/supply-chain-security/signing-keys"
           },

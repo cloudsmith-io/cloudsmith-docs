@@ -6,11 +6,12 @@ Our platform is designed to meet this challenge head-on. We provide a comprehens
 
 In this section you can learn how to:
 
-- Ensure with **Block Until Scan** that no package can be downloaded until a security scan is successfully completed, helping you enforce security mandates across the whole organization.
-- Reduce risk associated with **Software Vulnerabilities**, **Malware**, and **Malicious Packages**, by proactively quarantining packages and preventing them from entering your software supply chain.
+- Ensure with [Block Until Scan](/policy-management/block-until-scan) that no package can be downloaded until a security scan is successfully completed, helping you enforce security mandates across the whole organization.
+- Reduce risk associated with [Software Vulnerabilities](/supply-chain-security/vulnerability-scanning), [Malware](/supply-chain-security/malware-detection/malware-scanning), and [Malicious Packages](/supply-chain-security/malware-detection/malicious-packages), by proactively quarantining packages and preventing them from entering your software supply chain.
 - **License Compliance**: Automatically scan for and identify the licenses of your dependencies, ensuring compliance with your organization's policies.
 - **Digital Signatures**: Verify the integrity and authenticity of your software artifacts using GPG, PGP, and other signing standards.
 
-Adding to this, Enterprise Policy Management (EPM):
+Adding to this, Enterprise Policy Management (EPM) and Continuous Security:
 
-- **Policy-as-Code (Early Access)**: The next evolution in policy management. This new feature allows you to define all your security and license compliance rules in a single, version-controlled YAML file. While our existing policy features remain fully supported, Policy-as-Code is intended to become the primary method for managing supply chain security rules at scale.
+- [Policy-as-Code])(./epm) (Early Access)**: The next evolution in policy management. This new feature allows you to define all your security and license compliance rules in a single, version-controlled YAML file. While our existing policy features remain fully supported, Policy-as-Code is intended to become the primary method for managing supply chain security rules at scale.
+- [Continuous Security](./continuous-security) (Early Access): Continuously monitor your existing artifacts for newly disclosed vulnerabilities and malicious packages, enabling faster identification of affected artifacts compared to scheduled or on-demand vulnerability scanning and including sources as OSV.dev.
