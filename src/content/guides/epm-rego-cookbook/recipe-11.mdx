@@ -1,20 +1,29 @@
 import { Note, Button } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 # Recipe 11: Architecture-specific allow list
 
 This policy only allows amd64 architecture packages and blocks others like arm64.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-11/policy.rego"
-/>
+```rego
+package cloudsmith
+
+default match := false
+
+match if count(reason) > 0
+
+reason contains msg if {
+  some arch in input.v0.package.architectures
+  arch.name != "amd64"
+  msg := sprintf("Architecture '%s' is not permitted. Only 'amd64' is allowed.", [arch.name])
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition
 

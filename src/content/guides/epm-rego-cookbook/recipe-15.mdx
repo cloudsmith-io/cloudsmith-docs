@@ -1,20 +1,40 @@
 import { Note, Button } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 # Recipe 15: Block specifically based on CVEs
 
 Again, the Python package requests version **2.6.0** has the known vulnerability **CVE-2018-18074**. We have commented out the other CVEs in this policy, but feel free remove those comments and add additional CVEs if you'd like to make a deny list based specifically on CVE numbers.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-15/policy.rego"
-/>
+```rego
+package cloudsmith
+
+default match := false
+
+# --- Blocklist (add more CVE IDs as needed) ---
+banned_cves := {
+  "CVE-2018-18074"
+  # ,"CVE-2023-32681", "CVE-2024-35195", "CVE-2024-47081", ...
+}
+
+# Shape 1: input.v0.vulnerabilities[*].identifier
+match if {
+  some v in input.v0.vulnerabilities
+  v.identifier in banned_cves
+}
+
+# Shape 2: input.v0.security_scan[*].Vulnerabilities[*].VulnerabilityID
+match if {
+  some scan in input.v0.security_scan
+  some vuln in scan.Vulnerabilities
+  vuln.VulnerabilityID in banned_cves
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition
 

@@ -1,4 +1,4 @@
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Note, Button } from '@/components';
 import { Icon } from '@/icons';
 
@@ -6,15 +6,24 @@ import { Icon } from '@/icons';
 
 This policy enforces **mandatory GPG/DSA signature checks** on packages during their sync/import into Cloudsmith. It checks whether the package is signed by inspecting the signed field on the package object in the Cloudsmith EPM input schema.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-1/policy.rego"
-/>
+```rego
+package cloudsmith
+import rego.v1
+default match := false
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  not pkg.signed
+  msg := "The package must be signed to be published to this repository."
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition
 

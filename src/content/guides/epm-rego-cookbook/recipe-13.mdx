@@ -1,5 +1,5 @@
 import { Note, Button } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 # Recipe 13: Match versions less than 1.0.0, such as 0.14.0
@@ -7,15 +7,22 @@ import { Icon } from '@/icons';
 If you want to match versions less than 2.0.0, such as 1.14.0, here are two simple examples to enforce:  
 This example, while slightly more fragile, relies on string comparison logic:
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-13/policy.rego"
-/>
+```rego
+package cloudsmith
+default match := false
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  startswith(pkg.version, "0.")
+  msg := sprintf("Package version '%s' is considered pre-1.0 and disallowed", [pkg.version])
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition 
 

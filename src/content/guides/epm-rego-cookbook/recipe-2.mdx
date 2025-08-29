@@ -1,4 +1,4 @@
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Note, Button } from '@/components';
 import { Icon } from '@/icons';
 
@@ -6,15 +6,27 @@ import { Icon } from '@/icons';
 
 This policy checks whether a package includes a specific "**maven-central**" tag and marks it as a match if it does.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-2/policy.rego"
-/>
+```rego
+package cloudsmith
+import rego.v1
+default match := false
+
+required_tag := "deprecated"
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  some tag in pkg.tags
+  tag.name == required_tag
+  msg := sprintf("Package has required tag: '%s'", [required_tag])
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition
 

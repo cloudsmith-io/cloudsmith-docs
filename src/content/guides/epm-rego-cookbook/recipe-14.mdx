@@ -1,20 +1,39 @@
 import { Note, Button } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 # Recipe 14: Block specific package and version
 
 Alternatively, this policy will specifically block the Python package requests on the version 2.6.0:
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-14/policy.rego"
-/>
+```rego
+package cloudsmith
+default match := false
+# --- Config ---
+target_name := "requests"
+target_versions := {"2.6.0"}
+# --- Match when the package is the target and version is exactly banned ---
+match if {
+  pkg := input.v0.package
+  pkg.name == target_name
+  version_matches(pkg)
+}
+# Accept either .version or .version_orig (two simple rules = logical OR)
+version_matches(pkg) if {
+  v := pkg.version
+  v in target_versions
+}
+version_matches(pkg) if {
+  pkg.version_orig
+  v := pkg.version_orig
+  v in target_versions
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition 
 

@@ -1,20 +1,34 @@
 import { Note, Button } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 # Recipe 6: Enforce Consistent Filename Convention
 
 Validate filename matches a semantic or naming pattern where MAJOR.MINOR, and PATCH are all numeric.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-6/policy.rego"
-/>
+```rego
+package cloudsmith
+default match := false  # Assume the package is fine unless we find a problem
+match if count(reason) > 0  # Match the policy only if we generate at least one reason
+
+reason contains msg if {
+  pkg := input.v0["package"]
+
+  # Focus only on files that start with 'h11-'
+  startswith(pkg.filename, "h11-")
+
+  # Ensure they match semantic versioning pattern
+  not regex.match("^h11-[0-9]+\\.[0-9]+\\.[0-9]+\\.(tar\\.gz|whl)$", pkg.filename)
+
+  # Give a descriptive reason if not
+  msg := sprintf("Filename '%s' does not match required SemVer pattern", [pkg.filename])
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition
 

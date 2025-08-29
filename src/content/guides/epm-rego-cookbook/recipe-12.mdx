@@ -1,20 +1,33 @@
 import { Note, Button } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 # Recipe 12: Block Package XYZ if version < 0.16.0 
 
 This policy matches any `h11` packages with a version older than 0.16.0:
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-12/policy.rego"
-/>
+```rego
+package cloudsmith
+
+default match := false
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  pkg.name == "h11"
+
+  # Parse versions using Cloudsmith's semantic version comparator
+  semver.compare(pkg.version, "0.16.0") == -1
+
+  msg := sprintf("Package 'h11' version '%s' is older than 0.16.0", [pkg.version])
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition 
 

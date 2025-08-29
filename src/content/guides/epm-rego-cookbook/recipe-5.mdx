@@ -1,5 +1,5 @@
 import { Note, Button, BlockImage } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 import recipe5 from './images/recipe5.png';
@@ -8,15 +8,26 @@ import recipe5 from './images/recipe5.png';
 
 This policy checks whether a package already includes 5 or more assigned tags - considered as sprawl by some orgs.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-5/policy.rego"
-/>
+```rego
+package cloudsmith
+import rego.v1
+default match := false
+
+max_tags := 5
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  count(pkg.tags) > max_tags
+  msg := sprintf("Package has too many tags (%d)", [count(pkg.tags)])
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition 
 

@@ -1,20 +1,29 @@
 import { Note, Button } from '@/components';
-import { CodeBlock, RemoteCodeBlock } from '@/components/CodeBlock';
+import { CodeBlock } from '@/components/CodeBlock';
 import { Icon } from '@/icons';
 
 # Recipe 4: Quarantine Debug Builds
 
 This policy checks whether a package includes specific debug, test, or temp descriptors in the filename. This could be the simplest way for an organisation to state whether a package is a debug package, and therefore should not be ingested into, say, the production repository.
 
-<RemoteCodeBlock
-  lang="rego"
-  src="https://raw.githubusercontent.com/cloudsmith-io/rego-recipes/refs/heads/main/recipe-4/policy.rego"
-/>
+```rego
+package cloudsmith
+import rego.v1
+default match := false
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  re_match(".*(debug|test|tmp).*", pkg.filename)
+  msg := sprintf("Debug/test artifact detected in filename: %s", [pkg.filename])
+}
+```
 
 <Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
    <Icon title="View" name="github"/>
    View policy on GitHub
-  </Button>
+</Button>
 
 ## Trigger Condition
 
