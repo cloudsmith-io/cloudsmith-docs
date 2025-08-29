@@ -1,0 +1,56 @@
+import { Note, Button, BlockImage } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+import recipe5 from './images/recipe5.png';
+
+# Recipe 5: Limit Tag Sprawl 
+
+This policy checks whether a package already includes 5 or more assigned tags - considered as sprawl by some orgs.
+
+```rego
+package cloudsmith
+import rego.v1
+default match := false
+
+max_tags := 5
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  count(pkg.tags) > max_tags
+  msg := sprintf("Package has too many tags (%d)", [count(pkg.tags)])
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition 
+
+```rego
+max_tags := 5
+match if count(reason) > 0
+```
+
+## When and How It's Triggered
+
+You can easily test this policy by uploading any package and just assigning 5 tags on package push to Cloudsmith:
+
+```bash
+pip download transformers --no-deps
+cloudsmith push python acme-corporation/acme-repo-one transformers-4.53.1-py3-none-any.whl -k "$CLOUDSMITH_API_KEY" --tags TAG1,TAG2,TAG3,TAG4,TAG5
+```
+
+You can alternatively add and remove tags via the web user interface:
+
+<BlockImage src={recipe5} alt=""></BlockImage>
+
+## Business value from this policy
+
+This policy helps businesses maintain consistency and control in their package tagging strategy by preventing what’s often referred to as “tag sprawl.” In many organizations, tags are used to classify packages for quick discovery, categorization, and lifecycle management. However, when too many tags are assigned, especially without a clear governance model, they can lose their meaning, create confusion, and even make search or filtering less efficient. By setting a threshold (in this case, five tags), the policy ensures that tags remain intentional, relevant, and easy to manage. This keeps repository metadata clean, making it easier for teams to find the right packages and avoid redundancy or conflicting categorization.
+
+From a compliance and operational standpoint, the policy also encourages teams to adopt consistent tagging standards and review their tagging practices periodically. This is especially valuable in environments with multiple contributors or distributed teams, where unmanaged tagging can lead to inconsistent naming, overlapping meanings, or unintentional policy violations. By automatically flagging or taking action when the tag count exceeds the defined threshold, the organization reduces administrative overhead while keeping the metadata meaningful.

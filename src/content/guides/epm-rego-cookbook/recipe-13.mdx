@@ -1,0 +1,68 @@
+import { Note, Button } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+# Recipe 13: Match versions less than 1.0.0, such as 0.14.0
+
+If you want to match versions less than 2.0.0, such as 1.14.0, here are two simple examples to enforce:  
+This example, while slightly more fragile, relies on string comparison logic:
+
+```rego
+package cloudsmith
+default match := false
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  startswith(pkg.version, "0.")
+  msg := sprintf("Package version '%s' is considered pre-1.0 and disallowed", [pkg.version])
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition 
+
+The second example will match versions like "1.9.9" or "1.0.0", but not "1.10.0" being greater than "1.2.0" - since it's string-based.
+
+## Limitationspattern
+
+- "1.10.0" < "1.2.0" is true in string comparison, but false semantically.  
+- Pre-release versions like "2.0.0-beta" may confuse logic unless handled explicitly.  
+- Multi-digit segments break string comparisons unless you zero-pad them ("01.02.003").
+
+## Recommendationpattern
+
+If version control is essential:
+
+- Add strict prefix/regex filters (example: `startswith(pkg.version, "2.")`)  
+- Combine with file naming conventions or upload context  
+- Enforce via CI before publishing, if possible
+
+## Safer Rego pattern
+
+So, here's an alternative rego that works in simple cases, but might not  be as trustworthy for tight numeric ranges unless all version segments are zero-padded (for example: "01.09.000").
+
+```rego
+package cloudsmith
+
+default match := false
+
+match if count(reason) > 0
+reason contains msg if {
+  pkg := input.v0["package"]
+  pkg.version < "2.0.0"
+  msg := sprintf("Package version '%s' is below required threshold of 2.0.0", [pkg.version])
+}
+```
+
+## Business value from this policypattern
+
+Similar to recipe 12, these version-based policies are valuable because they give businesses precise control over which packages can enter their supply chain, helping maintain compatibility, security, and stability across environments. Enforcing a rule such as “only versions 2.0.0 or higher” ensures that outdated, potentially vulnerable, or unsupported packages don't slip into production. This is particularly important in regulated industries or complex software ecosystems, where a single incompatible dependency can create costly outages or security gaps.
+
+However, the value of such policies is only realized when their logic is fully understood before being enforced. String-based comparisons, as in the examples above, may appear straightforward but can introduce subtle errors, for example, treating 1.10.0 as “less than” 1.2.0 due to alphabetical sorting rules, or mishandling pre-release tags like 2.0.0-beta. If these edge cases aren't accounted for, a policy might wrongly block valid releases or let through outdated ones. 
+
+Saying that, your organisation understands the naming conventions, and SemVer context of your own packages better than anyone else. That's why Cloudsmith recommends testing and simulating policies before deployment, considering context like zero-padded versioning or CI-based pre-checks around your own unique business logic. The goal is not just to write a policy, but to write one that truly reflects the business rule you intend to enforce, without causing any unintended side effects.

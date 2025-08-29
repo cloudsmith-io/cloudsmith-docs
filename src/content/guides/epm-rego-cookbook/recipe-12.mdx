@@ -1,0 +1,51 @@
+import { Note, Button } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+# Recipe 12: Block Package XYZ if version < 0.16.0 
+
+This policy matches any `h11` packages with a version older than 0.16.0:
+
+```rego
+package cloudsmith
+
+default match := false
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  pkg.name == "h11"
+
+  # Parse versions using Cloudsmith's semantic version comparator
+  semver.compare(pkg.version, "0.16.0") == -1
+
+  msg := sprintf("Package 'h11' version '%s' is older than 0.16.0", [pkg.version])
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition 
+
+```rego
+semver.compare(pkg.version, "0.16.0") == -1
+```
+
+## When and How It's Triggered
+
+Use a version of h11 before 0.16.0, for example 0.14.0, and it should be matched by Cloudsmith:
+
+```bash
+pip download h11==0.14.0  
+cloudsmith push python WORKSPACE/REPO h11-0.14.0-py3-none-any.whl \-k "API_KEY"
+```
+
+## Business value from this policy
+
+This policy is powerful because it enforces a strict minimum version requirement for a specific package (here, it’s h11 file name) specifically at the time it is synchronized into a Cloudsmith repository. From a regulatory and security standpoint, this is critical because outdated packages often contain known vulnerabilities, deprecated functionality, or non-compliant dependencies that can put an organisation at risk. By leveraging Cloudsmith's semantic version comparator, the rule ensures that *any* incoming h11 package older than 0.16.0 is immediately flagged, enabling automated actions like quarantining, blocking promotion, or tagging for remediation. This reduces the risk of known security vulnerabilities slipping into production environments, which is especially important in regulated industries where software supply chain controls are mandated (again, this would apply to PCI DSS, HIPAA, ISO 27001, and more).
+
+Duplicating and modifying this policy for other packages is straightforward: simply replace the package name ("h11") with the desired package’s name, and adjust the version threshold in semver.compare(pkg.version, "X.Y.Z") to reflect the minimum approved version for that dependency. This approach allows organisations to build a catalog of version enforcement policies across their entire dependency set, effectively maintaining a curated “minimum secure version” baseline for each critical library in their ecosystem. This same framework could apply to both internal packages and external open-source dependencies, ensuring consistent, automated enforcement of security and compliance requirements.
