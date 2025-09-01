@@ -19,7 +19,7 @@ The Hugging Face Hub has three different types of repositories:
 Spaces are not supported in Cloudsmith Hugging Face repositories.
 </Note>
 
-Models and Datasets are supported and identified in the `<hf_repo_type>` field as `models` and `datasets`. In addition to the libraries mentioned above, Cloudsmith supports the main [`huggingface_hub`](https://huggingface.co/docs/huggingface_hub/index) python library to work with `models` and `datasets`.
+Models and Datasets are supported and identified in the `<hf_repo_type>` field as `models` and `datasets`. Cloudsmith supports the main [`huggingface_hub`](https://huggingface.co/docs/huggingface_hub/index) python library to work with `models` and `datasets`.
 
 For more information on Hugging Face, see:
 
@@ -52,9 +52,9 @@ To align with this structure, Cloudsmith maps Hugging Face repositories and thei
 
 - **Commit as a package version**: each unique commit pushed to the Hugging Face repository becomes a new, distinct version of that package in Cloudsmith. The version string is typically the commit hash (e.g., `e243b1b`).
 
-This approach creates an intuitive mapping: commit-version. Each of your Hugging Face repositories is treated as a package in Cloudsmith, with the package name matching the repository name (e.g., `my-org/my-awesome-model`).
+This approach creates an intuitive mapping: commit-version. Each of your Hugging Face repositories is treated as a package in Cloudsmith, with the package name matching the repository name (e.g., `workspace/my-awesome-model`).
 
-A new version of the package is created for every commit you push. The version is identified by the commit hash. The initial push of a commit will create both the package and its first version simultaneously. For instance, pushing a commit with the hash `a1b2c3d` creates the version `a1b2c3d` within the `my-org/my-awesome-model` package. This ensures that every change is versioned and fully reproducible, and guarantees a similar workflow within Cloudsmith to the ones you are used to.
+A new version of the package is created for every commit you push. The version is identified by the commit hash. The initial push of a commit will create both the package and its first version simultaneously. For instance, pushing a commit with the hash `a1b2c3d` creates the version `a1b2c3d` within the `workspace/my-awesome-model` package. This ensures that every change is versioned and fully reproducible, and guarantees a similar workflow within Cloudsmith to the ones you are used to.
 
 ### Tags
 
@@ -151,20 +151,8 @@ local_dir = api.snapshot_download(
 )
 ```
 
-## Security Scanning
-
-<Tag variant="dark-gray" theme="legacy">Not Supported</Tag>
-
-## Current Limitations
-
-Hugging Face Spaces are not supported.
-
 ## Upstream Proxying / Caching
 
-<Tag variant="dark-gray" theme="legacy">Not Supported</Tag>
+<Tag variant="dark-green" theme="legacy">Supported</Tag>
 
 You can configure your Cloudsmith repository to act as a proxy for the public **Hugging Face Hub**. This allows you to cache models and datasets from the public Hub into your private Cloudsmith repository for faster, more reliable access, at the same time as you manage your own private models and datasets.
-
-## Key Signing Support
-
-<Tag variant="dark-green" theme="legacy">Not Supported</Tag>
