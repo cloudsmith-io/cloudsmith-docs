@@ -1,4 +1,7 @@
-import { Tag, Note, Video } from '@/components';
+import { Tag, Note, Video, BlockImage } from '@/components';
+
+import upload from './images/hugging-face/upload.gif';
+import HFpackage from './images/hugging-face/package.png';
 
 # Hugging Face Repository
 
@@ -11,6 +14,10 @@ The Hugging Face Hub has three different types of repositories:
 1. Model Repositories: This are used to store and distribute **machine learning models**, including weights, configs, tokenizer files, and model cards. They are commonly used with the [`transformers` library](https://huggingface.co/docs/transformers/models).
 2. Dataset Repositories: These are used to store **datasets**, scripts for loading them, and metadata. They are commonly used with the [`datasets` library](https://huggingface.co/docs/datasets/en/stream).
 3. Space Repositories: These are used to host interactive apps, usually built with Gradio or Streamlit. They are like web demos for models or data.
+
+<Note variant="note" headline="Note">
+Spaces are not supported in Cloudsmith Hugging Face repositories.
+</Note>
 
 Models and Datasets are supported and identified in the `<hf_repo_type>` field as `models` and `datasets`. In addition to the libraries mentioned above, Cloudsmith supports the main [`huggingface_hub`](https://huggingface.co/docs/huggingface_hub/index) python library to work with `models` and `datasets`.
 
@@ -26,7 +33,7 @@ Here you can see a general overview of the main naming equivalences:
 | Hugging Face Term | Cloudsmith Term |
 | :---------------- | :-------------- |
 | Repository        | Package         |
-| Commit            | Version         |
+| Commit / Revision | Version         |
 | Tag               | Package Tag     |
 
 Keet reading to learn more about them.
@@ -41,23 +48,27 @@ In the Hugging Face ecosystem, a commit represents a complete snapshot of a repo
 
 To align with this structure, Cloudsmith maps Hugging Face repositories and their commits directly to packages and versions within Cloudsmith:
 
-- Hugging Face Repository as a Package: the name of a Hugging Face repository (e.g., org-name/model-name) corresponds directly to the package name in Cloudsmith. You don't need to create a separate object to represent the repository itself, or create multiple repositories within Cloudsmith.
+- **Hugging Face Repository as a Package**: the name of a Hugging Face repository (e.g., org-name/model-name) corresponds directly to the package name in Cloudsmith. You don't need to create a separate object to represent the repository itself, or create multiple repositories within Cloudsmith.
 
-- Commit as a package version: each unique commit pushed to the Hugging Face repository becomes a new, distinct version of that package in Cloudsmith. The version string is typically the commit hash (e.g., e243b1b).
+- **Commit as a package version**: each unique commit pushed to the Hugging Face repository becomes a new, distinct version of that package in Cloudsmith. The version string is typically the commit hash (e.g., `e243b1b`).
 
-This approach creates an intuitive mapping: for example, if you have a Hugging Face repository named my-org/my-awesome-model, it will exist in Cloudsmith as a single package with that name. When you push a new commit with the hash a1b2c3d, a new version, a1b2c3d, of the my-org/my-awesome-model package is created, containing all the files from that specific snapshot. This ensures that every change is versioned and fully reproducible, and guarantees a similar workflow within Cloudsmith to the ones you are used to.
+This approach creates an intuitive mapping: commit-version. Each of your Hugging Face repositories is treated as a package in Cloudsmith, with the package name matching the repository name (e.g., `my-org/my-awesome-model`).
+
+A new version of the package is created for every commit you push. The version is identified by the commit hash. The initial push of a commit will create both the package and its first version simultaneously. For instance, pushing a commit with the hash `a1b2c3d` creates the version `a1b2c3d` within the `my-org/my-awesome-model` package. This ensures that every change is versioned and fully reproducible, and guarantees a similar workflow within Cloudsmith to the ones you are used to.
 
 ### Tags
 
 In Hugging Face, a tag is a user-friendly alias to a specific commit (version). Instead of using a long commit hash like e243b1b, you can use a human-readable tag like `v1.0` or `latest` to refer to that same snapshot. At Cloudsmith:
 
-- 1:1 mapping: Hugging Face tags are mapped directly to package tags.
 - Uniqueness: just as tags are unique within a Hugging Face repository, Cloudsmith tags are unique per package
 - Flexibility: unlimited number of tags pointing to a single version (commit). For example, the tags latest, v2.1, and stable can all point to the same commit hash.
 
 This mapping allows you to request a package version using a simple tag, similarly to what you can do with Docker. For instance, you can fetch the files associated with the main branch by requesting the package version tagged as main, and Cloudsmith will resolve it to the correct underlying commit automatically.
 
-TODO: any functionality differences we should flag?
+<Note variant="note" headline="Note">
+Please, note that automatic mapping of Hugging Face tags to Cloudsmith package tags is not supported.
+Tags would need to be created and managed via the UI/CLI.
+</Note>
 
 ---
 
@@ -77,129 +88,67 @@ In the following examples:
 
 You can easily upload your models and datasets to Cloudsmith using the tools you already know. Cloudsmith supports uploads via the `huggingface_hub` Python library, which is the underlying engine for popular libraries like `transformers` and `datasets`.
 
-Before starting, set the `HF_ENDPOINT` and `HF_TOKEN` environment variables with your Cloudsmith endpoint and API Token.
-
 ### Using `huggingface_hub`
+
+Before starting, update the `HF_ENDPOINT` and `HF_TOKEN` variables with your Cloudsmith endpoint and API Token.
 
 This is the most direct method. You can upload any folder containing your model or dataset files using the `upload_folder` function.
 
 ```python
 from huggingface_hub import HfApi
 
-HF_TOKEN="cs_API_TOKEN"
-HF_ENDPOINT="https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY/"
+HF_ENDPOINT = "https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY"
+HF_TOKEN = "CSA_API_TOKEN"
+MODEL_NAME = "microsoft/kosmos-2.5" 
+
+LOCAL_DIR = "/path/to/your/model_files/snapshot/id"
 
 api = HfApi(endpoint=HF_ENDPOINT, token=HF_TOKEN)
+
 api.upload_folder(
-    folder_path="./path/to/your/model_files/",
-    repo_id="WORKSPACE/REPOSITORY",
+    folder_path=LOCAL_DIR,
+    repo_id=MODEL_NAME,
     repo_type="model",
+    token=HF_TOKEN,
     commit_message="Initial upload via CS",
     revision="main"
 )
 ```
 
-### Using the `transformers` Library
+Execute the script, and you will see the upload progress in your terminal:
 
-If you're working with a model from the `transformers` library, you can use the built-in `push_to_hub` method. Just make sure you've set the endpoint to point to Cloudsmith.
+<BlockImage src={upload} alt=""></BlockImage>
 
-```python
-from transformers import AutoModel
+You will see the package appear in your Cloudsmith repository shortly after the upload completes:
 
-# Load or train your model
-model = AutoModel.from_pretrained("bert-base-uncased")
-
-# The name of your package in Cloudsmith
-repo_id = "my-bert-model"
-
-# Push the model to your Cloudsmith repository
-model.push_to_hub(repo_id)
-
-print(f"Successfully pushed {repo_id} to Cloudsmith!")
-```
-
-### Using the `datasets` Library
-
-Similarly, you can upload a dataset using the `push_to_hub` method directly from a `datasets` object.
-
-```python
-from datasets import load_dataset
-
-# Load or create your dataset
-dataset = load_dataset("rotten_tomatoes", split="train")
-
-# The name of your package in Cloudsmith
-dataset_name = "rotten-tomatoes-train"
-
-# Push the dataset to your Cloudsmith repository
-dataset.push_to_hub(dataset_name)
-
-print(f"Successfully pushed {dataset_name} to Cloudsmith!")
-```
+<BlockImage src={HFpackage} alt=""></BlockImage>
 
 ## Downloading Packages
 
-Cloudsmith supports the `huggingface_hub` Python library to upload packages using its `snapshot_download` function. It also supports `transformers` and `datasets` downloads.
-
-Before starting, set the `HF_ENDPOINT` and `HF_TOKEN` environment variables with your Cloudsmith endpoint and API Token.
+Cloudsmith supports the `huggingface_hub` Python library to upload packages using its `snapshot_download` function. 
 
 ### Using `huggingface_hub`
+
+Before starting, set the `HF_ENDPOINT` and `HF_TOKEN` variables with your Cloudsmith endpoint and API Token.
 
 This is the most direct way to download all the files for a specific package version (commit) from your Cloudsmith repository.
 
 ```python
-
 from huggingface_hub import HfApi
 
-HF_TOKEN="cs_API_TOKEN"
-HF_ENDPOINT="https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY/"
+HF_ENDPOINT = "https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY"
+HF_TOKEN = "CSA_API_TOKEN"
 
-api = HfApi(endpoint=HF_ENDPOINT, token=HF_TOKEN)
-local_dir = api.snapshot_download(
-    repo_id="WORKSPACE/REPOSITORY", repo_type="model", revision="main"
+MODEL_NAME = "microsoft/kosmos-2.5"
+
+api = HfApi(
+    endpoint=HF_ENDPOINT,
+    token=HF_TOKEN,
 )
-```
 
-### Using the `transformers` Library
-
-Loading a pre-trained model from your Cloudsmith repository is seamless. The `from_pretrained` method will automatically handle the download once the endpoint is configured.
-
-```python
-import os
-from transformers import AutoModel
-
-# Set your Cloudsmith repository endpoint and token
-os.environ["HF_ENDPOINT"] = "https://huggingface.cloudsmith.io/my-org/my-repo/"
-os.environ["HF_TOKEN"] = "cs_..." # Your Cloudsmith API Key
-
-# The name of the package (model) to load from Cloudsmith
-repo_id = "my-bert-model"
-
-# Load the model, which triggers a download from Cloudsmith
-model = AutoModel.from_pretrained(repo_id)
-
-print(f"Successfully loaded model {repo_id} from Cloudsmith!")
-```
-
-### Using the `datasets` Library
-
-Similarly, you can load any dataset stored in Cloudsmith using the standard `load_dataset` function.
-
-```python
-import os
-from datasets import load_dataset
-
-# Set your Cloudsmith repository endpoint and token
-os.environ["HF_ENDPOINT"] = "https://huggingface.cloudsmith.io/my-org/my-repo/"
-os.environ["HF_TOKEN"] = "cs_..." # Your Cloudsmith API Key
-
-# The name of the package (dataset) to load
-dataset_name = "rotten-tomatoes-train"
-
-# Load the dataset from your Cloudsmith repository
-dataset = load_dataset(dataset_name)
-
-print(f"Successfully loaded dataset {dataset_name} from Cloudsmith!")
+local_dir = api.snapshot_download(
+    repo_id=MODEL_NAME, repo_type="model", revision="main"
+)
 ```
 
 ## Security Scanning
@@ -212,7 +161,7 @@ Hugging Face Spaces are not supported.
 
 ## Upstream Proxying / Caching
 
-<Tag variant="dark-green" theme="legacy">Supported</Tag>
+<Tag variant="dark-gray" theme="legacy">Not Supported</Tag>
 
 You can configure your Cloudsmith repository to act as a proxy for the public **Hugging Face Hub**. This allows you to cache models and datasets from the public Hub into your private Cloudsmith repository for faster, more reliable access, at the same time as you manage your own private models and datasets.
 
