@@ -66,8 +66,9 @@ In Hugging Face, a tag is a user-friendly alias to a specific commit (version). 
 This mapping allows you to request a package version using a simple tag, similarly to what you can do with Docker. For instance, you can fetch the files associated with the main branch by requesting the package version tagged as main, and Cloudsmith will resolve it to the correct underlying commit automatically.
 
 <Note variant="note" headline="Note">
-Please, note that automatic mapping of Hugging Face tags to Cloudsmith package tags is not supported.
-Tags would need to be created and managed via the UI/CLI.
+Hugging Face tags included in the model card (i.e. in the README metadata), are automatically parsed and added to the Cloudsmith artifact during the sync process.
+
+Additionally, tags can be created and managed via the UI/CLI.
 </Note>
 
 ---
