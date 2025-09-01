@@ -1,3 +1,5 @@
+import { Tag, Note, Video } from '@/components';
+
 # Hugging Face Repository
 
 Hugging Face is an open-source platform and ecosystem for building, sharing, and deploying machine learning models, especially in the field of natural language processing (NLP) and generative AI.
@@ -116,7 +118,6 @@ model.push_to_hub(repo_id)
 print(f"Successfully pushed {repo_id} to Cloudsmith!")
 ```
 
-
 ### Using the `datasets` Library
 
 Similarly, you can upload a dataset using the `push_to_hub` method directly from a `datasets` object.
@@ -136,13 +137,11 @@ dataset.push_to_hub(dataset_name)
 print(f"Successfully pushed {dataset_name} to Cloudsmith!")
 ```
 
-
 ## Downloading Packages
 
 Cloudsmith supports the `huggingface_hub` Python library to upload packages using its `snapshot_download` function. It also supports `transformers` and `datasets` downloads.
 
 Before starting, set the `HF_ENDPOINT` and `HF_TOKEN` environment variables with your Cloudsmith endpoint and API Token.
-
 
 ### Using `huggingface_hub`
 
@@ -160,7 +159,6 @@ local_dir = api.snapshot_download(
     repo_id="WORKSPACE/REPOSITORY", repo_type="model", revision="main"
 )
 ```
-
 
 ### Using the `transformers` Library
 
@@ -182,7 +180,6 @@ model = AutoModel.from_pretrained(repo_id)
 
 print(f"Successfully loaded model {repo_id} from Cloudsmith!")
 ```
-
 
 ### Using the `datasets` Library
 
