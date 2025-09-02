@@ -75,7 +75,7 @@ It is advised to export the following variables such that they can be used in an
 
 ```shell
 export CLOUDSMITH_API_KEY=<YOUR_CLOUDSMITH_API_KEY>  
-export CLOUDSMITH_WORKPLACE-<YOUR_CLOUDSMITH_WORKSPACE>
+export CLOUDSMITH_WORKSPACE=<YOUR_CLOUDSMITH_WORKSPACE>
 ```
 
 Save the Rego policy created in Step 1 to a file named `policy.rego`. Then use the script below to create a JSON request body which includes the Rego content in the `rego` field:
@@ -103,7 +103,7 @@ When creating a policy via the API, setting the `enabled` field to `false` preve
 Policies are created using the [workspaces_policies_create](https://api.cloudsmith.io/v2/redoc/#tag/workspaces/operation/workspaces_policies_create) REST API method. The following curl command makes a request to this method, providing in the request the `payload.json` payload created above:
 
 ```shell
-curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/" \
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/" \
   -H "Content-Type: application/json" \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
   -d @payload.json
@@ -137,13 +137,14 @@ To create an action to quarantine a package, use the curl command below. This ex
 A successful request will return a HTTP `201` response, with the unique identifier of the action returned in the `slug_perm` field.
 
 ```shell
-curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/{POLICY_SLUG}/actions/" \
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/{POLICY_SLUG}/actions/" \
   -H "Content-Type: application/json" \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
   -d '{
     "action_type": "SetPackageState",
     "precedence": 1,
-
+    "package_state": "QUARANTINED"
+  }'
 ```
 
 ### Adding an action to tag a package
@@ -151,7 +152,7 @@ curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/poli
 Similarly, the following curl command can be used to create an action to tag a matched package. This request specifies the required `action_type`, the relevant tag in the `tags` array, and a `precedence` value of `32767`.
 
 ```shell
-curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/{POLICY_SLUG}/actions/" \
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/{POLICY_SLUG}/actions/" \
   -H "Content-Type: application/json" \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
   -d '{
@@ -173,7 +174,7 @@ The response contains a list of tested packages, whether or not there was a `mat
 Once you confirm the policy works as expected, you can enable it via a PATCH request. Enabling the policy means it will run matching logic against packages and apply any associated actions (in this example, quarantining and tagging) to packages that are matched.
 
 ```shell
-curl -X PATCH "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/{POLICY_SLUG}/" \
+curl -X PATCH "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/{POLICY_SLUG}/" \
   -H "Content-Type: application/json" \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
   -d '{"enabled": true}'
@@ -199,7 +200,7 @@ When a package is scanned or triggers the policy, EPM creates a decision log ent
 
 ```shell
 curl -X GET \
-  "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/policies/decision_logs/?policy=$POLICY_SLUG" \
+  "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/decision_logs/?policy=$POLICY_SLUG" \
   -H "Accept: application/json" \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
 ```
