@@ -1,0 +1,71 @@
+import { Note, Button } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+# Recipe 8: CVSS with Fix Available
+
+This policy is designed to match packages in a specific repository (`acme-repo-one`) that have **high** or **critical** with a Fixed version available, excluding specific known CVEs.
+
+```rego
+package cloudsmith
+
+default match := false
+
+# high or critical CVSS threshold
+max_cvss_score := 7
+
+# targeted repository
+target_repository := "acme-repo-one"
+
+# CVEs to ignore
+ignored_cves := {"CVE-2023-45853"}
+
+# Main match condition
+match if {
+	input.v0.repository.name == target_repository
+	# some vulnerability in input.v0.security_scan.Vulnerabilities (deprecated)
+    	some target in input.v0.security_scan
+    	some vulnerability in target.Vulnerabilities
+	vulnerability.FixedVersion
+	vulnerability.Status == "fixed"
+	not ignored_cve(vulnerability)
+	exceeded_max_cvss(vulnerability)
+}
+
+# Rule to check CVSS score exceeding threshold
+exceeded_max_cvss(vulnerability) if {
+	some key, val in vulnerability.CVSS
+	val.V3Score > max_cvss_score
+}
+
+# Rule to check if CVE is ignored
+ignored_cve(vulnerability) if {
+	vulnerability.VulnerabilityID in ignored_cves
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition
+
+The package described below contains vulnerabilities matching the conditions defined in the policy above:
+
+- **Package**: h11  
+- **Affected Version**: 0.14.0  
+- **Fixed In**: 0.16.0  
+- **CVE Identifier**: CVE-2025-43859  
+- **Description**: An HTTP request smuggling vulnerability in python-h11.
+
+```bash
+pip download h11==0.14.0  
+cloudsmith push python WORKSPACE/REPO h11-0.14.0-py3-none-any.whl -k "API_KEY"
+```
+
+## Business value from this policy
+
+This EPM policy delivers tangible business value by automatically targeting a specific repository, it ensures security controls are applied where they matter most, avoiding unnecessary overhead on other projects. The policy flags packages with fixed high- or critical-severity vulnerabilities (CVSS score above 7\) that have been detected during the Cloudsmith security scan phase. This allows teams to identify and address risk before packages progress further in the lifecycle, reducing the likelihood of deploying insecure components into production environments. The ability to ignore specific CVEs, such as CVE-2023-45853, prevents distraction from known or accepted risks, enabling developers and security teams to focus on the most impactful issues.
+
+From a governance perspective, this policy supports compliance with internal and external security standards by providing a repeatable, automated enforcement point. It minimizes the manual effort needed to review vulnerability reports, shortens response times, and reduces the chance of human oversight. By codifying the decision logic in Rego, the business gains transparency and auditability since policy decisions can be explained and traced back to explicit rules. In short, this policy not only reduces the probability of a high-severity security breach but also helps balance security rigor with operational pragmatism, ensuring resources are spent on vulnerabilities that truly warrant immediate action.

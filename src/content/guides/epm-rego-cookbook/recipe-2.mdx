@@ -1,0 +1,63 @@
+import { CodeBlock } from '@/components/CodeBlock';
+import { Note, Button } from '@/components';
+import { Icon } from '@/icons';
+
+# Recipe 2: Restricting Package Based on Tags
+
+This policy checks whether a package includes a specific "**maven-central**" tag and marks it as a match if it does.
+
+```rego
+package cloudsmith
+import rego.v1
+default match := false
+
+required_tag := "deprecated"
+
+match if count(reason) > 0
+
+reason contains msg if {
+  pkg := input.v0["package"]
+  some tag in pkg.tags
+  tag.name == required_tag
+  msg := sprintf("Package has required tag: '%s'", [required_tag])
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition
+
+```rego
+required_tag := "deprecated"
+```
+
+If the package contains a tag named "deprecated", this block sets a reason message: “*Package has required tag: 'deprecated'*"
+
+## When and How It's Triggered
+
+The policy officially matches (i.e., triggers) if at least one reason was recorded -  in this case, finding the required tag.
+
+```rego
+match if count(reason) > 0
+```
+
+To trigger the policy, download the Python package below (it really doesn't matter what package you use since it's the tag that causes the match):
+
+```bash
+pip download h11==0.14.0
+```
+
+Once ready, push the package to Cloudsmith via the Cloudsmith CLI and insert the tag to cause the policy violation:
+
+```bash
+cloudsmith push python acme-corporation/acme-repo-one h11-0.14.0-py3-none-any.whl -k "$CLOUDSMITH_API_KEY"  --tags deprecated
+```
+
+## Business value from this policy
+
+This EPM policy allows teams to automatically flag or block packages with specific tags, such as "deprecated" in this case, before they are used in builds or deployments. This helps prevent teams from accidentally integrating outdated, unsupported, or vulnerable software into critical systems. By tying enforcement to metadata rather than manual oversight, it ensures that once a package is tagged as deprecated, the control applies instantly across all workflows, eliminating the risk of human error or oversight.
+
+From a governance perspective, this kind of policy strengthens supply chain security and lifecycle management. It enables organizations to maintain a clean, trustworthy inventory of software artifacts and to automate deprecation handling at scale. For example, when a library is replaced with a newer version or identified as insecure, tagging it as deprecated immediately triggers this policy, ensuring it is blocked or logged across all consuming environments. The result is reduced operational risk, faster incident response, and improved compliance with internal standards and external regulations.

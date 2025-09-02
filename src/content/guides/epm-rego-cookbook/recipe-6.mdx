@@ -1,0 +1,70 @@
+import { Note, Button } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+# Recipe 6: Enforce Consistent Filename Convention
+
+Validate filename matches a semantic or naming pattern where MAJOR.MINOR, and PATCH are all numeric.
+
+```rego
+package cloudsmith
+default match := false  # Assume the package is fine unless we find a problem
+match if count(reason) > 0  # Match the policy only if we generate at least one reason
+
+reason contains msg if {
+  pkg := input.v0["package"]
+
+  # Focus only on files that start with 'h11-'
+  startswith(pkg.filename, "h11-")
+
+  # Ensure they match semantic versioning pattern
+  not regex.match("^h11-[0-9]+\\.[0-9]+\\.[0-9]+\\.(tar\\.gz|whl)$", pkg.filename)
+
+  # Give a descriptive reason if not
+  msg := sprintf("Filename '%s' does not match required SemVer pattern", [pkg.filename])
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition
+
+```rego
+pkg := input.v0["package"]
+startswith(pkg.filename, "h11-")
+not regex.match("^h11-[0-9]+\\.[0-9]+\\.[0-9]+\\.(tar\\.gz|whl)$", pkg.filename)
+```
+
+This means only filenames like `h11-1.2.3.whl` or `h11-1.2.3.tar.gz` pass. 
+Anything with extra text (`h11-1.2.3-py3-none-any.whl`) or non-numeric versions (h11-test.whl) will fail and trigger the reason.
+
+## When and How It’s Triggered
+
+A straightforward way to test this policy is to take a package that already has a valid SemVer-compliant filename and rename it by replacing the version number with a placeholder like test. Also, note the not regex.match(...) context triggers the reason only if the filename fails to match the SemVer pattern. Where X, Y, and Z are numeric version segments (`h11-1.2.3.tar.gz` is valid).
+
+```bash
+pip download h11==0.14.0
+mv h11-0.14.0-py3-none-any.whl h11-test.whl
+cloudsmith push python WORKSPACE/REPO h11-test.whl -k "API_KEY"
+```
+
+This will cause the regex check to fail because:
+- test is not numeric,
+- the filename does not follow `<name>-<major>.<minor>.<patch>.(tar.gz|whl)` pattern.
+
+Examples that will trigger the policy:
+
+- h11.tar.gz → missing version
+- h11-1.2.tar.gz → incomplete version
+- h11-1.2.3.zip → wrong extension
+- h11_v1.2.3.tar.gz → wrong format
+- h11-1.2.3.tar.gz → wrong prefix
+
+## Business value from this policy
+
+A strict filename-validation policy using semantic versioning ensures consistent, predictable artifact naming across your repository. This consistency improves developer efficiency, streamlines automation and CI/CD workflows, and reduces the risk of deploying outdated, pre-release, or experimental builds to production. It also simplifies dependency management by enabling tools to reliably parse and compare versions without guesswork.
+
+Additionally, enforcing precise versioning strengthens supply chain security by blocking malformed or mislabeled packages that could cause difficult-to-trace issues. In regulated industries, it supports auditability by providing a clear, verifiable version history for every artifact in the repo.

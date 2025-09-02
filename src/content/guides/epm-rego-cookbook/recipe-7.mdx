@@ -1,0 +1,58 @@
+import { Note, Button } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+# Recipe 7: Approved Upstreams based on Tags
+
+This policy exists to ensure that packages coming from upstream sources are explicitly reviewed and marked as "approved" before being allowed to proceed in the pipeline.
+
+```rego
+package cloudsmith
+
+import rego.v1
+
+default match := false
+
+approved := "approved"
+upstream := "upstream"
+#allowed_repos := {"test-repo"}  # Define your set of allowed repositories
+
+match if {
+    not has_approved_tag
+    has_upstream_tag
+#    is_in_allowed_repo
+}
+
+has_upstream_tag if {
+    some _, type in input.v0["package"].tags
+    some tag in type
+    tag = upstream
+}
+
+has_approved_tag if {
+    some _, type in input.v0["package"].tags
+    some tag in type
+    tag = approved
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition
+
+The policy matches when:
+
+1. The package has a tag "upstream".  
+2. The package **does not** have a tag "approved".
+
+You could think of this as an advanced use-case for tagging. When both conditions are true, the policy will trigger.   
+There is also a commented-out condition for restricting it to specific repositories, which is not active in this version.
+
+## Business value from this policy
+
+This policy enforces a controlled workflow for handling externally sourced or upstream packages, which are often beyond the direct control of an organization. By requiring an explicit "approved" tag before these packages are considered safe, it creates a checkpoint where security, licensing, and quality reviews can be performed. This helps prevent unverified or potentially malicious code from entering production systems. It also encourages consistent documentation of the approval process, which can be important for compliance frameworks such as SOC 2, ISO 27001, or internal governance policies.
+
+From a risk management perspective, the policy reduces the chance of introducing vulnerabilities, licensing conflicts, or compatibility issues from upstream sources. Operationally, it gives teams the flexibility to integrate valuable external software while maintaining a robust safeguard against unvetted changes. Over time, this approach can significantly improve software supply chain security, maintain regulatory compliance, and protect the organization's reputation by ensuring only reviewed and trusted packages make it into critical environments.

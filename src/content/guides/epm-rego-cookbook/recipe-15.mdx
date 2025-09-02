@@ -1,0 +1,61 @@
+import { Note, Button } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+# Recipe 15: Block specifically based on CVEs
+
+Again, the Python package requests version **2.6.0** has the known vulnerability **CVE-2018-18074**. We have commented out the other CVEs in this policy, but feel free remove those comments and add additional CVEs if you'd like to make a deny list based specifically on CVE numbers.
+
+```rego
+package cloudsmith
+
+default match := false
+
+# --- Blocklist (add more CVE IDs as needed) ---
+banned_cves := {
+  "CVE-2018-18074"
+  # ,"CVE-2023-32681", "CVE-2024-35195", "CVE-2024-47081", ...
+}
+
+# Shape 1: input.v0.vulnerabilities[*].identifier
+match if {
+  some v in input.v0.vulnerabilities
+  v.identifier in banned_cves
+}
+
+# Shape 2: input.v0.security_scan[*].Vulnerabilities[*].VulnerabilityID
+match if {
+  some scan in input.v0.security_scan
+  some vuln in scan.Vulnerabilities
+  vuln.VulnerabilityID in banned_cves
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition
+
+```rego
+banned_cves := { "CVE-2018-18074", "CVE-2023-32681", "CVE-2024-35195", "CVE-2024-47081" }
+```
+
+### When and How It's Triggered
+  
+Use the requests v.2.6.0 package and package that has all of the above CVEs in it.   
+But if it matches at least one of those CVEs the policy would match.
+
+```bash
+pip download requests==2.6.0  
+cloudsmith push python WORKSPACE/REPO requests-2.6.0-py2.py3-none-any.whl \-k "API_KEY"
+```
+
+### Business value from this polic
+  
+Building policies based on specific deny lists of CVEs delivers targeted risk management, faster response times, and stronger compliance. Unlike broad vulnerability rules that might block packages unnecessarily, a CVE-specific approach enforces a surgical block on only those vulnerabilities that have been explicitly identified as critical to your environment. For example, the requests package version 2.6.0 contains CVE-2018-18074, which is a documented flaw with known security implications. By adding this CVE (and others) to a deny list, you ensure that packages containing these vulnerabilities, and those vulnerabilities only, are correctly quarantined automatically during synchronization, without relying on manual review or broad, catch-all criteria that can slow development. This approach allows security teams to react quickly to new threats, by simply adding the CVE to the list, rather than relying on assessing the CVSS scores. As always, the policy blocks it instantly, preventing risky packages from ever entering the supply chain.
+
+From a governance perspective, CVE-specific policies provide clear, auditable proof that you are actively mitigating known threats, which is valuable for regulatory compliance, customer assurances, and internal security standards. Cloudsmith's decision logs give you a timestamped record of each block, showing exactly when and why a package was stopped. This improves transparency between security and engineering teams, as developers receive precise reason messages (e.g., “Package contains banned CVE-2018-18074”), making remediation faster and more straightforward. Over time, this creates a sustainable and repeatable protection layer, which continuously guards your team against the reintroduction of dangerous vulnerabilities, even if older, insecure versions resurface.
+
+

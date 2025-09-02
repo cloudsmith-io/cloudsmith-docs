@@ -1,0 +1,70 @@
+import { Note, Button, BlockImage } from '@/components';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Icon } from '@/icons';
+
+import recipe3 from './images/recipe3.png';
+
+# Recipe 3: Copy-Left policy that matches license strings 
+
+This policy is designed to detect a broad range of copyleft or restrictive open-source licenses, particularly those unsuitable for production use without legal review or approval. This policy includes free-text and SPDX variants.
+
+```rego
+package cloudsmith
+default match := false
+
+# Expanded list of SPDX identifiers and common free-text variants
+copyleft := {
+    "gpl-3.0", "gplv3", "gplv3+", "gpl-3.0-only", "gpl-3.0-or-later",
+    "gpl-2.0", "gpl-2.0-only", "gpl-2.0-or-later", "gplv2", "gplv2+",
+    "lgpl-3.0", "lgpl-2.1", "lgpl", 
+    "agpl-3.0", "agpl-3.0-only", "agpl-3.0-or-later", "agpl",
+    "apache-1.1", "cpol-1.02", "ngpl", "osl-3.0", "qpl-1.0", "sleepycat",
+    "gnu general public license"
+}
+
+match if count(reason) > 0
+
+reason contains msg if {
+    pkg := input.v0["package"]
+    raw_license := lower(pkg.license.raw_license)
+    some l in copyleft
+    contains(raw_license, l)
+    msg := sprintf("License '%s' is considered copyleft", [pkg.license.raw_license])
+}
+```
+
+<Button href="https://github.com/cloudsmith-io/rego-recipes/blob/main/recipe-1/policy.rego" withArrow>
+   <Icon title="View" name="github"/>
+   View policy on GitHub
+</Button>
+
+## Trigger Condition
+
+The license trigger conditions are highlighted in our detailed schema which is available towards the bottom of [Cloudsmith OpenAPI](https://api.cloudsmith.io/v2/swagger) under **PolicyPackageLicense**. At a high level the schema definition looks like this:
+
+```json
+"license": {  
+    "raw_license": "Apache-2.0",  
+    "raw_license_file_path": "requests-2.32.0.dist-info/LICENSE",  
+    "raw_license_file_contents": null,  
+    "license_url": "https://spdx.org/licenses/Apache-2.0.html",  
+    "source": "AUTOMATIC",  
+    "match": "OSS_EXACT",  
+    "similarity": 100,  
+    "override": "NONE"  
+}
+```
+
+## When and How It's Triggered
+
+Once ready, download the Python Gitlab v.3.1.1 package that we know has a LGPLv3 license that should trigger the policy:
+
+```bash
+pip download python-gitlab==3.1.1  
+cloudsmith push python WORKSPACE/REPO python-gitlab-3.1.1-py3-none-any.whl -k "API_KEY"
+```
+
+If you have a tagging response action attached to your policy, you could tag the package with non-compliant-license for further review.
+
+<BlockImage src={recipe3} alt=""></BlockImage>
+
