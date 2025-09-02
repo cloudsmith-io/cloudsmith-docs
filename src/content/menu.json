@@ -79,6 +79,10 @@
             "path": "/formats/go-registry"
           },
           {
+            "title": "Hugging Face",
+            "path": "/formats/hugging-face-repository"
+          },
+          {
             "title": "Gradle",
             "path": "/formats/gradle-repository"
           },

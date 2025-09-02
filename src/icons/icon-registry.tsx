@@ -39,6 +39,7 @@ import { FormatDebianIcon } from './svgs/format/Debian';
 import { FormatDockerIcon } from './svgs/format/Docker';
 import { FormatGoIcon } from './svgs/format/Go';
 import { FormatGradleIcon } from './svgs/format/Gradle';
+import { FormatHuggingFaceIcon } from './svgs/format/HuggingFace';
 import { FormatHelmIcon } from './svgs/format/Helm';
 import { FormatHexIcon } from './svgs/format/Hex';
 import { FormatLuarocksIcon } from './svgs/format/Luarocks';
@@ -146,6 +147,7 @@ export const iconRegistry = createIconRegistry({
   'format/docker': FormatDockerIcon,
   'format/go': FormatGoIcon,
   'format/gradle': FormatGradleIcon,
+  'format/huggingface': FormatHuggingFaceIcon,
   'format/helm': FormatHelmIcon,
   'format/hex': FormatHexIcon,
   'format/luarocks': FormatLuarocksIcon,
