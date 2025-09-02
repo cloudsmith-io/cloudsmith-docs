@@ -75,7 +75,7 @@ It is advised to export the following variables such that they can be used in an
 
 ```shell
 export CLOUDSMITH_API_KEY=<YOUR_CLOUDSMITH_API_KEY>  
-export CLOUDSMITH_WORKPLACE-<YOUR_CLOUDSMITH_WORKSPACE>
+export CLOUDSMITH_WORKPLACE=<YOUR_CLOUDSMITH_WORKSPACE>
 ```
 
 Save the Rego policy created in Step 1 to a file named `policy.rego`. Then use the script below to create a JSON request body which includes the Rego content in the `rego` field:
@@ -143,6 +143,8 @@ curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKPLACE/poli
   -d '{
     "action_type": "SetPackageState",
     "precedence": 1,
+    "package_state": "QUARANTINED"
+  }'
 
 ```
 
