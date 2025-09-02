@@ -19,12 +19,12 @@ FILES=$(find . -type f)
 for f in $FILES
 do
   echo "Processing $f file..."
-  cloudsmith push $2 "$1" "$f"
+  cloudsmith push "$1" "$2" "$f"
 done
 ```
 
-Execute the `migrate_npm_to_cs.sh` file passing the path of `<CLOUDSMITH_ORG>/<CLOUDSMITH_REPO>` and the [format type](/formats).
+Execute the `migrate_npm_to_cs.sh` file passing the [format type](/formats) and the path of `<CLOUDSMITH_ORG>/<CLOUDSMITH_REPO>`.
 
 ```shell
-./migrate_npm_to_cs.sh cloudsmith_org/cloudsmith_repo python
+./migrate_npm_to_cs.sh python cloudsmith_org/cloudsmith_repo
 ```
