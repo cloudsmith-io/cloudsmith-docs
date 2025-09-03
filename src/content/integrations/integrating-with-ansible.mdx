@@ -1,9 +1,11 @@
-import { Video } from '@/components';
+import { Video, CodeBlock, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components';
 
 
 # Integrating Ansible
 
-How to integrate Ansible with Cloudsmith
+*How to integrate Ansible with Cloudsmith.*
+
+---
 
 <Video wistiaId="226hshjm34"></Video>
 
@@ -32,7 +34,7 @@ To add a Cloudsmith repository for RPM packages using Ansible, you would use the
 
 Example `yum_repository` task:
 
-**Public Repository**
+### Public Repository
 
 ```yaml
 - name: Add Cloudsmith Repository
@@ -47,10 +49,18 @@ Example `yum_repository` task:
   become: true
 ```
 
-**Private Repository**
+### Private Repository
 
-```yaml Entitlement Token Auth
-- name: Add Cloudsmith Repository
+<Tabs defaultValue="auth1">
+  <TabsList>
+    <TabsTrigger value="auth1">Entitlement Token Auth</TabsTrigger>
+    <TabsTrigger value="auth2">HTTP Basic Auth (User & Pass)</TabsTrigger>
+    <TabsTrigger value="auth3">HTTP Basic Auth (API-Key)</TabsTrigger>
+    <TabsTrigger value="auth4">HTTP Basic Auth (Token)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="auth1">
+    <CodeBlock lang="yaml" header={true}>
+      {`- name: Add Cloudsmith Repository
   yum_repository:
     name: cloudsmith
     description: Cloudsmith
@@ -59,10 +69,12 @@ Example `yum_repository` task:
     repo_gpgcheck: yes
     gpgkey: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     enabled: yes 
-  become: true
-```
-```yaml HTTP Basic Auth (User & Pass)
-- name: Add Cloudsmith Repository
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth2">
+    <CodeBlock lang="yaml" header={false}>
+      {`- name: Add Cloudsmith Repository
   yum_repository:
     name: cloudsmith
     description: Cloudsmith
@@ -73,10 +85,12 @@ Example `yum_repository` task:
     username: USERNAME
     password: PASSWORD
     enabled: yes
-  become: true
-```
-```yaml HTTP Basic Auth (API-Key)
-- name: Add Cloudsmith Repository
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth3">
+    <CodeBlock lang="yaml" header={false}>
+      {`- name: Add Cloudsmith Repository
   yum_repository:
     name: cloudsmith
     description: Cloudsmith
@@ -87,10 +101,12 @@ Example `yum_repository` task:
     username: USERNAME
     password: API-KEY
     enabled: yes
-  become: true
-```
-```yaml HTTP Basic Auth (Token)
-- name: Add Cloudsmith Repository
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth4">
+    <CodeBlock lang="yaml" header={false}>
+      {`- name: Add Cloudsmith Repository
   yum_repository:
     name: cloudsmith
     description: Cloudsmith
@@ -101,8 +117,10 @@ Example `yum_repository` task:
     username: token
     password: TOKEN
     enabled: yes
-  become: true
-```
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
 
 ### Install a package
 
@@ -123,7 +141,7 @@ To add a Cloudsmith repository for Debian packages using Ansible, you would use 
 
 Example `apt_key` and `apt_repository` tasks:
 
-**Public Repository**
+### Public Repository
 
 ```yaml
 - name: Import Cloudsmith Repository GPG key
@@ -139,10 +157,18 @@ Example `apt_key` and `apt_repository` tasks:
   become: true
 ```
 
-**Private Repository**
+### Private Repository
 
-```yaml Entitlement Token Auth
-- name: Import Cloudsmith Repository GPG key
+<Tabs defaultValue="auth1">
+  <TabsList>
+    <TabsTrigger value="auth1">Entitlement Token Auth</TabsTrigger>
+    <TabsTrigger value="auth2">HTTP Basic Auth (User & Pass)</TabsTrigger>
+    <TabsTrigger value="auth3">HTTP Basic Auth (API-Key)</TabsTrigger>
+    <TabsTrigger value="auth4">HTTP Basic Auth (Token)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="auth1">
+    <CodeBlock lang="yaml" header={true}>
+      {`- name: Import Cloudsmith Repository GPG key
   apt_key:
     url: https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
@@ -152,10 +178,12 @@ Example `apt_key` and `apt_repository` tasks:
   apt_repository:
     repo: deb https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/deb/DISTRO VERSION main
     state: present
-  become: true
-```
-```yaml HTTP Basic Auth (User & Pass)
-- name: Import Cloudsmith Repository GPG key
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth2">
+    <CodeBlock lang="yaml" header={false}>
+      {`- name: Import Cloudsmith Repository GPG key
   apt_key:
     url: https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
@@ -165,10 +193,12 @@ Example `apt_key` and `apt_repository` tasks:
   apt_repository:
     repo: deb https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
     state: present
-  become: true
-```
-```yaml HTTP Basic Auth (API-Key)
-- name: Import Cloudsmith Repository GPG key
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth3">
+    <CodeBlock lang="yaml" header={false}>
+      {`- name: Import Cloudsmith Repository GPG key
   apt_key:
     url: https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
@@ -178,10 +208,12 @@ Example `apt_key` and `apt_repository` tasks:
   apt_repository:
     repo: deb https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
     state: present
-  become: true
-```
-```yaml HTTP Basic Auth (Token)
-- name: Import Cloudsmith Repository GPG key
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth4">
+    <CodeBlock lang="yaml" header={false}>
+      {`- name: Import Cloudsmith Repository GPG key
   apt_key:
     url: https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
     state: present
@@ -191,8 +223,10 @@ Example `apt_key` and `apt_repository` tasks:
   apt_repository:
     repo: deb https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/deb/DISTRO VERSION main
     state: present
-  become: true
-```
+  become: true`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
 
 ### Install a package
 
