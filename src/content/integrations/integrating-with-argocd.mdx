@@ -3,7 +3,7 @@ import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
 
 # ArgoCD
 
-You can integrate Cloudsmith with Argo CD to automate the deployment of your Kubernetes applications using Helm charts and Docker images securely stored in Cloudsmith repositories. This guide covers the steps to set up both Helm charts and Docker images with Cloudsmith in Argo CD, including secure authentication for private repositories.
+You can integrate Cloudsmith with ArgoCD to automate the deployment of your Kubernetes applications using Helm charts and Docker images securely stored in Cloudsmith repositories. This guide covers the steps to set up both Helm charts and Docker images with Cloudsmith in ArgoCD, including secure authentication for private repositories.
 
 This integration supports pulling:
 
@@ -79,9 +79,9 @@ helm package ./my-test-app
 cloudsmith push helm your-namespace/your-repo ./my-test-app-0.1.0.tgz
 ```
 
-### Step 4: Add Cloudsmith Helm Repository to Argo CD
+### Step 4: Add Cloudsmith Helm Repository to ArgoCD
 
-Argo CD requires that you add the Helm repository from Cloudsmith to access the chart during deployments. You can do this using the Argo CD CLI or the Web UI.
+ArgoCD requires that you add the Helm repository from Cloudsmith to access the chart during deployments. You can do this using the ArgoCD CLI or the Web UI.
 
 **Adding the Helm Repository via ArgoCD CLI**
 
@@ -105,9 +105,9 @@ argocd repo add --name cloudsmith-helm --type helm \
   https://dl.cloudsmith.io/TOKEN/WORKSPACE/REPOSITORY/helm/charts/
 ```
 
-### Step 5: Create an Argo CD Application Manifest
+### Step 5: Create an ArgoCD Application Manifest
 
-Configure your Argo CD application to deploy the Helm chart from Cloudsmith to your Kubernetes cluster using the following manifest:
+Configure your ArgoCD application to deploy the Helm chart from Cloudsmith to your Kubernetes cluster using the following manifest:
 
 ```yaml argocd-application.yaml
 apiVersion: argoproj.io/v1alpha1
@@ -136,7 +136,7 @@ spec:
 - **targetRevision**: Specifies the version of the Helm chart you want to deploy.
 - **chart**: The name of the chart in the Cloudsmith repository.
 
-### Step 6: Deploy the Application with Argo CD
+### Step 6: Deploy the Application with ArgoCD
 
 1. Apply the Application manifest to ArgoCD:
    ```text bash
@@ -155,9 +155,9 @@ spec:
 
 - **Use Entitlement token Authentication**: As ArgoCD only pulls images, use Entitlement tokens for authentication to avoid using long-lived API keys.
 - **Secure Secrets**: Store sensitive information like API keys/Entitlement tokens in Kubernetes secrets instead of hardcoding them in your deployment manifests.
-- **Enable Auto-Sync**: Configure Argo CD’s auto-sync feature to ensure that your Kubernetes clusters always have the latest artifacts.
+- **Enable Auto-Sync**: Configure ArgoCD’s auto-sync feature to ensure that your Kubernetes clusters always have the latest artifacts.
 
 ## Troubleshooting
 
 - **Image Pull Issues**: Verify that the image pull secret is correctly configured in the workspace where your application is running.
-- **Helm Chart Errors**: Ensure that the Helm chart version specified in the Argo CD manifest exists in the Cloudsmith repository.
+- **Helm Chart Errors**: Ensure that the Helm chart version specified in the ArgoCD manifest exists in the Cloudsmith repository.
