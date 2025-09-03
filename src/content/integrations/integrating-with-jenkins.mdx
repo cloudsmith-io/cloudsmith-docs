@@ -45,5 +45,9 @@ sh('cloudsmith push FORMAT OWNER/REPOSITORY PACKAGE_FILE')
 ```
 
 <Note variant="note">
-The push command will vary with the package format, an example of the push command for a debian package would look like: `cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb`. Please see the [Cloudsmith CLI](/developer-tools/cli) for full details of the push command for other formats and additional help.
+The push command will vary with the package format, an example of the push command for a debian package would look like: 
+```bash
+cloudsmith push deb my-org/my-repo/ubuntu/xenial foo-1.0.deb
+```
+Please see the [Cloudsmith CLI](/developer-tools/cli) for full details of the push command for other formats and additional help.
 </Note>
