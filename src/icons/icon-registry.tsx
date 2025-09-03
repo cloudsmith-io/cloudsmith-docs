@@ -62,6 +62,7 @@ import { HomepageDocumentationIcon } from './svgs/homepage/Documentation';
 import { HomepageGuideIcon } from './svgs/homepage/Guide';
 import { HomepageAPIIcon } from './svgs/homepage/API';
 
+import { IntegrationArgoCDIcon } from './svgs/integration/ArgoCD';
 import { IntegrationAikidoIcon } from './svgs/integration/Aikido';
 import { IntegrationAnsibleIcon } from './svgs/integration/Ansible';
 import { IntegrationAWSCodeBuildIcon } from './svgs/integration/AWSCodeBuild';
@@ -168,6 +169,7 @@ export const iconRegistry = createIconRegistry({
   'homepage/documentation': HomepageDocumentationIcon,
   'homepage/guide': HomepageGuideIcon,
   'homepage/api': HomepageAPIIcon,
+  'integration/argocd': IntegrationArgoCDIcon,
   'integration/aikido': IntegrationAikidoIcon,
   'integration/ansible': IntegrationAnsibleIcon,
   'integration/awscodebuild': IntegrationAWSCodeBuildIcon,
