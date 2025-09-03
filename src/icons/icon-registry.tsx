@@ -74,6 +74,7 @@ import { IntegrationChefIcon } from './svgs/integration/Chef';
 import { IntegrationCircleCIIcon } from './svgs/integration/CircleCI';
 import { IntegrationCodefreshIcon } from './svgs/integration/Codefresh';
 import { IntegrationDatadogIcon } from './svgs/integration/Datadog';
+import { IntegrationDependabotIcon } from './svgs/integration/Dependabot';
 import { IntegrationDockerIcon } from './svgs/integration/Docker';
 import { IntegrationDroneCIIcon } from './svgs/integration/DroneCI';
 import { IntegrationGCPCloudBuildIcon } from './svgs/integration/GCPCloudBuild';
@@ -182,6 +183,7 @@ export const iconRegistry = createIconRegistry({
   'integration/circleci': IntegrationCircleCIIcon,
   'integration/codefresh': IntegrationCodefreshIcon,
   'integration/datadog': IntegrationDatadogIcon,
+  'integration/dependabot': IntegrationDependabotIcon,
   'integration/docker': IntegrationDockerIcon,
   'integration/droneci': IntegrationDroneCIIcon,
   'integration/gcpcloudbuild': IntegrationGCPCloudBuildIcon,
