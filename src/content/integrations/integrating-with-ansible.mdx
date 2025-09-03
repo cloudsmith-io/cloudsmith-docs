@@ -73,7 +73,7 @@ Example `yum_repository` task:
     </CodeBlock>
   </TabsContent>
   <TabsContent value="auth2">
-    <CodeBlock lang="yaml" header={false}>
+    <CodeBlock lang="yaml" header={true}>
       {`- name: Add Cloudsmith Repository
   yum_repository:
     name: cloudsmith
@@ -89,7 +89,7 @@ Example `yum_repository` task:
     </CodeBlock>
   </TabsContent>
   <TabsContent value="auth3">
-    <CodeBlock lang="yaml" header={false}>
+    <CodeBlock lang="yaml" header={true}>
       {`- name: Add Cloudsmith Repository
   yum_repository:
     name: cloudsmith
@@ -105,7 +105,7 @@ Example `yum_repository` task:
     </CodeBlock>
   </TabsContent>
   <TabsContent value="auth4">
-    <CodeBlock lang="yaml" header={false}>
+    <CodeBlock lang="yaml" header={true}>
       {`- name: Add Cloudsmith Repository
   yum_repository:
     name: cloudsmith
@@ -182,7 +182,7 @@ Example `apt_key` and `apt_repository` tasks:
     </CodeBlock>
   </TabsContent>
   <TabsContent value="auth2">
-    <CodeBlock lang="yaml" header={false}>
+    <CodeBlock lang="yaml" header={true}>
       {`- name: Import Cloudsmith Repository GPG key
   apt_key:
     url: https://USERNAME:PASSWORD@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
@@ -197,7 +197,7 @@ Example `apt_key` and `apt_repository` tasks:
     </CodeBlock>
   </TabsContent>
   <TabsContent value="auth3">
-    <CodeBlock lang="yaml" header={false}>
+    <CodeBlock lang="yaml" header={true}>
       {`- name: Import Cloudsmith Repository GPG key
   apt_key:
     url: https://USERNAME:API-KEY@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
@@ -212,7 +212,7 @@ Example `apt_key` and `apt_repository` tasks:
     </CodeBlock>
   </TabsContent>
   <TabsContent value="auth4">
-    <CodeBlock lang="yaml" header={false}>
+    <CodeBlock lang="yaml" header={true}>
       {`- name: Import Cloudsmith Repository GPG key
   apt_key:
     url: https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key
