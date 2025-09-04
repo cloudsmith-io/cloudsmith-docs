@@ -73,6 +73,7 @@ import { IntegrationChainguardIcon } from './svgs/integration/Chainguard';
 import { IntegrationChefIcon } from './svgs/integration/Chef';
 import { IntegrationCircleCIIcon } from './svgs/integration/CircleCI';
 import { IntegrationCodefreshIcon } from './svgs/integration/Codefresh';
+import { IntegrationCursorIDEIcon } from './svgs/integration/CursorIDE';
 import { IntegrationDatadogIcon } from './svgs/integration/Datadog';
 import { IntegrationDependabotIcon } from './svgs/integration/Dependabot';
 import { IntegrationDockerIcon } from './svgs/integration/Docker';
@@ -91,6 +92,7 @@ import { IntegrationSemaphoreCIIcon } from './svgs/integration/SemaphoreCI';
 import { IntegrationSlackIcon } from './svgs/integration/Slack';
 import { IntegrationTeamCityIcon } from './svgs/integration/TeamCity';
 import { IntegrationTerraformIcon } from './svgs/integration/Terraform';
+import { IntegrationTheiaIDEIcon } from './svgs/integration/TheiaIDE';
 import { IntegrationTravisCIIcon } from './svgs/integration/TravisCI';
 import { IntegrationZapierIcon } from './svgs/integration/Zapier';
 import { IntegrationVSCodeIcon } from './svgs/integration/VSCode';
@@ -182,6 +184,7 @@ export const iconRegistry = createIconRegistry({
   'integration/chef': IntegrationChefIcon,
   'integration/circleci': IntegrationCircleCIIcon,
   'integration/codefresh': IntegrationCodefreshIcon,
+  'integration/cursoride': IntegrationCursorIDEIcon,
   'integration/datadog': IntegrationDatadogIcon,
   'integration/dependabot': IntegrationDependabotIcon,
   'integration/docker': IntegrationDockerIcon,
@@ -200,6 +203,7 @@ export const iconRegistry = createIconRegistry({
   'integration/slack': IntegrationSlackIcon,
   'integration/teamcity': IntegrationTeamCityIcon,
   'integration/terraform': IntegrationTerraformIcon,
+  'integration/theiaide': IntegrationTheiaIDEIcon,
   'integration/travis': IntegrationTravisCIIcon,
   'integration/zapier': IntegrationZapierIcon,
   'integration/vscode': IntegrationVSCodeIcon,

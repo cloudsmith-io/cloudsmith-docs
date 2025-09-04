@@ -543,6 +543,10 @@
             "path": "/integrations/integrating-with-codefresh"
           },
           {
+            "title": "Cursor IDE",
+            "path": "/developer-tools/vscode"
+          },
+          {
             "title": "Datadog",
             "path": "/integrations/integrating-with-datadog"
           },
@@ -601,7 +605,11 @@
           {
             "title": "TeamCity",
             "path": "/integrations/integrating-with-teamcity"
-          },          
+          },   
+          {
+            "title": "Theia IDE",
+            "path": "/developer-tools/vscode"
+          },       
           {
             "title": "Travis CI",
             "path": "/integrations/integrating-with-travis-ci"
