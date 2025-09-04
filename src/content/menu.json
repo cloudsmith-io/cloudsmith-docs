@@ -307,6 +307,10 @@
             "path": "/accounts-and-teams/user-accounts"
           },
           {
+            "title": "API Keys",
+            "path": "/accounts-and-teams/api-key"
+          },
+          {
             "title": "Service Accounts",
             "path": "/accounts-and-teams/service-accounts"
           },
@@ -607,7 +611,7 @@
             "path": "/developer-tools/vscode"
           },       
           {
-            "title": "Travis-CI",
+            "title": "Travis CI",
             "path": "/integrations/integrating-with-travis-ci"
           },
           {
@@ -626,7 +630,7 @@
         "children": [
           {
             "title": "Generating an API Key",
-            "path": "/about-cloudsmith/api-key"
+            "path": "/accounts-and-teams/api-key"
           },
           {
             "title": "Cloudsmith CLI",

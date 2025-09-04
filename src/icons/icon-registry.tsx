@@ -62,6 +62,7 @@ import { HomepageDocumentationIcon } from './svgs/homepage/Documentation';
 import { HomepageGuideIcon } from './svgs/homepage/Guide';
 import { HomepageAPIIcon } from './svgs/homepage/API';
 
+import { IntegrationArgoCDIcon } from './svgs/integration/ArgoCD';
 import { IntegrationAikidoIcon } from './svgs/integration/Aikido';
 import { IntegrationAnsibleIcon } from './svgs/integration/Ansible';
 import { IntegrationAWSCodeBuildIcon } from './svgs/integration/AWSCodeBuild';
@@ -71,8 +72,10 @@ import { IntegrationBuildkiteIcon } from './svgs/integration/Buildkite';
 import { IntegrationChainguardIcon } from './svgs/integration/Chainguard';
 import { IntegrationChefIcon } from './svgs/integration/Chef';
 import { IntegrationCircleCIIcon } from './svgs/integration/CircleCI';
+import { IntegrationCodefreshIcon } from './svgs/integration/Codefresh';
 import { IntegrationCursorIDEIcon } from './svgs/integration/CursorIDE';
 import { IntegrationDatadogIcon } from './svgs/integration/Datadog';
+import { IntegrationDependabotIcon } from './svgs/integration/Dependabot';
 import { IntegrationDockerIcon } from './svgs/integration/Docker';
 import { IntegrationDroneCIIcon } from './svgs/integration/DroneCI';
 import { IntegrationGCPCloudBuildIcon } from './svgs/integration/GCPCloudBuild';
@@ -170,6 +173,7 @@ export const iconRegistry = createIconRegistry({
   'homepage/documentation': HomepageDocumentationIcon,
   'homepage/guide': HomepageGuideIcon,
   'homepage/api': HomepageAPIIcon,
+  'integration/argocd': IntegrationArgoCDIcon,
   'integration/aikido': IntegrationAikidoIcon,
   'integration/ansible': IntegrationAnsibleIcon,
   'integration/awscodebuild': IntegrationAWSCodeBuildIcon,
@@ -179,8 +183,10 @@ export const iconRegistry = createIconRegistry({
   'integration/chainguard': IntegrationChainguardIcon,
   'integration/chef': IntegrationChefIcon,
   'integration/circleci': IntegrationCircleCIIcon,
+  'integration/codefresh': IntegrationCodefreshIcon,
   'integration/cursoride': IntegrationCursorIDEIcon,
   'integration/datadog': IntegrationDatadogIcon,
+  'integration/dependabot': IntegrationDependabotIcon,
   'integration/docker': IntegrationDockerIcon,
   'integration/droneci': IntegrationDroneCIIcon,
   'integration/gcpcloudbuild': IntegrationGCPCloudBuildIcon,

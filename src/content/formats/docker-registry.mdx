@@ -25,6 +25,10 @@ For more information on Docker, please see:
 - [Docker Hub](https://hub.docker.com): The official public registry for Docker repositories.
 - [Docker Article](https://en.wikipedia.org/wiki/Docker_(software)): The Wikipedia article on Docker.
 
+<Note variant="note" headline="Storage Deduplication">
+Cloudsmith's Docker repositories benefit from native Docker [image layer storage deduplication](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/) technology. This means that if you upload several images sharing some of their composing layers, those layers will be reused. This reduce the amount of artifact data and package delivery required to distribute the images across all repositories within a workspace.
+</Note>
+
 ## Differences from Docker
 
 For clarity, it's important to note some of the differences between a registry such as Docker Hub, and a Cloudsmith Docker registry. These are both naming and functional in nature.
