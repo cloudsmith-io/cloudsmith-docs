@@ -100,7 +100,7 @@ To install RPM packages from a public Cloudsmith repository, you can quickly set
 **Yum (RedHat, CentOS, Amazon), Dnf (Fedora) or Zypper (Suse)** 
 
 ```shell
-curl -1sLf \
+curl -sLf \
   'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
@@ -108,7 +108,7 @@ curl -1sLf \
 Alternatively, if you need to force a specific distribution:
 
 ```shell
-curl -1sLf \
+curl -sLf \
   'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
@@ -120,7 +120,7 @@ Or, you can manually configure the repository:
 ```shell
 yum install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
+curl -sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
 yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
 ```
@@ -130,7 +130,7 @@ yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
 ```shell
 dnf install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
+curl -sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
 dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
 ```
@@ -138,7 +138,7 @@ dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablere
 **Zypper (Suse)**
 
 ```shell
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
+curl -sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=CODENAME' > /tmp/OWNER-REPOSITORY.repo
 zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
 zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
 ```
@@ -159,22 +159,22 @@ To install RPM packages from a private Cloudsmith repository, you can quickly se
 **Yum (RedHat, CentOS, Amazon), Dnf (Fedora) or Zypper (Suse)**
 
 ```shell Entitlement Token Auth
-curl -1sLf \
+curl -sLf \
   'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
-curl -u "USERNAME:PASSWORD" -1sLf \
+curl -u "USERNAME:PASSWORD" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (API-Key)
-curl -u "USERNAME:API-KEY" -1sLf \
+curl -u "USERNAME:API-KEY" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (Token)
-curl -u "token:TOKEN" -1sLf \
+curl -u "token:TOKEN" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo bash
 ```
@@ -182,22 +182,22 @@ curl -u "token:TOKEN" -1sLf \
 Alternatively, if you need to force a specific distribution:
 
 ```shell Entitlement Token Auth
-curl -1sLf \
+curl -sLf \
   'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
-curl -u "USERNAME:PASSWORD" -1sLf \
+curl -u "USERNAME:PASSWORD" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (API-Key)
-curl -u "USERNAME:API-KEY" -1sLf \
+curl -u "USERNAME:API-KEY" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (Token)
-curl -u "token:TOKEN" -1sLf \
+curl -u "token:TOKEN" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.rpm.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
@@ -209,28 +209,28 @@ Or, you can manually configure the repository:
 ```shell Entitlement Token Auth
 yum install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
 ```
 ```shell HTTP Basic Auth (User & Pass)
 yum install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "USERNAME:PASSWORD" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
 ```
 ```shell HTTP Basic Auth (API-Key)
 yum install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "USERNAME:API-KEY" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
 ```
 ```shell HTTP Basic Auth (Token)
 yum install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 yum-config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
 ```
@@ -240,28 +240,28 @@ yum -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY'
 ```shell Entitlement Token Auth
 dnf install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
 ```
 ```shell HTTP Basic Auth (User & Pass)
 dnf install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "USERNAME:PASSWORD" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
 ```
 ```shell HTTP Basic Auth (API-Key)
 dnf install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "USERNAME:API-KEY" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
 ```
 ```shell HTTP Basic Auth (Token)
 dnf install yum-utils pygpgme
 rpm --import 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 dnf config-manager --add-repo '/tmp/OWNER-REPOSITORY.repo'
 dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablerepo='OWNER-REPOSITORY-source'
 ```
@@ -269,22 +269,22 @@ dnf -q makecache -y --disablerepo='*' --enablerepo='OWNER-REPOSITORY' --enablere
 **Zypper (Suse)**
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
 zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
 ```
 ```shell HTTP Basic Auth (User & Pass)
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "USERNAME:PASSWORD" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
 zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
 ```
 ```shell HTTP Basic Auth (API-Key)
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "USERNAME:API-KEY" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
 zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
 ```
 ```shell HTTP Basic Auth (Token)
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
+curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.rpm.txt?distro=DISTRO&codename=VERSION' > /tmp/OWNER-REPOSITORY.repo
 zypper ar -f '/tmp/OWNER-REPOSITORY.repo'
 zypper --gpg-auto-import-keys refresh OWNER-REPOSITORY OWNER-REPOSITORY-source
 ```

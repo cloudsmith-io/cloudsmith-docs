@@ -152,7 +152,7 @@ You have a choice of 3 methods to setup your Cloudsmith repository:
 To install Debian packages from a public Cloudsmith repository, you can quickly set up the repository automatically:
 
 ```shell
-curl -1sLf \
+curl -sLf \
   'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
@@ -160,7 +160,7 @@ curl -1sLf \
 If you need to force a specific distribution:
 
 ```shell
-curl -1sLf \
+curl -sLf \
   'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
@@ -178,9 +178,9 @@ keyring_location=/usr/share/keyrings/OWNER-REPOSITORY-archive-keyring.gpg
 # For Debian Jessie, Ubuntu 15.10 and earlier
 keyring_location=/etc/apt/trusted.gpg.d/OWNER-REPOSITORY.gpg
 
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/gpg.FINGERPRINT.key' |  gpg --dearmor > ${keyring_location}
+curl -sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/gpg.FINGERPRINT.key' |  gpg --dearmor > ${keyring_location}
 
-curl -1sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/config.deb.txt?distro=DISTRO&codename=VERSION' > /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/config.deb.txt?distro=DISTRO&codename=VERSION' > /etc/apt/sources.list.d/OWNER-REPOSITORY.list
 ```
 
 #### Private Repositories
@@ -197,24 +197,24 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 To install Debian packages from a private Cloudsmith repository, you can quickly set up the repository automatically:
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
 | sudo bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
 sudo apk add --no-cache bash
-curl -u "USERNAME:PASSWORD" -1sLf \
+curl -u "USERNAME:PASSWORD" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (API-Key)
 sudo apk add --no-cache bash
-curl -u "USERNAME:API-KEY" -1sLf \
+curl -u "USERNAME:API-KEY" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
 ```shell HTTP Basic Auth (Token)
 sudo apk add --no-cache bash
-curl -u "token:TOKEN" -1sLf \
+curl -u "token:TOKEN" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo bash
 ```
@@ -222,21 +222,21 @@ curl -u "token:TOKEN" -1sLf \
 If you need to force a specific distribution:
 
 ```shell Entitlement Token Auth
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
 | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (User & Pass)
-curl -u "USERNAME:PASSWORD" -1sLf \
+curl -u "USERNAME:PASSWORD" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (API-Key)
-curl -u "USERNAME:API-KEY" -1sLf \
+curl -u "USERNAME:API-KEY" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
 ```shell HTTP Basic Auth (Token)
-curl -u "token:TOKEN" -1sLf \
+curl -u "token:TOKEN" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.deb.sh' \
   | sudo distro=DISTRO codename=VERSION bash
 ```
@@ -247,32 +247,32 @@ Or, you can manually configure the repository:
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
 apt-get update
 ```
 ```shell HTTP Basic Auth (User & Pass)
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -u "USERNAME:PASSWORD" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -u "USERNAME:PASSWORD" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -u "USERNAME:PASSWORD" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
 apt-get update
 ```
 ```shell HTTP Basic Auth (API-Key)
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -u "USERNAME:API-KEY" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -u "USERNAME:API-KEY" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -u "USERNAME:API-KEY" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
 apt-get update
 ```
 ```shell HTTP Basic Auth (Token)
 apt-get install -y debian-keyring  # debian only
 apt-get install -y debian-archive-keyring  # debian only
 apt-get install -y apt-transport-https
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
-curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
+curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/gpg/gpg.FINGERPRINT.key'  | apt-key add -
+curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.deb.txt?distro=DISTRO&codename=VERSION'> /etc/apt/sources.list.d/OWNER-REPOSITORY.list
 apt-get update
 ```
 
