@@ -26,6 +26,10 @@ For more information on Hugging Face, see:
 - **[Hugging Face](https://huggingface.co/)**: The official website for the company and its ecosystem.
 - **[Hugging Face Hub](https://huggingface.co/)**: The official public platform for models, datasets, and demo apps.
 
+<Note variant="note" headline="Storage Deduplication">
+Cloudsmith's Hugging Face repositories benefit from native Hugging Face [file storage deduplication](https://huggingface.co/docs/hub/en/storage-backends) technology. This means that if you upload the same model or dataset multiple times (even across different repositories), Cloudsmith will only store a single copy of the data, saving you storage space and associated artifact data cost across all repositories within a workspace.
+</Note>
+
 ## Differences from Hugging Face
 
 Here you can see a general overview of the main naming equivalences:

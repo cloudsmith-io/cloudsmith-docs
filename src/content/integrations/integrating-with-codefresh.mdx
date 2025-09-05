@@ -150,8 +150,8 @@ Codefresh offers several ways to deploy your Docker images and Helm charts to yo
 - Using [custom kubectl commands](https://codefresh.io/docs/docs/ci-cd-guides/kubernetes-templating/) in your Codefresh pipelines.
   - Execute kubectl commands within your pipeline, referencing artifacts from Cloudsmith.
 - Using [Helm deployment to Kubernetes](https://codefresh.io/docs/docs/quick-start/ci-quick-start/deploy-with-helm/).
-- Utilizing GitOps with Argo CD:  
-  Integrate Argo CD with Codefresh for advanced GitOps deployments, using Cloudsmith as your artifact source.
+- Utilizing GitOps with ArgoCD:  
+  Integrate ArgoCD with Codefresh for advanced GitOps deployments, using Cloudsmith as your artifact source.
 
 For detailed instructions, refer to the [Codefresh documentation](https://codefresh.io/docs/docs/deployments/kubernetes/) on deployments.
 
@@ -160,7 +160,7 @@ For detailed instructions, refer to the [Codefresh documentation](https://codefr
 - Use OIDC: For authentication, prefer OIDC over API keys for better security.
 - Secure Credentials: Store sensitive information securely using Codefresh's encrypted variables or secret management features.
 - Automate Deployments: Leverage Codefresh pipelines and GitOps practices to automate deployment steps, reducing manual intervention.
-- Monitor Deployments: Use Codefresh's dashboards and integration with Argo CD to monitor deployment status and health.
+- Monitor Deployments: Use Codefresh's dashboards and integration with ArgoCD to monitor deployment status and health.
 - Follow GitOps Principles: Maintain your deployment manifests in Git repositories for version control and traceability.
 
 # Additional Resources

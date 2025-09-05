@@ -56,14 +56,16 @@ To enable OIDC authentication, create an Microsoft Entra ID application that wil
    4. Choose Delegated permissions and select `User.Read`.
    5. Click Add permissions.
    6. After adding the permission, click on **Grant admin consent for the organization** to ensure this permission is granted for all users in the directory.
-6. **Set App ID URI**:
+6. **Set `Application ID URI`**:
    1. Navigate to Expose an API in the application’s settings.
    2. Click Set to define an Application ID URI. You can use the default URI or set one on your own.
-   3. Copy the URI.
+   3. Copy the URI
 
-<Note variant="note" headline="URI Format">
-This URI will be used as the appIdUri in the pipeline configuration with `/.default` appended to the URI. Example: `api://mydomain/myapp/.default`.
-</Note>
+   <Note variant="note" headline="URI Format">
+   This URI will be used as the `appIdUri` in the pipeline configuration. Make sure you remove the `/.default` appended to the end of the URI. 
+
+   Example: `api://mydomain/myapp`~~/.default~~
+   </Note>
 
 ### Step 2: Install the Cloudsmith CLI Extension in Azure DevOps
 
@@ -76,7 +78,7 @@ Go to the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/). Sea
 3. To use a specific CLI version, set `cliVersion` in your pipeline. Leave it blank to use the latest.
 4. Configure the task based on your preferred authentication method:
    1. For API Key Authentication: Enter your Cloudsmith API key.(Check step 3 for more information).
-   2. For OIDC Authentication: Enter the required OIDC Namespace and OIDC Service Account Slug along with the Client ID, Client Secret, Tenant ID, and App ID URI as needed.(Check step 3 for more information).
+   2. For OIDC Authentication: Enter the required OIDC Namespace and OIDC Service Account Slug along with the Client ID, Client Secret, Tenant ID, and `Application ID URI` as needed.(Check step 3 for more information).
 
 ### Step 4: Configure Authentication in Your Azure DevOps Pipeline
 
@@ -125,14 +127,14 @@ oidcServiceSlug: '$(YOUR_SERVICE_SLUG)'
 2. Click create and fill out the following fields:
    1. **Provider Name**: Enter a unique name for your provider (e.g., “ado”).
    2. **Provider URL**: Set this to `<https://sts.windows.net/your-tenant-id>`, replacing `your-tenant-id` with your Microsoft Entra ID Tenant ID.
-   3. **Required OpenID Token Claims**: Ensure at least aud claim is configured. You need to include:
+   3. **Required OpenID Token Claims**: Ensure at least aud (audience) claim is configured for validation. You need to include:
 
       ```json
       {
-        "aud": "<appIdUri_value>"
+        "aud": "<appIdUri>"
       }
       ```
-      Replace \<appIdUri_value> with the Application ID URI of your Microsoft Entra ID application.
+      Replace `<appIdUri>` with the `Application ID URI` of your Microsoft Entra ID application.
    4. Under Service Accounts, select the appropriate service account(s) that this provider can authenticate with. For example, you might select a service account like “ado-user” as shown in the image above.
    5. Click Create Settings to save the configuration.
 

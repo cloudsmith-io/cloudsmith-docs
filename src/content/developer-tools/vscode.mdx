@@ -5,7 +5,11 @@ import configure from './images/vscode/configure.gif';
 
 # Cloudsmith Visual Studio Code Extension
 
-The Cloudsmith extension for Visual Studio Code allows you to view and manage your Cloudsmith packages directly within your VS Code IDE. 
+The Cloudsmith extension for Visual Studio Code allows you to view and manage your Cloudsmith packages directly within your VS Code IDE.
+
+<Note variant="note" headline="Note">
+[Cursor](https://cursor.com/) and [Theia](https://theia-ide.org/) IDEs support VS Code extensions. The Cloudsmith VSCode Extension can be installed using the [vsix](https://github.com/cloudsmith-io/cloudsmith-vscode-extension/releases) file (browse to the [Installation from a .vsix file](/developer-tools/vscode#from-a-vsix-file) section to learn how to install the extension using this method).
+</Note>
 
 <BlockImage src={overview} alt=""></BlockImage>
 
@@ -36,7 +40,7 @@ code --install-extension cloudsmith-x.x.x.vsix
 
 ### Authentication
 
-After installation, connect the extension to your Cloudsmith account using an [API Key](/about-cloudsmith/api-key) or a [Service Account Token](/accounts-and-teams/service-accounts) (Entitlement tokens are not supported).
+After installation, connect the extension to your Cloudsmith account using an [API Key](/accounts-and-teams/api-key) or a [Service Account Token](/accounts-and-teams/service-accounts) (Entitlement tokens are not supported).
 
 1.  Navigate to the Cloudsmith view in the VS Code Activity Bar.
 2.  Click the **key icon** located in the view's menu.
