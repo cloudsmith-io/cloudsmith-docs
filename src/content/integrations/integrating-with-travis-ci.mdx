@@ -1,12 +1,18 @@
+# Integrating Travis-CI
 
+*How to integrate Travis-CI with Cloudsmith.*
 
-# Integrating Travis CI
+---
 
-How to integrate Travis CI with Cloudsmith
+[Travis CI](https://www.travis-ci.com/) is a cloud-based continuous integration (CI) and continuous delivery platform that enables open source and private projects on GitHub and other providers to automate the build, test, and deployment processes of your software.
 
 ## Using the Cloudsmith CLI
 
-Here you can find a template to start building your own:
+Here you can find a template to start building your own. This Travis pipeline example uses a Debian *trusty* build environment to:
+- Install the [Cloudsmith CLI]() and required dependencies.
+- Convert an existing file `setup.py` with your Python project into a wheel (.whl) file for distribution, and store it in the `dist/` directory.
+- Set the python version to 3.6 and installs the Cloudsmith CLI.
+- And finally use the Cloudsmith CLI to upload a Python package to your `WORKSPACE/REPOSITORY` only when new changes are pushed to the `main` branch in the associated GitHub repository.
 
 ```yaml
 dist: trusty
@@ -21,7 +27,7 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: cloudsmith push python --republish cloudsmith/testing-public dist/cloudsmith_python_example-100-py2.py3-none-any.whl
+  script: cloudsmith push python --republish WORKSPACE/REPOSITORY dist/cloudsmith_python_example-100-py2.py3-none-any.whl
   on:
-    branch: master
+    branch: main
 ```
