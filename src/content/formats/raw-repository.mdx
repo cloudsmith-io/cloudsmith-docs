@@ -111,19 +111,19 @@ Some example `curl` commands to download a raw package from a public repository:
 A package with no package name or version specified at upload
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/files/FILENAME'
+curl -sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/files/FILENAME'
 ```
 
 A specific version of a package 
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
+curl -sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
 ```
 
 The latest version of the package
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/versions/latest/FILENAME'
+curl -sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/raw/versions/latest/FILENAME'
 ```
 
 #### Private Repositories
@@ -178,13 +178,13 @@ Some example `curl` commands to download a raw package from a private repository
 A package with no package name or version specified at upload using HTTP basic authentication:
 
 ```shell
-curl -1sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/files/FILENAME'
+curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/raw/files/FILENAME'
 ```
 
 A specific version of a package using Entitlement Token authentication:
 
 ```shell
-curl -1sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
+curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/raw/versions/VERSION_NO/FILENAME'
 ```
 
 ## HTML / JSON Indexes
@@ -276,10 +276,10 @@ For convenience, each of the file URLs listed above in 'Download a Package' can 
 FILENAME="foo.zip"
 
 # Retreive a file
-curl -1sLf -O https://dl.cloudsmith.io/TOKEN/OWNER/REPO/raw/files/$FILENAME
+curl -sLf -O https://dl.cloudsmith.io/TOKEN/OWNER/REPO/raw/files/$FILENAME
 
 # Retreive the signature for the file
-curl -1sLf -O https://dl.cloudsmith.io/TOKEN/OWNER/REPO/raw/files/$FILENAME.asc
+curl -sLf -O https://dl.cloudsmith.io/TOKEN/OWNER/REPO/raw/files/$FILENAME.asc
 ```
 
 ## Troubleshooting
