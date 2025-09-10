@@ -1,0 +1,285 @@
+import { BlockImage, Note } from '@/components'
+
+# Tag Addition and Removal
+
+_An example workflow for adding and removing tags with Enterprise Policy Management._
+
+---
+
+This example workflow will guide you through the process of adding and removing tags from packages 
+using Enterprise Policy Management policies and actions. Using this guide, you will:
+
+
+- Create two policies and two associated actions. Our policies will check the maximum severity and exploitability of any vulnerabilities associated with a package
+    - Our first policy will check if a package goes above a specified severity/exploitability threshold and tag it as risky
+    - Our second policy will check if a package goes back below the specified severity/exploitability threshold and remove the tag
+- We'll create these policies through the API and use the simulator to test
+- Then we'll discuss how to verify them using a real world package
+
+<Note variant="note" headline="Policy Creation">
+You must have administrator permissions within your Workspace to create or update a policy.
+</Note>
+
+## Step 1: Creating policy matching logic with rego
+
+First up, we'll create a policy to match packages which exceed the vulnerability risk threshold we feel comfortable with. 
+Lets create that as follows in Rego. Create a file named `exceeds-risk-policy.rego` and add the following content:
+
+```rego
+package cloudsmith
+
+cvss_score := 7
+epss_score := 0.5
+target_package_name := "my-pkg"
+
+default match := false
+
+match if {
+        count(reason) != 0
+}
+
+reason contains msg if {
+    input.v0["package"]["name"] == target_package_name
+
+    some scan in input.v0.security_scan
+    some vulnerability in scan.Vulnerabilities
+
+    some val in vulnerability.CVSS
+    val.V3Score < cvss_score
+
+    some vuln in input.v0.vulnerabilities
+    vuln.epss.score < epss_score
+
+    msg := sprintf(
+        " Package tagged as risky: %v ",
+        [input.v0["package"].name],
+    )
+}
+```
+
+## Step 2: Create our first policy using the API
+
+<Note variant="note" headline="Placeholder values">
+The example API requests in this guide below make use of placeholder variables for consistency and brevity.
+</Note>
+
+It is advised to export the following variables such that they can be used in any example requests:
+
+```shell
+export CLOUDSMITH_API_KEY=<YOUR_CLOUDSMITH_API_KEY>  
+export CLOUDSMITH_WORKSPACE=<YOUR_CLOUDSMITH_WORKSPACE>
+```
+
+We'll use [jq](https://stedolan.github.io/jq/) to help us create the JSON payload for our API request, and for managing
+JSON from the command line for the rest of these examples. Jq is a small, industry standard tool. It's not essential
+but it does solve a lot of headaches. 
+
+Run the following command to convert our Rego policy into a JSON file containing the payload data we'll send to our API 
+to create the policy.
+
+```shell
+escaped_policy=$(jq -Rs . < exceeds-risk-policy.rego)
+
+cat <<EOF > exceeds-risk-payload.json
+{
+  "name": "tag_risk_package",
+  "description": "Policy to tag packages with high severity/EPSS scores as risky",
+  "rego": $escaped_policy,
+  "enabled": false,
+  "is_terminal": false,
+  "precedence": 1
+}
+EOF
+
+```
+
+<Note variant="note" headline="Policy testing">
+When creating a policy via the API, setting the `enabled` field to `false` prevents the policy from being triggered, but still allows it to be tested via the Simulation API.
+</Note>
+
+Policies are created using the [workspaces_policies_create](https://api.cloudsmith.io/v2/redoc/#tag/workspaces/operation/workspaces_policies_create) REST API method. The 
+following curl command makes a request to this method, providing in the request the `payload.json` payload created above.
+The API will return a JSON response containing (amongst other metadata) the slug identifier for the policy which we'll use later. 
+We capture that from the curl output.
+
+```shell
+RESPONSE=$(curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d @exceeds-risk-payload.json
+)
+
+POLICY_SLUG=$(echo $RESPONSE | jq -r '.slug_perm')
+```
+
+A successful request will return an HTTP `201` response, indicating the policy was created. 
+
+### Adding an action to tag a package to our policy
+
+Similarly, the following curl command can be used to create an action to tag a matched package. This request specifies the required `action_type`, the relevant tag in the `tags` array, and a `precedence` value of `32767`.
+
+```shell
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/${POLICY_SLUG}/actions/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d '{
+    "action_type": "AddPackageTags",
+    "precedence": 1,
+    "tags": ["risky"]
+  }'
+
+```
+
+## Step 3. Testing our policy with the simulator
+
+We can test our policy using the Enterprise Policy Management policy simulator by passing the `POLICY_SLUG` to
+the simulator API endpoint as follows:
+
+```shell
+RESPONSE=$(curl -L "https://api.cloudsmith.io/v2/workspaces/${CLOUDSMITH_WORKSPACE}/policies/${POLICY_SLUG}/simulate" \
+    -H "Content-Type: application/json" \
+    -H "X-Api-Key: $CLOUDSMITH_API_KEY" )
+
+# View our simulator results
+echo $RESPONSE | jq  -r '.results[] | .policy_output, .actions[]' 
+```
+
+We can inspect the output of the simulator to see if our policy matched any packages, and what actions it would have
+taken:
+
+```json
+
+{
+    "policy_output": {
+        "match": true,
+        "reason": [
+            " Package: my-pkg "
+        ],
+        "cvss_score": 7,
+        "epss_score": 0.5,
+        "target_package_name": "my-pkg"
+},
+    "actions": {
+        "precedence": 0,
+        "slug_perm": "<some slug id>",
+        "created_at": "2025-09-10T15:35:59.970073Z",
+        "updated_at": "2025-09-10T15:35:59.970087Z",
+        "effect": "Added package tags '['risky']'.",
+        "tags": [
+            "risky",
+        ],
+        "action_type": "AddPackageTags"
+    }
+}
+```
+
+## Step 4. Calling our policy on a real world package 
+
+If you wanted to call this policy on a real world package, you could do so by first enabling the policy as follows:
+
+```shell
+curl -X PATCH "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/${POLICY_SLUG}/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d '{"enabled": true}'
+```
+
+And then...
+
+1. Uploading a vulnerable package to the required repository.
+2. Wait for the vulnerability scan to complete. The policy will run at the end of package synchronization. 
+3. Confirm the package's status and tags in Cloudsmith.
+
+
+## Step 5. Create our second policy to remove tags
+
+Now we'll create a second policy which removes the "risky" tag if the vulnerability risk associated with the package
+is no longer deemed a concern. As above, create a file named `lower-risk-policy.rego` and add the following content:
+
+```rego
+package cloudsmith
+
+cvss_score := 7
+epss_score := 0.5
+target_package_name := "my-pkg"
+
+default match := false
+
+match if {
+        count(reason) != 0
+}
+
+reason contains msg if {
+    input.v0["package"]["name"] == target_package_name
+
+    some scan in input.v0.security_scan
+    some vulnerability in scan.Vulnerabilities
+
+    some val in vulnerability.CVSS
+    val.V3Score < cvss_score
+
+    some vuln in input.v0.vulnerabilities
+    vuln.epss.score < epss_score
+
+    msg := sprintf(
+            " Package untagged as not risky: %v ",
+            [input.v0["package"].name],
+    )
+}
+```
+
+Then create our correctly formatted JSON payload:
+
+```shell
+escaped_policy=$(jq -Rs . < lower-risk-policy.rego)
+
+cat <<EOF > lower-risk-payload.json
+{
+  "name": "untag_low_risk_packages",
+  "description": "Policy to untag packages if they drop below a certain vulnerability risk threshold",
+  "rego": $escaped_policy,
+  "enabled": false,
+  "is_terminal": false,
+  "precedence": 1
+}
+EOF
+
+```
+
+And then create our second policy using the API:
+
+```shell
+RESPONSE=$(curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d @lower-risk-payload.json
+)
+
+POLICY_SLUG=$(echo $RESPONSE | jq -r '.slug_perm')
+```
+
+And lastly our action to remove the tag:
+
+```shell
+curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/${POLICY_SLUG}/actions/" \
+  -H "Content-Type: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" \
+  -d '{
+    "action_type": "RemovePackageTags",
+    "precedence": 1,
+    "tags": ["risky"]
+  }'
+```
+
+At this point you could test this against the simulator as described above if you wish.
+
+## Step 5. How our new policy will interact with packages
+
+At this point, you could enable this second policy as described above and if the EPSS and CVSS scores for your
+package drop it will remove the tag. 
+
+### A note on precedence
+
+If you look at the policies and actions we created above, you'll see that they come with a `precedence` value. This
+determines which policy or action runs first, if more than one should apply. In the case of actions, it is only 
+relevant when a policy has more than one action. 
