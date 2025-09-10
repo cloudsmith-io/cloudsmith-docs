@@ -5,10 +5,12 @@ import retention_rules from './images/retention-rules/retention_rules.png';
 # Retention Rules
 
 Cloudsmith retention rules automate artifact data management by deleting packages based on different criteria:
-- the number of packages (count).
-- the size of packages (bytes).
-- the number of days (time).
+- **Limit by days**: the number of days of packages to retain, based on its **upload date**.
+- **Limit by count**: the maximum number of packages to retain.
+- **Limit by size**: the maximum size of packages to retain.
 - a [search query](/artifact-management/search-filter-sort-packages) to filter packages.
+
+This conditions can also be applied to [groups](#groupings) of packages by name, by format, or by package type.
 
 Each repository has one configurable retention rule. Hence, packages that do not meet the defined values will be deleted.
 Retention rules can be configured via the web app, via the API, or via the Terraform provider.
@@ -17,26 +19,18 @@ Jump to the [Configuration](#configuration-parameters) section to learn more abo
 
 ## Triggers
 
-Retention rules are applied when a new package is synchronized.
-They can also be triggered by resyncing the most recently uploaded package.
+The are two ways to trigger retention rules:
+- when a new package is synchronized.
+- when the latest uploaded package is resynced.
 
-<Note variant="note">
-Note that one package could have 1000 days, and the 90 days retention still wouldn't activate.
-Only after uploading a new package would the 1000 day package be deleted.
-</Note>
-
-Cloudsmith determines which packages to delete by using a cutoff date.
-The cutoff date is calculated by subtracting the retention days from the uploaded date of the resynced package.
-
-For example: if the newest package was uploaded on June 10th and the retention period is 4 days, the cutoff date is June 6th. Any packages uploaded before June 6th are eligible for deletion.
-
-<Note variant="note" headline="Upload date">
-Although a re-sync process will re-evaluate retention rules, it won't alter the upload date on a package.
+<Note variant="note" headline="When retention rules are NOT applied">
+Retention rules are evaluated against packages only when the any of the above triggers occur.
+This means, at a given moment, you might have packages that do not comply with your retention rules, but they won't be deleted until any of the trigger conditions are meet.
 </Note>
 
 ## Enabling Retention Rules
 
-Retention Rules for a repository are disabled by default. Go to the Setting of the repository and, in the left menu, click in **Retention Rules**. Then, click the "Enable" button in the yellow banner.
+Retention Rules for a repository are disabled by default. Go to the **Settings** of the repository and, in the left menu, click in **Retention Rules**. Then, click the **"Enable"** button in the banner.
 
 <BlockImage src={retention_rules} alt=""></BlockImage>
 
@@ -53,17 +47,23 @@ curl --request PATCH \
 
 | Name | API | Description |
 |----------|----------|----------|
-| Enabled?  | `retention_enabled`     | Activates Retention Rules for the repository.     |      
-| Limit by days  | `retention_days_limit`     | The number of days of packages to retain. Packages stored in the repository an amount of days bigger than `retention_days_limit` are selected for deletion. Set to zero to remove this criteria from the rules to apply.      |      
-| Limit by count    | `retention_count_limit`     | The maximum number of packages to retain. Set to zero to remove this criteria from the rules to apply.     |      
-| Limit by size    | `retention_size_limit`     | The maximum total size (in bytes) of packages to retain. Set to zero to remove this criteria from the rules to apply.     |      
-| Group packages by Name |   `retention_group_by_name` | If checked, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a limit of 1 and packages `PkgA 1.0`, `PkgB 1.0` and `PkgB 1.1` are uploaded; only `PkgB 1.0` is deleted because there are two (2) `PkgBs` and one (1) `PkgA`.        |
-| Group packages by Format | `retention_group_by_format` | If checked, retention will apply to packages by package formats rather than across all package formats. For example, when retaining by a limit of 1 and packages `PythonPkg 1.0` and `RubyPkg 1.0` are uploaded, no one is deleted because they are different formats.         |
-| Group packages by Type |  `retention_group_by_package_type` | If checked, retention will apply to packages by package type (e.g. by binary, by source, etc.), rather than across all package types for one or more formats. For example, when retaining by a limit of 1 and packages `DebPackage 1.0` and `DebSourcePackage 1.0` are uploaded, no packages are deleted because they are different package types, binary and source respectively.         |    
-| Query String   |  `retention_package_query_string` | A package search expression which, if provided, filters the packages to be deleted. For example, a search expression of `name:foo` will result in only packages called `foo` being deleted, or a search expression of `tag:~latest` will prevent any packages tagged `latest` from being deleted. Refer to the Cloudsmith documentation for package query syntax.  |         
+| Enabled?  | `retention_enabled`     | Activates Retention Rules for the repository.     |
+| Limit by days  | `retention_days_limit`     | The number of days of packages to retain. Packages stored in the repository for an amount of days bigger than `retention_days_limit` are selected for deletion. Set to zero to remove this limit from the rules to apply.      |
+| Limit by count    | `retention_count_limit`     | The maximum number of packages to retain. Set to zero to remove this limit from the rules to apply.     |
+| Limit by size    | `retention_size_limit`     | The maximum total size (in GB) of packages to retain. Set to zero to remove this limit from the rules to apply.     |
+| Group packages by Name |   `retention_group_by_name` | If enabled, retention will apply to **packages grouped by name** rather than to all packages. For example, when this option is enabled with a `retention_count_limit` set to `1`,
+
+
+ and packages `PkgA 1.0`, `PkgB 1.0` and `PkgB 1.1` are uploaded; only `PkgB 1.0` is deleted because there are two (2) `PkgBs` and one (1) `PkgA`.        |
+
+
+
+| Group packages by Format | `retention_group_by_format` | If enabled, retention will apply to packages by package formats rather than across all package formats. For example, when retaining by a limit of 1 and packages `PythonPkg 1.0` and `RubyPkg 1.0` are uploaded, no one is deleted because they are different formats.         |
+| Group packages by Type |  `retention_group_by_package_type` | If enabled, retention will apply to packages by package type (e.g. by binary, by source, etc.), rather than across all package types for one or more formats. For example, when retaining by a limit of 1 and packages `DebPackage 1.0` and `DebSourcePackage 1.0` are uploaded, no packages are deleted because they are different package types, binary and source respectively.         |    
+| Query String   |  `retention_package_query_string` | A package search expression which, if provided, filters the packages to be deleted. For example, a search expression of `name:foo` will result in only packages called `foo` being deleted, or a search expression of `tag:~latest` will prevent any packages tagged `latest` from being deleted. Refer to the Cloudsmith documentation for package query syntax.  |   
 
 <Note variant="note" headline="UI vs. API fields">
-From the UI, use the sliders to configure rule values, and finally click the green "Update" button to apply it.
+From the UI, use the sliders to configure rule values, and finally click the "Update" button to apply it.
 </Note>
 
 ### Configuration parameters via API
@@ -74,21 +74,31 @@ As a reference, use `GET` to consult an existing a retention rule or `PATCH` to 
 
 ## Other considerations
 
-When multiple parameters of a retention rule are enabled (it's value is set higher than zero) and a package meets none or any of the conditions `(condition1 OR condition2 OR condition3)` for those parameters, the package will be kept.
+When multiple parameters of a retention rule are enabled and a package meets at least one of the conditions `(condition1 OR condition2 OR condition3)`, the package will be kept.
 This means that, in order for a package to be deleted, it needs to meet **all** of the conditions `(condition1 AND condition2 AND condition3)` in the retention rule, and not be excluded by the [`retention_count_limit`](#limiting-the-number-of-packages-to-delete) parameter when all packages to delete are [ordered](#deletion-order).
 
 ### Limiting the number of packages to delete
-The **Limit by count** option defines the number of packages to keep. For example, if we set its value to `4` and only a total of `3` packages meet the criteria, then `0` packages will be deleted. But if `5` packages meet the criteria, then `1` will be deleted and `4` will be keep in the repository.
+
+The **Limit by count** option defines the number of packages to keep. For example, if we set its value to `4` and there are only a total of `3` packages, then `0` packages will be deleted. But if there are `5` packages, then `1` will be deleted and `4` will be keep in the repository.
 
 This value applies per group. So, the maximum total number of packages to kept will always be the result of `retention_count_limit` multiplied by the number of groups.
 
 ### Deletion order
-Packages are deleted based on the date pushed, starting with the oldest and being newest packages the latest to be deleted until a total of `TOTAL_PACKAGES - retention_count_limit` packages have been deleted.
+
+When packages are selected for deletion, they are ordered by upload date in ascending order (oldest first), until a total of `TOTAL_PACKAGES - retention_count_limit` packages have been deleted.
 
 ### Groupings
-If grouping is selected, it applies to the rules to each "grouping". Otherwise, it's across all packages within a repository.
 
-For example, if “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and packages `PkgA 1.0`, `PkgB 1.0` and `PkgB 1.1` are uploaded; only `PkgB 1.0` is deleted because there are two (2) `PkgBs` and one (1) `PkgA`. Or, If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and packages `PythonPkg 1.0` and `RubyPkg 1.0` are uploaded, no packages are deleted because they are different formats
+If grouping is selected, it applies the conditions to each "grouping". Otherwise, it's across all packages within a repository.
+
+The next grouping options are available:
+- **Group Packages by Name**: retention will apply to groups of packages by name rather than all packages.
+- **Group Packages by Format**: retention will apply to packages within package types rather than across all package formats.
+- **Group Packages by Type**: retention will apply to packages by package type (e.g. by binary, by source, etc.), rather than across all package types for one or more formats.
+
+For example, if “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and packages `PkgA 1.0`, `PkgB 1.0` and `PkgB 1.1` are uploaded; only `PkgB 1.0` is deleted because there are two (2) `PkgBs` and one (1) `PkgA`.
+
+Or, If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and packages `PythonPkg 1.0` and `RubyPkg 1.0` are uploaded, no packages are deleted because they are different formats
 
 ## Examples
 
