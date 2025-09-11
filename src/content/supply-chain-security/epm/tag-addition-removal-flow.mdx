@@ -1,6 +1,6 @@
 import { BlockImage, Note } from '@/components'
 
-# Tag Addition and Removal
+## Tag Addition and Removal
 
 _An example workflow for adding and removing tags with Enterprise Policy Management._
 
@@ -23,7 +23,7 @@ You must have administrator permissions within your Workspace to create or updat
 ## Step 1: Creating policy matching logic with rego
 
 First up, we'll create a policy to match packages which exceed the vulnerability risk threshold we feel comfortable with. 
-Lets create that as follows in Rego. Create a file named `exceeds-risk-policy.rego` and add the following content:
+Lets create that, as follows, in Rego. Create a file named `exceeds-risk-policy.rego` and add the following content:
 
 ```rego
 package cloudsmith
@@ -35,7 +35,7 @@ target_package_name := "my-pkg"
 default match := false
 
 match if {
-        count(reason) != 0
+    count(reason) != 0
 }
 
 reason contains msg if {
@@ -45,10 +45,10 @@ reason contains msg if {
     some vulnerability in scan.Vulnerabilities
 
     some val in vulnerability.CVSS
-    val.V3Score < cvss_score
+    val.V3Score > cvss_score
 
     some vuln in input.v0.vulnerabilities
-    vuln.epss.score < epss_score
+    vuln.epss.score > epss_score
 
     msg := sprintf(
         " Package tagged as risky: %v ",
@@ -153,7 +153,7 @@ taken:
     "policy_output": {
         "match": true,
         "reason": [
-            " Package: my-pkg "
+            "  Package tagged as risky: my-pkg"
         ],
         "cvss_score": 7,
         "epss_score": 0.5,
@@ -166,7 +166,7 @@ taken:
         "updated_at": "2025-09-10T15:35:59.970087Z",
         "effect": "Added package tags '['risky']'.",
         "tags": [
-            "risky",
+            "risky"
         ],
         "action_type": "AddPackageTags"
     }
@@ -206,7 +206,7 @@ target_package_name := "my-pkg"
 default match := false
 
 match if {
-        count(reason) != 0
+    count(reason) != 0
 }
 
 reason contains msg if {
@@ -222,8 +222,8 @@ reason contains msg if {
     vuln.epss.score < epss_score
 
     msg := sprintf(
-            " Package untagged as not risky: %v ",
-            [input.v0["package"].name],
+        " Package untagged as not risky: %v ",
+        [input.v0["package"].name],
     )
 }
 ```
@@ -273,7 +273,7 @@ curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/poli
 
 At this point you could test this against the simulator as described above if you wish.
 
-## Step 5. How our new policy will interact with packages
+## Step 6. How our new policy will interact with packages
 
 At this point, you could enable this second policy as described above and if the EPSS and CVSS scores for your
 package drop it will remove the tag. 
