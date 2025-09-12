@@ -73,3 +73,9 @@ pnpm schema
 - [ESLint](https://eslint.org/)
 - [Stylelint](https://stylelint.io/)
 - [Prettier](https://prettier.io/)
+
+## License
+
+The Cloudsmith product documentation in the `src/content` folder and subfolders are licensed under a [CC-BY license](./LICENSE).
+
+All other code in this repository is licensed under the [MIT license](./LICENSE-CODE).
