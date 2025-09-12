@@ -30,7 +30,7 @@ package cloudsmith
 
 cvss_score := 7
 epss_score := 0.5
-target_package_name := "my-pkg"
+package := "my-pkg"
 
 default match := false
 
@@ -39,7 +39,7 @@ match if {
 }
 
 reason contains msg if {
-    input.v0["package"]["name"] == target_package_name
+    input.v0["package"]["name"] == package
 
     some vulnerability in input.v0.vulnerabilities
 
@@ -199,7 +199,6 @@ package cloudsmith
 
 cvss_score := 7
 epss_score := 0.5
-target_package_name := "my-pkg"
 
 default match := false
 
@@ -208,7 +207,7 @@ match if {
 }
 
 reason contains msg if {
-    input.v0["package"]["name"] == target_package_name
+    input.v0["package"]["name"] == "my-pkg"
 
     some vulnerability in input.v0.vulnerabilities
 
