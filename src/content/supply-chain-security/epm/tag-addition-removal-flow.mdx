@@ -41,14 +41,12 @@ match if {
 reason contains msg if {
     input.v0["package"]["name"] == target_package_name
 
-    some scan in input.v0.security_scan
-    some vulnerability in scan.Vulnerabilities
+    some vulnerability in input.v0.vulnerabilities
 
-    some val in vulnerability.CVSS
-    val.V3Score > cvss_score
+    vulnerability.epss.score > epss_score
 
-    some vuln in input.v0.vulnerabilities
-    vuln.epss.score > epss_score
+    some source, cvss_info in vulnerability.cvss
+    cvss_info.V3Score > cvss_score
 
     msg := sprintf(
         " Package tagged as risky: %v ",
@@ -212,14 +210,12 @@ match if {
 reason contains msg if {
     input.v0["package"]["name"] == target_package_name
 
-    some scan in input.v0.security_scan
-    some vulnerability in scan.Vulnerabilities
+    some vulnerability in input.v0.vulnerabilities
 
-    some val in vulnerability.CVSS
-    val.V3Score < cvss_score
+    vulnerability.epss.score < epss_score
 
-    some vuln in input.v0.vulnerabilities
-    vuln.epss.score < epss_score
+    some source, cvss_info in vulnerability.cvss
+    cvss_info.V3Score < cvss_score
 
     msg := sprintf(
         " Package untagged as not risky: %v ",
