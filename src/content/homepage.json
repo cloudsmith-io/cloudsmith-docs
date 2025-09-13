@@ -100,7 +100,7 @@
         {
           "title": "Adding users",
           "description": "Cloudsmith helps people work together. Here's how to invite new members.",
-          "href": "/accounts-and-teams/users/",
+          "href": "/accounts-and-teams/user-accounts",
           "linkText": "Read the doc",
           "icon": "homepage/documentation",
           "size": "s",
