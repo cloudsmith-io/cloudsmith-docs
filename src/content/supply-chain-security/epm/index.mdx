@@ -1,18 +1,18 @@
 import { BlockImage, Note } from '@/components'
 
-## Enterprise Policy Management
+## Enterprise Policy Manager
 
 <Note variant="note" headline="Early Access">
-Enterprise Policy Management is in early access; if you would like to try this feature, please [Contact Us](https://cloudsmith.com/company/contact-us).
+Enterprise Policy Manager is in early access; if you would like to try this feature, please [Contact Us](https://cloudsmith.com/company/contact-us).
 </Note>
 
-Enterprise policy management provides a way for Workspaces (previously known as Organizations) to define policies that can match and act on packages within Cloudsmith. Enterprise policy management is implemented on top of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), a general-purpose and widely adopted policy evaluation engine. OPA provides a high-level declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) to define policies as code.
+Enterprise Policy Manager, or EPM, provides a way for Workspaces (previously known as Organizations) to define policies that can match and act on packages within Cloudsmith. EPM is implemented on top of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), a general-purpose and widely adopted policy evaluation engine. OPA provides a high-level declarative language called [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) to define policies as code.
 
-### OPA and Enterprise Policy Management
+### OPA and EPM
 
-Enterprise policy management allows you to create an OPA policy that triggers when certain events occur within Cloudsmith, ensuring your policies are consistently enforced. When a policy is triggered, Cloudsmith provides the policy evaluation engine with package metadata (input data). Through the rego-based policies, a set of actions associated with the policy (called policy actions) act on the package if the policy is matched.
+EPM allows you to create an OPA policy that triggers when certain events occur within Cloudsmith, ensuring your policies are consistently enforced. When a policy is triggered, Cloudsmith provides the policy evaluation engine with package metadata (input data). Through the rego-based policies, a set of actions associated with the policy (called policy actions) act on the package if the policy is matched.
 
-At a high level, the Enterprise policy management policy evaluation workflow is as follows:
+At a high level, the EPM policy evaluation workflow is as follows:
 
 1. An event within Cloudsmith triggers a policy evaluation (for example, completing a package security scan).
 2. Package metadata and your rego-based policy are provided to the policy evaluation engine.
