@@ -1,27 +1,50 @@
 import { Note, BlockImage } from '@/components'
-import imge0b23d4_Group_2554 from './images/openid-connect/e0b23d4-Group_2554.png'
-import img_annotated_openidconnect from './images/openid-connect/2065557e5fdb762669dd32fa648efab1def4ff7a918e3e728674ca97099f6a04-annotated-openidconnect.png'
-import img_provider_settings from './images/openid-connect/e031ac566d5d50d46982aebe44f8b30ce6ce4fba647aad0678ac3466414dde82-provider-settings.png'
+import imge0b23d4_Group_2554 from './../images/openid-connect/e0b23d4-Group_2554.png'
+import img_annotated_openidconnect from './../images/openid-connect/2065557e5fdb762669dd32fa648efab1def4ff7a918e3e728674ca97099f6a04-annotated-openidconnect.png'
+import img_provider_settings from './../images/openid-connect/e031ac566d5d50d46982aebe44f8b30ce6ce4fba647aad0678ac3466414dde82-provider-settings.png'
 
-# OpenID Connect
+# OpenID Connect (OIDC) Authentication
+
+*OpenID Connect is an interoperable authentication protocol based on the OAuth 2.0 framework of specifications (IETF RFC 6749 and 6750). It simplifies the way to verify the identity of users based on the authentication performed by an Authorization Server and to obtain user profile information in an interoperable and REST-like manner.*
+
+---
+
+Cloudsmith supports [OpenID Connect (OIDC)](https://openid.net/connect/) authentication to allow users to authenticate to Cloudsmith programmatically without needing to manage long-lived API keys or tokens. Additionally, OIDC allows for fine-grained access control by mapping claims from the OIDC provider to specific Cloudsmith service accounts using dynamic claim mapping.
+
+OpenID Connect can be configured via:
+- The Cloudsmith web app.
+- The Cloudsmith API.
+- The Terraform provider.
+
+While this is not an exhaustive list, Cloudsmith has tested and verified OIDC integration with the following providers:
+- [GitHub Actions](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
+- [CircleCI](https://circleci.com/docs/openid-connect-tokens/)
+- [GitLab](https://docs.gitlab.com/ee/ci/yaml/index.html#id_tokens)
+- [Bitbucket Pipelines](https://support.atlassian.com/bitbucket-cloud/docs/integrate-pipelines-with-resource-servers-using-oidc/)
+
+Follow the links above for provider-specific documentation and examples.
 
 ## Glossary
 
 | Term                               | Description                                                                                                                                                                                                           |
 | :----------------------------------| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **OpenID Token**                   | A JWT token with [a specified format](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) that Cloudsmith receives from an OIDC provider which we use to enable users to authenticate as a service account |
-| **OpenID Connect (OIDC) Provider** | The OIDC Token provider (GitHub Actions, CircleCI, etc)                                                                                                                                                               |
-| **Claims**                         | Contained within the payload of the OpenID Token, used to verify the authenticity and restrict access of specific Provider requests to specific service accounts                                                      |
-| **ACCOUNT**                        | Your Cloudsmith Organization slug/identifier                                                                                                                                                                          |
+| **OpenID Connect (OIDC) Provider** | The OIDC Token provider (GitHub Actions, CircleCI, etc)                                                                                                                   |
+| **Claims**                         | Contained within the payload of the OpenID Token, used to verify the authenticity and restrict access of specific Provider requests to specific service accounts        |
+| **Mapping Claim**                  | Specifies which claim will be used when dynamic mapping of OIDC claims to service accounts is enabled.        |
+| **Claim to Service Mapping**       | Defines the mapping of claim values to service account slugs.        |
+| **Service Account**                | Non-human identity used to authenticate and authorize access to your Cloudsmith resources and APIs programmatically  |
+| **ACCOUNT**                        | Your Cloudsmith Organization slug/identifier                                                                                  |
 
-## How OIDC Works with an OIDC Identity Provider and Cloudsmith
+## How OIDC Works
 
-The following diagram gives an overview of how an OIDC provider integrates with your workflows and Cloudsmith. 
+The following diagram gives an overview of how an OIDC provider integrates with your workflows and Cloudsmith. The next componentsa are involved:
 
-- Auth Server: OIDC provider
-- Client: Service requesting authentication
-- Implicit trust between Service and Auth Server is necessary to allow seamless OIDC token exchange and verification e.g. GitHub Actions OIDC Server (Auth Server) and its GitHub Actions Public Workers (Client).
-- Cloudsmith creates an OIDC trust relationship between a Cloudsmith service account and a Client that needs access to Cloudsmith.
+- **Cloudsmith**: creates an OIDC trust relationship between a Cloudsmith service account and a **Client** that needs access to Cloudsmith.
+- **Auth Server**: the OIDC provider (for example, the GitHub Actions OIDC Server) that issues OpenID Tokens to the **Client**.
+- **Client**: the Service requesting authentication (an application running in a worker in GitHub Actions, for example).
+
+Implicit trust between the Service and the Authentication Server is necessary to allow seamless OIDC token exchange and verification.
 
 <BlockImage src={imge0b23d4_Group_2554} alt=""></BlockImage>
 
@@ -33,24 +56,25 @@ The following diagram gives an overview of how an OIDC provider integrates with 
 4. **Verify token**: Cloudsmith verifies the JWT token with the auth service to ensure its authenticity and validity. This step includes verifying claims.
 5. **Return new token**: Upon successful validation, Cloudsmith issues a short-lived access token to the client, granting access to Cloudsmith's resources for around 90 minutes to cover the duration of the job.
 
-## OIDC Settings
+## Configuration via UI
 
-OIDC Provider Settings for your organization are configured at: 
+OIDC Provider Settings for your workspace can be accessed and configured browsing to your workspace settings, and then selecting the **Authentication** option in the left menu. Alternatively, use the next link replacing `WORKSPACE` with your workspace name:
 
-`https://app.cloudsmith.com/{ACCOUNT}/settings/authentication/openid` 
+`https://app.cloudsmith.com/{WORKSPACE}/settings/authentication/openid` 
 
 <BlockImage src={img_annotated_openidconnect} alt=""></BlockImage>
 
-
-You must have the Manager or Owner role in your Cloudsmith organization to configure OIDC Provider Settings. 
-
-<Note variant="note">
-  OIDC Provider Settings can only be configured if there's at least one [Service Account](/accounts-and-teams/service-accounts) in your organization
+<Note variant="note" headline="Permissions required">
+You must have the Manager or Owner role in your Cloudsmith organization to configure OIDC Provider Settings.
 </Note>
 
 Click "Create Provider Settings" to open the **Create Provider Settings** form:
 
 <BlockImage src={img_provider_settings} alt=""></BlockImage>
+
+<Note variant="note" headline="Service Accounts required">
+  OIDC Provider Settings can only be configured if there's at least one [Service Account](/accounts-and-teams/service-accounts) in your organization.
+</Note>
 
 To configure a provider, you must provide:
 
@@ -63,6 +87,17 @@ To configure a provider, you must provide:
 
 Changes will be applied immediately.
 
+<Note variant="note" headline="Dynamic Claim Mapping">
+Please, note that configuration of Dynamic Claim Mapping is only available via the API and Terraform provider.
+</Note>
+
+## Configuration via API
+
+
+
+## Configuration via Terraform
+
+                                                                                                                                                                                                                                                                                                 
 ## Provider Documentation
 
 ### Bitbucket Pipelines
