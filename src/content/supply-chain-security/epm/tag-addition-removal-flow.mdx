@@ -2,12 +2,12 @@ import { BlockImage, Note } from '@/components'
 
 ## Tag Addition and Removal
 
-_An example workflow for adding and removing tags with Enterprise Policy Management._
+_An example workflow for adding and removing tags with Enterprise Policy Manager._
 
 ---
 
 This example workflow will guide you through the process of adding and removing tags from packages 
-using Enterprise Policy Management policies and actions. Using this guide, you will:
+using Enterprise Policy Manager policies and actions. Using this guide, you will:
 
 
 - Create two policies and two associated actions. Our policies will check the maximum severity and exploitability of any vulnerabilities associated with a package
@@ -130,7 +130,7 @@ curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/poli
 
 ## Step 3. Testing our policy with the simulator
 
-We can test our policy using the Enterprise Policy Management policy simulator by passing the `POLICY_SLUG` to
+We can test our policy using the Enterprise Policy Manager policy simulator by passing the `POLICY_SLUG` to
 the simulator API endpoint as follows:
 
 ```shell

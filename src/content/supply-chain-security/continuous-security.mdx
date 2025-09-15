@@ -5,7 +5,7 @@ import { Note } from '@/components'
 Continuous Security is a feature that provides an hourly feed of vulnerability and malicious package data from multiple sources (see [refresh intervals](#data-sources) for each source). Whenever vulnerabilities or malicious packages are published or modified, we match them to artifacts in your Cloudsmith repositories. This enables faster identification of affected artifacts compared to scheduled or on-demand [vulnerability scanning](./vulnerability-scanning).
 
 <Note variant="note" headline="Early Access">
-Continuous Security is in Early Access (EA) as part of the Cloudsmith's Enterprise Policy Management feature.
+Continuous Security is in Early Access (EA) as part of the Cloudsmith's Enterprise Policy Manager feature.
 </Note>
 
 ## Vulnerability Scanning vs. Continuous Security
@@ -17,12 +17,12 @@ Cloudsmith [scans](./vulnerability-scanning) artifacts as they are introduced in
 ### Continuous Security
 
 <Note variant="note" headline="EPM Required">
-Continuous Security is only available for Cloudsmith workspaces where Enterprise Policy Management (EPM) has been enabled.
+Continuous Security is only available for Cloudsmith workspaces where Enterprise Policy Manager (EPM) has been enabled.
 </Note>
 
 Continuous Security matches the software artifacts in your Repository with vulnerability data from several sources. Unlike Vulnerability Scanning, Continuous Security responds automatically in real time as vulnerabilities are reported or modified in those sources, with no manual effort required. Whenever a threat that affects an artifact in your workspace is detected, Continuous Security triggers EPM policy evaluation, with the vulnerability data included in the policy input.
 
-For more information about using EPM to address vulnerabilities identified by Continuous Security, see [Getting Started with Enterprise Policy Management](./epm/getting-started) and [Rego Recipes](./epm/rego).
+For more information about using EPM to address vulnerabilities identified by Continuous Security, see [Getting Started with Enterprise Policy Manager](./epm/getting-started) and [Rego Recipes](./epm/rego).
 
 Details of the specific vulnerability data available via Continuous Security are available in our API documentation under the vulnerabilities object in the [PolicyInputV0 schema](https://api.cloudsmith.io/v2/swagger/).
 
