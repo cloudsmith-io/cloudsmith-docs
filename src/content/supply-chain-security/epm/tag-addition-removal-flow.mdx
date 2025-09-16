@@ -22,7 +22,7 @@ You must have administrator permissions within your Workspace to create or updat
 
 ## Step 1: Creating policy matching logic with rego
 
-First up, we'll create a policy to match packages which exceed the vulnerability risk threshold we feel comfortable with. 
+we'll create a policy to match any package named my-pkg which exceeds the vulnerability risk threshold we feel comfortable with. 
 Let's create that, as follows, in Rego. Create a file named `exceeds-risk-policy.rego` and add the following content:
 
 ```rego
@@ -84,8 +84,8 @@ cat <<EOF > exceeds-risk-payload.json
   "description": "Policy to tag packages with high severity/EPSS scores as risky",
   "rego": $escaped_policy,
   "enabled": false,
-  "is_terminal": false,
-  "precedence": 1
+  "is_terminal": true,
+  "precedence": 5
 }
 EOF
 
@@ -114,7 +114,7 @@ A successful request will return an HTTP `201` response, indicating the policy w
 
 ### Adding an action to tag a package to our policy
 
-Similarly, the following curl command can be used to create an action to tag a matched package. This request specifies the required `action_type`, the relevant tag in the `tags` array, and a `precedence` value of `32767`.
+Similarly, the following curl command can be used to create an action to tag a matched package. This request specifies the required `action_type`, the relevant tag in the `tags` array, and a `precedence` value of `1`.
 
 ```shell
 curl -X POST "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/${POLICY_SLUG}/actions/" \
@@ -143,7 +143,7 @@ echo $RESPONSE | jq  -r '.results[] | .policy_output, .actions[]'
 ```
 
 We can inspect the output of the simulator to see if our policy matched any packages, and what actions it would have
-taken:
+taken. Note that it includes the `cvss_score` and `epss_score` values as we checked against those in our policy:
 
 ```json
 
@@ -158,7 +158,7 @@ taken:
         "target_package_name": "my-pkg"
 },
     "actions": {
-        "precedence": 0,
+        "precedence": 1,
         "slug_perm": "<some slug id>",
         "created_at": "2025-09-10T15:35:59.970073Z",
         "updated_at": "2025-09-10T15:35:59.970087Z",
@@ -223,7 +223,8 @@ reason contains msg if {
 }
 ```
 
-Then create our correctly formatted JSON payload:
+Then create our correctly formatted JSON payload. Note that we've provided a higher precedence value than our first policy. this
+ensures that our removal policy will take precedence once it's created. 
 
 ```shell
 escaped_policy=$(jq -Rs . < lower-risk-policy.rego)
@@ -234,7 +235,7 @@ cat <<EOF > lower-risk-payload.json
   "description": "Policy to untag packages if they drop below a certain vulnerability risk threshold",
   "rego": $escaped_policy,
   "enabled": false,
-  "is_terminal": false,
+  "is_terminal": true,
   "precedence": 1
 }
 EOF
