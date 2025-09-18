@@ -184,7 +184,7 @@ You will then be prompted to complete the SSO login process via your web browser
 To authenticate in environments without a web browser, such as a remote terminal session, set the CLOUDSMITH_API_KEY environment variable. You can set it for your current session like this:
 
 ```bash
-📘 export CLOUDSMITH_API_KEY="your-api-key-here"
+export CLOUDSMITH_API_KEY="your-api-key-here"
 ```
 </Note>
 
@@ -276,6 +276,36 @@ api_key=<YOUR_API_KEY>
 #  * CLOUDSMITH_PROFILE=your-profile-name (as an env variable)
 [profile:your-profile-name]
 ```
+
+## Usage: commands available
+
+Here you can find an overview of the commands available in the CLI. For more detailed information, please follow each of the links to the relevant documentation pages.
+
+| Command | Description | Example |
+| :--- | :--- | :--- |
+| [`authenticate \| auth`](/developer-tools/cli#getting-your-api-key) | Authenticate to your Cloudsmith workspace. | `cloudsmith auth my-workspace` |
+| [`check`](https://docs.cloudsmith.com/api/rate-limits) | Check rate limits and service status. | `cloudsmith check rates\|limits` |
+| [`copy \| cp`](/artifact-management/copy-a-package) | Copy a package to another repository. | `cloudsmith cp workspace/repo/pkg-id workspace/other-repo` |
+| [`delete \| rm`](/artifact-management/delete-a-package) | Delete a package from a repository. | `cloudsmith rm workspace/repo/pkg-id` |
+| [`dependencies \| deps`](/artifact-management) | List direct (non-transitive) dependencies for a package. | `cloudsmith deps workspace/repo/pkg-id` |
+| [`docs`](https://docs.cloudsmith.com) | Launch the documentation website in your browser. | `cloudsmith docs` |
+| [`entitlements \| ents`](/software-distribution/entitlement-tokens) | Manage the entitlements for a repository. | `cloudsmith ents \[create\|delete\|list\refresh\|restrict\|sync\|update\] workspace/repo` |
+| [`help`](https://docs.cloudsmith.com/docs/cli/commands/help) | List commands available and how to invoque them. | `cloudsmith help \[command\]` |
+| [`list \| ls`](/artifact-management) | List distros, packages, repos and entitlements. | `cloudsmith ls packages workspace/repo` |
+| [`login \| token`](/developer-tools/cli#getting-your-api-key) | Retrieve your API authentication token/key via login. | `cloudsmith login` |
+| [`metrics`](/logs-and-observability/client-logs) | Retrieve usage metrics associated with packages or entitlement tokens. | `cloudsmith metrics workspace/repo` |
+| [`move \| mv \| promote`](/artifact-management/package-move) | Move (promote) a package to another repo. | `cloudsmith mv workspace/repo/pkg-id workspace/other-repo` |
+| [`policy`](/policy-management) | Manage (non-EPM) policies for a workspace. | `cloudsmith policy list my-org` |
+| [`push \| upload \| deploy`](/artifact-management/package-upload) | Push (upload) a new package to a repository. | `cloudsmith push deb workspace/repo package.deb` |
+| [`quarantine \| block`](/artifact-management/package-quarantine) | Manage quarantined packages in a repository. | `cloudsmith quarantine add workspace/repo/pkg-id` |
+| [`quota`](/logs-and-observability/usage) | Display Quota limits and history for a workspace. | `cloudsmith quota my-org` |
+| [`repositories \| repos`](/repositories) | Manage Repositories. | `cloudsmith repos ls workspace` |
+| [`resync`](/artifact-management/resync-a-package) | Resynchronise a package in a repository. | `cloudsmith resync workspace/repo/pkg-id` |
+| [`status`](/artifact-management) | Get the synchronisation status for a package. | `cloudsmith status workspace/repo/pkg-id` |
+| [`tags \| tag`](/artifact-management/package-tags) | Manage the tags for a package in a repository. | `cloudsmith tags add workspace/repo/pkg-id latest` |
+| [`tokens`](/accounts-and-teams/api-key#via-the-cloudsmith-cli) | Manage your user API tokens. | `cloudsmith tokens create --name "my-new-token"` |
+| [`upstream`](/repositories/upstreams) | Manage upstreams for a repository. | `cloudsmith upstream list workspace/repo` |
+| [`whoami`](/accounts-and-teams) | Retrieve your current authentication status. | `cloudsmith whoami` |
 
 ## CLI Scripting
 
