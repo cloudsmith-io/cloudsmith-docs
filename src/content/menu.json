@@ -603,6 +603,10 @@
             "path": "/integrations/integrating-with-semaphore-ci"
           },
           {
+            "title": "Slack",
+            "path": "/integrations/integrating-with-slack"
+          },
+          {
             "title": "Terraform Provider",
             "path": "/integrations/integrating-with-terraform"
           },
