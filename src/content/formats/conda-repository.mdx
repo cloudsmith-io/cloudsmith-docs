@@ -224,7 +224,7 @@ conda search your-package
 
 In certain scenarios, Conda package metadata may need to be patched. Patching is often required when a package dependency is updated, and backwards compatibility is broken, as in the following example:
 
-- `package-a`, version `3.5.0` depends on `package-b` with a version constraint of `pack dage-b >= 2.0.0`.
+- `package-a`, version `3.5.0` depends on `package-b` with a version constraint of `package-b >= 2.0.0`.
 - A new major version of `package-b` is released (`3.0.0`). This introduces breaking changes, making it incompatible with all previous versions of `package-a`.
 
 Repodata patching can be used to resolve the above scenario. For example, the dependency constraint can be amended (patched) to the more specific: `package-b >= 2.0.0, <3`. This approach does not alter the original package artifacts, and means no requirement is placed on package maintainers to re-release corrected versions of any existing (broken) packages.
