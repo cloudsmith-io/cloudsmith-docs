@@ -214,7 +214,7 @@ Once configured, you can install packages from your channel using the `conda` CL
 conda install your-package=1.2.3
 ```
 
-Or you can search for packages via blended index (multiple upstreams configured in your Cloudsmith repository) for any package:
+Or you can search for packages via blended channels (multiple upstreams configured in your Cloudsmith repository) for any package:
 
 ```shell
 conda search your-package
@@ -224,7 +224,7 @@ conda search your-package
 
 In certain scenarios, Conda package metadata may need to be patched. Patching is often required when a package dependency is updated, and backwards compatibility is broken, as in the following example:
 
-- `package-a`, version `3.5.0` depends on `package-b` with a version constraint of `package-b >= 2.0.0`.
+- `package-a`, version `3.5.0` depends on `package-b` with a version constraint of `pack dage-b >= 2.0.0`.
 - A new major version of `package-b` is released (`3.0.0`). This introduces breaking changes, making it incompatible with all previous versions of `package-a`.
 
 Repodata patching can be used to resolve the above scenario. For example, the dependency constraint can be amended (patched) to the more specific: `package-b >= 2.0.0, <3`. This approach does not alter the original package artifacts, and means no requirement is placed on package maintainers to re-release corrected versions of any existing (broken) packages.
@@ -234,6 +234,8 @@ Repodata patching can be used to resolve the above scenario. For example, the de
 Patching is accomplished by applying patching instructions to a channel's repodata file (`repodata.json`). This file format is used by Conda channels to provide an index of all packages and their respective metadata within a specific subdirectory (subdir) of the channel. When a request is made for the relevant repodata.json file, the patch instructions are merged with the repodata, and the patched (modified) repodata is returned. An overview of this process is available [here](https://bioconda.github.io/developer/repodata_patching.html).
 
 Cloudsmith provides a dedicated [cloudsmith-conda-repodata-patches](https://github.com/cloudsmith-io/cloudsmith-conda-repodata-patches) repository to facilitate the easy creation of patching instructions. This repository provides relevant scripts and instructions on how to add, generate and submit your patch instructions to Cloudsmith.
+
+Please note that when repodata patching is applied both locally and in the upstream, the local version takes precedence. 
 
 ## Upstream Proxying / Caching
 
