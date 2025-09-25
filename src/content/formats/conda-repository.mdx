@@ -1,4 +1,4 @@
-import { Note } from '@/components';
+import { CodeBlock, Tabs, TabsContent, TabsList, TabsTrigger, Note, Tag } from '@/components';
 
 
 # Conda Repository
@@ -91,6 +91,12 @@ dependencies:
   - codecov
 ```
 
+To confirm the channel exists, you can view the channels configures for Conda by using:
+
+```shell
+conda config --show
+```
+
 ### Private Repositories
 
 <Note variant="note" headline="Private Repositories">
@@ -103,71 +109,117 @@ Entitlement Tokens, User Credentials and API-Keys should be treated as secrets, 
 </Note>
 Adding a new channel can be accomplished by using the `conda` CLI:
 
-```shell HTTP Basic Auth (User & Pass)
-conda config --add channels https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
-```
-```shell HTTP Basic Auth (API-Key)
-conda config --add channels https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
-```
-```shell HTTP Basic Auth (Token)
-conda config --add channels https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
-```
+<Tabs defaultValue="auth1">
+  <TabsList>
+    <TabsTrigger value="auth1">HTTP Basic Auth (User & Pass)</TabsTrigger>
+    <TabsTrigger value="auth2">HTTP Basic Auth (API-Key)</TabsTrigger>
+    <TabsTrigger value="auth3">Entitlement Token Auth</TabsTrigger>
+  </TabsList>
+  <TabsContent value="auth1">
+    <CodeBlock lang="shell" header={true}>
+      {`conda config --add channels https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth2">
+    <CodeBlock lang="shell" header={true}>
+      {`conda config --add channels https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth3">
+    <CodeBlock lang="shell" header={true}>
+      {`conda config --add channels https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
 
 Alternatively, the channel can be added directly to your `.condarc`:
 
-```yaml HTTP Basic Auth (User & Pass)
-channels:
+<Tabs defaultValue="auth1">
+  <TabsList>
+    <TabsTrigger value="auth1">HTTP Basic Auth (User & Pass)</TabsTrigger>
+    <TabsTrigger value="auth2">HTTP Basic Auth (API-Key)</TabsTrigger>
+    <TabsTrigger value="auth3">Entitlement Token Auth</TabsTrigger>
+  </TabsList>
+  <TabsContent value="auth1">
+    <CodeBlock lang="yaml" header={true}>
+      {`channels:
   - https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
-  - defaults
-```
-```yaml HTTP Basic Auth (API-Key)
-channels:
+  - defaults`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth2">
+    <CodeBlock lang="yaml" header={true}>
+      {`channels:
   - https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
-  - defaults
-```
-```yaml HTTP Basic Auth (Token)
-channels:
+  - defaults`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth3">
+    <CodeBlock lang="yaml" header={true}>
+      {`channels:
   - https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
-  - defaults
-```
+  - defaults`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
 
 Or if you prefer, directly in your `environment.yml` file:
 
-```yaml HTTP Basic Auth (User & Pass)
-name: env-name
+<Tabs defaultValue="auth1">
+  <TabsList>
+    <TabsTrigger value="auth1">HTTP Basic Auth (User & Pass)</TabsTrigger>
+    <TabsTrigger value="auth2">HTTP Basic Auth (API-Key)</TabsTrigger>
+    <TabsTrigger value="auth3">Entitlement Token Auth</TabsTrigger>
+  </TabsList>
+  <TabsContent value="auth1">
+    <CodeBlock lang="yaml" header={true}>
+      {`name: env-name
 channels:
   - https://USERNAME:PASSWORD@conda.cloudsmith.io/OWNER/REPOSITORY/
   - defaults
 dependencies:
   - python=3.7
-  - codecov
-```
-```yaml HTTP Basic Auth (API-Key)
-name: env-name
+  - codecov`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth2">
+    <CodeBlock lang="yaml" header={true}>
+      {`name: env-name
 channels:
   - https://USERNAME:API-KEY@conda.cloudsmith.io/OWNER/REPOSITORY/
   - defaults
 dependencies:
   - python=3.7
-  - codecov
-```
-```yaml HTTP Basic Auth (Token)
-name: env-name
+  - codecov`}
+    </CodeBlock>
+  </TabsContent>
+  <TabsContent value="auth3">
+    <CodeBlock lang="yaml" header={true}>
+      {`name: env-name
 channels:
   - https://token:TOKEN@conda.cloudsmith.io/OWNER/REPOSITORY/
   - defaults
 dependencies:
   - python=3.7
-  - codecov
-```
+  - codecov`}
+    </CodeBlock>
+  </TabsContent>
+</Tabs>
 
 ### Install a Package
 
 Once configured, you can install packages from your channel using the `conda` CLI:
 
-```
+```shell
 conda install your-package=1.2.3
 ```
+
+Or you can search for packages via blended index (multiple upstreams configured in your Cloudsmith repository) for any package:
+
+```shell
+conda search your-package
+```
+
 ## Conda repodata patching
 
 In certain scenarios, Conda package metadata may need to be patched. Patching is often required when a package dependency is updated, and backwards compatibility is broken, as in the following example:
@@ -182,3 +234,16 @@ Repodata patching can be used to resolve the above scenario. For example, the de
 Patching is accomplished by applying patching instructions to a channel's repodata file (`repodata.json`). This file format is used by Conda channels to provide an index of all packages and their respective metadata within a specific subdirectory (subdir) of the channel. When a request is made for the relevant repodata.json file, the patch instructions are merged with the repodata, and the patched (modified) repodata is returned. An overview of this process is available [here](https://bioconda.github.io/developer/repodata_patching.html).
 
 Cloudsmith provides a dedicated [cloudsmith-conda-repodata-patches](https://github.com/cloudsmith-io/cloudsmith-conda-repodata-patches) repository to facilitate the easy creation of patching instructions. This repository provides relevant scripts and instructions on how to add, generate and submit your patch instructions to Cloudsmith.
+
+## Upstream Proxying / Caching
+
+<Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag><Tag variant="orange" theme="legacy">Caching</Tag>
+
+---
+
+Please see [Upstream Proxying](/repositories/upstreams) for more details.
+
+Upstreams provide a way to _blend_ multiple Python repositories into a single repository. Cloudsmith supports proxying and caching from upstream repositories for any available channels. This means you can connect not just the canonical upstreams, but also other popular channels. For example, some of the largest upstream channels include:
+- [Anaconda](https://repo.anaconda.com/pkgs/main)
+- [Conda-Forge](https://conda.anaconda.org/conda-forge)
+- [Bioconda](https://conda.anaconda.org/bioconda)
