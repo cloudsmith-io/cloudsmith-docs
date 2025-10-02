@@ -583,6 +583,10 @@
             "path": "/integrations/integrating-with-jenkins"
           },
           {
+            "title": "Microsoft Teams",
+            "path": "/integrations/integrating-with-microsoft-teams"
+          },
+          {
             "title": "Octopus Deploy",
             "path": "/integrations/integrating-with-octopus-deploy"
           },
