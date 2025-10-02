@@ -5,6 +5,7 @@ import upstream_formats from './images/upstream_formats.png'
 import edit_upstream from './images/edit_upstream.png'
 
 import cargo from './images/cargo.png'
+import conda from './images/conda.png'
 import composer from './images/composer.png'
 import cran from './images/cran.png'
 import dart from './images/dart.png'
@@ -49,15 +50,16 @@ We strive to ensure that at least _just-in-time_ indexing is available for each 
 
 ### Priority
 
-When defining upstreams for a repository, a _priority_ can be specified. The priority of an upstream is used to determine the order in which upstream requests are resolved. Cloudsmith evaluates upstreams by the order of `1..n`.
+When defining upstreams for a repository, a _priority_ can be specified. The priority of an upstream is used to determine the order in which upstream requests are resolved. Cloudsmith evaluates upstreams by the order of `1..n`. 
 
-A good approach when determining what priority to apply to upstreams is to ensure that the lowest value is specified for the upstream which is most likely to contain upstream packages you request. This helps to improve performance in the event that an upstream source does not support any of our indexing mechanisms.
+A good approach when determining what priority to apply to upstreams is to ensure that the lowest value is specified for the upstream which is most likely to contain upstream packages you request and that there are no multiple upstreams with the same priority value. This helps to improve performance in the event that an upstream source does not support any of our indexing mechanisms.
 
 ## Supported Formats
 
 |Format|<div class="cs-center">Configurable Proxy</div>|<div class="cs-center">Caching</div>|<div class="cs-center">Indexing</div>|<div class="cs-center">Indexing Type</div>|<div class="cs-center">API Reference</div>|
 |:---|:---|:---|:---|:---|:---|
 |[Cargo (Rust)](/formats/cargo-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/cargo/create) |
+|[Conda](/formats/conda-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/conda/create) |
 |[Composer](/formats/composer-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/composer/create) |
 |[CRAN](/formats/cran-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/cran/create) |
 |[Dart](/formats/dart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/dart/create) |
@@ -136,6 +138,21 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
 | Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+#### Create a Conda Upstream
+
+<BlockImage src={conda} alt="Create Conda Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. In the example above, the upstream used is Anaconda: `https://repo.anaconda.com/pkgs/main`. Remember to specify the channel when setting your upstream. For other upstreams like Condaforge/Bioconda, the URL would look like: `https://conda.anaconda.org/conda-forge/` or `https://conda.anaconda.org/bioconda/`.                                                   |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.    
 
 #### Create a NPM Upstream
 
