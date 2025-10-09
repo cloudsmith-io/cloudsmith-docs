@@ -9,55 +9,58 @@ import imgaffbf39_image from './images/exports-to-azure/affbf39-image.png'
 
 To use this feature, you'll need administrative access to an [Azure Tenant](https://portal.azure.com/) (in order to create a Blob Container for receiving the log exports from Cloudsmith).
 
-**If you already have one type of export set up with us and don't require updating your role/permissions, please skip to [Existing Setup](/logs-and-observability/exports-to-azure#existing-setup).**
+<Note variant="note" headline="One container to rule them all">
+  If you already have one type of export set up with us and don't require updating your role/permissions, please skip to [Existing Setup](/logs-and-observability/exports-to-azure#existing-setup).
+</Note>
 
 ## New Setup
 
-Next, you'll need to **follow these steps**:
+To configure a new log export to Azure, follow the steps below:
 
-**1**. In the Storage Account you would like to use, create a Blob Container for the logs, such as `cloudsmith-acmecorp-logs` where you can replace `acmecorp` with your own organization name.
+1. In the Storage Account you would like to use, create a Blob Container for the logs, such as `cloudsmith-acmecorp-logs` where you can replace `acmecorp` with your own organization name.
 
-**2**. If using an existing container, pick a folder name for the Cloudsmith logs to go into, such as `cloudsmith-logs`. This is configured in the next step and configured on our side in tandem.
+2. If using an existing container, pick a folder name for the Cloudsmith logs to go into, such as `cloudsmith-logs`. This is configured in the next step and configured on our side in tandem.
 
-**3**. If planning to exports multiple types of logs (e.g. Client and Audit logs), let us know and we will make sure to use separate folders names inside of your Cloudsmith log export container (Note them down for later):
+3. If planning to exports multiple types of logs (e.g. Client and Audit logs), let us know and we will make sure to use separate folders names inside of your Cloudsmith log export container (Note them down for later):
 
-<BlockImage src={img0a64feb_image} alt=""></BlockImage>
+    <BlockImage src={img0a64feb_image} alt=""></BlockImage>
 
-**4**. Create a Managed Identity and assign a Role to it that only has write access to the Blob Container you created in the previous step. Make note of the Managed Identity Client ID as we will need it for our next step.
+4. Create a Managed Identity and assign a Role to it that only has write access to the Blob Container you created in the previous step. Make note of the Managed Identity Client ID as we will need it for our next step.
 
-<BlockImage src={imgdc9d07c_image} alt=""></BlockImage>
+    <BlockImage src={imgdc9d07c_image} alt=""></BlockImage>
 
-**5**. [Contact us](https://cloudsmith.com/company/contact-us) to tell us your:
+5. Open a [Support Ticket](https://support.cloudsmith.com/hc/en-us/requests/new) with the information below. Copy the template below and populate it with your own information:
 
-<Note variant="note" headline="One container to rule them all">
-  We recommend setting up one container with folders for each log type and use the same Azure Tenant, if you require each log type to have a different Azure Tenant, please let us know.
-</Note>
+    <Note variant="note" headline="One container to rule them all">
+      We recommend setting up one container with folders for each log type and use the same Azure Tenant, if you require each log type to have a different Azure Tenant, please let us know.
+    </Note>
 
-- Azure Tenant ID
-- Azure Managed Entity Client ID
-- Azure Storage Account Name
-- Azure Blob Storage Container Name
-- Azure Blob Storage Folder Name
-- The log format that you want to export:
-  - JSON (Stream)  **(RECOMMENDED)**
-  - JSON (Stream+TimeStamp)
-  - CSV
-  - Apache Style
-- The log type that you want to export:
-  - Audit Logs
-  - Client Logs
-- Prefix (folder names) for each type of log export
-- Export Options:
-  - Entire org **(RECOMMENDED)**
-  - Selected repositories only
+    ```text
+    - Azure Tenant ID:
+    - Azure Managed Entity Client ID:
+    - Azure Storage Account Name:
+    - Azure Blob Storage Container Name:
+    - Azure Blob Storage Folder Name:
+    - The log format that you want to export:
+      - JSON (Stream) (RECOMMENDED)
+      - JSON (Stream+TimeStamp)
+      - CSV
+      - Apache Style
+    - The log type that you want to export:
+      - Audit Logs
+      - Client Logs
+    - Prefix (folder names) for each type of log export
+    - Export Options:
+      - Entire workspace (RECOMMENDED)
+      - Selected repositories only
+    ```
 
-**6**. We will use an OIDC Token to authenticate against your Azure Managed Entity. For this, you will need to create a Federated Credential in the Managed Entity you previously created. 
-
-- Go to Managed Identities > Federated Credentials, and create a new one.
-- We will send you all the details you need to fill in.
-
-<BlockImage src={imgaffbf39_image} alt=""></BlockImage>
-
+6. We will use an OIDC Token to authenticate against your Azure Managed Entity. For this, you will need to create a Federated Credential in the Managed Entity you previously created. To do so:
+  
+    - Go to Managed Identities > Federated Credentials, and create a new one.
+    - We will send you all the details you need to fill in.
+  
+    <BlockImage src={imgaffbf39_image} alt=""></BlockImage>
 
 # Existing Setup
 
@@ -69,12 +72,14 @@ If you already have Blob Container exports setup with us, we will use the same A
 
 For example if your current solution has no folders inside of the Cloudsmith export container and all exports go to `/<export>`, we recommend creating folders:
 
-- client-logs
-- audit-logs
+- `client-logs`
+- `audit-logs`
 
 _e.g. Client logs will export to `<container>/<client-logs>/<client-log-export>`_
 
-**Please let us know if you plan to separate the logs into different folders in order for us to reflect the changes in both the new export requested and the old one.**
+<Note variant="note" headline="Folder structure">
+Please let us know if you plan to separate the logs into different folders in order for us to reflect the changes in both the new export requested and the old one.
+</Note>
 
 # Summary of Information Required
 
@@ -191,6 +196,3 @@ datetime,repository,status,method,uri,host,ip_address,bytes,city,country,edge,eu
 ```
 3.222.115.18    -       t-6GXPs3OxkOio  [30/May/2024:15:15:16 +0000]    "GET /deb/ubuntu/dists/bionic/main/source/by-hash/SHA256/c6f31d4574a468d87347ea68b1420d9d5cbc7f1704df40b4ec45c3a7b1cb11e4 "      200     2247    -       "Debian APT-HTTP/1.3 (1.6.17)"  eula:none
 ```
-
-WHAT'S NEXT  
-Tell your users what they should do after they've finished this page
