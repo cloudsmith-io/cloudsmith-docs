@@ -1,57 +1,152 @@
-import { Note, BlockImage, Card, Video } from '@/components';
-import NoCodeNoteSnippet from '@/snippets/noCodeUploadingNoteSnippet.mdx';
+import { Note, Card, CodeBlock } from '@/components';
 
+# Integrating Cloudsmith with GitHub Actions
 
-# Integrating GitHub Actions
+Use the Cloudsmith CLI in your workflows via the official Cloudsmith CLI Install Action. This action can:
 
-How to integrate GitHub Actions with Cloudsmith
-
-<Video wistiaId="a5qnzrtd52"></Video>
-
-The Cloudsmith GitHub Action allows you to use the Cloudsmith CLI to upload/push packages to Cloudsmith repositories. It supports pushing the next formats: 
-
-- [Alpine](https://github.com/cloudsmith-io/action?tab=readme-ov-file#alpine-package-push)
-- [Cargo](https://github.com/cloudsmith-io/action?tab=readme-ov-file#cargo-crate-push)
-- [CocoaPods](https://github.com/cloudsmith-io/action?tab=readme-ov-file#cocoapods-package-push)
-- [Composer](https://github.com/cloudsmith-io/action?tab=readme-ov-file#composer-package-push)
-- [Dart](https://github.com/cloudsmith-io/action?tab=readme-ov-file#dart-package-push)
-- [Debian](https://github.com/cloudsmith-io/action?tab=readme-ov-file#debian-package-push)
-- [Docker](https://github.com/cloudsmith-io/action?tab=readme-ov-file#docker-image-push)
-- [Go](https://github.com/cloudsmith-io/action?tab=readme-ov-file#go-push)
-- [Helm](https://github.com/cloudsmith-io/action?tab=readme-ov-file#helm-chart-push)
-- [Hex](https://github.com/cloudsmith-io/action?tab=readme-ov-file#hex-push)
-- [Maven](https://github.com/cloudsmith-io/action?tab=readme-ov-file#maven-package-push)
-- [npm](https://github.com/cloudsmith-io/action?tab=readme-ov-file#npm-package-push)
-- [NuGet](https://github.com/cloudsmith-io/action?tab=readme-ov-file#nuget-package-push)
-- [Python](https://github.com/cloudsmith-io/action?tab=readme-ov-file#python-package-push)
-- [RedHat/RPM](https://github.com/cloudsmith-io/action?tab=readme-ov-file#redhatrpm-package-push)
-- [Raw](https://github.com/cloudsmith-io/action?tab=readme-ov-file#raw-file-push)
-
-<NoCodeNoteSnippet />
+- Authenticate with Cloudsmith using either an API key or OIDC (recommended for CI)
+- Install the Cloudsmith CLI (zipapp download or optional `pip` install)
+- Optionally only perform OIDC auth (skip CLI install) for lightweight API interactions
 
 <Card
-    title="cloudsmith-github-action"
-    description="Github Action to push to Cloudsmith"
-    href="https://github.com/cloudsmith-io/action"
-    linkText="Github Action to push to Cloudsmith"
-    icon="utility/documentation"
-  />
+  title="Cloudsmith CLI Install Action"
+  description="Official GitHub Action to authenticate and install the Cloudsmith CLI"
+  href="https://github.com/cloudsmith-io/cloudsmith-cli-action"
+  linkText="View on GitHub"
+  icon="utility/documentation"
+/>
 
-## Adding your API Key to GitHub
+## Action Overview
 
-Retrieve your [Cloudsmith API Key](/accounts-and-teams/api-key).
+This GitHub Action installs the Cloudsmith CLI and pre-authenticates it using OIDC or API Key.
 
-You will need to add a secret to your GitHub repository named `CLOUDSMITH_API_KEY`, with the value of your API-Key. Secrets are added through your GitHub repository settings, please see the [Creating and Storing Encrypted Secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) documentation on GitHub for further details. 
+## OIDC Authentication (Recommended)
 
-Pass your `CLOUDSMITH_API_KEY` secret to the Action as per the examples.
+Add the `id-token: write` permission so the action can request an identity token. Cloudsmith exchanges this for a short‑lived JWT which is exported as `CLOUDSMITH_API_KEY`.
 
-<Note variant="note" headline="OIDC Authentication">
-When using [OIDC](/authentication/openid-connect) with GitHub Actions, save the JWT token to an environment variable called `CLOUDSMITH_API_KEY` and **do not** include `api-key` in the `.yaml` push action - the API key will be taken from the environment variable instead.
+```yaml
+permissions:
+  id-token: write
+  contents: read
+steps:
+  - uses: actions/checkout@v4
+  - name: Authenticate & Install Cloudsmith CLI (OIDC)
+    uses: cloudsmith-io/cloudsmith-cli-action@v1
+    with:
+      oidc-namespace: your-oidc-namespace
+      oidc-service-slug: your-service-account-slug
+```
+
+<Note variant="note" headline="OIDC Permissions & Token">
+Ensure `permissions: id-token: write` is present. The obtained JWT is automatically exported as `CLOUDSMITH_API_KEY` environment variable.
 </Note>
 
+### OIDC Authentication Only (Skip CLI Install)
 
-## Examples
+Use when you only need the token for API calls:
 
-Examples for all formats supported are available on the [GitHub README](https://github.com/cloudsmith-io/action?tab=readme-ov-file).
+```yaml
+steps:
+  - uses: cloudsmith-io/cloudsmith-cli-action@v1
+    with:
+      oidc-namespace: your-oidc-namespace
+      oidc-service-slug: your-service-account-slug
+      oidc-auth-only: 'true'
+  - name: Validate token
+    run: curl -H "X-Api-Key: $CLOUDSMITH_API_KEY" https://api.cloudsmith.io/v1/user/self/
+```
+
+## API Key Authentication
+
+Use for quick tests or legacy setups when OIDC isn’t available.
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+  - name: Install Cloudsmith CLI (API Key)
+    uses: cloudsmith-io/cloudsmith-cli-action@v1
+    with:
+      api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+```
+
+## Action Output
+
+When OIDC is used the action:
+
+- Exports the token as `CLOUDSMITH_API_KEY` (env var)
+- Sets an output `oidc-token`
+
+## Installing the CLI
+
+By default the action downloads the latest Cloudsmith CLI zipapp release. You can instead install via `pip`.
+
+```yaml
+with:
+  oidc-namespace: your-oidc-namespace
+  oidc-service-slug: your-service-account-slug
+  pip-install: 'true'
+  cli-version: 1.3.0
+```
+
+The CLI binary (zipapp) is placed at the `executable-path` (defaults to `bin/cloudsmith`) and added to `PATH`. On Windows, a `cloudsmith.bat` wrapper is created.
+
+## Example: Publish a Python Package
+
+```yaml
+name: Publish Python Package
+on:
+  push:
+    branches: [ main ]
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build distribution
+        run: |
+          python -m pip install build
+          python -m build
+      - name: Install Cloudsmith CLI (OIDC)
+        uses: cloudsmith-io/cloudsmith-cli-action@v1
+        with:
+          oidc-namespace: your-oidc-namespace
+          oidc-service-slug: your-service-account-slug
+      - name: Push to Cloudsmith
+        run: cloudsmith push python your-namespace/your-repository dist/*.tar.gz
+```
+
+## Secrets and Variables Setup
+
+1. In your GitHub repository go to Settings → Secrets and variables → Actions.
+2. Add secret `CLOUDSMITH_API_KEY` if using API key auth.
+3. For OIDC create a Cloudsmith service account and note its namespace and slug.
+4. Ensure workflow `permissions: id-token: write`.
+
+Refer to Cloudsmith docs for [Service Accounts](/accounts-and-teams/service-accounts) and [OIDC](/authentication/openid-connect).
+
+## Supported Package Formats
+
+As this action directly uses the Cloudsmith CLI, it supports all formats available in the CLI:
+
+- Cloudsmith [Supported Formats](/formats)
+- Cloudsmith CLI [Features](https://github.com/cloudsmith-io/cloudsmith-cli#features)
+
+## Support
+
+If you need help, open an issue on the action's GitHub repository or visit [support.cloudsmith.com](https://support.cloudsmith.com/).
+
+## See Also
+
+ - [Action Repository](https://github.com/cloudsmith-io/cloudsmith-cli-action)
+ - [Cloudsmith CLI](https://github.com/cloudsmith-io/cloudsmith-cli)
+ - [OIDC Docs](/authentication/openid-connect)
+ - [Service Accounts](/accounts-and-teams/service-accounts)
+ - [Formats](/formats)
 
 
