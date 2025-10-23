@@ -259,11 +259,11 @@
                 "path": "/authentication/openid-connect",
                 "children": [
                   {
-                    "title": "Setup GitHub Actions to Authenticate to Cloudsmith using OIDC",
+                    "title": "GitHub Actions",
                     "path": "/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions"
                   },
                   {
-                    "title": "Setup Jenkins to Authenticate to Cloudsmith using OIDC",
+                    "title": "Jenkins",
                     "path": "/authentication/setup-jenkins-to-authenticate-to-cloudsmith-using-oidc"
                   }
                 ]
