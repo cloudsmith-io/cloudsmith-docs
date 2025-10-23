@@ -86,16 +86,6 @@ Changes will be applied immediately.
         }
         ```
 
-### GitLab
-
-[GitLab Documentation](https://docs.gitlab.com/ee/ci/yaml/index.html#id_tokens) 
-
-[GitLab Request Example](#gitlab-example) 
-
-- Provider URL defaults to:
-  - `https://gitlab.com`
-    - If you have a custom domain, the format would remain the same: `https://<CUSTOM-GITLAB-DOMAIN>`
-
 ### CircleCI
 
 [CircleCI Documentation](https://circleci.com/docs/openid-connect-tokens/)
@@ -115,6 +105,24 @@ Changes will be applied immediately.
 - Because the keys used to verify the token are shared across all GitHub Actions for all organizations, at least one claim verification is _strongly_ encouraged so that only jobs from your GitHub organization can authenticate. If only one claim is being configured, then the audience claim (`aud`) is probably best for this as it scopes it to your GitHub organization's requests.
 - See [Setup GitHub Actions to authenticate to Cloudsmith using OIDC](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) for a step-by-step guide.
 
+### GitLab
+
+[GitLab Documentation](https://docs.gitlab.com/ee/ci/yaml/index.html#id_tokens) 
+
+[GitLab Request Example](#gitlab-example) 
+
+- Provider URL defaults to:
+  - `https://gitlab.com`
+    - If you have a custom domain, the format would remain the same: `https://<CUSTOM-GITLAB-DOMAIN>`
+
+### Jenkins
+
+[Jenkins Documentation](https://plugins.jenkins.io/oic-auth/)
+
+- See [Setup Jenkins to authenticate to Cloudsmith using OIDC](/authentication/setup-jenkins-to-authenticate-to-cloudsmith-using-oidc) for a step-by-step guide.
+
+- The provider URL will be the root URL of your Jenkins master. So if you access Jenkins at `https://jenkins.<organization_id>.com`, then your OIDC provider URL is `https://jenkins.<organization_id>.com`.
+
 ## OIDC Requests
 
 With the settings configured, you can now have requests from your provider to use your Cloudsmith organization's OIDC endpoint to exchange the OpenID Token for a JWT token to authenticate with all Cloudsmith API endpoints.
@@ -128,7 +136,7 @@ The OIDC Endpoint for your Cloudsmith organization will be:
 
 Examples:
 
-### Bitbucket Pipelines Example
+#### Bitbucket Pipelines Example
 
 ```yaml
 image: atlassian/default-image:3
@@ -173,37 +181,6 @@ pipelines:
 ```
 
 <br />
-
-#### GitHub Actions Example
-
-```yaml
-name: OpenID Connect Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions with OpenID Connect 🚀
-on: [push]
-
-permissions:
-  id-token: write # Required for OIDC authentication
-  contents: read # Required for actions/checkout
-
-jobs:
-  test-openid-connect:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Authenticate with Cloudsmith via OIDC
-        uses: cloudsmith-io/cloudsmith-cli-action@v1.0.3
-        with:
-          oidc-namespace: 'your-oidc-workspace' # Replace with your Cloudsmith workspace
-          oidc-service-slug: 'your-service-account-slug' # Replace with the slug of your Cloudsmith service account
-          oidc-auth-only: 'true' # The action only performs authentication
-
-      - name: Run subsequent steps
-        run: echo "Successfully authenticated with Cloudsmith."
-```
-
-For further details on configuring Github Actions for OIDC see the guide [here](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) or review the [documentation](https://github.com/cloudsmith-io/cloudsmith-cli-action) of the Cloudsmith CLI GitHub Action.
 
 #### CircleCI Example
 
@@ -269,6 +246,37 @@ workflows:
     jobs:
       - publish
 ```
+
+#### GitHub Actions Example
+
+```yaml
+name: OpenID Connect Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions with OpenID Connect 🚀
+on: [push]
+
+permissions:
+  id-token: write # Required for OIDC authentication
+  contents: read # Required for actions/checkout
+
+jobs:
+  test-openid-connect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Cloudsmith via OIDC
+        uses: cloudsmith-io/cloudsmith-cli-action@v1.0.3
+        with:
+          oidc-namespace: 'your-oidc-workspace' # Replace with your Cloudsmith workspace
+          oidc-service-slug: 'your-service-account-slug' # Replace with the slug of your Cloudsmith service account
+          oidc-auth-only: 'true' # The action only performs authentication
+
+      - name: Run subsequent steps
+        run: echo "Successfully authenticated with Cloudsmith."
+```
+
+For further details on configuring Github Actions for OIDC see the guide [here](/authentication/setup-cloudsmith-to-authenticate-with-oidc-in-github-actions) or review the [documentation](https://github.com/cloudsmith-io/cloudsmith-cli-action) of the Cloudsmith CLI GitHub Action.
 
 #### GitLab Example
 
