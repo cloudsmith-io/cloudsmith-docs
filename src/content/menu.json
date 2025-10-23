@@ -264,7 +264,7 @@
                   },
                   {
                     "title": "Setup Jenkins to Authenticate to Cloudsmith using OIDC",
-                    "path": "/authentication/setup-jenkins-to-authenticate-to-cloudsmith-using-oidc.mdx"
+                    "path": "/authentication/setup-jenkins-to-authenticate-to-cloudsmith-using-oidc"
                   }
                 ]
               }
