@@ -60,7 +60,7 @@ A good approach when determining what priority to apply to upstreams is to ensur
 |:---|:---|:---|:---|:---|:---|
 |[Cargo (Rust)](/formats/cargo-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/cargo/create) |
 |[Conda](/formats/conda-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/conda/create) |
-|[Composer](/formats/composer-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/composer/create) |
+|[Composer](/formats/composer-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/composer/create) |
 |[CRAN](/formats/cran-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/cran/create) |
 |[Dart](/formats/dart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/dart/create) |
 |[Debian](/formats/debian-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/deb/create) |
@@ -260,6 +260,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
 | Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
 | Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
 | Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
