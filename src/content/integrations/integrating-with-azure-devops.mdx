@@ -38,8 +38,8 @@ Before getting started, ensure you have:
 1. In your Cloudsmith workspace, go to **Settings → Authentication → OpenID Connect → Create Provider**.  
 2. Fill in the following details:
 
-   - **Provider Name:** `azure-devops`  
-   - **OIDC Provider URL:**  
+   - **Provider Name:** `azure-devops`
+   - **OIDC Provider URL:**
      ```
      https://vstoken.dev.azure.com/<ORG_GUID>
      ```
@@ -47,14 +47,35 @@ Before getting started, ensure you have:
      You can find it at  
      [https://app.vssps.visualstudio.com/_apis/accounts](https://app.vssps.visualstudio.com/_apis/accounts) — look for the `"AccountId"` value that corresponds to your organization, for example:
      ```json
-     {"AccountId": "12345678-abcd-4321-ef00-987654321000", "AccountName": "exampleorg"}
+     {"AccountId": "12345678-abcd-4321-ef00-987654321000", "AccountName": "acme-corp"}
      ```
-   - **Required Token Claims:**  
+
+   - **Recommended Token Claims:**
+     We strongly recommend including at least one claim to control which Azure DevOps pipelines can authenticate with Cloudsmith.  
+     Claims help ensure that only specific projects or repositories within your organization can access a given Cloudsmith service account.
+
+     Example:
      ```json
      {
-       "aud": "https://vstoken.dev.azure.com/<ORG_GUID>"
+       "sub": "p://acme-corp/cloudsmith-integration/.*",
+       "prj_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ef",
      }
      ```
+
+     **Explanation:**
+     - `sub` — Identifies the Azure DevOps organization and project.  
+       In this example, only pipelines in the `cloudsmith-integration` project of the `acme-corp` organization can authenticate.  
+       The `.*` wildcard allows all pipelines in that project to use the same Cloudsmith OIDC mapping.
+     - `prj_id` — The Azure DevOps project ID (GUID). You can use this for tighter scoping if needed.
+
+     You can view your Azure DevOps organization and project IDs using:  
+     [https://app.vssps.visualstudio.com/_apis/accounts](https://app.vssps.visualstudio.com/_apis/accounts) — this lists your organization GUIDs and other identifiers that also appear as claims in your Azure DevOps OIDC tokens.
+
+     <Note variant="note" headline="Wildcard usage">
+     Wildcards are only supported at the **end** of a claim value.  
+     For example: `p://acme-corp/cloudsmith-integration/*`
+     </Note>
+
    - **Service Accounts:** Select the Cloudsmith service account(s) that this provider will authenticate (for example, `ado-builds-service`).
 
 3. Click **Create Settings** to save.
@@ -81,7 +102,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   # ---- Cloudsmith settings ----
@@ -97,7 +118,7 @@ steps:
   displayName: "Cloudsmith: Authenticate via OIDC"
   inputs:
     authMethod: 'oidc'
-    oidcAuthOnly: true        # Only perform authentication, skip CLI install
+    oidcAuthOnly: false       # install CLI so 'cloudsmith whoami' works
     pipInstall: false
     cliVersion: ''
     oidcNamespace: '$(CS_WORKSPACE)'
@@ -172,7 +193,7 @@ Ensure that all pipeline steps that call the Cloudsmith CLI run on the same pipe
 ## Best Practices
 
 - **Use OIDC**: Use OIDC authentication instead of API keys for enhanced security.
-- **Use Secure Variables**: Ensure all sensitive information, like clientId, clientSecret, apiKey, and tenantId, are stored securely as secrets in Azure DevOps rather than hardcoded in your pipeline.
+- **Use Secure Variables**: Store sensitive values (e.g., `CLOUDSMITH_API_KEY`, workspace/repo names) as Azure DevOps secrets rather than hard-coding them in YAML.
 - **Use Latest CLI Versions**: Keep the Cloudsmith CLI updated to leverage the latest features and security patches. If specific versions are required, specify them explicitly in your configuration.
 
 ## Troubleshooting
@@ -182,4 +203,4 @@ Ensure that all pipeline steps that call the Cloudsmith CLI run on the same pipe
   - Verify that the correct service account is selected in Cloudsmith for the OIDC provider.
 - **Permission Errors**: Verify that the Azure DevOps agent has permission to download and install the CLI (for self-hosted agents).
 - **PATH Issues with Cloudsmith CLI**: Ensure you’re using the same runner for all steps, as switching runners may lose CLI installation and configuration.
-- **OIDC authentication failures**: Ensure the Provider URL is set to `https://vstoken.dev.azure.com/<ORG_GUID>` and that the `aud` claim matches the same value.
+- **OIDC authentication failures**: Ensure the Provider URL exactly matches `https://vstoken.dev.azure.com/<ORG_GUID>` for your organization. If you added `sub` or other claims, confirm they match the token your pipeline issues.
