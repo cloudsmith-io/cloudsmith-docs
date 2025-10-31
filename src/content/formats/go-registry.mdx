@@ -40,7 +40,15 @@ In the following examples:
 Raw GO binaries are not supported and need to be uploaded as a RAW package format instead.
 </Note>
 
-To upload, you need to generate a go module first. You can build a module with standard command-line tooling like `zip` and `git`. To illustrate the process we'll use [logrus](https://github.com/sirupsen/logrus) as an example:
+To upload, you need to generate a go module first. You can build a module with standard command-line tooling like `zip` and `git`. 
+
+<Note variant="note" headline="Go module folder structure">
+Go modules must be packaged with a single top-level folder named `<module>@<version>/`  
+(for example, `github.com/foo/bar@v1.2.3/`).  
+This structure is required for Go to resolve module paths correctly when downloading modules.
+</Note>
+
+To illustrate the process we'll use [logrus](https://github.com/sirupsen/logrus) as an example:
 
 1. First, we'll create the correct directory structure and check out the version of `logrus` we want to pack (`v1.4.2`):
 
