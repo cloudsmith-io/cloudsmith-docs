@@ -12,6 +12,27 @@ Follow these steps:
 1. Navigate to the Cloudsmith Workspace Settings.
 2. Navigate to the Authentication Section, then click on the SCIM option. Enable the SCIM functionality by selecting "Allow SCIM."
 
-After enabling SCIM, proceed with the setup process by following the instructions in Microsoft Entra ID's Getting Started Guide. You can find detailed instructions on their support page for SCIM Connectors: [Microsoft Entra SCIM Connector Documentation.](https://learn.microsoft.com/en-us/entra/architecture/sync-scim).
+After enabling SCIM, you'll receive a bearer token from Cloudsmith. Copy this token as you'll need it for the Microsoft Entra ID configuration.
 
 <BlockImage src={img_scim_steps} alt=""></BlockImage>
+
+## Configuring Microsoft Entra ID
+
+Next, configure the SCIM provisioning in Microsoft Entra ID:
+
+1. **Create a new application in Microsoft Entra ID:**
+   - Click **+ New application**
+   - Click **Create your own application**
+   - In the dialog:
+     - Name it something like "Cloudsmith SCIM"
+     - Select "Integrate any other application you don't find in the gallery (Non-gallery)"
+     - Click **Create**
+
+2. **Set up provisioning:**
+   - Click **New provisioning configuration**
+   - Under **Tenant URL** enter: `https://api.cloudsmith.io/scim/v2`
+   - Under **Secret token** paste your bearer token you copied from Cloudsmith.
+
+3. **Complete the setup** by following any additional configuration steps in Microsoft Entra ID's Getting Started Guide. You can find detailed instructions on their support page for SCIM Connectors: [Microsoft Entra SCIM Connector Documentation.](https://learn.microsoft.com/en-us/entra/architecture/sync-scim).
+
+
