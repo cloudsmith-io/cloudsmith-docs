@@ -411,3 +411,30 @@ match if {
     license_id in copyleft
 }
 ```
+
+## Recipe 8: Compare package versions
+
+**Use case**: Match any package with a specific version range.
+
+What It Does:
+
+- Evaluates the version of a package against a specified package version.
+- Triggers if the version of the current package being evaluated is older than the specified package version.
+
+```rego
+package cloudsmith
+
+default match := false
+
+match if count(reason) > 0
+
+reason contains msg if {
+	pkg := input.v0.package
+	pkg.name == "h11"
+
+	# Parse versions using Cloudsmith's semantic version comparator
+	semver.compare(pkg.version, "0.16.0") == -1
+
+	msg := sprintf("Package 'h11' version '%s' is older than 0.16.0", [pkg.version])
+}
+```
