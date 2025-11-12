@@ -6,49 +6,6 @@ Hosted repositories will have to be migrated from Artifactory to Cloudsmith.
 
 To migrate from JFrog Artifactory cloud or a JFrog Artifactory cluster you will be required to have access to Artifactory.
 
-## Exporting via the Cloudsmith Migration Toolkit
-
-The Toolkit provides repository structure mappings, upstream/remote source configurations, and ETL-style data migration. It will securely create `const code` your Cloudsmith repos, let you decide which Artifactory repos you want to migrate, transfer artifacts, and preserve metadata and versioning.
-
-### Prerequisites
-
-Make sure you have the following installed:
-
-Install node.js and npm by downloading the latest version based on your current operating system.
-
-- [NodeJS](https://nodejs.org/en/download)
-
-```shell
-node -v
-```
-
-- [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-
-```shell
-npm -v
-```
-
-Create an account on [npmjs.com](https://www.npmjs.com/) and login to npm from terminal/shell.
-
-```shell
-npm login
-```
-
-### Install cloudsmith-migration-tool
-
-Clone the repository and navigate to the project directory:
-
-```shell
-git clone https://github.com/cloudsmith-io/cloudsmith-migration-tool.git
-cd cloudsmith-migration-tool
-```
-
-All information about installing and using the Migration Toolkit can be found [here](https://github.com/cloudsmith-io/cloudsmith-migration-tool).
-
-The source code for the mapping-tool is available in [GitHub](https://github.com/cloudsmith-io/cloudsmith-migration-tool) and we invite anyone to make improvements, submit pull requests.
-
-[Contact us](https://cloudsmith.com/company/contact-us) to get started migrating your artifacts.
-
 ## Exporting via Artifactory's UI
 
 You can use the import/export feature of Artifactory and migrate one hosted repository after another. Please consult the Artifactory [documentation](https://www.jfrog.com/confluence/display/JFROG/Import+and+Export) for step-by-step instructions on how to export a repository.
