@@ -438,3 +438,38 @@ reason contains msg if {
 	msg := sprintf("Package 'h11' version '%s' is older than 0.16.0", [pkg.version])
 }
 ```
+
+## Recipe 9: Package Publish Date
+
+**Use case**: Match new packages for a specific period (e.g. two weeks) after release. Enforcing a time lag before consuming a new package or package version is an effective safeguard to protect against zero-day attacks.
+
+Package publish date is currently only available for npm.
+
+What It Does:
+
+- Evaluates the publish date of your NPM package.
+- Triggers if your NPM package was published within the past 14 days.
+
+```rego
+package cloudsmith
+
+default match := false
+
+# A package is matched if its upstream publish date is within the past N days.
+within_past_days := 14
+supported_formats := {"npm"}
+
+match if count(reason) != 0
+
+reason contains msg if {
+    pkg := input.v0.package
+    within_past_days_date := time.add_date(time.now_ns(), 0, 0, 0 - within_past_days)
+    publish_date := time.parse_rfc3339_ns(pkg.upstream_metadata.published_at)
+
+    # Match if the publish date comes after the date of the set number of days ago.
+    publish_date >= within_past_days_date
+    pkg.format in supported_formats
+
+    msg := sprintf("Package upstream publish date is %v (falls within the past %v days)", [pkg.upstream_metadata.published_at, within_past_days])
+}
+```
