@@ -393,7 +393,7 @@
             ]
           },
           {
-            "title": "Enterprise Policy Mgmt.",
+            "title": "Enterprise Policy Manager",
             "path": "/supply-chain-security/epm",
             "children":[   
               {
@@ -405,7 +405,7 @@
                 "path": "/supply-chain-security/epm/rego"
               },
               {
-                "title": "Tag Addition/Removal Flow",
+                "title": "EPM Workflow Example",
                 "path": "/supply-chain-security/epm/tag-addition-removal-flow"
               }
             ]
