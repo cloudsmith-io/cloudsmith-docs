@@ -1,10 +1,10 @@
- import { BlockImage, Note } from '@/components'
+import { BlockImage, Note } from '@/components'
 
- import newRepository from './images/new-repository.png';
- import startBroadcasting from './images/start-broadcasting.png';
- import broadcastStatus from './images/broadcast-status.png';
- import signInScreen from './images/broadcast-sign-in-screen.png';
- import entitlementTokenAccess from './images/entitlement-token-access.png';
+import newRepository from './images/new-repository.png';
+import startBroadcasting from './images/start-broadcasting.png';
+import broadcastStatus from './images/broadcast-status.png';
+import signInScreen from './images/broadcast-sign-in-screen.png';
+import entitlementTokenAccess from './images/entitlement-token-access.png';
 
 # Private Broadcasts
 
@@ -80,21 +80,7 @@ An **access link** provides an alternate, direct-link method for users to authen
 
 Here is how you can set up an access link: 
 
-1. **Generate a Temporary Token:** Use the broadcast-token endpoint to generate a temporary access token. The API requires the secret key from an existing entitlement token as input.
+1. **Generate a Temporary Token:** Use the [broadcast-token endpoint](https://help.cloudsmith.io/reference/) to generate a temporary access token. The API requires the secret key from an existing entitlement token as input.
 2. **Token Expiration (optional):** The generated access token is temporary, expiring by default after one hour. You can configure this duration via the API when you make the generation request. 
 3. **Construct the Access Link:** Embed the temporary access token into a URL to create the direct link your users will follow to access the private broadcast. Example format: `https://broadcasts.cloudsmith.com/WORKSPACE/REPO?token={token}`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
