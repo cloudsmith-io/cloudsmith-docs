@@ -37,7 +37,7 @@ You can continue distributing artifacts within private repositories using entitl
 
 ## Broadcasts user-facing pages
 
-- **Broadcasts Overview**: displays all repositories broadcasting artifacts inside of your organization. A [custom domain can be configured]() for it.
+- **Broadcasts Overview**: displays all repositories broadcasting artifacts inside of your organization. A [custom domain can be configured](#broadcast-custom-domains) for it.
 - **Broadcast**: displays all the artifacts available within a repository broadcast. Each of the repositories in a Workspace have their own Broadcast user facing page.
 - **Package**: displays different levels of information for your packages:
     - **Overview**: this page include instructions for the installation or configuration required for the format of the package, including package metadata and the README.
@@ -68,8 +68,9 @@ This section contains three main areas:
 
 1.  When you create a new repository, or in the repository main page, you will see a toggle to **Enable broadcast**.
 2.  Once enabled, you can choose the broadcast type:
-    - **Public**: Makes the repository and its packages freely available for the public to view and pull.
-    - **Open Source**: Similar to public, designed for open-source projects. The usage is tracked separately from your public broadcasts and private repositories, and you get 50GB of artifact data + 200GB of package delivery in all your OSS broadcasts at no cost.
+    - **Public**: Makes the repository and its packages freely available for the public to view and pull through the public-facing broadcasts page. Ideal for public SDKs and assets you want to be widely accessible. 
+    - **Open Source**: Similar to public, allows you to publicly distribute your open-source projects. Open-source broadcasts are tracked separately from your public/private broadcasts. You get at least 50GB of artifact data + 200GB of package delivery for free, across all open-source broadcasts.
+    - **Private**: A private broadcast allows you to limit access to your distributed artifacts through authentication. Your end-users can access a private broadcast using an entitlement token. Ideal for internal SDKs and premium artifact distribution. Private broadcasts is in early access. 
 
 <BlockImage src={newBroadcast} alt=""></BlockImage>
 
