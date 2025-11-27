@@ -475,6 +475,10 @@
               {
                 "title": "Customization",
                 "path": "/software-distribution/broadcasts/broadcasts-customization"
+              },
+              {
+                "title": "Private Broadcasts",
+                "path": "/software-distribution/broadcasts/private-broadcasts"
               }
             ]
           },

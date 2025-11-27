@@ -1,0 +1,86 @@
+import { BlockImage, Note } from '@/components'
+
+import newRepository from './images/new-repository.png';
+import startBroadcasting from './images/start-broadcasting.png';
+import broadcastStatus from './images/broadcast-status.png';
+import signInScreen from './images/broadcast-sign-in-screen.png';
+import entitlementTokenAccess from './images/entitlement-token-access.png';
+
+# Private Broadcasts
+
+<Note variant="note" headline="Early Access">
+Private Broadcasts are in Early Access. If you would like to try this feature, please [Contact us](https://cloudsmith.com/company/contact-us).
+</Note>
+
+Private broadcasts are a secure, access-controlled distribution portal, built on the same infrastructure as public and open-source broadcasts. They allow you to deliver packages to selected partners and internal users through your own broadcast site. 
+
+To access your broadcasts, visit: 
+
+```text
+https://broadcasts.cloudsmith.com/WORKSPACE
+```
+
+## How private broadcasts differ from public broadcasts
+
+| Feature                  | Public broadcast                      | Private broadcast                               |
+| :----------------------- | :------------------------------------ | :---------------------------------------------- |
+| **Visibility**           | Publicly accessible                   | Restricted access                               |
+| **Access control**       | None, open access                     | Requires authentication via entitlement tokens  |
+| **Branding & analytics** | Supported                             | Supported                                       |
+| **Use cases**            | Public SDKs, open-source distribution | Internal SDKs and premium artifact distribution |
+
+
+## Enabling a private broadcast
+
+### New repositories 
+
+To create a private broadcast when creating a new repository, click the "Enable Broadcast" toggle, then select "Private Broadcast" from the list below. 
+
+<BlockImage src={newRepository} alt="Create new repository modal"></BlockImage>
+
+### Existing repositories
+
+If you want to enable a private broadcast on an existing Cloudsmtih repository, go to your repository’s general settings. Scroll down to the broadcasts section and click the "start broadcasting" button. Then select "private broadcast" from the modal. 
+
+<BlockImage src={startBroadcasting} alt="Settings: Start Broadcasting"></BlockImage>
+
+When a private broadcast has been enabled on your repository, you’ll see a status indicator on the packages tab. 
+
+<BlockImage src={broadcastStatus} alt="Broadcast status"></BlockImage>
+
+## Accessing a private broadcast 
+
+Private broadcasts are secured using entitlement tokens. To gain access to the restricted content, follow these steps:
+1. **Navigate to the Broadcasts Page:** Go to your main broadcasts page (e.g., `https://broadcasts.cloudsmith.com/WORKSPACE/`), which initially displays all public and open-source broadcasts.
+2. **Sign In:** Click the "Sign in" button located in the top right corner of the page.
+3. **Authenticate:** A login screen will appear. Authenticate your access by entering the secret key from your unique entitlement token.
+
+<BlockImage src={signInScreen} alt="Broadcast sign in screen"></BlockImage>
+
+Once authenticated, you will be able to view and download packages from your authorized private broadcasts.
+
+### Entitlement tokens
+
+Managing entitlement tokens is the fundamental access control mechanism for your private broadcasts. These tokens ensure secure, authenticated access for partners, customers, or internal users to view and download restricted artifacts distributed through your broadcast site.
+
+Creating a unique entitlement token for each customer or partner is the recommended practice. This allows administrators to:
+
+* Monitor individual download activity.
+* Easily revoke or modify access rights to the broadcast if the customer's subscription or relationship changes.
+
+Each entitlement token intended for use with your private broadcasts must have the "Access private broadcasts" setting explicitly enabled. This setting grants the token the necessary permission to authenticate against your private broadcast portal, allowing the user to view and download restricted packages. If this setting is not enabled, the token cannot be used to sign in to the broadcast site.
+
+<BlockImage src={entitlementTokenAccess} alt="Entitlement token modal"></BlockImage>
+
+For comprehensive instructions on how to create and manage these tokens, please consult the official [entitlement tokens documentation](software-distribution/entitlement-tokens).
+
+### Access links
+
+An "access link" provides an alternate, direct-link method for users to authenticate and access a private broadcast without manually entering an entitlement token secret key. Customers can embed these direct links into their own applications. This is ideal for a seamless user experience, as end-users can securely access the private repository's artifacts directly without needing to save or manually enter their entitlement token secret key. 
+
+Here is how you can set up an access link: 
+
+1. **Generate a Temporary Token:** Use the [broadcast-token endpoint](https://help.cloudsmith.io/reference/broadcasts_create_broadcast_token) to generate a temporary access token. The API requires the secret key from an existing entitlement token as input.
+2. **Token Expiration (optional):** The generated access token is temporary, expiring by default after one hour. You can configure this duration via the API when you make the generation request. 
+3. **Construct the Access Link:** Embed the temporary access token into a URL to create the direct link your users will follow to access the private broadcast. Example format: `https://broadcasts.cloudsmith.com/WORKSPACE/REPO?token={token}`
+
