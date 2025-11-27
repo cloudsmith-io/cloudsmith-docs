@@ -34,13 +34,13 @@ https://broadcasts.cloudsmith.com/WORKSPACE
 
 ### New repositories 
 
-To create a private broadcast when creating a new repository, click the 'Enable Broadcast' toggle, then select 'Private Broadcast' from the list below. 
+To create a private broadcast when creating a new repository, click the "Enable Broadcast" toggle, then select "Private Broadcast" from the list below. 
 
 <BlockImage src={newRepository} alt="Create new repository modal"></BlockImage>
 
 ### Existing repositories
 
-If you want to enable a private broadcast on an existing Cloudsmtih repository, go to your repository’s general settings. Scroll down to the broadcasts section and click the **start broadcasting** button. Then select **private broadcast** from the modal. 
+If you want to enable a private broadcast on an existing Cloudsmtih repository, go to your repository’s general settings. Scroll down to the broadcasts section and click the "start broadcasting" button. Then select "private broadcast" from the modal. 
 
 <BlockImage src={startBroadcasting} alt="Settings: Start Broadcasting"></BlockImage>
 
@@ -52,7 +52,7 @@ When a private broadcast has been enabled on your repository, you’ll see a sta
 
 Private broadcasts are secured using entitlement tokens. To gain access to the restricted content, follow these steps:
 1. **Navigate to the Broadcasts Page:** Go to your main broadcasts page (e.g., `https://broadcasts.cloudsmith.com/WORKSPACE/`), which initially displays all public and open-source broadcasts.
-2. **Sign In:** Click the 'Sign in' button located in the top right corner of the page.
+2. **Sign In:** Click the "Sign in" button located in the top right corner of the page.
 3. **Authenticate:** A login screen will appear. Authenticate your access by entering the secret key from your unique entitlement token.
 
 <BlockImage src={signInScreen} alt="Broadcast sign in screen"></BlockImage>
@@ -68,7 +68,7 @@ Creating a unique entitlement token for each customer or partner is the recommen
 * Monitor individual download activity.
 * Easily revoke or modify access rights to the broadcast if the customer's subscription or relationship changes.
 
-Each entitlement token intended for use with your private broadcasts must have the **Access private broadcasts** setting explicitly enabled. This setting grants the token the necessary permission to authenticate against your private broadcast portal, allowing the user to view and download restricted packages. If this setting is not enabled, the token cannot be used to sign in to the broadcast site.
+Each entitlement token intended for use with your private broadcasts must have the "Access private broadcasts" setting explicitly enabled. This setting grants the token the necessary permission to authenticate against your private broadcast portal, allowing the user to view and download restricted packages. If this setting is not enabled, the token cannot be used to sign in to the broadcast site.
 
 <BlockImage src={entitlementTokenAccess} alt="Entitlement token modal"></BlockImage>
 
@@ -76,7 +76,7 @@ For comprehensive instructions on how to create and manage these tokens, please 
 
 ### Access links
 
-An **access link** provides an alternate, direct-link method for users to authenticate and access a private broadcast without manually entering an entitlement token secret key. Customers can embed these direct links into their own applications. This is ideal for a seamless user experience, as end-users can securely access the private repository's artifacts directly without needing to save or manually enter their entitlement token secret key. 
+An "access link" provides an alternate, direct-link method for users to authenticate and access a private broadcast without manually entering an entitlement token secret key. Customers can embed these direct links into their own applications. This is ideal for a seamless user experience, as end-users can securely access the private repository's artifacts directly without needing to save or manually enter their entitlement token secret key. 
 
 Here is how you can set up an access link: 
 
