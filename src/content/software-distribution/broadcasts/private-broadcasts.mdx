@@ -40,7 +40,7 @@ To create a private broadcast when creating a new repository, click the 'Enable 
 
 ### Existing repositories
 
-If you want to enable a private broadcast on an existing Cloudsmtih repository, go to your repository’s general settings. Scroll down to the broadcasts section and click the start broadcasting button. Then select **private broadcast** from the modal. 
+If you want to enable a private broadcast on an existing Cloudsmtih repository, go to your repository’s general settings. Scroll down to the broadcasts section and click the **start broadcasting** button. Then select **private broadcast** from the modal. 
 
 <BlockImage src={startBroadcasting} alt="Settings: Start Broadcasting"></BlockImage>
 
@@ -80,7 +80,7 @@ An **access link** provides an alternate, direct-link method for users to authen
 
 Here is how you can set up an access link: 
 
-1. **Generate a Temporary Token:** Use the [broadcast-token endpoint](https://help.cloudsmith.io/reference/) to generate a temporary access token. The API requires the secret key from an existing entitlement token as input.
+1. **Generate a Temporary Token:** Use the [broadcast-token endpoint](https://help.cloudsmith.io/reference/broadcasts_create_broadcast_token) to generate a temporary access token. The API requires the secret key from an existing entitlement token as input.
 2. **Token Expiration (optional):** The generated access token is temporary, expiring by default after one hour. You can configure this duration via the API when you make the generation request. 
 3. **Construct the Access Link:** Embed the temporary access token into a URL to create the direct link your users will follow to access the private broadcast. Example format: `https://broadcasts.cloudsmith.com/WORKSPACE/REPO?token={token}`
 
