@@ -23,15 +23,16 @@ Cloudsmith's Client Logs provide a single pane of glass to visualize, filter, an
 
 No matter if your goal is gaining visibility, performing an exploratory analysis, or reporting to stakeholders, Client Logs provides all the information that you need. Here you can find a few example use-cases:
 
-- Analyze which Maven artifacts were downloaded last month.
-- Understand all the different artifacts used in a staging pipeline. 
+- Analyze which Maven artifacts were downloaded last month
+- Understand all the different artifacts used in a staging pipeline
+- Understand usage of different repository types; private repos, OSS repos, public broadcasts, private broadcasts etc.
 
 ## Requirements
 
 To access Client Logs, you should be a *Manager* or an *Owner* of your Workspace.
 
-<Note variant="note" headline="Visibility">
-Client Logs displays information about all of the repositories in a Workspace, no matter if they're public or private.
+<Note variant="note" headline="About error logs">
+For customers using custom domains, client logs will show both successful and unsuccessful requests. For customers who aren't using custom domains, client logs only contain successful requests.
 </Note>
 
 ## Navigating the Client Logs overview
@@ -110,9 +111,7 @@ For each of entries, you have an overview of the next information available:
 | Authentication   | The type of authentication provided, if its a private repository.                             |
 
 
-<Note variant="note" headline="About error logs">
-  For customers using custom domains, client logs will show both successful and unsuccessful requets. For customers who aren't using custom domains, client logs only contain successful requests.
-</Note>
+
 
 ## Analyzing a specific entry
 
