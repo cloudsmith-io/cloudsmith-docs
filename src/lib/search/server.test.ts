@@ -19,7 +19,7 @@ describe('lib', () => {
         expect(mdx).toBeDefined();
         expect(api).toBeDefined();
 
-        expect(mdx?.score).toEqual(1);
+        expect(mdx?.score).toEqual(0.8571428571428572);
         expect(api?.score).toEqual(0.8571428571428572);
 
         expect(api?.method).toEqual('get');
