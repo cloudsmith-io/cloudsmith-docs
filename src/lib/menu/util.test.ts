@@ -5,13 +5,13 @@ describe('lib', () => {
     describe('getActiveMenuItem()', () => {
       test('finds active top-level item', async () => {
         const active1 = getActiveMenuItem('/api/something');
-        expect(active1.path).toEqual('/api');
+        expect(active1.title).toEqual('API Reference');
         const active2 = getActiveMenuItem('/guides/something');
-        expect(active2.path).toEqual('/guides');
+        expect(active2.title).toEqual('Guides');
         const active3 = getActiveMenuItem('/documentation/something');
-        expect(active3.path).toEqual('/documentation');
+        expect(active3.title).toEqual('Documentation');
         const active4 = getActiveMenuItem('/something');
-        expect(active4.path).toEqual('/documentation');
+        expect(active4.title).toEqual('Documentation');
       });
     });
     describe('getActiveAncestors()', () => {
@@ -23,7 +23,7 @@ describe('lib', () => {
         expect(ancestors.length).toEqual(3);
         expect(ancestors[0].title).toEqual('Documentation');
         expect(ancestors[1].title).toEqual('Migrating to Cloudsmith');
-        expect(ancestors[2].title).toEqual('Export from Nexus Sonatype');
+        expect(ancestors[2].title).toEqual('Migrating from Nexus Sonatype');
       });
     });
   });

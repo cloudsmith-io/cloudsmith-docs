@@ -1,4 +1,5 @@
 import { OpenAPIV3 } from 'openapi-types';
+
 import { parseSchemas, toMenuItems, toOperations } from './parse';
 
 describe('lib', () => {
@@ -102,7 +103,7 @@ describe('lib', () => {
           expect(result.length).toBeGreaterThan(0);
 
           // Check that we have some operations that would be from v2 (like Policies)
-          const workspacesItem = result.find((res) => res.title === 'Workspaces');
+          const workspacesItem = result.find((res) => res.title === 'Workspaces Policies');
           expect(workspacesItem).toBeDefined();
 
           // Verify menu structure
@@ -115,6 +116,19 @@ describe('lib', () => {
               expect(item.children).toBeInstanceOf(Array);
             }
           }
+        });
+
+        test('it skips flattening of some menu items', async () => {
+          const schemas = await parseSchemas();
+          const operations = toOperations(schemas);
+          const result = toMenuItems(operations);
+
+          // Do not flatten broadcasts
+          const broadcastsFlattened = result.find((res) => res.title === 'Broadcasts Create Broadcast Token');
+          expect(broadcastsFlattened).not.toBeDefined();
+
+          const broadcastsUnflattened = result.find((res) => res.title === 'Broadcasts');
+          expect(broadcastsUnflattened).toBeDefined();
         });
       });
     });

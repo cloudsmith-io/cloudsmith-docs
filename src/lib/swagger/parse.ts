@@ -1,10 +1,12 @@
-import SwaggerParser from '@apidevtools/swagger-parser';
-import { OpenAPIV3 } from 'openapi-types';
 import { readdir, readFile } from 'fs/promises';
 import path from 'path';
-import { ApiOperation } from './types';
-import { isHttpMethod, createSlug, parseMenuSegments, apiOperationPath, createTitle } from './util';
+
+import SwaggerParser from '@apidevtools/swagger-parser';
+import { OpenAPIV3 } from 'openapi-types';
+
 import { MenuItem } from '../menu/types';
+import { ApiOperation } from './types';
+import { apiOperationPath, createSlug, createTitle, isHttpMethod, parseMenuSegments } from './util';
 
 const SCHEMAS_DIR = 'src/content/schemas';
 
@@ -160,13 +162,19 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
    * Recursively flatten any menu chains that only contain a single child.
    * This is used to simplify the menu structure and make it more readable.
    */
+  const doNotFlatten = ['Broadcasts'];
+
   const flattenMenuItems = (menuItems: MenuItem[]): MenuItem[] => {
     return menuItems.map((item) => {
       const children = item.children ? flattenMenuItems(item.children) : undefined;
 
       let flattenedItem: MenuItem = { ...item, children };
 
-      while (flattenedItem.children && flattenedItem.children.length === 1) {
+      while (
+        flattenedItem.children &&
+        flattenedItem.children.length === 1 &&
+        !doNotFlatten.includes(flattenedItem.title)
+      ) {
         const [onlyChild] = flattenedItem.children;
 
         flattenedItem = {
@@ -186,25 +194,28 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
   };
 
   const sortMenuItems = (menuItems: MenuItem[]): MenuItem[] => {
-    return menuItems.slice().sort((a, b) => {
-      // Items with children should go first
-      if (a.children && !b.children) return -1;
-      if (!a.children && b.children) return 1;
+    return menuItems
+      .slice()
+      .sort((a, b) => {
+        // Items with children should go first
+        if (a.children && !b.children) return -1;
+        if (!a.children && b.children) return 1;
 
-      // Otherwise, sort alphabetically
-      return a.title.localeCompare(b.title);
-    }).map((item) => {
-      if (item.children) {
-        const sortedChildren = sortMenuItems(item.children);
-        return {
-          ...item,
-          // Ensure that the parent item links to the first child in the sorted children
-          path: sortedChildren.find((child) => !child.children)?.path,
-          children: sortedChildren
-        };
-      }
-      return item;
-    });
+        // Otherwise, sort alphabetically
+        return a.title.localeCompare(b.title);
+      })
+      .map((item) => {
+        if (item.children) {
+          const sortedChildren = sortMenuItems(item.children);
+          return {
+            ...item,
+            // Ensure that the parent item links to the first child in the sorted children
+            path: sortedChildren.find((child) => !child.children)?.path,
+            children: sortedChildren,
+          };
+        }
+        return item;
+      });
   };
 
   return sortMenuItems(flattenMenuItems(items));
