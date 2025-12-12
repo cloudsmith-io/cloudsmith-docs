@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Cloudsmith API",
-    "version": "1.729.1 (v2)",
+    "version": "1.914.1 (v2)",
     "versionAlias": "v2",
     "description": "The API to the Cloudsmith Service",
     "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
@@ -17,6 +17,62 @@
     }
   },
   "paths": {
+    "/packages/{package_slug_perm}/vulnerabilities/osv/": {
+      "get": {
+        "operationId": "packages_vulnerabilities_osv_list",
+        "description": "Retrieve all OSV vulnerabilities associated with the specified package.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "package_slug_perm",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]+$"
+            },
+            "required": true
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": ["packages"],
+        "security": [
+          {
+            "apikey": []
+          },
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedWebOSVVulnerabilityList"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
     "/workspaces/{workspace}/policies/": {
       "get": {
         "operationId": "workspaces_policies_list",
@@ -73,9 +129,9 @@
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -109,9 +165,9 @@
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -166,7 +222,7 @@
                       }
                     },
                     "summary": "Max Policies Reached",
-                    "description": "Occurs when the number of repositories associated with a workspace is already at the maximum."
+                    "description": "Occurs when the number of policies associated with a workspace is already at the maximum."
                   }
                 }
               }
@@ -187,15 +243,16 @@
             "schema": {
               "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -231,15 +288,16 @@
             "schema": {
               "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -285,15 +343,16 @@
             "schema": {
               "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -338,15 +397,16 @@
             "schema": {
               "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -393,18 +453,18 @@
             "in": "path",
             "name": "policy",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -438,18 +498,18 @@
             "in": "path",
             "name": "policy",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -522,27 +582,27 @@
             "in": "path",
             "name": "action",
             "schema": {
-              "type": "string",
-              "description": "The Action identifier."
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Action.",
             "required": true
           },
           {
             "in": "path",
             "name": "policy",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -576,27 +636,27 @@
             "in": "path",
             "name": "action",
             "schema": {
-              "type": "string",
-              "description": "The Action identifier."
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Action.",
             "required": true
           },
           {
             "in": "path",
             "name": "policy",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -639,27 +699,27 @@
             "in": "path",
             "name": "action",
             "schema": {
-              "type": "string",
-              "description": "The Action identifier."
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Action.",
             "required": true
           },
           {
             "in": "path",
             "name": "policy",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -702,27 +762,27 @@
             "in": "path",
             "name": "action",
             "schema": {
-              "type": "string",
-              "description": "The Action identifier."
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Action.",
             "required": true
           },
           {
             "in": "path",
             "name": "policy",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -745,7 +805,7 @@
     "/workspaces/{workspace}/policies/{policy}/simulate/": {
       "get": {
         "operationId": "workspaces_policies_simulate_list",
-        "description": "Simulates the execution of a Policy to verify its behavior without taking any actions.\n\nThis endpoint evaluates all packages in the workspace, generating a \"decision log\" for each evaluation.\nEach log contains:\n- Package metadata provided to the policy engine at runtime.\n- Output from the user-defined Rego policy.\n\nNo actions associated with the policy are executed. Instead, the endpoint reports what would happen to each package if the policy were active.",
+        "description": "Simulates the execution of a Policy to verify its behavior without taking any actions.\n\nBefore using this endpoint, the Policy to simulate must be created with the creation endpoint. To experiment\nwith the policy, it is recommended to create the policy with disabled=True, so that it does not take effect\noutside the simulation endpoint.\n\nThis endpoint evaluates all packages in the workspace, generating a \"decision log\" for each evaluation.\nEach log contains:\n- Package metadata provided to the policy engine at runtime.\n- Output from the user-defined Rego policy.\n\nNo actions associated with the policy are executed. Instead, the endpoint reports what would happen to each package if the policy were active.",
         "parameters": [
           {
             "in": "query",
@@ -777,18 +837,18 @@
             "in": "path",
             "name": "policy",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `slug_perm` (identifier) of the Policy.",
             "required": true
           },
           {
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -941,9 +1001,9 @@
             "in": "path",
             "name": "workspace",
             "schema": {
-              "type": "string",
-              "pattern": "^[-_\\w]+$"
+              "type": "string"
             },
+            "description": "The `name` of the Workspace.",
             "required": true
           }
         ],
@@ -1029,6 +1089,11 @@
             "$ref": "#/components/schemas/AddPackageTagsPolicyAction"
           }
         ]
+      },
+      "AvailabilityEnum": {
+        "enum": ["UNAVAILABLE", "PARTIAL", "COMPLETE"],
+        "type": "string",
+        "description": "* `UNAVAILABLE` - Unavailable\n* `PARTIAL` - Partially complete\n* `COMPLETE` - Complete"
       },
       "BlankEnum": {
         "enum": [""]
@@ -1309,6 +1374,21 @@
         },
         "required": ["detail"]
       },
+      "LicenseMatchTypeEnum": {
+        "enum": ["NONE", "OSS_EXACT", "OSS_FUZZY", "PROPRIETARY", "UNKNOWN", "CURATED"],
+        "type": "string",
+        "description": "* `NONE` - None\n* `OSS_EXACT` - OSS exact match\n* `OSS_FUZZY` - OSS fuzzy match\n* `PROPRIETARY` - Proprietary match\n* `UNKNOWN` - Unknown match\n* `CURATED` - Curated match"
+      },
+      "LicenseOverrideEnum": {
+        "enum": ["NONE", "IGNORED", "PURCHASED"],
+        "type": "string",
+        "description": "* `NONE` - None\n* `IGNORED` - Ignored\n* `PURCHASED` - Purchased"
+      },
+      "LicenseSourceEnum": {
+        "enum": ["AUTOMATIC", "MANUAL"],
+        "type": "string",
+        "description": "* `AUTOMATIC` - Automatically sourced\n* `MANUAL` - Manually sourced"
+      },
       "NullEnum": {
         "enum": [null]
       },
@@ -1364,6 +1444,18 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Policy"
+            }
+          }
+        }
+      },
+      "PaginatedWebOSVVulnerabilityList": {
+        "type": "object",
+        "required": ["results"],
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebOSVVulnerability"
             }
           }
         }
@@ -1487,15 +1579,74 @@
           },
           {
             "$ref": "#/components/schemas/PatchedAddPackageTagsPolicyActionTyped"
+          },
+          {
+            "$ref": "#/components/schemas/PatchedRemovePackageTagsPolicyActionTyped"
           }
         ],
         "discriminator": {
           "propertyName": "action_type",
           "mapping": {
             "SetPackageState": "#/components/schemas/PatchedSetPackageStatePolicyActionTyped",
-            "AddPackageTags": "#/components/schemas/PatchedAddPackageTagsPolicyActionTyped"
+            "AddPackageTags": "#/components/schemas/PatchedAddPackageTagsPolicyActionTyped",
+            "RemovePackageTags": "#/components/schemas/PatchedRemovePackageTagsPolicyActionTyped"
           }
         }
+      },
+      "PatchedRemovePackageTagsPolicyAction": {
+        "type": "object",
+        "properties": {
+          "precedence": {
+            "type": "integer",
+            "maximum": 32767,
+            "minimum": 0,
+            "description": "The order in which this action occurs relative to other actions for the same policy."
+          },
+          "slug_perm": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The Action identifier.",
+            "pattern": "^[-a-zA-Z0-9_]+$"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "The date and time the policy was created."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "The date and time the policy was updated."
+          },
+          "effect": {
+            "type": "string",
+            "readOnly": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        }
+      },
+      "PatchedRemovePackageTagsPolicyActionTyped": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "action_type": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PatchedRemovePackageTagsPolicyAction"
+          }
+        ]
       },
       "PatchedSetPackageStatePolicyAction": {
         "type": "object",
@@ -1613,13 +1764,17 @@
           },
           {
             "$ref": "#/components/schemas/AddPackageTagsPolicyActionTyped"
+          },
+          {
+            "$ref": "#/components/schemas/RemovePackageTagsPolicyActionTyped"
           }
         ],
         "discriminator": {
           "propertyName": "action_type",
           "mapping": {
             "SetPackageState": "#/components/schemas/SetPackageStatePolicyActionTyped",
-            "AddPackageTags": "#/components/schemas/AddPackageTagsPolicyActionTyped"
+            "AddPackageTags": "#/components/schemas/AddPackageTagsPolicyActionTyped",
+            "RemovePackageTags": "#/components/schemas/RemovePackageTagsPolicyActionTyped"
           }
         }
       },
@@ -1777,7 +1932,7 @@
       },
       "PolicyArchitecture": {
         "type": "object",
-        "description": "Serializer for a package architecture for policy purposes.",
+        "description": "The package architecture for policy purposes.",
         "properties": {
           "description": {
             "type": "string",
@@ -1786,7 +1941,7 @@
           },
           "name": {
             "type": "string",
-            "maxLength": 32
+            "maxLength": 128
           }
         },
         "required": ["name"]
@@ -1833,7 +1988,7 @@
       },
       "PolicyDistribution": {
         "type": "object",
-        "description": "Serializer for a distribution for policy purposes.",
+        "description": "The distribution of the package for policy purposes.",
         "properties": {
           "name": {
             "type": "string",
@@ -1853,7 +2008,7 @@
       },
       "PolicyDistributionVersion": {
         "type": "object",
-        "description": "Serializer for a distribution version for policy purposes.",
+        "description": "The version of  distribution of the package for policy purposes.",
         "properties": {
           "name": {
             "type": "string",
@@ -1866,6 +2021,617 @@
           }
         },
         "required": ["slug"]
+      },
+      "PolicyHuggingfaceCard": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PolicyHuggingfaceModelCardTyped"
+          },
+          {
+            "$ref": "#/components/schemas/PolicyHuggingfaceDatasetCardTyped"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "Model": "#/components/schemas/PolicyHuggingfaceModelCardTyped",
+            "Dataset": "#/components/schemas/PolicyHuggingfaceDatasetCardTyped"
+          }
+        }
+      },
+      "PolicyHuggingfaceDatasetCard": {
+        "type": "object",
+        "description": "The dataset-card of a Huggingface package.\n\nThe dataset-card is metadata specified inside the README.md file of a Huggingface model.",
+        "properties": {
+          "annotations_creators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "How the annotations for the dataset were created. Options are: 'found', 'crowdsourced', 'expert-generated', 'machine-generated', 'no-annotation', 'other'."
+          },
+          "config_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": " A list of the available dataset configs for the dataset."
+          },
+          "extras": {
+            "type": "object",
+            "additionalProperties": {},
+            "nullable": true,
+            "description": "Any additional metadata fields present in the datasetcard that is not one of the well-known fields."
+          },
+          "language": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "List of languages of the dataset's data or metadata."
+          },
+          "language_creators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "How the text-based data in the dataset was created. Options are: 'found', 'crowdsourced', 'expert-generated', 'machine-generated', 'other'."
+          },
+          "license": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "The license(s) identifier(s) of this dataset, e.g. apache-2.0."
+          },
+          "multilinguality": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "Whether the dataset is multilingual. Options are: 'monolingual', 'multilingual', 'translation', 'other'."
+          },
+          "paperswithcode_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "The ID of the dataset on PapersWithCode."
+          },
+          "pretty_name": {
+            "type": "string",
+            "nullable": true,
+            "description": "A human-readable name for the dataset, e.g. 'Cities and Buildings'."
+          },
+          "size_categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "The number of examples in the dataset. Options are: 'n<1K', '1K<n<10K', '10K<n<100K', '100K<n<1M', '1M<n<10M', '10M<n<100M', '100M<n<1B', '1B<n<10B', '10B<n<100B', '100B<n<1T', 'n>1T', and 'other'."
+          },
+          "source_datasets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "Indicates whether the dataset is an original dataset or extended from another existing dataset. Options are: 'original' and 'extended'."
+          },
+          "task_categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "The categories of tasks that the dataset supports."
+          },
+          "task_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "The specific tasks that the dataset supports"
+          },
+          "train_eval_index": {
+            "nullable": true,
+            "description": "JSON that describes the necessary spec for doing evaluation on the Hub."
+          }
+        }
+      },
+      "PolicyHuggingfaceDatasetCardTyped": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": ["type"]
+          },
+          {
+            "$ref": "#/components/schemas/PolicyHuggingfaceDatasetCard"
+          }
+        ]
+      },
+      "PolicyHuggingfaceEvalResult": {
+        "type": "object",
+        "description": "The evaluation results of model-card of a Huggingface package.\n\nA flattened version of the evaluation results from the model card.",
+        "properties": {
+          "task_type": {
+            "type": "string",
+            "description": "The task identifier, e.g. image-classification."
+          },
+          "dataset_type": {
+            "type": "string",
+            "description": "The dataset identifier, e.g.g common_voice."
+          },
+          "dataset_name": {
+            "type": "string",
+            "description": "A pretty name for the dataset, e.g. Common Voice."
+          },
+          "metric_type": {
+            "type": "string",
+            "description": "The metric identifier, e.g. accuracy."
+          },
+          "metric_value": {
+            "type": "string",
+            "description": "The value fo the metric, e.g. 0.95."
+          },
+          "task_name": {
+            "type": "string",
+            "nullable": true,
+            "description": "The pretty name of the task, e.g. Speech Recognition."
+          },
+          "dataset_config": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name of the dataset configuration used in `load_dataset()`."
+          },
+          "dataset_split": {
+            "type": "string",
+            "nullable": true,
+            "description": "The split used in the `load_dataset()`."
+          },
+          "dataset_revision": {
+            "type": "string",
+            "nullable": true,
+            "description": "The revision (aka git sha) of the dataset used in `load_dataset()`."
+          },
+          "dataset_args": {
+            "type": "object",
+            "additionalProperties": {},
+            "nullable": true,
+            "description": "The arguments passed during `Metric.compute()`."
+          },
+          "metric_name": {
+            "type": "string",
+            "nullable": true,
+            "description": "A pretty name for the metric, e.g. Accuracy."
+          },
+          "metric_config": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name of metric used in `load_metric()`."
+          },
+          "metric_args": {
+            "type": "object",
+            "additionalProperties": {},
+            "nullable": true,
+            "description": "The arguments passed during `Metric.compute()`."
+          },
+          "verified": {
+            "type": "boolean",
+            "nullable": true,
+            "description": "Indicates if the metrics originate from Hugging Face's evaluation serivce."
+          },
+          "verify_token": {
+            "type": "string",
+            "nullable": true,
+            "description": "A JWT token used to verify the metrics origin."
+          },
+          "source_name": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name of the source of the evaluation result, e.g. Open LLM Leaderboard."
+          },
+          "source_url": {
+            "type": "string",
+            "nullable": true,
+            "description": "The url of the source of the evalatuation result."
+          }
+        },
+        "required": ["dataset_name", "dataset_type", "metric_type", "metric_value", "task_type"]
+      },
+      "PolicyHuggingfaceFileReference": {
+        "type": "object",
+        "description": "The files in a Huggingface model or dataset for policy purposes.",
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "file_extension": {
+            "type": "string",
+            "readOnly": true
+          },
+          "filename": {
+            "type": "string",
+            "nullable": true,
+            "description": "The filename i.e 'model.safetensors'.",
+            "maxLength": 255
+          },
+          "oid": {
+            "type": "string",
+            "description": "The content-addressed object ID (OID) of this file, typically a SHA256 hash.",
+            "maxLength": 256
+          },
+          "size": {
+            "type": "integer",
+            "description": "The calculated storage size for the file."
+          },
+          "path": {
+            "type": "string",
+            "description": "The full path of the file within the package i.e 'models/model.safetensors'.",
+            "maxLength": 1024
+          }
+        },
+        "required": ["file_extension", "oid", "path", "size"]
+      },
+      "PolicyHuggingfaceHubScans": {
+        "type": "object",
+        "description": "Per file security-scans from Huggingface Hub for a model or dataset that has been cached into Cloudsmith.",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusEnum"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "clamav": {
+            "type": "object",
+            "nullable": true,
+            "title": "Clam AV Scan",
+            "description": "The Clam anti-virus scan information from Huggingface Hub.",
+            "readOnly": true
+          },
+          "jfrog": {
+            "type": "object",
+            "nullable": true,
+            "title": "Jfrog Scan",
+            "description": "The Jfrog model-scan information from Huggingface Hub.",
+            "readOnly": true
+          },
+          "protect_ai": {
+            "type": "object",
+            "nullable": true,
+            "title": "Protect AI Scan",
+            "description": "The Protect AI model-scan information from Huggingface Hub.",
+            "readOnly": true
+          },
+          "pickle": {
+            "type": "object",
+            "nullable": true,
+            "title": "Pickle Scan",
+            "description": "The Pickle Import scan information from Huggingface Hub.",
+            "readOnly": true
+          }
+        },
+        "required": ["clamav", "jfrog", "path", "pickle", "protect_ai", "status", "updated_at"]
+      },
+      "PolicyHuggingfaceModelCard": {
+        "type": "object",
+        "description": "The model-card of a Huggingface package.\n\nThe model-card is metadata specified inside the README.md file of a Huggingface model.",
+        "properties": {
+          "base_model": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "('The identifier of the base model from which the model derives. This is applicable for example if your', 'model is a fine-tune or adapter of an existing model. ')"
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "The list of datasets used to train this model."
+          },
+          "eval_results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyHuggingfaceEvalResult"
+            },
+            "nullable": true
+          },
+          "extras": {
+            "type": "object",
+            "additionalProperties": {},
+            "nullable": true,
+            "description": "Any additional metadata fields present in the modelcard that is not one of the well-known fields."
+          },
+          "language": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "List of languages of the model's training data or metadata."
+          },
+          "library_name": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name of the library used to create the model, e.g. keras, pytorch, etc."
+          },
+          "license": {
+            "type": "string",
+            "nullable": true,
+            "description": "The license identifier of the model, e.g. apache-2.0."
+          },
+          "license_name": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name of the license if using license_link, e.g. Apache 2.0."
+          },
+          "license_link": {
+            "type": "string",
+            "nullable": true,
+            "description": "The license URL for this model."
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "List of metrics used to evaluate the model."
+          },
+          "model_name": {
+            "type": "string",
+            "nullable": true,
+            "description": "Derived from the model-index.name attribute if it's present in the evaluation results."
+          },
+          "pipeline_tag": {
+            "type": "string",
+            "nullable": true,
+            "description": "The pipeline tag for the model, e.g. text-classification, image-classification, etc."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "description": "List of freeform tags to describe the model."
+          }
+        }
+      },
+      "PolicyHuggingfaceModelCardTyped": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": ["type"]
+          },
+          {
+            "$ref": "#/components/schemas/PolicyHuggingfaceModelCard"
+          }
+        ]
+      },
+      "PolicyHuggingfacePackage": {
+        "type": "object",
+        "description": "The details of a Huggingface package for policy purposes.\n\nThis extends the common package fields with Huggingface-specific fields including\nthe model/dataset-card data.",
+        "properties": {
+          "architectures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyArchitecture"
+            }
+          },
+          "card": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyHuggingfaceCard"
+              }
+            ],
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "description": "A textual description of this package.",
+            "maxLength": 12288
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyHuggingfaceFileReference"
+            }
+          },
+          "format": {
+            "type": "string"
+          },
+          "indexed": {
+            "type": "boolean"
+          },
+          "last_downloaded_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The last time the package was downloaded."
+          },
+          "license": {
+            "$ref": "#/components/schemas/PolicyPackageLicense"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name of this package.",
+            "maxLength": 200
+          },
+          "num_files": {
+            "type": "integer"
+          },
+          "package_type": {
+            "$ref": "#/components/schemas/PackageTypeEnum"
+          },
+          "security_scan_completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The datetime the security scanning was completed."
+          },
+          "security_scan_started_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The datetime the security scanning was started."
+          },
+          "security_scan_status": {
+            "$ref": "#/components/schemas/SecurityScanStatusEnum"
+          },
+          "security_scan_status_updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The datetime the security scanning status was updated."
+          },
+          "size": {
+            "type": "integer",
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
+            "format": "int64",
+            "description": "The calculated size of the package."
+          },
+          "slug": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The public unique identifier for the package.",
+            "pattern": "^[-a-zA-Z0-9_]+$"
+          },
+          "slug_perm": {
+            "type": "string",
+            "maxLength": 16,
+            "pattern": "^[-a-zA-Z0-9_]+$"
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true,
+            "description": "A one-liner synopsis of this package.",
+            "maxLength": 255
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyPackageTag"
+            }
+          },
+          "uploaded_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date this package was uploaded."
+          },
+          "uploader": {
+            "$ref": "#/components/schemas/PolicyUploader"
+          },
+          "upstream_metadata": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyUpstreamMetadata"
+              }
+            ],
+            "nullable": true,
+            "description": "Additional information in the form of arbitrary metadata that may be copied or added from the upstream source during upstream caching. For example the published at timestamp, or attestations etc."
+          },
+          "version": {
+            "type": "string",
+            "nullable": true,
+            "description": "The raw version for this package.",
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "architectures",
+          "files",
+          "format",
+          "last_downloaded_at",
+          "license",
+          "num_files",
+          "package_type",
+          "security_scan_status",
+          "slug",
+          "tags"
+        ]
+      },
+      "PolicyHuggingfacePackageTyped": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "format": {
+                "type": "string"
+              }
+            },
+            "required": ["format"]
+          },
+          {
+            "$ref": "#/components/schemas/PolicyHuggingfacePackage"
+          }
+        ]
+      },
+      "PolicyHuggingfaceSecurity": {
+        "type": "object",
+        "properties": {
+          "availability": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AvailabilityEnum"
+              }
+            ],
+            "description": "Whether security data is available for this Huggingface package.\n\n* `UNAVAILABLE` - Unavailable\n* `PARTIAL` - Partially complete\n* `COMPLETE` - Complete"
+          },
+          "scan_summary": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScanSummaryEnum"
+              }
+            ],
+            "description": "If data is available, the overall summary of the scan results. Result precedence from highest to lowest is: UNSAFE > UNKNOWN > QUEUED > SAFE.\n\n* `UNSAFE` - Unsafe\n* `UNKNOWN` - Unknown\n* `QUEUED` - Queued\n* `SAFE` - Safe"
+          },
+          "scan_details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyHuggingfaceHubScans"
+            },
+            "description": "The scan details for any file that is NOT reported as SAFE will be included in this list."
+          },
+          "source": {
+            "$ref": "#/components/schemas/PolicyHuggingfaceSecuritySourceEnum"
+          }
+        },
+        "required": ["availability"]
+      },
+      "PolicyHuggingfaceSecuritySourceEnum": {
+        "enum": ["HUGGINGFACE_HUB"],
+        "type": "string",
+        "description": "* `HUGGINGFACE_HUB` - Hugging Face Hub"
       },
       "PolicyInput": {
         "type": "object",
@@ -1882,7 +2648,7 @@
         "description": "Serializer for V0 policy input.",
         "properties": {
           "package": {
-            "$ref": "#/components/schemas/PolicyPackage"
+            "$ref": "#/components/schemas/PolicyPolymorphicPackage"
           },
           "repository": {
             "$ref": "#/components/schemas/PolicyRepository"
@@ -1890,19 +2656,261 @@
           "workspace": {
             "$ref": "#/components/schemas/PolicyWorkspace"
           },
+          "osv": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyOSVVulnerability"
+            }
+          },
           "security_scan": {},
           "vulnerabilities": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PolicyAdvisory"
             }
+          },
+          "model_security": {
+            "$ref": "#/components/schemas/PolicyHuggingfaceSecurity"
+          },
+          "sbom": {
+            "description": "Raw SBOM data in CycloneDX format, generated by Cloudsmith. Only available for supported Docker/OCI images."
           }
         },
-        "required": ["package", "repository", "security_scan", "vulnerabilities", "workspace"]
+        "required": ["osv", "package", "repository", "security_scan", "vulnerabilities", "workspace"]
+      },
+      "PolicyOSVAffected": {
+        "type": "object",
+        "description": "An object which describes the versions of a package which a vulnerability affects.\n\nThe `affected` field in the OSV schema is described in detail at https://ossf.github.io/osv-schema/#affected-fields.",
+        "properties": {
+          "database_specific": {
+            "nullable": true,
+            "description": "a JSON object holding additional information about the vulnerability as defined by the database from which the record was obtained. The meaning of the values within the object is entirely defined by the database. In general, the canonical database for a particular ecosystem should record its information in ecosystem_specific, allowing other aggregator databases to put their own summaries in database_specific. For example, databases that add additional information such as computed CVSS scores for ecosystems that do not provide them could add that information here. Note that this is a single field with key “database_specific”, which itself contains a JSON object with unspecified fields."
+          },
+          "ecosystem_specific": {
+            "nullable": true,
+            "description": "A JSON object holding additional information about the vulnerability as defined by the ecosystem for which the record applies. The meaning of the values within the object is entirely defined by the ecosystem. For example, the Go ecosystem includes here information about the affected functions and which modules the packages were found in, along with severity in the Go project-specific severity scale. Note that this is a single field with key “ecosystem_specific”, which itself contains a JSON object with unspecified fields."
+          },
+          "package": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyOSVPackage"
+              }
+            ],
+            "nullable": true
+          },
+          "ranges": {
+            "nullable": true,
+            "description": "The affected object’s ranges field is a JSON array of objects describing the affected ranges of versions. In the range object, the type property is required. It specifies the type of version range being recorded and defines the interpretation of the events object’s introduced, fixed, and any type-specific fields. The ranges object’s events field is a JSON array of objects. Each object describes a single version that either introduces a vulnerability, fixes a vulnerability, describes the last known affected version, or sets an upper limit on the range being described."
+          },
+          "severity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyOSVSeverity"
+            },
+            "nullable": true
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "A JSON array of strings. Each string is a single affected version in whatever version syntax is used by the given package ecosystem. When there is no well-defined packaging ecosystem specified (for example, general C/C++ libraries), GIT commit ranges are typically the best way to define vulnerable version ranges. In this case, versions specified in this array cannot be relied upon to conform to any particular syntax (e.g. they could be the upstream Git version tags derived from these GIT commit ranges, which is what OSV.dev populates this field with). In this situation, the GIT commit ranges in affected[].ranges should be used to match vulnerabilities by Git commit hashes.",
+              "maxLength": 255
+            },
+            "nullable": true
+          }
+        },
+        "required": ["package", "severity"]
+      },
+      "PolicyOSVPackage": {
+        "type": "object",
+        "description": "Identifies the affected code library or command provided by the package.\n\nThe OSV package field is described in detail at https://ossf.github.io/osv-schema/#affectedpackage-field.",
+        "properties": {
+          "ecosystem": {
+            "type": "string",
+            "description": "The overall library ecosystem which package belongs to.",
+            "maxLength": 255
+          },
+          "name": {
+            "type": "string",
+            "description": "The library within the overall ecosystem. Note that the semantics of this field depend on the ecosystem.",
+            "maxLength": 512
+          },
+          "purl": {
+            "type": "string",
+            "nullable": true,
+            "description": "A string following the Package URL specification that identifies the package, without the @version component."
+          }
+        },
+        "required": ["ecosystem", "name", "purl"]
+      },
+      "PolicyOSVSeverity": {
+        "type": "object",
+        "description": "Describes the severity of a vulnerability using one or more quantitative scoring methods.",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyOSVSeverityTypeEnum"
+              }
+            ],
+            "description": "The type of severity being described. The type indicates how the associated score should be interpreted.\n\n* `Ubuntu` - An \"Ubuntu\" severity type indicates that the associated score is a lowercased string\n    representing the Ubuntu priority.\n\n    If a severity has this type, the associated \"score\" will be one of \"negligible\",\n    \"low\", \"medium\", \"high\", or \"critical\".\n\n    See https://ubuntu.com/security/cves/about#priority for more information.\n    \n* `CVSS_V2` - A \"CVSS_V2\" severity type indicates that the associated score is a CVSS vector\n    string using a version of the Common Vulnerability Scoring System notation that\n    is == 2.0 (e.g.\"AV:L/AC:M/Au:N/C:N/I:P/A:C\").\n    \n* `CVSS_V3` - A \"CVSS_V3\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 3.0 and < 4.0 (e.g.\"CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:N/A:N\").\n    \n* `CVSS_V4` - A \"CVSS_V4\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 4.0 and < 5.0 (e.g. \"CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N\").\n    "
+          },
+          "score": {
+            "type": "string",
+            "description": "The score of the vulnerability. This should be interpreted differently depending on the severity type."
+          },
+          "numerical_score": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "A pre-calculated numerical score (added as a convenience by Cloudsmith) for CVSS severity types, based on the CVSS vector provided by OSV. For the UBUNTU severity type, this field is null."
+          }
+        },
+        "required": ["numerical_score", "score", "type"]
+      },
+      "PolicyOSVSeverityTypeEnum": {
+        "enum": ["Ubuntu", "CVSS_V2", "CVSS_V3", "CVSS_V4"],
+        "type": "string",
+        "description": "* `Ubuntu` - An \"Ubuntu\" severity type indicates that the associated score is a lowercased string\n    representing the Ubuntu priority.\n\n    If a severity has this type, the associated \"score\" will be one of \"negligible\",\n    \"low\", \"medium\", \"high\", or \"critical\".\n\n    See https://ubuntu.com/security/cves/about#priority for more information.\n    \n* `CVSS_V2` - A \"CVSS_V2\" severity type indicates that the associated score is a CVSS vector\n    string using a version of the Common Vulnerability Scoring System notation that\n    is == 2.0 (e.g.\"AV:L/AC:M/Au:N/C:N/I:P/A:C\").\n    \n* `CVSS_V3` - A \"CVSS_V3\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 3.0 and < 4.0 (e.g.\"CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:N/A:N\").\n    \n* `CVSS_V4` - A \"CVSS_V4\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 4.0 and < 5.0 (e.g. \"CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N\").\n    "
+      },
+      "PolicyOSVVulnerability": {
+        "type": "object",
+        "description": "A Vulnerability from the OSV data set which has been matched to the package in Cloudsmith.\n\nThe OSV schema is described in detail at https://ossf.github.io/osv-schema/.",
+        "properties": {
+          "affected": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyOSVAffected"
+            },
+            "nullable": true
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "nullable": true,
+            "description": "A list of IDs of the same vulnerability in other databases. This allows one database to claim that its own entry describes the same vulnerability as one or more entries in other databases. Note that the vulnerability IDs referenced here may or may not exist in the overall data set. Aliases should be considered symmetric (if A is an alias of B, then B is an alias of A) and transitive (If A aliases B and B aliases C, then A aliases C)."
+          },
+          "credits": {
+            "nullable": true,
+            "description": "A JSON array providing a way to give credit for the discovery, confirmation, patch, or other events in the life cycle of a vulnerability. Each of the objects in the credits array must contain at minimum a name field specifying the name of the individual or entity being credited, using whatever notation they prefer. It can also optionally include a contact JSON array."
+          },
+          "database_specific": {
+            "nullable": true,
+            "description": "Additional information about the vulnerability as defined by the database from which the record was obtained. This is a JSON object with unspecified fields, and the meaning of the values within the object is entirely defined by the database."
+          },
+          "details": {
+            "type": "string",
+            "nullable": true,
+            "description": "Additional English textual details about the vulnerability. This field contains CommonMark markdown (a subset of GitHub-Flavored Markdown)."
+          },
+          "id": {
+            "type": "string"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time the osv.dev vulnerability entry was last modified."
+          },
+          "published": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The time the entry should be considered to have been published"
+          },
+          "references": {
+            "nullable": true,
+            "description": "a list of JSON objects describing references. Each object has a string field type specifying the type of reference, and a string field url. The url is the fully-qualified URL (including the scheme, typically “https://”) linking to additional information, advisories, issue tracker entries, and so on about the vulnerability itself. The type specifies what kind of reference the URL is."
+          },
+          "related": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "nullable": true,
+            "description": "A list of closely related vulnerabilities, such as a similar but completely different vulnerability or cases that do not satisfy the strict definition of aliases or upstream. Related vulnerabilities are symmetric but not transitive."
+          },
+          "schema_version": {
+            "type": "string",
+            "nullable": true,
+            "description": "The version of the OSV schema a particular vulnerability was exported with. The value should be a string matching the OSV Schema version, which follows the SemVer 2.0.0 format, with no leading “v” prefix. If no value is specified, it should be assumed to be 1.0.0, matching version 1.0 of the OSV Schema.",
+            "maxLength": 128
+          },
+          "severity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyOSVSeverity"
+            },
+            "nullable": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true,
+            "description": "A one-line, English textual summary of the vulnerability. It is recommended that this field be kept short, on the order of no more than 120 characters."
+          },
+          "upstream": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "nullable": true,
+            "description": "A list of IDs of upstream vulnerabilities that are referred to by the vulnerability entry. For example, a downstream package ecosystem (such as a Linux distribution) may issue its own advisories that include (possibly multiple) upstream vulnerabilities. Upstream should be considered transitive but not symmetric."
+          }
+        },
+        "required": ["affected", "id", "modified", "severity"]
+      },
+      "PolicyOssLicense": {
+        "type": "object",
+        "description": "The SPDX license associated with a package for policy purposes.",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "license_text": {
+            "type": "string"
+          },
+          "license_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "maxLength": 200
+          },
+          "osi_approved": {
+            "type": "boolean"
+          },
+          "spdx_identifier": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "spdx_license": {
+            "type": "boolean"
+          },
+          "spdx_template": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 64
+          },
+          "spdx_details_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "maxLength": 200
+          },
+          "is_deprecated": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "required": ["full_name", "license_text", "spdx_identifier"]
       },
       "PolicyPackage": {
         "type": "object",
-        "description": "Serializer for packages for policy purposes.",
+        "description": "The details of the package for policy purposes.",
         "properties": {
           "architectures": {
             "type": "array",
@@ -1965,11 +2973,13 @@
           "indexed": {
             "type": "boolean"
           },
-          "license": {
+          "last_downloaded_at": {
             "type": "string",
-            "nullable": true,
-            "description": "The license of this package.",
-            "maxLength": 128
+            "format": "date-time",
+            "description": "The last time the package was downloaded."
+          },
+          "license": {
+            "$ref": "#/components/schemas/PolicyPackageLicense"
           },
           "name": {
             "type": "string",
@@ -1991,6 +3001,18 @@
             "description": "The release of the package version (if any).",
             "maxLength": 96
           },
+          "security_scan_completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The datetime the security scanning was completed."
+          },
+          "security_scan_started_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The datetime the security scanning was started."
+          },
           "security_scan_status": {
             "$ref": "#/components/schemas/SecurityScanStatusEnum"
           },
@@ -2000,22 +3022,10 @@
             "nullable": true,
             "description": "The datetime the security scanning status was updated."
           },
-          "security_scan_started_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true,
-            "description": "The datetime the security scanning was started."
-          },
-          "security_scan_completed_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true,
-            "description": "The datetime the security scanning was completed."
-          },
           "size": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "description": "The calculated size of the package."
           },
@@ -2054,11 +3064,20 @@
           "uploader": {
             "$ref": "#/components/schemas/PolicyUploader"
           },
+          "upstream_metadata": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyUpstreamMetadata"
+              }
+            ],
+            "nullable": true,
+            "description": "Additional information in the form of arbitrary metadata that may be copied or added from the upstream source during upstream caching. For example the published at timestamp, or attestations etc."
+          },
           "version": {
             "type": "string",
             "nullable": true,
             "description": "The raw version for this package.",
-            "maxLength": 128
+            "maxLength": 255
           }
         },
         "required": [
@@ -2073,6 +3092,8 @@
           "filename",
           "files",
           "format",
+          "last_downloaded_at",
+          "license",
           "package_type",
           "security_scan_status",
           "slug",
@@ -2082,7 +3103,7 @@
       },
       "PolicyPackageFile": {
         "type": "object",
-        "description": "Serializer for package files for policy purposes.",
+        "description": "The package files for policy purposes.",
         "properties": {
           "checksum_md5": {
             "type": "string",
@@ -2118,8 +3139,8 @@
           },
           "size": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "description": "The calculated size of the file."
           },
@@ -2136,6 +3157,82 @@
           }
         },
         "required": ["filename", "is_primary"]
+      },
+      "PolicyPackageLicense": {
+        "type": "object",
+        "description": "The licensing details of a package.",
+        "properties": {
+          "raw_license": {
+            "type": "string",
+            "nullable": true,
+            "description": "The raw license as defined by the uploaded of this package.",
+            "maxLength": 128
+          },
+          "raw_license_file_path": {
+            "type": "string",
+            "nullable": true,
+            "description": "The relative path of the file within the package which contains its license.",
+            "maxLength": 255
+          },
+          "raw_license_file_contents": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyPackageLicenseFileContents"
+              }
+            ],
+            "readOnly": true
+          },
+          "license_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "The license URL of this package.",
+            "maxLength": 200
+          },
+          "oss_license": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyOssLicense"
+              }
+            ],
+            "readOnly": true
+          },
+          "source": {
+            "$ref": "#/components/schemas/LicenseSourceEnum"
+          },
+          "match": {
+            "$ref": "#/components/schemas/LicenseMatchTypeEnum"
+          },
+          "similarity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "title": "License Similarity (%)",
+            "description": "The similarity (expressed as a percentage) between the license name provided within metadata and a valid SPDX license.",
+            "minimum": 0,
+            "maximum": 100,
+            "readOnly": true
+          },
+          "override": {
+            "$ref": "#/components/schemas/LicenseOverrideEnum"
+          }
+        },
+        "required": ["match", "oss_license", "override", "raw_license_file_contents", "similarity", "source"]
+      },
+      "PolicyPackageLicenseFileContents": {
+        "type": "object",
+        "description": "The raw text contents of the license.",
+        "properties": {
+          "sha256": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "raw_text": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": ["raw_text", "sha256"]
       },
       "PolicyPackageTag": {
         "type": "object",
@@ -2164,9 +3261,42 @@
         },
         "required": ["name", "source", "tag_type"]
       },
+      "PolicyPackageTyped": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "format": {
+                "type": "string"
+              }
+            },
+            "required": ["format"]
+          },
+          {
+            "$ref": "#/components/schemas/PolicyPackage"
+          }
+        ]
+      },
+      "PolicyPolymorphicPackage": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PolicyPackageTyped"
+          },
+          {
+            "$ref": "#/components/schemas/PolicyHuggingfacePackageTyped"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "format",
+          "mapping": {
+            "Package": "#/components/schemas/PolicyPackageTyped",
+            "HuggingfacePackage": "#/components/schemas/PolicyHuggingfacePackageTyped"
+          }
+        }
+      },
       "PolicyRepository": {
         "type": "object",
-        "description": "Serializer for the Repository model for policy purposes.",
+        "description": "The details of the package repository for policy purposes.",
         "properties": {
           "created_at": {
             "type": "string",
@@ -2303,7 +3433,7 @@
       },
       "PolicyUploader": {
         "type": "object",
-        "description": "Serializer for packager uploader for policy puposes.",
+        "description": "The package uploader for policy puposes.",
         "properties": {
           "email": {
             "type": "string",
@@ -2331,6 +3461,17 @@
           }
         },
         "required": ["first_name", "last_name", "slug", "slug_perm"]
+      },
+      "PolicyUpstreamMetadata": {
+        "type": "object",
+        "description": "The upstream metadata associated with a package.",
+        "properties": {
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
       },
       "PolicyWorkspace": {
         "type": "object",
@@ -2384,10 +3525,72 @@
         },
         "required": ["name", "slug", "slug_perm"]
       },
+      "RemovePackageTagsPolicyAction": {
+        "type": "object",
+        "properties": {
+          "precedence": {
+            "type": "integer",
+            "maximum": 32767,
+            "minimum": 0,
+            "description": "The order in which this action occurs relative to other actions for the same policy."
+          },
+          "slug_perm": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The Action identifier.",
+            "pattern": "^[-a-zA-Z0-9_]+$"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "The date and time the policy was created."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "The date and time the policy was updated."
+          },
+          "effect": {
+            "type": "string",
+            "readOnly": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        },
+        "required": ["created_at", "effect", "slug_perm", "tags", "updated_at"]
+      },
+      "RemovePackageTagsPolicyActionTyped": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "action_type": {
+                "type": "string"
+              }
+            },
+            "required": ["action_type"]
+          },
+          {
+            "$ref": "#/components/schemas/RemovePackageTagsPolicyAction"
+          }
+        ]
+      },
       "RepositoryTypeEnum": {
         "enum": ["PUBLIC", "PRIVATE", "OPEN_SOURCE"],
         "type": "string",
         "description": "* `PUBLIC` - Public\n* `PRIVATE` - Private\n* `OPEN_SOURCE` - Open-Source"
+      },
+      "ScanSummaryEnum": {
+        "enum": ["UNSAFE", "UNKNOWN", "QUEUED", "SAFE"],
+        "type": "string",
+        "description": "* `UNSAFE` - Unsafe\n* `UNKNOWN` - Unknown\n* `QUEUED` - Queued\n* `SAFE` - Safe"
       },
       "SecurityScanStatusEnum": {
         "enum": [
@@ -2461,6 +3664,176 @@
         "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
         "type": "string",
         "description": "* `LOW` - LOW\n* `MEDIUM` - MEDIUM\n* `HIGH` - HIGH\n* `CRITICAL` - CRITICAL"
+      },
+      "StatusEnum": {
+        "enum": ["UNSAFE", "UNKNOWN", "QUEUED", "SAFE"],
+        "type": "string",
+        "description": "* `UNSAFE` - Unsafe\n* `UNKNOWN` - Unknown\n* `QUEUED` - Queued\n* `SAFE` - Safe"
+      },
+      "WebOSVAffected": {
+        "type": "object",
+        "description": "Extended OSV Affected serializer for frontend consumption.\n\nUses WebOSVSeveritySerializer to include parsed CVSS components.",
+        "properties": {
+          "database_specific": {
+            "nullable": true,
+            "description": "a JSON object holding additional information about the vulnerability as defined by the database from which the record was obtained. The meaning of the values within the object is entirely defined by the database. In general, the canonical database for a particular ecosystem should record its information in ecosystem_specific, allowing other aggregator databases to put their own summaries in database_specific. For example, databases that add additional information such as computed CVSS scores for ecosystems that do not provide them could add that information here. Note that this is a single field with key “database_specific”, which itself contains a JSON object with unspecified fields."
+          },
+          "ecosystem_specific": {
+            "nullable": true,
+            "description": "A JSON object holding additional information about the vulnerability as defined by the ecosystem for which the record applies. The meaning of the values within the object is entirely defined by the ecosystem. For example, the Go ecosystem includes here information about the affected functions and which modules the packages were found in, along with severity in the Go project-specific severity scale. Note that this is a single field with key “ecosystem_specific”, which itself contains a JSON object with unspecified fields."
+          },
+          "package": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyOSVPackage"
+              }
+            ],
+            "nullable": true
+          },
+          "ranges": {
+            "nullable": true,
+            "description": "The affected object’s ranges field is a JSON array of objects describing the affected ranges of versions. In the range object, the type property is required. It specifies the type of version range being recorded and defines the interpretation of the events object’s introduced, fixed, and any type-specific fields. The ranges object’s events field is a JSON array of objects. Each object describes a single version that either introduces a vulnerability, fixes a vulnerability, describes the last known affected version, or sets an upper limit on the range being described."
+          },
+          "severity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebOSVSeverity"
+            },
+            "nullable": true
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "A JSON array of strings. Each string is a single affected version in whatever version syntax is used by the given package ecosystem. When there is no well-defined packaging ecosystem specified (for example, general C/C++ libraries), GIT commit ranges are typically the best way to define vulnerable version ranges. In this case, versions specified in this array cannot be relied upon to conform to any particular syntax (e.g. they could be the upstream Git version tags derived from these GIT commit ranges, which is what OSV.dev populates this field with). In this situation, the GIT commit ranges in affected[].ranges should be used to match vulnerabilities by Git commit hashes.",
+              "maxLength": 255
+            },
+            "nullable": true
+          }
+        },
+        "required": ["package", "severity"]
+      },
+      "WebOSVSeverity": {
+        "type": "object",
+        "description": "Extended OSV Severity serializer for frontend consumption.\n\nAdds parsed CVSS components for display purposes.",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyOSVSeverityTypeEnum"
+              }
+            ],
+            "description": "The type of severity being described. The type indicates how the associated score should be interpreted.\n\n* `Ubuntu` - An \"Ubuntu\" severity type indicates that the associated score is a lowercased string\n    representing the Ubuntu priority.\n\n    If a severity has this type, the associated \"score\" will be one of \"negligible\",\n    \"low\", \"medium\", \"high\", or \"critical\".\n\n    See https://ubuntu.com/security/cves/about#priority for more information.\n    \n* `CVSS_V2` - A \"CVSS_V2\" severity type indicates that the associated score is a CVSS vector\n    string using a version of the Common Vulnerability Scoring System notation that\n    is == 2.0 (e.g.\"AV:L/AC:M/Au:N/C:N/I:P/A:C\").\n    \n* `CVSS_V3` - A \"CVSS_V3\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 3.0 and < 4.0 (e.g.\"CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:N/A:N\").\n    \n* `CVSS_V4` - A \"CVSS_V4\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 4.0 and < 5.0 (e.g. \"CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N\").\n    "
+          },
+          "score": {
+            "type": "string",
+            "description": "The score of the vulnerability. This should be interpreted differently depending on the severity type."
+          },
+          "numerical_score": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "A pre-calculated numerical score (added as a convenience by Cloudsmith) for CVSS severity types, based on the CVSS vector provided by OSV. For the UBUNTU severity type, this field is null."
+          },
+          "cvss_components": {
+            "type": "object",
+            "additionalProperties": {},
+            "nullable": true,
+            "description": "Parsed CVSS components broken down by category for display. Only populated for CVSS severity types. Returns a dictionary with: version (CVSS version), vector (original vector string), severity_label (e.g., 'Critical', 'High', 'Medium', 'Low', 'None'), and groups (metrics organized by category).",
+            "readOnly": true
+          }
+        },
+        "required": ["cvss_components", "numerical_score", "score", "type"]
+      },
+      "WebOSVVulnerability": {
+        "type": "object",
+        "description": "Extended OSV Vulnerability serializer for frontend consumption.\n\nExtends PolicyOSVVulnerabilitySerializer with additional fields or\nformatting without leaking these changes into EPM.",
+        "properties": {
+          "affected": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebOSVAffected"
+            },
+            "nullable": true
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "nullable": true,
+            "description": "A list of IDs of the same vulnerability in other databases. This allows one database to claim that its own entry describes the same vulnerability as one or more entries in other databases. Note that the vulnerability IDs referenced here may or may not exist in the overall data set. Aliases should be considered symmetric (if A is an alias of B, then B is an alias of A) and transitive (If A aliases B and B aliases C, then A aliases C)."
+          },
+          "credits": {
+            "nullable": true,
+            "description": "A JSON array providing a way to give credit for the discovery, confirmation, patch, or other events in the life cycle of a vulnerability. Each of the objects in the credits array must contain at minimum a name field specifying the name of the individual or entity being credited, using whatever notation they prefer. It can also optionally include a contact JSON array."
+          },
+          "database_specific": {
+            "nullable": true,
+            "description": "Additional information about the vulnerability as defined by the database from which the record was obtained. This is a JSON object with unspecified fields, and the meaning of the values within the object is entirely defined by the database."
+          },
+          "details": {
+            "type": "string",
+            "nullable": true,
+            "description": "Additional English textual details about the vulnerability. This field contains CommonMark markdown (a subset of GitHub-Flavored Markdown)."
+          },
+          "id": {
+            "type": "string"
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time the osv.dev vulnerability entry was last modified."
+          },
+          "published": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The time the entry should be considered to have been published"
+          },
+          "references": {
+            "nullable": true,
+            "description": "a list of JSON objects describing references. Each object has a string field type specifying the type of reference, and a string field url. The url is the fully-qualified URL (including the scheme, typically “https://”) linking to additional information, advisories, issue tracker entries, and so on about the vulnerability itself. The type specifies what kind of reference the URL is."
+          },
+          "related": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "nullable": true,
+            "description": "A list of closely related vulnerabilities, such as a similar but completely different vulnerability or cases that do not satisfy the strict definition of aliases or upstream. Related vulnerabilities are symmetric but not transitive."
+          },
+          "schema_version": {
+            "type": "string",
+            "nullable": true,
+            "description": "The version of the OSV schema a particular vulnerability was exported with. The value should be a string matching the OSV Schema version, which follows the SemVer 2.0.0 format, with no leading “v” prefix. If no value is specified, it should be assumed to be 1.0.0, matching version 1.0 of the OSV Schema.",
+            "maxLength": 128
+          },
+          "severity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebOSVSeverity"
+            },
+            "nullable": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true,
+            "description": "A one-line, English textual summary of the vulnerability. It is recommended that this field be kept short, on the order of no more than 120 characters."
+          },
+          "upstream": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "nullable": true,
+            "description": "A list of IDs of upstream vulnerabilities that are referred to by the vulnerability entry. For example, a downstream package ecosystem (such as a Linux distribution) may issue its own advisories that include (possibly multiple) upstream vulnerabilities. Upstream should be considered transitive but not symmetric."
+          }
+        },
+        "required": ["affected", "id", "modified", "severity"]
       }
     },
     "securitySchemes": {
