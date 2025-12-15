@@ -119,6 +119,14 @@ To enable it for your repository, browse to your repository overview page and cl
 
 In the Upstream creation menu, define a name your Upstream and in the **Proxy URL** field insert `https://proxy.golang.org`. Click on **+ Create Upstream Proxy** and the upstream shoud become immediately available.
 
+<Note variant="note" headline="Go Standard Library packages">
+Packages which are part of the [Go Standard Library](https://pkg.go.dev/std) are bundled directly with the Go compiler. They are not available for direct download and cannot be downloaded and cached through the Cloudsmith upstreams.
+Cloudsmith's Go repositories are designed to proxy and cache Go Modules (downloadable from the internet).
+ 
+Modules:github.com/gin-gonic/gin, golang.org/x/text > Cached in Cloudsmith.
+Standard Library:strconv, fmt, net/http > Bundled into the Go Installer.
+</Node>
+
 <BlockImage src={go_upstream} alt=""></BlockImage>
 
 Before you can install modules from your Cloudsmith repository, you'll need to configure your environment for access. The configuration is defined using the `GOPROXY` environment variable as explained below.
