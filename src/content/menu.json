@@ -567,6 +567,10 @@
             "path": "/integrations/integrating-with-dependabot"
           },
           {
+            "title": "Docker Hardened Images",
+            "path": "/integrations/integrating-with-docker-hardened-images"
+          },
+          {
             "title": "Docker Hub",
             "path": "/integrations/integrating-with-docker-hub"
           },
