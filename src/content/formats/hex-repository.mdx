@@ -65,7 +65,7 @@ export FINGERPRINT=$(curl -s -H "X-Api-Key: ${CLOUDSMITH_API_KEY}" ${CLOUDSMITH_
 Next, use Mix's `hex.repo add` command to add your Cloudsmith repository:
 
 ```shell
-mix hex.repo add REPOSITORY https://hex.cloudsmith.io/${CLOUDSMITH_REPOSITORY} --auth-key $CLOUDSMITH_API_KEY --fetch-public-key SHA256:${FINGERPRINT}
+mix hex.repo add REPOSITORY https://hex.cloudsmith.io/${CLOUDSMITH_NAMESPACE}/${CLOUDSMITH_REPOSITORY} --auth-key $CLOUDSMITH_API_KEY --fetch-public-key SHA256:${FINGERPRINT}
 ```
 
 Replace REPOSITORY with the name of your Cloudsmith repository. 
