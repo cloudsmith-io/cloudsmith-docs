@@ -1,0 +1,59 @@
+# Integrating MLflow
+
+How to integrate MLflow with Cloudsmith
+
+The MLflow Cloudsmith plugin lets you use Cloudsmith as an artifact store for MLflow runs. Artifacts are stored as Cloudsmith RAW packages, with tagging that preserves MLflow experiment and run context.
+
+For full details and examples, see the [MLflow Cloudsmith Plugin repository](https://github.com/cloudsmith-io/mlflow-cloudsmith-plugin).
+
+## Using Cloudsmith as the MLflow artifact store
+
+Install the MLflow Cloudsmith plugin via pip:
+
+```bash
+pip install mlflow-cloudsmith
+```
+
+Configure MLflow to use a Cloudsmith repository as the artifact destination by setting the MLflow artifact URI and your Cloudsmith API key:
+
+```python
+import os
+import mlflow
+
+os.environ["CLOUDSMITH_API_KEY"] = "<your-api-key>"
+os.environ["MLFLOW_ARTIFACT_URI"] = "cloudsmith://<owner>/<repo>"
+
+with mlflow.start_run():
+    mlflow.log_param("learning_rate", 0.01)
+    mlflow.log_metric("accuracy", 0.95)
+    mlflow.log_artifact("model.pkl")
+```
+
+Cloudsmith will store each logged artifact as a RAW package in the specified repository, tagged for easy filtering (e.g. `mlflow`, `experiment-<id>`, `run-<id>`, `path-<artifact_path>`).
+
+## Direct repository usage
+
+You can also work with Cloudsmith artifact storage directly using the plugin's repository class:
+
+```python
+from plugin.cloudsmith_repository import CloudsmithArtifactRepository
+
+repo = CloudsmithArtifactRepository("cloudsmith://<owner>/<repo>")
+repo.log_artifact("model.pkl", "models/production")
+
+for info in repo.list_artifacts("models"):
+    print(info.path, info.file_size, info.is_dir)
+```
+
+## URI format
+
+Cloudsmith URIs for MLflow artifacts use the following format:
+
+```text
+cloudsmith://<owner>/<repository>[/<path>]
+```
+
+Examples:
+
+- `cloudsmith://my-org/ml-artifacts`
+- `cloudsmith://my-org/ml-artifacts/experiments`
