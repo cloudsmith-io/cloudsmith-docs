@@ -21,7 +21,7 @@ import os
 import mlflow
 
 os.environ["CLOUDSMITH_API_KEY"] = "<your-api-key>"
-os.environ["MLFLOW_ARTIFACT_URI"] = "cloudsmith://<owner>/<repo>"
+os.environ["MLFLOW_ARTIFACT_URI"] = "cloudsmith://<workspace>/<repo>"
 
 with mlflow.start_run():
     mlflow.log_param("learning_rate", 0.01)
@@ -38,7 +38,7 @@ You can also work with Cloudsmith artifact storage directly using the plugin's r
 ```python
 from plugin.cloudsmith_repository import CloudsmithArtifactRepository
 
-repo = CloudsmithArtifactRepository("cloudsmith://<owner>/<repo>")
+repo = CloudsmithArtifactRepository("cloudsmith://<workspace>/<repo>")
 repo.log_artifact("model.pkl", "models/production")
 
 for info in repo.list_artifacts("models"):
@@ -50,10 +50,10 @@ for info in repo.list_artifacts("models"):
 Cloudsmith URIs for MLflow artifacts use the following format:
 
 ```text
-cloudsmith://<owner>/<repository>[/<path>]
+cloudsmith://<workspace>/<repository>[/<path>]
 ```
 
 Examples:
 
-- `cloudsmith://my-org/ml-artifacts`
-- `cloudsmith://my-org/ml-artifacts/experiments`
+- `cloudsmith://my-workspace/ml-artifacts`
+- `cloudsmith://my-workspace/ml-artifacts/experiments`
