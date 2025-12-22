@@ -14,10 +14,10 @@ In your SageMaker training script, after model training is complete, you can use
 from huggingface_hub import HfApi
 import os
 
-ns = os.environ['CLOUDSMITH_NAMESPACE']
+ws = os.environ['CLOUDSMITH_WORKSPACE']
 repo = os.environ['CLOUDSMITH_REPO']
 token = os.environ['CLOUDSMITH_API_KEY']  # or fetched from Secrets Manager
-endpoint = f"https://huggingface.cloudsmith.io/{ns}/{repo}"
+endpoint = f"https://huggingface.cloudsmith.io/{ws}/{repo}"
 
 api = HfApi(token=token, endpoint=endpoint)
 api.upload_folder(
@@ -36,10 +36,10 @@ You can download models in your inference container or any client using the same
 from huggingface_hub import HfApi
 import os
 
-ns = os.environ['CLOUDSMITH_NAMESPACE']
+ws = os.environ['CLOUDSMITH_WORKSPACE']
 repo = os.environ['CLOUDSMITH_REPO']
 token = os.environ['CLOUDSMITH_API_KEY']
-endpoint = f"https://huggingface.cloudsmith.io/{ns}/{repo}"
+endpoint = f"https://huggingface.cloudsmith.io/{ws}/{repo}"
 api = HfApi(token=token, endpoint=endpoint)
 
 local_dir = "/opt/ml/model"
