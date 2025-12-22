@@ -51,7 +51,8 @@ First, you'll need to set some environment variables to assist in the process, r
 ```shell
 export CLOUDSMITH_API_KEY='YOUR-API-KEY'
 export CLOUDSMITH_API_HOST='https://api.cloudsmith.io'
-export CLOUDSMITH_REPOSITORY='OWNER/REPOSITORY'
+export CLOUDSMITH_NAMESPACE='OWNER'
+export CLOUDSMITH_REPOSITORY='REPOSITORY'
 ```
 
 While documented as optional, it's necessary to obtain the repository's fingerprint via Cloudsmith's API. This fingerprint ensures secure communication between your project and Cloudsmith.
@@ -59,13 +60,13 @@ While documented as optional, it's necessary to obtain the repository's fingerpr
 Use the command below to Cloudsmith's API to [retrieve the active RSA key](/api/repos/rsa/list) (aka its fingerprint) for the Cloudsmith Repository: 
 
 ```shell
-export FINGERPRINT=$(curl -s -H "X-Api-Key: ${CLOUDSMITH_API_KEY}" ${CLOUDSMITH_API_HOST}/v1/repos/${CLOUDSMITH_REPOSITORY}/rsa/ | jq -r '.ssh_fingerprint')
+export FINGERPRINT=$(curl -s -H "X-Api-Key: ${CLOUDSMITH_API_KEY}" ${CLOUDSMITH_API_HOST}/v1/repos/${CLOUDSMITH_NAMESPACE}/${CLOUDSMITH_REPOSITORY}/rsa/ | jq -r '.ssh_fingerprint')
 ```
 
 Next, use Mix's `hex.repo add` command to add your Cloudsmith repository:
 
 ```shell
-mix hex.repo add REPOSITORY https://hex.cloudsmith.io/${CLOUDSMITH_REPOSITORY} --auth-key $CLOUDSMITH_API_KEY --fetch-public-key SHA256:${FINGERPRINT}
+mix hex.repo add REPOSITORY https://hex.cloudsmith.io/${CLOUDSMITH_NAMESPACE}/${CLOUDSMITH_REPOSITORY} --auth-key $CLOUDSMITH_API_KEY --fetch-public-key SHA256:${FINGERPRINT}
 ```
 
 Replace REPOSITORY with the name of your Cloudsmith repository. 
