@@ -1,0 +1,67 @@
+# Integrating AWS SageMaker
+
+How to integrate AWS SageMaker with Cloudsmith
+
+Cloudsmith can be used as a secure source for your machine learning models and dependencies within AWS SageMaker workflows. This guide demonstrates how to integrate Cloudsmith with SageMaker for training and inference jobs.
+
+For a complete working example, please refer to our [Cloudsmith + SageMaker Demo Repository](https://github.com/cloudsmith-io/cloudsmith-sagemaker-demo).
+
+## Uploading Models
+
+In your SageMaker training script, after model training is complete, you can use Cloudsmith's Hugging Face-compatible endpoint to upload models to your Cloudsmith repository.
+
+```python
+from huggingface_hub import HfApi
+import os
+
+ws = os.environ['CLOUDSMITH_WORKSPACE']
+repo = os.environ['CLOUDSMITH_REPO']
+token = os.environ['CLOUDSMITH_API_KEY']  # or fetched from Secrets Manager
+endpoint = f"https://huggingface.cloudsmith.io/{ws}/{repo}"
+
+api = HfApi(token=token, endpoint=endpoint)
+api.upload_folder(
+    folder_path="/opt/ml/model",   # directory with model files
+    repo_id="distilbert-base-uncased-finetuned",
+    repo_type="model",
+    token=token,
+)
+```
+
+## Downloading Models
+
+You can download models in your inference container or any client using the same endpoint.
+
+```python
+from huggingface_hub import HfApi
+import os
+
+ws = os.environ['CLOUDSMITH_WORKSPACE']
+repo = os.environ['CLOUDSMITH_REPO']
+token = os.environ['CLOUDSMITH_API_KEY']
+endpoint = f"https://huggingface.cloudsmith.io/{ws}/{repo}"
+api = HfApi(token=token, endpoint=endpoint)
+
+local_dir = "/opt/ml/model"
+api.snapshot_download(
+    repo_id="distilbert-base-uncased-finetuned",  # or base model name
+    repo_type="model",
+    revision="main",  # or a specific uploaded revision hash/tag
+    local_dir=local_dir,
+    token=token,
+)
+```
+
+## Notes
+
+### VPC Configuration
+
+SageMaker must reach the private Cloudsmith registry (container + Hugging Face endpoints) over the public internet. When you use a private image, you launch the training job / endpoint inside a VPC so the underlying instance has:
+
+1. Private subnets where the job runs.
+2. An egress path (NAT) so those subnets can reach `docker.cloudsmith.io` and `huggingface.cloudsmith.io`.
+3. A security group that allows outbound HTTPS.
+
+### ECR (For inference)
+
+AWS does not currently authenticate to private third-party registries during SageMaker CreateModel for real-time inference; only ECR (or public/no-auth images) are supported.

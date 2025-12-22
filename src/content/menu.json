@@ -527,6 +527,10 @@
             "path": "/integrations/integrating-with-aws-codebuild"
           },
           {
+            "title": "AWS SageMaker",
+            "path": "/integrations/integrating-with-aws-sagemaker"
+          },
+          {
             "title": "Azure DevOps",
             "path": "/integrations/integrating-with-azure-devops"
           },
