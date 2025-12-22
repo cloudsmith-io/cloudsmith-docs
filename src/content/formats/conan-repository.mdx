@@ -107,7 +107,8 @@ conan export .
 To create a package, files need to be extracted from the Conan home directory:
 
 ```shell
-export CLOUDSMITH_REPOSITORY=OWNER/REPOSITORY
+export CLOUDSMITH_NAMESPACE=OWNER
+export CLOUDSMITH_REPOSITORY=REPOSITORY
 ```
 
 use `_` when user/channel is treated
@@ -144,7 +145,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 The package and additional files can then be uploaded via the Cloudsmith CLI. The following example shows an upload via the CLI.: 
 
 ```shell
-cloudsmith push conan "$CLOUDSMITH_REPOSITORY" conan_package.tgz \
+cloudsmith push conan "$CLOUDSMITH_NAMESPACE/$CLOUDSMITH_REPOSITORY" conan_package.tgz \
     --metadata-file "$metadata_file" \
     --info-file "$info_file"  \
     --manifest-file "$manifest_file"
