@@ -85,6 +85,11 @@ This value applies per group. So, the maximum total number of packages to kept w
 ### Deletion order
 Packages are deleted based on the date pushed, starting with the oldest and being newest packages the latest to be deleted until a total of `TOTAL_PACKAGES - retention_count_limit` packages have been deleted.
 
+<Note variant="note">
+If "Limit by size" is selected, packages are deleted based on the semantic version, starting with the lowest version. For example, when deleting by size and if “Group Packages by Name” is selected, if packages `PkgA 1.1.1`, `PkgA 1.1.2`, `PkgB 0.20251223.git-12345a` and `PkgB 0.20251224.git12345b` are uploaded, `PkgA 1.1.1` and `PkgB 0.20251223.git12345a` are deleted. 
+`PkgA 1.1.1` is deleted as it has a lower patch increment. `PkgB 0.20251223.git12345a` is deleted as it's minor increment is lower. 
+</Note>
+
 ### Groupings
 If grouping is selected, it applies to the rules to each "grouping". Otherwise, it's across all packages within a repository.
 
