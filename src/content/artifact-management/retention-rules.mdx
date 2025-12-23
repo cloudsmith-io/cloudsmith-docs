@@ -85,6 +85,14 @@ This value applies per group. So, the maximum total number of packages to kept w
 ### Deletion order
 Packages are deleted based on the date pushed, starting with the oldest and being newest packages the latest to be deleted until a total of `TOTAL_PACKAGES - retention_count_limit` packages have been deleted.
 
+<Note variant="note">
+When "Limit by size" is selected: Packages are deleted based on their semantic version, starting with the lowest version number. If "Group Packages by Name" is also selected: The deletion logic applies to each package name individually.
+
+- Example: If you have PkgA (versions 1.1.1, 1.1.2) and PkgB (versions 0.20251223, 0.20251224).
+
+- Result: The system identifies the lowest version per name. PkgA 1.1.1 and PkgB 0.20251223 are deleted.
+</Note>
+
 ### Groupings
 If grouping is selected, it applies to the rules to each "grouping". Otherwise, it's across all packages within a repository.
 
