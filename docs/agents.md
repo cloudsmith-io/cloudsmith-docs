@@ -38,7 +38,7 @@ These guidelines apply to all user-facing text in documentation:
 
 ### 3. Use plain language
 
-- Write as simply as possible while remaining accurate e.g. "use" instead of "utilize".
+- Write as simply as possible while remaining accurate, e.g. "use" instead of "utilize".
 - Avoid jargon, internal terminology, or implementation details unless they help users act or understand risk.
 - Define technical terms on first use.
 
@@ -118,7 +118,7 @@ Follow this standard flow for procedural documentation:
 - Use clear, descriptive headings
 - Break up long paragraphs (aim for 3-5 sentences max)
 
-### Code Examples
+### Code examples
 
 - Include working, tested code examples where possible
 - Use syntax highlighting appropriate to the language
