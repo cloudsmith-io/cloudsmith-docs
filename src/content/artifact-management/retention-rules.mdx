@@ -95,7 +95,7 @@ The Package Query String Parameter is an excellent way to further filter package
 ### Limiting the Number of Packages to Delete
 The **Limit by count** option defines the number of packages to keep. For example, if we set its value to `4` and only a total of `3` packages meet the criteria, then `0` packages will be deleted. But if `5` packages meet the criteria, then `1` will be deleted and `4` will be keep in the repository.
 
-This value applies per group. So, the maximum total number of packages to kept will always be the result of `retention_count_limit` multiplied by the number of groups.
+This value applies per group. So, the maximum total number of packages to keep will always be the result of `retention_count_limit` multiplied by the number of groups.
 
 ### Deletion Order
 With the exception of **Limit by Size**, packages are deleted based on their upload date. The **Limit by Size** parameter will order eligible packages based on their semantic version value and delete starting with the oldest semantic version.
