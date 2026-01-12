@@ -77,7 +77,7 @@ When multiple parameters of a retention rule are enabled, a package that meets a
 ### Understanding Groupings
 Enable grouping(s) to filter packages into groups based on specified criteria before applying retention rules. 
 
-For example, if “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and packages `PkgA 1.0`, `PkgB 1.0` and `PkgB 1.1` are uploaded; only `PkgB 1.0` is deleted because there are two (2) `PkgBs` and one (1) `PkgA`. Or, If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and packages `PythonPkg 1.0` and `RubyPkg 1.0` are uploaded, no packages are deleted because they are different formats
+For example, if “Group Packages by Name” is selected, retention will apply to groups of packages by name rather than all packages. For example, when retaining by a count limit of 1 and packages `PkgA 1.0`, `PkgB 1.0` and `PkgB 1.1` are uploaded; only `PkgB 1.0` is deleted because there are two (2) `PkgBs` and one (1) `PkgA`. Or, If “Group Packages by Format” is selected, retention will apply to packages within package types rather than across all package formats. For example, when retaining by a limit of 1 and packages `PythonPkg 1.0` and `RubyPkg 1.0` are uploaded, no packages are deleted because they are different formats.
 
 ### Understanding the Sequence of an Evaluation
 1. **Initial Query Set is Created** - All successfully synced packages within the repository are identified.
