@@ -57,7 +57,7 @@ As a reference, use the `GET` method to retrieve an existing retention rule or t
 
 ## When Do Retention Rules Get Evaluated?
 1. **Upload Trigger:** A Retention Rule is evaluated automatically whenever a new package is uploaded and completes synchronization. This is the ideal method for triggering a retention rule to ensure packages are evaluated and actioned as expected.
-2. **Resync Trigger:** A Retention Rule can also be triggered by resyncing the most recently uploaded package. When using the mechanism, review this documentation to understand how the cutoff date is calculated and how it affects package deletion.
+2. **Resync Trigger:** A Retention Rule can also be triggered by resyncing the most recently uploaded package. When using this mechanism, review this documentation to understand how the cutoff date is calculated and how it affects package deletion.
 
 <Note variant="note" headline="Limit by Days: Cutoff Date Calculation">
 The cutoff date is calculated by subtracting the Limit by Days parameter value from the upload date of the newest package.
