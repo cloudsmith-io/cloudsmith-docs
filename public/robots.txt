@@ -1,2 +1,6 @@
+# *
 User-agent: *
 Disallow:
+
+# Host
+Host: https://docs.cloudsmith.com
