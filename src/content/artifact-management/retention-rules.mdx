@@ -28,8 +28,7 @@ Alternatively, you can also use the Cloudsmith API to enable/disable a Retention
 curl --request PATCH \
   --url 'https://api.cloudsmith.io/repos/WORKSPACE/REPOSITORY/retention?=' \
   --header 'Authorization: Bearer API_TOKEN' \
-  --form retention_enabled=true (enable)
-  --form retention_enabled=false (disable)
+  --form retention_enabled=true  # use 'true' to enable, 'false' to disable
 ```
 
 <Note variant="note">
