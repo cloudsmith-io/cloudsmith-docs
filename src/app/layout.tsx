@@ -1,8 +1,13 @@
-import { Navbar } from '@/components';
-import { cx } from 'class-variance-authority';
-import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Suspense } from 'react';
+
+import type { Metadata } from 'next';
+
+import { Analytics } from '@vercel/analytics/next';
+import { cx } from 'class-variance-authority';
+import Script from 'next/script';
+
+import { Navbar } from '@/components';
+
 import { mdSystem, replica, replicaMono } from './_assets/fonts';
 import { NavigationEvents, NavigationProvider } from './navigation';
 
@@ -37,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <NavigationEvents />
           </Suspense>
         </NavigationProvider>
+        <Analytics />
       </body>
       <Script
         strategy="afterInteractive"
