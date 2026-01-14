@@ -22,7 +22,6 @@ Make sure you’re running Node version `22.11.0` (LTS). Then install the depend
 ```bash
 pnpm i
 ```
-
 Next run the desired task
 
 ```bash
