@@ -1,20 +1,28 @@
 'use client';
 
+import React, { useState } from 'react';
+
+import { cx } from 'class-variance-authority';
+
 import { Tag } from '@/components';
 import { ChevronIcon } from '@/icons/Chevron';
 import { RequestBodyObject, ResponseObject, SchemaObject } from '@/lib/swagger/types';
-import { cx } from 'class-variance-authority';
-import React, { useState } from 'react';
 
 import styles from './ApiMedia.module.css';
 
-export const ApiMediaResponse = (response: ResponseObject | RequestBodyObject) => {
+export const ApiMediaResponse = ({
+  response,
+  variant = 'response',
+}: {
+  response: ResponseObject | RequestBodyObject;
+  variant?: 'request-body' | 'response';
+}) => {
   return (
     <>
       {response.content ? (
         <div className={styles.responseType}>
           <p className={cx(styles.responseTitle, 'monoXSUppercase')}>
-            {response.description || 'Response body'}
+            {response.description || (variant === 'response' ? 'Response body' : 'Request Body')}
           </p>
           <div className={styles.responseTypeContent}>
             {Object.entries(response.content).map(([media, content]) => (

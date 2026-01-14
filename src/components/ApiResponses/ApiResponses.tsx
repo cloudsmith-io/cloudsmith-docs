@@ -1,12 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Tag } from '@/components';
 import { ChevronIcon } from '@/icons/Chevron';
 import { ApiOperation, ResponseObject } from '@/lib/swagger/types';
-import { useState } from 'react';
+
 import { ApiGrid, ApiGridColumn, ApiGridRowContent, ApiGridRowToggler } from '../ApiGrid/ApiGrid';
 import { ApiMediaResponse } from '../ApiMedia/ApiMedia';
-
 import styles from './ApiResponses.module.css';
 
 export const ApiResponses = (operation: ApiOperation) => (
@@ -36,7 +37,7 @@ export const ApiResponse = ({ code, response, initialOpen }: ResponseProps) => {
       </ApiGridRowToggler>
 
       <ApiGridRowContent isOpen={isOpen}>
-        <ApiMediaResponse {...response} />
+        <ApiMediaResponse response={response} />
       </ApiGridRowContent>
     </>
   );
