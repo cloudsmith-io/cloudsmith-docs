@@ -1,8 +1,8 @@
 import { Tag } from '@/components';
 import { ApiOperation } from '@/lib/swagger/types';
+
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
 import { ApiMediaResponse } from '../ApiMedia';
-
 import styles from './ApiRequest.module.css';
 
 export const ApiRequest = (operation: ApiOperation) => {
@@ -64,7 +64,7 @@ const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['r
     }>
     <ApiGridRow>
       <ApiGridColumn type="media">
-        <ApiMediaResponse {...requestBody} />
+        <ApiMediaResponse response={requestBody} variant="request-body" />
       </ApiGridColumn>
     </ApiGridRow>
   </ApiGrid>
