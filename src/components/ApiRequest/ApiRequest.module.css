@@ -1,10 +1,28 @@
 .request {
   grid-column: 1 / -1;
+  margin-block-end: var(--column-block-padding);
+}
+
+.sandbox {
+  display: inline-flex;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+  padding: var(--space-2xs) var(--space-xs);
+  align-items: center;
+  gap: var(--space-xs);
 }
 
 .url {
-  display: flex;
+  display: inline-flex;
   column-gap: var(--space-xs);
-  margin-block-end: var(--column-block-padding);
+
   word-break: break-all;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+  padding: var(--space-2xs) var(--space-xs);
+}
+
+.method {
+  align-self: center;
 }
