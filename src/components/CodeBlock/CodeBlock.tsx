@@ -3,8 +3,7 @@ import { cva, cx } from 'class-variance-authority';
 
 import { getHighlighter, theme } from '@/lib/highlight';
 
-import { ClipboardCopy } from './ClipboardCopy';
-
+import { ClipboardCopy } from '../ClipboardCopy/ClipboardCopy';
 import styles from './CodeBlock.module.css';
 
 const codeBlock = cva(styles.root, {
@@ -36,7 +35,7 @@ export async function CodeBlock({ children, lang, header = true }: Props) {
       {!hideHeader && (
         <div className={styles.lang}>
           <div className={cx(styles.langText, 'monoXSUppercase')}>{lang}</div>
-          <ClipboardCopy textToCopy={children} />
+          <ClipboardCopy textToCopy={children} iconVariant="pre" />
         </div>
       )}
       <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
