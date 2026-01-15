@@ -37,7 +37,7 @@ export const ApiResponse = ({ code, response, initialOpen }: ResponseProps) => {
       </ApiGridRowToggler>
 
       <ApiGridRowContent isOpen={isOpen}>
-        <ApiMediaResponse response={response} />
+        <ApiMediaResponse response={response} variant="response" />
       </ApiGridRowContent>
     </>
   );

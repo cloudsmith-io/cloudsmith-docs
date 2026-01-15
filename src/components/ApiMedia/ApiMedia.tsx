@@ -12,11 +12,16 @@ import styles from './ApiMedia.module.css';
 
 export const ApiMediaResponse = ({
   response,
-  variant = 'response',
-}: {
-  response: ResponseObject | RequestBodyObject;
-  variant?: 'request-body' | 'response';
-}) => {
+  variant,
+}:
+  | {
+      response: ResponseObject;
+      variant: 'response';
+    }
+  | {
+      response: RequestBodyObject;
+      variant: 'request-body';
+    }) => {
   return (
     <>
       {response.content ? (
