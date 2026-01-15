@@ -1,8 +1,14 @@
-import { Icon, type IconName } from '@/icons';
-import { ButtonColorScheme, ButtonSize, ButtonVariant, ButtonWidth } from '@/lib/types';
-import { cva, cx, type VariantProps } from 'class-variance-authority';
-import Link from 'next/link';
 import React from 'react';
+
+import type { IconName } from '@/icons';
+import type { VariantProps } from 'class-variance-authority';
+
+import { cva, cx } from 'class-variance-authority';
+import Link from 'next/link';
+
+import { Icon } from '@/icons';
+import { ButtonColorScheme, ButtonSize, ButtonVariant, ButtonWidth } from '@/lib/types';
+
 import styles from './Button.module.css';
 
 const buttonVariants = cva(styles.root, {
@@ -43,7 +49,7 @@ const buttonVariants = cva(styles.root, {
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  href: string;
+  href?: string;
   withArrow?: boolean;
   isExternalLink?: boolean;
   className?: string;
@@ -87,6 +93,14 @@ export function Button({
       )}
     </>
   );
+
+  if (href == null)
+    return (
+      <button aria-disabled={disabled ? true : undefined} className={cssClasses} {...rest}>
+        {content}
+      </button>
+    );
+
   const linkProps = rest as React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
   return (
