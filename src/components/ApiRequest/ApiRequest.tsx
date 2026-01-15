@@ -1,21 +1,38 @@
-import { Tag } from '@/components';
+import { Button, Tag } from '@/components';
 import { ApiOperation } from '@/lib/swagger/types';
+import { operationUrl } from '@/lib/url';
 
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
 import { ApiMediaResponse } from '../ApiMedia';
+import { ApiSandbox } from '../ApiSandbox';
+import { ClipboardCopy } from '../ClipboardCopy/ClipboardCopy';
 import styles from './ApiRequest.module.css';
 
-export const ApiRequest = (operation: ApiOperation) => {
+export const ApiRequest = ({
+  operation,
+  operations,
+}: {
+  operation: ApiOperation;
+  operations: ApiOperation[];
+}) => {
   const getParametersByParam = (param: string) => operation.parameters?.filter((p) => p.in === param);
   const pathsParameters = getParametersByParam('path');
   const queryParameters = getParametersByParam('query');
 
+  const url = operationUrl(operation);
+
   return (
     <>
       <div className={styles.request}>
-        <div className={styles.url}>
-          <Tag method={operation.method} />
-          {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}/${operation.version}${operation.path}`}
+        <div className={styles.sandbox}>
+          <ClipboardCopy textToCopy={url} className={styles.url}>
+            <Tag className={styles.method} method={operation.method} />
+            {url}
+          </ClipboardCopy>
+
+          <Button withArrow size="medium" width="large">
+            Try it out
+          </Button>
         </div>
       </div>
 
