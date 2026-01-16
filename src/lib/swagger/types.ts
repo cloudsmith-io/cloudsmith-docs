@@ -78,7 +78,7 @@ type OperationObject<T extends object = object> = {
   servers?: ServerObject[];
 } & T;
 
-interface ParameterObject extends ParameterBaseObject {
+export interface ParameterObject extends ParameterBaseObject {
   name: string;
   in: string;
 }
