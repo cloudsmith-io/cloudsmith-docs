@@ -4,6 +4,7 @@ title: "API Key"
 
 import { BlockImage } from '@/components';
 import apiKeyImage from './images/api-key-1.png';
+import refreshKeyImage from './images/api-key-refresh.png';
 import apiIpRestrictions from './images/api-ip-restrictions.png';
 
 
@@ -45,6 +46,16 @@ By default, you can use your API-Key from anywhere.
 
 If you wish to restrict the use of your API-Key to a specific IP address or range, you can add the CIDR address/mask to the Allow List in the [API Key Restrictions](https://app.cloudsmith.com/settings/api-keys/restrictions) tab: 
 
-<BlockImage src={apiIpRestrictions} alt=""></BlockImage>
+<BlockImage src={apiIpRestrictions} alt="Setting API restrictions for a user API key"></BlockImage>
 
 One you have added your CIDR address/mask, just click the "+ Add" button to apply your restriction.
+
+## Refresh a Personal/User API Key
+
+If you lose the API key associated with your account, or suspect it has been compromised, you'll need to refresh the key, generating a new one. 
+
+To do this, under your profile menu, select Personal API Keys.
+<BlockImage src={apiKeyImage} alt=""></BlockImage>
+
+Click the "Refresh API Key" button to generate a new API key.  
+<BlockImage src={refreshKeyImage} alt=""></BlockImage>
