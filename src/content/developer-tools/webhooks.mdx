@@ -172,7 +172,7 @@ The functions supported are shown below. Function types are either Unary (1 argu
 
 The following is a short worked example of how you might use templates:
 
-Sheila, a Senior DevOps engineer at WhyObi Ltd, is setting up alerts for ChatOps. She'd like to get a notification for when a specific package has been synchronized (is available for download) and would like to output the download URL for it in a special Slack channel. If the package has a tag labelled "hotfix" tag, she'd also like to call this out in bold as part of the message.
+Sheila, a Senior DevOps engineer at WhyObi Ltd, is setting up alerts for ChatOps. She'd like to get a notification for when a specific package has been synchronized (is available for download) and would like to output the download URL for it in a special Slack channel. If the package has a tag labelled "hotfix", she'd also like to call this out in bold as part of the message.
 
 To start with, Sheila creates a new webhook. This is a Slack webhook, and according to the [Slack documentation for incoming webhooks](https://api.slack.com/messaging/webhooks), it needs to have a content type of `application/json`. So Sheila enters the new webhook endpoint, chooses `Handlebars Template` as the **Payload Format**, and picks `JSON (application/json)` as the **Template Format**.
 
