@@ -9,11 +9,11 @@ import img_mission_successful from './images/webhooks/e34a6a7-mission_successful
 
 Webhooks are great for driving automation by pushing data to your pipelines, or by integrating with your chat tools to provide slick ChatOps.
 
-Cloudsmith webhooks support events that occur in a repository, such as when packages have been uploaded, are synchronising, have synchronised or have failed.
+Cloudsmith webhooks support events that occur in a repository, such as when packages have been uploaded, are synchronizing, have synchronized or have failed.
 
 ## Pipeline Automation
 
-For pipeline automation, you might utilise webhooks to instruct a CI/CD service, such as [CircleCI](https://circleci.com) or [Spinnaker](https://spinnaker.io), that it is time to deploy when a synchronised package is moved to your production repository. In this way, you can control the flow from development to production by limiting who (or what) has the authority to move packages to the production repository, and thus, to deploy publicly.
+For pipeline automation, you might utilise webhooks to instruct a CI/CD service, such as [CircleCI](https://circleci.com) or [Spinnaker](https://spinnaker.io), that it is time to deploy when a synchronized package is moved to your production repository. In this way, you can control the flow from development to production by limiting who (or what) has the authority to move packages to the production repository, and thus, to deploy publicly.
 
 ## ChatOps
 
@@ -62,8 +62,8 @@ The event types are:
 | Package Released      | `package.released`         | Sent when a package is released from quarantine.                                                                  | `Package`    |
 | Package Restored      | `package.restored`         | Sent when a package is restored from deletion.                                                                    | `Package`    |
 | Package Scanned       | `package.security_scanned` | Sent when a package security scan has been completed (which makes new vulnerabilities for the package available). | `Package`    |
-| Package Syncronised   | `package.synced`           | Sent when a package has been fully processed (i.e., synchronized) and is available for download.                  | `Package`    |
-| Package Synchronising | `package.syncing`          | Sent when a package has started to be processed (i.e., synchronizing state).                                      | `Package`    |
+| Package Synchronized  | `package.synced`           | Sent when a package has been fully processed (i.e., synchronized) and is available for download.                  | `Package`    |
+| Package Synchronizing | `package.syncing`          | Sent when a package has started to be processed (i.e., synchronizing state).                                      | `Package`    |
 | Package Tags Changed  | `package.tags_updated`     | Sent when the tags for a package have changed.                                                                    | `Package`    |
 
 ### Package Query Filter
@@ -172,11 +172,11 @@ The functions supported are shown below. Function types are either Unary (1 argu
 
 The following is a short worked example of how you might use templates:
 
-Sheila, a Senior DevOps engineer at WhyObi Ltd, is setting up alerts for ChatOps. She'd like to get a notification for when a specific package has been synchronised (is available for download) and would like to output the download URL for it in a special Slack channel. If the package has a tag labelled "hotfix" tag, she'd also like to call this out in bold as part of the message.
+Sheila, a Senior DevOps engineer at WhyObi Ltd, is setting up alerts for ChatOps. She'd like to get a notification for when a specific package has been synchronized (is available for download) and would like to output the download URL for it in a special Slack channel. If the package has a tag labelled "hotfix", she'd also like to call this out in bold as part of the message.
 
 To start with, Sheila creates a new webhook. This is a Slack webhook, and according to the [Slack documentation for incoming webhooks](https://api.slack.com/messaging/webhooks), it needs to have a content type of `application/json`. So Sheila enters the new webhook endpoint, chooses `Handlebars Template` as the **Payload Format**, and picks `JSON (application/json)` as the **Template Format**.
 
-She's only interested in packages that have synchronised, so she selects `Send Specific Events (choose)` in **Event Subscriptions**, and then ticks the `Package Synchronised` checkbox. Going back to the **Payload Templates**, she clicks on the `Package Synchronised` tab to start a new template for that type of event.
+She's only interested in packages that have synchronized, so she selects `Send Specific Events (choose)` in **Event Subscriptions**, and then ticks the `Package Synchronised` checkbox. Going back to the **Payload Templates**, she clicks on the `Package Synchronised` tab to start a new template for that type of event.
 
 Now, for the fun part, to meet her requirements Sheila writes out the following template using the Handlebars language, but constructs it to make a Slack-compatible payload:
 
@@ -230,7 +230,7 @@ Putting this together, the final form looks like:
 
 <BlockImage src={img_repo_webhook_example} alt=""></BlockImage>
 
-She tests the integration by uploading a package called `genesis`, at version `1.0.3`, and assigns it the `hotfix` tag. When Cloudsmith has synchronised the content, she receives a ChatOps alert in her Slack channel where she created the incoming webhook:
+She tests the integration by uploading a package called `genesis`, at version `1.0.3`, and assigns it the `hotfix` tag. When Cloudsmith has synchronized the content, she receives a ChatOps alert in her Slack channel where she created the incoming webhook:
 
 <BlockImage src={img_mission_successful} alt=""></BlockImage>
 
