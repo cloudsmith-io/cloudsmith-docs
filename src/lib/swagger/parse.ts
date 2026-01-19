@@ -5,7 +5,7 @@ import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { MenuItem } from '../menu/types';
-import { ApiOperation } from './types';
+import { ApiOperation, ParameterObject } from './types';
 import { apiOperationPath, createSlug, createTitle, isHttpMethod, parseMenuSegments } from './util';
 
 const SCHEMAS_DIR = 'src/content/schemas';
@@ -75,15 +75,41 @@ export const parseSchemas = async (): Promise<{ schema: OpenAPIV3.Document; vers
  * Adds version information and checks for duplicate endpoints.
  */
 export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: string }[]): ApiOperation[] => {
-  const operations: ApiOperation[] = [];
+  const pathOperationsMap = new Map<string, ApiOperation[]>();
+  const getPathOperations = (path: string) => {
+    const pathParams: ApiOperation[] = pathOperationsMap.get(path) ?? [];
+    if (pathParams.length === 0) pathOperationsMap.set(path, pathParams);
+    return pathParams;
+  };
+
   const pathMethodTracker = new Map<string, string>(); // Track path+method combinations and their versions
+
+  const pathParamsMap = new Map<string, ParameterObject[]>();
+  const getPathParams = (path: string) => {
+    const pathParams: ParameterObject[] = pathParamsMap.get(path) ?? [];
+    if (pathParams.length === 0) pathParamsMap.set(path, pathParams);
+    return pathParams;
+  };
 
   for (const { schema, version } of schemas) {
     for (const path in schema.paths) {
       const pathObject = schema.paths[path];
-      for (const method in pathObject) {
-        if (isHttpMethod(method)) {
-          const pathMethodKey = `${method.toUpperCase()} ${path}`;
+      for (const field in pathObject) {
+        if (field === 'parameters') {
+          // Casted as ParameterObject because schema should be dereferenced, so no ReferenceObject.
+          const params = (pathObject[field] as ParameterObject[]) ?? [];
+          // Save common params for path.
+          const pathParams = getPathParams(path);
+          pathParams.push(...params);
+
+          // Update already processed operations for this path.
+          const pathOperations = getPathOperations(path);
+          pathOperationsMap.set(
+            path,
+            pathOperations.map((op) => ({ ...op, parameters: [...(op.parameters ?? []), ...pathParams] })),
+          );
+        } else if (isHttpMethod(field)) {
+          const pathMethodKey = `${field.toUpperCase()} ${path}`;
 
           if (pathMethodTracker.has(pathMethodKey)) {
             const existingVersion = pathMethodTracker.get(pathMethodKey);
@@ -93,19 +119,26 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
                 `Please ensure each endpoint exists in only one API version.`,
             );
           }
-
           pathMethodTracker.set(pathMethodKey, version);
 
-          const operation = pathObject[method as keyof OpenAPIV3.PathItemObject] as OpenAPIV3.OperationObject;
+          const operation = pathObject[field as keyof OpenAPIV3.PathItemObject] as OpenAPIV3.OperationObject;
           const menuSegments = parseMenuSegments(operation.operationId);
           const slug = createSlug(menuSegments);
 
           const cleanPath = path.replace(/\/$/, '');
 
-          operations.push({
+          const pathOperations = getPathOperations(path);
+
+          // Get common path params
+          const commonPathParams = getPathParams(path);
+          // Casted as ParameterObject because schema should be dereferenced, so no ReferenceObject.
+          const pathParams = [...((operation.parameters as ParameterObject[]) ?? []), ...commonPathParams];
+
+          pathOperations.push({
             ...(operation as ApiOperation),
-            method: method as OpenAPIV3.HttpMethods,
+            method: field as OpenAPIV3.HttpMethods,
             path: cleanPath,
+            parameters: pathParams,
             version,
             menuSegments,
             slug,
@@ -117,7 +150,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
     }
   }
 
-  return operations;
+  return Array.from(pathOperationsMap.values()).flat();
 };
 
 /**
