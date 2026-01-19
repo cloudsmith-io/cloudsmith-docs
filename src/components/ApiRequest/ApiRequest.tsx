@@ -1,5 +1,8 @@
-import { Button, Tag } from '@/components';
+import { cx } from 'class-variance-authority';
+
+import { Tag } from '@/components';
 import { ApiOperation } from '@/lib/swagger/types';
+import { getParametersByParam } from '@/lib/swagger/util';
 import { operationUrl } from '@/lib/url';
 
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
@@ -15,9 +18,8 @@ export const ApiRequest = ({
   operation: ApiOperation;
   operations: ApiOperation[];
 }) => {
-  const getParametersByParam = (param: string) => operation.parameters?.filter((p) => p.in === param);
-  const pathsParameters = getParametersByParam('path');
-  const queryParameters = getParametersByParam('query');
+  const pathsParameters = getParametersByParam(operation, 'path');
+  const queryParameters = getParametersByParam(operation, 'query');
 
   const url = operationUrl(operation);
 
@@ -25,14 +27,12 @@ export const ApiRequest = ({
     <>
       <div className={styles.request}>
         <div className={styles.sandbox}>
-          <ClipboardCopy textToCopy={url} className={styles.url}>
+          <ClipboardCopy textToCopy={url} className={styles.urlCopy}>
             <Tag className={styles.method} method={operation.method} />
-            {url}
+            <span className={cx('bodyS', styles.url)}>{url}</span>
           </ClipboardCopy>
 
-          <Button withArrow size="medium" width="large">
-            Try it out
-          </Button>
+          <ApiSandbox operation={operation} operations={operations} />
         </div>
       </div>
 

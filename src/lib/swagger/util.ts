@@ -1,5 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
+
 import { replaceAll, titleCase } from '../util';
+import { ApiOperation } from './types';
 
 export const isHttpMethod = (method: string): boolean =>
   Object.values<string>(OpenAPIV3.HttpMethods).includes(method);
@@ -49,3 +51,8 @@ export const createTitle = (menuSegments: string[]): string => {
 export const apiOperationPath = (slug: string): string => {
   return `/api/${slug}`;
 };
+
+export const getParametersByParam = (operation: ApiOperation, param: string) =>
+  operation.parameters?.filter((p) => p.in === param);
+
+export const operationKey = (op: ApiOperation) => `${op.method}-${op.path}`;

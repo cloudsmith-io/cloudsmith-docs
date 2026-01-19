@@ -13,6 +13,16 @@
   position: relative;
 }
 
+.default .icon {
+  height: 24px;
+  width: 24px;
+}
+
+.pre .icon {
+  height: 32px;
+  width: 32px;
+}
+
 .default:hover,
 .default:hover .icon {
   color: var(--base-color-blue-500);
