@@ -3,8 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import swagger2openapi from 'swagger2openapi';
 
-import { prettierFormatter } from './util/prettier-formatter';
-
 const projectDir = process.cwd();
 const outputDir = `${projectDir}/src/content/schemas`;
 
@@ -39,9 +37,13 @@ async function downloadSchema(schemaUrl: string, fileName: string, versionAlias:
 
 async function convertSchema(schema: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    swagger2openapi.convertObj(JSON.parse(schema), {}, (err: Error | null, options: { openapi: unknown }) => {
+    swagger2openapi.convertObj(JSON.parse(schema), {}, (err, options) => {
       if (err) {
         reject(err);
+        return;
+      }
+      if (!options.openapi) {
+        reject(new Error('Conversion failed: no openapi property in result'));
         return;
       }
       resolve(JSON.stringify(options.openapi));
