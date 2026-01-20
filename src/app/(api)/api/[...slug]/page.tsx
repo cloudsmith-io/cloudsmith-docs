@@ -139,9 +139,7 @@ const Page = async ({ params }: PageProps) => {
           <Heading size="h2" className={styles.fullWidth}>
             Request
           </Heading>
-
           <ApiRequest operation={operation} operations={operations} />
-
           <Heading size="h2" className={styles.fullWidth}>
             Response
           </Heading>

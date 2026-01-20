@@ -2,8 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Cloudsmith API",
-    "version": "1.914.1 (v2)",
-    "versionAlias": "v2",
+    "version": "1.966.0 (v2)",
     "description": "The API to the Cloudsmith Service",
     "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
     "contact": {
@@ -14,65 +13,10 @@
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
-    }
+    },
+    "versionAlias": "v2"
   },
   "paths": {
-    "/packages/{package_slug_perm}/vulnerabilities/osv/": {
-      "get": {
-        "operationId": "packages_vulnerabilities_osv_list",
-        "description": "Retrieve all OSV vulnerabilities associated with the specified package.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "package_slug_perm",
-            "schema": {
-              "type": "string",
-              "pattern": "^[a-zA-Z0-9]+$"
-            },
-            "required": true
-          },
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "A page number within the paginated result set.",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "page_size",
-            "required": false,
-            "in": "query",
-            "description": "Number of results to return per page.",
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "tags": ["packages"],
-        "security": [
-          {
-            "apikey": []
-          },
-          {
-            "basic": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedWebOSVVulnerabilityList"
-                }
-              }
-            },
-            "description": ""
-          }
-        }
-      }
-    },
     "/workspaces/{workspace}/policies/": {
       "get": {
         "operationId": "workspaces_policies_list",
@@ -135,7 +79,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -171,7 +117,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -256,7 +204,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -301,7 +251,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -356,7 +308,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -410,7 +364,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -468,7 +424,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -513,7 +471,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -606,7 +566,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -660,7 +622,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -723,7 +687,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -786,7 +752,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -852,7 +820,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -1007,7 +977,9 @@
             "required": true
           }
         ],
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "apikey": []
@@ -1072,7 +1044,13 @@
             }
           }
         },
-        "required": ["created_at", "effect", "slug_perm", "tags", "updated_at"]
+        "required": [
+          "created_at",
+          "effect",
+          "slug_perm",
+          "tags",
+          "updated_at"
+        ]
       },
       "AddPackageTagsPolicyActionTyped": {
         "allOf": [
@@ -1083,7 +1061,9 @@
                 "type": "string"
               }
             },
-            "required": ["action_type"]
+            "required": [
+              "action_type"
+            ]
           },
           {
             "$ref": "#/components/schemas/AddPackageTagsPolicyAction"
@@ -1091,12 +1071,18 @@
         ]
       },
       "AvailabilityEnum": {
-        "enum": ["UNAVAILABLE", "PARTIAL", "COMPLETE"],
+        "enum": [
+          "UNAVAILABLE",
+          "PARTIAL",
+          "COMPLETE"
+        ],
         "type": "string",
         "description": "* `UNAVAILABLE` - Unavailable\n* `PARTIAL` - Partially complete\n* `COMPLETE` - Complete"
       },
       "BlankEnum": {
-        "enum": [""]
+        "enum": [
+          ""
+        ]
       },
       "CountryEnum": {
         "enum": [
@@ -1372,49 +1358,86 @@
             "description": "A Dictionary of related errors where key: Field and value: Array of Errors related to that field"
           }
         },
-        "required": ["detail"]
+        "required": [
+          "detail"
+        ]
       },
       "LicenseMatchTypeEnum": {
-        "enum": ["NONE", "OSS_EXACT", "OSS_FUZZY", "PROPRIETARY", "UNKNOWN", "CURATED"],
+        "enum": [
+          "NONE",
+          "OSS_EXACT",
+          "OSS_FUZZY",
+          "PROPRIETARY",
+          "UNKNOWN",
+          "CURATED"
+        ],
         "type": "string",
         "description": "* `NONE` - None\n* `OSS_EXACT` - OSS exact match\n* `OSS_FUZZY` - OSS fuzzy match\n* `PROPRIETARY` - Proprietary match\n* `UNKNOWN` - Unknown match\n* `CURATED` - Curated match"
       },
       "LicenseOverrideEnum": {
-        "enum": ["NONE", "IGNORED", "PURCHASED"],
+        "enum": [
+          "NONE",
+          "IGNORED",
+          "PURCHASED"
+        ],
         "type": "string",
         "description": "* `NONE` - None\n* `IGNORED` - Ignored\n* `PURCHASED` - Purchased"
       },
       "LicenseSourceEnum": {
-        "enum": ["AUTOMATIC", "MANUAL"],
+        "enum": [
+          "AUTOMATIC",
+          "MANUAL"
+        ],
         "type": "string",
         "description": "* `AUTOMATIC` - Automatically sourced\n* `MANUAL` - Manually sourced"
       },
       "NullEnum": {
-        "enum": [null]
+        "enum": [
+          null
+        ]
       },
       "PackageStateEnum": {
-        "enum": ["AVAILABLE", "BLOCKED", "DELETED", "QUARANTINED"],
+        "enum": [
+          "AVAILABLE",
+          "DELETED",
+          "QUARANTINED"
+        ],
         "type": "string",
-        "description": "* `AVAILABLE` - The package is available for download.\n* `BLOCKED` - The package is not downloadable.\n* `DELETED` - The package is deleted.\n* `QUARANTINED` - The package is quarantined."
+        "description": "* `AVAILABLE` - The package is available for download.\n* `DELETED` - The package is deleted.\n* `QUARANTINED` - The package is quarantined."
       },
       "PackageTagSourceTypeEnum": {
-        "enum": ["AUTOMATIC", "MANUAL"],
+        "enum": [
+          "AUTOMATIC",
+          "MANUAL"
+        ],
         "type": "string",
         "description": "* `AUTOMATIC` - Automatic\n* `MANUAL` - Manual"
       },
       "PackageTagTypeEnum": {
-        "enum": ["INFO", "SOME_VERSION", "LATEST_VERSION", "ANNOTATION"],
+        "enum": [
+          "INFO",
+          "SOME_VERSION",
+          "LATEST_VERSION",
+          "ANNOTATION"
+        ],
         "type": "string",
         "description": "* `INFO` - Info\n* `SOME_VERSION` - Some Version\n* `LATEST_VERSION` - Latest Version\n* `ANNOTATION` - Annotation"
       },
       "PackageTypeEnum": {
-        "enum": ["BINARY", "SOURCE", "COMBINED", "OTHER"],
+        "enum": [
+          "BINARY",
+          "SOURCE",
+          "COMBINED",
+          "OTHER"
+        ],
         "type": "string",
         "description": "* `BINARY` - Binary\n* `SOURCE` - Source\n* `COMBINED` - Combined\n* `OTHER` - Other"
       },
       "PaginatedPolicyActionList": {
         "type": "object",
-        "required": ["results"],
+        "required": [
+          "results"
+        ],
         "properties": {
           "results": {
             "type": "array",
@@ -1426,7 +1449,9 @@
       },
       "PaginatedPolicyDecisionLogList": {
         "type": "object",
-        "required": ["results"],
+        "required": [
+          "results"
+        ],
         "properties": {
           "results": {
             "type": "array",
@@ -1438,24 +1463,14 @@
       },
       "PaginatedPolicyList": {
         "type": "object",
-        "required": ["results"],
+        "required": [
+          "results"
+        ],
         "properties": {
           "results": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Policy"
-            }
-          }
-        }
-      },
-      "PaginatedWebOSVVulnerabilityList": {
-        "type": "object",
-        "required": ["results"],
-        "properties": {
-          "results": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/WebOSVVulnerability"
             }
           }
         }
@@ -1755,7 +1770,14 @@
             "description": "The order in which this policy is evaluated relative to other policies."
           }
         },
-        "required": ["created_at", "name", "rego", "slug_perm", "updated_at", "version"]
+        "required": [
+          "created_at",
+          "name",
+          "rego",
+          "slug_perm",
+          "updated_at",
+          "version"
+        ]
       },
       "PolicyAction": {
         "oneOf": [
@@ -1892,7 +1914,12 @@
             "description": "The CVSS V3 vector string."
           }
         },
-        "required": ["V2Score", "V2Vector", "V3Score", "V3Vector"]
+        "required": [
+          "V2Score",
+          "V2Vector",
+          "V3Score",
+          "V3Vector"
+        ]
       },
       "PolicyAdvisoryEpss": {
         "type": "object",
@@ -1911,7 +1938,10 @@
             "description": "The EPSS percentile. Null if not available."
           }
         },
-        "required": ["percentile", "score"]
+        "required": [
+          "percentile",
+          "score"
+        ]
       },
       "PolicyAdvisorySource": {
         "type": "object",
@@ -1928,7 +1958,10 @@
             "maxLength": 256
           }
         },
-        "required": ["name", "url"]
+        "required": [
+          "name",
+          "url"
+        ]
       },
       "PolicyArchitecture": {
         "type": "object",
@@ -1944,7 +1977,9 @@
             "maxLength": 128
           }
         },
-        "required": ["name"]
+        "required": [
+          "name"
+        ]
       },
       "PolicyDecisionLog": {
         "type": "object",
@@ -2004,7 +2039,10 @@
             "maxLength": 128
           }
         },
-        "required": ["name", "slug"]
+        "required": [
+          "name",
+          "slug"
+        ]
       },
       "PolicyDistributionVersion": {
         "type": "object",
@@ -2020,10 +2058,15 @@
             "maxLength": 64
           }
         },
-        "required": ["slug"]
+        "required": [
+          "slug"
+        ]
       },
       "PolicyHuggingfaceCard": {
         "oneOf": [
+          {
+            "$ref": "#/components/schemas/PolicyHuggingfaceUnknownCardTyped"
+          },
           {
             "$ref": "#/components/schemas/PolicyHuggingfaceModelCardTyped"
           },
@@ -2034,6 +2077,7 @@
         "discriminator": {
           "propertyName": "type",
           "mapping": {
+            "Unknown": "#/components/schemas/PolicyHuggingfaceUnknownCardTyped",
             "Model": "#/components/schemas/PolicyHuggingfaceModelCardTyped",
             "Dataset": "#/components/schemas/PolicyHuggingfaceDatasetCardTyped"
           }
@@ -2154,7 +2198,9 @@
                 "type": "string"
               }
             },
-            "required": ["type"]
+            "required": [
+              "type"
+            ]
           },
           {
             "$ref": "#/components/schemas/PolicyHuggingfaceDatasetCard"
@@ -2248,7 +2294,13 @@
             "description": "The url of the source of the evalatuation result."
           }
         },
-        "required": ["dataset_name", "dataset_type", "metric_type", "metric_value", "task_type"]
+        "required": [
+          "dataset_name",
+          "dataset_type",
+          "metric_type",
+          "metric_value",
+          "task_type"
+        ]
       },
       "PolicyHuggingfaceFileReference": {
         "type": "object",
@@ -2283,7 +2335,12 @@
             "maxLength": 1024
           }
         },
-        "required": ["file_extension", "oid", "path", "size"]
+        "required": [
+          "file_extension",
+          "oid",
+          "path",
+          "size"
+        ]
       },
       "PolicyHuggingfaceHubScans": {
         "type": "object",
@@ -2329,7 +2386,15 @@
             "readOnly": true
           }
         },
-        "required": ["clamav", "jfrog", "path", "pickle", "protect_ai", "status", "updated_at"]
+        "required": [
+          "clamav",
+          "jfrog",
+          "path",
+          "pickle",
+          "protect_ai",
+          "status",
+          "updated_at"
+        ]
       },
       "PolicyHuggingfaceModelCard": {
         "type": "object",
@@ -2429,7 +2494,9 @@
                 "type": "string"
               }
             },
-            "required": ["type"]
+            "required": [
+              "type"
+            ]
           },
           {
             "$ref": "#/components/schemas/PolicyHuggingfaceModelCard"
@@ -2515,8 +2582,8 @@
           },
           "size": {
             "type": "integer",
-            "maximum": 9223372036854775807,
-            "minimum": -9223372036854775808,
+            "maximum": 9223372036854776000,
+            "minimum": -9223372036854776000,
             "format": "int64",
             "description": "The calculated size of the package."
           },
@@ -2589,7 +2656,9 @@
                 "type": "string"
               }
             },
-            "required": ["format"]
+            "required": [
+              "format"
+            ]
           },
           {
             "$ref": "#/components/schemas/PolicyHuggingfacePackage"
@@ -2626,12 +2695,27 @@
             "$ref": "#/components/schemas/PolicyHuggingfaceSecuritySourceEnum"
           }
         },
-        "required": ["availability"]
+        "required": [
+          "availability"
+        ]
       },
       "PolicyHuggingfaceSecuritySourceEnum": {
-        "enum": ["HUGGINGFACE_HUB"],
+        "enum": [
+          "HUGGINGFACE_HUB"
+        ],
         "type": "string",
         "description": "* `HUGGINGFACE_HUB` - Hugging Face Hub"
+      },
+      "PolicyHuggingfaceUnknownCardTyped": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ]
       },
       "PolicyInput": {
         "type": "object",
@@ -2641,7 +2725,9 @@
             "$ref": "#/components/schemas/PolicyInputV0"
           }
         },
-        "required": ["v0"]
+        "required": [
+          "v0"
+        ]
       },
       "PolicyInputV0": {
         "type": "object",
@@ -2676,7 +2762,14 @@
             "description": "Raw SBOM data in CycloneDX format, generated by Cloudsmith. Only available for supported Docker/OCI images."
           }
         },
-        "required": ["osv", "package", "repository", "security_scan", "vulnerabilities", "workspace"]
+        "required": [
+          "osv",
+          "package",
+          "repository",
+          "security_scan",
+          "vulnerabilities",
+          "workspace"
+        ]
       },
       "PolicyOSVAffected": {
         "type": "object",
@@ -2719,7 +2812,10 @@
             "nullable": true
           }
         },
-        "required": ["package", "severity"]
+        "required": [
+          "package",
+          "severity"
+        ]
       },
       "PolicyOSVPackage": {
         "type": "object",
@@ -2741,7 +2837,11 @@
             "description": "A string following the Package URL specification that identifies the package, without the @version component."
           }
         },
-        "required": ["ecosystem", "name", "purl"]
+        "required": [
+          "ecosystem",
+          "name",
+          "purl"
+        ]
       },
       "PolicyOSVSeverity": {
         "type": "object",
@@ -2766,10 +2866,19 @@
             "description": "A pre-calculated numerical score (added as a convenience by Cloudsmith) for CVSS severity types, based on the CVSS vector provided by OSV. For the UBUNTU severity type, this field is null."
           }
         },
-        "required": ["numerical_score", "score", "type"]
+        "required": [
+          "numerical_score",
+          "score",
+          "type"
+        ]
       },
       "PolicyOSVSeverityTypeEnum": {
-        "enum": ["Ubuntu", "CVSS_V2", "CVSS_V3", "CVSS_V4"],
+        "enum": [
+          "Ubuntu",
+          "CVSS_V2",
+          "CVSS_V3",
+          "CVSS_V4"
+        ],
         "type": "string",
         "description": "* `Ubuntu` - An \"Ubuntu\" severity type indicates that the associated score is a lowercased string\n    representing the Ubuntu priority.\n\n    If a severity has this type, the associated \"score\" will be one of \"negligible\",\n    \"low\", \"medium\", \"high\", or \"critical\".\n\n    See https://ubuntu.com/security/cves/about#priority for more information.\n    \n* `CVSS_V2` - A \"CVSS_V2\" severity type indicates that the associated score is a CVSS vector\n    string using a version of the Common Vulnerability Scoring System notation that\n    is == 2.0 (e.g.\"AV:L/AC:M/Au:N/C:N/I:P/A:C\").\n    \n* `CVSS_V3` - A \"CVSS_V3\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 3.0 and < 4.0 (e.g.\"CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:N/A:N\").\n    \n* `CVSS_V4` - A \"CVSS_V4\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 4.0 and < 5.0 (e.g. \"CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N\").\n    "
       },
@@ -2859,9 +2968,20 @@
             },
             "nullable": true,
             "description": "A list of IDs of upstream vulnerabilities that are referred to by the vulnerability entry. For example, a downstream package ecosystem (such as a Linux distribution) may issue its own advisories that include (possibly multiple) upstream vulnerabilities. Upstream should be considered transitive but not symmetric."
+          },
+          "withdrawn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The time the entry should be considered to have been withdrawn. If the field is missing, then the entry has not been withdrawn. Any rationale for why the vulnerability has been withdrawn should go into the summary text."
           }
         },
-        "required": ["affected", "id", "modified", "severity"]
+        "required": [
+          "affected",
+          "id",
+          "modified",
+          "severity"
+        ]
       },
       "PolicyOssLicense": {
         "type": "object",
@@ -2906,7 +3026,11 @@
             "nullable": true
           }
         },
-        "required": ["full_name", "license_text", "spdx_identifier"]
+        "required": [
+          "full_name",
+          "license_text",
+          "spdx_identifier"
+        ]
       },
       "PolicyPackage": {
         "type": "object",
@@ -3024,8 +3148,8 @@
           },
           "size": {
             "type": "integer",
-            "maximum": 9223372036854775807,
-            "minimum": -9223372036854775808,
+            "maximum": 9223372036854776000,
+            "minimum": -9223372036854776000,
             "format": "int64",
             "description": "The calculated size of the package."
           },
@@ -3139,8 +3263,8 @@
           },
           "size": {
             "type": "integer",
-            "maximum": 9223372036854775807,
-            "minimum": -9223372036854775808,
+            "maximum": 9223372036854776000,
+            "minimum": -9223372036854776000,
             "format": "int64",
             "description": "The calculated size of the file."
           },
@@ -3156,7 +3280,10 @@
             "maxLength": 255
           }
         },
-        "required": ["filename", "is_primary"]
+        "required": [
+          "filename",
+          "is_primary"
+        ]
       },
       "PolicyPackageLicense": {
         "type": "object",
@@ -3217,7 +3344,14 @@
             "$ref": "#/components/schemas/LicenseOverrideEnum"
           }
         },
-        "required": ["match", "oss_license", "override", "raw_license_file_contents", "similarity", "source"]
+        "required": [
+          "match",
+          "oss_license",
+          "override",
+          "raw_license_file_contents",
+          "similarity",
+          "source"
+        ]
       },
       "PolicyPackageLicenseFileContents": {
         "type": "object",
@@ -3232,7 +3366,10 @@
             "readOnly": true
           }
         },
-        "required": ["raw_text", "sha256"]
+        "required": [
+          "raw_text",
+          "sha256"
+        ]
       },
       "PolicyPackageTag": {
         "type": "object",
@@ -3259,7 +3396,11 @@
             "$ref": "#/components/schemas/PackageTagTypeEnum"
           }
         },
-        "required": ["name", "source", "tag_type"]
+        "required": [
+          "name",
+          "source",
+          "tag_type"
+        ]
       },
       "PolicyPackageTyped": {
         "allOf": [
@@ -3270,7 +3411,9 @@
                 "type": "string"
               }
             },
-            "required": ["format"]
+            "required": [
+              "format"
+            ]
           },
           {
             "$ref": "#/components/schemas/PolicyPackage"
@@ -3394,7 +3537,11 @@
             "maxLength": 128
           }
         },
-        "required": ["fingerprint", "fingerprint_short", "public_key"]
+        "required": [
+          "fingerprint",
+          "fingerprint_short",
+          "public_key"
+        ]
       },
       "PolicyRepositoryGpgKey": {
         "type": "object",
@@ -3429,7 +3576,12 @@
             "description": "The public key given to repository users."
           }
         },
-        "required": ["comment", "fingerprint", "fingerprint_short", "public_key"]
+        "required": [
+          "comment",
+          "fingerprint",
+          "fingerprint_short",
+          "public_key"
+        ]
       },
       "PolicyUploader": {
         "type": "object",
@@ -3460,7 +3612,12 @@
             "readOnly": true
           }
         },
-        "required": ["first_name", "last_name", "slug", "slug_perm"]
+        "required": [
+          "first_name",
+          "last_name",
+          "slug",
+          "slug_perm"
+        ]
       },
       "PolicyUpstreamMetadata": {
         "type": "object",
@@ -3523,7 +3680,11 @@
             "maxLength": 80
           }
         },
-        "required": ["name", "slug", "slug_perm"]
+        "required": [
+          "name",
+          "slug",
+          "slug_perm"
+        ]
       },
       "RemovePackageTagsPolicyAction": {
         "type": "object",
@@ -3564,7 +3725,13 @@
             }
           }
         },
-        "required": ["created_at", "effect", "slug_perm", "tags", "updated_at"]
+        "required": [
+          "created_at",
+          "effect",
+          "slug_perm",
+          "tags",
+          "updated_at"
+        ]
       },
       "RemovePackageTagsPolicyActionTyped": {
         "allOf": [
@@ -3575,7 +3742,9 @@
                 "type": "string"
               }
             },
-            "required": ["action_type"]
+            "required": [
+              "action_type"
+            ]
           },
           {
             "$ref": "#/components/schemas/RemovePackageTagsPolicyAction"
@@ -3583,12 +3752,21 @@
         ]
       },
       "RepositoryTypeEnum": {
-        "enum": ["PUBLIC", "PRIVATE", "OPEN_SOURCE"],
+        "enum": [
+          "PUBLIC",
+          "PRIVATE",
+          "OPEN_SOURCE"
+        ],
         "type": "string",
         "description": "* `PUBLIC` - Public\n* `PRIVATE` - Private\n* `OPEN_SOURCE` - Open-Source"
       },
       "ScanSummaryEnum": {
-        "enum": ["UNSAFE", "UNKNOWN", "QUEUED", "SAFE"],
+        "enum": [
+          "UNSAFE",
+          "UNKNOWN",
+          "QUEUED",
+          "SAFE"
+        ],
         "type": "string",
         "description": "* `UNSAFE` - Unsafe\n* `UNKNOWN` - Unknown\n* `QUEUED` - Queued\n* `SAFE` - Safe"
       },
@@ -3642,7 +3820,13 @@
             "$ref": "#/components/schemas/PackageStateEnum"
           }
         },
-        "required": ["created_at", "effect", "package_state", "slug_perm", "updated_at"]
+        "required": [
+          "created_at",
+          "effect",
+          "package_state",
+          "slug_perm",
+          "updated_at"
+        ]
       },
       "SetPackageStatePolicyActionTyped": {
         "allOf": [
@@ -3653,7 +3837,9 @@
                 "type": "string"
               }
             },
-            "required": ["action_type"]
+            "required": [
+              "action_type"
+            ]
           },
           {
             "$ref": "#/components/schemas/SetPackageStatePolicyAction"
@@ -3661,179 +3847,24 @@
         ]
       },
       "SeverityEnum": {
-        "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH",
+          "CRITICAL"
+        ],
         "type": "string",
         "description": "* `LOW` - LOW\n* `MEDIUM` - MEDIUM\n* `HIGH` - HIGH\n* `CRITICAL` - CRITICAL"
       },
       "StatusEnum": {
-        "enum": ["UNSAFE", "UNKNOWN", "QUEUED", "SAFE"],
+        "enum": [
+          "UNSAFE",
+          "UNKNOWN",
+          "QUEUED",
+          "SAFE"
+        ],
         "type": "string",
         "description": "* `UNSAFE` - Unsafe\n* `UNKNOWN` - Unknown\n* `QUEUED` - Queued\n* `SAFE` - Safe"
-      },
-      "WebOSVAffected": {
-        "type": "object",
-        "description": "Extended OSV Affected serializer for frontend consumption.\n\nUses WebOSVSeveritySerializer to include parsed CVSS components.",
-        "properties": {
-          "database_specific": {
-            "nullable": true,
-            "description": "a JSON object holding additional information about the vulnerability as defined by the database from which the record was obtained. The meaning of the values within the object is entirely defined by the database. In general, the canonical database for a particular ecosystem should record its information in ecosystem_specific, allowing other aggregator databases to put their own summaries in database_specific. For example, databases that add additional information such as computed CVSS scores for ecosystems that do not provide them could add that information here. Note that this is a single field with key “database_specific”, which itself contains a JSON object with unspecified fields."
-          },
-          "ecosystem_specific": {
-            "nullable": true,
-            "description": "A JSON object holding additional information about the vulnerability as defined by the ecosystem for which the record applies. The meaning of the values within the object is entirely defined by the ecosystem. For example, the Go ecosystem includes here information about the affected functions and which modules the packages were found in, along with severity in the Go project-specific severity scale. Note that this is a single field with key “ecosystem_specific”, which itself contains a JSON object with unspecified fields."
-          },
-          "package": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PolicyOSVPackage"
-              }
-            ],
-            "nullable": true
-          },
-          "ranges": {
-            "nullable": true,
-            "description": "The affected object’s ranges field is a JSON array of objects describing the affected ranges of versions. In the range object, the type property is required. It specifies the type of version range being recorded and defines the interpretation of the events object’s introduced, fixed, and any type-specific fields. The ranges object’s events field is a JSON array of objects. Each object describes a single version that either introduces a vulnerability, fixes a vulnerability, describes the last known affected version, or sets an upper limit on the range being described."
-          },
-          "severity": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/WebOSVSeverity"
-            },
-            "nullable": true
-          },
-          "versions": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "A JSON array of strings. Each string is a single affected version in whatever version syntax is used by the given package ecosystem. When there is no well-defined packaging ecosystem specified (for example, general C/C++ libraries), GIT commit ranges are typically the best way to define vulnerable version ranges. In this case, versions specified in this array cannot be relied upon to conform to any particular syntax (e.g. they could be the upstream Git version tags derived from these GIT commit ranges, which is what OSV.dev populates this field with). In this situation, the GIT commit ranges in affected[].ranges should be used to match vulnerabilities by Git commit hashes.",
-              "maxLength": 255
-            },
-            "nullable": true
-          }
-        },
-        "required": ["package", "severity"]
-      },
-      "WebOSVSeverity": {
-        "type": "object",
-        "description": "Extended OSV Severity serializer for frontend consumption.\n\nAdds parsed CVSS components for display purposes.",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PolicyOSVSeverityTypeEnum"
-              }
-            ],
-            "description": "The type of severity being described. The type indicates how the associated score should be interpreted.\n\n* `Ubuntu` - An \"Ubuntu\" severity type indicates that the associated score is a lowercased string\n    representing the Ubuntu priority.\n\n    If a severity has this type, the associated \"score\" will be one of \"negligible\",\n    \"low\", \"medium\", \"high\", or \"critical\".\n\n    See https://ubuntu.com/security/cves/about#priority for more information.\n    \n* `CVSS_V2` - A \"CVSS_V2\" severity type indicates that the associated score is a CVSS vector\n    string using a version of the Common Vulnerability Scoring System notation that\n    is == 2.0 (e.g.\"AV:L/AC:M/Au:N/C:N/I:P/A:C\").\n    \n* `CVSS_V3` - A \"CVSS_V3\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 3.0 and < 4.0 (e.g.\"CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:N/A:N\").\n    \n* `CVSS_V4` - A \"CVSS_V4\" severity type indicates that the associated score is a CVSS vector string\n    using a version of the Common Vulnerability Scoring System notation that\n    is >= 4.0 and < 5.0 (e.g. \"CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N\").\n    "
-          },
-          "score": {
-            "type": "string",
-            "description": "The score of the vulnerability. This should be interpreted differently depending on the severity type."
-          },
-          "numerical_score": {
-            "type": "number",
-            "format": "double",
-            "nullable": true,
-            "description": "A pre-calculated numerical score (added as a convenience by Cloudsmith) for CVSS severity types, based on the CVSS vector provided by OSV. For the UBUNTU severity type, this field is null."
-          },
-          "cvss_components": {
-            "type": "object",
-            "additionalProperties": {},
-            "nullable": true,
-            "description": "Parsed CVSS components broken down by category for display. Only populated for CVSS severity types. Returns a dictionary with: version (CVSS version), vector (original vector string), severity_label (e.g., 'Critical', 'High', 'Medium', 'Low', 'None'), and groups (metrics organized by category).",
-            "readOnly": true
-          }
-        },
-        "required": ["cvss_components", "numerical_score", "score", "type"]
-      },
-      "WebOSVVulnerability": {
-        "type": "object",
-        "description": "Extended OSV Vulnerability serializer for frontend consumption.\n\nExtends PolicyOSVVulnerabilitySerializer with additional fields or\nformatting without leaking these changes into EPM.",
-        "properties": {
-          "affected": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/WebOSVAffected"
-            },
-            "nullable": true
-          },
-          "aliases": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 128
-            },
-            "nullable": true,
-            "description": "A list of IDs of the same vulnerability in other databases. This allows one database to claim that its own entry describes the same vulnerability as one or more entries in other databases. Note that the vulnerability IDs referenced here may or may not exist in the overall data set. Aliases should be considered symmetric (if A is an alias of B, then B is an alias of A) and transitive (If A aliases B and B aliases C, then A aliases C)."
-          },
-          "credits": {
-            "nullable": true,
-            "description": "A JSON array providing a way to give credit for the discovery, confirmation, patch, or other events in the life cycle of a vulnerability. Each of the objects in the credits array must contain at minimum a name field specifying the name of the individual or entity being credited, using whatever notation they prefer. It can also optionally include a contact JSON array."
-          },
-          "database_specific": {
-            "nullable": true,
-            "description": "Additional information about the vulnerability as defined by the database from which the record was obtained. This is a JSON object with unspecified fields, and the meaning of the values within the object is entirely defined by the database."
-          },
-          "details": {
-            "type": "string",
-            "nullable": true,
-            "description": "Additional English textual details about the vulnerability. This field contains CommonMark markdown (a subset of GitHub-Flavored Markdown)."
-          },
-          "id": {
-            "type": "string"
-          },
-          "modified": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The time the osv.dev vulnerability entry was last modified."
-          },
-          "published": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true,
-            "description": "The time the entry should be considered to have been published"
-          },
-          "references": {
-            "nullable": true,
-            "description": "a list of JSON objects describing references. Each object has a string field type specifying the type of reference, and a string field url. The url is the fully-qualified URL (including the scheme, typically “https://”) linking to additional information, advisories, issue tracker entries, and so on about the vulnerability itself. The type specifies what kind of reference the URL is."
-          },
-          "related": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 128
-            },
-            "nullable": true,
-            "description": "A list of closely related vulnerabilities, such as a similar but completely different vulnerability or cases that do not satisfy the strict definition of aliases or upstream. Related vulnerabilities are symmetric but not transitive."
-          },
-          "schema_version": {
-            "type": "string",
-            "nullable": true,
-            "description": "The version of the OSV schema a particular vulnerability was exported with. The value should be a string matching the OSV Schema version, which follows the SemVer 2.0.0 format, with no leading “v” prefix. If no value is specified, it should be assumed to be 1.0.0, matching version 1.0 of the OSV Schema.",
-            "maxLength": 128
-          },
-          "severity": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/WebOSVSeverity"
-            },
-            "nullable": true
-          },
-          "summary": {
-            "type": "string",
-            "nullable": true,
-            "description": "A one-line, English textual summary of the vulnerability. It is recommended that this field be kept short, on the order of no more than 120 characters."
-          },
-          "upstream": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 128
-            },
-            "nullable": true,
-            "description": "A list of IDs of upstream vulnerabilities that are referred to by the vulnerability entry. For example, a downstream package ecosystem (such as a Linux distribution) may issue its own advisories that include (possibly multiple) upstream vulnerabilities. Upstream should be considered transitive but not symmetric."
-          }
-        },
-        "required": ["affected", "id", "modified", "severity"]
       }
     },
     "securitySchemes": {
