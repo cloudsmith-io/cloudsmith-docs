@@ -1,15 +1,16 @@
-import { ApiRequest, ApiResponses, TimeAgo, Heading, Paragraph, Tag, Note } from '@/components';
-import { loadMdxInfo } from '@/lib/markdown/util';
-import { parseSchemas, toOperations } from '@/lib/swagger/parse';
-import { toRouteSegments, toSlug } from '@/lib/util';
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { withMdxMetadata, withDefaultMetadata, getLastUpdated } from '@/lib/metadata/util';
-import { getMenuItem, getActiveAncestors } from '@/lib/menu/util';
+
+import { cx } from 'class-variance-authority';
+import { notFound } from 'next/navigation';
+
+import { ApiRequest, ApiResponses, Heading, Link, Note, Paragraph, Tag, TimeAgo } from '@/components';
 import WithQuicknav from '@/components/WithQuickNav';
 import { Icon } from '@/icons';
-import { Link } from '@/components';
-import { cx } from 'class-variance-authority';
+import { loadMdxInfo } from '@/lib/markdown/util';
+import { getActiveAncestors, getMenuItem } from '@/lib/menu/util';
+import { getLastUpdated, withDefaultMetadata, withMdxMetadata } from '@/lib/metadata/util';
+import { parseSchemas, toOperations } from '@/lib/swagger/parse';
+import { toRouteSegments, toSlug } from '@/lib/util';
 
 import styles from './page.module.css';
 
@@ -138,9 +139,7 @@ const Page = async ({ params }: PageProps) => {
           <Heading size="h2" className={styles.fullWidth}>
             Request
           </Heading>
-
           <ApiRequest {...operation} />
-
           <Heading size="h2" className={styles.fullWidth}>
             Response
           </Heading>

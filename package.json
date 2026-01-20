@@ -10,11 +10,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "pnpm run lint:js && pnpm run lint:css",
+    "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "next lint",
     "lint:css": "stylelint '**/*.css'",
     "lint:css:fix": "stylelint 'src/**/*.css' --fix",
-    "schema": "tsx scripts/download-schema",
+    "schemas:download": "tsx scripts/download-schemas",
     "test": "jest"
   },
   "dependencies": {
@@ -72,6 +72,7 @@
     "stylelint": "^16.14.1",
     "stylelint-config-css-modules": "^4.4.0",
     "stylelint-config-standard": "^37.0.0",
+    "swagger2openapi": "^7.0.8",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "5.7.3"
