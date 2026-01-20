@@ -10,7 +10,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "pnpm run lint:js && pnpm run lint:css",
+    "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "next lint",
     "lint:css": "stylelint '**/*.css'",
     "lint:css:fix": "stylelint 'src/**/*.css' --fix",

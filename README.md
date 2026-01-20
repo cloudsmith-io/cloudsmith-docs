@@ -20,35 +20,35 @@ Then refer to the following guides on how to manage the content of the website:
 Make sure you’re running Node version `22.11.0` (LTS). Then install the dependencies.
 
 ```bash
-pnpm i
+npm i
 ```
 
 Next run the desired task
 
 ```bash
 # Starts app and components in dev mode
-pnpm dev
+npm run dev
 
 # Build the app
-pnpm build
+npm run build
 
 # Build the app
-pnpm start
+npm run start
 
 # Linting everything
-pnpm lint
+npm run lint
 
 # Linting JS
-pnpm lint:js
+npm run lint:js
 
 # Linting CSS
-pnpm lint:css
+npm run lint:css
 
 # Linting CSS and fixing
-pnpm lint:css:fix
+npm run lint:css:fix
 
 # Download API schemas. Used in development mode to minimize the amount of requests to the API
-pnpm schema
+npm run schema
 ```
 
 > [!NOTE]  
@@ -56,7 +56,6 @@ pnpm schema
 
 ### Tooling
 
-- [PNPM](https://pnpm.io/)
 - [Turbopack](https://turbo.build/pack/docs)
 
 ### Framework
