@@ -94,7 +94,8 @@
 
 .itemIndicator {
   position: absolute;
-  left: var(--space-4xs);
+  left: var(--space-3xs);
+  top: var(--space-s);
   color: var(--color-accent-default);
 }
 
