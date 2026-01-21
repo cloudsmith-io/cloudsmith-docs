@@ -30,6 +30,7 @@ Cloudsmith enables granular control by evaluating packages as distinct subgroups
 - If no groupings or filters are configured, the entire repository is processed as a single group.
 - If multiple groupings or filters are enabled, they are applied hierarchically (nested). This creates specific, distinct groups for evaluation.
 
+
 #### Grouping examples
 
 | **Groupings Enabled**      | **Resulting evaluation group(s)**                                           |
@@ -80,7 +81,7 @@ If you have configured groupings or package filters, the evaluation will be isol
 
 Because rules are event-driven and group-specific, packages may persist beyond the configured limits of a rule if there is no activity in their configured group.
 
-For example: You have a 90-day retention rule and **Group by Format** enabled. You upload Python packages every day, but haven't uploaded a Docker image in 120 days. Your existing Docker images will not be deleted until a new Docker image is added or the latest Docker image is resynced, which triggers a Docker format evaluation.
+**For example**: You have a 90-day retention rule and **Group by Format** enabled. You upload Python packages every day, but haven't uploaded a Docker image in 120 days. Your existing Docker images will not be deleted until a new Docker image is added or the latest Docker image is resynced, which triggers a Docker format evaluation.
 
 For manual resyncs, the package that triggers the evaluation is never deleted.
 
@@ -88,7 +89,7 @@ For manual resyncs, the package that triggers the evaluation is never deleted.
 
 When **Limit by Days** has been enabled, Cloudsmith will delete packages based on their upload date. Cloudsmith determines age-based deletions by using a "cutoff date" relative to the triggering package, not the current calendar date.
 
-For example: If your most recent package is 100 days old and your limit is 90 days, the cutoff is 190 days. Only packages 190 days or older are identified for deletion.
+**For example**: If your most recent package is 100 days old and your limit is 90 days, the cutoff is 190 days. Only packages 190 days or older are identified for deletion.
 
 The package used to trigger the evaluation (the latest one) is never deleted, even if it exceeds your configured parameter. To properly delete this 100-day-old package, you must upload a newer package to shift the cutoff date forward.
 
@@ -102,7 +103,7 @@ Retention Rules for a repository are disabled by default. Go to the Repository S
 
 To disable a Retention Rule, follow the same steps and click the **Disable** button in the colored banner.
 
-Alternatively, you can use the Cloudsmith Repo Retention Partial Update to update a repository’s retention rule or configure a repository’s retention rule using the Cloudsmith Terraform Provider.
+Alternatively, you can use the [Cloudsmith Repo Retention Partial Update](/api/repo/retention/partial-update) to update a repository’s retention rule or configure a repository’s retention rule using the Cloudsmith Terraform Provider.
 
 ## Configuration Parameters
 
@@ -119,7 +120,7 @@ Alternatively, you can use the Cloudsmith Repo Retention Partial Update to updat
 
 From the Cloudsmith Web App, use the sliders to configure limits, and then click the green **Update** button to apply the changes.
 
-To learn how to configure retention rule parameters via our Cloudsmith API, visit the API reference documentation. For Terraform, visit the Cloudsmith Terraform Provider documentation.
+To learn how to configure retention rule parameters via our Cloudsmith API, visit the [API reference](https://docs.cloudsmith.com/api) documentation. For Terraform, visit the [Cloudsmith Terraform Provider](https://registry.terraform.io/providers/cloudsmith-io/cloudsmith/latest/docs/resources/repository_retention) documentation.
 
 ## Docker and Multi-Architecture Images
 
