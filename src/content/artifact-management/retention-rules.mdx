@@ -19,11 +19,11 @@ Each repository has one configurable retention rule. This rule runs automaticall
 
 Retention Rules can be configured through the Cloudsmith Web App, the Cloudsmith API, or the Cloudsmith Terraform provider.
 
-## How Retention Rules Work
+## How Retention Rules work
 
 Cloudsmith uses a "funnel" approach to identify which packages should be evaluated and deleted.
 
-### The “Funnel”: Identifying the Evaluation Groups
+### The “Funnel”: Identifying the evaluation groups
 
 Cloudsmith enables granular control by evaluating packages as distinct subgroups rather than only treating the repository as a single unit. These groups are defined by your specific grouping configurations and package filters.
 
@@ -33,7 +33,7 @@ Cloudsmith enables granular control by evaluating packages as distinct subgroups
 
 #### Grouping examples
 
-| **Groupings Enabled**      | **Resulting evaluation group(s)**                                           |
+| **Groupings enabled**      | **Resulting evaluation group(s)**                                           |
 | -------------------------- | ---------------------------------------------------------------------------- |
 | Format                     | One group for every unique format in the repository.                        |
 | Format + Name              | One group for every unique name within each unique format in the repository. |
@@ -45,7 +45,7 @@ Cloudsmith enables granular control by evaluating packages as distinct subgroups
 Packages that have not synced successfully are ignored and excluded from the evaluation groups.
 </Note>
 
-### The Deletion Logic
+### The deletion logic
 
 Once the evaluation groups are identified, Cloudsmith checks them against your configured limits. If any limit is exceeded, deletions are triggered based on specific sorting methods:
 
@@ -55,11 +55,11 @@ Once the evaluation groups are identified, Cloudsmith checks them against your c
 | Limit by Days  | Upload Date        | Deletes packages older than X days. “Oldest” is determined by the date the package was uploaded into Cloudsmith. Manually resyncing a cached package does not change the uploaded timestamp. |
 | Limit by Size  | Semantic Version   | Deletes the oldest packages until the group size is within limits. "Oldest" is determined using the semantic version of a package. |
 
-## When Are Retention Rules Evaluated?
+## When are Retention Rules evaluated?
 
 Retention rules are not a continuous background process; they are event-driven. Evaluations only occur in response to specific triggers.
 
-### Trigger Events
+### Trigger events
 
 A Retention Rule is evaluated when:
 
@@ -70,14 +70,14 @@ A Retention Rule is evaluated when:
 Resyncing an older package will not trigger an evaluation.
 </Note>
 
-### The Scope of Evaluation
+### The scope of evaluation
 
 If you have configured groupings or package filters, the evaluation will be isolated to the distinct group associated with the package that invokes the trigger event.
 
 - **Group by Format**: Uploading a Docker image triggers an evaluation only for Docker packages. All other package formats are excluded from the evaluation.
 - **Nested Groups (Format + Name)**: Uploading a Docker image named `test-docker` only triggers an evaluation for that specific name within the Docker format.
 
-### Why Some Packages May Persist
+### Why some packages may persist
 
 Because rules are event-driven and group-specific, packages may persist beyond the configured limits of a rule if there is no activity in their configured group.
 
@@ -85,7 +85,7 @@ Because rules are event-driven and group-specific, packages may persist beyond t
 
 For manual resyncs, the package that triggers the evaluation is never deleted.
 
-### How the Cutoff Date is Calculated
+### How the cutoff date is calculated
 
 When **Limit by Days** has been enabled, Cloudsmith will delete packages based on their upload date. Cloudsmith determines age-based deletions by using a "cutoff date" relative to the triggering package, not the current calendar date.
 
@@ -93,7 +93,7 @@ When **Limit by Days** has been enabled, Cloudsmith will delete packages based o
 
 The package used to trigger the evaluation (the latest one) is never deleted, even if it exceeds your configured parameter. To properly delete this 100-day-old package, you must upload a newer package to shift the cutoff date forward.
 
-### How Many Packages Will Be Deleted
+### How many packages will be deleted
 
 The processing limit is 10,000 deletions per evaluation cycle. Any packages exceeding this limit stay in the repository until the next evaluation is triggered.
 
@@ -105,7 +105,7 @@ To disable a Retention Rule, follow the same steps and click the **Disable** but
 
 Alternatively, you can use the [Cloudsmith Repo Retention Partial Update](/api/repo/retention/partial-update) to update a repository’s retention rule or configure a repository’s retention rule using the Cloudsmith Terraform Provider.
 
-## Configuration Parameters
+## Configuration parameters
 
 | Name | API | Description |
 | --- | --- | --- |
@@ -122,11 +122,11 @@ From the Cloudsmith Web App, use the sliders to configure limits, and then click
 
 To learn how to configure retention rule parameters via our Cloudsmith API, visit the [API reference](https://docs.cloudsmith.com/api) documentation. For Terraform, visit the [Cloudsmith Terraform Provider](https://registry.terraform.io/providers/cloudsmith-io/cloudsmith/latest/docs/resources/repository_retention) documentation.
 
-## Docker and Multi-Architecture Images
+## Docker and multi-architecture images
 
 We recommend exercising caution when applying retention rules to Docker repositories containing multi-architecture images.
 
-### Key Considerations
+### Key considerations
 
 Cloudsmith evaluates and deletes Docker artifacts as individual entities. Because the retention rule engine does not currently evaluate the relationship between a manifest list and its associated images, automated deletion can lead to repository inconsistency, such as:
 
@@ -136,5 +136,5 @@ Cloudsmith evaluates and deletes Docker artifacts as individual entities. Becaus
 Download statistics are not recorded against Docker Manifests. If you use package filters based on download activity, specifically the `last_downloaded` or `downloads` package filter options, Cloudsmith may inadvertently delete manifests because they appear "unused." This often results in orphaned platform images remaining in the repository.
 
 <Note variant="note">
-If your workflow relies heavily on Manifest Lists, consider using Package Filters (Query Strings) to exclude critical tags from retention, or use the Cloudsmith API to manage cleanup to ensure all associated artifacts are completely removed.
+If your workflow relies heavily on manifest lists, consider using package filters (query strings) to exclude critical tags from retention, or use the Cloudsmith API to manage cleanup to ensure all associated artifacts are completely removed.
 </Note>
