@@ -140,6 +140,10 @@ Follow this standard flow for procedural documentation:
 - Use consistent terminology throughout
 - Prefer Cloudsmith-specific terms (see Cloudsmith-Specific Conventions below)
 
+### Writing inclusive documentation
+
+Prioritize inclusivity in all documentation. Adhere to the [Google Developer Documentation Style Guide](https://developers.google.com/style)—specifically the section on [inclusive writing](https://developers.google.com/style/inclusive-documentation). Ensure all content avoids ableist, biased, or gendered language and uses diverse, representative examples.
+
 ## Cloudsmith-specific conventions
 
 ### Terminology
