@@ -4,6 +4,7 @@
   --line-bg-color: rgb(255 255 255 / 15%);
   --line-number-size: 40px;
   --line-padding: 20px;
+  --border-radius: var(--border-radius-2xl);
 
   margin-block-end: var(--space-s);
   line-height: var(--line-height-xs);
@@ -21,6 +22,11 @@
   background-color: var(--color-background-pre) !important;
   border-radius: 0 0 12px 12px;
   padding-block: 15px;
+}
+
+.darker .code :global(pre) {
+  /* Needed to overwrite Shikit theme */
+  background-color: var(--base-color-grey-1000) !important;
 }
 
 .code :global(code) {
@@ -58,10 +64,15 @@
   position: relative;
   user-select: none;
   color: var(--color-text-on-color);
-  border-radius: var(--border-radius-2xl) var(--border-radius-2xl) 0 0;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
   padding-block: 5px;
   padding-inline: 21px;
   background: var(--color-background-pre) linear-gradient(var(--line-bg-color), var(--line-bg-color) 100%)
+    center bottom / 100% 1px no-repeat;
+}
+
+.darker .lang {
+  background: var(--base-color-grey-1000) linear-gradient(var(--line-bg-color), var(--line-bg-color) 100%)
     center bottom / 100% 1px no-repeat;
 }
 
@@ -70,6 +81,12 @@
 }
 
 .hideHeader {
-  border-top-left-radius: var(--border-radius-2xl);
-  border-top-right-radius: var(--border-radius-2xl);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.error,
+.loading {
+  padding: var(--space-s) var(--space-m);
+  color: var(--color-text-on-color);
 }

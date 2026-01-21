@@ -1,7 +1,7 @@
 .trigger {
   padding: var(--space-2xs);
   cursor: pointer;
-  border-radius: var(--border-radius-s);
+  border-radius: var(--border-radius-m);
 }
 
 .trigger h2 {
@@ -13,6 +13,7 @@
 }
 
 .content {
+  min-width: 430px;
   overflow: hidden;
   background-color: var(--color-background-default);
   border-radius: var(--border-radius-m);

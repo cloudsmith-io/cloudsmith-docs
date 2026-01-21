@@ -7,8 +7,8 @@ import { Flex } from '@/components/Flex';
 import { Heading } from '@/components/Heading';
 import { Tag } from '@/components/Tag';
 import { Icon } from '@/icons';
+import { operationKey } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
-import { operationKey } from '@/lib/swagger/util';
 
 import styles from './OperationSelect.module.css';
 
@@ -75,8 +75,7 @@ export default function OperationSelect({ value, options, onValueChange }: Opera
           aria-label="Operations"
           position="popper"
           className={styles.content}
-          sideOffset={4}
-          alignOffset={-16}>
+          sideOffset={4}>
           <div className={styles.comboboxWrapper}>
             <div className={styles.comboboxIcon}>
               <Icon name="search" title="Search" />

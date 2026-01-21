@@ -1,13 +1,13 @@
 .root {
   min-width: 400px;
   padding: var(--space-m);
-  max-height: calc(100vh - 50px);
+  max-height: calc(100vh - var(--space-l) * 2);
   overflow-y: auto;
 }
 
 @media (--phablet-up) {
   .root {
-    max-height: calc(100vh - 150px);
+    max-height: calc(100vh - var(--space-l) * 2);
   }
 }
 
@@ -30,8 +30,10 @@
 
 .params {
   --column-inline-padding: var(--space-m);
-  --column-block-padding: var(--space-s);
+  --column-block-padding: var(--space-m);
 
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 100%;
+
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; */
 }

@@ -1,14 +1,16 @@
 import { cx } from 'class-variance-authority';
 
+import { ClipboardCopy } from '@/components/ClipboardCopy/ClipboardCopy';
 import { Flex } from '@/components/Flex';
+import { Tag } from '@/components/Tag';
+import { getParametersByParam } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
-import { getParametersByParam } from '@/lib/swagger/util';
 import { operationUrl } from '@/lib/url';
 
-import { ClipboardCopy } from '../../ClipboardCopy/ClipboardCopy';
-import { Tag } from '../../Tag';
-import { PathParams, QueryParams, RequestBody } from './components';
 import OperationSelect from './components/OperationSelect';
+import PathParams from './components/PathParams';
+import QueryParams from './components/QueryParams';
+import RequestBody from './components/RequestBody';
 import styles from './SandboxInput.module.css';
 
 type SandboxInputProps = {

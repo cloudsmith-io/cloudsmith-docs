@@ -1,0 +1,43 @@
+.root {
+  background-color: var(--color-background-pre);
+  padding: var(--space-m);
+  min-width: 400px;
+}
+
+.root > * {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+@media (--phablet-up) {
+  .root {
+    max-height: calc(100vh - var(--space-l) * 2);
+  }
+}
+
+.header {
+  color: var(--brand-color-grey-3);
+  margin-bottom: var(--space-xs);
+}
+
+.header > p {
+  margin-bottom: 0;
+}
+
+.headerButton {
+  padding: var(--space-m) var(--space-xl);
+}
+
+.request,
+.response {
+  --border-radius: var(--border-radius-m);
+
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.request :global(pre),
+.response :global(pre) {
+  max-height: calc((100vh - var(--space-l) * 2) * 0.35);
+  overflow-y: auto;
+}

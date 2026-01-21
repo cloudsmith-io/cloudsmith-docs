@@ -9,8 +9,8 @@ import { ApiOperation } from '@/lib/swagger/types';
 
 import { Button } from '../Button';
 import styles from './ApiSandbox.module.css';
-import { SandboxInput } from './SandboxInput/SandboxInput';
-import { SandboxOutput } from './SandboxOutput';
+import SandboxInput from './SandboxInput';
+import SandboxOutput from './SandboxOutput';
 
 type ApiSandboxProps = {
   operation: ApiOperation;
@@ -51,7 +51,7 @@ export const ApiSandbox = ({ operation, operations }: ApiSandboxProps) => {
                 operations={operations}
                 onChangeOperation={(o) => setCurrentOperation(o)}
               />
-              <SandboxOutput />
+              <SandboxOutput operation={currentOperation} />
             </div>
           </RadixDialog.Content>
         </RadixDialog.Overlay>

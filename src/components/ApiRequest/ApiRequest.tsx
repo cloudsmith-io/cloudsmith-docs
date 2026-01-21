@@ -1,8 +1,8 @@
 import { cx } from 'class-variance-authority';
 
 import { Tag } from '@/components';
+import { getParametersByParam } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
-import { getParametersByParam } from '@/lib/swagger/util';
 import { operationUrl } from '@/lib/url';
 
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
