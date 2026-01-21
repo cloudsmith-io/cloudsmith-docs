@@ -1,13 +1,12 @@
 import { cx } from 'class-variance-authority';
 
 import { Tag } from '@/components';
-import { getParametersByParam } from '@/lib/operations/util';
+import { getParametersByParam, operationUrl } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
-import { operationUrl } from '@/lib/url';
 
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
 import { ApiMediaResponse } from '../ApiMedia';
-import { ApiSandbox } from '../ApiSandbox';
+import { ApiSandboxDialog } from '../ApiSandbox';
 import { ClipboardCopy } from '../ClipboardCopy/ClipboardCopy';
 import styles from './ApiRequest.module.css';
 
@@ -32,7 +31,7 @@ export const ApiRequest = ({
             <span className={cx('bodyS', styles.url)}>{url}</span>
           </ClipboardCopy>
 
-          <ApiSandbox operation={operation} operations={operations} />
+          <ApiSandboxDialog operation={operation} operations={operations} />
         </div>
       </div>
 

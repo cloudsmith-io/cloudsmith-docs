@@ -5,19 +5,18 @@ import { useEffect, useState } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
+import { Button } from '@/components/Button';
 import { ApiOperation } from '@/lib/swagger/types';
 
-import { Button } from '../Button';
-import styles from './ApiSandbox.module.css';
-import SandboxInput from './SandboxInput';
-import SandboxOutput from './SandboxOutput';
+import styles from './ApiSandboxDialog.module.css';
+import { Sandbox } from './Sandbox';
 
-type ApiSandboxProps = {
+type ApiSandboxDialogProps = {
   operation: ApiOperation;
   operations: ApiOperation[];
 };
 
-export const ApiSandbox = ({ operation, operations }: ApiSandboxProps) => {
+export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProps) => {
   const [open, setOpen] = useState(false);
 
   const [currentOperation, setCurrentOperation] = useState<ApiOperation>(operation);
@@ -46,12 +45,11 @@ export const ApiSandbox = ({ operation, operations }: ApiSandboxProps) => {
             </VisuallyHidden>
 
             <div className={styles.main}>
-              <SandboxInput
-                operation={currentOperation}
+              <Sandbox
+                currentOperation={currentOperation}
                 operations={operations}
                 onChangeOperation={(o) => setCurrentOperation(o)}
               />
-              <SandboxOutput operation={currentOperation} />
             </div>
           </RadixDialog.Content>
         </RadixDialog.Overlay>

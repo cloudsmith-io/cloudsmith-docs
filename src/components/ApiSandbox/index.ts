@@ -1,1 +1,1 @@
-export * from './ApiSandbox';
+export * from './ApiSandboxDialog';

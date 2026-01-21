@@ -3,9 +3,8 @@ import { cx } from 'class-variance-authority';
 import { ClipboardCopy } from '@/components/ClipboardCopy/ClipboardCopy';
 import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
-import { getParametersByParam } from '@/lib/operations/util';
-import { ApiOperation } from '@/lib/swagger/types';
-import { operationUrl } from '@/lib/url';
+import { operationUrl } from '@/lib/operations/util';
+import { ApiOperation, ParameterObject, RequestBodyObject } from '@/lib/swagger/types';
 
 import OperationSelect from './components/OperationSelect';
 import PathParams from './components/PathParams';
@@ -16,13 +15,27 @@ import styles from './SandboxInput.module.css';
 type SandboxInputProps = {
   operation: ApiOperation;
   operations: ApiOperation[];
+  parameters: {
+    path: ParameterObject[];
+    query: ParameterObject[];
+    body: RequestBodyObject | undefined;
+  };
+  paramState: {
+    path: Record<string, string>;
+  };
   onChangeOperation: (o: ApiOperation) => void;
+  onUpdateState: (type: 'param' | 'query' | 'body', name: string, value: string) => void;
 };
 
-export const SandboxInput = ({ operation, operations, onChangeOperation }: SandboxInputProps) => {
-  const pathsParameters = getParametersByParam(operation, 'path');
-  const queryParameters = getParametersByParam(operation, 'query');
-  const bodyParameters = operation.requestBody;
+export const SandboxInput = ({
+  operation,
+  operations,
+  onChangeOperation,
+  parameters,
+  paramState,
+  onUpdateState,
+}: SandboxInputProps) => {
+  const { path, query, body } = parameters;
 
   const url = operationUrl(operation);
 
@@ -36,11 +49,17 @@ export const SandboxInput = ({ operation, operations, onChangeOperation }: Sandb
       </ClipboardCopy>
 
       <div className={styles.params}>
-        {pathsParameters?.length ? <PathParams parameters={pathsParameters} /> : null}
+        {path.length > 0 ? (
+          <PathParams
+            parameters={path}
+            state={paramState.path}
+            onUpdateParam={(name, value) => onUpdateState('param', name, value)}
+          />
+        ) : null}
 
-        {queryParameters?.length ? <QueryParams parameters={queryParameters} /> : null}
+        {query.length > 0 ? <QueryParams parameters={query} /> : null}
 
-        {bodyParameters ? <RequestBody requestBody={bodyParameters} /> : null}
+        {body ? <RequestBody requestBody={body} /> : null}
       </div>
     </Flex>
   );

@@ -1,13 +1,11 @@
-// import { Suspense } from 'react';
-
+import { Button } from '@/components/Button';
+import { CodeBlockSync } from '@/components/CodeBlock/CodeBlockSync';
 import { Flex } from '@/components/Flex';
+import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
 import { curlCommand } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
-import { Button } from '../../Button';
-import { CodeBlockSync } from '../../CodeBlock/CodeBlockSync';
-import { Paragraph } from '../../Paragraph';
 import styles from './SandboxOutput.module.css';
 
 const response = [
@@ -60,15 +58,18 @@ const response = [
 
 type SandboxOutputProps = {
   operation: ApiOperation;
+  paramState: {
+    path: Record<string, string>;
+  };
 };
 
-export const SandboxOutput = ({ operation }: SandboxOutputProps) => {
-  const command = curlCommand(operation);
+export const SandboxOutput = ({ operation, paramState }: SandboxOutputProps) => {
+  const command = curlCommand(operation, paramState);
 
   const stringResponse = JSON.stringify(response, null, 4);
 
   return (
-    <Flex className={styles.root} gap="xs">
+    <Flex className={styles.root} gap="xs" justify="start" direction="column">
       <Flex className={styles.header} justify="between">
         <Paragraph>cURL Request</Paragraph>
 

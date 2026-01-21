@@ -1,5 +1,7 @@
 import { ApiOperation } from '../swagger/types';
-import { operationUrl } from '../url';
+
+export const operationUrl = (operation: ApiOperation) =>
+  `${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}/${operation.version}${operation.path}`;
 
 /**
  * Turns an operation slug into a fully qualified local path to use in links
@@ -15,14 +17,26 @@ export const operationKey = (op: ApiOperation) => `${op.method}-${op.path}`;
 
 export const curlCommand = (
   op: ApiOperation,
-  // pathParams?: any,
-  // queryParams?: any,
-  // bodyParams?: any,
-  // header?: any,
+  parameters: {
+    path: Record<string, string>;
+  },
 ) => {
   let command = `curl --request ${op.method.toUpperCase()} \\\n`;
 
-  command += `     --url '${operationUrl(op).replaceAll('\{', '').replaceAll('\}', '')}' \\\n`;
+  const baseUrl = operationUrl(op);
+
+  const pathReplacedUrl = Object.entries(parameters.path).reduce((url, current) => {
+    const [param, value] = current;
+    const template = `{${param}}`;
+    if (value !== '' && url.includes(template)) {
+      return url.replaceAll(`{${param}}`, value);
+    }
+    return url;
+  }, baseUrl);
+
+  const cleanedUrl = pathReplacedUrl.replaceAll('\{', '').replaceAll('\}', '');
+
+  command += `     --url '${cleanedUrl}' \\\n`;
 
   command += `     --header 'accept:application/json'`;
 
