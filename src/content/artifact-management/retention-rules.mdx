@@ -135,5 +135,6 @@ Cloudsmith evaluates and deletes Docker artifacts as individual entities. Becaus
 
 Download statistics are not recorded against Docker Manifests. If you use package filters based on download activity, specifically the `last_downloaded` or `downloads` package filter options, Cloudsmith may inadvertently delete manifests because they appear "unused." This often results in orphaned platform images remaining in the repository.
 
+<Note variant="note">
 **Best Practice**: If your workflow relies heavily on Manifest Lists, consider using Package Filters (Query Strings) to exclude critical tags from retention, or use the Cloudsmith API to manage cleanup to ensure all associated artifacts are completely removed.
-
+</Note>
