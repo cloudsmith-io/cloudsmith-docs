@@ -4,34 +4,40 @@ import { Note } from '@/components'
 
 ## Overview
 
-SCIM, or System for Cross-domain Identity Management, is an open standard designed to manage user identity information. Cloudsmith is SCIM 2.0-compliant. With Cloudsmith's support for SCIM, you can automatically provision new users, de-provision existing users and update existing users profile information based on changes within your Identity Provider (IdP).
+SCIM, or **System for Cross‑domain Identity Management**, is an open standard designed to manage user identity information. Cloudsmith is SCIM 2.0‑compliant. With Cloudsmith’s support for SCIM, you can automatically provision new users, de‑provision existing users and update user profile information based on changes within your IdP.
 
 <Note variant="warning" headline="Early Access">
-  SCIM Groups provisioning integration is currently available in early access. Please contact us if you need this feature enabled for your organization.
+SCIM Groups provisioning integration is currently available in early access. Please contact us if you need this feature enabled for your organization.
 </Note>
 
-<Note>
-📘 To provision users via SCIM, you need to setup the workspace as the primary workspace. Users from other workspaces can not be managed via SCIM.
-If you have any question, reach out to [support](https://cloudsmith.com/company/contact-us).
-</Note>
+## Prerequisites for enabling SCIM on Cloudsmith
+
+To configure SCIM for your organization you must meet the following requirements:
+
+1. **Cloudsmith plan** – Your account must be on a plan that includes **Ultra** or **Enterprise**.  
+2. **Administrator access** – You must be the owner of a Cloudsmith organization. 
+3. **Domain registry** – At least one domain must be claimed in Cloudsmith - please reach out to our [support team](https://cloudsmith.com/company/contact-us).  
+4. **Identity provider (IdP)** – You need an IdP that supports SCIM 2.0 to use with Cloudsmith.  
+
+---
 
 ## Configuration
 
-When configuring your Identity Provider, you'll need the following details which apply to all SCIM integrations with Cloudsmith:
+When configuring your IdP, you’ll need the following details that apply to all SCIM integrations with Cloudsmith:
 
-- **Base URL**: `https://api.cloudsmith.io/scim/v2`
-- **Authentication**: Basic Auth, using a SCIM token generated from Cloudsmith.
-- **Supported Features**: User provisioning and de-provisioning.
+- **Base URL**: `https://api.cloudsmith.io/scim/v2`  
+- **Authentication**: Basic Auth, using a SCIM token generated from Cloudsmith.  
+- **Supported Features**: User provisioning and de‑provisioning.
 
-## Supported Providers
+<Note variant="warning" headline="Unique User Identifier">
+Make sure to use the user’s e‑mail address as the unique identifier.
+</Note>
 
-Whilst Cloudsmith should work with any generic SCIM IdP, we officially support and provide documentation for a number of the most common providers. Please see below for the guides for each officially supported provider:
+## Supported IdP Providers
 
-- [Okta](/authentication/scim-with-okta)
+Cloudsmith works with any generic SCIM 2.0‑compliant IdP, but we provide detailed documentation for the most common providers below as an example configuration:
+
+- [Okta](/authentication/scim-with-okta)  
 - [Microsoft Entra ID](/authentication/scim-with-microsoft-entra-id)
-- [PingFederate](/authentication/scim-with-pingfederate)
-- [Google](/authentication/scim-with-google) 
-- [JumpCloud](/authentication/single-sign-on-with-jumpcloud) 
-- [OneLogin](/authentication/single-sign-on-with-onelogin)
 
-Other providers may be supported. If you need help with an unlisted integration, you can still [contact us](https://cloudsmith.com/company/contact-us).
+If you need help with an IdP not listed above, feel free to [contact us](https://cloudsmith.com/company/contact-us).
