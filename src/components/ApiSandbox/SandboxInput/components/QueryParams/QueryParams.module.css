@@ -1,28 +1,7 @@
-.grid {
-  margin-block-end: var(--column-block-padding);
+.root {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-m);
   width: 100%;
-}
-
-.item {
-  position: relative;
-  text-align: left;
-  border-top: 1px solid var(--color-border);
-}
-
-.subItem {
-  padding-inline: var(--column-inline-padding);
-  padding-block: var(--column-block-padding);
-
-  .header & {
-    grid-column: 1 / -1;
-    padding-block: calc(var(--column-block-padding) / 2);
-  }
-}
-
-.param {
-  padding: var(--space-xs) var(--space-m);
 }
 
 .header {
@@ -33,7 +12,33 @@
   color: var(--brand-color-grey-7);
 }
 
-.subItemType {
+.heading {
+  padding-inline: var(--column-inline-padding);
+  padding-block: calc(var(--column-block-padding) / 2);
+}
+
+.param {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-m);
+}
+
+.name {
+  max-width: 50%;
+  font-size: var(--text-body-xs);
+}
+
+.nameName {
+  font-size: var(--text-body-m);
+}
+
+.input {
+  width: 50%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-s);
+  padding: var(--space-4xs) var(--space-2xs);
+}
+
+.paramType {
   color: var(--base-color-blue-500);
   font-family: var(--font-family-mono);
   letter-spacing: var(--letter-http-type);

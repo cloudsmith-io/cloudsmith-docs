@@ -21,7 +21,7 @@
   z-index: var(--layer-select);
   max-height: 500px;
   border: 1px solid var(--color-border);
-  animation: contentShow 300ms ease-in-out;
+  animation: contentShow 200ms ease-in-out;
 }
 
 .comboboxWrapper {

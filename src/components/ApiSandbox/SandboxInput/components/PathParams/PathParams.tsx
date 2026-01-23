@@ -46,9 +46,9 @@ const PathParams = ({ parameters, state, onUpdateParam }: PathParamsProps) => (
     </div>
 
     {parameters.map((param) => (
-      <Flex key={param.name} className={styles.param} justify="between" align="start" wrap={false}>
-        <Flex className={styles.name} gap="2xs" wrap>
-          <div>{param.name}</div>
+      <Flex key={param.name} className={styles.param} justify="between" align="center" wrap={false}>
+        <Flex className={styles.name} gap="2xs" wrap align="center">
+          <div className={styles.nameName}>{param.name}</div>
           <div className={styles.paramType}>{param.schema?.type}</div>
           <div>
             <Tag variant={param.required ? 'tomato' : 'grey'}>{param.required ? 'required' : 'optional'}</Tag>

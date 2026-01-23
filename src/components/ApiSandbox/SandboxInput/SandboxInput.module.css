@@ -1,13 +1,13 @@
 .root {
   min-width: 400px;
   padding: var(--space-m);
-  max-height: calc(100vh - var(--space-l) * 2);
+  height: calc(100vh - var(--space-l) * 2);
   overflow-y: auto;
 }
 
 @media (--phablet-up) {
   .root {
-    max-height: calc(100vh - var(--space-l) * 2);
+    height: calc(100vh - var(--space-l) * 2);
   }
 }
 

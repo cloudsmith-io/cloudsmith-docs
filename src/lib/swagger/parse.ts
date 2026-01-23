@@ -93,6 +93,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
   };
 
   for (const { schema, version } of schemas) {
+    const defaultSecurity = schema.security;
     for (const path in schema.paths) {
       const pathObject = schema.paths[path];
       for (const field in pathObject) {
@@ -145,6 +146,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
             slug,
             title: createTitle(menuSegments),
             experimental: operation.tags?.includes('experimental') === true,
+            security: operation.security ?? defaultSecurity,
           });
         }
       }

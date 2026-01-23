@@ -1,5 +1,4 @@
 .root {
-  margin-block-end: var(--column-block-padding);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-m);
   width: 100%;
@@ -25,7 +24,11 @@
 
 .name {
   max-width: 50%;
-  font-size: var(--text-body-s);
+  font-size: var(--text-body-xs);
+}
+
+.nameName {
+  font-size: var(--text-body-m);
 }
 
 .input {

@@ -1,7 +1,7 @@
 import { ApiOperation } from '../swagger/types';
 
 export const operationUrl = (operation: ApiOperation) =>
-  `${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}/${operation.version}${operation.path}`;
+  `${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}/${operation.version}${operation.path}/`;
 
 /**
  * Turns an operation slug into a fully qualified local path to use in links
@@ -13,6 +13,15 @@ export const operationPath = (slug: string): string => {
 export const getParametersByParam = (operation: ApiOperation, param: string) =>
   operation.parameters?.filter((p) => p.in === param);
 
+export const getHeaderOptions = (operation: ApiOperation) =>
+  Array.from(
+    new Set(
+      (operation.security ?? [])
+        .flatMap((s) => Object.keys(s))
+        .filter((s) => s === 'apikey' || s === 'basic'),
+    ),
+  ).toSorted();
+
 export const operationKey = (op: ApiOperation) => `${op.method}-${op.path}`;
 
 export const curlCommand = (
@@ -20,6 +29,7 @@ export const curlCommand = (
   parameters: {
     path: Record<string, string>;
   },
+  _header: ['apikey' | 'basic' | null, string | null],
 ) => {
   let command = `curl --request ${op.method.toUpperCase()} \\\n`;
 
@@ -38,7 +48,16 @@ export const curlCommand = (
 
   command += `     --url '${cleanedUrl}' \\\n`;
 
-  command += `     --header 'accept:application/json'`;
+  const [header, headerValue] = _header;
+
+  if (header && headerValue) {
+    const headerStart = header === 'apikey' ? 'X-Api-Key: ' : 'authorization: Basic ';
+    const headerEnd = header === 'apikey' ? headerValue : btoa(headerValue);
+    command += `     --header '${headerStart}${headerEnd}' \\\n`;
+  }
+
+  command += `     --header 'accept:application/json' \\\n`;
+  command += `     --header 'content-type: application/json' `;
 
   return command;
 };

@@ -38,6 +38,6 @@
 
 .request :global(pre),
 .response :global(pre) {
-  max-height: calc((100vh - var(--space-l) * 2) * 0.35);
+  max-height: calc((100vh - var(--space-l) * 2) * 0.45);
   overflow-y: auto;
 }

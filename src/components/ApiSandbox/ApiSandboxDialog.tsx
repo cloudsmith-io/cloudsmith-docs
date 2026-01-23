@@ -25,7 +25,7 @@ export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProp
     if (open) {
       setCurrentOperation(operation);
     }
-  }, [open]);
+  }, [open, operation]);
 
   return (
     <RadixDialog.Root open={open} onOpenChange={setOpen}>

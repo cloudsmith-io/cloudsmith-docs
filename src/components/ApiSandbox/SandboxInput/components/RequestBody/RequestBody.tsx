@@ -7,18 +7,10 @@ import { ApiOperation, SchemaObject } from '@/lib/swagger/types';
 import styles from './RequestBody.module.css';
 
 export const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['requestBody']> }) => (
-  <div className={styles.grid}>
-    <div className={cx(styles.item, styles.header)}>
-      <div className={cx(styles.subItem, 'monoXSUppercase')}>
-        Body params{' '}
-        {requestBody.required && (
-          <Tag variant={requestBody.required ? 'red' : 'grey'}>
-            {requestBody.required ? 'required' : 'optional'}
-          </Tag>
-        )}
-      </div>
+  <div className={styles.root}>
+    <div className={styles.header}>
+      <div className={cx(styles.heading, 'monoXSUppercase')}>Body params</div>
     </div>
-
     {requestBody.content &&
       Object.entries(requestBody.content)
         .map((entry) => {
@@ -36,17 +28,17 @@ export const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOpera
         .flatMap((p) => {
           const [name, param] = p as unknown as [string, SchemaObject];
           return (
-            <div key={name} className={styles.item}>
-              <Flex className={styles.param}>
-                <div>{name}</div>
-                <div className={styles.subItemType}>{param?.type}</div>
+            <Flex key={name} className={styles.param} justify="between" align="center" wrap={false}>
+              <Flex className={styles.name} gap="2xs" wrap align="center">
+                <div className={styles.nameName}>{name}</div>
+                <div className={styles.paramType}>{param?.type}</div>
                 <div>
-                  <Tag variant={param?.required ? 'red' : 'grey'}>
-                    {param?.required ? 'required' : 'optional'}
+                  <Tag variant={param.required ? 'tomato' : 'grey'}>
+                    {param.required ? 'required' : 'optional'}
                   </Tag>
                 </div>
               </Flex>
-            </div>
+            </Flex>
           );
         })}
   </div>

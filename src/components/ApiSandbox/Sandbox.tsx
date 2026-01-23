@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { getParametersByParam } from '@/lib/operations/util';
+import { getHeaderOptions, getParametersByParam } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import SandboxInput from './SandboxInput';
@@ -24,10 +24,20 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
     [currentOperation],
   );
   const bodyParameters = currentOperation.requestBody;
+  const headers = useMemo(() => getHeaderOptions(currentOperation), [currentOperation]);
 
   const [pathParamState, setPathParamState] = useState<Record<string, string>>({});
+  const [headersState, setHeadersState] = useState<{
+    current: 'apikey' | 'basic';
+    apikey: string;
+    basic: string;
+  }>({
+    current: headers[0],
+    apikey: '',
+    basic: '',
+  });
 
-  const paramState = useMemo(() => ({ path: pathParamState }), [[pathParamState]]);
+  const paramState = useMemo(() => ({ path: pathParamState }), [pathParamState]);
 
   const updatePathParam = (name: string, value: string) => {
     setPathParamState((v) => ({ ...v, [name]: value }));
@@ -36,6 +46,12 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
   useEffect(() => {
     setPathParamState(Object.fromEntries(pathsParameters.map((p) => [p.name, ''])));
   }, [pathsParameters]);
+
+  useEffect(() => {
+    if (headers.length > 0 && !headers.includes(headersState.current)) {
+      setHeadersState((s) => ({ ...s, current: headers[0] }));
+    }
+  }, [headers, headersState]);
 
   return (
     <>
@@ -48,12 +64,22 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
           query: queryParameters,
           body: bodyParameters,
         }}
+        headersState={headersState}
+        headers={headers}
+        currentHeader={headersState.current}
+        onUpdateCurrentHeader={(h) => setHeadersState((s) => ({ ...s, current: h }))}
+        onChangeHeader={(header, value) => setHeadersState((s) => ({ ...s, [header]: value }))}
         onChangeOperation={onChangeOperation}
         onUpdateState={(type, name, value) => {
           if (type === 'param') updatePathParam(name, value);
         }}
       />
-      <SandboxOutput operation={currentOperation} paramState={paramState} />
+      <SandboxOutput
+        operation={currentOperation}
+        paramState={paramState}
+        header={headers.includes(headersState.current) ? headersState.current : null}
+        headerValue={headers.includes(headersState.current) ? headersState[headersState.current] : null}
+      />
     </>
   );
 };

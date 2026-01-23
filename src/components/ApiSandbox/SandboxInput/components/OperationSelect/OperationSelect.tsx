@@ -38,7 +38,7 @@ export default function OperationSelect({ value, options, onValueChange }: Opera
       matches.push(selectedLanguage);
     }
     return matches;
-  }, [searchValue, value]);
+  }, [searchValue, value, options]);
 
   return (
     <RadixSelect.Root

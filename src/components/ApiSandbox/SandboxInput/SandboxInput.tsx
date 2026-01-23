@@ -6,6 +6,7 @@ import { Tag } from '@/components/Tag';
 import { operationUrl } from '@/lib/operations/util';
 import { ApiOperation, ParameterObject, RequestBodyObject } from '@/lib/swagger/types';
 
+import AuthInput from './components/AuthInput';
 import OperationSelect from './components/OperationSelect';
 import PathParams from './components/PathParams';
 import QueryParams from './components/QueryParams';
@@ -23,6 +24,11 @@ type SandboxInputProps = {
   paramState: {
     path: Record<string, string>;
   };
+  currentHeader: 'apikey' | 'basic';
+  headers: ('apikey' | 'basic')[];
+  headersState: Record<string, string>;
+  onUpdateCurrentHeader: (h: 'apikey' | 'basic') => void;
+  onChangeHeader: (h: 'apikey' | 'basic', value: string) => void;
   onChangeOperation: (o: ApiOperation) => void;
   onUpdateState: (type: 'param' | 'query' | 'body', name: string, value: string) => void;
 };
@@ -30,10 +36,15 @@ type SandboxInputProps = {
 export const SandboxInput = ({
   operation,
   operations,
-  onChangeOperation,
   parameters,
   paramState,
+  headers,
+  currentHeader,
+  headersState,
+  onChangeHeader,
+  onChangeOperation,
   onUpdateState,
+  onUpdateCurrentHeader,
 }: SandboxInputProps) => {
   const { path, query, body } = parameters;
 
@@ -48,7 +59,15 @@ export const SandboxInput = ({
         <span className={cx('bodyS', styles.url)}>{url}</span>
       </ClipboardCopy>
 
-      <div className={styles.params}>
+      <Flex className={styles.params} direction="column">
+        <AuthInput
+          headers={headers}
+          currentHeader={currentHeader}
+          headersState={headersState[currentHeader]}
+          onChangeHeader={onChangeHeader}
+          onUpdateCurrentHeader={onUpdateCurrentHeader}
+        />
+
         {path.length > 0 ? (
           <PathParams
             parameters={path}
@@ -60,7 +79,7 @@ export const SandboxInput = ({
         {query.length > 0 ? <QueryParams parameters={query} /> : null}
 
         {body ? <RequestBody requestBody={body} /> : null}
-      </div>
+      </Flex>
     </Flex>
   );
 };
