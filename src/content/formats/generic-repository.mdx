@@ -4,6 +4,10 @@ import genericUpstream from './images/generic/generic-upstream.png';
 
 # Generic Repository
 
+<Note variant="note" headline="Early Access">
+Generic upstreams are in Early Access. [Contact us](https://cloudsmith.com/company/contact-us) to enable it for your organization.
+</Note>
+
 Cloudsmith provides public & private repositories for Generic files
 
 Cloudsmith supports Generic files, a flexible format for managing any file or binary that relies on specific file paths rather than semantic versioning.
@@ -24,6 +28,7 @@ In the following examples:
 | API-KEY       | Your Cloudsmith API Key                                                                   |
 | PATH_TO_FILE  | The local path to the file you want to upload (e.g., `~/downloads/file.tar.gz`)          |
 | FILEPATH      | The repository path where the file will be stored (e.g., `path/to/file.tar.gz`)          |
+| PREFIX        | Optional upstream prefix (e.g., `node_distributions/`) for files cached from upstreams   |
 
 ## Why Generic Format?
 
@@ -90,10 +95,22 @@ To download a Generic package, fetch uploaded files using a well-crafted URL. Th
 https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/FILEPATH
 ```
 
-Example `curl` command to download a generic package from a public repository:
+For files cached from an upstream with a prefix:
+
+```text
+https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/PREFIX/FILEPATH
+```
+
+Example `curl` commands to download a generic package from a public repository:
 
 ```shell
 curl -sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/path/to/file.tar.gz'
+```
+
+With upstream prefix:
+
+```shell
+curl -sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/node_distributions/latest/node-v4.9.1.tar.gz'
 ```
 
 #### Private Repositories
@@ -112,15 +129,36 @@ Using Entitlement Token authentication:
 curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/FILEPATH'
 ```
 
+With upstream prefix:
+
+```shell
+curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/PREFIX/FILEPATH'
+```
+
 Using HTTP Basic authentication:
 
 ```shell
 curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/FILEPATH'
 ```
 
+With upstream prefix:
+
+```shell
+curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/PREFIX/FILEPATH'
+```
+
 ## HTML Indexes
 
-Cloudsmith supports serving Apache-style HTML formatted indexes of generic package files in the repository. You can enable index generation in the [Repository Settings](/repositories/repository-settings).
+Cloudsmith supports serving Apache-style HTML formatted indexes of generic package files in the repository.
+
+<Note variant="note" headline="Disabled by Default">
+HTML index generation is disabled by default. Enable it in [Repository Settings](/repositories/repository-settings) under the Generic section.
+</Note>
+
+<Note variant="note" headline="HTML-based upstreams">
+Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+</Note>
+
 
 When enabled, the HTML index is available at:
 
@@ -139,13 +177,13 @@ https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/
 https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/
 ```
 
+<Note variant="note" headline="Browser Access">
+To view the HTML index in a browser for private repositories, use `TOKEN` as the username and your entitlement token as the password when prompted for authentication.
+</Note>
+
 ## Upstream Proxying / Caching
 
 <Tag variant="dark-green" theme="legacy">Supported</Tag>
-
-<Note variant="note" headline="Early Access">
-Generic upstreams are in Early Access. [Contact us](https://cloudsmith.com/company/contact-us) to enable it for your organization.
-</Note>
 
 The Generic format supports upstream proxying and caching for simple HTML-based sources. When a file is requested, Cloudsmith checks for a local copy. If missing, it fetches the file from the upstream, caches it as a first-class local package, and serves it.
 
@@ -157,11 +195,7 @@ In the upstream creation menu, define a name for your upstream and enter the ups
 
 <BlockImage src={genericUpstream} alt="Generic Upstream Configuration"></BlockImage>
 
-<Note variant="note" headline="HTML-based upstreams">
-Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
-</Note>
-
-Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions on configuring upstreams.
+Please see our [Upstream Proxying](/repositories/upstreams#create-a-generic-upstream) documentation for further instructions on configuring upstreams.
 
 ## Key Signing Support
 
