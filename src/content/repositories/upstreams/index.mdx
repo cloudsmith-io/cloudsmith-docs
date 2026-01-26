@@ -25,7 +25,7 @@ import swift from './images/swift.png'
 
 # Upstream Proxying and Caching
 
-Upstream proxying and caching allows you to upload and use the packages you own, while Cloudsmith fetches and caches other packages (such as dependencies). 
+Upstream proxying and caching allows you to upload and use the packages you own, while Cloudsmith fetches and caches other packages (such as dependencies).
 
 This enables you to use Cloudsmith as a first-class cache and a central source of truth for packages, to protect you from outages of external services (which is especially important when running behind your firewall).
 
@@ -51,7 +51,7 @@ We strive to ensure that at least _just-in-time_ indexing is available for each 
 
 ### Priority
 
-When defining upstreams for a repository, a _priority_ can be specified. The priority of an upstream is used to determine the order in which upstream requests are resolved. Cloudsmith evaluates upstreams by the order of `1..n`. 
+When defining upstreams for a repository, a _priority_ can be specified. The priority of an upstream is used to determine the order in which upstream requests are resolved. Cloudsmith evaluates upstreams by the order of `1..n`.
 
 A good approach when determining what priority to apply to upstreams is to ensure that the lowest value is specified for the upstream which is most likely to contain upstream packages you request and that there are no multiple upstreams with the same priority value. This helps to improve performance in the event that an upstream source does not support any of our indexing mechanisms.
 
@@ -106,7 +106,7 @@ You can create upstreams without leaving your terminal. For example, you can cre
   "upstream_url": "http://archive.ubuntu.com/ubuntu",
   "mode": "Cache and Proxy",
   "distro_versions": ["debian/trixie"],
-  "component": "main", 
+  "component": "main",
   "auth_mode": "None",
   "priority": 1
 }
@@ -119,7 +119,7 @@ cloudsmith upstream deb create WORKSPACE/REPOSITORY ./upstream_config.json
 ```
 
 This command will return the details about your new configured upstream. Please, refer to the [Config Reference](#supported-formats) column in the supported formats table to review fields available for each of the supported formats.
- 
+
 ### Using the manual configuration
 
 Click the  "+ Add Upstream Proxy" button, and then select the format you want to create an upstream for:
@@ -154,7 +154,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.    
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a NPM Upstream
 
@@ -235,7 +235,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                 
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a CRAN Upstream
 
@@ -334,7 +334,7 @@ Generic upstreams work with simple HTML-based sources. The upstream must consist
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.    
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a Helm Upstream
 
@@ -349,7 +349,7 @@ Generic upstreams work with simple HTML-based sources. The upstream must consist
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.    
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a Hex Upstream
 
@@ -425,6 +425,6 @@ Generic upstreams work with simple HTML-based sources. The upstream must consist
 ## Edit an Upstream Proxy
 
 Once you have a list of configured Upstreams, use the action buttons in the right to Delete, Edit, or Disable/Enable an Upstream.
-Click the blue "Edit Upstream" button to edit an upstream source: 
+Click the blue "Edit Upstream" button to edit an upstream source:
 
 <BlockImage src={edit_upstream} alt=""></BlockImage>
