@@ -1,6 +1,7 @@
 import { Tag, Note, BlockImage, Video } from '@/components';
 
 import genericUpstream from './images/generic/generic-upstream.png';
+import upstreamIndex from ./images/generic/generic-upstream-index.png';
 
 # Generic Repository
 
@@ -155,13 +156,13 @@ Cloudsmith supports serving Apache-style HTML formatted indexes of generic packa
 HTML index generation is disabled by default. Enable it in [Repository Settings](/repositories/repository-settings) under the Generic section.
 </Note>
 
-When HTML index is disabled, the repository only supports direct file downloads. Requests for specific files will still proxy and cache from configured upstreams (if the file exists on the upstream) or serve cached files from the repository.
-
-When HTML index is enabled, requests to directory paths (without specifying a file) will return an HTML view showing the index of available files and subdirectories.
-
 <Note variant="note" headline="HTML-based upstreams">
 Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
 </Note>
+
+When HTML index is disabled, the repository only supports direct file downloads. Requests for specific files will still proxy and cache from configured upstreams (if the file exists on the upstream) or serve cached files from the repository.
+
+When HTML index is enabled, requests to directory paths (without specifying a file) will return an HTML view showing the index of available files and subdirectories.
 
 
 When enabled, the HTML index is available at:
@@ -184,6 +185,8 @@ https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/
 <Note variant="note" headline="Browser Access">
 To view the HTML index in a browser for private repositories, use `TOKEN` as the username and your entitlement token as the password when prompted for authentication.
 </Note>
+
+<BlockImage src={upstreamIndex} alt="Generic Upstream Index"></BlockImage>
 
 ## Upstream Proxying / Caching
 
