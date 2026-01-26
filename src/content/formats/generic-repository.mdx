@@ -6,7 +6,7 @@ import upstreamIndex from ./images/generic/generic-upstream-index.png';
 # Generic Repository
 
 <Note variant="note" headline="Early Access">
-Generic upstreams are in Early Access. [Contact us](https://cloudsmith.com/company/contact-us) to enable it for your organization.
+The Generic format and upstreams are in Early Access. [Contact us](https://cloudsmith.com/company/contact-us) to enable it for your organization
 </Note>
 
 Cloudsmith provides public & private repositories for Generic files
@@ -93,25 +93,25 @@ To download a Generic package, fetch uploaded files using a well-crafted URL. Th
 #### Public Repositories
 
 ```text
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/FILEPATH
+https://generic.cloudsmith.io/public/OWNER/REPOSITORY/FILEPATH
 ```
 
 For files cached from an upstream with a prefix:
 
 ```text
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/UPSTREAM_PREFIX/FILEPATH
+https://generic.cloudsmith.io/public/OWNER/REPOSITORY/UPSTREAM_PREFIX/FILEPATH
 ```
 
 Example `curl` commands to download a generic package from a public repository:
 
 ```shell
-curl -sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/path/to/file.tar.gz'
+curl -sLf -O 'https://generic.cloudsmith.io/public/OWNER/REPOSITORY/path/to/file.tar.gz'
 ```
 
 With upstream prefix:
 
 ```shell
-curl -sLf -O 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/node_distributions/latest/node-v4.9.1.tar.gz'
+curl -sLf -O 'https://generic.cloudsmith.io/public/OWNER/REPOSITORY/node_distributions/latest/node-v4.9.1.tar.gz'
 ```
 
 #### Private Repositories
@@ -127,25 +127,25 @@ Entitlement Tokens, User Credentials, and API-Keys should be treated as secrets.
 Using Entitlement Token authentication:
 
 ```shell
-curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/FILEPATH'
+curl -sLf -O 'https://generic.cloudsmith.io/TOKEN/OWNER/REPOSITORY/FILEPATH'
 ```
 
 With upstream prefix:
 
 ```shell
-curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/UPSTREAM_PREFIX/FILEPATH'
+curl -sLf -O 'https://generic.cloudsmith.io/TOKEN/OWNER/REPOSITORY/UPSTREAM_PREFIX/FILEPATH'
 ```
 
 Using HTTP Basic authentication:
 
 ```shell
-curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/FILEPATH'
+curl -sLf -u "USERNAME:PASSWORD" -O 'https://generic.cloudsmith.io/basic/OWNER/REPOSITORY/FILEPATH'
 ```
 
 With upstream prefix:
 
 ```shell
-curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/UPSTREAM_PREFIX/FILEPATH'
+curl -sLf -u "USERNAME:PASSWORD" -O 'https://generic.cloudsmith.io/basic/OWNER/REPOSITORY/UPSTREAM_PREFIX/FILEPATH'
 ```
 
 ## HTML Indexes
@@ -170,16 +170,16 @@ When enabled, the HTML index is available at:
 #### Public Repositories
 
 ```
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/
+https://generic.cloudsmith.io/public/OWNER/REPOSITORY/
 ```
 
 #### Private Repositories
 
 ```shell Entitlement Token Auth
-https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/
+https://generic.cloudsmith.io/TOKEN/OWNER/REPOSITORY/
 ```
 ```shell HTTP Basic Auth
-https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/
+https://generic.cloudsmith.io/basic/OWNER/REPOSITORY/
 ```
 
 <Note variant="note" headline="Browser Access">
@@ -192,17 +192,29 @@ To view the HTML index in a browser for private repositories, use `TOKEN` as the
 
 <Tag variant="dark-green" theme="legacy">Supported</Tag>
 
-The Generic format supports upstream proxying and caching for simple HTML-based sources. When a file is requested, Cloudsmith checks for a local copy. If missing, it fetches the file from the upstream, caches it as a first-class local package, and serves it.
+The Generic format supports upstream proxying and caching for simple HTML-based sources and select non-HTML sources including Hashicorp Releases. When a file is requested, Cloudsmith checks for a local copy. If missing, it fetches the file from the upstream, caches it as a first-class local package, and serves it.
+
+Supported upstreams must consist of simple, unstyled HTML pages with no JavaScript, where each page contains only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+
+<Note variant="note" headline="Enterprise Repository Support">
+Support for enterprise repository managers like Artifactory and Sonatype Nexus requires additional configuration. [Contact support](/support) to set up these upstream sources.
+</Note>
 
 ### Configure an Upstream
 
 To configure an upstream for your Generic repository, browse to your repository overview page and click the **Upstreams** tab. Then, click **+ Add Upstream Proxy** and choose the **Generic** format upstream.
 
-In the upstream creation menu, define a name for your upstream and enter the upstream URL. You can optionally specify an **Upstream Prefix** to prevent file collisions when using multiple upstreams. Click **+ Create Upstream Proxy** and the upstream becomes immediately available.
+In the upstream creation menu, define a name for your upstream and enter the upstream URL. Optionally specify an **Upstream Prefix** to prevent file collisions when using multiple upstreams. The prefix becomes part of the file's permanent path in the repository, ensuring files from different upstreams never collide even with identical filenames.
 
 <BlockImage src={genericUpstream} alt="Generic Upstream Configuration"></BlockImage>
 
 Please see our [Upstream Proxying](/repositories/upstreams#create-a-generic-upstream) documentation for further instructions on configuring upstreams.
+
+### Upstream Priority
+
+Upstream priority behaves differently for Generic repositories due to the nature of upstream prefixes. All upstreams within a prefix are given a priority of 1. Changing the priority setting does not impact package blending, as each upstream is uniquely namespaced within its own prefix.
+
+Local packages (directly uploaded to the repository) always take precedence over upstream packages. When viewing the HTML index, cached packages display with a different icon than packages that will be proxied on demand.
 
 ## Key Signing Support
 
