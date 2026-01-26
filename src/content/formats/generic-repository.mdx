@@ -28,7 +28,7 @@ In the following examples:
 | API-KEY       | Your Cloudsmith API Key                                                                   |
 | PATH_TO_FILE  | The local path to the file you want to upload (e.g., `~/downloads/file.tar.gz`)          |
 | FILEPATH      | The repository path where the file will be stored (e.g., `path/to/file.tar.gz`)          |
-| PREFIX        | Optional upstream prefix (e.g., `node_distributions/`) for files cached from upstreams   |
+| UPSTREAM_PREFIX | Optional upstream prefix (e.g., `node_distributions/`) for files cached from upstreams |
 
 ## Why Generic Format?
 
@@ -98,7 +98,7 @@ https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/FILEPATH
 For files cached from an upstream with a prefix:
 
 ```text
-https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/PREFIX/FILEPATH
+https://dl.cloudsmith.io/public/OWNER/REPOSITORY/generic/UPSTREAM_PREFIX/FILEPATH
 ```
 
 Example `curl` commands to download a generic package from a public repository:
@@ -132,7 +132,7 @@ curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/FILEPATH'
 With upstream prefix:
 
 ```shell
-curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/PREFIX/FILEPATH'
+curl -sLf -O 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/UPSTREAM_PREFIX/FILEPATH'
 ```
 
 Using HTTP Basic authentication:
@@ -144,7 +144,7 @@ curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSI
 With upstream prefix:
 
 ```shell
-curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/PREFIX/FILEPATH'
+curl -sLf -u "USERNAME:PASSWORD" -O 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/UPSTREAM_PREFIX/FILEPATH'
 ```
 
 ## HTML Indexes
@@ -154,6 +154,10 @@ Cloudsmith supports serving Apache-style HTML formatted indexes of generic packa
 <Note variant="note" headline="Disabled by Default">
 HTML index generation is disabled by default. Enable it in [Repository Settings](/repositories/repository-settings) under the Generic section.
 </Note>
+
+When HTML index is disabled, the repository only supports direct file downloads. Requests for specific files will still proxy and cache from configured upstreams (if the file exists on the upstream) or serve cached files from the repository.
+
+When HTML index is enabled, requests to directory paths (without specifying a file) will return an HTML view showing the index of available files and subdirectories.
 
 <Note variant="note" headline="HTML-based upstreams">
 Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
