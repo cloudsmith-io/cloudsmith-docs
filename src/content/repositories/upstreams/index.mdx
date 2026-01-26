@@ -11,6 +11,7 @@ import cran from './images/cran.png'
 import dart from './images/dart.png'
 import debian from './images/debian.png'
 import docker from './images/docker.png'
+import generic from './images/generic.png'
 import go from './images/go.png'
 import hex from './images/hex.png'
 import helm from './images/helm.png'
@@ -65,6 +66,7 @@ A good approach when determining what priority to apply to upstreams is to ensur
 |[Dart](/formats/dart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/dart/create) |
 |[Debian](/formats/debian-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/deb/create) |
 |[Docker](/formats/docker-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/docker/create) |
+|[Generic](/formats/generic-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/generic/create) |
 |[Golang ](/formats/go-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/go/create) |
 |[Gradle ](/formats/gradle-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/maven/create) |
 |[Helm](/formats/helm-chart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/helm/create) |
@@ -298,6 +300,26 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 |Verify SSL Certificates|If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks.|
 |Authentication (optional)|Optional credentials that can be provided if the upstream is not publicly accessible.<br /><br />**Note**: Docker Hub requires that requests to their service via an upstream proxy be authenticated. As such, when you configure an upstream to Docker Hub, you will be required to provide credentials for authentication.|
 |Headers (optional)|Optional Key-Value headers that can be passed to upstreams with each request.|
+
+#### Create a Generic Upstream
+
+<BlockImage src={generic} alt="Create Generic Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Upstream Prefix (optional)| Optional path prefix to prevent file collisions when using multiple upstreams. All files from this upstream will be grouped under this path (e.g., `node_distributions/`).                      |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible.                                                                                                            |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+<Note variant="note" headline="HTML-based upstreams">
+Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+</Note>
 
 #### Create a Go Upstream
 
