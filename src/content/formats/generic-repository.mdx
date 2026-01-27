@@ -13,6 +13,10 @@ Cloudsmith provides public & private repositories for Generic files
 
 Cloudsmith supports Generic files, a flexible format for managing any file or binary that relies on specific file paths rather than semantic versioning.
 
+<Note variant="note" headline="HTML-based upstreams">
+Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+</Note>
+
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo pre-configured).
 </Note>
@@ -154,10 +158,6 @@ Cloudsmith supports serving Apache-style HTML formatted indexes of generic packa
 
 <Note variant="note" headline="Disabled by Default">
 HTML index generation is disabled by default. Enable it in [Repository Settings](/repositories/repository-settings) under the Generic section.
-</Note>
-
-<Note variant="note" headline="HTML-based upstreams">
-Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
 </Note>
 
 When HTML index is disabled, the repository only supports direct file downloads. Requests for specific files will still proxy and cache from configured upstreams (if the file exists on the upstream) or serve cached files from the repository.
