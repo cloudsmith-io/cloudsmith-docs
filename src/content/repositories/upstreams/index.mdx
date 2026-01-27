@@ -11,6 +11,7 @@ import cran from './images/cran.png'
 import dart from './images/dart.png'
 import debian from './images/debian.png'
 import docker from './images/docker.png'
+import generic from './images/generic.png'
 import go from './images/go.png'
 import hex from './images/hex.png'
 import helm from './images/helm.png'
@@ -24,7 +25,7 @@ import swift from './images/swift.png'
 
 # Upstream Proxying and Caching
 
-Upstream proxying and caching allows you to upload and use the packages you own, while Cloudsmith fetches and caches other packages (such as dependencies). 
+Upstream proxying and caching allows you to upload and use the packages you own, while Cloudsmith fetches and caches other packages (such as dependencies).
 
 This enables you to use Cloudsmith as a first-class cache and a central source of truth for packages, to protect you from outages of external services (which is especially important when running behind your firewall).
 
@@ -50,7 +51,7 @@ We strive to ensure that at least _just-in-time_ indexing is available for each 
 
 ### Priority
 
-When defining upstreams for a repository, a _priority_ can be specified. The priority of an upstream is used to determine the order in which upstream requests are resolved. Cloudsmith evaluates upstreams by the order of `1..n`. 
+When defining upstreams for a repository, a _priority_ can be specified. The priority of an upstream is used to determine the order in which upstream requests are resolved. Cloudsmith evaluates upstreams by the order of `1..n`.
 
 A good approach when determining what priority to apply to upstreams is to ensure that the lowest value is specified for the upstream which is most likely to contain upstream packages you request and that there are no multiple upstreams with the same priority value. This helps to improve performance in the event that an upstream source does not support any of our indexing mechanisms.
 
@@ -65,6 +66,7 @@ A good approach when determining what priority to apply to upstreams is to ensur
 |[Dart](/formats/dart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/dart/create) |
 |[Debian](/formats/debian-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/deb/create) |
 |[Docker](/formats/docker-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/docker/create) |
+|[Generic](/formats/generic-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/generic/create) |
 |[Golang ](/formats/go-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/go/create) |
 |[Gradle ](/formats/gradle-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/maven/create) |
 |[Helm](/formats/helm-chart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/helm/create) |
@@ -104,7 +106,7 @@ You can create upstreams without leaving your terminal. For example, you can cre
   "upstream_url": "http://archive.ubuntu.com/ubuntu",
   "mode": "Cache and Proxy",
   "distro_versions": ["debian/trixie"],
-  "component": "main", 
+  "component": "main",
   "auth_mode": "None",
   "priority": 1
 }
@@ -117,7 +119,7 @@ cloudsmith upstream deb create WORKSPACE/REPOSITORY ./upstream_config.json
 ```
 
 This command will return the details about your new configured upstream. Please, refer to the [Config Reference](#supported-formats) column in the supported formats table to review fields available for each of the supported formats.
- 
+
 ### Using the manual configuration
 
 Click the  "+ Add Upstream Proxy" button, and then select the format you want to create an upstream for:
@@ -152,7 +154,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.    
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a NPM Upstream
 
@@ -233,7 +235,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                 
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a CRAN Upstream
 
@@ -299,6 +301,26 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 |Authentication (optional)|Optional credentials that can be provided if the upstream is not publicly accessible.<br /><br />**Note**: Docker Hub requires that requests to their service via an upstream proxy be authenticated. As such, when you configure an upstream to Docker Hub, you will be required to provide credentials for authentication.|
 |Headers (optional)|Optional Key-Value headers that can be passed to upstreams with each request.|
 
+#### Create a Generic Upstream
+
+<BlockImage src={generic} alt="Create Generic Upstream Form"></BlockImage>
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
+| Upstream Prefix (optional)| Optional path prefix to prevent file collisions when using multiple upstreams. All files from this upstream will be grouped under this path (e.g., `node_distributions/`).                      |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible.                                                                                                            |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+<Note variant="note" headline="HTML-based upstreams">
+Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+</Note>
+
 #### Create a Go Upstream
 
 <BlockImage src={go} alt="Create Go Upstream Form"></BlockImage>
@@ -312,7 +334,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.    
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a Helm Upstream
 
@@ -327,7 +349,7 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible                                                                                                             |
-| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.    
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.
 
 #### Create a Hex Upstream
 
@@ -403,6 +425,6 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 ## Edit an Upstream Proxy
 
 Once you have a list of configured Upstreams, use the action buttons in the right to Delete, Edit, or Disable/Enable an Upstream.
-Click the blue "Edit Upstream" button to edit an upstream source: 
+Click the blue "Edit Upstream" button to edit an upstream source:
 
 <BlockImage src={edit_upstream} alt=""></BlockImage>
