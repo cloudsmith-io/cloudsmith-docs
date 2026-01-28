@@ -1,7 +1,8 @@
+import type { Highlighter } from 'shiki';
 
-import { createHighlighter, type Highlighter } from 'shiki';
+import { createHighlighter } from 'shiki';
 
-export const theme = 'github-dark-default';
+import { theme } from './theme';
 
 let highlighter: Highlighter | null = null;
 
@@ -10,7 +11,7 @@ export async function getHighlighter() {
     highlighter = await createHighlighter({
       themes: [theme],
       langs: [
-        () => import('./lang/rego.json'),
+        () => import('../lang/rego.json'),
         'js',
         'jsx',
         'ts',
@@ -29,9 +30,9 @@ export async function getHighlighter() {
         'xml',
         'scala',
         'python',
-        'scss', 
+        'scss',
         'ruby',
-        'csv'
+        'csv',
       ],
     });
   }

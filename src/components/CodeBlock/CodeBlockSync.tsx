@@ -1,7 +1,9 @@
+'use client';
+
 import { transformerNotationHighlight } from '@shikijs/transformers';
 import { cva, cx } from 'class-variance-authority';
 
-import { getHighlighter } from '@/lib/highlight/server';
+import { useHighlighter } from '@/lib/highlight/client';
 import { theme } from '@/lib/highlight/theme';
 
 import { ClipboardCopy } from '../ClipboardCopy/ClipboardCopy';
@@ -22,7 +24,7 @@ const codeBlock = cva(styles.root, {
   },
 });
 
-export async function CodeBlock({
+export function CodeBlockSync({
   variant = 'default',
   children,
   lang,
@@ -34,7 +36,9 @@ export async function CodeBlock({
   const hideLineNumbers = lang === 'bash' || lang === 'text';
   const darkerBackground = variant === 'darker';
 
-  const html = (await getHighlighter()).codeToHtml(children, {
+  const { highlighter, isFetching, isError } = useHighlighter();
+
+  const html = highlighter?.codeToHtml(children, {
     lang,
     theme,
     transformers: [
@@ -51,7 +55,12 @@ export async function CodeBlock({
           <ClipboardCopy textToCopy={children} iconVariant="pre" />
         </div>
       )}
-      <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
+
+      {isFetching && <div className={styles.loading}>Loading code block</div>}
+
+      {isError && <div className={styles.error}>Something went wrong while rendering code block</div>}
+
+      {html && <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />}
     </div>
   );
 }
