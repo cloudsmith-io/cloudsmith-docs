@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
@@ -11,19 +11,27 @@ import styles from './RequestBody.module.css';
 export const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['requestBody']> }) => {
   const [showAll, setShowAll] = useState(false);
 
-  const parameterEntries = Object.entries(requestBody.content)
-    .map((entry) => {
-      const content = entry[1];
-      const properties = { ...content.schema?.properties };
-      if (content.schema?.required?.length) {
-        for (const s of content.schema?.required) {
-          properties[s].required = [s];
-        }
-      }
-      return properties;
-    })
-    .filter((v) => !!v)
-    .flatMap((p) => Object.entries(p));
+  const parameterEntries = useMemo(
+    () =>
+      Object.entries(requestBody.content)
+        .map((entry) => {
+          const content = entry[1];
+          const properties = { ...content.schema?.properties };
+          if (content.schema?.required?.length) {
+            for (const s of content.schema?.required) {
+              properties[s].required = [s];
+            }
+          }
+          return properties;
+        })
+        .filter((v) => !!v)
+        .flatMap((p) => Object.entries(p)),
+    [requestBody],
+  );
+
+  useEffect(() => {
+    setShowAll(false);
+  }, [parameterEntries]);
 
   const optionalExists = useMemo(
     () => parameterEntries.some((p) => p[1].required == null || !p[1].required),

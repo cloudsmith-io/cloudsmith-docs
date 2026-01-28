@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { ApiOperation, NonArraySchemaObjectType } from '@/lib/swagger/types';
 
@@ -13,6 +13,9 @@ type QueryParamsProps = {
 
 const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => {
   const [showAll, setShowAll] = useState(false);
+  useEffect(() => {
+    setShowAll(false);
+  }, [parameters]);
   const optionalExists = useMemo(
     () => parameters.some((p) => p.required == null || !p.required),
     [parameters],

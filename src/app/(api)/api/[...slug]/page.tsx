@@ -63,23 +63,6 @@ export const generateStaticParams = async () => {
   const schemas = await parseSchemas();
   const operations = toOperations(schemas);
 
-  const queryParams = operations
-    .filter((op) => (op.parameters?.filter((p) => p.in === 'query') ?? []).length > 0)
-    .flatMap((op) => ({
-      method: op.method,
-      path: op.path,
-      params: op.parameters?.filter((p) => p.in === 'query') ?? [],
-    }));
-  console.log(JSON.stringify(queryParams));
-  const schemaSet = new Set();
-  queryParams.forEach((q) => {
-    q.params.forEach((p) => {
-      schemaSet.add(JSON.stringify(p.schema));
-    });
-  });
-
-  console.log(JSON.stringify({ schemaSet: Array.from(schemaSet) }));
-
   const operationSlugs = operations.map((op) => ({ slug: toRouteSegments(op.slug) }));
 
   return mdxSlugs.concat(operationSlugs);
