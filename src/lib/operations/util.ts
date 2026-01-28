@@ -28,6 +28,7 @@ export const curlCommand = (
   op: ApiOperation,
   parameters: {
     path: Record<string, string>;
+    query: Record<string, string>;
   },
   _header: ['apikey' | 'basic' | null, string | null],
 ) => {
@@ -46,7 +47,21 @@ export const curlCommand = (
 
   const cleanedUrl = pathReplacedUrl.replaceAll('\{', '').replaceAll('\}', '');
 
-  command += `     --url '${cleanedUrl}' \\\n`;
+  const finalUrl = Object.entries(parameters.query)
+    .filter((entry) => entry[1] !== '')
+    .reduce((url, current, index) => {
+      let currenUrl: string = url;
+      if (index === 0) {
+        currenUrl += '?';
+      } else {
+        currenUrl += '&';
+      }
+      currenUrl += `${current[0]}=${current[1]}`;
+
+      return currenUrl;
+    }, cleanedUrl);
+
+  command += `     --url '${finalUrl}' \\\n`;
 
   const [header, headerValue] = _header;
 

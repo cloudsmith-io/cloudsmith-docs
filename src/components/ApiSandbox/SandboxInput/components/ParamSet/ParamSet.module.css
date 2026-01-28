@@ -17,9 +17,36 @@
   padding-block: calc(var(--column-block-padding) / 2);
 }
 
-.param {
+.paramWrapper {
+  width: 100%;
+}
+
+.param,
+.toggle {
   border-top: 1px solid var(--color-border);
+  padding: var(--space-xs) var(--space-xs) 0 var(--space-m);
+}
+
+.param:not(:has(+ .secondRow)),
+.toggle {
   padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-m);
+}
+
+.toggle {
+  --svg-path-fill: var(--color-text-tertiary);
+
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-s);
+}
+
+.secondRow {
+  padding: 0 var(--space-xs) var(--space-xs) var(--space-m);
+}
+
+.description {
+  font-size: var(--text-body-xs);
+  color: var(--color-text-tertiary);
 }
 
 .name {
@@ -29,13 +56,6 @@
 
 .nameName {
   font-size: var(--text-body-m);
-}
-
-.input {
-  width: 50%;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-s);
-  padding: var(--space-4xs) var(--space-2xs);
 }
 
 .paramType {

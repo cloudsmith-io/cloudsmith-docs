@@ -9,6 +9,7 @@ export const useApi = (
   op: ApiOperation,
   parameters: {
     path: Record<string, string>;
+    query: Record<string, string>;
   },
   header: 'apikey' | 'basic' | null,
   headerValue: string | null,
@@ -33,6 +34,22 @@ export const useApi = (
 
     const cleanedUrl = pathReplacedUrl.replaceAll('\{', '').replaceAll('\}', '');
 
+    const finalUrl = Object.entries(parameters.query)
+      .filter((entry) => entry[1] !== '')
+      .reduce((url, current, index) => {
+        let currenUrl: string = url;
+        if (index === 0) {
+          currenUrl += '?';
+        } else {
+          currenUrl += '&';
+        }
+        currenUrl += `${current[0]}=${current[1]}`;
+
+        return currenUrl;
+      }, cleanedUrl);
+
+    console.log({ finalUrl });
+
     const headers: HeadersInit = {
       accept: 'application/json',
       'content-type': 'application/json',
@@ -44,7 +61,7 @@ export const useApi = (
       headers[headerKey] = value;
     }
 
-    callApi(cleanedUrl, headers)
+    callApi(finalUrl, headers)
       .then((response) => {
         setResponse(response);
       })

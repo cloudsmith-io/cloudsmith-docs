@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 import * as RadixSelect from '@radix-ui/react-select';
+import * as RadixTooltip from '@radix-ui/react-tooltip';
 
 import { Flex } from '@/components/Flex';
 import { Icon } from '@/icons';
@@ -22,6 +25,8 @@ const AuthInput = ({
   onChangeHeader,
   onUpdateCurrentHeader,
 }: AuthInputProps) => {
+  const [hideAuth, setHideAuth] = useState(false);
+
   if (headers.length === 0) return null;
 
   return (
@@ -55,10 +60,38 @@ const AuthInput = ({
 
       <input
         className={styles.input}
+        type={hideAuth ? 'password' : 'text'}
+        autoComplete="off"
         placeholder={currentHeader === 'apikey' ? 'API Key' : 'User:pass'}
         value={headersState ?? ''}
         onChange={(e) => onChangeHeader(currentHeader, e.target.value)}
       />
+
+      <Flex className={styles.iconsContainer} wrap={false} gap="xs">
+        <RadixTooltip.Provider delayDuration={0}>
+          <RadixTooltip.Root>
+            <RadixTooltip.Trigger asChild>
+              <button className={styles.hideButton} onClick={() => setHideAuth((h) => !h)}>
+                <Icon name={hideAuth ? 'action/eye' : 'action/eye-slashed'} title="Hide credentials" />
+              </button>
+            </RadixTooltip.Trigger>
+            <RadixTooltip.Content sideOffset={5} className={styles.tooltip}>
+              {hideAuth ? 'Show' : 'Hide'}
+            </RadixTooltip.Content>
+          </RadixTooltip.Root>
+        </RadixTooltip.Provider>
+
+        <RadixTooltip.Provider delayDuration={0}>
+          <RadixTooltip.Root>
+            <RadixTooltip.Trigger>
+              <Icon name="question" title="Header information" />
+            </RadixTooltip.Trigger>
+            <RadixTooltip.Content sideOffset={5} className={styles.tooltip}>
+              Header
+            </RadixTooltip.Content>
+          </RadixTooltip.Root>
+        </RadixTooltip.Provider>
+      </Flex>
     </Flex>
   );
 };

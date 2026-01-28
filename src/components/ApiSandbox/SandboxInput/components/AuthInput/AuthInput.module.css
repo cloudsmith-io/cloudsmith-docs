@@ -1,6 +1,5 @@
 .root {
   position: relative;
-
   width: 100%;
 }
 
@@ -43,9 +42,34 @@
   outline-offset: 2px;
 }
 
+.selectItem:hover {
+  background-color: var(--color-background-info);
+}
+
 .selectItemIndicator {
   position: absolute;
   left: var(--space-3xs);
   top: var(--space-s);
   color: var(--color-accent-default);
+}
+
+.iconsContainer {
+  position: absolute;
+  top: var(--space-s);
+  right: var(--space-s);
+  color: var(--color-text-tertiary);
+}
+
+.hideButton {
+  cursor: pointer;
+}
+
+.tooltip {
+  background: var(--color-background-default);
+  padding: var(--space-2xs) var(--space-xs);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-m);
+  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
+  z-index: var(--layer-select);
+  border: 1px solid var(--color-border);
 }

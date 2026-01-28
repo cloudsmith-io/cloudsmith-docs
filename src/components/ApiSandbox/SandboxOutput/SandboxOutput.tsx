@@ -15,6 +15,7 @@ type SandboxOutputProps = {
   operation: ApiOperation;
   paramState: {
     path: Record<string, string>;
+    query: Record<string, string>;
   };
   header: 'apikey' | 'basic' | null;
   headerValue: string | null;

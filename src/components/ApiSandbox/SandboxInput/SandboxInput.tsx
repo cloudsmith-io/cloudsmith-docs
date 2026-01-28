@@ -23,6 +23,7 @@ type SandboxInputProps = {
   };
   paramState: {
     path: Record<string, string>;
+    query: Record<string, string>;
   };
   currentHeader: 'apikey' | 'basic';
   headers: ('apikey' | 'basic')[];
@@ -76,7 +77,13 @@ export const SandboxInput = ({
           />
         ) : null}
 
-        {query.length > 0 ? <QueryParams parameters={query} /> : null}
+        {query.length > 0 ? (
+          <QueryParams
+            parameters={query}
+            state={paramState.query}
+            onUpdateParam={(name, value) => onUpdateState('query', name, value)}
+          />
+        ) : null}
 
         {body ? <RequestBody requestBody={body} /> : null}
       </Flex>

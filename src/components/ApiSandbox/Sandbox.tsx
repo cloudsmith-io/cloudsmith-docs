@@ -27,6 +27,8 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
   const headers = useMemo(() => getHeaderOptions(currentOperation), [currentOperation]);
 
   const [pathParamState, setPathParamState] = useState<Record<string, string>>({});
+  const [queryParamState, setQueryParamState] = useState<Record<string, string>>({});
+
   const [headersState, setHeadersState] = useState<{
     current: 'apikey' | 'basic';
     apikey: string;
@@ -37,15 +39,27 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
     basic: '',
   });
 
-  const paramState = useMemo(() => ({ path: pathParamState }), [pathParamState]);
+  const paramState = useMemo(
+    () => ({ path: pathParamState, query: queryParamState }),
+    [pathParamState, queryParamState],
+  );
 
   const updatePathParam = (name: string, value: string) => {
     setPathParamState((v) => ({ ...v, [name]: value }));
+  };
+  const updateQueryParam = (name: string, value: string) => {
+    setQueryParamState((v) => ({ ...v, [name]: value }));
   };
 
   useEffect(() => {
     setPathParamState(Object.fromEntries(pathsParameters.map((p) => [p.name, ''])));
   }, [pathsParameters]);
+
+  useEffect(() => {
+    setQueryParamState(
+      Object.fromEntries(queryParameters.map((p) => [p.name, `${p.schema?.default ?? ''}`])),
+    );
+  }, [queryParameters]);
 
   useEffect(() => {
     if (headers.length > 0 && !headers.includes(headersState.current)) {
@@ -72,6 +86,7 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
         onChangeOperation={onChangeOperation}
         onUpdateState={(type, name, value) => {
           if (type === 'param') updatePathParam(name, value);
+          if (type === 'query') updateQueryParam(name, value);
         }}
       />
       <SandboxOutput
