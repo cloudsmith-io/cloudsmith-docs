@@ -24,6 +24,7 @@ type SandboxInputProps = {
   paramState: {
     path: Record<string, string>;
     query: Record<string, string>;
+    body: Record<string, Record<string, string>>;
   };
   currentHeader: 'apikey' | 'basic';
   headers: ('apikey' | 'basic')[];
@@ -31,7 +32,7 @@ type SandboxInputProps = {
   onUpdateCurrentHeader: (h: 'apikey' | 'basic') => void;
   onChangeHeader: (h: 'apikey' | 'basic', value: string) => void;
   onChangeOperation: (o: ApiOperation) => void;
-  onUpdateState: (type: 'param' | 'query' | 'body', name: string, value: string) => void;
+  onUpdateState: (type: 'path' | 'query' | 'body', name: string, value: string, media?: string) => void;
 };
 
 export const SandboxInput = ({
@@ -73,7 +74,7 @@ export const SandboxInput = ({
           <PathParams
             parameters={path}
             state={paramState.path}
-            onUpdateParam={(name, value) => onUpdateState('param', name, value)}
+            onUpdateParam={(name, value) => onUpdateState('path', name, value)}
           />
         ) : null}
 
@@ -85,7 +86,13 @@ export const SandboxInput = ({
           />
         ) : null}
 
-        {body ? <RequestBody requestBody={body} /> : null}
+        {body ? (
+          <RequestBody
+            requestBody={body}
+            state={paramState.body}
+            onUpdateParam={(meta, name, value) => onUpdateState('body', name, value, meta)}
+          />
+        ) : null}
       </Flex>
     </Flex>
   );

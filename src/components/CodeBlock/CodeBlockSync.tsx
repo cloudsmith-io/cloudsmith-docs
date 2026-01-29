@@ -51,7 +51,9 @@ export function CodeBlockSync({
     <div className={codeBlock({ hideHeader, hideLineNumbers, darkerBackground, className })}>
       {!hideHeader && (
         <div className={styles.lang}>
-          <div className={cx(styles.langText, 'monoXSUppercase')}>{header ?? lang}</div>
+          <div className={cx({ [styles.langText]: !header && lang }, 'monoXSUppercase')}>
+            {header ?? lang}
+          </div>
           <ClipboardCopy textToCopy={children} iconVariant="pre" />
         </div>
       )}

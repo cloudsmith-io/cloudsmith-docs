@@ -14,7 +14,7 @@ const PathParams = ({ parameters, state, onUpdateParam }: PathParamsProps) => (
       <Param
         key={param.name}
         name={param.name}
-        type={(param.schema?.type ?? 'string') as 'string'}
+        schema={param.schema}
         required={param.required}
         value={state[param.name]}
         onValueChange={(v) => onUpdateParam(param.name, v)}

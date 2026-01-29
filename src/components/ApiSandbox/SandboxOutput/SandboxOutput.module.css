@@ -28,6 +28,10 @@
   padding: var(--space-m) var(--space-xl);
 }
 
+.requestHeader {
+  opacity: 0.75;
+}
+
 .request,
 .response {
   --border-radius: var(--border-radius-m);
@@ -38,6 +42,6 @@
 
 .request :global(pre),
 .response :global(pre) {
-  max-height: calc((100vh - var(--space-l) * 2) * 0.45);
+  max-height: calc((100vh - var(--space-l) * 2) * 0.38);
   overflow-y: auto;
 }

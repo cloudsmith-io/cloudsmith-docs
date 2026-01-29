@@ -1,3 +1,4 @@
+/* ParamSet */
 .root {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-m);
@@ -17,31 +18,23 @@
   padding-block: calc(var(--column-block-padding) / 2);
 }
 
-.paramWrapper {
+/* Param */
+
+.param {
   width: 100%;
 }
 
-.param,
-.toggle {
+.main {
   border-top: 1px solid var(--color-border);
   padding: var(--space-xs) var(--space-xs) 0 var(--space-m);
 }
 
-.param:not(:has(+ .secondRow)),
-.toggle {
+.main:not(:has(+ .details)) {
   padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-m);
 }
 
-.toggle {
-  --svg-path-fill: var(--color-text-tertiary);
-
-  cursor: pointer;
-  color: var(--color-text-tertiary);
-  font-size: var(--text-body-s);
-}
-
-.secondRow {
-  padding: 0 var(--space-xs) var(--space-xs) var(--space-m);
+.details {
+  padding: var(--space-3xs) var(--space-xs) var(--space-xs) var(--space-m);
 }
 
 .description {
@@ -49,17 +42,34 @@
   color: var(--color-text-tertiary);
 }
 
-.name {
-  max-width: 50%;
+.basics {
+  max-width: 40%;
   font-size: var(--text-body-xs);
+  row-gap: 0;
 }
 
-.nameName {
+.name {
   font-size: var(--text-body-m);
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .paramType {
   color: var(--base-color-blue-500);
   font-family: var(--font-family-mono);
   letter-spacing: var(--letter-http-type);
+}
+
+/* ParamToggle */
+
+.toggle {
+  --svg-path-fill: var(--color-text-tertiary);
+
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-body-s);
+
+  width: 100%;
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-m);
 }

@@ -28,6 +28,7 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
 
   const [pathParamState, setPathParamState] = useState<Record<string, string>>({});
   const [queryParamState, setQueryParamState] = useState<Record<string, string>>({});
+  const [bodyParamState, setBodyParamState] = useState<Record<string, Record<string, string>>>({});
 
   const [headersState, setHeadersState] = useState<{
     current: 'apikey' | 'basic';
@@ -40,8 +41,8 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
   });
 
   const paramState = useMemo(
-    () => ({ path: pathParamState, query: queryParamState }),
-    [pathParamState, queryParamState],
+    () => ({ path: pathParamState, query: queryParamState, body: bodyParamState }),
+    [pathParamState, queryParamState, bodyParamState],
   );
 
   const updatePathParam = (name: string, value: string) => {
@@ -49,6 +50,9 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
   };
   const updateQueryParam = (name: string, value: string) => {
     setQueryParamState((v) => ({ ...v, [name]: value }));
+  };
+  const updateBodyParam = (media: string, name: string, value: string) => {
+    setBodyParamState((v) => ({ ...v, [media]: { ...v[media], [name]: value } }));
   };
 
   useEffect(() => {
@@ -60,6 +64,19 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
       Object.fromEntries(queryParameters.map((p) => [p.name, `${p.schema?.default ?? ''}`])),
     );
   }, [queryParameters]);
+
+  useEffect(() => {
+    setBodyParamState(
+      Object.fromEntries(
+        Object.entries(bodyParameters?.content ?? {}).map((entry) => [
+          entry[0],
+          Object.fromEntries(
+            Object.entries(entry[1].schema?.properties ?? {}).map((e) => [e[0], e[1].default ?? '']),
+          ),
+        ]),
+      ),
+    );
+  }, [bodyParameters]);
 
   useEffect(() => {
     if (headers.length > 0 && !headers.includes(headersState.current)) {
@@ -84,9 +101,10 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
         onUpdateCurrentHeader={(h) => setHeadersState((s) => ({ ...s, current: h }))}
         onChangeHeader={(header, value) => setHeadersState((s) => ({ ...s, [header]: value }))}
         onChangeOperation={onChangeOperation}
-        onUpdateState={(type, name, value) => {
-          if (type === 'param') updatePathParam(name, value);
+        onUpdateState={(type, name, value, media = '') => {
+          if (type === 'path') updatePathParam(name, value);
           if (type === 'query') updateQueryParam(name, value);
+          if (type === 'body') updateBodyParam(media, name, value);
         }}
       />
       <SandboxOutput

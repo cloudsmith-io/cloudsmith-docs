@@ -1,62 +1,94 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
 import { ApiOperation, SchemaObject } from '@/lib/swagger/types';
 
 import ParamSet from '../ParamSet';
-import { ParamToggle } from '../ParamSet/ParamSet';
-import styles from './RequestBody.module.css';
+import { Param, ParamToggle } from '../ParamSet/ParamSet';
 
-export const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['requestBody']> }) => {
-  const [showAll, setShowAll] = useState(false);
+type RequestBodyProps = {
+  requestBody: NonNullable<ApiOperation['requestBody']>;
+  state: Record<string, Record<string, string>>;
+  onUpdateParam: (meta: string, name: string, value: string) => void;
+};
 
-  const parameterEntries = useMemo(
-    () =>
-      Object.entries(requestBody.content)
-        .map((entry) => {
-          const content = entry[1];
-          const properties = { ...content.schema?.properties };
-          if (content.schema?.required?.length) {
-            for (const s of content.schema?.required) {
-              properties[s].required = [s];
-            }
-          }
-          return properties;
-        })
-        .filter((v) => !!v)
-        .flatMap((p) => Object.entries(p)),
-    [requestBody],
+export const RequestBody = ({ state, requestBody, onUpdateParam }: RequestBodyProps) => {
+  const multipleMedia = Object.keys(requestBody.content).length > 1;
+
+  return (
+    <>
+      {Object.entries(requestBody.content).map(([media, spec]) => (
+        <MediaParams
+          key={media}
+          multipleMedia={multipleMedia}
+          required={requestBody.required ?? false}
+          media={media}
+          schema={spec.schema ?? {}}
+          state={state[media]}
+          onUpdateParam={(name, value) => onUpdateParam(media, name, value)}
+        />
+      ))}
+    </>
   );
+};
+
+type MediaParamsProps = {
+  required: boolean;
+  media: string;
+  schema: SchemaObject;
+  multipleMedia: boolean;
+  state?: Record<string, string>;
+  onUpdateParam: (name: string, value: string) => void;
+};
+
+const MediaParams = ({
+  required,
+  media,
+  schema,
+  multipleMedia,
+  state = {},
+  onUpdateParam,
+}: MediaParamsProps) => {
+  const parameterEntries = useMemo(() => Object.entries(schema.properties ?? {}), [schema]);
+
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     setShowAll(false);
   }, [parameterEntries]);
 
   const optionalExists = useMemo(
-    () => parameterEntries.some((p) => p[1].required == null || !p[1].required),
+    () => parameterEntries.some((p) => !schema.required?.includes(p[0])),
     [parameterEntries],
   );
   const displayedParameters = useMemo(() => {
-    return parameterEntries.filter((param) => showAll || param[1].required);
+    return parameterEntries.filter((param) => showAll || schema.required?.includes(param[0]));
   }, [parameterEntries, showAll]);
 
+  if (schema.type !== 'object') {
+    return null;
+  }
+
   return (
-    <ParamSet heading="Body params">
+    <ParamSet
+      heading={
+        <>
+          Body params {multipleMedia ? `(${media})` : ''}{' '}
+          <Tag variant={required ? 'light-red' : 'grey'}>{required ? 'required' : 'optional'}</Tag>
+        </>
+      }>
       {displayedParameters.map((p) => {
-        const [name, param] = p as unknown as [string, SchemaObject];
+        const [name, param] = p;
         return (
-          <Flex key={name} className={styles.param} justify="between" align="center" wrap={false}>
-            <Flex className={styles.name} gap="2xs" wrap align="center">
-              <div className={styles.nameName}>{name}</div>
-              <div className={styles.paramType}>{param?.type}</div>
-              <div>
-                <Tag variant={param.required ? 'tomato' : 'grey'}>
-                  {param.required ? 'required' : 'optional'}
-                </Tag>
-              </div>
-            </Flex>
-          </Flex>
+          <Param
+            key={name}
+            name={name}
+            description={param.description}
+            schema={param}
+            required={schema.required?.includes(name)}
+            value={state[name]}
+            onValueChange={(value) => onUpdateParam(name, value)}
+          />
         );
       })}
       {optionalExists && <ParamToggle paramTag="body params" show={showAll} onChangeShow={setShowAll} />}

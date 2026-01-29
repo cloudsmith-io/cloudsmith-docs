@@ -10,11 +10,22 @@ export const useApi = (
   parameters: {
     path: Record<string, string>;
     query: Record<string, string>;
+    body: Record<string, Record<string, string>>;
   },
   header: 'apikey' | 'basic' | null,
   headerValue: string | null,
 ) => {
-  const [response, setResponse] = useState<{ status: number; body: object } | undefined>(undefined);
+  const [response, setResponse] = useState<
+    | {
+        status: null;
+        body: { error: string };
+      }
+    | {
+        status: number;
+        body: object;
+      }
+    | undefined
+  >(undefined);
   const [isFetching, setIsFetching] = useState(false);
 
   const call = () => {
@@ -48,8 +59,6 @@ export const useApi = (
         return currenUrl;
       }, cleanedUrl);
 
-    console.log({ finalUrl });
-
     const headers: HeadersInit = {
       accept: 'application/json',
       'content-type': 'application/json',
@@ -61,7 +70,19 @@ export const useApi = (
       headers[headerKey] = value;
     }
 
-    callApi(finalUrl, headers)
+    const body: Record<string, string> = {};
+    if (parameters.body && parameters.body['application/json']) {
+      const bodyParams = Object.entries(parameters.body['application/json']).filter(
+        (entry) => entry[1] != '',
+      );
+      if (bodyParams.length > 0) {
+        bodyParams.forEach((param) => {
+          body[param[0]] = param[1];
+        });
+      }
+    }
+
+    callApi(finalUrl, op.method, headers, Object.keys(body).length > 0 ? JSON.stringify(body) : undefined)
       .then((response) => {
         setResponse(response);
       })
