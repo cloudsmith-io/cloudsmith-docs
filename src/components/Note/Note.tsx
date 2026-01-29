@@ -1,5 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
+
 import { Icon } from '@/icons';
+
 import styles from './Note.module.css';
 
 const defaultHeadings = {
@@ -29,9 +31,9 @@ const note = cva(styles.root, {
   },
 });
 
-export function Note({ variant, headline, children, noHeadline, ...rest }: NoteProps) {
+export function Note({ variant, headline, children, noHeadline, className, ...rest }: NoteProps) {
   return (
-    <blockquote className={note({ variant, noHeadline })} {...rest}>
+    <blockquote className={note({ variant, noHeadline, className })} {...rest}>
       {noHeadline ? (
         <Icon name="info" title="Info" className={styles.icon} />
       ) : (

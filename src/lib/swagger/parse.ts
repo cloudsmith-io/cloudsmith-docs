@@ -5,8 +5,9 @@ import SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { MenuItem } from '../menu/types';
+import { operationPath } from '../operations/util';
 import { ApiOperation, ParameterObject } from './types';
-import { apiOperationPath, createSlug, createTitle, isHttpMethod, parseMenuSegments } from './util';
+import { createSlug, createTitle, isHttpMethod, parseMenuSegments } from './util';
 
 const SCHEMAS_DIR = 'src/content/schemas';
 
@@ -92,6 +93,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
   };
 
   for (const { schema, version } of schemas) {
+    const defaultSecurity = schema.security;
     for (const path in schema.paths) {
       const pathObject = schema.paths[path];
       for (const field in pathObject) {
@@ -144,6 +146,7 @@ export const toOperations = (schemas: { schema: OpenAPIV3.Document; version: str
             slug,
             title: createTitle(menuSegments),
             experimental: operation.tags?.includes('experimental') === true,
+            security: operation.security ?? defaultSecurity,
           });
         }
       }
@@ -173,11 +176,11 @@ export const toMenuItems = (operations: ApiOperation[]): MenuItem[] => {
         if (!existing) {
           existing = { title };
           if (isLast) {
-            existing.path = apiOperationPath(operation.slug);
+            existing.path = operationPath(operation.slug);
             existing.method = operation.method;
           } else {
             if (!existing.path) {
-              existing.path = apiOperationPath(operation.slug);
+              existing.path = operationPath(operation.slug);
             }
             existing.children = [];
           }

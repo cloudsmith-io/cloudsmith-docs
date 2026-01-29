@@ -1,14 +1,15 @@
 'use server';
 
-import path from 'path';
 import { readFile } from 'fs/promises';
+import path from 'path';
+
 import { FullOptions, Searcher } from 'fast-fuzzy';
 
-import { SearchInput, SearchResult } from './types';
-import { parseSchemas, toOperations } from '../swagger/parse';
-import { apiOperationPath } from '../swagger/util';
 import { contentPath, loadMdxInfo } from '../markdown/util';
 import { extractMdxMetadata } from '../metadata/util';
+import { operationPath } from '../operations/util';
+import { parseSchemas, toOperations } from '../swagger/parse';
+import { SearchInput, SearchResult } from './types';
 
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
 
@@ -47,7 +48,7 @@ export const performSearch = async (
       items.push({
         title: op.title,
         content: op.description || 'Default content',
-        path: apiOperationPath(op.slug),
+        path: operationPath(op.slug),
         section: 'api',
         method: op.method,
       });

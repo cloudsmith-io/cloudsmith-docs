@@ -1,21 +1,37 @@
+import { cx } from 'class-variance-authority';
+
 import { Tag } from '@/components';
+import { getParametersByParam, operationUrl } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
 import { ApiMediaResponse } from '../ApiMedia';
+import { ApiSandboxDialog } from '../ApiSandbox';
+import { ClipboardCopy } from '../ClipboardCopy/ClipboardCopy';
 import styles from './ApiRequest.module.css';
 
-export const ApiRequest = (operation: ApiOperation) => {
-  const getParametersByParam = (param: string) => operation.parameters?.filter((p) => p.in === param);
-  const pathsParameters = getParametersByParam('path');
-  const queryParameters = getParametersByParam('query');
+export const ApiRequest = ({
+  operation,
+  operations,
+}: {
+  operation: ApiOperation;
+  operations: ApiOperation[];
+}) => {
+  const pathsParameters = getParametersByParam(operation, 'path');
+  const queryParameters = getParametersByParam(operation, 'query');
+
+  const url = operationUrl(operation);
 
   return (
     <>
       <div className={styles.request}>
-        <div className={styles.url}>
-          <Tag method={operation.method} />
-          {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}/${operation.version}${operation.path}`}
+        <div className={styles.sandbox}>
+          <ClipboardCopy textToCopy={url} className={styles.urlCopy}>
+            <Tag className={styles.method} method={operation.method} />
+            <span className={cx('bodyS', styles.url)}>{url}</span>
+          </ClipboardCopy>
+
+          <ApiSandboxDialog operation={operation} operations={operations} />
         </div>
       </div>
 

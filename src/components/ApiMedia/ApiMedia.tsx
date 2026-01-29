@@ -6,6 +6,7 @@ import { cx } from 'class-variance-authority';
 
 import { Tag } from '@/components';
 import { ChevronIcon } from '@/icons/Chevron';
+import { textualSchemaRules } from '@/lib/operations/util';
 import { RequestBodyObject, ResponseObject, SchemaObject } from '@/lib/swagger/types';
 
 import styles from './ApiMedia.module.css';
@@ -150,121 +151,8 @@ const Property = ({
   );
 };
 
-/*
-  Based on:
-  https://spec.openapis.org/oas/v3.0.3.html#properties
-  https://datatracker.ietf.org/doc/html/draft-wright-json-schema-validation-00#section-5
-*/
 const ValidationRules = ({ schema }: { schema: SchemaObject }) => {
-  const rules = Object.entries(schema).reduce<string[]>((acc, [key, value]) => {
-    if (!value) {
-      return acc;
-    }
-
-    switch (key) {
-      // Validation keywords for numeric instances
-      case 'multipleOf':
-        acc.push(`multiple of ${value}`);
-        break;
-      case 'maximum':
-        if (!schema.minimum) {
-          acc.push(`length ≤ ${value}${schema.exclusiveMaximum ? ' (exclusive)' : ''}`);
-        }
-        break;
-      case 'minimum':
-        if (!schema.maximum) {
-          acc.push(`length ≥ ${value}${schema.exclusiveMinimum ? ' (exclusive)' : ''}`);
-        }
-        if (schema.maximum) {
-          acc.push(`length between ${value} and ${schema.maximum}`);
-        }
-        break;
-
-      // Validation keywords for strings
-      case 'maxLength':
-        if (!schema.minLength) {
-          acc.push(`length ≤ ${value}`);
-        }
-        break;
-      case 'minLength':
-        if (!schema.maxLength) {
-          acc.push(`length ≥ ${value}`);
-        }
-        if (schema.maxLength) {
-          acc.push(`length between ${value} and ${schema.maxLength}`);
-        }
-        break;
-      case 'pattern':
-        acc.push(`${value}`);
-        break;
-
-      // Validation keywords for arrays
-      case 'additionalItems':
-        if (value === false) {
-          acc.push('No additional items allowed');
-        }
-        break;
-      case 'maxItems':
-        if (!schema.minItems) {
-          acc.push(`items ≤ ${value}`);
-        }
-        break;
-      case 'minItems':
-        if (!schema.maxItems) {
-          acc.push(`items ≥ ${value}`);
-        }
-        if (schema.maxItems) {
-          const uniqueText = schema.uniqueItems ? ' (unique)' : '';
-          acc.push(`items between ${value} and ${schema.maxItems}${uniqueText}`);
-        }
-        break;
-      case 'uniqueItems':
-        if (value === true && !schema.minItems && !schema.maxItems) {
-          acc.push('Items must be unique');
-        }
-        break;
-
-      // Validation keywords for objects
-      case 'maxProperties':
-        acc.push(`length ≤ ${value}`);
-        break;
-      case 'minProperties':
-        acc.push(`length ≥ ${value}`);
-        break;
-      case 'additionalProperties':
-        if (value === false) {
-          acc.push('no additional properties allowed');
-        }
-        break;
-
-      // Validation keywords for any instance type
-      case 'enum':
-        acc.push(`Allowed values: ${value.join(', ')}`);
-        break;
-      case 'format':
-        // TODO: Decide what to do with format
-        // acc.push(`${value}`);
-        break;
-      case 'default':
-        acc.push(`Defaults to ${value}`);
-        break;
-
-      // TODO: What should we render here?
-      case 'allOf':
-        acc.push('Must match all schemas');
-        break;
-      case 'anyOf':
-        acc.push('Must match any schema');
-        break;
-      case 'oneOf':
-        acc.push('Must match exactly one schema');
-        break;
-      case 'not':
-        acc.push('Must not match schema');
-        break;
-    }
-    return acc;
-  }, []);
+  const rules = textualSchemaRules(schema);
 
   if (rules.length) {
     return rules.map((rule, index) => (
