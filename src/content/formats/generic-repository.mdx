@@ -46,11 +46,12 @@ The Generic format is designed for artifacts that rely on specific file paths ra
 
 ### Generic vs Raw Format
 
-The Generic format is optimized for path-based file distribution and upstream proxying. It does not support:
+The Generic format is optimized for path-based file distribution and upstream proxying. It relies strictly on the filepath as the unique identifier and does not support:
+- Package naming (separate from filepath)
 - Package versioning (semantic versions)
 - End User License Agreements (EULA)
 
-If you need semantic versioning or EULA support for your packages, use the [Raw format](/formats/raw-repository) instead. The Raw format provides traditional package management features including version tracking and license acceptance workflows.
+If you need package naming, semantic versioning, or EULA support, use the [Raw format](/formats/raw-repository) instead. The Raw format provides traditional package management features including distinct package names, version tracking, and license acceptance workflows.
 
 ## Upload a File
 
@@ -192,7 +193,7 @@ To view the HTML index in a browser for private repositories, use `TOKEN` as the
 
 <Tag variant="dark-green" theme="legacy">Supported</Tag>
 
-The Generic format supports upstream proxying and caching for simple HTML-based sources and select non-HTML sources including Hashicorp Releases. When a file is requested, Cloudsmith checks for a local copy. If missing, it fetches the file from the upstream, caches it as a first-class local package, and serves it.
+The Generic format supports upstream proxying and caching for simple HTML-based sources and select non-HTML sources including Hashicorp and Fluentbit. When a file is requested, Cloudsmith checks for a local copy. If missing, it fetches the file from the upstream, caches it as a first-class local package, and serves it.
 
 Supported upstreams must consist of simple, unstyled HTML pages with no JavaScript, where each page contains only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
 
