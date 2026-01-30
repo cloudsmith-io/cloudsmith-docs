@@ -53,6 +53,10 @@ The Generic format is optimized for path-based file distribution and upstream pr
 
 If you need package naming, semantic versioning, or EULA support, use the [Raw format](/formats/raw-repository) instead. The Raw format provides traditional package management features including distinct package names, version tracking, and license acceptance workflows.
 
+<Note variant="note" headline="File-Based Storage">
+Generic packages are treated as files and binaries. Unlike native package formats (Python, npm, Maven), Generic packages do not have metadata, version information, or vulnerability scanning capabilities. They are stored and served as-is without package-specific processing.
+</Note>
+
 ## Upload a File
 
 ### Upload via the Cloudsmith CLI
@@ -193,12 +197,22 @@ To view the HTML index in a browser for private repositories, use `TOKEN` as the
 
 <Tag variant="dark-green" theme="legacy">Supported</Tag>
 
-The Generic format supports upstream proxying and caching for simple HTML-based sources and select non-HTML sources including Hashicorp and Fluentbit. When a file is requested, Cloudsmith checks for a local copy. If missing, it fetches the file from the upstream, caches it as a first-class local package, and serves it.
+The Generic format supports upstream proxying and caching for simple HTML-based sources and select non-HTML sources. When a file is requested, Cloudsmith checks for a local copy. If missing, it fetches the file from the upstream, caches it as a first-class local package, and serves it.
 
-Supported upstreams must consist of simple, unstyled HTML pages with no JavaScript, where each page contains only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+### Supported Upstream Sources
+
+The following upstream sources are explicitly supported and work out of the box:
+
+- **Gradle** - Gradle distributions
+- **Node** - Node.js distributions
+- **Hashicorp** - Hashicorp releases
+- **Fluentbit** - Fluentbit distributions
+- **HTML-based sources** - Simple, unstyled HTML pages with no JavaScript, where each page contains only links to files or subdirectories (e.g., Apache releases, Project Gutenberg)
+
+Generic format accepts any files or binaries, not just traditional software packages.
 
 <Note variant="note" headline="Enterprise Repository Support">
-Support for enterprise repository managers like Artifactory and Sonatype Nexus requires additional configuration. [Contact support](/support) to set up these upstream sources.
+Enterprise repository managers like Artifactory and Sonatype Nexus require additional configuration and will not work out of the box. These sources also have practical size limits—repositories with millions of packages may not be processable. [Contact support](/support) to discuss setup for these upstream sources.
 </Note>
 
 ### Configure an Upstream
