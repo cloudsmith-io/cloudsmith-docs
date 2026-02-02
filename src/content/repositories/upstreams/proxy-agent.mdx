@@ -1,7 +1,6 @@
 import { Note } from '@/components'
 
 # Upstream Proxy Agent
-## Why Am I Here?
 
 If you've received requests from a service you maintain with the user agent:
 
@@ -10,15 +9,13 @@ cloudsmith/x.y.z (+https://help.cloudsmith.io/docs/proxy-agent)
 ```
 Then you may be wondering what that means! If so, you're in the right place.
 
-## What is Cloudsmith?
-
 Cloudsmith is a fully-managed, cloud-native software artifact management SaaS. We provide software supply chain security and artifact distribution for enterprises.
 
 ## What is an Upstream? 
 
 If you've received a request from us with the user agent above, it means that one of our customers has designated your service as an [Upstream](/repositories/upstreams). 
 
-### Why our customers use Upstrams
+### Why our customers use Upstreams
 Upstreams allow our customers to proxy and cache artifacts from "upstream" registries in their Cloudsmith repositories. Many of our customers' upstreams point to OSS registries like pypi, or Maven Central.
 
 Using upstreams allows our customers to isolate their processes from issues - such as a registry or artifact becoming suddenly unavailable, which would otherwise cause their builds to fail. Using upstreams also allows customers to scan and inspect artifacts before they get to users - mitigating against supply-chain attacks. Upsteams are critical in helping our customers centralize where their dependencies and software assets are maintained.
