@@ -10,22 +10,23 @@ cloudsmith/x.y.z (+https://help.cloudsmith.io/docs/proxy-agent)
 ```
 Then you may be wondering what that means! If so, you're in the right place.
 
-## What Is This?
+## What is Cloudsmith?
 
 Cloudsmith is a fully-managed, cloud-native software artifact management SaaS. We provide software supply chain security and artifact distribution for enterprises.
 
-### Upstreams 
+## What is an Upstream? 
 
 If you've received a request from us with the user agent above, it means that one of our customers has designated your service as an [Upstream](/repositories/upstreams). 
 
+### Why our customers use Upstrams
 Upstreams allow our customers to proxy and cache artifacts from "upstream" registries in their Cloudsmith repositories. Many of our customers' upstreams point to OSS registries like pypi, or Maven Central.
 
 Using upstreams allows our customers to isolate their processes from issues - such as a registry or artifact becoming suddenly unavailable, which would otherwise cause their builds to fail. Using upstreams also allows customers to scan and inspect artifacts before they get to users - mitigating against supply-chain attacks. Upsteams are critical in helping our customers centralize where their dependencies and software assets are maintained.
 
-### Your service as an Upstream
+## Your service as an Upstream
 
-We cache packages from your service in Cloudsmith based on customers' requests. We interact with your service using the regular/native package manager interfaces, and build an index of available artifacts. We'll periodically re-index to ensure we're working off the most accurate and up-to-date information. We strive to be good partners and obey conventions such as rate limits, with exponential back-off in place for most error handling.
+On request, we cache packages from your service in Cloudsmith, then make them available to customers. We interact with your service using the regular/native package manager interfaces, and build an index of available artifacts. We'll periodically re-index to ensure we're working off the most accurate and up-to-date information. We strive to be good partners and obey conventions such as rate limits, with exponential back-off in place for most error handling.
 
-### Can I speak to someone about this?
+## Further Questions
 
-Of course! If you have any questions, concerns, or commercial obligations/terms - please [Contact Us](https://cloudsmith.com/company/contact-us). 
+If you have any questions, concerns, or commercial obligations/terms - please [Contact Us](https://cloudsmith.com/company/contact-us). 
