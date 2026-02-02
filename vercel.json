@@ -7,6 +7,10 @@
     {
       "source": "/supply-chain-security/malware-scanning",
       "destination": "https://docs.cloudsmith.com/supply-chain-security/malware-detection"
+    },
+    {
+      "source": "/proxy-agent",
+      "destination": "https://docs.cloudsmith.com/repositories/upstreams/proxy-agent"
     }
   ]
 }
