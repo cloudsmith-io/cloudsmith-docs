@@ -225,22 +225,6 @@
                 "path": "/authentication/scim",
                 "children": [
                   {
-                    "title": "SCIM with JumpCloud",
-                    "path": "/authentication/scim-with-jumpcloud"
-                  },
-                  {
-                    "title": "SCIM with Google",
-                    "path": "/authentication/scim-with-google"
-                  },
-                  {
-                    "title": "SCIM with PingFederate",
-                    "path": "/authentication/scim-with-pingfederate"
-                  },
-                  {
-                    "title": "SCIM with OneLogin",
-                    "path": "/authentication/scim-with-onelogin"
-                  },
-                  {
                     "title": "SCIM with Okta",
                     "path": "/authentication/scim-with-okta"
                   },
