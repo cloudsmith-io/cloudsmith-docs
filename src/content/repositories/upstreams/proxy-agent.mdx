@@ -1,0 +1,32 @@
+import { Note } from '@/components'
+
+# Upstream Proxying and Caching
+## Why Am I Here?
+
+If you've received requests from a service you maintain with the user agent:
+
+```
+cloudsmith/x.y.z (+https://help.cloudsmith.io/docs/proxy-agent)
+```
+Then you may be wondering what that means! If so, you're in the right place.
+
+## What Is This?
+
+Cloudsmith is a fully-managed, Cloud-Native software artifact management SaaS. We provide software supply chain security and artifact distribution for customers big or small and all over the globe.
+
+Sounds great! Why have you been connecting to us?
+
+If you've received a request from us with the user agent above, it means that one of our users has designated your service as an Upstream Source. This allows users to isolate their processes from network outages, mitigate against common supply-chain attacks, and centralize where their dependencies and software assets are maintained. This also has many positives for you as a publisher, including the potential to reduce your bandwidth costs.
+
+We speak to your service using the regular/native package manager interfaces to create awareness of what users can retrieve (and create an internal index). We'll generally connect on a cadence to keep in synchronization with the repository, too, so that we're working off the most accurate and up-to-date information. We also strive to be good citizens and obey conventions such as rate limits, with exponential back-off in place for most error handling.
+
+Can I speak to someone about this?
+
+Of course! If you have any questions, concerns, or commercial obligations/terms - please Contact Us. We're on hand and always willing to help.
+```shell
+cloudsmith repos create demo example-repo-config.json
+```
+
+<Note variant="note">
+  It is not possible to create Open Source repositories via the Cloudsmith API.
+</Note>
