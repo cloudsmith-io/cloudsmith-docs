@@ -224,13 +224,31 @@
                 "title": "SCIM",
                 "path": "/authentication/scim",
                 "children": [
+
+
                   {
+                    "title": "SCIM with Google",
+                    "path": "/authentication/scim-with-google"
+                  },
+                  {
+                    "title": "SCIM with JumpCloud",
+                    "path": "/authentication/scim-with-jumpcloud"
+                  },
+                   {
+                    "title": "SCIM with Microsoft",
+                    "path": "/authentication/scim-with-microsoft-entra-id"
+                  },
+                   {
                     "title": "SCIM with Okta",
                     "path": "/authentication/scim-with-okta"
                   },
                   {
-                    "title": "SCIM with Microsoft",
-                    "path": "/authentication/scim-with-microsoft-entra-id"
+                    "title": "SCIM with OneLogin",
+                    "path": "/authentication/scim-with-onelogin"
+                  },
+                  {
+                    "title": "SCIM with PingIdentity",
+                    "path": "/authentication/scim-with-pingidentity"
                   }
                   ]
               },
