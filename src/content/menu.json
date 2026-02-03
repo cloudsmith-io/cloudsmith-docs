@@ -75,6 +75,10 @@
             "path": "/formats/docker-registry"
           },
           {
+            "title": "Generic",
+            "path": "/formats/generic-repository"
+          },
+          {
             "title": "Go",
             "path": "/formats/go-registry"
           },
@@ -365,7 +369,7 @@
               {
                 "title": "API Key Policy",
                 "path": "/policy-management/api-key-policy"
-              },                  
+              },
               {
                 "title": "License Policy",
                 "path": "/policy-management/license-policy"
@@ -379,11 +383,11 @@
           {
             "title": "Enterprise Policy Manager",
             "path": "/supply-chain-security/epm",
-            "children":[   
+            "children":[
               {
                 "title": "Getting Started",
                 "path": "/supply-chain-security/epm/getting-started"
-              }, 
+              },
               {
                 "title": "Rego Recipes",
                 "path": "/supply-chain-security/epm/rego"
@@ -397,11 +401,11 @@
           {
             "title": "Malware Detection",
             "path": "/supply-chain-security/malware-detection",
-            "children":[   
+            "children":[
               {
                 "title": "Malware Scanning",
                 "path": "/supply-chain-security/malware-detection/malware-scanning"
-              }, 
+              },
               {
                 "title": "Malicious Packages",
                 "path": "/supply-chain-security/malware-detection/malicious-packages"
@@ -605,7 +609,7 @@
           {
             "title": "Renovate",
             "path": "/integrations/integrating-with-renovate"
-          },  
+          },
           {
             "title": "Semaphore CI",
             "path": "/integrations/integrating-with-semaphore-ci"
@@ -621,11 +625,11 @@
           {
             "title": "TeamCity",
             "path": "/integrations/integrating-with-teamcity"
-          },   
+          },
           {
             "title": "Theia IDE",
             "path": "/developer-tools/vscode"
-          },       
+          },
           {
             "title": "Travis CI",
             "path": "/integrations/integrating-with-travis-ci"
