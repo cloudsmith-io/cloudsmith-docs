@@ -23,7 +23,7 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
   );
 
   const sortedParameterEntries = useMemo(() => {
-    return parameters.toSorted((a, b) => a.name.localeCompare(a.name));
+    return parameters.toSorted((a, b) => a.name.localeCompare(b.name));
   }, [parameters]);
 
   const requiredParameters = useMemo(
