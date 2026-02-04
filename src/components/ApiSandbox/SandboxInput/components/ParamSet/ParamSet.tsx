@@ -8,7 +8,7 @@ import { Tag } from '@/components/Tag';
 import { Icon } from '@/icons';
 import { SimpleParamState } from '@/lib/operations/types';
 import { textualSchemaRules } from '@/lib/operations/util';
-import { ArraySchemaObject, NonArraySchemaObjectType, SchemaObject } from '@/lib/swagger/types';
+import { ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 
 import ParamInput from './inputs';
 import styles from './ParamSet.module.css';
@@ -38,6 +38,7 @@ type ParamSetProps = {
   required: boolean;
   description?: string;
   schema: SchemaObject;
+  onAddEntry?: () => void;
   onDeleteItem?: (keys: string[]) => void;
 };
 
@@ -49,6 +50,7 @@ export const ParamSet = ({
   schema,
   item = false,
   children,
+  onAddEntry,
   onDeleteItem,
 }: ParamSetProps) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -96,7 +98,24 @@ export const ParamSet = ({
           )}
         </div>
 
-        {!collapsed && <>{children}</>}
+        {!collapsed && (
+          <>
+            {children}
+
+            {onAddEntry != null && (
+              <div className={styles.padding}>
+                <Flex direction="column" className={styles.add} align="stretch" gap="none" asChild>
+                  <button onClick={() => onAddEntry()}>
+                    <Flex align="center" wrap={false} gap="xs">
+                      <Icon name="action/add" title="add" />
+                      <span>Add field</span>
+                    </Flex>
+                  </button>
+                </Flex>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </Flex>
   );
@@ -169,7 +188,7 @@ const getParamDescription = (baseDescription: string, rules: string[]) => {
 type ParamEntryProps = {
   name: string;
   description?: string;
-  schema?: SchemaObject;
+  schema?: NonArraySchemaObject;
   required?: boolean;
   noKey?: boolean;
   item?: boolean;
@@ -189,14 +208,9 @@ export const ParamEntry = ({
   onValueChange,
   onDeleteItem,
 }: ParamEntryProps) => {
-  // TODO: extend
-  const type = schema?.type as NonArraySchemaObjectType;
+  const type = schema?.type;
   const typeLabel =
-    schema == null
-      ? 'string'
-      : (schema.type === 'array'
-          ? `${schema.type} of ${schema.items?.type}s`
-          : schema.format || schema.type) + (schema.nullable ? ' | null' : '');
+    schema == null ? 'string' : (schema.format || schema.type) + (schema.nullable ? ' | null' : '');
 
   const descriptionText = getParamDescription(description || '', textualSchemaRules(schema ?? {}));
   return (
@@ -218,7 +232,7 @@ export const ParamEntry = ({
 
         <ParamInput
           name={name}
-          type={type}
+          type={type!}
           value={value}
           singleLine={noKey}
           isItem={item}
@@ -233,6 +247,49 @@ export const ParamEntry = ({
           <Paragraph className={styles.description}>{descriptionText}</Paragraph>
         </Flex>
       )}
+    </Flex>
+  );
+};
+
+type ParamKeyValueProps = {
+  keyValue: string;
+  value: string;
+  onKeyValueChange: (v: string) => void;
+  onValueChange: (v: string) => void;
+  onDelete: () => void;
+};
+
+export const ParamKeyValue = ({
+  keyValue,
+  value,
+  onKeyValueChange,
+  onValueChange,
+  onDelete,
+}: ParamKeyValueProps) => {
+  return (
+    <Flex direction="column" className={cx(styles.paramEntry)} align="stretch" gap="none" wrap={false}>
+      <Flex className={styles.main} justify="between" align="center" wrap={false} gap="2xs">
+        <input
+          className={styles.keyValueInput}
+          value={keyValue}
+          placeholder="key"
+          onChange={(e) => {
+            onKeyValueChange(e.target.value);
+          }}
+        />
+        <input
+          className={styles.keyValueInput}
+          value={value}
+          placeholder="value"
+          onChange={(e) => {
+            onValueChange(e.target.value);
+          }}
+        />
+
+        <button className={styles.keyValueDelete} onClick={() => onDelete()}>
+          <Icon name="action/delete" title="remove" />
+        </button>
+      </Flex>
     </Flex>
   );
 };

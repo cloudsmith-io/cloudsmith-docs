@@ -11,12 +11,13 @@ import {
   ObjectParamState,
   ParamState,
   SimpleParamState,
+  StringParamState,
 } from '@/lib/operations/types';
 import { defaultParamState, randomId } from '@/lib/operations/util';
 import { ApiOperation, ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 
 import RootParamSet from '../ParamSet';
-import { ParamArray, ParamEntry, ParamSet, ParamToggle } from '../ParamSet/ParamSet';
+import { ParamArray, ParamEntry, ParamKeyValue, ParamSet, ParamToggle } from '../ParamSet/ParamSet';
 import styles from './RequestBody.module.css';
 
 type RequestBodyProps = {
@@ -74,7 +75,7 @@ export const RequestBody = ({
             </Flex>
           }>
           <BodyParam
-            depth={0}
+            isNested={false}
             schema={spec.schema ?? {}}
             state={state[media]}
             required={required}
@@ -88,7 +89,7 @@ export const RequestBody = ({
 
 type BodyParamProps = {
   name?: string;
-  depth: number;
+  isNested: boolean;
   schema: SchemaObject;
   required: boolean;
   state?: ParamState;
@@ -99,7 +100,7 @@ type BodyParamProps = {
 
 const BodyParam = ({
   name,
-  depth,
+  isNested,
   schema,
   required,
   state,
@@ -130,7 +131,7 @@ const BodyParam = ({
   if (schema.type === 'object') {
     return (
       <ObjectBodyParam
-        depth={depth}
+        isNested={isNested}
         name={name ?? ''}
         required={required}
         schema={schema as NonArraySchemaObject & { type: 'object' }}
@@ -145,7 +146,7 @@ const BodyParam = ({
   if (schema.type === 'array') {
     return (
       <ArrayParam
-        depth={depth}
+        isNested={isNested}
         name={name ?? ''}
         required={required}
         schema={schema}
@@ -160,7 +161,7 @@ const BodyParam = ({
 };
 
 type ObjectBodyParamProps = {
-  depth: number;
+  isNested: boolean;
   name?: string;
   schema: NonArraySchemaObject & { type: 'object' };
   required: boolean;
@@ -170,8 +171,72 @@ type ObjectBodyParamProps = {
   onDeleteItem?: (keys: string[]) => void;
 };
 
-const ObjectBodyParam = ({
-  depth,
+const GenericObjectParam = ({
+  isNested,
+  name,
+  schema,
+  required,
+  state,
+  item,
+  onUpdateParam,
+  onDeleteItem,
+}: ObjectBodyParamProps) => {
+  const entries = Object.entries((state as ObjectParamState)?.items ?? {}) as [string, StringParamState][];
+
+  const Wrapper = useMemo(
+    () =>
+      isNested
+        ? ({ children }: { children: ReactNode }) => (
+            <ParamSet
+              heading="object"
+              name={name}
+              required={required}
+              schema={schema}
+              description={schema.description}
+              item={item}
+              onAddEntry={() => {
+                onUpdateParam([randomId()], {
+                  type: 'string',
+                  name: '',
+                  value: '',
+                });
+              }}
+              onDeleteItem={(keys) => onDeleteItem?.(keys)}>
+              {children}
+            </ParamSet>
+          )
+        : React.Fragment,
+    [],
+  );
+
+  return (
+    <Wrapper>
+      {entries.map(([id, state]) => (
+        <ParamKeyValue
+          key={id}
+          keyValue={state.name ?? ''}
+          value={state.value ?? ''}
+          onKeyValueChange={(v) =>
+            onUpdateParam([id], {
+              ...state,
+              name: v,
+            })
+          }
+          onValueChange={(v) =>
+            onUpdateParam([id], {
+              ...state,
+              value: v,
+            })
+          }
+          onDelete={() => onUpdateParam([id], undefined)}
+        />
+      ))}
+    </Wrapper>
+  );
+};
+
+const StructuredObjectParam = ({
+  isNested,
   name,
   schema,
   required,
@@ -207,7 +272,7 @@ const ObjectBodyParam = ({
 
   const Wrapper = useMemo(
     () =>
-      depth > 0
+      isNested
         ? ({ children }: { children: ReactNode }) => (
             <ParamSet
               heading="object"
@@ -223,6 +288,7 @@ const ObjectBodyParam = ({
         : React.Fragment,
     [],
   );
+
   return (
     <Wrapper>
       {displayedParameters.map((p) => {
@@ -236,7 +302,7 @@ const ObjectBodyParam = ({
           <BodyParam
             key={id}
             name={name}
-            depth={depth + 1}
+            isNested={true}
             schema={param}
             required={schema.required?.includes(p[0]) ?? false}
             state={stateValue}
@@ -257,8 +323,48 @@ const ObjectBodyParam = ({
   );
 };
 
+const ObjectBodyParam = ({
+  isNested,
+  name,
+  schema,
+  required,
+  state,
+  item,
+  onUpdateParam,
+  onDeleteItem,
+}: ObjectBodyParamProps) => {
+  const parameterEntries = useMemo(() => Object.entries(schema.properties ?? {}), [schema]);
+
+  if (parameterEntries.length === 0)
+    return (
+      <GenericObjectParam
+        isNested={isNested}
+        name={name}
+        schema={schema}
+        required={required}
+        state={state}
+        item={item}
+        onUpdateParam={onUpdateParam}
+        onDeleteItem={onDeleteItem}
+      />
+    );
+
+  return (
+    <StructuredObjectParam
+      isNested={isNested}
+      name={name}
+      schema={schema}
+      required={required}
+      state={state}
+      item={item}
+      onUpdateParam={onUpdateParam}
+      onDeleteItem={onDeleteItem}
+    />
+  );
+};
+
 type ArrayParamProps = {
-  depth: number;
+  isNested: boolean;
   name?: string;
   required: boolean;
   schema: ArraySchemaObject;
@@ -267,7 +373,7 @@ type ArrayParamProps = {
   onDeleteItem?: (keys: string[]) => void;
 };
 
-const ArrayParam = ({ depth, name, schema, required, state, onUpdateParam }: ArrayParamProps) => {
+const ArrayParam = ({ name, schema, required, state, onUpdateParam }: ArrayParamProps) => {
   const _items = (state as ArrayParamState)?.items ?? {};
   const items = Object.entries(_items);
 
@@ -284,7 +390,7 @@ const ArrayParam = ({ depth, name, schema, required, state, onUpdateParam }: Arr
         return (
           <BodyParam
             key={id}
-            depth={depth + 1}
+            isNested={true}
             schema={schema.items}
             required={false}
             state={item}

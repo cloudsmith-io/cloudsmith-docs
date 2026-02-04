@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { QueryParamState, SimpleParamState } from '@/lib/operations/types';
-import { ApiOperation } from '@/lib/swagger/types';
+import { ApiOperation, NonArraySchemaObject } from '@/lib/swagger/types';
 
 import RootParamSet, { ParamEntry } from '../ParamSet';
 import { ParamToggle } from '../ParamSet/ParamSet';
@@ -46,7 +46,7 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
           key={param.name}
           name={param.name}
           description={param.description}
-          schema={param.schema}
+          schema={param.schema as NonArraySchemaObject}
           required={param.required}
           value={state[param.name]}
           onValueChange={(v) => onUpdateParam(param.name, v)}

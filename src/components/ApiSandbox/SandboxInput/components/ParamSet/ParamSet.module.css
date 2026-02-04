@@ -149,15 +149,34 @@
   border-top: 1px solid var(--color-border);
 }
 
+.padding {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-2xs) var(--space-3xs) var(--space-2xs) var(--space-s);
+}
+
 .add {
   --svg-path-fill: var(--color-text-tertiary);
 
   cursor: pointer;
   color: var(--color-text-tertiary);
   font-size: var(--text-body-s);
-
+  background-color: var(--color-background-default);
   width: 100%;
   border: 1px solid var(--color-border);
   padding: var(--space-2xs);
   border-radius: var(--border-radius-s);
+}
+
+.keyValueInput {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-s);
+  padding: var(--space-2xs) var(--space-2xs);
+  background-color: var(--color-background-default);
+  min-width: 0;
+}
+
+.keyValueDelete {
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  flex-shrink: 0;
 }
