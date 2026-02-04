@@ -173,6 +173,7 @@
   padding: var(--space-2xs) var(--space-2xs);
   background-color: var(--color-background-default);
   min-width: 0;
+  flex-grow: 1;
 }
 
 .keyValueDelete {
