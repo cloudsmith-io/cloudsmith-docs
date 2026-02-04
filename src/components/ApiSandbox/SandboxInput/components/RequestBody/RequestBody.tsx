@@ -248,7 +248,7 @@ const ObjectBodyParam = ({
       })}
       {optionalParameters.length > 0 && (
         <ParamToggle
-          paramTag={`optional fields (${optionalParameters.length})`}
+          paramTag={`optional body params (${optionalParameters.length})`}
           show={showAll}
           onChangeShow={setShowAll}
         />

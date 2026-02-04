@@ -15,8 +15,8 @@
 }
 
 .heading {
-  padding-inline: var(--column-inline-padding);
-  padding-block: calc(var(--column-block-padding) / 2);
+  padding-inline: var(--space-s);
+  padding-block: var(--space-xs);
 }
 
 /* Param */

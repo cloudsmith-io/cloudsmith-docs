@@ -117,7 +117,7 @@ const Property = ({
           {property.nullable && ' | null'}
         </div>
         <div className={cx(styles.responseGridColumn, styles.responseGridColumnTag)}>
-          <Tag variant={isRequired ? 'red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
+          <Tag variant={isRequired ? 'light-red' : 'grey'}>{isRequired ? 'required' : 'optional'}</Tag>
         </div>
         <div className={cx(styles.responseGridColumn, styles.responseGridColumnRules)}>
           <ValidationRules schema={property} />

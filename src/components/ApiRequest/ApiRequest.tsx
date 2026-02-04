@@ -49,7 +49,9 @@ const PathParams = ({ parameters }: { parameters: NonNullable<ApiOperation['para
         <ApiGridColumn>{param.name}</ApiGridColumn>
         <ApiGridColumn type="type">{param.schema?.type}</ApiGridColumn>
         <ApiGridColumn>
-          <Tag variant={param.required ? 'red' : 'grey'}>{param.required ? 'required' : 'optional'}</Tag>
+          <Tag variant={param.required ? 'light-red' : 'grey'}>
+            {param.required ? 'required' : 'optional'}
+          </Tag>
         </ApiGridColumn>
       </ApiGridRow>
     ))}
@@ -73,7 +75,7 @@ const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['r
     heading={
       <>
         {'Body params '}
-        <Tag variant={requestBody.required ? 'red' : 'grey'}>
+        <Tag variant={requestBody.required ? 'light-red' : 'grey'}>
           {requestBody.required ? 'required' : 'optional'}
         </Tag>
       </>

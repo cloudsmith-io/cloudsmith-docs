@@ -21,9 +21,23 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
     () => parameters.some((p) => p.required == null || !p.required),
     [parameters],
   );
+
+  const sortedParameterEntries = useMemo(() => {
+    return parameters.toSorted((a, b) => a.name.localeCompare(a.name));
+  }, [parameters]);
+
+  const requiredParameters = useMemo(
+    () => sortedParameterEntries.filter((p) => p.required),
+    [sortedParameterEntries],
+  );
+  const optionalParameters = useMemo(
+    () => sortedParameterEntries.filter((p) => !p.required == null || !p.required),
+    [sortedParameterEntries],
+  );
   const displayedParameters = useMemo(() => {
-    return parameters.filter((param) => showAll || param.required);
-  }, [parameters, showAll]);
+    if (showAll) return [...requiredParameters, ...optionalParameters];
+    return requiredParameters;
+  }, [requiredParameters, showAll, optionalParameters]);
 
   return (
     <RootParamSet heading="Query params">
@@ -38,7 +52,13 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
           onValueChange={(v) => onUpdateParam(param.name, v)}
         />
       ))}
-      {optionalExists && <ParamToggle paramTag="query params" show={showAll} onChangeShow={setShowAll} />}
+      {optionalExists && (
+        <ParamToggle
+          paramTag={`optional query params (${optionalParameters.length})`}
+          show={showAll}
+          onChangeShow={setShowAll}
+        />
+      )}
     </RootParamSet>
   );
 };
