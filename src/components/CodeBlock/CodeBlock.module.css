@@ -13,6 +13,7 @@
 
 .code {
   position: relative;
+  height: calc(100% - 42px);
 }
 
 .code :global(pre) {

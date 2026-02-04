@@ -1,54 +1,185 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
+import * as RadixSelect from '@radix-ui/react-select';
+
+import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
-import { ApiOperation, SchemaObject } from '@/lib/swagger/types';
+import { Icon } from '@/icons';
+import {
+  ArrayParamState,
+  BodyParamState,
+  ObjectParamState,
+  ParamState,
+  SimpleParamState,
+} from '@/lib/operations/types';
+import { defaultParamState, randomId } from '@/lib/operations/util';
+import { ApiOperation, ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 
-import ParamSet from '../ParamSet';
-import { Param, ParamToggle } from '../ParamSet/ParamSet';
+import RootParamSet from '../ParamSet';
+import { ParamArray, ParamEntry, ParamSet, ParamToggle } from '../ParamSet/ParamSet';
+import styles from './RequestBody.module.css';
 
 type RequestBodyProps = {
   requestBody: NonNullable<ApiOperation['requestBody']>;
-  state: Record<string, Record<string, string>>;
-  onUpdateParam: (meta: string, name: string, value: string) => void;
+  state: BodyParamState;
+  media: string;
+  onChangeMedia: (m: string) => void;
+  onUpdateParam: (keys: string[], value: ParamState | undefined) => void;
 };
 
-export const RequestBody = ({ state, requestBody, onUpdateParam }: RequestBodyProps) => {
-  const multipleMedia = Object.keys(requestBody.content).length > 1;
+export const RequestBody = ({
+  state,
+  media,
+  requestBody,
+  onChangeMedia,
+  onUpdateParam,
+}: RequestBodyProps) => {
+  const mediaTypes = Object.keys(requestBody.content);
+  const multipleMedia = mediaTypes.length >= 2;
+  const spec = requestBody.content[media];
+
+  const required = requestBody.required ?? false;
 
   return (
     <>
-      {Object.entries(requestBody.content).map(([media, spec]) => (
-        <MediaParams
-          key={media}
-          multipleMedia={multipleMedia}
-          required={requestBody.required ?? false}
-          media={media}
-          schema={spec.schema ?? {}}
-          state={state[media]}
-          onUpdateParam={(name, value) => onUpdateParam(media, name, value)}
-        />
-      ))}
+      {spec && (
+        <RootParamSet
+          heading={
+            <Flex gap="xs">
+              <RadixSelect.Root value={media} onValueChange={onChangeMedia} disabled={!multipleMedia}>
+                <RadixSelect.Trigger aria-label="media select" asChild>
+                  <Flex className={styles.select} wrap={false} gap="xs">
+                    {multipleMedia && <Icon name="chevronDown" title="select" />}
+                    <RadixSelect.Value>
+                      <div>Body params {multipleMedia ? `(${media})` : ''} </div>
+                    </RadixSelect.Value>
+                  </Flex>
+                </RadixSelect.Trigger>
+
+                <RadixSelect.Content className={styles.selectContainer}>
+                  <RadixSelect.Viewport>
+                    {mediaTypes.map((m) => (
+                      <RadixSelect.Item key={m} value={m} className={styles.selectItem}>
+                        <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
+                          <Icon name="action/check" title="selected" />
+                        </RadixSelect.ItemIndicator>
+                        <RadixSelect.ItemText>{m}</RadixSelect.ItemText>
+                      </RadixSelect.Item>
+                    ))}
+                  </RadixSelect.Viewport>
+                </RadixSelect.Content>
+              </RadixSelect.Root>
+
+              {required && <Tag variant="light-red">Required</Tag>}
+            </Flex>
+          }>
+          <BodyParam
+            depth={0}
+            schema={spec.schema ?? {}}
+            state={state[media]}
+            required={required}
+            onUpdateParam={(keys, value) => onUpdateParam([media, ...keys], value)}
+          />
+        </RootParamSet>
+      )}
     </>
   );
 };
 
-type MediaParamsProps = {
-  required: boolean;
-  media: string;
+type BodyParamProps = {
+  name?: string;
+  depth: number;
   schema: SchemaObject;
-  multipleMedia: boolean;
-  state?: Record<string, string>;
-  onUpdateParam: (name: string, value: string) => void;
+  required: boolean;
+  state?: ParamState;
+  item?: boolean;
+  onUpdateParam: (keys: string[], value: ParamState | undefined) => void;
+  onDeleteItem?: (keys: string[]) => void;
 };
 
-const MediaParams = ({
-  required,
-  media,
+const BodyParam = ({
+  name,
+  depth,
   schema,
-  multipleMedia,
-  state = {},
+  required,
+  state,
+  item = false,
   onUpdateParam,
-}: MediaParamsProps) => {
+  onDeleteItem,
+}: BodyParamProps) => {
+  if (
+    schema.type === 'string' ||
+    schema.type === 'number' ||
+    schema.type === 'integer' ||
+    schema.type === 'boolean'
+  ) {
+    return (
+      <ParamEntry
+        name={name ?? ''}
+        schema={schema}
+        required={required}
+        value={state as SimpleParamState | undefined}
+        noKey={!name}
+        item={item}
+        onValueChange={(v) => onUpdateParam([], v)}
+        onDeleteItem={() => onDeleteItem?.([])}
+      />
+    );
+  }
+
+  if (schema.type === 'object') {
+    return (
+      <ObjectBodyParam
+        depth={depth}
+        name={name ?? ''}
+        required={required}
+        schema={schema as NonArraySchemaObject & { type: 'object' }}
+        state={state}
+        item={item}
+        onUpdateParam={onUpdateParam}
+        onDeleteItem={onDeleteItem}
+      />
+    );
+  }
+
+  if (schema.type === 'array') {
+    return (
+      <ArrayParam
+        depth={depth}
+        name={name ?? ''}
+        required={required}
+        schema={schema}
+        state={state}
+        onUpdateParam={onUpdateParam}
+        onDeleteItem={onDeleteItem}
+      />
+    );
+  }
+
+  return null;
+};
+
+type ObjectBodyParamProps = {
+  depth: number;
+  name?: string;
+  schema: NonArraySchemaObject & { type: 'object' };
+  required: boolean;
+  state?: ParamState;
+  item?: boolean;
+  onUpdateParam: (keys: string[], value: ParamState | undefined) => void;
+  onDeleteItem?: (keys: string[]) => void;
+};
+
+const ObjectBodyParam = ({
+  depth,
+  name,
+  schema,
+  required,
+  state,
+  item,
+  onUpdateParam,
+  onDeleteItem,
+}: ObjectBodyParamProps) => {
   const parameterEntries = useMemo(() => Object.entries(schema.properties ?? {}), [schema]);
 
   const [showAll, setShowAll] = useState(false);
@@ -57,42 +188,117 @@ const MediaParams = ({
     setShowAll(false);
   }, [parameterEntries]);
 
-  const optionalExists = useMemo(
-    () => parameterEntries.some((p) => !schema.required?.includes(p[0])),
-    [parameterEntries],
+  const sortedParameterEntries = useMemo(() => {
+    return parameterEntries.toSorted((a, b) => a[0].localeCompare(b[0]));
+  }, [parameterEntries]);
+
+  const requiredParameters = useMemo(
+    () => sortedParameterEntries.filter((p) => schema.required?.includes(p[0])),
+    [sortedParameterEntries, schema.required],
+  );
+  const optionalParameters = useMemo(
+    () => sortedParameterEntries.filter((p) => !schema.required?.includes(p[0])),
+    [sortedParameterEntries, schema.required],
   );
   const displayedParameters = useMemo(() => {
-    return parameterEntries.filter((param) => showAll || schema.required?.includes(param[0]));
-  }, [parameterEntries, showAll]);
+    if (showAll) return [...requiredParameters, ...optionalParameters];
+    return requiredParameters;
+  }, [requiredParameters, showAll, optionalParameters]);
 
-  if (schema.type !== 'object') {
-    return null;
-  }
-
+  const Wrapper = useMemo(
+    () =>
+      depth > 0
+        ? ({ children }: { children: ReactNode }) => (
+            <ParamSet
+              heading="object"
+              name={name}
+              required={required}
+              schema={schema}
+              description={schema.description}
+              item={item}
+              onDeleteItem={(keys) => onDeleteItem?.(keys)}>
+              {children}
+            </ParamSet>
+          )
+        : React.Fragment,
+    [],
+  );
   return (
-    <ParamSet
-      heading={
-        <>
-          Body params {multipleMedia ? `(${media})` : ''}{' '}
-          <Tag variant={required ? 'light-red' : 'grey'}>{required ? 'required' : 'optional'}</Tag>
-        </>
-      }>
+    <Wrapper>
       {displayedParameters.map((p) => {
         const [name, param] = p;
+        const s = Object.entries((state as ObjectParamState)?.items ?? {}).find((v) => v[1].name === name);
+        if (!s) return null;
+
+        const [id, stateValue] = s;
+
         return (
-          <Param
-            key={name}
+          <BodyParam
+            key={id}
             name={name}
-            description={param.description}
+            depth={depth + 1}
             schema={param}
-            required={schema.required?.includes(name)}
-            value={state[name]}
-            onValueChange={(value) => onUpdateParam(name, value)}
+            required={schema.required?.includes(p[0]) ?? false}
+            state={stateValue}
+            onUpdateParam={(keys, value) => {
+              onUpdateParam([id, ...keys], value);
+            }}
           />
         );
       })}
-      {optionalExists && <ParamToggle paramTag="body params" show={showAll} onChangeShow={setShowAll} />}
-    </ParamSet>
+      {optionalParameters.length > 0 && (
+        <ParamToggle
+          paramTag={`optional fields (${optionalParameters.length})`}
+          show={showAll}
+          onChangeShow={setShowAll}
+        />
+      )}
+    </Wrapper>
+  );
+};
+
+type ArrayParamProps = {
+  depth: number;
+  name?: string;
+  required: boolean;
+  schema: ArraySchemaObject;
+  state?: ParamState;
+  onUpdateParam: (keys: string[], value: ParamState | undefined) => void;
+  onDeleteItem?: (keys: string[]) => void;
+};
+
+const ArrayParam = ({ depth, name, schema, required, state, onUpdateParam }: ArrayParamProps) => {
+  const _items = (state as ArrayParamState)?.items ?? {};
+  const items = Object.entries(_items);
+
+  return (
+    <ParamArray
+      name={name}
+      required={required}
+      description={schema.description}
+      schema={schema}
+      onAddItem={() => {
+        onUpdateParam([randomId()], defaultParamState(schema.items));
+      }}>
+      {items.map(([id, item]) => {
+        return (
+          <BodyParam
+            key={id}
+            depth={depth + 1}
+            schema={schema.items}
+            required={false}
+            state={item}
+            item={true}
+            onUpdateParam={(keys, value) => {
+              onUpdateParam([id, ...keys], value);
+            }}
+            onDeleteItem={(keys) => {
+              onUpdateParam([id, ...keys], undefined);
+            }}
+          />
+        );
+      })}
+    </ParamArray>
   );
 };
 

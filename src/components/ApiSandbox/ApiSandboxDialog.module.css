@@ -16,7 +16,7 @@
   background-color: var(--base-color-white);
   position: relative;
   width: 100%;
-  max-width: 1274px;
+  max-width: 1440px;
   overflow: hidden;
   animation: contentShow 500ms ease-in-out;
   border-radius: var(--border-radius-l);

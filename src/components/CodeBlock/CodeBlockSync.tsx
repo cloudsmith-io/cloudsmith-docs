@@ -36,7 +36,7 @@ export function CodeBlockSync({
   const hideLineNumbers = lang === 'bash' || lang === 'text';
   const darkerBackground = variant === 'darker';
 
-  const { highlighter, isFetching, isError } = useHighlighter();
+  const { highlighter, isError } = useHighlighter();
 
   const html = highlighter?.codeToHtml(children, {
     lang,
@@ -49,7 +49,7 @@ export function CodeBlockSync({
 
   return (
     <div className={codeBlock({ hideHeader, hideLineNumbers, darkerBackground, className })}>
-      {!hideHeader && (
+      {!hideHeader && html && (
         <div className={styles.lang}>
           <div className={cx({ [styles.langText]: !header && lang }, 'monoXSUppercase')}>
             {header ?? lang}
@@ -57,8 +57,6 @@ export function CodeBlockSync({
           <ClipboardCopy textToCopy={children} iconVariant="pre" />
         </div>
       )}
-
-      {isFetching && <div className={styles.loading}>Loading code block</div>}
 
       {isError && <div className={styles.error}>Something went wrong while rendering code block</div>}
 

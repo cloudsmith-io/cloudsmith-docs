@@ -11,26 +11,31 @@ import { Icon } from '@/icons';
 import styles from './AuthInput.module.css';
 
 type AuthInputProps = {
+  hideAuth: boolean;
   currentHeader: 'apikey' | 'basic';
-  headers: ('apikey' | 'basic')[];
-  headersState: string;
+  auths: ('apikey' | 'basic')[];
+  authState: string;
   onChangeHeader: (h: 'apikey' | 'basic', value: string) => void;
   onUpdateCurrentHeader: (h: 'apikey' | 'basic') => void;
+  onToggleHideHeader: () => void;
 };
 
 const authLabel = (header: 'apikey' | 'basic') => (header === 'apikey' ? 'API Key' : 'Basic');
 
 const AuthInput = ({
   currentHeader,
-  headers,
-  headersState,
+  auths,
+  hideAuth,
+  authState,
   onChangeHeader,
   onUpdateCurrentHeader,
+  onToggleHideHeader,
 }: AuthInputProps) => {
-  const [hideAuth, setHideAuth] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
 
-  if (headers.length === 0) return null;
+  if (auths.length === 0) return null;
+
+  const isEmpty = !authState || (currentHeader === 'basic' && authState === ':');
 
   return (
     <>
@@ -38,10 +43,11 @@ const AuthInput = ({
         <RadixSelect.Root
           value={currentHeader}
           onValueChange={onUpdateCurrentHeader}
-          disabled={headers.length < 2}>
-          <RadixSelect.Trigger aria-label="Food" asChild>
+          disabled={auths.length < 2}>
+          <RadixSelect.Trigger aria-label="auth method" asChild>
             <Flex className={styles.select} wrap={false} gap="xs">
-              {headers.length >= 2 && <Icon name="chevronDown" title="select" />}
+              {auths.length >= 2 && <Icon name="chevronDown" title="select" />}
+
               <RadixSelect.Value>
                 <div>{authLabel(currentHeader)}</div>
               </RadixSelect.Value>
@@ -50,7 +56,7 @@ const AuthInput = ({
 
           <RadixSelect.Content className={styles.selectContainer}>
             <RadixSelect.Viewport>
-              {headers.map((h) => (
+              {auths.map((h) => (
                 <RadixSelect.Item key={h} value={h} className={styles.selectItem}>
                   <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
                     <Icon name="action/check" title="selected" />
@@ -62,26 +68,33 @@ const AuthInput = ({
           </RadixSelect.Content>
         </RadixSelect.Root>
 
-        <input
-          className={styles.input}
-          type={hideAuth ? 'password' : 'text'}
-          autoComplete="off"
-          placeholder={currentHeader === 'apikey' ? 'API Key' : 'User:pass'}
-          value={headersState ?? ''}
-          onChange={(e) => onChangeHeader(currentHeader, e.target.value)}
-        />
+        {currentHeader === 'apikey' && (
+          <ApiKeyInput
+            type={hideAuth ? 'password' : 'text'}
+            value={authState ?? ''}
+            onValueChange={(value) => onChangeHeader(currentHeader, value)}
+          />
+        )}
 
-        <Flex className={styles.iconsContainer} wrap={false} gap="xs">
-          {headersState && (
-            <button className={styles.button} onClick={() => onChangeHeader(currentHeader, '')}>
-              <Icon name="action/close" title="clear" />
-            </button>
-          )}
+        {currentHeader === 'basic' && (
+          <BasicInputs
+            type={hideAuth ? 'password' : 'text'}
+            value={authState ?? ''}
+            onValueChange={(value) => onChangeHeader(currentHeader, value)}
+          />
+        )}
+
+        <Flex className={styles.buttonsContainer} wrap={false} gap="xs">
+          <button
+            className={cx(styles.button, { [styles.hidden]: isEmpty })}
+            onClick={() => onChangeHeader(currentHeader, '')}>
+            <Icon name="action/close" title="clear" />
+          </button>
 
           <RadixTooltip.Provider delayDuration={0}>
             <RadixTooltip.Root>
               <RadixTooltip.Trigger asChild>
-                <button className={styles.button} onClick={() => setHideAuth((h) => !h)}>
+                <button className={styles.button} onClick={() => onToggleHideHeader()}>
                   <Icon
                     name={hideAuth ? 'action/eye-slashed' : 'action/eye'}
                     title={`${hideAuth ? 'Show' : 'Hide'} credentials`}
@@ -99,37 +112,104 @@ const AuthInput = ({
               <RadixTooltip.Trigger asChild>
                 <button
                   className={cx(styles.button, {
-                    [styles.selected]: showNotes,
+                    [styles.active]: showNotes,
                   })}
                   onClick={() => setShowNotes((s) => !s)}>
                   <Icon name="question" title="Header information" />
                 </button>
               </RadixTooltip.Trigger>
               <RadixTooltip.Content sideOffset={5} className={styles.tooltip}>
-                Getting your API Key
+                {currentHeader === 'apikey' ? 'Getting your API Key' : 'Using basic authentication'}
               </RadixTooltip.Content>
             </RadixTooltip.Root>
           </RadixTooltip.Provider>
         </Flex>
       </Flex>
 
-      {showNotes && (
-        <Note headline="Getting your API Key" variant="note" className={styles.notes}>
-          You can{' '}
-          <a
-            href="https://cloudsmith-docs-hnrumqp5d-cloudsmith.vercel.app/accounts-and-teams/api-key"
-            target="_blank"
-            rel="noopener noreferrer">
-            find your API Key
-          </a>{' '}
-          within your User Settings or you can request (or reset) it via the Users Token API Endpoint. <br />
-          <br />
-          Cloudsmith Entitlement Tokens cannot be used to authenticate to the Cloudsmith API. Entitlement
-          Tokens are used to authenticate for package downloads only.
-        </Note>
-      )}
+      {showNotes && (currentHeader === 'apikey' ? <ApiKeyNote /> : <BasicNote />)}
     </>
   );
 };
 
 export default AuthInput;
+
+const ApiKeyInput = ({
+  type,
+  value,
+  onValueChange,
+}: {
+  type: 'text' | 'password';
+  value: string;
+  onValueChange: (v: string) => void;
+}) => {
+  return (
+    <input
+      name="api-key"
+      className={styles.input}
+      type={type}
+      placeholder="API Key"
+      value={value}
+      onChange={(e) => onValueChange(e.target.value)}
+    />
+  );
+};
+
+const BasicInputs = ({
+  type,
+  value,
+  onValueChange,
+}: {
+  type: 'text' | 'password';
+  value: string;
+  onValueChange: (v: string) => void;
+}) => {
+  const [user = '', password = ''] = value.split(':');
+  const concatValue = (u: string, p: string) => `${u}:${p}`;
+  return (
+    <>
+      <input
+        name="user-credential"
+        className={styles.input}
+        type={type}
+        placeholder="user"
+        value={user}
+        onChange={(e) => onValueChange(concatValue(e.target.value, password))}
+      />
+      <span className={styles.inputSeparator}>:</span>
+      <input
+        name="password-credential"
+        className={styles.input}
+        type={type}
+        placeholder="password"
+        value={password}
+        onChange={(e) => onValueChange(concatValue(user, e.target.value))}
+      />
+    </>
+  );
+};
+
+const ApiKeyNote = () => (
+  <Note headline="Getting your API Key" variant="note" className={styles.notes}>
+    You can{' '}
+    <a
+      href="https://cloudsmith-docs-hnrumqp5d-cloudsmith.vercel.app/accounts-and-teams/api-key"
+      target="_blank"
+      rel="noopener noreferrer">
+      find your API Key
+    </a>{' '}
+    within your User Settings or you can request (or reset) it via the Users Token API Endpoint. <br />
+    <br />
+    Cloudsmith Entitlement Tokens cannot be used to authenticate to the Cloudsmith API. Entitlement Tokens are
+    used to authenticate for package downloads only.
+  </Note>
+);
+
+const BasicNote = () => (
+  <Note headline="Basic Authentication" variant="warning" className={styles.notes}>
+    The simplest (but least recommended) way to authenticate is to provide your login email and password when
+    making API requests. <br />
+    <br />
+    Disclosure of your email and password will allow a malicious third-party to takeover your account and
+    cause damage. We recommend using an API Key instead and using a lesser privileged account for API access.
+  </Note>
+);

@@ -1,24 +1,32 @@
 .root {
-  position: relative;
   width: 100%;
+  font-size: var(--text-body-s);
 }
 
 .select {
+  --svg-path-fill: var(--color-text-tertiary);
+
   border: 1px solid var(--color-border);
-  width: fit-content;
+  width: 100px;
   padding: var(--space-xs);
   border-radius: var(--border-radius-m) 0 0 var(--border-radius-m);
   flex-shrink: 0;
+  font-size: var(--text-body-s);
 }
 
 .input {
-  padding: var(--space-xs) 65px var(--space-xs) var(--space-xs);
+  padding: var(--space-xs);
   width: 100%;
   border-top: 1px solid var(--color-border);
   border-left: 0;
-  border-right: 1px solid var(--color-border);
+  border-right: 0;
   border-bottom: 1px solid var(--color-border);
-  border-radius: 0 var(--border-radius-m) var(--border-radius-m) 0;
+}
+
+.inputSeparator {
+  padding: var(--space-xs) var(--space-4xs);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .selectContainer {
@@ -53,19 +61,28 @@
   color: var(--color-accent-default);
 }
 
-.iconsContainer {
-  position: absolute;
-  top: var(--space-s);
-  right: var(--space-s);
+.buttonsContainer {
+  padding: var(--space-xs);
+  align-self: stretch;
+  flex-shrink: 0;
   color: var(--color-text-tertiary);
+  border-top: 1px solid var(--color-border);
+  border-left: 0;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0 var(--border-radius-m) var(--border-radius-m) 0;
 }
 
 .button {
   cursor: pointer;
 }
 
-.button.selected {
+.button.active {
   color: var(--color-text-secondary);
+}
+
+.button.hidden {
+  visibility: hidden;
 }
 
 .tooltip {
@@ -80,4 +97,5 @@
 
 .notes {
   width: 100%;
+  margin: calc(-1 * var(--space-xs)) 0;
 }

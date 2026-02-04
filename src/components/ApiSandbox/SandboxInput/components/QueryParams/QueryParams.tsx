@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { QueryParamState, SimpleParamState } from '@/lib/operations/types';
 import { ApiOperation } from '@/lib/swagger/types';
 
-import ParamSet, { Param } from '../ParamSet';
+import RootParamSet, { ParamEntry } from '../ParamSet';
 import { ParamToggle } from '../ParamSet/ParamSet';
 
 type QueryParamsProps = {
   parameters: NonNullable<ApiOperation['parameters']>;
-  state: Record<string, string>;
-  onUpdateParam: (name: string, value: string) => void;
+  state: QueryParamState;
+  onUpdateParam: (name: string, value: SimpleParamState) => void;
 };
 
 const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => {
@@ -25,9 +26,9 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
   }, [parameters, showAll]);
 
   return (
-    <ParamSet heading="Query params">
+    <RootParamSet heading="Query params">
       {displayedParameters.map((param) => (
-        <Param
+        <ParamEntry
           key={param.name}
           name={param.name}
           description={param.description}
@@ -38,7 +39,7 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
         />
       ))}
       {optionalExists && <ParamToggle paramTag="query params" show={showAll} onChangeShow={setShowAll} />}
-    </ParamSet>
+    </RootParamSet>
   );
 };
 

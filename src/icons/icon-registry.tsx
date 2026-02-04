@@ -1,7 +1,9 @@
+import { AddIcon } from './svgs/action/Add';
 import { ActionApiIcon } from './svgs/action/Api';
 import { ActionCheckIcon } from './svgs/action/Check';
 import { CloseIcon } from './svgs/action/Close';
 import { ActionCopyIcon } from './svgs/action/Copy';
+import { DeleteIcon } from './svgs/action/Delete';
 import { ActionDocumentationIcon } from './svgs/action/Documentation';
 import { ActionErrorIcon } from './svgs/action/Error';
 import { ActionEyeIcon } from './svgs/action/Eye';
@@ -128,7 +130,9 @@ export const iconRegistry = createIconRegistry({
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,
   'utility/api': UtilityApiIcon,
+  'action/add': AddIcon,
   'action/close': CloseIcon,
+  'action/delete': DeleteIcon,
   'action/documentation': ActionDocumentationIcon,
   'action/guide': ActionGuideIcon,
   'action/api': ActionApiIcon,

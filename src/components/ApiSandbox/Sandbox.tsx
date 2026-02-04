@@ -2,7 +2,25 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { getHeaderOptions, getParametersByParam } from '@/lib/operations/util';
+import { defaultMedia } from '@/lib/operations/constants';
+import { useApi } from '@/lib/operations/hooks';
+import {
+  BodyParamState,
+  ComposedParamState,
+  ParamState,
+  PathParamState,
+  QueryParamState,
+  SimpleParamState,
+  StringParamState,
+} from '@/lib/operations/types';
+import {
+  defaultBodyParamState,
+  defaultPathParamState,
+  defaultQueryParamState,
+  getAuthOptions,
+  getParametersByParam,
+  operationKey,
+} from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import SandboxInput from './SandboxInput';
@@ -24,18 +42,24 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
     [currentOperation],
   );
   const bodyParameters = currentOperation.requestBody;
-  const headers = useMemo(() => getHeaderOptions(currentOperation), [currentOperation]);
+  const auths = useMemo(() => getAuthOptions(currentOperation), [currentOperation]);
 
-  const [pathParamState, setPathParamState] = useState<Record<string, string>>({});
-  const [queryParamState, setQueryParamState] = useState<Record<string, string>>({});
-  const [bodyParamState, setBodyParamState] = useState<Record<string, Record<string, string>>>({});
+  const [pathParamState, setPathParamState] = useState<PathParamState>({});
+  const [queryParamState, setQueryParamState] = useState<QueryParamState>({});
 
-  const [headersState, setHeadersState] = useState<{
+  const [mediaState, setMediaState] = useState<string>(
+    Object.keys(bodyParameters?.content ?? {})[0] ?? defaultMedia,
+  );
+  const [bodyParamState, setBodyParamState] = useState<BodyParamState>({});
+
+  const [authState, setAuthState] = useState<{
     current: 'apikey' | 'basic';
     apikey: string;
     basic: string;
+    hidden: boolean;
   }>({
-    current: headers[0],
+    current: auths[0],
+    hidden: false,
     apikey: '',
     basic: '',
   });
@@ -45,44 +69,88 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
     [pathParamState, queryParamState, bodyParamState],
   );
 
-  const updatePathParam = (name: string, value: string) => {
-    setPathParamState((v) => ({ ...v, [name]: value }));
+  const updatePathParam = (name: string, value: StringParamState) => {
+    setPathParamState((v) => {
+      return { ...v, [name]: value };
+    });
   };
-  const updateQueryParam = (name: string, value: string) => {
+
+  const updateQueryParam = (name: string, value: SimpleParamState) => {
     setQueryParamState((v) => ({ ...v, [name]: value }));
   };
-  const updateBodyParam = (media: string, name: string, value: string) => {
-    setBodyParamState((v) => ({ ...v, [media]: { ...v[media], [name]: value } }));
+
+  const updateBodyParam = (keys: string[], value: ParamState | undefined) => {
+    setBodyParamState((v) => {
+      const newV = { ...v };
+
+      const media = keys[0];
+
+      let currentOld: ParamState = v[media];
+      newV[media] = currentOld;
+      let currentNew: ParamState = newV[media];
+
+      for (let index = 1; index < keys.length; index++) {
+        const key = keys[index];
+
+        if (index === keys.length - 1) {
+          if (value !== undefined) {
+            (currentNew as ComposedParamState).items[key] = value;
+          } else {
+            delete (currentNew as ComposedParamState).items[key];
+          }
+        } else {
+          currentOld = (currentOld as ComposedParamState).items[key];
+          currentNew = {
+            ...(currentNew as ComposedParamState),
+            items: { ...(currentNew as ComposedParamState).items, [key]: currentOld },
+          };
+          currentNew = (currentNew as ComposedParamState).items[key];
+        }
+      }
+
+      return Object.fromEntries(Object.entries(newV).map(([k, v]) => [k, v]));
+    });
   };
 
   useEffect(() => {
-    setPathParamState(Object.fromEntries(pathsParameters.map((p) => [p.name, ''])));
+    setPathParamState(defaultPathParamState(pathsParameters));
   }, [pathsParameters]);
 
   useEffect(() => {
-    setQueryParamState(
-      Object.fromEntries(queryParameters.map((p) => [p.name, `${p.schema?.default ?? ''}`])),
-    );
+    setQueryParamState(defaultQueryParamState(queryParameters));
   }, [queryParameters]);
 
   useEffect(() => {
-    setBodyParamState(
-      Object.fromEntries(
-        Object.entries(bodyParameters?.content ?? {}).map((entry) => [
-          entry[0],
-          Object.fromEntries(
-            Object.entries(entry[1].schema?.properties ?? {}).map((e) => [e[0], e[1].default ?? '']),
-          ),
-        ]),
-      ),
-    );
+    setBodyParamState(defaultBodyParamState(bodyParameters));
   }, [bodyParameters]);
 
   useEffect(() => {
-    if (headers.length > 0 && !headers.includes(headersState.current)) {
-      setHeadersState((s) => ({ ...s, current: headers[0] }));
+    const mediaTypes = Object.keys(bodyParameters?.content ?? {});
+    if (mediaTypes.length > 0 && !mediaTypes.includes(mediaState)) {
+      setMediaState(mediaTypes[0]);
+    } else if (mediaTypes.length === 0 && mediaState !== defaultMedia) {
+      setMediaState(defaultMedia);
     }
-  }, [headers, headersState]);
+  }, [bodyParameters, mediaState]);
+
+  useEffect(() => {
+    if (auths.length > 0 && !auths.includes(authState.current)) {
+      setAuthState((s) => ({ ...s, current: auths[0] }));
+    }
+  }, [auths, authState]);
+
+  const { response, isFetching, call, reset } = useApi(
+    currentOperation,
+    paramState,
+    auths.includes(authState.current) ? authState.current : null,
+    auths.includes(authState.current) ? authState[authState.current] : null,
+    mediaState,
+  );
+
+  const currentKey = operationKey(currentOperation);
+  useEffect(() => {
+    reset();
+  }, [currentKey, reset]);
 
   return (
     <>
@@ -95,23 +163,31 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
           query: queryParameters,
           body: bodyParameters,
         }}
-        headersState={headersState}
-        headers={headers}
-        currentHeader={headersState.current}
-        onUpdateCurrentHeader={(h) => setHeadersState((s) => ({ ...s, current: h }))}
-        onChangeHeader={(header, value) => setHeadersState((s) => ({ ...s, [header]: value }))}
+        media={mediaState}
+        authState={authState}
+        auths={auths}
+        currentHeader={authState.current}
+        onCallApi={() => call()}
+        isFetchingResponse={isFetching}
+        onUpdateCurrentHeader={(h) => setAuthState((s) => ({ ...s, current: h }))}
+        onToggleHideHeader={() => setAuthState((s) => ({ ...s, hidden: !s.hidden }))}
+        onChangeMedia={(m) => setMediaState(m)}
+        onChangeHeader={(header, value) => setAuthState((s) => ({ ...s, [header]: value }))}
         onChangeOperation={onChangeOperation}
-        onUpdateState={(type, name, value, media = '') => {
-          if (type === 'path') updatePathParam(name, value);
-          if (type === 'query') updateQueryParam(name, value);
-          if (type === 'body') updateBodyParam(media, name, value);
+        onUpdatePathState={updatePathParam}
+        onUpdateQueryState={updateQueryParam}
+        onUpdateBodyState={(keys, value) => {
+          updateBodyParam(keys, value);
         }}
       />
       <SandboxOutput
         operation={currentOperation}
         paramState={paramState}
-        header={headers.includes(headersState.current) ? headersState.current : null}
-        headerValue={headers.includes(headersState.current) ? headersState[headersState.current] : null}
+        media={mediaState}
+        auth={auths.includes(authState.current) ? authState.current : null}
+        authValue={auths.includes(authState.current) ? authState[authState.current] : null}
+        hiddenAuth={authState.hidden}
+        response={response}
       />
     </>
   );

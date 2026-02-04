@@ -5,7 +5,6 @@
 }
 
 .root > * {
-  flex-shrink: 0;
   width: 100%;
 }
 
@@ -25,23 +24,34 @@
 }
 
 .headerButton {
-  padding: var(--space-m) var(--space-xl);
+  padding: var(--space-xs) var(--space-l);
 }
 
-.requestHeader {
-  opacity: 0.75;
+.request {
+  flex-shrink: 0;
+}
+
+.response {
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .request,
 .response {
   --border-radius: var(--border-radius-m);
 
-  flex-shrink: 0;
   margin-bottom: 0;
 }
 
 .request :global(pre),
 .response :global(pre) {
-  max-height: calc((100vh - var(--space-l) * 2) * 0.38);
   overflow-y: auto;
+}
+
+.request :global(pre) {
+  max-height: calc((100vh - var(--space-l) * 2) * 0.42);
+}
+
+.response :global(pre) {
+  height: 100%;
 }

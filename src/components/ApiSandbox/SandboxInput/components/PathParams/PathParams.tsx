@@ -1,26 +1,27 @@
+import { PathParamState, StringParamState } from '@/lib/operations/types';
 import { ApiOperation } from '@/lib/swagger/types';
 
-import ParamSet, { Param } from '../ParamSet';
+import RootParamSet, { ParamEntry } from '../ParamSet';
 
 type PathParamsProps = {
   parameters: NonNullable<ApiOperation['parameters']>;
-  state: Record<string, string>;
-  onUpdateParam: (name: string, value: string) => void;
+  state: PathParamState;
+  onUpdateParam: (name: string, value: StringParamState) => void;
 };
 
 const PathParams = ({ parameters, state, onUpdateParam }: PathParamsProps) => (
-  <ParamSet heading="Path params">
+  <RootParamSet heading="Path params">
     {parameters.map((param) => (
-      <Param
+      <ParamEntry
         key={param.name}
         name={param.name}
         schema={param.schema}
         required={param.required}
         value={state[param.name]}
-        onValueChange={(v) => onUpdateParam(param.name, v)}
+        onValueChange={(v) => onUpdateParam(param.name, v as StringParamState)}
       />
     ))}
-  </ParamSet>
+  </RootParamSet>
 );
 
 export default PathParams;

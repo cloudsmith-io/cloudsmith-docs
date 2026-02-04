@@ -1,5 +1,5 @@
-import ParamSet, { Param } from './ParamSet';
+import RootParamSet, { ParamEntry, ParamSet } from './ParamSet';
 
-export { Param };
+export { ParamEntry, ParamSet };
 
-export default ParamSet;
+export default RootParamSet;

@@ -1,8 +1,17 @@
 import { cx } from 'class-variance-authority';
 
+import { Button } from '@/components/Button';
 import { ClipboardCopy } from '@/components/ClipboardCopy/ClipboardCopy';
 import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
+import {
+  BodyParamState,
+  ParamState,
+  PathParamState,
+  QueryParamState,
+  SimpleParamState,
+  StringParamState,
+} from '@/lib/operations/types';
 import { operationUrl } from '@/lib/operations/util';
 import { ApiOperation, ParameterObject, RequestBodyObject } from '@/lib/swagger/types';
 
@@ -22,17 +31,29 @@ type SandboxInputProps = {
     body: RequestBodyObject | undefined;
   };
   paramState: {
-    path: Record<string, string>;
-    query: Record<string, string>;
-    body: Record<string, Record<string, string>>;
+    path: PathParamState;
+    query: QueryParamState;
+    body: BodyParamState;
   };
   currentHeader: 'apikey' | 'basic';
-  headers: ('apikey' | 'basic')[];
-  headersState: Record<string, string>;
+  media: string;
+  auths: ('apikey' | 'basic')[];
+  authState: {
+    current: 'apikey' | 'basic';
+    apikey: string;
+    basic: string;
+    hidden: boolean;
+  };
+  isFetchingResponse: boolean;
+  onCallApi: () => void;
   onUpdateCurrentHeader: (h: 'apikey' | 'basic') => void;
+  onChangeMedia: (m: string) => void;
   onChangeHeader: (h: 'apikey' | 'basic', value: string) => void;
   onChangeOperation: (o: ApiOperation) => void;
-  onUpdateState: (type: 'path' | 'query' | 'body', name: string, value: string, media?: string) => void;
+  onUpdatePathState: (key: string, value: StringParamState) => void;
+  onUpdateQueryState: (key: string, value: SimpleParamState) => void;
+  onUpdateBodyState: (keys: string[], value: ParamState | undefined) => void;
+  onToggleHideHeader: () => void;
 };
 
 export const SandboxInput = ({
@@ -40,15 +61,24 @@ export const SandboxInput = ({
   operations,
   parameters,
   paramState,
-  headers,
+  auths,
+  media,
   currentHeader,
-  headersState,
+  authState,
+  isFetchingResponse,
+  onCallApi,
+  onChangeMedia,
   onChangeHeader,
   onChangeOperation,
-  onUpdateState,
+  onUpdatePathState,
+  onUpdateQueryState,
+  onUpdateBodyState,
   onUpdateCurrentHeader,
+  onToggleHideHeader,
 }: SandboxInputProps) => {
   const { path, query, body } = parameters;
+
+  console.log({ parameters });
 
   const url = operationUrl(operation);
 
@@ -56,25 +86,38 @@ export const SandboxInput = ({
     <Flex className={styles.root} direction="column" align="start" wrap={false}>
       <OperationSelect value={operation} onValueChange={onChangeOperation} options={operations} />
 
-      <ClipboardCopy textToCopy={url} className={styles.urlCopy}>
-        <Tag className={styles.method} method={operation.method} />
-        <span className={cx('bodyS', styles.url)}>{url}</span>
-      </ClipboardCopy>
+      <Flex gap="xs" wrap={false} style={{ width: '100%' }}>
+        <ClipboardCopy textToCopy={url} className={styles.urlCopy}>
+          <Tag className={styles.method} method={operation.method} />
+          <span className={cx('bodyS', styles.url)}>{url}</span>
+        </ClipboardCopy>
+
+        <Button
+          style={{ flexShrink: 0 }}
+          withArrow
+          className={styles.headerButton}
+          onClick={onCallApi}
+          disabled={isFetchingResponse}>
+          Send
+        </Button>
+      </Flex>
 
       <Flex className={styles.params} direction="column">
         <AuthInput
-          headers={headers}
+          auths={auths}
           currentHeader={currentHeader}
-          headersState={headersState[currentHeader]}
+          authState={authState[currentHeader]}
+          hideAuth={authState.hidden}
           onChangeHeader={onChangeHeader}
           onUpdateCurrentHeader={onUpdateCurrentHeader}
+          onToggleHideHeader={onToggleHideHeader}
         />
 
         {path.length > 0 ? (
           <PathParams
             parameters={path}
             state={paramState.path}
-            onUpdateParam={(name, value) => onUpdateState('path', name, value)}
+            onUpdateParam={(name, value) => onUpdatePathState(name, value)}
           />
         ) : null}
 
@@ -82,7 +125,7 @@ export const SandboxInput = ({
           <QueryParams
             parameters={query}
             state={paramState.query}
-            onUpdateParam={(name, value) => onUpdateState('query', name, value)}
+            onUpdateParam={(name, value) => onUpdateQueryState(name, value)}
           />
         ) : null}
 
@@ -90,7 +133,9 @@ export const SandboxInput = ({
           <RequestBody
             requestBody={body}
             state={paramState.body}
-            onUpdateParam={(meta, name, value) => onUpdateState('body', name, value, meta)}
+            media={media}
+            onChangeMedia={onChangeMedia}
+            onUpdateParam={(keys, value) => onUpdateBodyState(keys, value)}
           />
         ) : null}
       </Flex>

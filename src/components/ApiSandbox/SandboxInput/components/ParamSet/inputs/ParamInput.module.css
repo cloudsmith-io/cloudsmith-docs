@@ -2,18 +2,42 @@
   position: relative;
   flex-shrink: 0;
   width: 50%;
+  font-size: var(--text-body-s);
+}
+
+.input {
+  width: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-s);
-  padding: var(--space-4xs) var(--space-2xs);
+  padding: var(--space-2xs) var(--space-2xs);
+  background-color: var(--color-background-default);
+}
+
+.root.singleLine {
+  width: 100%;
+}
+
+.root.isItem .input {
+  padding: var(--space-2xs) var(--space-m) var(--space-2xs) var(--space-2xs);
+}
+
+.delete {
+  color: var(--color-text-tertiary);
+
+  position: absolute;
+  right: var(--space-3xs);
+  top: var(--space-xs);
+  cursor: pointer;
 }
 
 .select {
   cursor: pointer;
+  background-color: var(--color-background-default);
 }
 
 .reset {
   position: absolute;
-  top: var(--space-2xs);
+  top: var(--space-xs);
   right: var(--space-xs);
   cursor: pointer;
 }
