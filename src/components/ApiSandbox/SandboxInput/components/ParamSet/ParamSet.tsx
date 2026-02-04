@@ -246,7 +246,7 @@ type ParamToggleProps = {
 export const ParamToggle = ({ paramTag, show, onChangeShow }: ParamToggleProps) => (
   <Flex direction="column" className={styles.toggle} align="stretch" gap="none" asChild>
     <button onClick={() => onChangeShow(!show)}>
-      <Flex align="center" wrap={false} gap="xs">
+      <Flex align="center" wrap={false} gap="2xs">
         <Icon name={show ? 'chevronUp' : 'chevronDown'} title={show ? 'hide' : 'show'} />
         <span>
           {show ? 'Hide' : 'Show'} {paramTag}

@@ -87,7 +87,7 @@
 
   width: 100%;
   border-top: 1px solid var(--color-border);
-  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-m);
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-s);
 }
 
 /* ParamSet */

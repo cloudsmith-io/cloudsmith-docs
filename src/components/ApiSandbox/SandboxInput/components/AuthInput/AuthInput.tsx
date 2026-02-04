@@ -45,7 +45,7 @@ const AuthInput = ({
           onValueChange={onUpdateCurrentHeader}
           disabled={auths.length < 2}>
           <RadixSelect.Trigger aria-label="auth method" asChild>
-            <Flex className={styles.select} wrap={false} gap="xs">
+            <Flex className={styles.select} wrap={false} gap="2xs">
               {auths.length >= 2 && <Icon name="chevronDown" title="select" />}
 
               <RadixSelect.Value>
