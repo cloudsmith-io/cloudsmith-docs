@@ -211,7 +211,7 @@ To search your Cloudsmith repository for packages use the `--index-url` Pip conf
 
 ## UV Support
 
-`uv` is quickly gaining traction as a Python package and project manager. It stands out for its ultra-fast dependency resolution, native lock-file support (which enables reproducible builds, as we'll discuss later), and a built-in publisher.
+[uv](https://docs.astral.sh/uv) is quickly gaining traction as a Python package and project manager. It stands out for its ultra-fast dependency resolution, native lock-file support (which enables reproducible builds, as we'll discuss later), and a built-in publisher.
 
 In the following sections, you'll learn how to install and publish your Python packages with uv in your private Cloudsmith repositories.
 
@@ -241,23 +241,22 @@ dependencies    = [
 [[tool.uv.index]]
 name = "cloudsmith"
 url  = "https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/python/simple/"
-# optional, but recommended for publish:
 publish-url = "https://python.cloudsmith.io/OWNER/REPOSITORY/"
+default = true
 ```
+
+Add the `default = true` option to set the Cloudsmith repository as a single source of truth, forbidding fallback to PyPI. Learn more about this and other options in the uv [Package indexes](https://docs.astral.sh/uv/concepts/indexes/#defining-an-index) documentation.
 
 Then, define the next environmental variables for `uv` to perform basic HTTP Auth. Replace `API-KEY` with your user API Token:
 
 ```bash
 # install / resolution
-export UV_INDEX_CLOUDSMITH_USERNAME=token       # literal string
+export UV_INDEX_CLOUDSMITH_USERNAME=token
 export UV_INDEX_CLOUDSMITH_PASSWORD=API-KEY
-
-# optional: forbid fallback to PyPI
-export UV_PIP_NO_INDEX=1
 
 # publishing
 export UV_PUBLISH_USERNAME=token
-export UV_PUBLISH_PASSWORD=<API-KEY>
+export UV_PUBLISH_PASSWORD=API-KEY
 ```
 
 `uv` will use them to authenticate against your Cloudsmith repository.
@@ -267,7 +266,7 @@ Now, execute the next command to fetch and install all the required dependencies
 # create a venv first:
 uv venv && source .venv/bin/activate 
 # install dependencies
-uv pip install --system -r pyproject.toml
+uv sync --index cloudsmith
 ```
 
 You'll find information about the dependencies being fetched:
@@ -281,7 +280,7 @@ This will result in all required packages being fetched directly from your Cloud
 Once installed, just run the next command to build your wheel package and the source distribution (.tar.gz) file, including your Python "source code" and everything required to run it:
 
 ```bash
-python -m build && ls dist/
+uv build
 ```
 
 Once those assets are ready, just publish both artifacts to Cloudsmith. Remember to specify your `cloudsmith` index as defined in the `[[tool.uv.index.name]]` field in your project definition:
