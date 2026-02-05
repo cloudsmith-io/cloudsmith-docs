@@ -265,10 +265,6 @@ const StructuredObjectParam = ({
     () => sortedParameterEntries.filter((p) => !schema.required?.includes(p[0])),
     [sortedParameterEntries, schema.required],
   );
-  const displayedParameters = useMemo(() => {
-    if (showAll) return [...requiredParameters, ...optionalParameters];
-    return requiredParameters;
-  }, [requiredParameters, showAll, optionalParameters]);
 
   const Wrapper = useMemo(
     () =>
@@ -291,7 +287,7 @@ const StructuredObjectParam = ({
 
   return (
     <Wrapper>
-      {displayedParameters.map((p) => {
+      {requiredParameters.map((p) => {
         const [name, param] = p;
         const s = Object.entries((state as ObjectParamState)?.items ?? {}).find((v) => v[1].name === name);
         if (!s) return null;
@@ -319,6 +315,28 @@ const StructuredObjectParam = ({
           onChangeShow={setShowAll}
         />
       )}
+      {showAll &&
+        optionalParameters.map((p) => {
+          const [name, param] = p;
+          const s = Object.entries((state as ObjectParamState)?.items ?? {}).find((v) => v[1].name === name);
+          if (!s) return null;
+
+          const [id, stateValue] = s;
+
+          return (
+            <BodyParam
+              key={id}
+              name={name}
+              isNested={true}
+              schema={param}
+              required={schema.required?.includes(p[0]) ?? false}
+              state={stateValue}
+              onUpdateParam={(keys, value) => {
+                onUpdateParam([id, ...keys], value);
+              }}
+            />
+          );
+        })}
     </Wrapper>
   );
 };

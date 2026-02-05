@@ -34,14 +34,10 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
     () => sortedParameterEntries.filter((p) => !p.required == null || !p.required),
     [sortedParameterEntries],
   );
-  const displayedParameters = useMemo(() => {
-    if (showAll) return [...requiredParameters, ...optionalParameters];
-    return requiredParameters;
-  }, [requiredParameters, showAll, optionalParameters]);
 
   return (
     <RootParamSet heading="Query params">
-      {displayedParameters.map((param) => (
+      {requiredParameters.map((param) => (
         <ParamEntry
           key={param.name}
           name={param.name}
@@ -59,6 +55,18 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
           onChangeShow={setShowAll}
         />
       )}
+      {showAll &&
+        optionalParameters.map((param) => (
+          <ParamEntry
+            key={param.name}
+            name={param.name}
+            description={param.description}
+            schema={param.schema as NonArraySchemaObject}
+            required={param.required}
+            value={state[param.name]}
+            onValueChange={(v) => onUpdateParam(param.name, v)}
+          />
+        ))}
     </RootParamSet>
   );
 };

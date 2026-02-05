@@ -6,6 +6,7 @@ import { Flex } from '@/components/Flex';
 import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
 import { Icon } from '@/icons';
+import { ChevronIcon } from '@/icons/Chevron';
 import { SimpleParamState } from '@/lib/operations/param-state/types';
 import { textualSchemaRules } from '@/lib/operations/util';
 import { ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
@@ -86,7 +87,11 @@ export const ParamSet = ({
         <div className={styles.header}>
           <Flex className={cx(styles.heading, 'monoXSUppercase')} gap="3xs" asChild>
             <button onClick={() => setCollapsed((c) => !c)}>
-              <Icon name={collapsed ? 'chevronDown' : 'chevronUp'} title={collapsed ? 'Hide' : 'Collapse'} />{' '}
+              <ChevronIcon
+                chevronDirection={collapsed ? 'right' : 'down'}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                title={collapsed ? 'Show' : 'Hide'}
+              />
               {heading}
             </button>
           </Flex>
@@ -304,7 +309,11 @@ export const ParamToggle = ({ paramTag, show, onChangeShow }: ParamToggleProps) 
   <Flex direction="column" className={styles.toggle} align="stretch" gap="none" asChild>
     <button onClick={() => onChangeShow(!show)}>
       <Flex align="center" wrap={false} gap="2xs">
-        <Icon name={show ? 'chevronUp' : 'chevronDown'} title={show ? 'hide' : 'show'} />
+        <ChevronIcon
+          chevronDirection={show ? 'down' : 'right'}
+          transition={{ duration: 0.2, ease: 'easeInOut' }}
+          title={show ? 'hide' : 'show'}
+        />
         <span>
           {show ? 'Hide' : 'Show'} {paramTag}
         </span>
