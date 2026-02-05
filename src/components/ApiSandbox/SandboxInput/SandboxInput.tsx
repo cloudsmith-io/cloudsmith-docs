@@ -78,8 +78,6 @@ export const SandboxInput = ({
 }: SandboxInputProps) => {
   const { path, query, body } = parameters;
 
-  console.log({ parameters });
-
   const url = operationUrl(operation);
 
   return (

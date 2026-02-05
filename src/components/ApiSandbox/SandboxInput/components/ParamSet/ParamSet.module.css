@@ -74,6 +74,7 @@
   color: var(--base-color-blue-500);
   font-family: var(--font-family-mono);
   letter-spacing: var(--letter-http-type);
+  font-size: var(--text-body-xs);
 }
 
 /* ParamToggle */
