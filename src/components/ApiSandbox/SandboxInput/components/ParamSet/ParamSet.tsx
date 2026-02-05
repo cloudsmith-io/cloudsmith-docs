@@ -6,7 +6,7 @@ import { Flex } from '@/components/Flex';
 import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
 import { Icon } from '@/icons';
-import { SimpleParamState } from '@/lib/operations/types';
+import { SimpleParamState } from '@/lib/operations/param-state/types';
 import { textualSchemaRules } from '@/lib/operations/util';
 import { ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 

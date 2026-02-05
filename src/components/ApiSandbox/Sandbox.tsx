@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
+import { useApi } from '@/lib/operations/api/hooks';
 import { defaultMedia } from '@/lib/operations/constants';
-import { useApi } from '@/lib/operations/hooks';
 import {
   BodyParamState,
   ComposedParamState,
@@ -12,15 +12,13 @@ import {
   QueryParamState,
   SimpleParamState,
   StringParamState,
-} from '@/lib/operations/types';
+} from '@/lib/operations/param-state/types';
 import {
   defaultBodyParamState,
   defaultPathParamState,
   defaultQueryParamState,
-  getAuthOptions,
-  getParametersByParam,
-  operationKey,
-} from '@/lib/operations/util';
+} from '@/lib/operations/param-state/util';
+import { operationAuthOptions, operationKey, operationParametersByType } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import SandboxInput from './SandboxInput';
@@ -34,15 +32,15 @@ type SandboxProps = {
 
 export const Sandbox = ({ currentOperation, operations, onChangeOperation }: SandboxProps) => {
   const pathsParameters = useMemo(
-    () => getParametersByParam(currentOperation, 'path') ?? [],
+    () => operationParametersByType(currentOperation, 'path') ?? [],
     [currentOperation],
   );
   const queryParameters = useMemo(
-    () => getParametersByParam(currentOperation, 'query') ?? [],
+    () => operationParametersByType(currentOperation, 'query') ?? [],
     [currentOperation],
   );
   const bodyParameters = currentOperation.requestBody;
-  const auths = useMemo(() => getAuthOptions(currentOperation), [currentOperation]);
+  const auths = useMemo(() => operationAuthOptions(currentOperation), [currentOperation]);
 
   const [pathParamState, setPathParamState] = useState<PathParamState>({});
   const [queryParamState, setQueryParamState] = useState<QueryParamState>({});

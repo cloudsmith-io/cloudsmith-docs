@@ -3,8 +3,8 @@ import { Flex } from '@/components/Flex';
 import { Note } from '@/components/Note';
 import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
-import { BodyParamState, PathParamState, QueryParamState } from '@/lib/operations/types';
-import { curlCommand } from '@/lib/operations/util';
+import { buildCurlCommand } from '@/lib/operations/api/builders';
+import { BodyParamState, PathParamState, QueryParamState } from '@/lib/operations/param-state/types';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import styles from './SandboxOutput.module.css';
@@ -43,7 +43,7 @@ export const SandboxOutput = ({
   response,
   hiddenAuth,
 }: SandboxOutputProps) => {
-  const command = curlCommand(operation, paramState, [auth, authValue, hiddenAuth], media);
+  const command = buildCurlCommand(operation, paramState, [auth, authValue, hiddenAuth], media);
 
   const statusTag =
     (response?.status ?? -1) > 0 ? (

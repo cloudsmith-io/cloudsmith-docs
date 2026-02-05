@@ -11,7 +11,7 @@ import {
   QueryParamState,
   SimpleParamState,
   StringParamState,
-} from '@/lib/operations/types';
+} from '@/lib/operations/param-state/types';
 import { operationUrl } from '@/lib/operations/util';
 import { ApiOperation, ParameterObject, RequestBodyObject } from '@/lib/swagger/types';
 

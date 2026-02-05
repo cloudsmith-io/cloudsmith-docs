@@ -1,4 +1,4 @@
-import { PathParamState, StringParamState } from '@/lib/operations/types';
+import { PathParamState, StringParamState } from '@/lib/operations/param-state/types';
 import { ApiOperation, NonArraySchemaObject } from '@/lib/swagger/types';
 
 import RootParamSet, { ParamEntry } from '../ParamSet';

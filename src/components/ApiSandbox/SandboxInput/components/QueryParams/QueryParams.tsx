@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { QueryParamState, SimpleParamState } from '@/lib/operations/types';
+import { QueryParamState, SimpleParamState } from '@/lib/operations/param-state/types';
 import { ApiOperation, NonArraySchemaObject } from '@/lib/swagger/types';
 
 import RootParamSet, { ParamEntry } from '../ParamSet';

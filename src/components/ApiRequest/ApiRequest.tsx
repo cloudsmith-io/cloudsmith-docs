@@ -1,7 +1,7 @@
 import { cx } from 'class-variance-authority';
 
 import { Tag } from '@/components';
-import { getParametersByParam, operationUrl } from '@/lib/operations/util';
+import { operationParametersByType, operationUrl } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
@@ -17,8 +17,8 @@ export const ApiRequest = ({
   operation: ApiOperation;
   operations: ApiOperation[];
 }) => {
-  const pathsParameters = getParametersByParam(operation, 'path');
-  const queryParameters = getParametersByParam(operation, 'query');
+  const pathsParameters = operationParametersByType(operation, 'path');
+  const queryParameters = operationParametersByType(operation, 'query');
 
   const url = operationUrl(operation);
 

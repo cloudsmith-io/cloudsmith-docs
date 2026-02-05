@@ -10,7 +10,7 @@ import {
   NumberParamState,
   SimpleParamState,
   StringParamState,
-} from '@/lib/operations/types';
+} from '@/lib/operations/param-state/types';
 import { NonArraySchemaObjectType } from '@/lib/swagger/types';
 import { debounce } from '@/lib/util';
 

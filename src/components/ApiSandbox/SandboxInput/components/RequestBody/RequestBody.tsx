@@ -12,8 +12,8 @@ import {
   ParamState,
   SimpleParamState,
   StringParamState,
-} from '@/lib/operations/types';
-import { defaultParamState, randomId } from '@/lib/operations/util';
+} from '@/lib/operations/param-state/types';
+import { defaultParamState, randomId } from '@/lib/operations/param-state/util';
 import { ApiOperation, ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 
 import RootParamSet from '../ParamSet';
