@@ -6800,6 +6800,66 @@
         }
       ]
     },
+    "/packages/{owner}/bulk-action/": {
+      "post": {
+        "operationId": "packages_bulk_action",
+        "description": "Perform bulk operations on multiple packages within a repository or across all accessible repositories. If 'repository' is provided, actions are limited to that repository. If 'repository' is omitted, actions are performed across all repositories the user has access to within the workspace. Returns a list of successfully actioned packages and any packages that failed with error details. ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageBulkAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageBulkActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "packages"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/packages/{owner}/{repo}/": {
       "get": {
         "operationId": "packages_list",
@@ -7717,6 +7777,79 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DockerPackageUpload"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Namespace (owner) or repository not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "packages"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "repo",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/packages/{owner}/{repo}/upload/generic/": {
+      "post": {
+        "operationId": "packages_upload_generic",
+        "summary": "Create a new Generic package",
+        "description": "Create a new Generic package",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/GenericPackageUploadRequest"
+        },
+        "responses": {
+          "201": {
+            "description": "Upload acknowledged and queued for synchronization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericPackageUpload"
                 }
               }
             }
@@ -9544,6 +9677,72 @@
         "description": "Validate parameters for create Docker package",
         "requestBody": {
           "$ref": "#/components/requestBodies/DockerPackageUploadRequest"
+        },
+        "responses": {
+          "204": {
+            "description": "Validation was successful, parameters are OK."
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Namespace (owner) or repository not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "packages"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "repo",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/packages/{owner}/{repo}/validate-upload/generic/": {
+      "post": {
+        "operationId": "packages_validate-upload_generic",
+        "summary": "Validate parameters for create Generic package",
+        "description": "Validate parameters for create Generic package",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/GenericPackageUploadRequest"
         },
         "responses": {
           "204": {
@@ -15631,6 +15830,327 @@
         }
       ]
     },
+    "/repos/{owner}/{identifier}/upstream/generic/": {
+      "get": {
+        "operationId": "repos_upstream_generic_list",
+        "summary": "List Generic upstream configs for this repository.",
+        "description": "List Generic upstream configs for this repository.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GenericUpstream"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "repos"
+        ],
+        "x-simplified": "fields[upstreams]=auth_mode,available,created_at,disable_reason_text,has_failed_signature_verification,is_active,name,mode,pending_validation,slug_perm,upstream_url,verify_ssl"
+      },
+      "post": {
+        "operationId": "repos_upstream_generic_create",
+        "summary": "Create a Generic upstream config for this repository.",
+        "description": "Create a Generic upstream config for this repository.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/GenericUpstreamRequest"
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericUpstream"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "repos"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "identifier",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/repos/{owner}/{identifier}/upstream/generic/{slug_perm}/": {
+      "get": {
+        "operationId": "repos_upstream_generic_read",
+        "summary": "Retrieve a Generic upstream config for this repository.",
+        "description": "Retrieve a Generic upstream config for this repository.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericUpstream"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "repos"
+        ],
+        "x-simplified": "fields[upstreams]=auth_mode,available,created_at,disable_reason_text,has_failed_signature_verification,is_active,name,mode,pending_validation,slug_perm,upstream_url,verify_ssl"
+      },
+      "put": {
+        "operationId": "repos_upstream_generic_update",
+        "summary": "Update a Generic upstream config for this repository.",
+        "description": "Update a Generic upstream config for this repository.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/GenericUpstreamRequest"
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericUpstream"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "repos"
+        ]
+      },
+      "patch": {
+        "operationId": "repos_upstream_generic_partial_update",
+        "summary": "Partially update a Generic upstream config for this repository.",
+        "description": "Partially update a Generic upstream config for this repository.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericUpstreamRequestPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericUpstream"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "repos"
+        ]
+      },
+      "delete": {
+        "operationId": "repos_upstream_generic_delete",
+        "summary": "Delete a Generic upstream config for this repository.",
+        "description": "Delete a Generic upstream config for this repository.",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "repos"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "identifier",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "slug_perm",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/repos/{owner}/{identifier}/upstream/go/": {
       "get": {
         "operationId": "repos_upstream_go_list",
@@ -20789,6 +21309,15 @@
           }
         }
       },
+      "GenericPackageUploadRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GenericPackageUploadRequest"
+            }
+          }
+        }
+      },
       "RawPackageUploadRequest": {
         "content": {
           "application/json": {
@@ -21073,6 +21602,15 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/DockerUpstreamRequest"
+            }
+          }
+        }
+      },
+      "GenericUpstreamRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GenericUpstreamRequest"
             }
           }
         }
@@ -22686,6 +23224,7 @@
           "dependencies",
           "distributions",
           "file_lists",
+          "filepaths",
           "metadata",
           "upstreams",
           "versioning"
@@ -22705,6 +23244,11 @@
           "file_lists": {
             "title": "File lists",
             "description": "If true the package format supports file lists",
+            "type": "boolean"
+          },
+          "filepaths": {
+            "title": "Filepaths",
+            "description": "If true the package format supports filepaths",
             "type": "boolean"
           },
           "metadata": {
@@ -23415,7 +23959,8 @@
             "title": "Url",
             "type": "string",
             "format": "uri",
-            "readOnly": true
+            "readOnly": true,
+            "nullable": true
           },
           "version": {
             "title": "Version",
@@ -24918,7 +25463,8 @@
             "title": "Url",
             "type": "string",
             "format": "uri",
-            "readOnly": true
+            "readOnly": true,
+            "nullable": true
           }
         }
       },
@@ -25165,6 +25711,87 @@
             "type": "string",
             "minLength": 1,
             "nullable": true
+          }
+        }
+      },
+      "PackageBulkAction": {
+        "required": [
+          "action",
+          "identifiers"
+        ],
+        "type": "object",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "description": "The action to perform on the packages.",
+            "type": "string",
+            "enum": [
+              "Delete",
+              "Resync",
+              "Quarantine",
+              "Unquarantine",
+              "Move",
+              "Copy",
+              "Rescan"
+            ]
+          },
+          "identifiers": {
+            "description": "A list of package identifiers to apply the action to.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 255,
+              "minLength": 1
+            },
+            "maxItems": 100,
+            "minItems": 1
+          },
+          "repository": {
+            "title": "Repository",
+            "description": "The repository name to filter packages to. If not provided, the action will be performed across all accessible repositories in the workspace.",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1
+          },
+          "target_repository": {
+            "title": "Target repository",
+            "description": "The slug of the target repository",
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "PackageBulkActionResponse": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "description": "The action that was performed.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "packages_actioned": {
+            "description": "List of package identifiers that were successfully actioned.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "readOnly": true
+          },
+          "packages_failed_to_action": {
+            "title": "Packages failed to action",
+            "description": "Dictionary of package identifiers that failed with their error details.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "readOnly": true
           }
         }
       },
@@ -25644,6 +26271,12 @@
             "format": "uri",
             "readOnly": true
           },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
           "signature_url": {
             "title": "Signature url",
             "type": "string",
@@ -25998,14 +26631,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -26270,6 +26895,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -26574,14 +27205,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -26846,6 +27469,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -27150,14 +27779,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -27422,6 +28043,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -27733,14 +28360,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -28005,6 +28624,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -28376,14 +29001,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -28648,6 +29265,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -28952,14 +29575,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -29224,6 +29839,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -29542,14 +30163,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -29822,6 +30435,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -30126,14 +30745,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -30398,6 +31009,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -30732,14 +31349,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -31004,6 +31613,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -31308,14 +31923,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -31580,6 +32187,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -31767,6 +32380,602 @@
           }
         }
       },
+      "GenericPackageUploadRequest": {
+        "required": [
+          "filepath",
+          "package_file"
+        ],
+        "type": "object",
+        "properties": {
+          "filepath": {
+            "title": "Filepath",
+            "description": "The full filepath of the package including filename.",
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1
+          },
+          "name": {
+            "title": "Name",
+            "description": "The name of this package.",
+            "type": "string",
+            "maxLength": 200,
+            "nullable": true
+          },
+          "package_file": {
+            "title": "Package file",
+            "description": "The primary file for the package.",
+            "type": "string",
+            "minLength": 1
+          },
+          "republish": {
+            "title": "Republish",
+            "description": "If true, the uploaded package will overwrite any others with the same attributes (e.g. same version); otherwise, it will be flagged as a duplicate.",
+            "type": "boolean"
+          },
+          "tags": {
+            "title": "Tags",
+            "description": "A comma-separated values list of tags to add to the package.",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "nullable": true
+          },
+          "version": {
+            "title": "Version",
+            "description": "The raw version for this package.",
+            "type": "string",
+            "maxLength": 255,
+            "nullable": true
+          }
+        }
+      },
+      "GenericPackageUpload": {
+        "type": "object",
+        "properties": {
+          "architectures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Architecture"
+            },
+            "readOnly": true
+          },
+          "cdn_url": {
+            "title": "Cdn url",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "checksum_md5": {
+            "title": "Checksum md5",
+            "type": "string",
+            "readOnly": true
+          },
+          "checksum_sha1": {
+            "title": "Checksum sha1",
+            "type": "string",
+            "readOnly": true
+          },
+          "checksum_sha256": {
+            "title": "Checksum sha256",
+            "type": "string",
+            "readOnly": true
+          },
+          "checksum_sha512": {
+            "title": "Checksum sha512",
+            "type": "string",
+            "readOnly": true
+          },
+          "dependencies_checksum_md5": {
+            "title": "Dependencies checksum md5",
+            "description": "A checksum of all of the package's dependencies.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "dependencies_url": {
+            "title": "Dependencies url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "description": {
+            "title": "Description",
+            "description": "A textual description of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "display_name": {
+            "title": "Display name",
+            "type": "string",
+            "readOnly": true
+          },
+          "distro": {
+            "$ref": "#/components/schemas/Distribution"
+          },
+          "distro_version": {
+            "$ref": "#/components/schemas/DistributionVersion"
+          },
+          "downloads": {
+            "title": "Downloads",
+            "type": "integer",
+            "readOnly": true
+          },
+          "epoch": {
+            "title": "Epoch",
+            "description": "The epoch of the package version (if any).",
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
+          },
+          "extension": {
+            "title": "Extension",
+            "type": "string",
+            "readOnly": true
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageFile"
+            },
+            "readOnly": true
+          },
+          "format": {
+            "title": "Format",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "format_url": {
+            "title": "Format url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "freeable_storage": {
+            "title": "Freeable storage",
+            "description": "Amount of storage that will be freed if this package is deleted",
+            "type": "integer",
+            "readOnly": true
+          },
+          "fully_qualified_name": {
+            "title": "Fully qualified name",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1,
+            "nullable": true
+          },
+          "identifier_perm": {
+            "title": "Identifier perm",
+            "description": "Unique and permanent identifier for the package.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "identifiers": {
+            "title": "Identifiers",
+            "description": "Return a map of identifier field names and their values.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "readOnly": true
+          },
+          "indexed": {
+            "title": "Indexed",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_cancellable": {
+            "title": "Is cancellable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_copyable": {
+            "title": "Is copyable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_deleteable": {
+            "title": "Is deleteable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_downloadable": {
+            "title": "Is downloadable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_moveable": {
+            "title": "Is moveable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_quarantinable": {
+            "title": "Is quarantinable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_quarantined": {
+            "title": "Is quarantined",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_resyncable": {
+            "title": "Is resyncable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_security_scannable": {
+            "title": "Is security scannable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_awaiting": {
+            "title": "Is sync awaiting",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_completed": {
+            "title": "Is sync completed",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_failed": {
+            "title": "Is sync failed",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_in_flight": {
+            "title": "Is sync in flight",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_in_progress": {
+            "title": "Is sync in progress",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "license": {
+            "title": "License",
+            "description": "The license of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "name": {
+            "title": "Name",
+            "description": "The name of this package.",
+            "type": "string",
+            "maxLength": 200,
+            "nullable": true
+          },
+          "namespace": {
+            "title": "Namespace",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "namespace_url": {
+            "title": "Namespace url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "num_files": {
+            "title": "Num files",
+            "type": "integer",
+            "readOnly": true
+          },
+          "origin_repository": {
+            "title": "Origin repository",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "origin_repository_url": {
+            "title": "Origin repository url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "package_type": {
+            "title": "Package type",
+            "description": "The type of package contents.",
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              9
+            ],
+            "readOnly": true
+          },
+          "policy_violated": {
+            "title": "Policy violated",
+            "description": "Whether or not the package has violated any policy.",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "raw_license": {
+            "title": "Raw license",
+            "description": "The raw license string.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1,
+            "nullable": true
+          },
+          "release": {
+            "title": "Release",
+            "description": "The release of the package version (if any).",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "repository": {
+            "title": "Repository",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "repository_url": {
+            "title": "Repository url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "security_scan_completed_at": {
+            "title": "Security scan completed at",
+            "description": "The datetime the security scanning was completed.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "security_scan_started_at": {
+            "title": "Security scan started at",
+            "description": "The datetime the security scanning was started.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "security_scan_status": {
+            "title": "Security scan status",
+            "type": "string",
+            "enum": [
+              "Awaiting Security Scan",
+              "Security Scanning in Progress",
+              "Scan Detected Vulnerabilities",
+              "Scan Detected No Vulnerabilities",
+              "Security Scanning Disabled",
+              "Security Scanning Failed",
+              "Security Scanning Skipped",
+              "Security Scanning Not Supported"
+            ],
+            "readOnly": true,
+            "default": "Awaiting Security Scan",
+            "nullable": true
+          },
+          "security_scan_status_updated_at": {
+            "title": "Security scan status updated at",
+            "description": "The datetime the security scanning status was updated.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "self_html_url": {
+            "title": "Self html url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "self_url": {
+            "title": "Self url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "signature_url": {
+            "title": "Signature url",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "size": {
+            "title": "Size",
+            "description": "The calculated size of the package.",
+            "type": "integer",
+            "readOnly": true
+          },
+          "slug": {
+            "title": "Slug",
+            "description": "The public unique identifier for the package.",
+            "type": "string",
+            "format": "slug",
+            "pattern": "^[-a-zA-Z0-9_]+$",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "slug_perm": {
+            "title": "Slug perm",
+            "type": "string",
+            "format": "slug",
+            "pattern": "^[-a-zA-Z0-9_]+$",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "spdx_license": {
+            "title": "Spdx license",
+            "description": "The SPDX license identifier for this package.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1,
+            "nullable": true
+          },
+          "stage": {
+            "title": "Stage",
+            "description": "The synchronisation (in progress) stage of the package.",
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "readOnly": true
+          },
+          "stage_str": {
+            "title": "Stage str",
+            "type": "string",
+            "readOnly": true
+          },
+          "stage_updated_at": {
+            "title": "Stage updated at",
+            "description": "The datetime the package stage was updated at.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "status": {
+            "title": "Status",
+            "description": "The synchronisation status of the package.",
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "readOnly": true
+          },
+          "status_reason": {
+            "title": "Status reason",
+            "description": "A textual description for the synchronous status reason (if any",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "status_str": {
+            "title": "Status str",
+            "type": "string",
+            "readOnly": true
+          },
+          "status_updated_at": {
+            "title": "Status updated at",
+            "description": "The datetime the package status was updated at.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "status_url": {
+            "title": "Status url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "subtype": {
+            "title": "Subtype",
+            "type": "string",
+            "readOnly": true
+          },
+          "summary": {
+            "title": "Summary",
+            "description": "A one-liner synopsis of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "sync_finished_at": {
+            "title": "Sync finished at",
+            "description": "The datetime the package sync was finished at.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "sync_progress": {
+            "title": "Sync progress",
+            "description": "Synchronisation progress (from 0-100)",
+            "type": "integer",
+            "readOnly": true
+          },
+          "tags_automatic": {
+            "$ref": "#/components/schemas/Tags"
+          },
+          "tags_immutable": {
+            "$ref": "#/components/schemas/Tags"
+          },
+          "type_display": {
+            "title": "Type display",
+            "type": "string",
+            "readOnly": true
+          },
+          "uploaded_at": {
+            "title": "Uploaded at",
+            "description": "The date this package was uploaded.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "uploader": {
+            "title": "Uploader",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "uploader_url": {
+            "title": "Uploader url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "version": {
+            "title": "Version",
+            "description": "The raw version for this package.",
+            "type": "string",
+            "maxLength": 255,
+            "nullable": true
+          },
+          "version_orig": {
+            "title": "Version orig",
+            "type": "string",
+            "readOnly": true
+          },
+          "vulnerability_scan_results_url": {
+            "title": "Vulnerability scan results url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          }
+        }
+      },
       "GoPackageUploadRequest": {
         "required": [
           "package_file"
@@ -31883,14 +33092,6 @@
             "type": "string",
             "readOnly": true,
             "minLength": 1
-          },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
           },
           "files": {
             "type": "array",
@@ -32156,6 +33357,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -32467,14 +33674,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -32739,6 +33938,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -33043,14 +34248,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -33315,6 +34512,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -33619,14 +34822,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -33891,6 +35086,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -34195,14 +35396,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -34467,6 +35660,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -34862,14 +36061,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -35160,6 +36351,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -35472,14 +36669,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -35744,6 +36933,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -36055,14 +37250,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -36327,6 +37514,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -36631,14 +37824,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -36903,6 +38088,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -37207,14 +38398,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -37479,6 +38662,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -37819,14 +39008,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -38091,6 +39272,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -38402,14 +39589,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -38674,6 +39853,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -38978,14 +40163,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -39250,6 +40427,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -39627,14 +40810,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -39921,6 +41096,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -40224,14 +41405,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -40496,6 +41669,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -40826,14 +42005,6 @@
             "readOnly": true,
             "minLength": 1
           },
-          "filepath": {
-            "title": "Filepath",
-            "description": "Full path to the file, including filename e.g. bin/utils/tool.tar.gz",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1,
-            "nullable": true
-          },
           "files": {
             "type": "array",
             "items": {
@@ -41103,6 +42274,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -41671,6 +42848,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -42327,6 +43510,12 @@
             "format": "uri",
             "readOnly": true
           },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
           "signature_url": {
             "title": "Signature url",
             "type": "string",
@@ -42887,6 +44076,12 @@
             "format": "uri",
             "readOnly": true
           },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
           "signature_url": {
             "title": "Signature url",
             "type": "string",
@@ -43438,6 +44633,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -44192,6 +45393,12 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "signature_url": {
             "title": "Signature url",
@@ -45343,6 +46550,13 @@
             "format": "uri",
             "readOnly": true
           },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "description": "Webapp URL for this repository.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
           "show_setup_all": {
             "title": "Always show Set Me Up for all formats?",
             "description": "If checked, the Set Me Up help for all formats will always be shown, even if you don't have packages of that type uploaded. Otherwise, help will only be shown for packages that are in the repository. For example, if you have uploaded only NuGet packages, then the Set Me Up help for NuGet packages will be shown only.",
@@ -46150,6 +47364,13 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "description": "Webapp URL for this repository.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
           },
           "show_setup_all": {
             "title": "Always show Set Me Up for all formats?",
@@ -49902,6 +51123,428 @@
             "type": "integer",
             "maximum": 32767,
             "minimum": 1
+          },
+          "upstream_url": {
+            "title": "Upstream URL",
+            "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 200,
+            "minLength": 1
+          },
+          "verify_ssl": {
+            "title": "Verify SSL Certificates",
+            "description": "If enabled, SSL certificates are verified when requests are made to this upstream. It's recommended to leave this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. Please note this only applies to HTTPS upstreams.",
+            "type": "boolean"
+          }
+        }
+      },
+      "GenericUpstream": {
+        "required": [
+          "name",
+          "upstream_url"
+        ],
+        "type": "object",
+        "properties": {
+          "auth_mode": {
+            "title": "Auth mode",
+            "description": "The authentication mode to use when accessing this upstream. ",
+            "type": "string",
+            "enum": [
+              "None",
+              "Username and Password",
+              "Token"
+            ],
+            "default": "None"
+          },
+          "auth_secret": {
+            "title": "Secret",
+            "description": "Secret to provide with requests to upstream.",
+            "type": "string",
+            "maxLength": 4096,
+            "nullable": true
+          },
+          "auth_username": {
+            "title": "Username",
+            "description": "Username to provide with requests to upstream.",
+            "type": "string",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "available": {
+            "title": "Available",
+            "type": "string",
+            "readOnly": true
+          },
+          "can_reindex": {
+            "title": "Can reindex",
+            "type": "string",
+            "readOnly": true
+          },
+          "created_at": {
+            "title": "Created at",
+            "description": "The datetime the upstream source was created.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "disable_reason": {
+            "title": "Disable reason",
+            "type": "string",
+            "enum": [
+              "N/A",
+              "Upstream points to its own repository",
+              "Missing upstream source",
+              "Upstream was disabled by request of user"
+            ],
+            "readOnly": true,
+            "default": "N/A"
+          },
+          "disable_reason_text": {
+            "title": "Disable reason text",
+            "description": "Human-readable explanation of why this upstream is disabled",
+            "type": "string",
+            "readOnly": true
+          },
+          "extra_header_1": {
+            "title": "Header #1",
+            "description": "The key for extra header #1 to send to upstream.",
+            "type": "string",
+            "pattern": "^[-\\w]+$",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_header_2": {
+            "title": "Header #2",
+            "description": "The key for extra header #2 to send to upstream.",
+            "type": "string",
+            "pattern": "^[-\\w]+$",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_value_1": {
+            "title": "Value #1",
+            "description": "The value for extra header #1 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+            "type": "string",
+            "pattern": "^[^\\n\\r]+$",
+            "maxLength": 128,
+            "nullable": true
+          },
+          "extra_value_2": {
+            "title": "Value #2",
+            "description": "The value for extra header #2 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+            "type": "string",
+            "pattern": "^[^\\n\\r]+$",
+            "maxLength": 128,
+            "nullable": true
+          },
+          "has_failed_signature_verification": {
+            "title": "Has failed signature verification",
+            "type": "string",
+            "readOnly": true
+          },
+          "index_package_count": {
+            "title": "Index package count",
+            "description": "The number of packages available in this upstream source",
+            "type": "string",
+            "readOnly": true
+          },
+          "index_status": {
+            "title": "Index status",
+            "description": "The current indexing status of this upstream source",
+            "type": "string",
+            "readOnly": true
+          },
+          "is_active": {
+            "title": "Is active",
+            "description": "Whether or not this upstream is active and ready for requests.",
+            "type": "boolean"
+          },
+          "last_indexed": {
+            "title": "Last indexed",
+            "description": "The last time this upstream source was indexed",
+            "type": "string",
+            "readOnly": true
+          },
+          "mode": {
+            "title": "Mode",
+            "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
+            "type": "string",
+            "enum": [
+              "Proxy Only",
+              "Cache and Proxy"
+            ],
+            "default": "Proxy Only"
+          },
+          "name": {
+            "title": "Name",
+            "description": "A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.",
+            "type": "string",
+            "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "pending_validation": {
+            "title": "Pending validation",
+            "description": "When true, this upstream source is pending validation.",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "priority": {
+            "title": "Priority",
+            "description": "Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.",
+            "type": "integer",
+            "maximum": 32767,
+            "minimum": 1
+          },
+          "slug_perm": {
+            "title": "Slug perm",
+            "type": "string",
+            "format": "slug",
+            "pattern": "^[-a-zA-Z0-9_]+$",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "updated_at": {
+            "title": "Updated at",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "upstream_prefix": {
+            "title": "Upstream prefix",
+            "description": "A unique prefix used to distinguish this upstream source within the repository. Generic upstreams can represent entirely different file servers, and we do not attempt to blend them. The prefix ensures each source remains separate, and requests including this prefix are routed to the correct upstream.",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "upstream_url": {
+            "title": "Upstream URL",
+            "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 200,
+            "minLength": 1
+          },
+          "verify_ssl": {
+            "title": "Verify SSL Certificates",
+            "description": "If enabled, SSL certificates are verified when requests are made to this upstream. It's recommended to leave this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. Please note this only applies to HTTPS upstreams.",
+            "type": "boolean"
+          }
+        }
+      },
+      "GenericUpstreamRequest": {
+        "required": [
+          "name",
+          "upstream_url"
+        ],
+        "type": "object",
+        "properties": {
+          "auth_mode": {
+            "title": "Auth mode",
+            "description": "The authentication mode to use when accessing this upstream. ",
+            "type": "string",
+            "enum": [
+              "None",
+              "Username and Password",
+              "Token"
+            ],
+            "default": "None"
+          },
+          "auth_secret": {
+            "title": "Secret",
+            "description": "Secret to provide with requests to upstream.",
+            "type": "string",
+            "maxLength": 4096,
+            "nullable": true
+          },
+          "auth_username": {
+            "title": "Username",
+            "description": "Username to provide with requests to upstream.",
+            "type": "string",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_header_1": {
+            "title": "Header #1",
+            "description": "The key for extra header #1 to send to upstream.",
+            "type": "string",
+            "pattern": "^[-\\w]+$",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_header_2": {
+            "title": "Header #2",
+            "description": "The key for extra header #2 to send to upstream.",
+            "type": "string",
+            "pattern": "^[-\\w]+$",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_value_1": {
+            "title": "Value #1",
+            "description": "The value for extra header #1 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+            "type": "string",
+            "pattern": "^[^\\n\\r]+$",
+            "maxLength": 128,
+            "nullable": true
+          },
+          "extra_value_2": {
+            "title": "Value #2",
+            "description": "The value for extra header #2 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+            "type": "string",
+            "pattern": "^[^\\n\\r]+$",
+            "maxLength": 128,
+            "nullable": true
+          },
+          "is_active": {
+            "title": "Is active",
+            "description": "Whether or not this upstream is active and ready for requests.",
+            "type": "boolean"
+          },
+          "mode": {
+            "title": "Mode",
+            "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
+            "type": "string",
+            "enum": [
+              "Proxy Only",
+              "Cache and Proxy"
+            ],
+            "default": "Proxy Only"
+          },
+          "name": {
+            "title": "Name",
+            "description": "A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.",
+            "type": "string",
+            "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "priority": {
+            "title": "Priority",
+            "description": "Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.",
+            "type": "integer",
+            "maximum": 32767,
+            "minimum": 1
+          },
+          "upstream_prefix": {
+            "title": "Upstream prefix",
+            "description": "A unique prefix used to distinguish this upstream source within the repository. Generic upstreams can represent entirely different file servers, and we do not attempt to blend them. The prefix ensures each source remains separate, and requests including this prefix are routed to the correct upstream.",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "upstream_url": {
+            "title": "Upstream URL",
+            "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 200,
+            "minLength": 1
+          },
+          "verify_ssl": {
+            "title": "Verify SSL Certificates",
+            "description": "If enabled, SSL certificates are verified when requests are made to this upstream. It's recommended to leave this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. Please note this only applies to HTTPS upstreams.",
+            "type": "boolean"
+          }
+        }
+      },
+      "GenericUpstreamRequestPatch": {
+        "type": "object",
+        "properties": {
+          "auth_mode": {
+            "title": "Auth mode",
+            "description": "The authentication mode to use when accessing this upstream. ",
+            "type": "string",
+            "enum": [
+              "None",
+              "Username and Password",
+              "Token"
+            ],
+            "default": "None"
+          },
+          "auth_secret": {
+            "title": "Secret",
+            "description": "Secret to provide with requests to upstream.",
+            "type": "string",
+            "maxLength": 4096,
+            "nullable": true
+          },
+          "auth_username": {
+            "title": "Username",
+            "description": "Username to provide with requests to upstream.",
+            "type": "string",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_header_1": {
+            "title": "Header #1",
+            "description": "The key for extra header #1 to send to upstream.",
+            "type": "string",
+            "pattern": "^[-\\w]+$",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_header_2": {
+            "title": "Header #2",
+            "description": "The key for extra header #2 to send to upstream.",
+            "type": "string",
+            "pattern": "^[-\\w]+$",
+            "maxLength": 64,
+            "nullable": true
+          },
+          "extra_value_1": {
+            "title": "Value #1",
+            "description": "The value for extra header #1 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+            "type": "string",
+            "pattern": "^[^\\n\\r]+$",
+            "maxLength": 128,
+            "nullable": true
+          },
+          "extra_value_2": {
+            "title": "Value #2",
+            "description": "The value for extra header #2 to send to upstream. This is stored as plaintext, and is NOT encrypted.",
+            "type": "string",
+            "pattern": "^[^\\n\\r]+$",
+            "maxLength": 128,
+            "nullable": true
+          },
+          "is_active": {
+            "title": "Is active",
+            "description": "Whether or not this upstream is active and ready for requests.",
+            "type": "boolean"
+          },
+          "mode": {
+            "title": "Mode",
+            "description": "The mode that this upstream should operate in. Upstream sources can be used to proxy resolved packages, as well as operate in a proxy/cache or cache only mode.",
+            "type": "string",
+            "enum": [
+              "Proxy Only",
+              "Cache and Proxy"
+            ],
+            "default": "Proxy Only"
+          },
+          "name": {
+            "title": "Name",
+            "description": "A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.",
+            "type": "string",
+            "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "priority": {
+            "title": "Priority",
+            "description": "Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.",
+            "type": "integer",
+            "maximum": 32767,
+            "minimum": 1
+          },
+          "upstream_prefix": {
+            "title": "Upstream prefix",
+            "description": "A unique prefix used to distinguish this upstream source within the repository. Generic upstreams can represent entirely different file servers, and we do not attempt to blend them. The prefix ensures each source remains separate, and requests including this prefix are routed to the correct upstream.",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
           },
           "upstream_url": {
             "title": "Upstream URL",

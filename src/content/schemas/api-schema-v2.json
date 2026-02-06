@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Cloudsmith API",
-    "version": "1.966.0 (v2)",
+    "version": "1.985.3 (v2)",
     "description": "The API to the Cloudsmith Service",
     "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
     "contact": {
