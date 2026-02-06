@@ -1,0 +1,58 @@
+import { ApiOperation } from '../../swagger/types';
+import { defaultMedia } from '../constants';
+import { BodyParamState, PathParamState, QueryParamState } from '../param-state/types';
+import { resolveApiRequestBody, resolveApiRequestHeaders, resolveApiRequestUrl } from './util';
+
+export const buildCurlCommand = (
+  op: ApiOperation,
+  paramState: {
+    path: PathParamState;
+    query: QueryParamState;
+    body: BodyParamState;
+  },
+  auth: ['apikey' | 'basic' | null, string | null, boolean],
+  media: string = defaultMedia,
+) => {
+  let command = `curl --request ${op.method.toUpperCase()} \\\n`;
+
+  const url = resolveApiRequestUrl({
+    operation: op,
+    path: paramState.path,
+    query: paramState.query,
+  });
+
+  command += `     --url '${url}' \\\n`;
+
+  const [authType, authValue, hiddenAuth] = auth;
+  const headers = resolveApiRequestHeaders({
+    media,
+    authType,
+    authValue: authType === 'basic' && authValue === ':' ? null : authValue,
+  });
+
+  Object.entries(headers).forEach(([key, value], index, entries) => {
+    if (['X-Api-Key', 'authorization'].includes(key) && hiddenAuth) {
+      command += `     --header '${key}: ******************' `;
+    } else {
+      command += `     --header '${key}: ${value}' `;
+    }
+
+    if (index < entries.length - 1) {
+      command += '\\\n';
+    }
+  });
+
+  const { body, count: bodyCount } = resolveApiRequestBody({
+    body: paramState.body,
+    media,
+  });
+
+  if (bodyCount > 0) {
+    command += `\\\n`;
+    command += `     --data '\n`;
+    command += JSON.stringify(body, null, 4);
+    command += `\n'`;
+  }
+
+  return command;
+};

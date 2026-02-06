@@ -1,31 +1,22 @@
-import { createIconRegistry } from './util/create-icon-registry';
-
-import { RegoIcon } from './svgs/Rego';
-import { MenuIcon } from './svgs/Menu';
-import { ChevronIcon } from './svgs/Chevron';
-import { ChevronSmallIcon } from './svgs/ChevronSmall';
-import { ArrowIcon } from './svgs/Arrow';
-import { SearchIcon } from './svgs/Search';
-import { ExternalIcon } from './svgs/External';
-import { EditIcon } from './svgs/Edit';
-import { GithubIcon } from './svgs/Github';
-import { InfoIcon } from './svgs/Info';
-
-import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
-import { UtilityGuideIcon } from './svgs/utility/Guide';
-import { UtilityApiIcon } from './svgs/utility/Api';
-
-import { CloseIcon } from './svgs/action/Close';
-import { ActionDocumentationIcon } from './svgs/action/Documentation';
-import { ActionGuideIcon } from './svgs/action/Guide';
+import { AddIcon } from './svgs/action/Add';
 import { ActionApiIcon } from './svgs/action/Api';
+import { ActionCheckIcon } from './svgs/action/Check';
+import { CloseIcon } from './svgs/action/Close';
+import { ActionCopyIcon } from './svgs/action/Copy';
+import { DeleteIcon } from './svgs/action/Delete';
+import { ActionDocumentationIcon } from './svgs/action/Documentation';
+import { ActionErrorIcon } from './svgs/action/Error';
+import { ActionEyeIcon } from './svgs/action/Eye';
+import { ActionEyeSlashedIcon } from './svgs/action/EyeSlashed';
+import { ActionGuideIcon } from './svgs/action/Guide';
 import { ActionLinkIcon } from './svgs/action/Link';
 import { ActionPlayIcon } from './svgs/action/Play';
-import { ActionCopyIcon } from './svgs/action/Copy';
-import { ActionCheckIcon } from './svgs/action/Check';
-import { ActionErrorIcon } from './svgs/action/Error';
+import { ArrowIcon } from './svgs/Arrow';
+import { ChevronIcon } from './svgs/Chevron';
+import { ChevronSmallIcon } from './svgs/ChevronSmall';
+import { EditIcon } from './svgs/Edit';
 import { EnterIcon } from './svgs/Enter';
-
+import { ExternalIcon } from './svgs/External';
 import { FormatAlpineIcon } from './svgs/format/Alpine';
 import { FormatCargoIcon } from './svgs/format/Cargo';
 import { FormatChocolateyIcon } from './svgs/format/Chocolatey';
@@ -40,9 +31,9 @@ import { FormatDockerIcon } from './svgs/format/Docker';
 import { FormatGenericIcon } from './svgs/format/Generic';
 import { FormatGoIcon } from './svgs/format/Go';
 import { FormatGradleIcon } from './svgs/format/Gradle';
-import { FormatHuggingFaceIcon } from './svgs/format/HuggingFace';
 import { FormatHelmIcon } from './svgs/format/Helm';
 import { FormatHexIcon } from './svgs/format/Hex';
+import { FormatHuggingFaceIcon } from './svgs/format/HuggingFace';
 import { FormatLuarocksIcon } from './svgs/format/Luarocks';
 import { FormatMavenIcon } from './svgs/format/Maven';
 import { FormatNpmIcon } from './svgs/format/Npm';
@@ -58,14 +49,14 @@ import { FormatSwiftIcon } from './svgs/format/Swift';
 import { FormatTerraformIcon } from './svgs/format/Terraform';
 import { FormatUnityIcon } from './svgs/format/Unity';
 import { FormatVagrantIcon } from './svgs/format/Vagrant';
-
+import { GithubIcon } from './svgs/Github';
+import { HomepageAPIIcon } from './svgs/homepage/API';
 import { HomepageDocumentationIcon } from './svgs/homepage/Documentation';
 import { HomepageGuideIcon } from './svgs/homepage/Guide';
-import { HomepageAPIIcon } from './svgs/homepage/API';
-
-import { IntegrationArgoCDIcon } from './svgs/integration/ArgoCD';
+import { InfoIcon } from './svgs/Info';
 import { IntegrationAikidoIcon } from './svgs/integration/Aikido';
 import { IntegrationAnsibleIcon } from './svgs/integration/Ansible';
+import { IntegrationArgoCDIcon } from './svgs/integration/ArgoCD';
 import { IntegrationAWSCodeBuildIcon } from './svgs/integration/AWSCodeBuild';
 import { IntegrationAzureDevOpsIcon } from './svgs/integration/AzureDevOps';
 import { IntegrationBitbucketPipelinesIcon } from './svgs/integration/BitbucketPipelines';
@@ -95,8 +86,16 @@ import { IntegrationTeamCityIcon } from './svgs/integration/TeamCity';
 import { IntegrationTerraformIcon } from './svgs/integration/Terraform';
 import { IntegrationTheiaIDEIcon } from './svgs/integration/TheiaIDE';
 import { IntegrationTravisCIIcon } from './svgs/integration/TravisCI';
-import { IntegrationZapierIcon } from './svgs/integration/Zapier';
 import { IntegrationVSCodeIcon } from './svgs/integration/VSCode';
+import { IntegrationZapierIcon } from './svgs/integration/Zapier';
+import { MenuIcon } from './svgs/Menu';
+import { QuestionIcon } from './svgs/Question';
+import { RegoIcon } from './svgs/Rego';
+import { SearchIcon } from './svgs/Search';
+import { UtilityApiIcon } from './svgs/utility/Api';
+import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
+import { UtilityGuideIcon } from './svgs/utility/Guide';
+import { createIconRegistry } from './util/create-icon-registry';
 
 export const iconRegistry = createIconRegistry({
   menu: MenuIcon,
@@ -128,10 +127,13 @@ export const iconRegistry = createIconRegistry({
   edit: EditIcon,
   github: GithubIcon,
   info: InfoIcon,
+  question: QuestionIcon,
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,
   'utility/api': UtilityApiIcon,
+  'action/add': AddIcon,
   'action/close': CloseIcon,
+  'action/delete': DeleteIcon,
   'action/documentation': ActionDocumentationIcon,
   'action/guide': ActionGuideIcon,
   'action/api': ActionApiIcon,
@@ -140,6 +142,8 @@ export const iconRegistry = createIconRegistry({
   'action/copy': ActionCopyIcon,
   'action/check': ActionCheckIcon,
   'action/error': ActionErrorIcon,
+  'action/eye': ActionEyeIcon,
+  'action/eye-slashed': ActionEyeSlashedIcon,
   'format/alpine': FormatAlpineIcon,
   'format/cargo': FormatCargoIcon,
   'format/chocolatey': FormatChocolateyIcon,

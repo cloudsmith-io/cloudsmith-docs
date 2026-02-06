@@ -1,4 +1,4 @@
-import { VariantProps, cva } from 'class-variance-authority';
+import { cva, VariantProps } from 'class-variance-authority';
 import { OpenAPIV3 } from 'openapi-types';
 
 import styles from './Tag.module.css';
@@ -23,6 +23,7 @@ const tagVariants = cva(styles.root, {
       yellow: styles.yellow,
       lightyellow: styles.lightyellow,
       red: styles.red,
+      'light-red': styles['light-red'],
       grey: styles.grey,
 
       blue: styles.blue,
@@ -64,13 +65,13 @@ const statusCodes: { [key in Tag.HttpResponseStatusCodes]: Tag.VariantsProps['va
   200: 'green',
   201: 'green',
   204: 'green',
-  400: 'red',
-  401: 'red',
-  402: 'red',
-  403: 'red',
-  404: 'red',
-  417: 'red',
-  422: 'red',
+  400: 'light-red',
+  401: 'light-red',
+  402: 'light-red',
+  403: 'light-red',
+  404: 'light-red',
+  417: 'light-red',
+  422: 'light-red',
 };
 
 export const Tag = ({ theme, size, type, active, mobileDarkMode, className, ...props }: Tag.Props) => {

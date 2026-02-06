@@ -1,10 +1,25 @@
 .request {
   grid-column: 1 / -1;
+  margin-block-end: var(--column-block-padding);
+}
+
+.sandbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.urlCopy {
+  display: inline-flex;
+  column-gap: var(--space-xs);
+
+  word-break: break-all;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+  padding: var(--space-3xs) var(--space-2xs);
 }
 
 .url {
-  display: flex;
-  column-gap: var(--space-xs);
-  margin-block-end: var(--column-block-padding);
-  word-break: break-all;
+  text-align: start;
+  padding-top: var(--space-5xs);
 }

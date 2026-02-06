@@ -287,6 +287,7 @@
     --layer-navigation-mobile: 12;
     --layer-navigation: 10;
     --layer-overlay: 200;
+    --layer-select: 300;
 
     /* Specific measurements */
     --navbar-banner-height: 0px; /* Will be set by LegacySiteBanner. Remove when banner is removed.*/
@@ -295,7 +296,6 @@
     --navbar-height: calc(
       var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-bottom-height)
     );
-
 
     @media (--phablet-up) {
       --navbar-top-height: 80px;
