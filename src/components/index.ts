@@ -24,6 +24,7 @@ export * from './HorizontalRule';
 export * from './Link';
 export * from './List';
 export * from './Paragraph';
+export * from './RegoRecipeCodeBlock';
 export * from './Table';
 export * from './Tabs';
 export * from './GuideLink';

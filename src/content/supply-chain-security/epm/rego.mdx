@@ -1,4 +1,10 @@
-import { BlockImage, Note } from '@/components'
+import { BlockImage, Note, RegoRecipeCodeBlock } from '@/components';
+
+import { getExampleById } from 'epm-policy-examples';
+
+export const simpleTagTemplate = getExampleById('simple-tag-check');
+export const timeCvssTemplate = getExampleById('time-based-cvss-policy');
+export const recipe3Template = getExampleById('recipe-3');
 
 # Enterprise Policy Manager: Rego Recipes
 
@@ -6,23 +12,7 @@ import { BlockImage, Note } from '@/components'
 
 **Use case**: Match any package with a certain tag. For example: `ready-for-production`. For this rule, the value of`match` will be `true` when any `tag.name` contains the value provided in `required_tag`.
 
-```rego
-package cloudsmith
-
-required_tag := "ready-for-production"
-
-default match := false
-
-match if {
-    has_required_tag
-}
-
-has_required_tag if {
-    some i
-	input.v0["package"].tags[i].name == required_tag
-}
-
-```
+<RegoRecipeCodeBlock rego={simpleTagTemplate?.rego} />
 
 ## Recipe 2: Time-Based CVSS Policy
 
@@ -34,51 +24,7 @@ What It Does:
 - Ignores certain CVEs, requires CVSS ≥ 7.
 - Only triggers if vulnerability is older than 30 days.
 
-```rego
-package cloudsmith
-
-max_cvss_score := 7
-older_than_days := -30
-target_repository := "testing-policy"
-ignored_cves := {"CVE-2023-45853", "CVE-2024-12345"}
-
-default match := false
-
-match if {
-	in_target_repository
-	count(reason) != 0
-}
-
-in_target_repository if {
-	input.v0.repository.name == target_repository
-}
-
-reason contains msg if {
-	some scan in input.v0.security_scan
-	some vulnerability in scan.Vulnerabilities
-
-	not ignored_cve(vulnerability)
-
-	vulnerability.FixedVersion
-	vulnerability.Status == "fixed"
-
-	some val in vulnerability.CVSS
-	val.V3Score >= max_cvss_score
-
-	t := time.add_date(time.now_ns(), 0, 0, older_than_days)
-	published_date := time.parse_rfc3339_ns(vulnerability.PublishedDate)
-	published_date <= t
-
-	msg := sprintf(
-		"CVSS Score: %v | Package: %v | Vulnerability: %v | Reason: %v",
-		[val.V3Score, input.v0["package"].name, vulnerability.VulnerabilityID, vulnerability.Description],
-	)
-}
-
-ignored_cve(vulnerability) if {
-	vulnerability.VulnerabilityID in ignored_cves
-}
-```
+<RegoRecipeCodeBlock rego={timeCvssTemplate?.rego} />
 
 ## Recipe 3: CVSS Score + Fix Version + CVE Exclusion + Repo
 
@@ -88,35 +34,7 @@ What It Does:
 
 - Matches packages in repository testing-policy if at least one vulnerability is “fixed,” CVSS > 7, and not in `ignored_cves`.
 
-```rego
-package cloudsmith
-
-max_cvss_score := 7
-target_repository := "testing-policy"
-ignored_cves := {"CVE-2023-45853"}
-
-default match := false
-
-match if {
-	input.v0.repository.name == target_repository
-	some scan in input.v0.security_scan
-	some vulnerability in scan.Vulnerabilities
-	vulnerability.FixedVersion
-	vulnerability.Status == "fixed"
-	not ignored_cve(vulnerability)
-	exceeded_max_cvss(vulnerability)
-}
-
-exceeded_max_cvss(vulnerability) if {
-	some val in vulnerability.CVSS
-	val.V3Score > max_cvss_score
-}
-
-ignored_cve(vulnerability) if {
-	vulnerability.VulnerabilityID in ignored_cves
-}
-
-```
+<RegoRecipeCodeBlock rego={recipe3Template?.rego} />
 
 ## Recipe 4: CVSS Score + Tag + Time-Based
 
