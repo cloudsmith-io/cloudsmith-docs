@@ -76,11 +76,13 @@ const ParamInput = ({
             <RadixSelect.Content className={styles.selectContainer}>
               <RadixSelect.Viewport>
                 {possibleValues.map((b) => (
-                  <RadixSelect.Item key={b} value={`${b}`} className={styles.selectItem}>
-                    <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
-                      <Icon name="action/check" title="selected" />
-                    </RadixSelect.ItemIndicator>
-                    <RadixSelect.ItemText>{`${b}`}</RadixSelect.ItemText>
+                  <RadixSelect.Item key={b} value={`${b}`} asChild>
+                    <Flex className={styles.selectItem} gap="2xs">
+                      <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
+                        <Icon name="action/check" title="selected" />
+                      </RadixSelect.ItemIndicator>
+                      <RadixSelect.ItemText>{`${b}`}</RadixSelect.ItemText>
+                    </Flex>
                   </RadixSelect.Item>
                 ))}
               </RadixSelect.Viewport>
@@ -143,11 +145,13 @@ const ParamInput = ({
             <RadixSelect.Content className={styles.selectContainer}>
               <RadixSelect.Viewport>
                 {['true', 'false'].map((b) => (
-                  <RadixSelect.Item key={b} value={b} className={styles.selectItem}>
-                    <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
-                      <Icon name="action/check" title="selected" />
-                    </RadixSelect.ItemIndicator>
-                    <RadixSelect.ItemText>{b}</RadixSelect.ItemText>
+                  <RadixSelect.Item key={b} value={b} asChild>
+                    <Flex className={styles.selectItem} gap="2xs">
+                      <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
+                        <Icon name="action/check" title="selected" />
+                      </RadixSelect.ItemIndicator>
+                      <RadixSelect.ItemText>{b}</RadixSelect.ItemText>
+                    </Flex>
                   </RadixSelect.Item>
                 ))}
               </RadixSelect.Viewport>
