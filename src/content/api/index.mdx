@@ -13,14 +13,11 @@ Most resources provided by the API require some form of authentication, which id
 
 ### Basic Authentication
 
-The simplest way to authenticate is to provide your login email and a token (such as an entitlment token, or API key) when making API requests (replacing `email` with your username and `token` with a valid toke):
+The simplest way to authenticate is to provide an email and an associated token (such as an entitlment token, or API key) when making API requests (replacing `email` with a valid email address and `token` with a valid, associated token):
 
 ```bash
 curl -u "email:token" https://api.cloudsmith.io/user/self/
 ```
-On the top right corner, click on your user icon, then click on [Personal API Keys](https://app.cloudsmith.com/settings/api-keys) and click **Refresh** to view the API Key. Refreshing the API key will permanently disable the current API key. Make sure you store it in a proper secret management tool to access it later.
-
-<BlockImage src={apiKeyImage} alt="Edit provider settings"></BlockImage>
 
 Invalid credentials will result in an 401 Unauthorized status code, and the body will specify that invalid credentials were received. Let's see it in action:
 
@@ -35,7 +32,7 @@ server: Cloudsmith MCP
 ```
 
 <Note variant="warning" headline="Warning">
-Disclosure of your email and password will allow a malicious third-party to takeover your account and cause damage. We recommend using an API Key instead and using a lesser privileged account for API access.
+You should treat all tokens as secrets, and they should not be shared. We recommend using an API Key instead and using a lesser privileged account for API access.
 
 Instead of providing your email and password, it is recommended that you instead authenticate to the API by specifying your API Key.
 </Note>
