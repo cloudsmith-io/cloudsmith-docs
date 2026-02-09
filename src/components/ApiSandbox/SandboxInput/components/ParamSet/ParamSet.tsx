@@ -8,7 +8,6 @@ import { Tag } from '@/components/Tag';
 import { Icon } from '@/icons';
 import { ChevronIcon } from '@/icons/Chevron';
 import { SimpleParamState } from '@/lib/operations/param-state/types';
-import { textualSchemaRules } from '@/lib/operations/util';
 import { ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 
 import ParamInput from './inputs';
@@ -48,7 +47,6 @@ export const ParamSet = ({
   name,
   required,
   description,
-  schema,
   item = false,
   children,
   onAddEntry,
@@ -56,7 +54,7 @@ export const ParamSet = ({
 }: ParamSetProps) => {
   const [collapsed, setCollapsed] = useState(true);
 
-  const descriptionText = getParamDescription(description || '', textualSchemaRules(schema ?? {}));
+  const descriptionText = getParamDescription(description || '');
 
   return (
     <Flex
@@ -136,7 +134,7 @@ type ParamArrayProps = {
 };
 
 export const ParamArray = ({ name, description, required, schema, children, onAddItem }: ParamArrayProps) => {
-  const descriptionText = getParamDescription(description || '', textualSchemaRules(schema ?? {}));
+  const descriptionText = getParamDescription(description || '');
 
   const typeLabel = `${schema.type} of ${schema.items?.type}s` + (schema.nullable ? ' | null' : '');
 
@@ -176,7 +174,7 @@ export const ParamArray = ({ name, description, required, schema, children, onAd
   );
 };
 
-const getParamDescription = (baseDescription: string, rules: string[]) => {
+const getParamDescription = (baseDescription: string, rules: string[] = []) => {
   let final = baseDescription;
 
   if (final.length > 0 && !final.trimEnd().endsWith('.')) {
@@ -217,7 +215,7 @@ export const ParamEntry = ({
   const typeLabel =
     schema == null ? 'string' : (schema.format || schema.type) + (schema.nullable ? ' | null' : '');
 
-  const descriptionText = getParamDescription(description || '', textualSchemaRules(schema ?? {}));
+  const descriptionText = getParamDescription(description || '');
   return (
     <Flex
       direction="column"

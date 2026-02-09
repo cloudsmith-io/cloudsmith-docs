@@ -14,6 +14,10 @@
   color: var(--brand-color-grey-7);
 }
 
+.header:not(:has(+ *)) {
+  border-radius: var(--border-radius-m);
+}
+
 .heading {
   padding-inline: var(--space-s);
   padding-block: var(--space-xs);

@@ -1,7 +1,13 @@
 import { ApiOperation } from '@/lib/swagger/types';
 
 import { defaultMedia } from '../constants';
-import { BodyParamState, ObjectParamState, PathParamState, QueryParamState } from '../param-state/types';
+import {
+  AuthOption,
+  BodyParamState,
+  ObjectParamState,
+  PathParamState,
+  QueryParamState,
+} from '../param-state/types';
 import {
   defaultBoolean,
   defaultNumber,
@@ -95,7 +101,7 @@ export const resolveApiRequestHeaders = ({
   authValue,
 }: {
   media: string;
-  authType: 'apikey' | 'basic' | null;
+  authType: AuthOption | null;
   authValue: string | null;
 }): HeadersInit => {
   const headers: HeadersInit = {

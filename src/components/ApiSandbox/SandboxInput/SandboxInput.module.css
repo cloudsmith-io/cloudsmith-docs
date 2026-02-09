@@ -1,7 +1,7 @@
 .root {
-  min-width: 400px;
+  position: relative;
   padding: var(--space-m);
-  height: calc(100vh - var(--space-l) * 2);
+  height: min-content;
   overflow-y: auto;
 }
 
@@ -33,7 +33,18 @@
   --column-block-padding: var(--space-m);
 
   width: 100%;
+}
 
-  /* display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr; */
+.closeButton {
+  position: absolute;
+  right: var(--space-m);
+  top: var(--space-m);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+}
+
+@media (--phablet-up) {
+  .closeButton {
+    display: none;
+  }
 }

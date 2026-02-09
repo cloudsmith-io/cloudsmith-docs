@@ -1,6 +1,6 @@
 import { ApiOperation } from '../../swagger/types';
 import { defaultMedia } from '../constants';
-import { BodyParamState, PathParamState, QueryParamState } from '../param-state/types';
+import { AuthOption, BodyParamState, PathParamState, QueryParamState } from '../param-state/types';
 import { resolveApiRequestBody, resolveApiRequestHeaders, resolveApiRequestUrl } from './util';
 
 export const buildCurlCommand = (
@@ -10,7 +10,7 @@ export const buildCurlCommand = (
     query: QueryParamState;
     body: BodyParamState;
   },
-  auth: ['apikey' | 'basic' | null, string | null, boolean],
+  auth: [AuthOption | null, string | null, boolean],
   media: string = defaultMedia,
 ) => {
   let command = `curl --request ${op.method.toUpperCase()} \\\n`;

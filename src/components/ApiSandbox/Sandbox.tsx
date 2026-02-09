@@ -4,33 +4,35 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { useApi } from '@/lib/operations/api/hooks';
 import { defaultMedia } from '@/lib/operations/constants';
+import { useAuthState, usePathParamsState } from '@/lib/operations/param-state/hooks';
 import {
   BodyParamState,
   ComposedParamState,
   ParamState,
-  PathParamState,
   QueryParamState,
   SimpleParamState,
-  StringParamState,
 } from '@/lib/operations/param-state/types';
-import {
-  defaultBodyParamState,
-  defaultPathParamState,
-  defaultQueryParamState,
-} from '@/lib/operations/param-state/util';
-import { operationAuthOptions, operationKey, operationParametersByType } from '@/lib/operations/util';
+import { defaultBodyParamState, defaultQueryParamState } from '@/lib/operations/param-state/util';
+import { operationAuthOptions, operationParametersByType } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
+import styles from './Sandbox.module.css';
 import SandboxInput from './SandboxInput';
 import SandboxOutput from './SandboxOutput';
 
 type SandboxProps = {
   currentOperation: ApiOperation;
   operations: ApiOperation[];
+  onCloseSandbox: () => void;
   onChangeOperation: (op: ApiOperation) => void;
 };
 
-export const Sandbox = ({ currentOperation, operations, onChangeOperation }: SandboxProps) => {
+export const Sandbox = ({
+  currentOperation,
+  operations,
+  onChangeOperation,
+  onCloseSandbox,
+}: SandboxProps) => {
   const pathsParameters = useMemo(
     () => operationParametersByType(currentOperation, 'path') ?? [],
     [currentOperation],
@@ -42,7 +44,7 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
   const bodyParameters = currentOperation.requestBody;
   const auths = useMemo(() => operationAuthOptions(currentOperation), [currentOperation]);
 
-  const [pathParamState, setPathParamState] = useState<PathParamState>({});
+  const { pathParamState, updatePathParam } = usePathParamsState(pathsParameters);
   const [queryParamState, setQueryParamState] = useState<QueryParamState>({});
 
   const [mediaState, setMediaState] = useState<string>(
@@ -50,28 +52,12 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
   );
   const [bodyParamState, setBodyParamState] = useState<BodyParamState>({});
 
-  const [authState, setAuthState] = useState<{
-    current: 'apikey' | 'basic';
-    apikey: string;
-    basic: string;
-    hidden: boolean;
-  }>({
-    current: auths[0],
-    hidden: false,
-    apikey: '',
-    basic: '',
-  });
+  const { authState, setAuthValue, setCurrentAuth, toggleHideAuth } = useAuthState(auths);
 
   const paramState = useMemo(
     () => ({ path: pathParamState, query: queryParamState, body: bodyParamState }),
     [pathParamState, queryParamState, bodyParamState],
   );
-
-  const updatePathParam = (name: string, value: StringParamState) => {
-    setPathParamState((v) => {
-      return { ...v, [name]: value };
-    });
-  };
 
   const updateQueryParam = (name: string, value: SimpleParamState) => {
     setQueryParamState((v) => ({ ...v, [name]: value }));
@@ -111,10 +97,6 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
   };
 
   useEffect(() => {
-    setPathParamState(defaultPathParamState(pathsParameters));
-  }, [pathsParameters]);
-
-  useEffect(() => {
     setQueryParamState(defaultQueryParamState(queryParameters));
   }, [queryParameters]);
 
@@ -131,27 +113,16 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
     }
   }, [bodyParameters, mediaState]);
 
-  useEffect(() => {
-    if (auths.length > 0 && !auths.includes(authState.current)) {
-      setAuthState((s) => ({ ...s, current: auths[0] }));
-    }
-  }, [auths, authState]);
-
-  const { response, isFetching, call, reset } = useApi(
-    currentOperation,
+  const { response, isFetching, call } = useApi({
+    operation: currentOperation,
     paramState,
-    auths.includes(authState.current) ? authState.current : null,
-    auths.includes(authState.current) ? authState[authState.current] : null,
-    mediaState,
-  );
-
-  const currentKey = operationKey(currentOperation);
-  useEffect(() => {
-    reset();
-  }, [currentKey, reset]);
+    authType: auths.includes(authState.current) ? authState.current : null,
+    authValue: auths.includes(authState.current) ? authState[authState.current] : null,
+    media: mediaState,
+  });
 
   return (
-    <>
+    <div className={styles.root}>
       <SandboxInput
         operation={currentOperation}
         operations={operations}
@@ -165,18 +136,17 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
         authState={authState}
         auths={auths}
         currentHeader={authState.current}
-        onCallApi={() => call()}
+        onCallApi={call}
         isFetchingResponse={isFetching}
-        onUpdateCurrentHeader={(h) => setAuthState((s) => ({ ...s, current: h }))}
-        onToggleHideHeader={() => setAuthState((s) => ({ ...s, hidden: !s.hidden }))}
-        onChangeMedia={(m) => setMediaState(m)}
-        onChangeHeader={(header, value) => setAuthState((s) => ({ ...s, [header]: value }))}
+        onCloseSandbox={onCloseSandbox}
+        onUpdateCurrentHeader={setCurrentAuth}
+        onToggleHideHeader={toggleHideAuth}
+        onChangeMedia={setMediaState}
+        onChangeHeader={setAuthValue}
         onChangeOperation={onChangeOperation}
         onUpdatePathState={updatePathParam}
         onUpdateQueryState={updateQueryParam}
-        onUpdateBodyState={(keys, value) => {
-          updateBodyParam(keys, value);
-        }}
+        onUpdateBodyState={updateBodyParam}
       />
       <SandboxOutput
         operation={currentOperation}
@@ -187,6 +157,6 @@ export const Sandbox = ({ currentOperation, operations, onChangeOperation }: San
         hiddenAuth={authState.hidden}
         response={response}
       />
-    </>
+    </div>
   );
 };

@@ -4,7 +4,9 @@ import { Button } from '@/components/Button';
 import { ClipboardCopy } from '@/components/ClipboardCopy/ClipboardCopy';
 import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
+import { Icon } from '@/icons';
 import {
+  AuthOption,
   BodyParamState,
   ParamState,
   PathParamState,
@@ -35,20 +37,21 @@ type SandboxInputProps = {
     query: QueryParamState;
     body: BodyParamState;
   };
-  currentHeader: 'apikey' | 'basic';
+  currentHeader: AuthOption;
   media: string;
-  auths: ('apikey' | 'basic')[];
+  auths: AuthOption[];
   authState: {
-    current: 'apikey' | 'basic';
+    current: AuthOption;
     apikey: string;
     basic: string;
     hidden: boolean;
   };
   isFetchingResponse: boolean;
   onCallApi: () => void;
-  onUpdateCurrentHeader: (h: 'apikey' | 'basic') => void;
+  onCloseSandbox: () => void;
+  onUpdateCurrentHeader: (h: AuthOption) => void;
   onChangeMedia: (m: string) => void;
-  onChangeHeader: (h: 'apikey' | 'basic', value: string) => void;
+  onChangeHeader: (h: AuthOption, value: string) => void;
   onChangeOperation: (o: ApiOperation) => void;
   onUpdatePathState: (key: string, value: StringParamState) => void;
   onUpdateQueryState: (key: string, value: SimpleParamState) => void;
@@ -66,6 +69,7 @@ export const SandboxInput = ({
   currentHeader,
   authState,
   isFetchingResponse,
+  onCloseSandbox,
   onCallApi,
   onChangeMedia,
   onChangeHeader,
@@ -82,6 +86,10 @@ export const SandboxInput = ({
 
   return (
     <Flex className={styles.root} direction="column" align="start" wrap={false}>
+      <button className={styles.closeButton} onClick={onCloseSandbox}>
+        <Icon name="action/close" title="close dialog" />
+      </button>
+
       <OperationSelect value={operation} onValueChange={onChangeOperation} options={operations} />
 
       <Flex gap="xs" wrap={false} style={{ width: '100%' }}>

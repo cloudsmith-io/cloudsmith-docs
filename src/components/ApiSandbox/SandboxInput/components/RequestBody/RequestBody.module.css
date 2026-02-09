@@ -38,3 +38,8 @@
   top: calc(var(--space-s) - 2px);
   color: var(--color-accent-default);
 }
+
+.mediaBanner {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-2xs) var(--space-3xs) var(--space-2xs) var(--space-s);
+}

@@ -4,9 +4,12 @@
   z-index: var(--layer-overlay);
   inset: 0;
   overflow-y: auto;
-  animation: overlayShow 500ms ease-in-out;
   background-color: var(--color-overlay-dark);
   place-items: start center;
+}
+
+.overlay.animate {
+  animation: overlayShow 150ms ease-in-out;
 }
 
 .content {
@@ -18,25 +21,13 @@
   width: 100%;
   max-width: 1440px;
   overflow: hidden;
-  animation: contentShow 500ms ease-in-out;
   border-radius: var(--border-radius-l);
   box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
+  margin-block: var(--space-l);
 }
 
-.main {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.main > * {
-  flex: 50%;
-}
-
-@media (--phablet-up) {
-  .content {
-    margin-block: var(--space-l);
-  }
+.content.animate {
+  animation: contentShow 250ms ease-in-out;
 }
 
 @keyframes overlayShow {

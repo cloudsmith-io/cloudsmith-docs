@@ -42,3 +42,12 @@ export type ObjectParamState = {
   };
 };
 export type ComposedParamState = ArrayParamState | ObjectParamState;
+
+export type AuthOption = 'apikey' | 'basic';
+
+export type AuthState = {
+  current: AuthOption;
+  apikey: string;
+  basic: string;
+  hidden: boolean;
+};

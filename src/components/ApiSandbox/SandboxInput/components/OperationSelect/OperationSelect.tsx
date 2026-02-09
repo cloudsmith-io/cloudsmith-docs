@@ -81,8 +81,10 @@ export default function OperationSelect({ value, options, onValueChange }: Opera
               <Icon name="search" title="Search" />
             </div>
             <Combobox
+              name="operation"
               autoSelect
               placeholder="Search API operations"
+              autoComplete="false"
               className={styles.combobox}
               // Ariakit's Combobox manually triggers a blur event on virtually
               // blurred items, making them work as if they had actual DOM

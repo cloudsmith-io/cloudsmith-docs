@@ -1,4 +1,5 @@
 import { ApiOperation, SchemaObject } from '../swagger/types';
+import { AuthOption } from './param-state/types';
 
 /**
  * Turns an operation slug into a fully qualified local path to use in links
@@ -27,7 +28,7 @@ export const operationParametersByType = (operation: ApiOperation, type: 'path' 
 /**
  * Retrieves operation's authentication options
  */
-export const operationAuthOptions = (operation: ApiOperation) =>
+export const operationAuthOptions = (operation: ApiOperation): AuthOption[] =>
   Array.from(
     new Set(
       (operation.security ?? [])

@@ -3,8 +3,10 @@ import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 
 import { Flex } from '@/components/Flex';
+import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
 import { Icon } from '@/icons';
+import { defaultMedia } from '@/lib/operations/constants';
 import {
   ArrayParamState,
   BodyParamState,
@@ -43,7 +45,7 @@ export const RequestBody = ({
 
   return (
     <>
-      {spec && (
+      {
         <RootParamSet
           heading={
             <Flex gap="xs">
@@ -74,15 +76,21 @@ export const RequestBody = ({
               {required && <Tag variant="light-red">Required</Tag>}
             </Flex>
           }>
-          <BodyParam
-            isNested={false}
-            schema={spec.schema ?? {}}
-            state={state[media]}
-            required={required}
-            onUpdateParam={(keys, value) => onUpdateParam([media, ...keys], value)}
-          />
+          {media === defaultMedia ? (
+            <BodyParam
+              isNested={false}
+              schema={spec?.schema ?? {}}
+              state={state[media]}
+              required={required}
+              onUpdateParam={(keys, value) => onUpdateParam([media, ...keys], value)}
+            />
+          ) : (
+            <Paragraph className={styles.mediaBanner}>
+              We currently don&apos;t support setting content type different than {defaultMedia}.
+            </Paragraph>
+          )}
         </RootParamSet>
-      )}
+      }
     </>
   );
 };

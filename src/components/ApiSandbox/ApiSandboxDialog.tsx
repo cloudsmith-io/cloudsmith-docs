@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { cx } from 'class-variance-authority';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Button } from '@/components/Button';
+import { operationPath } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import styles from './ApiSandboxDialog.module.css';
@@ -16,19 +19,37 @@ type ApiSandboxDialogProps = {
   operations: ApiOperation[];
 };
 
-export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProps) => {
-  const [open, setOpen] = useState(false);
+const SANDBOX_SEARCH_PARAM = 'sandbox';
+const SANDBOX_OPEN_VALUE = 'open';
 
-  const [currentOperation, setCurrentOperation] = useState<ApiOperation>(operation);
+export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProps) => {
+  const searchParams = useSearchParams();
+  const sandbox = searchParams.get(SANDBOX_SEARCH_PARAM);
+
+  const [open, setOpen] = useState(sandbox === SANDBOX_OPEN_VALUE);
+  const [shouldAnimate, setShouldAnimate] = useState(sandbox !== SANDBOX_OPEN_VALUE);
+
+  const router = useRouter();
 
   useEffect(() => {
-    if (open) {
-      setCurrentOperation(operation);
+    if (open && sandbox !== SANDBOX_OPEN_VALUE) {
+      router.replace(`?${SANDBOX_SEARCH_PARAM}=${SANDBOX_OPEN_VALUE}`);
     }
-  }, [open, operation]);
+  }, [open, sandbox, router]);
+
+  useEffect(() => {
+    if (!open) setShouldAnimate(true);
+  }, [open]);
 
   return (
-    <RadixDialog.Root open={open} onOpenChange={setOpen}>
+    <RadixDialog.Root
+      open={open}
+      onOpenChange={(o) => {
+        setOpen(o);
+        if (!o) {
+          router.replace(operationPath(operation.slug));
+        }
+      }}>
       <RadixDialog.Trigger asChild>
         <Button withArrow size="medium" width="large">
           Try it out
@@ -36,21 +57,22 @@ export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProp
       </RadixDialog.Trigger>
 
       <RadixDialog.Portal>
-        <RadixDialog.Overlay className={styles.overlay}>
-          <RadixDialog.Content className={styles.content}>
+        <RadixDialog.Overlay className={cx(styles.overlay, { [styles.animate]: shouldAnimate })}>
+          <RadixDialog.Content className={cx(styles.content, { [styles.animate]: shouldAnimate })}>
             <VisuallyHidden>
               <RadixDialog.Title>Try API</RadixDialog.Title>
               <RadixDialog.Description>API Sandbox</RadixDialog.Description>
               <RadixDialog.Close></RadixDialog.Close>
             </VisuallyHidden>
 
-            <div className={styles.main}>
-              <Sandbox
-                currentOperation={currentOperation}
-                operations={operations}
-                onChangeOperation={(o) => setCurrentOperation(o)}
-              />
-            </div>
+            <Sandbox
+              currentOperation={operation}
+              operations={operations}
+              onCloseSandbox={() => setOpen(false)}
+              onChangeOperation={(o) => {
+                router.push(`${operationPath(o.slug)}/?${SANDBOX_SEARCH_PARAM}=${SANDBOX_OPEN_VALUE}`);
+              }}
+            />
           </RadixDialog.Content>
         </RadixDialog.Overlay>
       </RadixDialog.Portal>

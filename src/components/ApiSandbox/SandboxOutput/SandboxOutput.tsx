@@ -4,7 +4,12 @@ import { Note } from '@/components/Note';
 import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
 import { buildCurlCommand } from '@/lib/operations/api/builders';
-import { BodyParamState, PathParamState, QueryParamState } from '@/lib/operations/param-state/types';
+import {
+  AuthOption,
+  BodyParamState,
+  PathParamState,
+  QueryParamState,
+} from '@/lib/operations/param-state/types';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import styles from './SandboxOutput.module.css';
@@ -17,7 +22,7 @@ type SandboxOutputProps = {
     body: BodyParamState;
   };
   media: string;
-  auth: 'apikey' | 'basic' | null;
+  auth: AuthOption | null;
   authValue: string | null;
   hiddenAuth: boolean;
   response:

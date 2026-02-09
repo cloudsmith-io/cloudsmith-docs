@@ -7,20 +7,21 @@ import { cx } from 'class-variance-authority';
 import { Flex } from '@/components/Flex';
 import { Note } from '@/components/Note';
 import { Icon } from '@/icons';
+import { AuthOption } from '@/lib/operations/param-state/types';
 
 import styles from './AuthInput.module.css';
 
 type AuthInputProps = {
   hideAuth: boolean;
-  currentHeader: 'apikey' | 'basic';
-  auths: ('apikey' | 'basic')[];
+  currentHeader: AuthOption;
+  auths: AuthOption[];
   authState: string;
-  onChangeHeader: (h: 'apikey' | 'basic', value: string) => void;
-  onUpdateCurrentHeader: (h: 'apikey' | 'basic') => void;
+  onChangeHeader: (h: AuthOption, value: string) => void;
+  onUpdateCurrentHeader: (h: AuthOption) => void;
   onToggleHideHeader: () => void;
 };
 
-const authLabel = (header: 'apikey' | 'basic') => (header === 'apikey' ? 'API Key' : 'Basic');
+const authLabel = (header: AuthOption) => (header === 'apikey' ? 'API Key' : 'Basic');
 
 const AuthInput = ({
   currentHeader,
