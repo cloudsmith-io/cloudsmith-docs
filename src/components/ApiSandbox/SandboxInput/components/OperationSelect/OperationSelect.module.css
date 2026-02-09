@@ -53,50 +53,32 @@
 
 .listbox {
   overflow-y: auto;
-  padding: var(--space-4xs) 0;
-  display: grid;
-  grid-template-columns: minmax(50px, min-content) minmax(150px, auto);
 }
 
 .item {
-  position: relative;
-  grid-column: 1 / -1;
-  display: grid;
-  column-gap: var(--space-2xs);
-  grid-template-columns: subgrid;
   cursor: pointer;
   scroll-margin-top: var(--space-4xs);
   scroll-margin-bottom: var(--space-4xs);
   align-items: center;
-  padding: var(--space-xs) var(--space-l) var(--space-xs) var(--space-l);
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-xs);
   outline: 2px solid transparent;
   outline-offset: 2px;
+  font-size: var(--text-body-s);
+}
+
+.item:not(:has(.itemIndicator)) {
+  padding-left: calc(var(--space-xs) + 16px + var(--space-2xs));
 }
 
 .item:hover {
   background-color: var(--color-background-info);
 }
 
-.radixItem {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: subgrid;
-}
-
-.itemMethod {
-  grid-column: 1;
-  display: flex;
-  justify-content: end;
-}
-
 .itemTitle {
-  grid-column: 2;
+  flex-shrink: 0;
 }
 
 .itemIndicator {
-  position: absolute;
-  left: var(--space-3xs);
-  top: var(--space-s);
   color: var(--color-accent-default);
 }
 

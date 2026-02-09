@@ -44,54 +44,54 @@ export const RequestBody = ({
   const required = requestBody.required ?? false;
 
   return (
-    <>
-      {
-        <RootParamSet
-          heading={
-            <Flex gap="xs">
-              <RadixSelect.Root value={media} onValueChange={onChangeMedia} disabled={!multipleMedia}>
-                <RadixSelect.Trigger aria-label="media select" asChild>
-                  <Flex className={styles.select} wrap={false} gap="xs">
-                    {multipleMedia && <Icon name="chevronDown" title="select" />}
-                    <RadixSelect.Value>
-                      <div>Body params {multipleMedia ? `(${media})` : ''} </div>
-                    </RadixSelect.Value>
-                  </Flex>
-                </RadixSelect.Trigger>
+    <RootParamSet
+      heading={
+        <Flex gap="xs">
+          <span>Body params</span> {required && <Tag variant="light-red">Required</Tag>}
+        </Flex>
+      }>
+      {multipleMedia && (
+        <div className={styles.selectRoot}>
+          <RadixSelect.Root value={media} onValueChange={onChangeMedia} disabled={!multipleMedia}>
+            <RadixSelect.Trigger aria-label="media select" asChild>
+              <Flex className={styles.select} wrap={false} gap="2xs">
+                <Icon name="chevronDown" title="select" />
+                <RadixSelect.Value>{media}</RadixSelect.Value>
+              </Flex>
+            </RadixSelect.Trigger>
 
-                <RadixSelect.Content className={styles.selectContainer}>
-                  <RadixSelect.Viewport>
-                    {mediaTypes.map((m) => (
-                      <RadixSelect.Item key={m} value={m} className={styles.selectItem}>
-                        <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
-                          <Icon name="action/check" title="selected" />
-                        </RadixSelect.ItemIndicator>
-                        <RadixSelect.ItemText>{m}</RadixSelect.ItemText>
-                      </RadixSelect.Item>
-                    ))}
-                  </RadixSelect.Viewport>
-                </RadixSelect.Content>
-              </RadixSelect.Root>
+            <RadixSelect.Content className={styles.selectContainer}>
+              <RadixSelect.Viewport>
+                {mediaTypes.map((m) => (
+                  <RadixSelect.Item key={m} value={m} className={styles.selectItem} asChild>
+                    <Flex wrap={false} gap="2xs">
+                      <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
+                        <Icon name="action/check" title="selected" />
+                      </RadixSelect.ItemIndicator>
+                      <RadixSelect.ItemText>{m}</RadixSelect.ItemText>
+                    </Flex>
+                  </RadixSelect.Item>
+                ))}
+              </RadixSelect.Viewport>
+            </RadixSelect.Content>
+          </RadixSelect.Root>
+        </div>
+      )}
 
-              {required && <Tag variant="light-red">Required</Tag>}
-            </Flex>
-          }>
-          {media === defaultMedia ? (
-            <BodyParam
-              isNested={false}
-              schema={spec?.schema ?? {}}
-              state={state[media]}
-              required={required}
-              onUpdateParam={(keys, value) => onUpdateParam([media, ...keys], value)}
-            />
-          ) : (
-            <Paragraph className={styles.mediaBanner}>
-              We currently don&apos;t support setting content type different than {defaultMedia}.
-            </Paragraph>
-          )}
-        </RootParamSet>
-      }
-    </>
+      {media === defaultMedia ? (
+        <BodyParam
+          isNested={false}
+          schema={spec?.schema ?? {}}
+          state={state[media]}
+          required={required}
+          onUpdateParam={(keys, value) => onUpdateParam([media, ...keys], value)}
+        />
+      ) : (
+        <Paragraph className={styles.mediaBanner}>
+          We currently don&apos;t support setting content type different than {defaultMedia}.
+        </Paragraph>
+      )}
+    </RootParamSet>
   );
 };
 
@@ -318,7 +318,7 @@ const StructuredObjectParam = ({
       })}
       {optionalParameters.length > 0 && (
         <ParamToggle
-          paramTag={`optional body params (${optionalParameters.length})`}
+          paramTag={`optional (${optionalParameters.length})`}
           show={showAll}
           onChangeShow={setShowAll}
         />

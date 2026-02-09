@@ -111,7 +111,7 @@ export const ParamSet = ({
               <div className={styles.padding}>
                 <Flex direction="column" className={styles.add} align="stretch" gap="none" asChild>
                   <button onClick={() => onAddEntry()}>
-                    <Flex align="center" wrap={false} gap="xs">
+                    <Flex align="center" wrap={false} gap="2xs">
                       <Icon name="action/add" title="add" />
                       <span>Add field</span>
                     </Flex>
@@ -166,7 +166,7 @@ export const ParamArray = ({ name, description, required, schema, children, onAd
 
       <Flex direction="column" className={styles.add} align="stretch" gap="none" asChild>
         <button onClick={() => onAddItem()}>
-          <Flex align="center" wrap={false} gap="xs">
+          <Flex align="center" wrap={false} gap="2xs">
             <Icon name="action/add" title="add" />
             <span>Add {schema.items.type}</span>
           </Flex>

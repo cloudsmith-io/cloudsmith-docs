@@ -58,11 +58,13 @@ const AuthInput = ({
           <RadixSelect.Content className={styles.selectContainer}>
             <RadixSelect.Viewport>
               {auths.map((h) => (
-                <RadixSelect.Item key={h} value={h} className={styles.selectItem}>
-                  <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
-                    <Icon name="action/check" title="selected" />
-                  </RadixSelect.ItemIndicator>
-                  <RadixSelect.ItemText>{authLabel(h)}</RadixSelect.ItemText>
+                <RadixSelect.Item key={h} value={h} className={styles.selectItem} asChild>
+                  <Flex wrap={false} gap="2xs">
+                    <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
+                      <Icon name="action/check" title="selected" />
+                    </RadixSelect.ItemIndicator>
+                    <RadixSelect.ItemText>{authLabel(h)}</RadixSelect.ItemText>
+                  </Flex>
                 </RadixSelect.Item>
               ))}
             </RadixSelect.Viewport>

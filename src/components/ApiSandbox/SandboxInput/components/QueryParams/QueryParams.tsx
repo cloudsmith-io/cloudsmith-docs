@@ -50,7 +50,7 @@ const QueryParams = ({ parameters, state, onUpdateParam }: QueryParamsProps) => 
       ))}
       {optionalExists && (
         <ParamToggle
-          paramTag={`optional query params (${optionalParameters.length})`}
+          paramTag={`optional (${optionalParameters.length})`}
           show={showAll}
           onChangeShow={setShowAll}
         />

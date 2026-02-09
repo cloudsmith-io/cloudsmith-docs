@@ -59,9 +59,9 @@ export default function OperationSelect({ value, options, onValueChange }: Opera
             setSearchValue(value);
           });
         }}>
-        <RadixSelect.Trigger aria-label="Operation" asChild>
+        <RadixSelect.Trigger aria-label="Select operation" asChild>
           <Flex gap="xs" className={styles.trigger}>
-            <Icon name="chevronDown" title="select" />
+            <Icon name="chevronDown" title="select operation" />
             <RadixSelect.Value aria-label={value.title}>
               <header>
                 <Heading size="h2">{value.title}</Heading>
@@ -106,18 +106,16 @@ export default function OperationSelect({ value, options, onValueChange }: Opera
               <RadixSelect.Item key={operationKey(o)} value={operationKey(o)} asChild className={styles.item}>
                 <ComboboxItem>
                   <RadixSelect.ItemText asChild>
-                    <div className={styles.radixItem}>
-                      <div className={styles.itemMethod}>
-                        <Tag method={o.method} />
-                      </div>
+                    <Flex wrap={false} gap="2xs">
+                      <RadixSelect.ItemIndicator className={styles.itemIndicator}>
+                        <Icon name="action/check" title="selected" />
+                      </RadixSelect.ItemIndicator>
 
                       <span className={styles.itemTitle}>{o.title}</span>
-                    </div>
-                  </RadixSelect.ItemText>
 
-                  <RadixSelect.ItemIndicator className={styles.itemIndicator}>
-                    <Icon name="action/check" title="selected" />
-                  </RadixSelect.ItemIndicator>
+                      <Tag method={o.method} />
+                    </Flex>
+                  </RadixSelect.ItemText>
                 </ComboboxItem>
               </RadixSelect.Item>
             ))}
