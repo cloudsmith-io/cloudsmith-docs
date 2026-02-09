@@ -48,7 +48,7 @@ npm run lint:css
 npm run lint:css:fix
 
 # Download API schemas. Used in development mode to minimize the amount of requests to the API
-npm run schema
+npm run schemas:download
 ```
 
 > [!NOTE]  

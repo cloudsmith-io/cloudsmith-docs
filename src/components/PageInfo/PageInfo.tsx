@@ -23,7 +23,7 @@ export const PageInfo = ({ path = '', lastUpdated }: PageInfoProps) => {
       {docsUrl && docsBranch && (
         <Link className={cx(styles.githubLink, 'bodyS')} href={githubLink} target="_blank">
           <Icon title="View" name="github" />
-          <span>View on GitHub</span>
+          <span>Edit on GitHub</span>
         </Link>
       )}
     </div>

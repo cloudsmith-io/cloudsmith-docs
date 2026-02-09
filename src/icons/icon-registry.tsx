@@ -28,6 +28,7 @@ import { FormatDartIcon } from './svgs/format/Dart';
 import { FormatDebIcon } from './svgs/format/Deb';
 import { FormatDebianIcon } from './svgs/format/Debian';
 import { FormatDockerIcon } from './svgs/format/Docker';
+import { FormatGenericIcon } from './svgs/format/Generic';
 import { FormatGoIcon } from './svgs/format/Go';
 import { FormatGradleIcon } from './svgs/format/Gradle';
 import { FormatHelmIcon } from './svgs/format/Helm';
@@ -154,6 +155,7 @@ export const iconRegistry = createIconRegistry({
   'format/deb': FormatDebIcon,
   'format/debian': FormatDebianIcon,
   'format/docker': FormatDockerIcon,
+  'format/generic': FormatGenericIcon,
   'format/go': FormatGoIcon,
   'format/gradle': FormatGradleIcon,
   'format/huggingface': FormatHuggingFaceIcon,
