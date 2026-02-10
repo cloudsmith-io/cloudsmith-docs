@@ -39,7 +39,6 @@ const flex = cva(css.root, {
       '4xl': css.gap4xl,
     } satisfies Record<Space | 'none', string>,
     padding: {
-      none: css.paddingNone,
       '4xs': css.padding4xs,
       '3xs': css.padding3xs,
       '2xs': css.padding2xs,
@@ -51,7 +50,7 @@ const flex = cva(css.root, {
       '2xl': css.padding2xl,
       '3xl': css.padding3xl,
       '4xl': css.padding4xl,
-    } satisfies Record<Space | 'none', string>,
+    } satisfies Record<Space, string>,
     wrap: {
       true: css.wrap,
     },
@@ -61,7 +60,6 @@ const flex = cva(css.root, {
     direction: 'row',
     gap: 'm',
     justify: 'start',
-    padding: 'none',
     wrap: true,
   },
 });
