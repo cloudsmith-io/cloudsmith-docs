@@ -105,10 +105,6 @@
 }
 
 /* Padding variants */
-.paddingNone {
-  padding: 0;
-}
-
 .padding4xs {
   padding: var(--space-4xs);
 }
