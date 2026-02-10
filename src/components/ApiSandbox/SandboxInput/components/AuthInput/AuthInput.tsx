@@ -4,6 +4,7 @@ import * as RadixSelect from '@radix-ui/react-select';
 import * as RadixTooltip from '@radix-ui/react-tooltip';
 import { cx } from 'class-variance-authority';
 
+import { useAuth } from '@/components/ApiSandbox/context/hook';
 import { Flex } from '@/components/Flex';
 import { Note } from '@/components/Note';
 import { Icon } from '@/icons';
@@ -11,126 +12,114 @@ import { AuthOption } from '@/lib/operations/param-state/types';
 
 import styles from './AuthInput.module.css';
 
-type AuthInputProps = {
-  hideAuth: boolean;
-  currentHeader: AuthOption;
-  auths: AuthOption[];
-  authState: string;
-  onChangeHeader: (h: AuthOption, value: string) => void;
-  onUpdateCurrentHeader: (h: AuthOption) => void;
-  onToggleHideHeader: () => void;
-};
-
 const authLabel = (header: AuthOption) => (header === 'apikey' ? 'API Key' : 'Basic');
 
-const AuthInput = ({
-  currentHeader,
-  auths,
-  hideAuth,
-  authState,
-  onChangeHeader,
-  onUpdateCurrentHeader,
-  onToggleHideHeader,
-}: AuthInputProps) => {
+const AuthInput = () => {
   const [showNotes, setShowNotes] = useState(false);
 
-  if (auths.length === 0) return null;
+  const auth = useAuth();
 
-  const isEmpty = !authState || (currentHeader === 'basic' && authState === ':');
+  const value = auth.authValue;
+
+  if (auth.authOptions.length === 0) return null;
+
+  const isEmpty = !auth.authValue || (auth.authOption === 'basic' && value === ':');
 
   return (
-    <>
-      <Flex className={styles.root} wrap={false} gap="none">
-        <RadixSelect.Root
-          value={currentHeader}
-          onValueChange={onUpdateCurrentHeader}
-          disabled={auths.length < 2}>
-          <RadixSelect.Trigger aria-label="auth method" asChild>
-            <Flex className={styles.select} wrap={false} gap="2xs">
-              {auths.length >= 2 && <Icon name="chevronDown" title="select" />}
+    !!auth.authOption && (
+      <>
+        <Flex className={styles.root} wrap={false} gap="none">
+          <RadixSelect.Root
+            value={auth.authOption}
+            onValueChange={auth.updateAuthOption}
+            disabled={auth.authOptions.length < 2}>
+            <RadixSelect.Trigger aria-label="auth method" asChild>
+              <Flex className={styles.select} wrap={false} gap="2xs">
+                {auth.authOptions.length >= 2 && <Icon name="chevronDown" title="select" />}
 
-              <RadixSelect.Value>
-                <div>{authLabel(currentHeader)}</div>
-              </RadixSelect.Value>
-            </Flex>
-          </RadixSelect.Trigger>
+                <RadixSelect.Value>
+                  <div>{authLabel(auth.authOption)}</div>
+                </RadixSelect.Value>
+              </Flex>
+            </RadixSelect.Trigger>
 
-          <RadixSelect.Content className={styles.selectContainer}>
-            <RadixSelect.Viewport>
-              {auths.map((h) => (
-                <RadixSelect.Item key={h} value={h} className={styles.selectItem} asChild>
-                  <Flex wrap={false} gap="2xs">
-                    <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
-                      <Icon name="action/check" title="selected" />
-                    </RadixSelect.ItemIndicator>
-                    <RadixSelect.ItemText>{authLabel(h)}</RadixSelect.ItemText>
-                  </Flex>
-                </RadixSelect.Item>
-              ))}
-            </RadixSelect.Viewport>
-          </RadixSelect.Content>
-        </RadixSelect.Root>
+            <RadixSelect.Content className={styles.selectContainer}>
+              <RadixSelect.Viewport>
+                {auth.authOptions.map((h) => (
+                  <RadixSelect.Item key={h} value={h} className={styles.selectItem} asChild>
+                    <Flex wrap={false} gap="2xs">
+                      <RadixSelect.ItemIndicator className={styles.selectItemIndicator}>
+                        <Icon name="action/check" title="selected" />
+                      </RadixSelect.ItemIndicator>
+                      <RadixSelect.ItemText>{authLabel(h)}</RadixSelect.ItemText>
+                    </Flex>
+                  </RadixSelect.Item>
+                ))}
+              </RadixSelect.Viewport>
+            </RadixSelect.Content>
+          </RadixSelect.Root>
 
-        {currentHeader === 'apikey' && (
-          <ApiKeyInput
-            type={hideAuth ? 'password' : 'text'}
-            value={authState ?? ''}
-            onValueChange={(value) => onChangeHeader(currentHeader, value)}
-          />
-        )}
+          {auth.authOption === 'apikey' && (
+            <ApiKeyInput
+              type={auth.isAuthHidden ? 'password' : 'text'}
+              value={value ?? ''}
+              onValueChange={(value) => auth.updateAuthValue(value)}
+            />
+          )}
 
-        {currentHeader === 'basic' && (
-          <BasicInputs
-            type={hideAuth ? 'password' : 'text'}
-            value={authState ?? ''}
-            onValueChange={(value) => onChangeHeader(currentHeader, value)}
-          />
-        )}
+          {auth.authOption === 'basic' && (
+            <BasicInputs
+              type={auth.isAuthHidden ? 'password' : 'text'}
+              value={value ?? ''}
+              onValueChange={(value) => auth.updateAuthValue(value)}
+            />
+          )}
 
-        <Flex className={styles.buttonsContainer} wrap={false} gap="xs">
-          <button
-            className={cx(styles.button, { [styles.hidden]: isEmpty })}
-            onClick={() => onChangeHeader(currentHeader, '')}>
-            <Icon name="action/close" title="clear" />
-          </button>
+          <Flex className={styles.buttonsContainer} wrap={false} gap="xs">
+            <button
+              className={cx(styles.button, { [styles.hidden]: isEmpty })}
+              onClick={() => auth.updateAuthValue('')}>
+              <Icon name="action/close" title="clear" />
+            </button>
 
-          <RadixTooltip.Provider delayDuration={0}>
-            <RadixTooltip.Root>
-              <RadixTooltip.Trigger asChild>
-                <button className={styles.button} onClick={() => onToggleHideHeader()}>
-                  <Icon
-                    name={hideAuth ? 'action/eye-slashed' : 'action/eye'}
-                    title={`${hideAuth ? 'Show' : 'Hide'} credentials`}
-                  />
-                </button>
-              </RadixTooltip.Trigger>
-              <RadixTooltip.Content sideOffset={5} className={styles.tooltip}>
-                {hideAuth ? 'Show' : 'Hide'}
-              </RadixTooltip.Content>
-            </RadixTooltip.Root>
-          </RadixTooltip.Provider>
+            <RadixTooltip.Provider delayDuration={0}>
+              <RadixTooltip.Root>
+                <RadixTooltip.Trigger asChild>
+                  <button className={styles.button} onClick={auth.toggleHideAuth}>
+                    <Icon
+                      name={auth.isAuthHidden ? 'action/eye-slashed' : 'action/eye'}
+                      title={`${auth.isAuthHidden ? 'Show' : 'Hide'} credentials`}
+                    />
+                  </button>
+                </RadixTooltip.Trigger>
+                <RadixTooltip.Content sideOffset={5} className={styles.tooltip}>
+                  {auth.isAuthHidden ? 'Show' : 'Hide'}
+                </RadixTooltip.Content>
+              </RadixTooltip.Root>
+            </RadixTooltip.Provider>
 
-          <RadixTooltip.Provider delayDuration={0}>
-            <RadixTooltip.Root>
-              <RadixTooltip.Trigger asChild>
-                <button
-                  className={cx(styles.button, {
-                    [styles.active]: showNotes,
-                  })}
-                  onClick={() => setShowNotes((s) => !s)}>
-                  <Icon name="question" title="Header information" />
-                </button>
-              </RadixTooltip.Trigger>
-              <RadixTooltip.Content sideOffset={5} className={styles.tooltip}>
-                {currentHeader === 'apikey' ? 'Getting your API Key' : 'Using basic authentication'}
-              </RadixTooltip.Content>
-            </RadixTooltip.Root>
-          </RadixTooltip.Provider>
+            <RadixTooltip.Provider delayDuration={0}>
+              <RadixTooltip.Root>
+                <RadixTooltip.Trigger asChild>
+                  <button
+                    className={cx(styles.button, {
+                      [styles.active]: showNotes,
+                    })}
+                    onClick={() => setShowNotes((s) => !s)}>
+                    <Icon name="question" title="Header information" />
+                  </button>
+                </RadixTooltip.Trigger>
+                <RadixTooltip.Content sideOffset={5} className={styles.tooltip}>
+                  {auth.authOption === 'apikey' ? 'Getting your API Key' : 'Using basic authentication'}
+                </RadixTooltip.Content>
+              </RadixTooltip.Root>
+            </RadixTooltip.Provider>
+          </Flex>
         </Flex>
-      </Flex>
 
-      {showNotes && (currentHeader === 'apikey' ? <ApiKeyNote /> : <BasicNote />)}
-    </>
+        {showNotes && (auth.authOption === 'apikey' ? <ApiKeyNote /> : <BasicNote />)}
+      </>
+    )
   );
 };
 

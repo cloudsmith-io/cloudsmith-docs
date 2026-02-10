@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
@@ -41,15 +41,25 @@ export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProp
     if (!open) setShouldAnimate(true);
   }, [open]);
 
+  const openChangeHandler = useCallback(
+    (o: boolean) => {
+      setOpen(o);
+      if (!o) {
+        router.replace(operationPath(operation.slug));
+      }
+    },
+    [setOpen, router, operation],
+  );
+  const closeSandboxHandler = useCallback(() => setOpen(false), [setOpen]);
+  const changeOperationHandler = useCallback(
+    (o: ApiOperation) => {
+      router.push(`${operationPath(o.slug)}/?${SANDBOX_SEARCH_PARAM}=${SANDBOX_OPEN_VALUE}`);
+    },
+    [router],
+  );
+
   return (
-    <RadixDialog.Root
-      open={open}
-      onOpenChange={(o) => {
-        setOpen(o);
-        if (!o) {
-          router.replace(operationPath(operation.slug));
-        }
-      }}>
+    <RadixDialog.Root open={open} onOpenChange={openChangeHandler}>
       <RadixDialog.Trigger asChild>
         <Button withArrow size="medium" width="large">
           Try it out
@@ -68,10 +78,8 @@ export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProp
             <Sandbox
               currentOperation={operation}
               operations={operations}
-              onCloseSandbox={() => setOpen(false)}
-              onChangeOperation={(o) => {
-                router.push(`${operationPath(o.slug)}/?${SANDBOX_SEARCH_PARAM}=${SANDBOX_OPEN_VALUE}`);
-              }}
+              onCloseSandbox={closeSandboxHandler}
+              onChangeOperation={changeOperationHandler}
             />
           </RadixDialog.Content>
         </RadixDialog.Overlay>

@@ -4,58 +4,38 @@ import { Note } from '@/components/Note';
 import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
 import { buildCurlCommand } from '@/lib/operations/api/builders';
-import {
-  AuthOption,
-  BodyParamState,
-  PathParamState,
-  QueryParamState,
-} from '@/lib/operations/param-state/types';
 import { ApiOperation } from '@/lib/swagger/types';
 
+import { useApiTest, useAuth, useMedia, useParameters } from '../context/hook';
 import styles from './SandboxOutput.module.css';
 
 type SandboxOutputProps = {
   operation: ApiOperation;
-  paramState: {
-    path: PathParamState;
-    query: QueryParamState;
-    body: BodyParamState;
-  };
-  media: string;
-  auth: AuthOption | null;
-  authValue: string | null;
-  hiddenAuth: boolean;
-  response:
-    | {
-        status: null;
-        body: {
-          error: string;
-        };
-      }
-    | {
-        status: number;
-        body: object;
-      }
-    | undefined;
 };
 
-export const SandboxOutput = ({
-  operation,
-  paramState,
-  media,
-  auth,
-  authValue,
-  response,
-  hiddenAuth,
-}: SandboxOutputProps) => {
-  const command = buildCurlCommand(operation, paramState, [auth, authValue, hiddenAuth], media);
+export const SandboxOutput = ({ operation }: SandboxOutputProps) => {
+  const { pathParamState, queryParamState, bodyParamState } = useParameters();
+  const { authOption, authValue, isAuthHidden } = useAuth();
+  const { media } = useMedia();
+  const { apiResponse } = useApiTest();
+
+  const command = buildCurlCommand(
+    operation,
+    {
+      path: pathParamState,
+      query: queryParamState,
+      body: bodyParamState,
+    },
+    [authOption, authValue, isAuthHidden],
+    media,
+  );
 
   const statusTag =
-    (response?.status ?? -1) > 0 ? (
-      <Tag statusCode={Number(response?.status) as Tag.HttpResponseStatusCodes} />
+    (apiResponse?.status ?? -1) > 0 ? (
+      <Tag statusCode={Number(apiResponse?.status) as Tag.HttpResponseStatusCodes} />
     ) : null;
   const stringResponse =
-    (response?.status ?? -1) > 0 && response?.body ? JSON.stringify(response.body, null, 4) : null;
+    (apiResponse?.status ?? -1) > 0 && apiResponse?.body ? JSON.stringify(apiResponse.body, null, 4) : null;
 
   return (
     <Flex className={styles.root} gap="xs" justify="start" direction="column" wrap={false}>
@@ -77,9 +57,9 @@ export const SandboxOutput = ({
         </CodeBlockSync>
       ) : null}
 
-      {response?.status === null ? (
+      {apiResponse?.status === null ? (
         <Note variant="caution" headline="Error">
-          <Paragraph>{response?.body?.error}</Paragraph>
+          <Paragraph>{apiResponse?.body?.error}</Paragraph>
         </Note>
       ) : null}
     </Flex>

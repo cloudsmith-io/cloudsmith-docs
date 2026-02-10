@@ -23,11 +23,11 @@ export const buildCurlCommand = (
 
   command += `     --url '${url}' \\\n`;
 
-  const [authType, authValue, hiddenAuth] = auth;
+  const [authOption, authValue, hiddenAuth] = auth;
   const headers = resolveApiRequestHeaders({
     media,
-    authType,
-    authValue: authType === 'basic' && authValue === ':' ? null : authValue,
+    authOption,
+    authValue: authOption === 'basic' && authValue === ':' ? null : authValue,
   });
 
   Object.entries(headers).forEach(([key, value], index, entries) => {

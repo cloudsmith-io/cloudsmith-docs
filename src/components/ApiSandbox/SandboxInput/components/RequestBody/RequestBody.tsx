@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import * as RadixSelect from '@radix-ui/react-select';
 
+import { useMedia, useParameters } from '@/components/ApiSandbox/context/hook';
 import { Flex } from '@/components/Flex';
 import { Paragraph } from '@/components/Paragraph';
 import { Tag } from '@/components/Tag';
@@ -9,41 +10,30 @@ import { Icon } from '@/icons';
 import { defaultMedia } from '@/lib/operations/constants';
 import {
   ArrayParamState,
-  BodyParamState,
   ObjectParamState,
   ParamState,
   SimpleParamState,
   StringParamState,
 } from '@/lib/operations/param-state/types';
 import { defaultParamState, randomId } from '@/lib/operations/param-state/util';
-import { ApiOperation, ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
+import { ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 
 import RootParamSet from '../ParamSet';
 import { ParamArray, ParamEntry, ParamKeyValue, ParamSet, ParamToggle } from '../ParamSet/ParamSet';
 import styles from './RequestBody.module.css';
 
-type RequestBodyProps = {
-  requestBody: NonNullable<ApiOperation['requestBody']>;
-  state: BodyParamState;
-  media: string;
-  onChangeMedia: (m: string) => void;
-  onUpdateParam: (keys: string[], value: ParamState | undefined) => void;
-};
+export const RequestBody = () => {
+  const { bodyParameters: parameters, bodyParamState, updateBodyParam } = useParameters();
 
-export const RequestBody = ({
-  state,
-  media,
-  requestBody,
-  onChangeMedia,
-  onUpdateParam,
-}: RequestBodyProps) => {
-  const mediaTypes = Object.keys(requestBody.content);
+  const { media, updateMedia } = useMedia();
+
+  const mediaTypes = Object.keys(parameters?.content ?? {});
   const multipleMedia = mediaTypes.length >= 2;
-  const spec = requestBody.content[media];
+  const spec = parameters?.content?.[media];
 
-  const required = requestBody.required ?? false;
+  const required = parameters?.required ?? false;
 
-  return (
+  return parameters != null ? (
     <RootParamSet
       heading={
         <Flex gap="xs">
@@ -52,7 +42,7 @@ export const RequestBody = ({
       }>
       {multipleMedia && (
         <div className={styles.selectRoot}>
-          <RadixSelect.Root value={media} onValueChange={onChangeMedia} disabled={!multipleMedia}>
+          <RadixSelect.Root value={media} onValueChange={updateMedia} disabled={!multipleMedia}>
             <RadixSelect.Trigger aria-label="media select" asChild>
               <Flex className={styles.select} wrap={false} gap="2xs">
                 <Icon name="chevronDown" title="select" />
@@ -82,9 +72,9 @@ export const RequestBody = ({
         <BodyParam
           isNested={false}
           schema={spec?.schema ?? {}}
-          state={state[media]}
+          state={bodyParamState[media]}
           required={required}
-          onUpdateParam={(keys, value) => onUpdateParam([media, ...keys], value)}
+          onUpdateParam={(keys, value) => updateBodyParam([media, ...keys], value)}
         />
       ) : (
         <Paragraph className={styles.mediaBanner}>
@@ -92,7 +82,7 @@ export const RequestBody = ({
         </Paragraph>
       )}
     </RootParamSet>
-  );
+  ) : null;
 };
 
 type BodyParamProps = {

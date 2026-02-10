@@ -97,11 +97,11 @@ export const resolveApiRequestUrl = ({
 
 export const resolveApiRequestHeaders = ({
   media,
-  authType,
+  authOption,
   authValue,
 }: {
   media: string;
-  authType: AuthOption | null;
+  authOption: AuthOption | null;
   authValue: string | null;
 }): HeadersInit => {
   const headers: HeadersInit = {
@@ -109,9 +109,9 @@ export const resolveApiRequestHeaders = ({
     'content-type': media,
   };
 
-  if (authType && authValue) {
-    const key = authType === 'apikey' ? 'X-Api-Key' : 'authorization';
-    const value = authType === 'apikey' ? authValue : `Basic ${btoa(authValue)}`;
+  if (authOption && authValue) {
+    const key = authOption === 'apikey' ? 'X-Api-Key' : 'authorization';
+    const value = authOption === 'apikey' ? authValue : `Basic ${btoa(authValue)}`;
     headers[key] = value;
   }
 

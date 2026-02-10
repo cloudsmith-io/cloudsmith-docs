@@ -2,62 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { ParameterObject } from '@/lib/swagger/types';
 
-import { AuthOption, AuthState, PathParamState, StringParamState } from './types';
+import { PathParamState, StringParamState } from './types';
 import { defaultPathParamState } from './util';
-
-const AUTH_SESSION_STORAGE_KEY = 'auth';
-
-const persistedAuthState = (fallback: AuthState) => {
-  const state = JSON.parse(sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY) ?? '{}');
-  if (Object.keys(state).length === 0) return fallback;
-  return state as AuthState;
-};
-
-export const useAuthState = (authOptions: AuthOption[]) => {
-  const [authState, setAuthState] = useState<AuthState>(
-    persistedAuthState({
-      current: authOptions[0],
-      hidden: false,
-      apikey: '',
-      basic: '',
-    }),
-  );
-
-  useEffect(() => {
-    sessionStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(authState));
-  }, [authState]);
-
-  useEffect(() => {
-    if (authOptions.length > 0 && !authOptions.includes(authState.current)) {
-      setAuthState((s) => ({ ...s, current: authOptions[0] }));
-    }
-  }, [authOptions, authState]);
-
-  const setCurrentAuth = useCallback(
-    (o: AuthOption) => {
-      setAuthState((s) => ({ ...s, current: o }));
-    },
-    [setAuthState],
-  );
-
-  const toggleHideAuth = useCallback(() => {
-    setAuthState((s) => ({ ...s, hidden: !s.hidden }));
-  }, [setAuthState]);
-
-  const setAuthValue = useCallback(
-    (o: AuthOption, value: string) => {
-      setAuthState((s) => ({ ...s, [o]: value }));
-    },
-    [setAuthState],
-  );
-
-  return {
-    authState,
-    setCurrentAuth,
-    toggleHideAuth,
-    setAuthValue,
-  };
-};
 
 const PATH_PARAM_LOCAL_STORAGE_KEY = 'path-params';
 
