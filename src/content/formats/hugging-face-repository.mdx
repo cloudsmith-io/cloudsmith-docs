@@ -11,7 +11,7 @@ Hugging Face is an open-source platform and ecosystem for building, sharing, and
 
 The Hugging Face Hub has three different types of repositories:
 
-1. Model Repositories: This are used to store and distribute **machine learning models**, including weights, configs, tokenizer files, and model cards. They are commonly used with the [`transformers` library](https://huggingface.co/docs/transformers/models).
+1. Model Repositories: These are used to store and distribute **machine learning models**, including weights, configs, tokenizer files, and model cards. They are commonly used with the [`transformers` library](https://huggingface.co/docs/transformers/models).
 2. Dataset Repositories: These are used to store **datasets**, scripts for loading them, and metadata. They are commonly used with the [`datasets` library](https://huggingface.co/docs/datasets/en/stream).
 3. Space Repositories: These are used to host interactive apps, usually built with Gradio or Streamlit. They are like web demos for models or data.
 
@@ -40,7 +40,7 @@ Here you can see a general overview of the main naming equivalences:
 | Commit / Revision | Version         |
 | Tag               | Package Tag     |
 
-Keet reading to learn more about them.
+Keep reading to learn more about them.
 
 ### Repository as a Package
 
@@ -120,7 +120,30 @@ api.upload_folder(
 )
 ```
 
-Execute the script, and you will see the upload progress in your terminal:
+### Using `hf cli`
+
+The Hugging Face CLI provides a convenient way to upload models and datasets directly from your terminal.
+
+Before starting, set `HF_ENDPOINT` and `HF_TOKEN` as environment variables with your Cloudsmith endpoint and API Token:
+
+```bash
+export HF_ENDPOINT="https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY"
+export HF_TOKEN="CSA_API_TOKEN"
+```
+
+Upload any folder containing your model or dataset files using the `upload` command:
+
+```bash
+hf upload <MODEL_NAME> <LOCAL_PATH_TO_MODEL> --repo-type=<TYPE> --commit-message="Commit via CLI" --revision=<VERSION>
+```
+
+For example, to upload a model called `microsoft/kosmos-2.5` stored locally at `./hugging-face-models/microsoft/kosmos-2.5`:
+
+```bash
+hf upload microsoft/kosmos-2.5 ./hugging-face-models/microsoft/kosmos-2.5 --repo-type=model --commit-message="Commit via CLI" --revision="1.2.3"
+```
+
+Execute the command, and you will see the upload progress in your terminal:
 
 <BlockImage src={upload} alt=""></BlockImage>
 
@@ -130,7 +153,7 @@ You will see the package appear in your Cloudsmith repository shortly after the 
 
 ## Downloading Packages
 
-Cloudsmith supports the `huggingface_hub` Python library to upload packages using its `snapshot_download` function. 
+Cloudsmith supports the `huggingface_hub` Python library to download packages using its `snapshot_download` function. 
 
 ### Using `huggingface_hub`
 
@@ -154,6 +177,29 @@ api = HfApi(
 local_dir = api.snapshot_download(
     repo_id=MODEL_NAME, repo_type="model", revision="main"
 )
+```
+
+### Using `hf cli`
+
+The Hugging Face CLI provides a convenient way to download models and datasets directly from your terminal.
+
+Before starting, set `HF_ENDPOINT` and `HF_TOKEN` as environment variables with your Cloudsmith endpoint and API Token:
+
+```bash
+export HF_ENDPOINT="https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY"
+export HF_TOKEN="CSA_API_TOKEN"
+```
+
+Download a model or dataset using the `download` command:
+
+```bash
+hf download <MODEL_NAME> --repo-type <TYPE> --revision <VERSION>
+```
+
+For example, to download version `4.5.6` of the `microsoft/kosmos-2.5` model:
+
+```bash
+hf download microsoft/kosmos-2.5 --repo-type model --revision 4.5.6
 ```
 
 ## Upstream Proxying / Caching
