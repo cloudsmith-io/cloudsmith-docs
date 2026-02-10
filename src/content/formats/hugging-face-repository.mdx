@@ -134,13 +134,13 @@ export HF_TOKEN="CSA_API_TOKEN"
 Upload any folder containing your model or dataset files using the `upload` command:
 
 ```bash
-hf upload <MODEL_NAME> <LOCAL_PATH_TO_MODEL> --repo-type=<TYPE> --commit-message="Commit via CLI" --revision=<VERSION>
+hf upload <REPO_ID> <LOCAL_PATH> --repo-type <TYPE> --commit-message "Commit via CLI" --revision <VERSION>
 ```
 
 For example, to upload a model called `microsoft/kosmos-2.5` stored locally at `./hugging-face-models/microsoft/kosmos-2.5`:
 
 ```bash
-hf upload microsoft/kosmos-2.5 ./hugging-face-models/microsoft/kosmos-2.5 --repo-type=model --commit-message="Commit via CLI" --revision="1.2.3"
+hf upload microsoft/kosmos-2.5 ./hugging-face-models/microsoft/kosmos-2.5 --repo-type model --commit-message "Commit via CLI" --revision "1.2.3"
 ```
 
 Execute the command, and you will see the upload progress in your terminal:
@@ -193,7 +193,7 @@ export HF_TOKEN="CSA_API_TOKEN"
 Download a model or dataset using the `download` command:
 
 ```bash
-hf download <MODEL_NAME> --repo-type <TYPE> --revision <VERSION>
+hf download <REPO_ID> --repo-type <TYPE> --revision <VERSION>
 ```
 
 For example, to download version `4.5.6` of the `microsoft/kosmos-2.5` model:
