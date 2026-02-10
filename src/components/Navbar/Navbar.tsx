@@ -12,7 +12,6 @@ import { LogoSymbol, LogoWordMark } from '@/components/Logo';
 import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
-import LegacySiteBanner from '../LegacySiteBanner';
 
 
 import styles from './Navbar.module.css';
@@ -39,7 +38,7 @@ export const Navbar = () => {
     <>
       <div className={cx(styles.root, { [styles.isHome]: pathname === '/' })}>
 
-        <LegacySiteBanner />
+        
 
         <Container className={styles.container}>
           <div className={styles.top}>
