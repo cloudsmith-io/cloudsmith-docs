@@ -5,6 +5,7 @@ import { ClipboardCopy } from '@/components/ClipboardCopy/ClipboardCopy';
 import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
 import { Icon } from '@/icons';
+import { trackAnalyticsEvent } from '@/lib/analytics';
 import { operationUrl } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
@@ -34,6 +35,15 @@ export const SandboxInput = ({
 
   const { callApi, isFetchingApi } = useApiTest();
 
+  const handleSend = () => {
+    callApi();
+    trackAnalyticsEvent('apiSandboxSubmit', {
+      path: operation.path,
+      operationId: operation.operationId,
+      method: operation.method,
+    });
+  };
+
   return (
     <Flex className={styles.root} direction="column" align="start" wrap={false}>
       <button className={styles.closeButton} onClick={onCloseSandbox}>
@@ -48,7 +58,7 @@ export const SandboxInput = ({
           <span className={cx('bodyS', styles.url)}>{url}</span>
         </ClipboardCopy>
 
-        <Button withArrow className={styles.sendButton} onClick={callApi} disabled={isFetchingApi}>
+        <Button withArrow className={styles.sendButton} onClick={handleSend} disabled={isFetchingApi}>
           Send
         </Button>
       </Flex>
