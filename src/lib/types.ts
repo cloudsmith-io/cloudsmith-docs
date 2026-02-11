@@ -14,7 +14,7 @@ export type LineHeight = keyof typeof lineHeights;
 
 /* SPACING
  * =========================== */
-export type Space = 'none' | '4xs' | '3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl' | '4xl';
+export type Space = '4xs' | '3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /* THEMES
  * =========================== */
