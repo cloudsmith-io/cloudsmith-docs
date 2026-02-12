@@ -115,7 +115,7 @@ const Result = () => {
           isError
           header={<span>Response {statusTag}</span>}
           className={styles.response}>
-          API Response is too large to display.
+          API Response is too large to display. We recommend copying the response into another viewing window.
         </CodeBlockClient>
       ) : null}
     </>
