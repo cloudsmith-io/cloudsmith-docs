@@ -269,6 +269,15 @@ The Cloudsmith Docker registry implementation has the following limitations:
 
 You can configure upstream Docker registries you wish to use for images. In addition, you can also choose to cache any requested images for future use.
 
+<Note variant="warning" headline="Warning">
+If you have a Docker upstream configured, please be aware of the following behaviours observed when making requests against the Docker API v2 endpoints:
+
+- [Tags/List](https://distribution.github.io/distribution/spec/api/#listing-image-tags): All tags from the upstream and not just local Cloudsmith tags are returned. 
+- [Manifests](https://distribution.github.io/distribution/spec/api/#pulling-an-image-manifest): This will trigger a cache of the referenced image to your Cloudsmith repository. 
+
+Iterating through a list of tags to fetch manifests will trigger automatic caching for every image. This can result in hundreds or thousands of cached images, significantly increasing artifact storage consumption and associated costs.
+</Note>
+
 ## Key Signing Support
 
 <Tag variant="red" theme="legacy">RSA</Tag>
