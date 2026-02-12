@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  overflow: hidden;
+  border-radius: var(--border-radius-l);
+  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
 }
 
 .root > * {

@@ -11,23 +11,36 @@
   overflow: hidden;
 }
 
+.codeWrapper {
+  overflow: auto;
+  height: calc(100% - 42px);
+  border-radius: 0 0 12px 12px;
+  background-color: var(--color-background-pre);
+}
+
+.darker .codeWrapper {
+  background-color: var(--base-color-grey-1000);
+}
+
 .code {
   position: relative;
-  height: calc(100% - 42px);
 }
 
 .code :global(pre) {
   margin: 0;
-  overflow-x: auto;
   /* Needed to overwrite Shikit theme */
   background-color: var(--color-background-pre) !important;
-  border-radius: 0 0 12px 12px;
   padding-block: 15px;
 }
 
 .darker .code :global(pre) {
   /* Needed to overwrite Shikit theme */
   background-color: var(--base-color-grey-1000) !important;
+}
+
+.error .code :global(pre) {
+  /* Needed to overwrite Shikit theme */
+  color: var(--brand-color-red-5) !important;
 }
 
 .code :global(code) {
@@ -86,8 +99,7 @@
   border-top-right-radius: var(--border-radius);
 }
 
-.error,
-.loading {
-  padding: var(--space-s) var(--space-m);
-  color: var(--color-text-on-color);
+.pre {
+  padding: 0 var(--space-m);
+  color: white;
 }

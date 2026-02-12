@@ -25,6 +25,7 @@ export const callApi = async (
   body?: BodyInit,
 ): Promise<ApiCallTestResponse> => {
   try {
+    // throw new Error('Something went wrong');
     const response = await fetch(url, {
       method,
       body,

@@ -53,7 +53,10 @@ export async function CodeBlock({
           <ClipboardCopy textToCopy={children} iconVariant="pre" />
         </div>
       )}
-      <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
+
+      <div className={styles.codeWrapper}>
+        <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
+      </div>
     </div>
   );
 }

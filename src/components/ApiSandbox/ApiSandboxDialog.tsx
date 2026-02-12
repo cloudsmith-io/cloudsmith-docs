@@ -6,13 +6,15 @@ import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { cx } from 'class-variance-authority';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { Button } from '@/components/Button';
 import { operationPath } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import styles from './ApiSandboxDialog.module.css';
-import { Sandbox } from './Sandbox';
+import Sandbox from './Sandbox';
+import SandboxError from './SandboxError';
 
 type ApiSandboxDialogProps = {
   operation: ApiOperation;
@@ -75,12 +77,15 @@ export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProp
               <RadixDialog.Close></RadixDialog.Close>
             </VisuallyHidden>
 
-            <Sandbox
-              currentOperation={operation}
-              operations={operations}
-              onCloseSandbox={closeSandboxHandler}
-              onChangeOperation={changeOperationHandler}
-            />
+            <ErrorBoundary fallback={<SandboxError />}>
+              <Sandbox
+                className={styles.sandbox}
+                currentOperation={operation}
+                operations={operations}
+                onCloseSandbox={closeSandboxHandler}
+                onChangeOperation={changeOperationHandler}
+              />
+            </ErrorBoundary>
           </RadixDialog.Content>
         </RadixDialog.Overlay>
       </RadixDialog.Portal>

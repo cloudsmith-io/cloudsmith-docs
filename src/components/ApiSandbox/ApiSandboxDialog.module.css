@@ -16,14 +16,13 @@
   --padding-block: var(--space-m);
   --padding-inline: var(--space-l);
 
-  background-color: var(--base-color-white);
   position: relative;
-  width: 100%;
   max-width: 1440px;
-  overflow: hidden;
-  border-radius: var(--border-radius-l);
-  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
   margin-block: var(--space-l);
+}
+
+.content:has(> .sandbox) {
+  width: 100%;
 }
 
 .content.animate {

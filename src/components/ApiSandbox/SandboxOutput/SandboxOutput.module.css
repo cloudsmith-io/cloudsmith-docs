@@ -29,6 +29,7 @@
 
 .request {
   flex-shrink: 0;
+  max-height: 50%;
 }
 
 .response {
@@ -43,7 +44,7 @@
   margin-bottom: 0;
 }
 
-.request :global(pre),
+/* .request :global(pre),
 .response :global(pre) {
   overflow-y: auto;
 }
@@ -54,4 +55,4 @@
 
 .response :global(pre) {
   height: 100%;
-}
+} */
