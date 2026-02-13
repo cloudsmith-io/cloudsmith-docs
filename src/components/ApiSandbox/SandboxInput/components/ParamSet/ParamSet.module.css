@@ -102,7 +102,7 @@
 
 .setRoot {
   border-top: 1px solid var(--color-border);
-  padding: var(--space-2xs) var(--space-3xs) var(--space-2xs) var(--space-s);
+  padding: var(--space-xs) var(--space-3xs) var(--space-2xs) var(--space-s);
 }
 
 .setRoot.isItem {
@@ -153,8 +153,12 @@
 }
 
 .arrayRoot {
-  padding: var(--space-2xs) var(--space-3xs) var(--space-2xs) var(--space-s);
+  padding: var(--space-xs) var(--space-3xs) var(--space-2xs) var(--space-s);
   border-top: 1px solid var(--color-border);
+}
+
+.arrayRoot.paramEntry .basics:not(:has(+ .details)) {
+  margin-bottom: var(--space-2xs);
 }
 
 .padding {

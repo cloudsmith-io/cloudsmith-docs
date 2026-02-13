@@ -18,11 +18,10 @@ import {
 import { defaultParamState, randomId } from '@/lib/operations/param-state/util';
 import { ArraySchemaObject, NonArraySchemaObject, SchemaObject } from '@/lib/swagger/types';
 
-import RootParamSet from '../ParamSet';
-import { ParamArray, ParamEntry, ParamKeyValue, ParamSet, ParamToggle } from '../ParamSet/ParamSet';
+import RootParamSet, { ParamArray, ParamEntry, ParamKeyValue, ParamSet, ParamToggle } from '../ParamSet';
 import styles from './RequestBody.module.css';
 
-export const RequestBody = () => {
+const RequestBody = () => {
   const { bodyParameters: parameters, bodyParamState, updateBodyParam } = useParameters();
 
   const { media, updateMedia } = useMedia();

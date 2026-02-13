@@ -41,7 +41,7 @@ async function codeToHtml(code: string, lang: string, highlighter: Highlighter) 
   });
 }
 
-export function CodeBlockClient({
+export default function CodeBlockClient({
   variant = 'default',
   children,
   lang,

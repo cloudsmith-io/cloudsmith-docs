@@ -1,3 +1,3 @@
-import { SandboxOutput } from './SandboxOutput';
+import SandboxOutput from './SandboxOutput';
 
 export default SandboxOutput;

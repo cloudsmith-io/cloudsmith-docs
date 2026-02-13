@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { CodeBlockClient } from '@/components/CodeBlock/CodeBlockClient';
+import { CodeBlockClient } from '@/components/CodeBlock';
 import { Flex } from '@/components/Flex';
 import { Tag } from '@/components/Tag';
 import { buildCurlCommand } from '@/lib/operations/api/builders';
@@ -13,7 +13,7 @@ type SandboxOutputProps = {
   operation: ApiOperation;
 };
 
-export const SandboxOutput = ({ operation }: SandboxOutputProps) => {
+const SandboxOutput = ({ operation }: SandboxOutputProps) => {
   return (
     <Flex className={styles.root} gap="xs" justify="start" direction="column" wrap={false}>
       <Command operation={operation} />
@@ -73,8 +73,6 @@ const Result = () => {
   const responseSize = useMemo(() => byteSize(stringResponse), [stringResponse]);
   const responseTooLarge = responseSize > RESPONSE_SIZE_LIMIT;
 
-  // if (apiResponse?.status) throw new Error();
-
   return (
     <>
       {isFetchingApi && (
@@ -121,3 +119,5 @@ const Result = () => {
     </>
   );
 };
+
+export default SandboxOutput;

@@ -6,7 +6,7 @@
   background-color: var(--base-color-white);
 }
 
-@media (--phablet-up) {
+@media (--tablet-up) {
   .root {
     height: calc(100vh - var(--space-l) * 2);
   }

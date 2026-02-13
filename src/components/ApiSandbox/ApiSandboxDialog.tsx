@@ -24,7 +24,7 @@ type ApiSandboxDialogProps = {
 const SANDBOX_SEARCH_PARAM = 'sandbox';
 const SANDBOX_OPEN_VALUE = 'open';
 
-export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProps) => {
+const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProps) => {
   const searchParams = useSearchParams();
   const sandbox = searchParams.get(SANDBOX_SEARCH_PARAM);
 
@@ -92,3 +92,5 @@ export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProp
     </RadixDialog.Root>
   );
 };
+
+export default ApiSandboxDialog;

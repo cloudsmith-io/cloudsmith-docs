@@ -1,1 +1,3 @@
-export * from './ApiSandboxDialog';
+import ApiSandboxDialog from './ApiSandboxDialog';
+
+export { ApiSandboxDialog };

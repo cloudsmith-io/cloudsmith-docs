@@ -1,3 +1,3 @@
-import { SandboxInput } from './SandboxInput';
+import SandboxInput from './SandboxInput';
 
 export default SandboxInput;

@@ -25,12 +25,7 @@ type SandboxInputProps = {
   onChangeOperation: (o: ApiOperation) => void;
 };
 
-export const SandboxInput = ({
-  operation,
-  operations,
-  onCloseSandbox,
-  onChangeOperation,
-}: SandboxInputProps) => {
+const SandboxInput = ({ operation, operations, onCloseSandbox, onChangeOperation }: SandboxInputProps) => {
   const url = operationUrl(operation);
 
   const { callApi, isFetchingApi } = useApiTest();
@@ -75,3 +70,5 @@ export const SandboxInput = ({
     </Flex>
   );
 };
+
+export default SandboxInput;
