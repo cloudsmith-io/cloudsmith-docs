@@ -50,3 +50,11 @@
     opacity: 1;
   }
 }
+
+@media (--mobile) {
+  .content,
+  .overlay,
+  .trigger {
+    display: none;
+  }
+}

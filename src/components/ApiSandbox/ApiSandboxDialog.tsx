@@ -63,7 +63,7 @@ export const ApiSandboxDialog = ({ operation, operations }: ApiSandboxDialogProp
   return (
     <RadixDialog.Root open={open} onOpenChange={openChangeHandler}>
       <RadixDialog.Trigger asChild>
-        <Button withArrow size="medium" width="large">
+        <Button className={styles.trigger} withArrow size="medium" width="large">
           Try it out
         </Button>
       </RadixDialog.Trigger>

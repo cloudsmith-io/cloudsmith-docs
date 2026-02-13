@@ -10,3 +10,13 @@
 .root > * {
   flex: 50%;
 }
+
+@media (--phablet-down) {
+  .root {
+    flex-direction: column;
+  }
+
+  .root > * {
+    width: 100vw;
+  }
+}
