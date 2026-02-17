@@ -2,7 +2,7 @@ import { ParameterObject, RequestBodyObject, SchemaObject } from '@/lib/swagger/
 
 import { BodyParamState, ParamState, PathParamState, QueryParamState } from './types';
 
-export const randomId = (): string => `--${Math.random()}`;
+export const randomId = (): string => crypto.randomUUID();
 
 export const valueToParamState = (
   value: string | number | boolean | unknown[] | object,
