@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { cva } from 'class-variance-authority';
 
@@ -29,6 +29,7 @@ export function ClipboardCopy({
   children?: ReactNode;
 }) {
   const [copyState, setCopyState] = useState<CopyStatus>('waiting');
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   async function copyText() {
     try {
@@ -39,10 +40,16 @@ export function ClipboardCopy({
       setCopyState('error');
     }
 
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setCopyState('waiting');
     }, 3000);
   }
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   return (
     <button
