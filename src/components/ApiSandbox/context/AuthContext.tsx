@@ -3,6 +3,7 @@ import { createContext, ReactNode, useCallback, useEffect, useMemo, useState } f
 import { AuthOption, AuthState } from '@/lib/operations/param-state/types';
 import { operationAuthOptions } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
+import { safeJSONparse } from '@/lib/util';
 
 export const AuthContext = createContext<{
   authOption: AuthOption | null;
@@ -30,7 +31,7 @@ type AuthProviderProps = {
 const AUTH_SESSION_STORAGE_KEY = 'auth';
 
 const persistedAuthState = (fallback: AuthState) => {
-  const state = JSON.parse(sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY) ?? '{}');
+  const state = safeJSONparse(sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY) ?? '{}', {});
   if (Object.keys(state).length === 0) return fallback;
   return state as AuthState;
 };

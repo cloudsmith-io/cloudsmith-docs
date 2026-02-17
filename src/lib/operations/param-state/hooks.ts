@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { ParameterObject } from '@/lib/swagger/types';
+import { safeJSONparse } from '@/lib/util';
 
 import { PathParamState, StringParamState } from './types';
 import { defaultPathParamState } from './util';
@@ -28,7 +29,7 @@ const PATH_PARAMS_SYNONYMS = [
 const PATH_PARAMS_TO_PERSIST = PATH_PARAMS_SYNONYMS.flat();
 
 const getPersistedPathParams = () =>
-  JSON.parse(localStorage.getItem(PATH_PARAM_LOCAL_STORAGE_KEY) ?? '{}') as PathParamState;
+  safeJSONparse(localStorage.getItem(PATH_PARAM_LOCAL_STORAGE_KEY) ?? '{}', {}) as PathParamState;
 
 export const usePathParamsState = (parameters: ParameterObject[]) => {
   const [pathParamState, setPathParamState] = useState<PathParamState>({});
