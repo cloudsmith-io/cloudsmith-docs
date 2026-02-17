@@ -6,19 +6,14 @@ declare global {
 }
 
 export const trackAnalyticsEvent = (name: string, metadata?: Record<string, unknown>) => {
-  const payload = {
-    ...metadata,
-    path: window.location.pathname,
-  };
-
   if (window.sa_event) {
-    window.sa_event(name, payload);
+    window.sa_event(name, metadata);
   }
 
   if (window.dataLayer) {
     window.dataLayer.push({
       event: name,
-      ...payload,
+      ...metadata,
     });
   }
 };
