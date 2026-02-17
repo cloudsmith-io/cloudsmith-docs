@@ -5,5 +5,5 @@ export type ApiCallTestResponse =
     }
   | {
       status: number;
-      body: object;
+      body?: object | string;
     };

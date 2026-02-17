@@ -25,16 +25,28 @@ export const callApi = async (
   body?: BodyInit,
 ): Promise<ApiCallTestResponse> => {
   try {
-    // throw new Error('Something went wrong');
     const response = await fetch(url, {
       method,
       body,
       headers,
     });
-    const responseBody = await response.json();
+    const contentType = response.headers.get('Content-Type') ?? '';
+    if (/text\/html/i.test(contentType)) {
+      const responseBody = await response.text();
+      return {
+        status: response.status,
+        body: responseBody,
+      };
+    } else if (/application\/json/.test(contentType)) {
+      const responseBody = await response.json();
+      return {
+        status: response.status,
+        body: responseBody,
+      };
+    }
+
     return {
       status: response.status,
-      body: responseBody,
     };
   } catch {
     return {

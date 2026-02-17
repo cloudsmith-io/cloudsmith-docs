@@ -70,12 +70,13 @@ export const ApiTestProvider = ({ operation, children }: ApiTestContextProviderP
     });
 
     callApi(url, operation.method, headers, bodyCount > 0 ? JSON.stringify(body) : undefined)
-      .then((response) => {
-        setResponse(response);
-      })
-      .catch((response) => {
-        setResponse(response);
-      })
+      .then(setResponse)
+      .catch(() =>
+        setResponse({
+          status: null,
+          body: { error: 'Something went wrong. Please try again later.' },
+        }),
+      )
       .finally(() => setIsFetching(false));
   }, [
     setIsFetching,
