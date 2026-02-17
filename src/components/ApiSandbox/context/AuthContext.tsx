@@ -40,7 +40,7 @@ export const AuthProvider = ({ operation, children }: AuthProviderProps) => {
 
   const [authState, setAuthState] = useState<AuthState>(
     persistedAuthState({
-      current: authOptions[0],
+      current: authOptions[0] ?? 'apikey',
       hidden: false,
       apikey: '',
       basic: '',
