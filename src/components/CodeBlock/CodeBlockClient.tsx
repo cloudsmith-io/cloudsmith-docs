@@ -49,7 +49,8 @@ export default function CodeBlockClient({
   hideHeader: _hideHeader = false,
   className,
   isError = false,
-}: Props & { isError?: boolean }) {
+  copyContentOverride,
+}: Props & { isError?: boolean; copyContentOverride?: string }) {
   const hideHeader = (!lang && !header) || _hideHeader;
   const hideLineNumbers = lang === 'bash' || lang === 'text';
   const darkerBackground = variant === 'darker';
@@ -81,7 +82,7 @@ export default function CodeBlockClient({
           <div className={cx({ [styles.langText]: !header && lang }, 'monoXSUppercase')}>
             {header ?? lang}
           </div>
-          <ClipboardCopy textToCopy={children} iconVariant="pre" />
+          <ClipboardCopy textToCopy={copyContentOverride ?? children} iconVariant="pre" />
         </div>
       )}
 
