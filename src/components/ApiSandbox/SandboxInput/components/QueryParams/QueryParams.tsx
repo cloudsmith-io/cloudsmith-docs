@@ -13,10 +13,6 @@ const QueryParams = () => {
   useEffect(() => {
     setShowAll(false);
   }, [parameters]);
-  const optionalExists = useMemo(
-    () => parameters.some((p) => p.required == null || !p.required),
-    [parameters],
-  );
 
   const sortedParameterEntries = useMemo(() => {
     return parameters.toSorted((a, b) => a.name.localeCompare(b.name));
@@ -27,9 +23,10 @@ const QueryParams = () => {
     [sortedParameterEntries],
   );
   const optionalParameters = useMemo(
-    () => sortedParameterEntries.filter((p) => !p.required == null || !p.required),
+    () => sortedParameterEntries.filter((p) => p.required == null || !p.required),
     [sortedParameterEntries],
   );
+  const optionalExists = optionalParameters.length > 0;
 
   return parameters.length > 0 ? (
     <RootParamSet heading="Query params">
