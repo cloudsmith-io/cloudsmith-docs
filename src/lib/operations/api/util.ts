@@ -81,7 +81,9 @@ export const resolveApiRequestUrl = ({
 
   const queryParams = operationParametersByType(operation, 'query') ?? [];
 
-  const finalUrl = Object.entries(query)
+  const finalUrl = new URL(cleanedUrl);
+
+  Object.entries(query)
     .filter(([name, state]) => {
       const param = queryParams.find((p) => p.name === name);
 
@@ -92,20 +94,12 @@ export const resolveApiRequestUrl = ({
 
       return false;
     })
-    .reduce((url, current, index) => {
-      let currenUrl: string = url;
-      if (index === 0) {
-        currenUrl += '?';
-      } else {
-        currenUrl += '&';
-      }
+    .forEach((current) => {
       const [name, state] = current;
-      currenUrl += `${name}=${state.value}`;
+      finalUrl.searchParams.append(name, `${state.value}`);
+    });
 
-      return currenUrl;
-    }, cleanedUrl);
-
-  return finalUrl;
+  return finalUrl.toString();
 };
 
 export const resolveApiRequestHeaders = ({
