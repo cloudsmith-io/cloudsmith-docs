@@ -2,9 +2,10 @@
 
 import { useLayoutEffect, useState } from 'react';
 
+import type { Highlighter } from 'shiki/index.mjs';
+
 import { transformerNotationHighlight } from '@shikijs/transformers';
 import { cva, cx } from 'class-variance-authority';
-import { Highlighter } from 'shiki/index.mjs';
 
 import { useHighlighter } from '@/lib/highlight/client';
 import { theme } from '@/lib/highlight/theme';
