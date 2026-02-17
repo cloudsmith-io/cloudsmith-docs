@@ -6,6 +6,7 @@ import { cx } from 'class-variance-authority';
 
 import { useAuth } from '@/components/ApiSandbox/context/hook';
 import { Flex } from '@/components/Flex';
+import { Link } from '@/components/Link';
 import { Note } from '@/components/Note';
 import { Icon } from '@/icons';
 import { AuthOption } from '@/lib/operations/param-state/types';
@@ -183,12 +184,9 @@ const BasicInputs = ({
 const ApiKeyNote = () => (
   <Note headline="Getting your API Key" variant="note" className={styles.notes}>
     You can{' '}
-    <a
-      href="https://cloudsmith-docs-hnrumqp5d-cloudsmith.vercel.app/accounts-and-teams/api-key"
-      target="_blank"
-      rel="noopener noreferrer">
+    <Link href="/accounts-and-teams/api-key" target="_blank" rel="noopener noreferrer">
       find your API Key
-    </a>{' '}
+    </Link>{' '}
     within your User Settings or you can request (or reset) it via the Users Token API Endpoint. <br />
     <br />
     Cloudsmith Entitlement Tokens cannot be used to authenticate to the Cloudsmith API. Entitlement Tokens are
