@@ -35,13 +35,8 @@ const persistedAuthState = (fallback: AuthState) => {
     sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY) ?? '{}',
     {},
   );
-  if (Object.keys(state).length === 0) return fallback;
-  for (const key of ['apikey', 'basic'] as ('apikey' | 'basic')[]) {
-    if (!(key in state)) {
-      state[key] = fallback[key];
-    }
-  }
-  return state as AuthState;
+  const { apikey, basic, ...persistedState } = state;
+  return { ...fallback, ...persistedState } as AuthState;
 };
 
 export const AuthProvider = ({ operation, children }: AuthProviderProps) => {
