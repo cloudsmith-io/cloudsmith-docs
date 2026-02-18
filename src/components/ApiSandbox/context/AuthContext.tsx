@@ -31,12 +31,18 @@ type AuthProviderProps = {
 const AUTH_SESSION_STORAGE_KEY = 'auth';
 
 const persistedAuthState = (fallback: AuthState) => {
-  const state = safeJSONparse<Partial<AuthState>>(
+  const persistedState = safeJSONparse<Partial<AuthState>>(
     sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY) ?? '{}',
     {},
   );
-  const { apikey, basic, ...persistedState } = state;
-  return { ...fallback, ...persistedState } as AuthState;
+  const state = { ...fallback };
+  if ('current' in persistedState) {
+    state['current'] = persistedState['current']!;
+  }
+  if ('hidden' in persistedState) {
+    state['hidden'] = persistedState['hidden']!;
+  }
+  return state as AuthState;
 };
 
 export const AuthProvider = ({ operation, children }: AuthProviderProps) => {
