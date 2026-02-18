@@ -12,11 +12,7 @@ Most resources provided by the API require some form of authentication, which id
 
 ### API Key Authentication
 
-<Note variant="note" headline="Getting your API Key">
-You can [find your API Key](/accounts-and-teams/api-key) within your User Settings or you can request (or reset) it via the Users Token API Endpoint.
-
-Cloudsmith Entitlement Tokens cannot be used to authenticate to the Cloudsmith API. Entitlement Tokens are used to authenticate for package downloads only.
-</Note>
+The most straightforward way to authenticate against the API is by using your personal API key. You can [find your API Key](/accounts-and-teams/api-key) within your User Settings or you can request (or reset) it via the Users Token API Endpoint. Cloudsmith Entitlement Tokens cannot be used to authenticate to the Cloudsmith API. Entitlement Tokens are used to authenticate for package downloads only.
 
 You can specify your API Key via the `X-Api-Key` header when making requests (replacing `key` with your actual API Key):
 
@@ -42,8 +38,8 @@ server: Cloudsmith MCP
 {"detail": "Invalid token."}
 ```
 
-<Note variant="warning" headline="Use Service Accounts">
-If your API key is given to someone else they will be able to access the API in its entirety as you (although they won't be able to login to the website itself, which makes this method slightly more secure that using Basic Authentication). This should be viewed as a security risk and every effort should be taken to protect your API Key from disclosure. If you need to add read-only access, we suggest creating a lesser privileged [service account](/accounts-and-teams/service-accounts) and using that instead for scripts/automation.
+<Note variant="warning" headline="Using Service Accounts">
+If your API key is given to someone else they will be able to access the API in its entirety as you. This should be viewed as a security risk and every effort should be taken to protect your API Key from disclosure. If you need to add read-only access, we suggest creating a lesser privileged [service account](/accounts-and-teams/service-accounts) and using that instead for scripts/automation.
 </Note>
 
 ## Pagination
