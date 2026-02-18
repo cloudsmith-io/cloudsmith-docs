@@ -23,7 +23,7 @@ curl -H "X-Api-Key: key" https://api.cloudsmith.io/user/self/
 You can also specify your API Key via the Authorization header when making requests (replacing `key` with your actual API Key):
 
 ```bash
-curl -H "Authorization: token key" https://api.cloudsmith.io/user/self/
+curl -H "Authorization: key" https://api.cloudsmith.io/user/self/
 ```
 
 Specifying an invalid API Key will result in an 401 Unauthorized status code, and the body will specify that an invalid token was received. Let's see it in action:
