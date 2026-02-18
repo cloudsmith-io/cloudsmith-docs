@@ -10,32 +10,6 @@ The API is versioned to help reduce future compatibility issues if we need to ch
 
 Most resources provided by the API require some form of authentication, which identifies the client to the API in the context of a particular user. Other resources are accessible anonymously, so they don't need authentication (although they may provide expanded detail for authenticated users). You can use the following methods to authenticate:
 
-### Basic Authentication
-
-The simplest (but least recommended) way to authenticate is to provide your login email and password when making API requests (replacing `email` with your username and `password` with your password):
-
-```bash
-curl -u "email:password" https://api.cloudsmith.io/user/self/
-```
-
-Specifying an invalid email and/or password will result in an 401 Unauthorized status code, and the body will specify that invalid credentials were received. Let's see it in action:
-
-```bash
-curl -i -u "example:wrongpassword" -X OPTIONS https://api.cloudsmith.io/user/self/
-
-HTTP/2 401
-date: Thu, 09 Mar 2023 16:52:55 GMT
-server: Cloudsmith MCP
-
-{"detail": "Invalid username/password."}
-```
-
-<Note variant="warning" headline="Warning">
-Disclosure of your email and password will allow a malicious third-party to takeover your account and cause damage. We recommend using an API Key instead and using a lesser privileged account for API access.
-
-Instead of providing your email and password, it is recommended that you instead authenticate to the API by specifying your API Key.
-</Note>
-
 ### API Key Authentication
 
 <Note variant="note" headline="Getting your API Key">
