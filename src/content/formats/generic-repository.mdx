@@ -1,6 +1,7 @@
 import { Tag, Note, BlockImage, Video } from '@/components';
 
 import genericUpstream from './images/generic/generic-upstream.png';
+import upstreamPrompt from './images/generic/generic-upstream-prompt.png';
 import upstreamIndex from './images/generic/generic-upstream-index.png';
 
 # Generic Repository
@@ -30,6 +31,10 @@ In the following examples:
 | TOKEN           | Your Cloudsmith Entitlement Token (see [Entitlements](/software-distribution/entitlement-tokens) for more details) |
 | API-KEY         | Your Cloudsmith API Key                                                                                            |
 | UPSTREAM_PREFIX | Upstream prefix (Provided without a trailing slash) used as a path for files cached from upstreams                 |
+
+<Note variant="note" headline="Substitute placeholder values">
+Where you see uppercase values such as `OWNER`, `REPOSITORY`, `TOKEN`, `API-KEY`, or `UPSTREAM_PREFIX`, substitute these with your own Cloudsmith namespace, repository, token, API key, and upstream prefix as appropriate.
+</Note>
 
 
 ## Why Generic Format?
@@ -107,10 +112,14 @@ curl -sLf -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/pat
 #### Private Repositories
 
 <Note variant="note" headline="Private Repositories">
-Private Cloudsmith repositories require authentication. You can choose between Entitlement Token Authentication or HTTP Basic Authentication. The setup method will differ depending on what authentication type you choose to use.
+Private repositories require authentication. Use either an Entitlement Token or API Key via HTTP Basic Authentication mechanisms to access files. The authentication method will depends on how you download packages.
+
+The following authentication methods do not work for browsing the HTML index in a web browser. For browser access, use HTTP Basic Authentication when prompted—enter `token` as the username and your entitlement token as the password.
 </Note>
 
-To use either an entitlement token or an API key to download files directly:
+**HTTP Basic Authentication (generic.cloudsmith.io):**
+
+Use an entitlement token or API key to authenticate and download files directly:
 
 ```shell
 curl -sLf -u "token:TOKEN" -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
@@ -120,31 +129,31 @@ curl -sLf -u "token:TOKEN" -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UP
 curl -sLf -u "token:API-KEY" -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
 ```
 
-**Alternative URL formats:**
+Alternatively, embed HTTP Basic Auth credentials in the URL to download files:
 
-You can also embed credentials directly in the URL:
 
 ```shell
 curl -sLf -O "https://token:TOKEN@generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
 ```
 
-Or use the token in the URL path:
+**Path-based authentication (dl.cloudsmith.io):**
+
+To use path-based authentication, include the token in the URL path and use the `dl.cloudsmith.io` domain. This method is not supported on `generic.cloudsmith.io`.
+
+Add `generic/download/` to the URL path before the upstream prefix to ensure the request is routed correctly.
 
 ```shell
-curl -sLf -O "https://generic.cloudsmith.io/TOKEN/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
+curl -sLf -O "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/download/UPSTREAM_PREFIX/path/to/file.tar.gz"
 ```
 
-<Note variant="note" headline="Browser limitations">
-The URL formats above work for direct file downloads via command line tools. However, they do not work when browsing the HTML index in a web browser. For browser access, use HTTP Basic authentication when prompted (enter `token` as the username and your entitlement token as the password).
+| Domain | Authentication Method | Example |
+| :----- | :-------------------- | :------ |
+| `generic.cloudsmith.io` | HTTP Basic Auth (header or embedded in URL) | `token:TOKEN@generic.cloudsmith.io/...` |
+| `dl.cloudsmith.io` | Token in URL path | `dl.cloudsmith.io/TOKEN/...` |
+
+<Note variant="note" headline="HTTP libraries that don't follow redirects">
+Some HTTP libraries do not automatically follow redirects. The `generic.cloudsmith.io` domain redirects to the download domain. If your HTTP library does not follow redirects, use the `dl.cloudsmith.io` domain with path-based authentication instead.
 </Note>
-
-**For HTTP libraries that don't follow redirects:**
-
-Some HTTP libraries do not automatically follow redirects. For these cases, It's recommend to configure the ability to follow redirects however if that is not possible, use the `dl.cloudsmith.io` domain with the token in the URL path:
-
-```shell
-curl -sLf -O "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/UPSTREAM_PREFIX/path/to/file.tar.gz"
-```
 
 ### Download via the HTML Index
 
@@ -166,9 +175,13 @@ Browse the HTML index to view and download packages directly in your browser.
 
 #### Private Repositories
 
-To view the HTML index in a browser for private repositories, use `token` as the username and your entitlement token or API key as the password when prompted for authentication.
+When accessing the HTML index in a browser for private repositories, you will be prompted for authentication. Enter `token` as the username and your entitlement token or API key as the password to view the index.
 
-<BlockImage src={upstreamIndex} alt="Generic Upstream Index"></BlockImage>
+<BlockImage src={upstreamPrompt} alt="Generic Upstream Index - Prompt for Password"></BlockImage>
+
+After entering valid credentials, you should then be able to view the HTML index.
+
+<BlockImage src={upstreamIndex} alt="Generic Upstream Index - List of Files"></BlockImage>
 
 ## Upstream Proxying / Caching
 
