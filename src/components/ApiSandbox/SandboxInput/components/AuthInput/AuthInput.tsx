@@ -88,7 +88,7 @@ const AuthInput = () => {
                 <RadixTooltip.Trigger asChild>
                   <button className={styles.button} onClick={auth.toggleHideAuth}>
                     <Icon
-                      name={auth.isAuthHidden ? 'action/eye-slashed' : 'action/eye'}
+                      name={auth.isAuthHidden ? 'action/eye' : 'action/eye-slashed'}
                       title={`${auth.isAuthHidden ? 'Show' : 'Hide'} credentials`}
                     />
                   </button>

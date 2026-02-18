@@ -143,7 +143,7 @@
 
 .delete {
   position: absolute;
-  right: var(--space-3xs);
+  right: var(--space-2xs);
   top: var(--space-xs);
   cursor: pointer;
 }
