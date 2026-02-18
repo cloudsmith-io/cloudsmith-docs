@@ -1,21 +1,37 @@
+import { cx } from 'class-variance-authority';
+
 import { Tag } from '@/components';
+import { operationParametersByType, operationUrl } from '@/lib/operations/util';
 import { ApiOperation } from '@/lib/swagger/types';
 
 import { ApiGrid, ApiGridColumn, ApiGridRow } from '../ApiGrid';
 import { ApiMediaResponse } from '../ApiMedia';
+import { ApiSandboxDialog } from '../ApiSandbox';
+import { ClipboardCopy } from '../ClipboardCopy/ClipboardCopy';
 import styles from './ApiRequest.module.css';
 
-export const ApiRequest = (operation: ApiOperation) => {
-  const getParametersByParam = (param: string) => operation.parameters?.filter((p) => p.in === param);
-  const pathsParameters = getParametersByParam('path');
-  const queryParameters = getParametersByParam('query');
+export const ApiRequest = ({
+  operation,
+  operations,
+}: {
+  operation: ApiOperation;
+  operations: ApiOperation[];
+}) => {
+  const pathsParameters = operationParametersByType(operation, 'path');
+  const queryParameters = operationParametersByType(operation, 'query');
+
+  const url = operationUrl(operation);
 
   return (
     <>
       <div className={styles.request}>
-        <div className={styles.url}>
-          <Tag method={operation.method} />
-          {`${process.env.NEXT_PUBLIC_CLOUDSMITH_API_URL}/${operation.version}${operation.path}`}
+        <div className={styles.sandbox}>
+          <ClipboardCopy textToCopy={url} className={styles.urlCopy}>
+            <Tag className={styles.method} method={operation.method} />
+            <span className={cx('bodyS', styles.url)}>{url}</span>
+          </ClipboardCopy>
+
+          <ApiSandboxDialog operation={operation} operations={operations} />
         </div>
       </div>
 
@@ -33,7 +49,9 @@ const PathParams = ({ parameters }: { parameters: NonNullable<ApiOperation['para
         <ApiGridColumn>{param.name}</ApiGridColumn>
         <ApiGridColumn type="type">{param.schema?.type}</ApiGridColumn>
         <ApiGridColumn>
-          <Tag variant={param.required ? 'red' : 'grey'}>{param.required ? 'required' : 'optional'}</Tag>
+          <Tag variant={param.required ? 'light-red' : 'grey'}>
+            {param.required ? 'required' : 'optional'}
+          </Tag>
         </ApiGridColumn>
       </ApiGridRow>
     ))}
@@ -57,7 +75,7 @@ const RequestBody = ({ requestBody }: { requestBody: NonNullable<ApiOperation['r
     heading={
       <>
         {'Body params '}
-        <Tag variant={requestBody.required ? 'red' : 'grey'}>
+        <Tag variant={requestBody.required ? 'light-red' : 'grey'}>
           {requestBody.required ? 'required' : 'optional'}
         </Tag>
       </>

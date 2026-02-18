@@ -1,11 +1,12 @@
 import { transformerNotationHighlight } from '@shikijs/transformers';
 import { cva, cx } from 'class-variance-authority';
 
-import { getHighlighter, theme } from '@/lib/highlight';
+import { getHighlighter } from '@/lib/highlight/server';
+import { theme } from '@/lib/highlight/theme';
 
-import { ClipboardCopy } from './ClipboardCopy';
-
+import { ClipboardCopy } from '../ClipboardCopy/ClipboardCopy';
 import styles from './CodeBlock.module.css';
+import { Props } from './props';
 
 const codeBlock = cva(styles.root, {
   variants: {
@@ -15,12 +16,23 @@ const codeBlock = cva(styles.root, {
     hideHeader: {
       true: styles.hideHeader,
     },
+    darkerBackground: {
+      true: styles.darker,
+    },
   },
 });
 
-export async function CodeBlock({ children, lang, header = true }: Props) {
-  const hideHeader = !lang || !header;
+export async function CodeBlock({
+  variant = 'default',
+  children,
+  lang,
+  header,
+  hideHeader: _hideHeader = false,
+  className,
+}: Props) {
+  const hideHeader = (!lang && !header) || _hideHeader;
   const hideLineNumbers = lang === 'bash' || lang === 'text';
+  const darkerBackground = variant === 'darker';
 
   const html = (await getHighlighter()).codeToHtml(children, {
     lang,
@@ -32,20 +44,19 @@ export async function CodeBlock({ children, lang, header = true }: Props) {
   });
 
   return (
-    <div className={codeBlock({ hideHeader, hideLineNumbers })}>
+    <div className={codeBlock({ hideHeader, hideLineNumbers, darkerBackground, className })}>
       {!hideHeader && (
         <div className={styles.lang}>
-          <div className={cx(styles.langText, 'monoXSUppercase')}>{lang}</div>
-          <ClipboardCopy textToCopy={children} />
+          <div className={cx({ [styles.langText]: !header && lang }, 'monoXSUppercase')}>
+            {header ?? lang}
+          </div>
+          <ClipboardCopy textToCopy={children} iconVariant="pre" />
         </div>
       )}
-      <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
+
+      <div className={styles.codeWrapper}>
+        <div className={styles.code} dangerouslySetInnerHTML={{ __html: html }} />
+      </div>
     </div>
   );
-}
-
-interface Props {
-  children: string;
-  lang: string;
-  header?: boolean;
 }

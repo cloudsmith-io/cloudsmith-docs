@@ -75,3 +75,12 @@ export const debounce = <T extends unknown[]>(func: (...args: T) => void, wait: 
 export const last = (arr: any[]) => {
   return Array.isArray(arr) && arr.length > 0 ? arr[arr.length - 1] : undefined;
 };
+
+export const safeJSONparse = <T = object>(content: string, fallback: T): T => {
+  try {
+    const parsed = JSON.parse(content) as T;
+    return parsed;
+  } catch {
+    return fallback;
+  }
+};

@@ -1,4 +1,5 @@
 import { OpenAPIV3 } from 'openapi-types';
+
 import { replaceAll, titleCase } from '../util';
 
 export const isHttpMethod = (method: string): boolean =>
@@ -41,11 +42,4 @@ export const createSlug = (menuSegments: string[]): string => {
  */
 export const createTitle = (menuSegments: string[]): string => {
   return menuSegments.join(' ');
-};
-
-/**
- * Turns an operation slug into a fully qualified local path to use in links
- */
-export const apiOperationPath = (slug: string): string => {
-  return `/api/${slug}`;
 };

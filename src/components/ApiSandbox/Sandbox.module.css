@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  gap: 0;
+  flex-flow: column nowrap;
+  overflow: hidden;
+  border-radius: var(--border-radius-l);
+  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
+  max-width: 100vw;
+}
+
+.root > * {
+  width: 100vw;
+}
+
+@media (--tablet-up) {
+  .root {
+    flex-direction: row;
+  }
+
+  .root > * {
+    flex: 0 1 50%;
+    max-width: 50%;
+    width: initial;
+  }
+}

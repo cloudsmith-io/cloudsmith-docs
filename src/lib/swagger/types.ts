@@ -100,14 +100,14 @@ interface ParameterBaseObject {
     [media: string]: MediaTypeObject;
   };
 }
-type NonArraySchemaObjectType = 'boolean' | 'object' | 'number' | 'string' | 'integer';
+export type NonArraySchemaObjectType = 'boolean' | 'object' | 'number' | 'string' | 'integer';
 type ArraySchemaObjectType = 'array';
 export type SchemaObject = ArraySchemaObject | NonArraySchemaObject;
-interface ArraySchemaObject extends BaseSchemaObject {
+export interface ArraySchemaObject extends BaseSchemaObject {
   type: ArraySchemaObjectType;
   items: SchemaObject;
 }
-interface NonArraySchemaObject extends BaseSchemaObject {
+export interface NonArraySchemaObject extends BaseSchemaObject {
   type?: NonArraySchemaObjectType;
 }
 interface BaseSchemaObject {

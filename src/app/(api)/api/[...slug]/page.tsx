@@ -62,6 +62,7 @@ export const generateStaticParams = async () => {
   // Generate swagger slugs
   const schemas = await parseSchemas();
   const operations = toOperations(schemas);
+
   const operationSlugs = operations.map((op) => ({ slug: toRouteSegments(op.slug) }));
 
   return mdxSlugs.concat(operationSlugs);
@@ -139,7 +140,7 @@ const Page = async ({ params }: PageProps) => {
           <Heading size="h2" className={styles.fullWidth}>
             Request
           </Heading>
-          <ApiRequest {...operation} />
+          <ApiRequest operation={operation} operations={operations} />
           <Heading size="h2" className={styles.fullWidth}>
             Response
           </Heading>

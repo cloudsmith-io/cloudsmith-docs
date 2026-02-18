@@ -1,0 +1,64 @@
+.selectRoot {
+  width: 100%;
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-2xs) var(--space-3xs) var(--space-2xs) var(--space-s);
+  background-color: var(--brand-color-grey-0);
+}
+
+.selectRoot + * {
+  border-top: 1px solid var(--base-color-grey-500);
+}
+
+.select {
+  --svg-path-fill: var(--color-text-tertiary);
+
+  width: 100%;
+  display: inline-flex;
+  padding: var(--space-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-m);
+  font-size: var(--text-body-s);
+  background-color: var(--color-background-default);
+}
+
+.tag {
+  align-self: center;
+}
+
+.selectContainer {
+  background-color: var(--color-background-default);
+  border-radius: var(--border-radius-m);
+  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
+  z-index: var(--layer-select);
+  border: 1px solid var(--color-border);
+  animation: contentShow 200ms ease-in-out;
+}
+
+.selectItem {
+  display: flex;
+  cursor: pointer;
+  scroll-margin-top: var(--space-4xs);
+  scroll-margin-bottom: var(--space-4xs);
+  align-items: center;
+  padding: var(--space-xs);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.selectItem:hover {
+  background-color: var(--color-background-info);
+}
+
+.selectItem:not(:has(> .selectItemIndicator)) {
+  padding-left: calc(var(--space-xs) + 16px + var(--space-2xs));
+}
+
+.selectItemIndicator {
+  color: var(--color-accent-default);
+}
+
+.mediaBanner {
+  border-top: 1px solid var(--base-color-grey-500);
+  padding: var(--space-2xs) var(--space-3xs) var(--space-2xs) var(--space-s);
+  color: var(--color-text-tertiary);
+}

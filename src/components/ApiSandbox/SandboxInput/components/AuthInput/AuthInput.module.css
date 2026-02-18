@@ -1,0 +1,102 @@
+.root {
+  width: 100%;
+  font-size: var(--text-body-s);
+}
+
+.select {
+  --svg-path-fill: var(--color-text-tertiary);
+
+  border: 1px solid var(--color-border);
+  width: 100px;
+  padding: var(--space-xs);
+  border-radius: var(--border-radius-m) 0 0 var(--border-radius-m);
+  flex-shrink: 0;
+  font-size: var(--text-body-s);
+}
+
+.input {
+  padding: var(--space-xs);
+  width: 100%;
+  border-top: 1px solid var(--color-border);
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.inputSeparator {
+  padding: var(--space-xs) var(--space-4xs);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.selectContainer {
+  background-color: var(--color-background-default);
+  border-radius: var(--border-radius-m);
+  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
+  z-index: var(--layer-select);
+  border: 1px solid var(--color-border);
+  animation: contentShow 200ms ease-in-out;
+}
+
+.selectItem {
+  display: flex;
+  cursor: pointer;
+  scroll-margin-top: var(--space-4xs);
+  scroll-margin-bottom: var(--space-4xs);
+  align-items: center;
+  width: 100px;
+  padding: var(--space-xs);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.selectItem:not(:has(> .selectItemIndicator)) {
+  padding-left: calc(var(--space-xs) + 16px + var(--space-2xs));
+}
+
+.selectItem:hover {
+  background-color: var(--color-background-info);
+}
+
+.selectItemIndicator {
+  color: var(--color-accent-default);
+}
+
+.buttonsContainer {
+  padding: var(--space-xs);
+  align-self: stretch;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  border-top: 1px solid var(--color-border);
+  border-left: 0;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0 var(--border-radius-m) var(--border-radius-m) 0;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.button.active {
+  color: var(--color-text-secondary);
+}
+
+.button.hidden {
+  visibility: hidden;
+}
+
+.tooltip {
+  background: var(--color-background-default);
+  padding: var(--space-2xs) var(--space-xs);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-m);
+  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
+  z-index: var(--layer-select);
+  border: 1px solid var(--color-border);
+}
+
+.notes {
+  width: 100%;
+  margin: calc(-1 * var(--space-xs)) 0;
+}

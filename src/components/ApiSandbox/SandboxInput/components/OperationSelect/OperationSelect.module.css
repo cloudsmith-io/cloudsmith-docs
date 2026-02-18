@@ -1,0 +1,95 @@
+.trigger {
+  padding: var(--space-2xs);
+  cursor: pointer;
+  border-radius: var(--border-radius-m);
+}
+
+.trigger h2 {
+  margin: 0;
+}
+
+.trigger[aria-expanded='true'] {
+  outline: solid 1px var(--color-accent-default);
+}
+
+.content {
+  min-width: 430px;
+  overflow: hidden;
+  background-color: var(--color-background-default);
+  border-radius: var(--border-radius-m);
+  box-shadow: 0 0 2px 1px var(--color-dialog-box-shadow);
+  z-index: var(--layer-select);
+  max-height: 500px;
+  border: 1px solid var(--color-border);
+  animation: contentShow 200ms ease-in-out;
+}
+
+.comboboxWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.combobox {
+  border-radius: var(--border-radius-s) var(--border-radius-s) 0 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  outline: none;
+  width: 100%;
+  padding: var(--space-xs) var(--space-m) var(--space-xs) var(--space-l);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-s);
+}
+
+.combobox::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.comboboxIcon {
+  pointer-events: none;
+  position: absolute;
+  left: var(--space-2xs);
+}
+
+.listbox {
+  overflow-y: auto;
+}
+
+.item {
+  cursor: pointer;
+  scroll-margin-top: var(--space-4xs);
+  scroll-margin-bottom: var(--space-4xs);
+  align-items: center;
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-xs);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  font-size: var(--text-body-s);
+}
+
+.item:not(:has(.itemIndicator)) {
+  padding-left: calc(var(--space-xs) + 16px + var(--space-2xs));
+}
+
+.item:hover {
+  background-color: var(--color-background-info);
+}
+
+.itemTitle {
+  flex-shrink: 0;
+}
+
+.itemIndicator {
+  color: var(--color-accent-default);
+}
+
+@keyframes contentShow {
+  from {
+    transform: translate(0, -3%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
