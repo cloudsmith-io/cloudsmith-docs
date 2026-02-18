@@ -31,8 +31,16 @@ type AuthProviderProps = {
 const AUTH_SESSION_STORAGE_KEY = 'auth';
 
 const persistedAuthState = (fallback: AuthState) => {
-  const state = safeJSONparse(sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY) ?? '{}', {});
+  const state = safeJSONparse<Partial<AuthState>>(
+    sessionStorage.getItem(AUTH_SESSION_STORAGE_KEY) ?? '{}',
+    {},
+  );
   if (Object.keys(state).length === 0) return fallback;
+  for (const key of ['apikey', 'basic'] as ('apikey' | 'basic')[]) {
+    if (!(key in state)) {
+      state[key] = fallback[key];
+    }
+  }
   return state as AuthState;
 };
 
@@ -49,7 +57,10 @@ export const AuthProvider = ({ operation, children }: AuthProviderProps) => {
   );
 
   useEffect(() => {
-    sessionStorage.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(authState));
+    sessionStorage.setItem(
+      AUTH_SESSION_STORAGE_KEY,
+      JSON.stringify({ current: authState.current, hidden: authState.hidden }),
+    );
   }, [authState]);
 
   useEffect(() => {
