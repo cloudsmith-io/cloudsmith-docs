@@ -69,7 +69,9 @@ export const ApiTestProvider = ({ operation, children }: ApiTestContextProviderP
       media,
     });
 
-    callApi(url, operation.method, headers, bodyCount > 0 ? JSON.stringify(body) : undefined)
+    const method = operation.method.toUpperCase();
+
+    callApi(url, method, headers, bodyCount > 0 ? JSON.stringify(body) : undefined)
       .then(setResponse)
       .catch(() =>
         setResponse({
