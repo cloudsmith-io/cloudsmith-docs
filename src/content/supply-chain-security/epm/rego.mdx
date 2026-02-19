@@ -443,7 +443,18 @@ reason contains msg if {
 
 **Use case**: Match new packages for a specific period (e.g. two weeks) after release. Enforcing a time lag before consuming a new package or package version is an effective safeguard to protect against zero-day attacks.
 
-Package publish date is currently only available for npm.
+Package publish date is currently available for npm, Python, NuGet, Docker, Ruby, Go, Rust, Conda, and Maven.
+
+**How we source publish date metadata:**
+
+To ensure the accuracy of your policies, we pull metadata from the most reliable sources for each ecosystem:
+
+**npm, Python, NuGet, GO, Rust, Ruby & Conda**: Sourced directly from the official registry metadata APIs.
+
+**Docker**: Retrieved via the Docker Registry Tags API. 
+
+**Maven**: Since Maven repositories don't always provide a native "publish date," this is a best-effort calculation based on the Last-Modified HTTP header of the package's POM file on the upstream server.
+
 
 What It Does:
 
