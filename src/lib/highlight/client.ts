@@ -17,7 +17,7 @@ export const useHighlighter = () => {
           setHighlighter(h);
           setFetching(false);
         })
-        .catch((e) => {
+        .catch(() => {
           setError(true);
           setFetching(false);
         });
