@@ -1,6 +1,4 @@
 export const getContentSecurityPolicyHeaderValue = () => {
-  const sentryReportUrl = process.env.SENTRY_SECURITY_REPORT_URL;
-
   const definitions: Record<string, Record<string, string[]>> = {
     defaults: {
       'default-src': [`'self'`],
@@ -43,11 +41,6 @@ export const getContentSecurityPolicyHeaderValue = () => {
       'connect-src': ['https://va.vercel-scripts.com'],
     },
   };
-
-  if (sentryReportUrl) {
-    definitions.defaults['report-uri'] = [sentryReportUrl];
-    definitions.defaults['report-to'] = ['csp-endpoint'];
-  }
 
   const directives: Record<string, string[][]> = {};
 
