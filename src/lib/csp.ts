@@ -27,6 +27,11 @@ export const getContentSecurityPolicyHeaderValue = () => {
     cloudsmith: {
       'connect-src': ['https://api.cloudsmith.io'],
     },
+    qualified: {
+      'script-src': ['https://js.qualified.com'],
+      'connect-src': ['wss://*.qualified.com', 'https://app.qualified.com'],
+      'frame-src': ['https://app.qualified.com'],
+    },
     simpleAnalytics: {
       'script-src': ['https://simple.cloudsmith.com'],
       'connect-src': [
