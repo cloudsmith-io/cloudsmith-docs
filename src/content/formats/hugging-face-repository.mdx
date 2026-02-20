@@ -104,7 +104,7 @@ from huggingface_hub import HfApi
 
 HF_ENDPOINT = "https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY"
 HF_TOKEN = "CSA_API_TOKEN"
-MODEL_NAME = "microsoft/kosmos-2.5" 
+MODEL_NAME = "acme-corp/text-summarizer"
 
 LOCAL_DIR = "/path/to/your/model_files/snapshot/id"
 
@@ -137,10 +137,10 @@ Upload any folder containing your model or dataset files using the `upload` comm
 hf upload <REPO_ID> <LOCAL_PATH> --repo-type <TYPE> --commit-message "Commit via CLI" --revision <VERSION>
 ```
 
-For example, to upload a model called `microsoft/kosmos-2.5` stored locally at `./hugging-face-models/microsoft/kosmos-2.5`:
+For example, to upload a model called `acme-corp/text-summarizer` stored locally at `./hugging-face-models/acme-corp/text-summarizer`:
 
 ```bash
-hf upload microsoft/kosmos-2.5 ./hugging-face-models/microsoft/kosmos-2.5 --repo-type model --commit-message "Commit via CLI" --revision "1.2.3"
+hf upload acme-corp/text-summarizer ./hugging-face-models/acme-corp/text-summarizer --repo-type model --commit-message "Commit via CLI" --revision "1.2.3"
 ```
 
 Execute the command, and you will see the upload progress in your terminal:
@@ -167,7 +167,7 @@ from huggingface_hub import HfApi
 HF_ENDPOINT = "https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY"
 HF_TOKEN = "CSA_API_TOKEN"
 
-MODEL_NAME = "microsoft/kosmos-2.5"
+MODEL_NAME = "acme-corp/text-summarizer"
 
 api = HfApi(
     endpoint=HF_ENDPOINT,
@@ -178,6 +178,42 @@ local_dir = api.snapshot_download(
     repo_id=MODEL_NAME, repo_type="model", revision="main"
 )
 ```
+
+To download a dataset instead, set `repo_type` to `"dataset"` and provide the dataset name as the `repo_id`:
+
+```python
+from huggingface_hub import HfApi
+
+HF_ENDPOINT = "https://huggingface.cloudsmith.io/WORKSPACE/REPOSITORY"
+HF_TOKEN = "CSA_API_TOKEN"
+
+DATASET_NAME = "my-org/sentiment-data"
+
+api = HfApi(
+    endpoint=HF_ENDPOINT,
+    token=HF_TOKEN,
+)
+
+local_dir = api.snapshot_download(
+    repo_id=DATASET_NAME, repo_type="dataset", revision="main"
+)
+```
+
+<Note variant="note" headline="Revision">
+The `revision` parameter defaults to `"main"` if omitted. The value can be:
+
+- A **branch name**, e.g., `revision="main"` or `revision="dev"`
+- A **full commit SHA**, e.g., `revision="a1b2c3d4e5f67890abcdef1234567890abcdef12"`
+- A **version tag**, e.g., `revision="v1.0"` or `revision="1.2.3"`
+
+For example, to download a specific commit:
+
+```python
+local_dir = api.snapshot_download(
+    repo_id=MODEL_NAME, repo_type="model", revision="a1b2c3d4e5f67890abcdef1234567890abcdef12"
+)
+```
+</Note>
 
 ### Using `hf cli`
 
@@ -196,11 +232,31 @@ Download a model or dataset using the `download` command:
 hf download <REPO_ID> --repo-type <TYPE> --revision <VERSION>
 ```
 
-For example, to download version `4.5.6` of the `microsoft/kosmos-2.5` model:
+For example, to download version `1.2.3` of the `acme-corp/text-summarizer` model:
 
 ```bash
-hf download microsoft/kosmos-2.5 --repo-type model --revision 4.5.6
+hf download acme-corp/text-summarizer --repo-type model --revision 1.2.3
 ```
+
+To download a dataset, set `--repo-type` to `dataset`:
+
+```bash
+hf download my-org/sentiment-data --repo-type dataset --revision 2.0.0
+```
+
+<Note variant="note" headline="Revision">
+If `--revision` is omitted, the CLI defaults to `main`. The value can be:
+
+- A **branch name**, e.g., `--revision main` or `--revision dev`
+- A **full commit SHA**, e.g., `--revision a1b2c3d4e5f67890abcdef1234567890abcdef12`
+- A **version tag**, e.g., `--revision v1.0` or `--revision 1.2.3`
+
+For example, to download a specific commit by SHA:
+
+```bash
+hf download acme-corp/text-summarizer --repo-type model --revision a1b2c3d4e5f67890abcdef1234567890abcdef12
+```
+</Note>
 
 ## Upstream Proxying / Caching
 
