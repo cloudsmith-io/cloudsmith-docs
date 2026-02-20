@@ -14,22 +14,16 @@ Most resources provided by the API require some form of authentication, which id
 
 The most straightforward way to authenticate against the API is by using your personal API key. You can [find your API Key](/accounts-and-teams/api-key) within your User Settings or you can request (or reset) it via the Users Token API Endpoint. Cloudsmith Entitlement Tokens cannot be used to authenticate to the Cloudsmith API. Entitlement Tokens are used to authenticate for package downloads only.
 
-You can specify your API Key via the `X-Api-Key` header when making requests (replacing `key` with your actual API Key):
+You can specify your API Key via the Authorization header when making requests (replacing `key` with your actual API Key):
 
 ```bash
-curl -H "X-Api-Key: key" https://api.cloudsmith.io/user/self/
-```
-
-You can also specify your API Key via the Authorization header when making requests (replacing `key` with your actual API Key):
-
-```bash
-curl -H "Authorization: key" https://api.cloudsmith.io/user/self/
+curl -H "Authorization: token $key" https://api.cloudsmith.io/user/self/
 ```
 
 Specifying an invalid API Key will result in an 401 Unauthorized status code, and the body will specify that an invalid token was received. Let's see it in action:
 
 ```bash
-curl -i -H "X-Api-Key: foobar" -X OPTIONS https://api.cloudsmith.io/user/self/
+curl -i -H "Authorization: token foobar" -X OPTIONS https://api.cloudsmith.io/user/self/
 
 HTTP/2 401
 date: Thu, 09 Mar 2023 16:55:35 GMT
@@ -75,7 +69,7 @@ The `Link` header can contain the following `rel` values:
 Let's see it in action
 
 ```bash
-curl -i -H "X-Api-Key: key" 'https://api.cloudsmith.io/package/example/repo/packages/?page=2&page_size=1'
+curl -i -H "Authorization: token $key" 'https://api.cloudsmith.io/package/example/repo/packages/?page=2&page_size=1'
 ```
 
 ```
