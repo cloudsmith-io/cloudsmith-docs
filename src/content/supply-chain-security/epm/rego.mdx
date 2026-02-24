@@ -1,10 +1,8 @@
-import { BlockImage, Note } from '@/components'
-
 # Enterprise Policy Manager: Rego Recipes
 
 ## Recipe 1: Simple Tag Check
 
-**Use case**: Match any package with a certain tag. For example: `ready-for-production`. For this rule, the value of`match` will be `true` when any `tag.name` contains the value provided in `required_tag`.
+**Use case**: Match any package with a certain tag. For example: `ready-for-production`. For this rule, the value of `match` will be `true` when any `tag.name` contains the value provided in `required_tag`.
 
 ```rego
 package cloudsmith
@@ -455,11 +453,10 @@ To ensure the accuracy of your policies, we pull metadata from the most reliable
 
 **Maven**: Since Maven repositories don't always provide a native "publish date," this is a best-effort calculation based on the Last-Modified HTTP header of the package's POM file on the upstream server.
 
-
 What It Does:
 
-- Evaluates the publish date of your NPM package.
-- Triggers if your NPM package was published within the past 14 days.
+- Evaluates the publish date of your npm package.
+- Triggers if your npm package was published within the past 14 days.
 
 ```rego
 package cloudsmith
