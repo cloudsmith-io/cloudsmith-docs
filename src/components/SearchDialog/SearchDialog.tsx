@@ -1,22 +1,25 @@
 'use client';
 
-import { Icon, IconName } from '@/icons';
-import { performSearch } from '@/lib/search/server';
-import { SearchResult } from '@/lib/search/types';
-import { debounce } from '@/lib/util';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { cx } from 'class-variance-authority';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+
+import { Icon, IconName } from '@/icons';
+import { useShowKeyboardHints } from '@/lib/hooks';
+import { performSearch } from '@/lib/search/server';
+import { SearchResult } from '@/lib/search/types';
+import { debounce } from '@/lib/util';
+
 import { Tag } from '../Tag';
 import { FilterButtons } from './FilterButtons';
+import styles from './SearchDialog.module.css';
 import { SearchForm } from './SearchForm';
 import { SearchTrigger } from './SearchTrigger';
-
-import styles from './SearchDialog.module.css';
 
 export const filters: Filters = [
   { id: 'documentation', label: 'Documentation', icon: 'action/documentation' },
@@ -54,8 +57,9 @@ export const SearchDialog = () => {
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
   const [isKeyboardNav, setIsKeyboardNav] = useState(false);
   const router = useRouter();
+  const showKeyboardHints = useShowKeyboardHints();
 
-  useHotkeys(['meta+k'], () => setOpen(true));
+  useHotkeys(['mod+k'], () => setOpen(true));
 
   // Reset keyboard nav when results change
   useEffect(() => {
@@ -144,9 +148,11 @@ export const SearchDialog = () => {
                 value={term}
                 events={{ onChange: setTerm, goUp, goDown, goToResult, goToStart, goToEnd }}
               />
-              <dd className={cx(styles.data, 'monoXSUppercase')}>
-                <kbd>ESC</kbd>
-              </dd>
+              {showKeyboardHints && (
+                <dd className={cx(styles.data, 'monoXSUppercase')}>
+                  <kbd>ESC</kbd>
+                </dd>
+              )}
             </header>
 
             <VisuallyHidden>
