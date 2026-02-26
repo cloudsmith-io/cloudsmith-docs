@@ -66,7 +66,7 @@ A good approach when determining what priority to apply to upstreams is to ensur
 |[Dart](/formats/dart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/dart/create) |
 |[Debian](/formats/debian-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/deb/create) |
 |[Docker](/formats/docker-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/docker/create) |
-|[Generic](/formats/generic-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/generic/create) |
+|[Generic](/formats/generic-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time / Just-in-Time</div>|  [API](/api/repos/upstream/generic/create) |
 |[Golang ](/formats/go-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/go/create) |
 |[Gradle ](/formats/gradle-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/maven/create) |
 |[Helm](/formats/helm-chart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/helm/create) |
@@ -318,8 +318,14 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible.                                                                                                            |
 | Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
 
-<Note variant="note" headline="HTML-based upstreams">
+**HTML-based upstreams**
 Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+
+**Authentication requirements**
+Some upstream sources require authentication to access packages or interact with their APIs. For example, GitHub package registries require token-based authentication for API access. Review the documentation for your upstream source to determine if credentials are needed and configure them accordingly in the upstream settings.
+
+<Note variant="note" headline="Enterprise Repository Support">
+Enterprise repository managers like Artifactory and Sonatype Nexus require additional configuration and will not work out of the box. These sources also have practical size limits—repositories with millions of packages may not be processable. [Contact support](/support) to discuss setup for these upstream sources.
 </Note>
 
 #### Create a Go Upstream
