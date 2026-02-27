@@ -48,13 +48,13 @@ export const useShowKeyboardHints = (): boolean | null => {
  * Returns null during SSR/before hydration.
  *
  * - macOS: ⌘ (Command)
- * - Windows/Linux: Ctrl (Control)
+ * - Windows/Linux: Ctrl+ (Control)
  */
 export const useModifierKey = (): ModifierKey | null => {
   const [modifierKey, setModifierKey] = useState<ModifierKey | null>(null);
 
   useEffect(() => {
-    setModifierKey(isMac() ? { symbol: '⌘', label: 'Command' } : { symbol: 'Ctrl', label: 'Control' });
+    setModifierKey(isMac() ? { symbol: '⌘', label: 'Command' } : { symbol: 'Ctrl+', label: 'Control' });
   }, []);
 
   return modifierKey;
