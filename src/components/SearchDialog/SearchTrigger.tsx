@@ -1,12 +1,16 @@
 import { Trigger } from '@radix-ui/react-dialog';
-import { Icon } from '@/icons';
 import { cx } from 'class-variance-authority';
 import { usePathname } from 'next/navigation';
+
+import { Icon } from '@/icons';
+import { useModifierKey, useShowKeyboardHints } from '@/lib/hooks';
 
 import styles from './SearchTrigger.module.css';
 
 export const SearchTrigger = () => {
   const pathname = usePathname();
+  const modifierKey = useModifierKey();
+  const showKeyboardHints = useShowKeyboardHints();
 
   const isHome = pathname === '/';
 
@@ -15,12 +19,16 @@ export const SearchTrigger = () => {
       <Icon name="search" className={styles.icon} title="" />
       <div className={cx(styles.content, 'bodyS')}>
         <span>Search</span>
-        <kbd className={styles.kbd}>
-          <abbr title="Command" className={'bodyS'}>
-            ⌘
-          </abbr>
-          K
-        </kbd>
+        {showKeyboardHints && (
+          <kbd className={styles.kbd}>
+            {modifierKey && (
+              <abbr title={modifierKey.label} className={'bodyS'}>
+                {modifierKey.symbol}
+              </abbr>
+            )}
+            K
+          </kbd>
+        )}
       </div>
     </Trigger>
   );
