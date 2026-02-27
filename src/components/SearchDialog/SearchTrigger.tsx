@@ -26,7 +26,7 @@ export const SearchTrigger = () => {
                 {modifierKey.symbol}
               </abbr>
             )}
-            +K
+            K
           </kbd>
         )}
       </div>
