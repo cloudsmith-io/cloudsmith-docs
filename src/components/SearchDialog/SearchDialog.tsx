@@ -149,9 +149,9 @@ export const SearchDialog = () => {
                 events={{ onChange: setTerm, goUp, goDown, goToResult, goToStart, goToEnd }}
               />
               {showKeyboardHints && (
-                <dd className={cx(styles.data, 'monoXSUppercase')}>
+                <div className={cx(styles.data, 'monoXSUppercase')}>
                   <kbd>ESC</kbd>
-                </dd>
+                </div>
               )}
             </header>
 

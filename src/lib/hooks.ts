@@ -8,11 +8,14 @@ export type ModifierKey = {
 };
 
 /**
- * Detects if the device has a keyboard as primary input.
- * Returns false for touch-only devices (phones, tablets without keyboards).
+ * Detects if the device has a desktop-style pointer (mouse/trackpad).
+ * Used as a proxy to determine if keyboard shortcuts are likely useful,
+ * since devices with fine pointers typically have keyboards attached.
  */
-const hasKeyboardInput = (): boolean => {
-  if (typeof window === 'undefined') return false;
+const hasDesktopPointer = (): boolean => {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return false;
+  }
 
   const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
   const hasHover = window.matchMedia('(hover: hover)').matches;
@@ -37,7 +40,7 @@ export const useShowKeyboardHints = (): boolean | null => {
   const [showHints, setShowHints] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setShowHints(hasKeyboardInput());
+    setShowHints(hasDesktopPointer());
   }, []);
 
   return showHints;
