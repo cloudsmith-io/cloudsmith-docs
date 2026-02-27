@@ -19,10 +19,6 @@ Each repository has one configurable retention rule. This rule runs automaticall
 
 Retention Rules can be configured through the Cloudsmith Web App, the Cloudsmith API, or the Cloudsmith Terraform provider.
 
-<Note variant="note">
-At least one limit (Days, Count, or Size) must be greater than 0 for a retention rule to execute. If all are set to 0, no deletions will occur.
-</Note>
-
 ## How Retention Rules work
 
 Cloudsmith uses a "funnel" approach to identify which packages should be evaluated and deleted.
@@ -58,6 +54,10 @@ Once the evaluation groups are identified, Cloudsmith checks them against your c
 | Limit by Count | Upload Date        | Deletes the oldest packages until the count limit is met. “Oldest” is determined by the date the package was uploaded into Cloudsmith. Manually resyncing a cached package does not change the uploaded timestamp. |
 | Limit by Days  | Upload Date        | Deletes packages older than X days. “Oldest” is determined by the date the package was uploaded into Cloudsmith. Manually resyncing a cached package does not change the uploaded timestamp. |
 | Limit by Size  | Semantic Version   | Deletes the oldest packages until the group size is within limits. "Oldest" is determined using the semantic version of a package. |
+
+<Note variant="note">
+At least one limit (Days, Count, or Size) must be greater than 0 for a retention rule to execute. If all are set to 0, no deletions will occur.
+</Note>
 
 ## When are Retention Rules evaluated?
 
