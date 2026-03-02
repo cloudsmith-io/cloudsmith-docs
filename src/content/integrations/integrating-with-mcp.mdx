@@ -1,0 +1,101 @@
+# MCP Server Support for Cloudsmith CLI
+How to integrate MCP with Cloudsmith
+
+The Cloudsmith CLI now includes support for the Model Context Protocol (MCP), allowing AI assistants like Claude to interact with your Cloudsmith repositories through natural language.
+
+## What's New
+
+The MCP server enables AI assistants to programmatically manage Cloudsmith repositories, packages, and artifacts by automatically generating tools from Cloudsmith's OpenAPI specification.
+
+## Requirements
+
+**Python 3.10 or later** is required to use the Cloudsmith CLI.
+
+## Getting Started
+
+### Auto-Configure MCP Clients
+
+The CLI provides a command to facilitate the configuration of MCP clients:
+
+```bash
+# Configure for default profile
+$ cloudsmith mcp configure
+
+# Configure for specific profile
+$ cloudsmith mcp configure -P my-profile
+```
+
+Currently supported MCP clients for auto-configuration: **Claude Desktop**, **Cursor**, **VS Code (Copilot)**, and **Gemini CLI**.
+
+### Manual Configuration
+
+Alternatively, you can manually configure the MCP server by modifying the JSON configuration file for your LLM client.
+
+For example, with **Claude Desktop on macOS**, the configuration file is located at:
+
+```
+~/Library/Application Support/Claude/claude_desktop_config.json
+```
+
+Example configuration:
+
+```json
+{
+  "mcpServers": {
+    "cloudsmith": {
+      "command": "cloudsmith",
+      "args": [
+        "mcp",
+        "start"
+      ]
+    }
+  }
+}
+```
+
+**Note:** The MCP server will be started automatically by your LLM client. You don't need to run `cloudsmith mcp start` manually.
+
+### Managing Available Tools
+
+Due to the large number of tools exposed by the MCP server, a limited subset is available by default to avoid filling the LLM's context window.
+
+**Disabled tool categories by default:**
+`broadcasts, rates, packages_upload, packages_validate, user_token, user_tokens, webhooks, status, repos_ecdsa, repos_geoip, repos_gpg, repos_rsa, repos_x509, repos_upstream, orgs_openid, orgs_saml, orgs_invites, files, badges, quota, users_profile, workspaces_policies, storage_regions, entitlements, metrics_entitlements, metrics_packages, orgs_teams, repo_retention`
+
+### List Available Tools and Groups
+
+```bash
+# Show all available tools
+$ cloudsmith mcp list_tools -a
+
+# Show all tool groups
+$ cloudsmith mcp list_groups -a
+```
+
+After reviewing the available tools and groups, you can customize which ones are exposed to your AI assistant.
+
+## Customizing Available Tools
+
+You can customize which tools are available by editing `~/.cloudsmith/config.ini`:
+
+```bash
+[default]
+mcp_allowed_tools=workspaces_policies_simulate_list
+mcp_allowed_tool_groups=metrics
+```
+
+This configuration exposes:
+
+- Individual tools listed in `mcp_allowed_tools`
+- All tools within the groups specified in `mcp_allowed_tool_groups`
+
+## Authentication
+
+The MCP server uses your existing Cloudsmith CLI credentials:
+
+- **API Keys**: Automatically used if configured
+- **SSO**: Complete authentication via `cloudsmith auth` before configuring and launching your LLM client, as MCP clients cannot trigger the SSO flow automatically once the server is running
+
+## Multi-Profile Support
+
+Configure separate MCP server instances for different Cloudsmith profiles using the `-P` flag with the configure command.
