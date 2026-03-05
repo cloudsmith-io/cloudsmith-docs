@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Cloudsmith API",
-    "version": "1.985.3 (v2)",
+    "version": "1.1040.3 (v2)",
     "description": "The API to the Cloudsmith Service",
     "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
     "contact": {
@@ -61,7 +61,7 @@
               "type": "string",
               "default": "-created_at"
             },
-            "description": "A comma-separated string of fields to sort by. Legal fields are: `created_at`, `name`, `version`, `updated_at`. Descending order can be expressed by prepending `-` to a field name.",
+            "description": "A comma-separated string of fields to sort by. Legal fields are: `created_at`, `enabled`, `name`, `precedence`, `version`, `updated_at`. Descending order can be expressed by prepending `-` to a field name.",
             "examples": {
               "`version`Descending,`updatedAt`Ascending": {
                 "value": "-version,updated_at",

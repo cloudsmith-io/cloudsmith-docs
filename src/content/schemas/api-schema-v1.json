@@ -506,6 +506,66 @@
         }
       ]
     },
+    "/bulk-action/{owner}/": {
+      "post": {
+        "operationId": "bulk_action",
+        "description": "Perform bulk operations on multiple packages within a repository or across all accessible repositories. If 'repository' is provided, actions are limited to that repository. If 'repository' is omitted, actions are performed across all repositories the user has access to within the workspace. Returns a list of successfully actioned packages and any packages that failed with error details. ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageBulkAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageBulkActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "bulk-action"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/distros/": {
       "get": {
         "operationId": "distros_list",
@@ -6800,66 +6860,6 @@
         }
       ]
     },
-    "/packages/{owner}/bulk-action/": {
-      "post": {
-        "operationId": "packages_bulk_action",
-        "description": "Perform bulk operations on multiple packages within a repository or across all accessible repositories. If 'repository' is provided, actions are limited to that repository. If 'repository' is omitted, actions are performed across all repositories the user has access to within the workspace. Returns a list of successfully actioned packages and any packages that failed with error details. ",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PackageBulkAction"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PackageBulkActionResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Request could not be processed (see detail).",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorDetail"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Missing or invalid parameters (see detail).",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorDetail"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "packages"
-        ]
-      },
-      "parameters": [
-        {
-          "name": "owner",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    },
     "/packages/{owner}/{repo}/": {
       "get": {
         "operationId": "packages_list",
@@ -11957,6 +11957,26 @@
             "required": false,
             "schema": {
               "type": "integer"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A search term for querying repositories. Available options are: name, slug. Explicit filters: broadcast_state, repository_type.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "A field for sorting objects in ascending or descending order.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "-created_at"
             }
           }
         ],
@@ -21939,6 +21959,87 @@
           }
         }
       },
+      "PackageBulkAction": {
+        "required": [
+          "action",
+          "identifiers"
+        ],
+        "type": "object",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "description": "The action to perform on the packages.",
+            "type": "string",
+            "enum": [
+              "Delete",
+              "Resync",
+              "Quarantine",
+              "Unquarantine",
+              "Move",
+              "Copy",
+              "Rescan"
+            ]
+          },
+          "identifiers": {
+            "description": "A list of package identifiers to apply the action to.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 255,
+              "minLength": 1
+            },
+            "maxItems": 100,
+            "minItems": 1
+          },
+          "repository": {
+            "title": "Repository",
+            "description": "The repository name to filter packages to. If not provided, the action will be performed across all accessible repositories in the workspace.",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1
+          },
+          "target_repository": {
+            "title": "Target repository",
+            "description": "The slug of the target repository",
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "PackageBulkActionResponse": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "description": "The action that was performed.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "packages_actioned": {
+            "description": "List of package identifiers that were successfully actioned.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "readOnly": true
+          },
+          "packages_failed_to_action": {
+            "title": "Packages failed to action",
+            "description": "Dictionary of package identifiers that failed with their error details.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "readOnly": true
+          }
+        }
+      },
       "DistributionVersion": {
         "description": "A list of the versions for this distribution",
         "type": "object",
@@ -23161,7 +23262,8 @@
           "auth_modes",
           "caching",
           "indexing",
-          "proxying"
+          "proxying",
+          "trust"
         ],
         "type": "object",
         "properties": {
@@ -23215,6 +23317,11 @@
               "Repository Metadata and Packages"
             ],
             "default": "Unsupported"
+          },
+          "trust": {
+            "title": "Trust",
+            "description": "If true the upstream format supports configurable trust levels (trusted vs untrusted) for upstream sources.",
+            "type": "boolean"
           }
         }
       },
@@ -25300,7 +25407,7 @@
           }
         }
       },
-      "OrganizationTeamMembership": {
+      "OrganizationTeamServiceMember": {
         "description": "The team members",
         "required": [
           "role",
@@ -25320,6 +25427,15 @@
             "title": "User",
             "type": "string",
             "minLength": 1
+          },
+          "user_kind": {
+            "title": "User kind",
+            "type": "string",
+            "enum": [
+              "User",
+              "Service"
+            ],
+            "default": "User"
           }
         }
       },
@@ -25333,7 +25449,7 @@
             "description": "The team members",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/OrganizationTeamMembership"
+              "$ref": "#/components/schemas/OrganizationTeamServiceMember"
             }
           }
         }
@@ -25711,87 +25827,6 @@
             "type": "string",
             "minLength": 1,
             "nullable": true
-          }
-        }
-      },
-      "PackageBulkAction": {
-        "required": [
-          "action",
-          "identifiers"
-        ],
-        "type": "object",
-        "properties": {
-          "action": {
-            "title": "Action",
-            "description": "The action to perform on the packages.",
-            "type": "string",
-            "enum": [
-              "Delete",
-              "Resync",
-              "Quarantine",
-              "Unquarantine",
-              "Move",
-              "Copy",
-              "Rescan"
-            ]
-          },
-          "identifiers": {
-            "description": "A list of package identifiers to apply the action to.",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 255,
-              "minLength": 1
-            },
-            "maxItems": 100,
-            "minItems": 1
-          },
-          "repository": {
-            "title": "Repository",
-            "description": "The repository name to filter packages to. If not provided, the action will be performed across all accessible repositories in the workspace.",
-            "type": "string",
-            "maxLength": 255,
-            "minLength": 1
-          },
-          "target_repository": {
-            "title": "Target repository",
-            "description": "The slug of the target repository",
-            "type": "string",
-            "minLength": 1
-          }
-        }
-      },
-      "PackageBulkActionResponse": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "title": "Action",
-            "description": "The action that was performed.",
-            "type": "string",
-            "readOnly": true,
-            "minLength": 1
-          },
-          "packages_actioned": {
-            "description": "List of package identifiers that were successfully actioned.",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1
-            },
-            "readOnly": true
-          },
-          "packages_failed_to_action": {
-            "title": "Packages failed to action",
-            "description": "Dictionary of package identifiers that failed with their error details.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "nullable": true
-              }
-            },
-            "readOnly": true
           }
         }
       },
@@ -36556,7 +36591,7 @@
             "type": "string",
             "default": "latest",
             "maxLength": 255,
-            "minLength": 1
+            "nullable": true
           },
           "package_file": {
             "title": "Package file",
@@ -45017,7 +45052,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "maxLength": 64,
+              "maxLength": 255,
               "minLength": 1
             },
             "default": [],
@@ -48200,12 +48235,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -48267,14 +48304,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -48598,12 +48637,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -48665,14 +48706,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -48996,12 +49039,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -49063,14 +49108,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -49394,12 +49441,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -49461,14 +49510,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -49792,12 +49843,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -49859,14 +49912,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -50191,12 +50246,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "component": {
@@ -50304,7 +50361,8 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "include_sources": {
@@ -50315,8 +50373,9 @@
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -50771,7 +50830,8 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -50833,7 +50893,8 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "is_active": {
@@ -51173,12 +51234,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -51240,14 +51303,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -51594,12 +51659,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -51661,14 +51728,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -51992,12 +52061,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -52059,14 +52130,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -52390,12 +52463,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -52457,14 +52532,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -52788,12 +52865,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -52855,14 +52934,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -53186,12 +53267,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -53283,14 +53366,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -53711,12 +53796,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -53778,14 +53865,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -53842,6 +53931,16 @@
             "pattern": "^[-a-zA-Z0-9_]+$",
             "readOnly": true,
             "minLength": 1
+          },
+          "trust_level": {
+            "title": "Trust level",
+            "description": "Trust level allows for control of the visibility of upstream artifacts to native package managers. Where supported by formats, the default level (untrusted) is recommended for all upstreams, and helps to safeguard against common dependency confusion attack vectors.",
+            "type": "string",
+            "enum": [
+              "Trusted",
+              "Untrusted"
+            ],
+            "default": "Trusted"
           },
           "updated_at": {
             "title": "Updated at",
@@ -53958,6 +54057,16 @@
             "maximum": 32767,
             "minimum": 1
           },
+          "trust_level": {
+            "title": "Trust level",
+            "description": "Trust level allows for control of the visibility of upstream artifacts to native package managers. Where supported by formats, the default level (untrusted) is recommended for all upstreams, and helps to safeguard against common dependency confusion attack vectors.",
+            "type": "string",
+            "enum": [
+              "Trusted",
+              "Untrusted"
+            ],
+            "default": "Trusted"
+          },
           "upstream_url": {
             "title": "Upstream URL",
             "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
@@ -54063,6 +54172,16 @@
             "maximum": 32767,
             "minimum": 1
           },
+          "trust_level": {
+            "title": "Trust level",
+            "description": "Trust level allows for control of the visibility of upstream artifacts to native package managers. Where supported by formats, the default level (untrusted) is recommended for all upstreams, and helps to safeguard against common dependency confusion attack vectors.",
+            "type": "string",
+            "enum": [
+              "Trusted",
+              "Untrusted"
+            ],
+            "default": "Trusted"
+          },
           "upstream_url": {
             "title": "Upstream URL",
             "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
@@ -54111,12 +54230,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -54178,14 +54299,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -54509,12 +54632,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -54576,14 +54701,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -54938,12 +55065,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -55040,7 +55169,8 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "include_sources": {
@@ -55051,8 +55181,9 @@
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -55460,12 +55591,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -55527,14 +55660,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
@@ -55858,12 +55993,14 @@
           },
           "available": {
             "title": "Available",
-            "type": "string",
+            "description": "Whether the upstream is available for use.",
+            "type": "boolean",
             "readOnly": true
           },
           "can_reindex": {
             "title": "Can reindex",
-            "type": "string",
+            "description": "Whether the upstream can be reindexed.",
+            "type": "boolean",
             "readOnly": true
           },
           "created_at": {
@@ -55925,14 +56062,16 @@
           },
           "has_failed_signature_verification": {
             "title": "Has failed signature verification",
-            "type": "string",
+            "description": "Whether the upstream has failed signature verification.",
+            "type": "boolean",
             "readOnly": true
           },
           "index_package_count": {
             "title": "Index package count",
             "description": "The number of packages available in this upstream source",
-            "type": "string",
-            "readOnly": true
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
           },
           "index_status": {
             "title": "Index status",
