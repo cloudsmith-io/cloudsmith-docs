@@ -59,4 +59,4 @@ After evaluation:
 - If the package violates a policy:
   - If the policy action is **quarantine**, the package is quarantined and any download attempt returns `403 Forbidden`.
   - If the policy action is **tag**, **allow**, or any other non-blocking action, the package is served normally, with the tag or other metadata applied.
-- If the package fails a policy check (for example, due to a vulnerability or license issue) or if scanning encounters an unrecoverable error, the download is blocked with a `403 Forbidden` error code.
+- If package scanning encounters an unrecoverable error, the download is also blocked with a `403 Forbidden` error code.
