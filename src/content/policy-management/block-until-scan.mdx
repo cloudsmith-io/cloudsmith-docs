@@ -47,7 +47,7 @@ Once the Cloudsmith team has enabled this feature for your workspace, you must a
 
 ## What to expect when synchronous enforcement mode is enabled
 
-Enabling synchronous enforcement mode can introduce additional latency and developer friction, especially for packages that are not yet cached in Cloudsmith. For each uncached package and its dependencies, Cloudsmith performs these synchronous operations before serving the download:
+Enabling synchronous enforcement mode can introduce additional latency and developer friction, especially for cold fetches where the package is not yet cached in Cloudsmith. For packages that are already cached in Cloudsmith or directly at the nearest CDN location, the latency and impact is minimal. For each uncached package and its dependencies, Cloudsmith performs these synchronous operations before serving the download:
 
 - **Parsing**: Parse package metadata.
 - **Scanning**: Scan for malware, vulnerabilities, and license compliance.
