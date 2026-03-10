@@ -4,3 +4,5 @@ Disallow:
 
 # Host
 Host: https://docs.cloudsmith.com
+
+# Algolia-Crawler-Verif: FB1BC646A45C96CA
