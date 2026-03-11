@@ -108,47 +108,61 @@ curl -sLf -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/pat
 #### Private Repositories
 
 <Note variant="note" headline="Private Repositories">
-Private repositories require authentication. Use either an Entitlement Token or API Key via HTTP Basic Authentication mechanisms to access files. The authentication method will depends on how you download packages.
-
-The following authentication methods do not work for browsing the HTML index in a web browser. For browser access, use HTTP Basic Authentication when prompted—enter `token` as the username and your entitlement token as the password.
+Private repositories require authentication. Use an Entitlement Token or API Key depending on the authentication method. The following authentication methods do not work when browsing the HTML index in a web browser. For browser access, use HTTP Basic Authentication when prompted—enter `token` as the username and your entitlement token as the password.
 </Note>
 
 **HTTP Basic Authentication (generic.cloudsmith.io):**
 
-Use an entitlement token or API key to authenticate and download files directly:
+Use an entitlement token with HTTP Basic Auth to download files:
 
 ```shell
 curl -sLf -u "token:TOKEN" -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
 ```
 
-```shell
-curl -sLf -u "token:API-KEY" -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
-```
-
-Alternatively, embed HTTP Basic Auth credentials in the URL to download files:
-
+Alternatively, embed HTTP Basic Auth credentials in the URL as user information:
 
 ```shell
 curl -sLf -O "https://token:TOKEN@generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
 ```
 
-**Path-based authentication (dl.cloudsmith.io):**
+**API Key Authentication (generic.cloudsmith.io):**
 
-To use path-based authentication, include the token in the URL path and use the `dl.cloudsmith.io` domain. This method is not supported on `generic.cloudsmith.io`.
+Use an API Key with the `X-Api-Key` header to download files. An Entitlement Token cannot be used with this method.
 
-Add `generic/download/` to the URL path before the upstream prefix to ensure the request is routed correctly.
+```shell
+curl -sLf -H "X-Api-Key: API-KEY" -O "https://generic.cloudsmith.io/OWNER/REPOSITORY/UPSTREAM_PREFIX/path/to/file.tar.gz"
+```
+
+**Authentication when using the Download domain (dl.cloudsmith.io):**
+
+The `dl.cloudsmith.io` domain only supports path-based authentication with entitlement tokens embedded in the URL path. HTTP Basic Auth with credentials in the userinfo portion of the URL (e.g., `token:TOKEN@dl.cloudsmith.io`) is not supported on this domain.
+
+Include `generic/download/` in the URL path before the upstream prefix to ensure requests are routed correctly.
 
 ```shell
 curl -sLf -O "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/download/UPSTREAM_PREFIX/path/to/file.tar.gz"
 ```
 
-| Domain | Authentication Method | Example |
-| :----- | :-------------------- | :------ |
-| `generic.cloudsmith.io` | HTTP Basic Auth (header or embedded in URL) | `token:TOKEN@generic.cloudsmith.io/...` |
-| `dl.cloudsmith.io` | Token in URL path | `dl.cloudsmith.io/TOKEN/...` |
+**Supported Authentication by Domain:**
 
-<Note variant="note" headline="HTTP libraries that don't follow redirects">
-Some HTTP libraries do not automatically follow redirects. The `generic.cloudsmith.io` domain redirects to the download domain. If your HTTP library does not follow redirects, use the `dl.cloudsmith.io` domain with path-based authentication instead.
+A URL follows the structure: `scheme://userinfo@host/path`
+
+- **Userinfo** (`token:TOKEN@`): Credentials placed before the host. This is HTTP Basic Auth and only works on `generic.cloudsmith.io`.
+- **Path** (`/TOKEN/...`): Token embedded after the domain in the URL path. This only works on `dl.cloudsmith.io`.
+
+| Domain | Authentication Method | Token Location | 
+| :----- | :-------------------- | :------------- |
+| `generic.cloudsmith.io` | Basic Auth | Userinfo  |
+| `generic.cloudsmith.io` | API Key | HTTP header |
+| `dl.cloudsmith.io` | Path-based |
+
+<Note variant="note" headline="When to use the download domain">
+Use `dl.cloudsmith.io` instead of `generic.cloudsmith.io` when:
+
+- **Your HTTP library doesn't follow redirects**: The `generic.cloudsmith.io` domain redirects to `dl.cloudsmith.io`. Some libraries require manual redirect handling.
+- **Your tooling doesn't support credentials in the URL (userinfo)**: Some tools cannot pass credentials in the userinfo portion of URLs (`token:TOKEN@host`), but can construct URLs with tokens in the path.
+- **You want consistency with other formats**: Other Cloudsmith package formats use `dl.cloudsmith.io` with path-based authentication. Using the same pattern simplifies configuration across formats.
+- **You need direct download URLs**: Path-based URLs on `dl.cloudsmith.io` can be shared or embedded without requiring separate authentication configuration.
 </Note>
 
 ### Download via the HTML Index
