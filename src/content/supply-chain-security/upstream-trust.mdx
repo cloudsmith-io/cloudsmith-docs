@@ -1,0 +1,125 @@
+import { Note, BlockImage } from '@/components'
+import configure_upstream_trust from './images/configure_upstream_trust.png'
+import edit_upstream_trust from './images/edit_upstream_trust.png'
+
+# Upstream Trust
+Upstream trust is a supply chain security feature that prevents namesquatting attacks where bad actors hijack your internal package name in public repositories. By designating upstream sources as trusted or untrusted, you control which sources are permitted to serve versions of packages that exist in your private repository or other trusted sources. 
+This is particularly important for organizations that publish private packages alongside public open-source dependencies. Without upstream trust, a malicious actor could publish a package with the same name as your private package to a public registry, potentially tricking your build systems into pulling the attacker's version instead of your own. 
+
+<Note variant="important" headline="Early Access">
+Upstream Trust is in Early Access (EA) and is currently supported for NPM, Python, and Maven.
+</Note>
+
+## How it works
+Every upstream source configured for a repository has a trust status that can be set to either Trusted or Untrusted. Your local Cloudsmith repository is always implicitly trusted. 
+When a package is requested from a repository with upstreams configured, Cloudsmith evaluates trust as follows: 
+1. Cloudsmith checks whether the requested package name (including any format-specific qualifiers or scopes, such as @cloudsmith/cloudsmith-web for npm) exists in any trusted source — either the local repository or any upstream marked as trusted. 
+2. If the package name is found in a trusted source, any upstream marked as untrusted is blocked from serving versions of that package. Only versions available from trusted sources will resolve. 
+3. If the package name is not found in any trusted source, versions from all sources (including untrusted upstreams) will resolve as normal. 
+
+This means your private packages are protected from namesquatting, while open-source packages that don't collide with your private package names continue to resolve without interruption.
+
+<Note variant="note" headline="Proxied and cached packages">
+If a package has already been proxied or cached from a particular upstream, that upstream is permitted to continue serving versions of that package — even if it is marked as untrusted. The block only applies to other untrusted upstreams that have not previously served the package. This ensures that your existing open-source dependencies (such as `requests` or `numpy` proxied and cached from PyPI) continue to resolve without disruption.
+</Note>
+
+## Examples
+The following examples illustrate how upstream trust affects package resolution for a package named cloudsmith_web across different source configurations. 
+
+### Untrusted upstream with multiple trusted sources 
+| Source                                                                                  | Trust Status | Available Versions |
+| :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
+| PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
+| Private repository | Trusted | 2.1.1, 2.1.2 |
+| Local repository |  Trusted | 2.1.1 |
+
+Resolved versions: 2.1.1 (local), 2.1.2 (private) 
+The package cloudsmith_web exists in trusted sources (private and local), so PyPI is blocked from serving any versions. Only versions from trusted sources resolve. 
+
+### Untrusted upstream with local trusted source only
+| Source                                                                                  | Trust Status | Available Versions |
+| :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
+| PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
+| Local repository |  Trusted | 2.1.1 |
+
+Resolved versions: 2.1.1 (local) 
+The package exists in the local repository (trusted), so all versions from the untrusted PyPI upstream are blocked.
+
+### Untrusted upstream with no trusted sources containing the package
+| Source                                                                                  | Trust Status | Available Versions |
+| :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
+| PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
+
+Resolved versions: 2.1.1, 2.1.2, 2.1.3 (PyPI) 
+No trusted source contains a package with this name, so all versions from PyPI resolve normally. This is the typical flow for open-source packages that don't collide with any of your private package names. When a package was originally cached from an untrusted source and a newer version is now available from the same source, you will be allowed to pull that new version. 
+
+### Untrusted upstream with trusted upstream (no local package) 
+| Source                                                                                  | Trust Status | Available Versions |
+| :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
+| PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
+| Private repository |  Trusted | 2.1.1, 2.1.2 |
+
+Resolved versions: 2.1.1, 2.1.2 (private) 
+The package exists in a trusted upstream (private repository), so PyPI is blocked. Only the versions available from the private repository resolve. 
+
+### All trusted sources 
+| Source                                                                                  | Trust Status | Available Versions |
+| :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
+| PyPI |   Trusted   | 2.1.1, 2.1.2, 2.1.3 |
+| Local repository |  Trusted | 2.1.1 |
+
+Resolved versions: 2.1.1 (local), 2.1.2, 2.1.3 (PyPI) 
+When all sources are trusted, versions from every source resolve. No blocking is applied. 
+
+# Configuring upstream trust
+Trust status can be configured when creating a new upstream or by editing an existing upstream.
+
+## Setting trust on a new upstream
+1. Navigate to your repository and select Upstreams. 
+2. Click Add Upstream and select the format for your upstream source. 
+3. Complete the upstream configuration fields as usual. 
+4. Under Trust Status, select either Trusted or Untrusted. 
+5. Click Create Upstream. 
+
+<BlockImage src={configure_upstream_trust} alt=""></BlockImage>
+
+## Updating trust on an existing upstream 
+1. Navigate to your repository and select Upstreams. 
+2. Click the upstream you want to modify. 
+3. Toggle the Trust Status between Trusted and Untrusted. 
+4. Click Save. 
+
+<BlockImage src={edit_upstream_trust} alt=""></BlockImage>
+
+<Note variant="important" headline="Default trust status">
+All upstreams are set to Trusted by default. To take advantage of namesquatting protection, you should mark public registries (such as PyPI, npmjs, or Maven Central) as Untrusted if you also publish private packages with the same format.
+</Note>
+
+# Package identity and scoping
+Upstream trust matches packages by their full identifier, which includes any format-specific qualifiers or scopes. For example:
+
+### Example identifiers
+| Format                                                                                  | Example Identifier|
+| :-------------------------------------------------------------------------------------- | :--------------: |
+| Python (PyPI) |   cloudsmith-web   | 
+| npm |  @cloudsmith/cloudsmith-web | 
+| Maven |   io.cloudsmith:cloudsmith-web   | 
+| NuGet |  Cloudsmith.Web |
+
+A match occurs when the full package identifier in an untrusted upstream is identical to a package identifier in a trusted source. There is no partial or fuzzy matching. 
+
+# Recommended configuration
+For most organizations that publish private packages, we recommend the following approach: 
+- Mark public registries (PyPI, npmjs, Maven Central, NuGet Gallery, etc.) as Untrusted. 
+- Mark internal upstreams (private Artifactory instances, other Cloudsmith repositories, etc.) as Trusted. 
+- Artifacts sourced locally (rather than from upstream sources) are always trusted.
+This ensures that your private packages are only sourced from locations you control, while open-source dependencies that don't share names with your private packages continue to resolve from public registries as expected.
+
+<Note variant="important" headline="Important">
+Upstream trust protects against namesquatting by controlling which sources can serve packages. It does not replace other supply chain security practices such as vulnerability scanning, package signing, or policy enforcement. For a comprehensive security posture, use upstream trust alongside Cloudsmith's other security features.
+</Note>
+
+
+
+
+
