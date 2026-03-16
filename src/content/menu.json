@@ -437,6 +437,10 @@
           {
             "title": "License Compliance",
             "path": "/policy-management/license-compliance"
+          },
+          {
+            "title": "Upstream Trust",
+            "path": "/supply-chain-security/upstream-trust"
           }
         ]
       },
