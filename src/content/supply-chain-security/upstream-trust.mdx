@@ -28,7 +28,7 @@ The following examples illustrate how upstream trust affects package resolution 
 | :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
 | PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
 | Private repository | Trusted | 2.1.1, 2.1.2 |
-| Local repository |  Trusted | 2.1.1
+| Local repository |  Trusted | 2.1.1 |
 
 Resolved versions: 2.1.1 (local), 2.1.2 (private) 
 The package cloudsmith_web exists in trusted sources (private and local), so PyPI is blocked from serving any versions. Only versions from trusted sources resolve. 
@@ -37,7 +37,7 @@ The package cloudsmith_web exists in trusted sources (private and local), so PyP
 | Source                                                                                  | Trust Status | Available Versions |
 | :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
 | PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
-| Local repository |  Trusted | 2.1.1
+| Local repository |  Trusted | 2.1.1 |
 
 Resolved versions: 2.1.1 (local) 
 The package exists in the local repository (trusted), so all versions from the untrusted PyPI upstream are blocked.
@@ -45,7 +45,7 @@ The package exists in the local repository (trusted), so all versions from the u
 ### Untrusted upstream with no trusted sources containing the package
 | Source                                                                                  | Trust Status | Available Versions |
 | :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
-| PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 
+| PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
 
 Resolved versions: 2.1.1, 2.1.2, 2.1.3 (PyPI) 
 No trusted source contains a package with this name, so all versions from PyPI resolve normally. This is the typical flow for open-source packages that don't collide with any of your private package names. 
@@ -54,7 +54,7 @@ No trusted source contains a package with this name, so all versions from PyPI r
 | Source                                                                                  | Trust Status | Available Versions |
 | :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
 | PyPI |   Untrusted   | 2.1.1, 2.1.2, 2.1.3 |
-| Private repository |  Trusted | 2.1.1, 2.1.2
+| Private repository |  Trusted | 2.1.1, 2.1.2 |
 
 Resolved versions: 2.1.1, 2.1.2 (private) 
 The package exists in a trusted upstream (private repository), so PyPI is blocked. Only the versions available from the private repository resolve. 
@@ -63,7 +63,7 @@ The package exists in a trusted upstream (private repository), so PyPI is blocke
 | Source                                                                                  | Trust Status | Available Versions |
 | :-------------------------------------------------------------------------------------- | :--------------: | :--------------: | 
 | PyPI |   Trusted   | 2.1.1, 2.1.2, 2.1.3 |
-| Local repository |  Trusted | 2.1.1
+| Local repository |  Trusted | 2.1.1 |
 
 Resolved versions: 2.1.1 (local), 2.1.2, 2.1.3 (PyPI) 
 When all sources are trusted, versions from every source resolve. No blocking is applied. 
@@ -97,7 +97,7 @@ Upstream trust matches packages by their full identifier, which includes any for
 | Python (PyPI) |   cloudsmith-web   | 
 | npm |  @cloudsmith/cloudsmith-web | 
 | Maven |   io.cloudsmith:cloudsmith-web   | 
-| NuGet |  Cloudsmith.Web
+| NuGet |  Cloudsmith.Web |
 
 A match occurs when the full package identifier in an untrusted upstream is identical to a package identifier in a trusted source. There is no partial or fuzzy matching. 
 
