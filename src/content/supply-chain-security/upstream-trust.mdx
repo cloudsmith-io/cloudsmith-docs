@@ -14,6 +14,7 @@ When a package is requested from a repository with upstreams configured, Cloudsm
 1. Cloudsmith checks whether the requested package name (including any format-specific qualifiers or scopes, such as @cloudsmith/cloudsmith-web for npm) exists in any trusted source — either the local repository or any upstream marked as trusted. 
 2. If the package name is found in a trusted source, any upstream marked as untrusted is blocked from serving versions of that package. Only versions available from trusted sources will resolve. 
 3. If the package name is not found in any trusted source, versions from all sources (including untrusted upstreams) will resolve as normal. 
+
 This means your private packages are protected from namesquatting, while open-source packages that don't collide with your private package names continue to resolve without interruption.
 
 <Note variant="note" headline="Proxied and cached packages">
