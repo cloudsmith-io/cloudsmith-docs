@@ -541,6 +541,10 @@
             "path": "/integrations/integrating-with-mlflow"
           },
           {
+            "title": "MCP",
+            "path": "/integrations/integrating-with-mcp"
+          },
+          {
             "title": "Azure DevOps",
             "path": "/integrations/integrating-with-azure-devops"
           },
