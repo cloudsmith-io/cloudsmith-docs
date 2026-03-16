@@ -16,7 +16,7 @@ When a package is requested from a repository with upstreams configured, Cloudsm
 3. If the package name is not found in any trusted source, versions from all sources (including untrusted upstreams) will resolve as normal. 
 This means your private packages are protected from namesquatting, while open-source packages that don't collide with your private package names continue to resolve without interruption.
 
-<Note variant="note" headline="Proxied and cached packages ">
+<Note variant="note" headline="Proxied and cached packages">
 If a package has already been proxied or cached from a particular upstream, that upstream is permitted to continue serving versions of that package — even if it is marked as untrusted. The block only applies to other untrusted upstreams that have not previously served the package. This ensures that your existing open-source dependencies (such as requests or numpy proxied from PyPI) continue to resolve without disruption.
 </Note>
 
