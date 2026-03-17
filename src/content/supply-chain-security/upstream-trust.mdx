@@ -112,7 +112,7 @@ A match occurs when the full package identifier in an untrusted upstream is iden
 For most organizations that publish private packages, we recommend the following approach: 
 - Mark public registries (PyPI, npmjs, Maven Central, NuGet Gallery, etc.) as Untrusted. 
 - Mark internal upstreams (private Artifactory instances, other Cloudsmith repositories, etc.) as Trusted. 
-- Your local repository is always trusted automatically. 
+- Artifacts sourced locally (rather than from upstream sources) are always trusted.
 This ensures that your private packages are only sourced from locations you control, while open-source dependencies that don't share names with your private packages continue to resolve from public registries as expected.
 
 <Note variant="important" headline="Important">
