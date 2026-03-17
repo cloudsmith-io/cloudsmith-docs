@@ -156,6 +156,7 @@
                 "title": "Signing Swift Packages",
                 "path": "/formats/signing-swift-packages"
               }
+            ]
           },
           {
             "title": "Terraform",
