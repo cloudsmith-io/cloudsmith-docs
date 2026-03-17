@@ -160,8 +160,10 @@ A URL follows the structure: `scheme://userinfo@host/path`
 | :----- | :-------------------- | :------------- |
 | `generic.cloudsmith.io` | Basic Auth | Userinfo  |
 | `generic.cloudsmith.io` | API Key | HTTP header |
-| `dl.cloudsmith.io` | Path-based/Basic Auth* |
-* Not all forms of Basic Auth are supported on this domain. See the documented example, HTTP Basic Auth with credentials in the userinfo portion of the URL.
+| `dl.cloudsmith.io` | Path-based | Path |
+| `dl.cloudsmith.io` | Basic Auth | Userinfo |
+
+Note: Not all forms of Basic Auth are supported on this domain. See the documented example, HTTP Basic Auth with credentials in the userinfo portion of the URL.
 
 <Note variant="note" headline="When to use the download domain">
 Use `dl.cloudsmith.io` instead of `generic.cloudsmith.io` when:
