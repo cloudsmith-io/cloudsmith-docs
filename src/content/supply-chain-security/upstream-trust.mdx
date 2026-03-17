@@ -1,4 +1,6 @@
 import { Note } from '@/components'
+import configure_upstream_trust from './images/security-scanning/configure_upstream_trust.png'
+import edit_upstream_trust from './images/security-scanning/edit_upstream_trust.png'
 
 # Upstream Trust
 Upstream trust is a supply chain security feature that prevents namesquatting attacks where bad actors hijack your internal package name in public repositories.By designating upstream sources as trusted or untrusted, you control which sources are permitted to serve versions of packages that exist in your private repository or other trusted sources. 
@@ -79,11 +81,15 @@ Trust status can be configured when creating a new upstream or by editing an exi
 4. Under Trust Status, select either Trusted or Untrusted. 
 5. Click Create Upstream. 
 
+<BlockImage src={configure_upstream_trust} alt=""></BlockImage>
+
 ## Updating trust on an existing upstream 
 1. Navigate to your repository and select Upstreams. 
 2. Click the upstream you want to modify. 
 3. Toggle the Trust Status between Trusted and Untrusted. 
 4. Click Save. 
+
+<BlockImage src={edit_upstream_trust} alt=""></BlockImage>
 
 <Note variant="important" headline="Default trust status">
 All upstreams are set to Trusted by default. To take advantage of namesquatting protection, you should mark public registries (such as PyPI, npmjs, or Maven Central) as Untrusted if you also publish private packages with the same format.
