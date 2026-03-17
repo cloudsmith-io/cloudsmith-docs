@@ -1,0 +1,69 @@
+import { Note } from '@/components'
+
+# Signing Swift Packages
+<Note variant="note" headline="Early Access">
+Swift Package signing is currently in Early Access. To use this feature please contact us.
+</Note>
+
+## How it works
+Swift packages are signed using an ECDSA private key and X.509 Certificate combination, with the certificate containing the private key’s
+corresponding public key. When Swift package signing is enabled for a repository, an ECDSA key pair and X.509 certificate are created, and
+all Swift packages uploaded or resynchronized to the repository will be signed automatically.
+
+## Note on signing existing packages
+
+<Note variant="note" headline="Signing of existing packages">
+Signing a Swift package mutates its state, and may cause builds employing the package as a dependency to break. This can be rectified by
+removing the stored fingerprint(s) for the relevant manifest and source archive.
+</Note>
+
+Signing a Swift package mutates the package's state, as package manifest signatures are added to the manifest files themselves, modifying the checksum 
+of the overall source archive. As Swift performs checksum Trust On First Use (TOFU), signing Swift package may cause builds to break where those
+packages have already been consumed locally as dependencies.
+
+Consequently, to sign packages already used as dependencies, the stored fingerprint(s) for the relevant manifest and source archive must
+be removed. These can be viewed and modified in the ~/.swiftpm/security/fingerprint directory.
+
+## Configuring the Swift CLI to verify packages
+When the Swift CLI consumes a signed package, it validates the signature for both the manifest and the source archive. These signatures
+are in Cryptographic Message Syntax (CMS) format and are base64 encoded. The signatures vary slightly:
+* A manifest signature is an attached signature; it is included directly within the manifest file (see [here](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/PackageRegistryUsage.md#package-manifests) for example).
+* A source archive signature is a detached signature; it is included within the metadata response when fetching a package for a specific scope/name/version. Swift determines whether the package is signed by inspecting the signing attribute in the metadata response. For more information see [here](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/Registry.md).
+
+The source archive signature is generated after the manifest(s) are signed.
+
+The Swift CLI registry security configuration is specified at the user level in a registries.json file. For more information on this configuration see [here](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/PackageRegistryUsage.md#security-configuration).
+
+## Adding a Trusted Certificate
+A certificate is trusted by Swift if it is chained to any root in SwiftPM’s trusted store (which can be in two locations). To ensure that the certificate 
+used by Cloudsmith to sign Swift your packages is trusted you’ll need to perform the following steps, which will fetch the intermediate CA certificate used 
+to sign the repository-level certificate, and place it in Swift’s default trust store.
+1. Fetch the certificate chain for the signing certificate and assign it to a variable. The chain contains both the root CA certificate and intermediate CA
+certificate (it does not include the actual signing certificate):
+```
+CERTIFICATE_CHAIN="$(curl --location '<https://api.cloudsmith.io/repos/<org-name>/<repo-name>/x509-ecdsa/' \\
+--header 'Accept: application/json' \\
+--header 'X-Api-Key: <api-key>' \\ | jq -r .certificate_chain)"
+```
+2. Write the chain to a .pem file.
+```
+echo $CERTIFICATE_CHAIN >> cert_chain.pem
+```
+3. Swift requires that the certificate be in .der (Distinguished Encoding Rules) format. To do that, convert the .pem file to .der.
+   Note that a certificate chain can’t be represented in the DER format, however only the intermediate CA certificate is required.
+   This can be achieved by the following:
+```
+openssl x509 -in cert_chain.pem -out cert.der -outform DER
+```
+4. Now place this trusted certificate in the following path:
+```
+~/.swiftpm/security/trusted-root-certs/
+```
+5. Add the trustedRootCertificatesPath to your security configuration, as shown [here](https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/PackageRegistry/PackageRegistryUsage.md#security-configuration). Confusingly, the CLI doesn’t seem to like the relative path in the example shown,
+so you might have to change it to an absolute path.
+
+Once the above steps are complete, you will be able to consume fully verifiable and signed swift packages from Cloudsmith.
+
+
+
+
