@@ -135,7 +135,13 @@ curl -sLf -H "X-Api-Key: API-KEY" -O "https://generic.cloudsmith.io/OWNER/REPOSI
 
 **Authentication when using the Download domain (dl.cloudsmith.io):**
 
-The `dl.cloudsmith.io` domain only supports path-based authentication with entitlement tokens embedded in the URL path. HTTP Basic Auth with credentials in the userinfo portion of the URL (e.g., `token:TOKEN@dl.cloudsmith.io`) is not supported on this domain.
+The `dl.cloudsmith.io` domain most commonly uses path-based authentication with entitlement tokens embedded in the URL path. There are some exceptions:
+
+HTTP Basic Auth with credentials in the userinfo portion of the URL (e.g., `token:TOKEN@dl.cloudsmith.io`) is supported on this domain when using the appropriate path.
+
+```shell
+curl -sLf -O "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/download/UPSTREAM_PREFIX/path/to/file.gz"
+```
 
 Include `generic/download/` in the URL path before the upstream prefix to ensure requests are routed correctly.
 
@@ -147,14 +153,15 @@ curl -sLf -O "https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/generic/download/U
 
 A URL follows the structure: `scheme://userinfo@host/path`
 
-- **Userinfo** (`token:TOKEN@`): Credentials placed before the host. This is HTTP Basic Auth and only works on `generic.cloudsmith.io`.
+- **Userinfo** (`token:TOKEN@`): Credentials placed before the host.
 - **Path** (`/TOKEN/...`): Token embedded after the domain in the URL path. This only works on `dl.cloudsmith.io`.
 
 | Domain | Authentication Method | Token Location | 
 | :----- | :-------------------- | :------------- |
 | `generic.cloudsmith.io` | Basic Auth | Userinfo  |
 | `generic.cloudsmith.io` | API Key | HTTP header |
-| `dl.cloudsmith.io` | Path-based |
+| `dl.cloudsmith.io` | Path-based/Basic Auth* |
+* Not all forms of Basic Auth are supported on this domain. See the documented example, HTTP Basic Auth with credentials in the userinfo portion of the URL.
 
 <Note variant="note" headline="When to use the download domain">
 Use `dl.cloudsmith.io` instead of `generic.cloudsmith.io` when:
