@@ -18,7 +18,7 @@ removing the stored fingerprint(s) for the relevant manifest and source archive.
 </Note>
 
 Signing a Swift package mutates the package's state, as package manifest signatures are added to the manifest files themselves, modifying the checksum 
-of the overall source archive. As Swift performs checksum Trust On First Use (TOFU), signing Swift package may cause builds to break where those
+of the overall source archive. As Swift performs checksum Trust On First Use (TOFU), signing a Swift package may cause builds to break where those
 packages have already been consumed locally as dependencies.
 
 Consequently, to sign packages already used as dependencies, the stored fingerprint(s) for the relevant manifest and source archive must
