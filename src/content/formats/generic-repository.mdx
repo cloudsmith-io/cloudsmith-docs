@@ -137,7 +137,7 @@ curl -sLf -H "X-Api-Key: API-KEY" -O "https://generic.cloudsmith.io/OWNER/REPOSI
 
 The `dl.cloudsmith.io` domain most commonly uses path-based authentication with entitlement tokens embedded in the URL path. There are some exceptions:
 
-HTTP Basic Auth with credentials in the userinfo portion of the URL (e.g., `token:TOKEN@dl.cloudsmith.io`) is supported on this domain when using the appropriate path.
+HTTP Basic Auth with credentials in the userinfo portion of the URL (e.g., `token:TOKEN@dl.cloudsmith.io`) is only supported for the `/basic/...` download route on this domain and is not supported for the default `/TOKEN/...` path-based URLs.
 
 ```shell
 curl -sLf -O "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/generic/download/UPSTREAM_PREFIX/path/to/file.gz"
