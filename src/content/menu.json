@@ -150,7 +150,13 @@
           },
           {
             "title": "Swift",
-            "path": "/formats/swift-registry"
+            "path": "/formats/swift-registry",
+            "children": [
+              {
+                "title": "Signing Swift Packages",
+                "path": "/formats/signing-swift-packages"
+              }
+            ]
           },
           {
             "title": "Terraform",
