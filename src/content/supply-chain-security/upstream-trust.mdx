@@ -3,7 +3,7 @@ import configure_upstream_trust from './images/security-scanning/configure_upstr
 import edit_upstream_trust from './images/security-scanning/edit_upstream_trust.png'
 
 # Upstream Trust
-Upstream trust is a supply chain security feature that prevents namesquatting attacks where bad actors hijack your internal package name in public repositories.By designating upstream sources as trusted or untrusted, you control which sources are permitted to serve versions of packages that exist in your private repository or other trusted sources. 
+Upstream trust is a supply chain security feature that prevents namesquatting attacks where bad actors hijack your internal package name in public repositories. By designating upstream sources as trusted or untrusted, you control which sources are permitted to serve versions of packages that exist in your private repository or other trusted sources. 
 This is particularly important for organizations that publish private packages alongside public open-source dependencies. Without upstream trust, a malicious actor could publish a package with the same name as your private package to a public registry, potentially tricking your build systems into pulling the attacker's version instead of your own. 
 
 <Note variant="important" headline="Early Access">
