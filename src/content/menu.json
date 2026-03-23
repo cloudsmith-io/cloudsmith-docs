@@ -443,6 +443,10 @@
           {
             "title": "License Compliance",
             "path": "/policy-management/license-compliance"
+          },
+          {
+            "title": "Upstream Trust",
+            "path": "/supply-chain-security/upstream-trust"
           }
         ]
       },
@@ -545,6 +549,10 @@
           {
             "title": "MLflow",
             "path": "/integrations/integrating-with-mlflow"
+          },
+          {
+            "title": "MCP",
+            "path": "/integrations/integrating-with-mcp"
           },
           {
             "title": "Azure DevOps",
