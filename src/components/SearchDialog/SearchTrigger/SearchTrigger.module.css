@@ -1,0 +1,43 @@
+.root {
+  --search-icon-size: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  max-width: var(--container-width-2xs);
+  gap: var(--space-xs);
+  cursor: pointer;
+  border: 0;
+  height: 32px;
+  width: 32px;
+  border-radius: var(--border-radius-full);
+  background-color: var(--search-trigger-background, var(--color-background-light));
+  color: var(--search-trigger-icon-color, var(--brand-color-grey-8));
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background-color: var(--search-trigger-background-hover, var(--color-border));
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .icon {
+    flex-shrink: 0;
+    color: currentcolor;
+    width: var(--search-icon-size);
+    height: var(--search-icon-size);
+
+    & path {
+      fill: currentcolor;
+    }
+  }
+
+  .content {
+    display: none;
+    flex-direction: column;
+  }
+}

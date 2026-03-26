@@ -21,17 +21,6 @@
   color: var(--color-text-primary);
 }
 
-.iconWrapper:hover {
-  border-color: var(--color-accent-default);
-  background: var(--color-accent-default);
-}
-
-.iconWrapper:hover header span,
-.iconWrapper:hover .logo,
-.iconWrapper:hover .arrowIcon {
-  color: var(--brand-color-white);
-}
-
 .iconWrapper footer {
   display: flex;
   align-items: end;
@@ -58,7 +47,18 @@
   font-size: 1.3em;
 }
 
-@media (--medium) {
+.iconWrapper:hover {
+  border-color: var(--color-accent-default);
+  background: var(--color-accent-default);
+}
+
+.iconWrapper:hover header span,
+.iconWrapper:hover .logo,
+.iconWrapper:hover .arrowIcon {
+  color: var(--brand-color-white);
+}
+
+@media (--tablet-up) {
   .logo {
     --logo-max-width: 40px;
     --logo-max-height: 20px;
