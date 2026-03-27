@@ -1,19 +1,21 @@
 'use client';
 
-import { useNavigation } from '@/app/navigation';
-import { Icon } from '@/icons';
-import { ChevronSmallIcon } from '@/icons/ChevronSmall';
-import { MenuItem } from '@/lib/menu/types';
+import React, { useEffect, useState } from 'react';
+
 import { cx } from 'class-variance-authority';
 import { Transition, Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
-import { Tag } from '../Tag';
+
+import { useNavigation } from '@/app/navigation';
+import { Icon } from '@/icons';
+import { ChevronSmallIcon } from '@/icons/ChevronSmall';
+import { MenuItem } from '@/lib/menu/types';
 import { getActiveAncestors } from '@/lib/menu/util';
 import { last } from '@/lib/util';
 
+import { Tag } from '../Tag';
 import styles from './Sidenav.module.css';
 
 const togglerTransition: Transition = { duration: 0.2, ease: 'easeInOut' };
@@ -78,7 +80,12 @@ const List = ({ items, isExpanded }: ListProps) => {
 const Item = ({ item }: ItemProps) => {
   const pathname = usePathname();
   const isCurrentPageActive = item.path === pathname && !item.children;
-  const [isExpanded, setIsExpanded] = useState(isExpandedByDefault(item, pathname));
+  const shouldBeExpanded = isExpandedByDefault(item, pathname);
+  const [isExpanded, setIsExpanded] = useState(shouldBeExpanded);
+
+  useEffect(() => {
+    setIsExpanded(shouldBeExpanded);
+  }, [shouldBeExpanded]);
 
   function toggleExpand(event: React.MouseEvent<HTMLAnchorElement>) {
     // Mobile will always link to the clicked item
@@ -132,17 +139,11 @@ const Item = ({ item }: ItemProps) => {
 };
 
 const isExpandedByDefault = (item: MenuItem, pathname: string) => {
-  // Sections are always active/open
   if (!item.path) {
     return true;
   }
 
-  // When children or self match the browser pathname
-  if (item.path === pathname || item.children?.some((child) => child.path === pathname)) {
-    return true;
-  }
-
-  return false;
+  return getActiveAncestors(pathname, [item]).length > 0;
 };
 
 interface SidenavProps {
