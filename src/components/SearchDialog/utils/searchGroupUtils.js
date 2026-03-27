@@ -1,13 +1,18 @@
 import { slugify, titleCase } from '../../../util/strings';
 import { isExternalHref } from '../../../util/url';
 import { filtersData } from './data';
-import { getHitHref, getHitType, normalizeSearchValue } from './searchHitUtils';
+import {
+  getDocsPageHref,
+  getHitHref,
+  getHitType,
+  normalizeSearchValue,
+  SEARCH_SOURCE_FIELD,
+} from './searchHitUtils';
 
 // Default label for ungrouped or unrecognized document types
 const DEFAULT_GROUP_LABEL = 'Other';
 const RECOMMENDED_GROUP_TYPE = 'recommended';
 const DOCS_GROUP_TYPES = new Set(['documentation', 'apiReference']);
-const SEARCH_SOURCE_FIELD = '__searchSource';
 const CLOUDSMITH_WEBSITE_GROUP_TYPE = 'cloudsmithWebsite';
 const GUIDES_GROUP_TYPE = 'reportsAndGuidesPage';
 const FILTER_ORDER_BY_TYPE = new Map(
@@ -110,7 +115,7 @@ const groupHitsByType = (hits = []) => {
     entry.count += 1;
   }
 
-  // Return groups sorted alphabetically by label
+  // Return groups sorted alphabetically by label before applying display order.
   return Array.from(grouped.values()).sort((a, b) => a.label.localeCompare(b.label));
 };
 
@@ -128,12 +133,28 @@ const isDocsHit = (hit) => {
 const getRecommendedHits = (hits = [], limit = 5) => {
   if (limit <= 0 || hits.length === 0) return [];
 
-  return hits.filter(isDocsHit).slice(0, limit);
+  const recommendedHits = [];
+  const seenDocsPages = new Set();
+
+  for (const hit of hits) {
+    if (!isDocsHit(hit)) continue;
+
+    const docsPageHref = getDocsPageHref(hit);
+    const dedupeKey = docsPageHref || getHitHref(hit);
+    if (!dedupeKey || seenDocsPages.has(dedupeKey)) continue;
+
+    seenDocsPages.add(dedupeKey);
+    recommendedHits.push(hit);
+
+    if (recommendedHits.length >= limit) break;
+  }
+
+  return recommendedHits;
 };
 
 const buildSearchGroups = (hits = []) => {
   const recommendedHits = getRecommendedHits(hits);
-  const groups = groupHitsByType(hits);
+  const groups = sortSearchGroupsForFilters(groupHitsByType(hits));
 
   if (recommendedHits.length === 0) return groups;
 

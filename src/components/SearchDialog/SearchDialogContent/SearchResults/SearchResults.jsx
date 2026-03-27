@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 import { cx } from 'class-variance-authority';
 import { useRouter } from 'next/navigation';
@@ -14,18 +14,14 @@ import {
   getSearchGroupType,
   RECOMMENDED_GROUP_TYPE,
 } from '../../utils/searchGroupUtils';
-import { getHitHref, normalizeSearchValue, shouldOpenSearchHitInNewTab } from '../../utils/searchHitUtils';
+import {
+  buildSearchResultDescriptionSegments,
+  getHitHref,
+  getHitTitle,
+  normalizeSearchValue,
+  shouldOpenSearchHitInNewTab,
+} from '../../utils/searchHitUtils';
 import styles from './SearchResults.module.css';
-
-const getHitTitle = (hit) => {
-  return (
-    normalizeSearchValue(hit?.title) ||
-    normalizeSearchValue(hit?.name) ||
-    normalizeSearchValue(hit?.hierarchy?.lvl2) ||
-    normalizeSearchValue(hit?.hierarchy?.lvl1) ||
-    normalizeSearchValue(hit?.hierarchy?.lvl0)
-  );
-};
 
 const getHitCategory = (hit) => {
   return (
@@ -69,6 +65,11 @@ const Hit = ({ hit, group, groupType, onClose }) => {
   const resultCategory = getHitCategory(hit);
   const shouldShowCategory =
     resultCategory.length > 0 && resultCategory.toLowerCase() !== resultGroupLabel.toLowerCase();
+  const descriptionSegments = buildSearchResultDescriptionSegments({
+    category: shouldShowCategory ? resultCategory : '',
+    groupLabel: resultGroupLabel,
+    hit,
+  });
 
   const hitContent = (
     <>
@@ -80,13 +81,12 @@ const Hit = ({ hit, group, groupType, onClose }) => {
       <div className={styles.resultContent}>
         <span className={styles.resultTitle}>{title}</span>
         <span className={styles.resultDescription}>
-          {resultGroupLabel}
-          {shouldShowCategory && (
-            <>
-              <Icon name="chevronRight" className={styles.resultCategorySeparator} title="" />
-              {resultCategory}
-            </>
-          )}
+          {descriptionSegments.map((segment, index) => (
+            <Fragment key={`${segment}-${index}`}>
+              {index > 0 && <Icon name="chevronRight" className={styles.resultCategorySeparator} title="" />}
+              {segment}
+            </Fragment>
+          ))}
         </span>
       </div>
       <Icon

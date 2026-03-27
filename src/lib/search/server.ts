@@ -13,8 +13,6 @@ import { SearchInput, SearchResult } from './types';
 
 let fuzzySearcher: Searcher<SearchInput, FullOptions<SearchInput>>;
 
-const SNIPPET_PADDING = 300;
-
 export const performSearch = async (
   input: string,
   sections: string[] = ['documentation', 'guides', 'api'],
@@ -62,14 +60,7 @@ export const performSearch = async (
   const filtered: SearchResult[] = results
     .filter((res) => sections.includes(res.item.section))
     .map((res) => {
-      const { match, item } = res;
-
-      const snippetStart = Math.max(0, match.index - SNIPPET_PADDING);
-      const snippetEnd = Math.min(item.content.length, match.index + match.length + SNIPPET_PADDING);
-      const snippet = item.content
-        .substring(snippetStart, snippetEnd)
-        .replace(/[^0-9a-z-A-Z \.\:]/g, '')
-        .replace(/ +/, ' ');
+      const { item } = res;
 
       // Return everything but the content attribute
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -77,7 +68,6 @@ export const performSearch = async (
 
       return {
         ...rest,
-        snippet,
         score: res.score,
       };
     });

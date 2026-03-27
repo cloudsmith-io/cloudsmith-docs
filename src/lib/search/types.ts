@@ -10,7 +10,6 @@ export type SearchInput = {
 
 export type SearchResult = {
   title: string;
-  snippet: string;
   path: string;
   section: string;
   score: number;

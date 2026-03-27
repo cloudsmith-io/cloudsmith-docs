@@ -3,16 +3,12 @@ import { useMemo } from 'react';
 import { Icon } from '@/icons';
 
 import { filtersData } from '../../utils/data';
-import {
-  buildSearchGroups,
-  RECOMMENDED_GROUP_TYPE,
-  sortSearchGroupsForFilters,
-} from '../../utils/searchGroupUtils';
+import { buildSearchGroups, RECOMMENDED_GROUP_TYPE } from '../../utils/searchGroupUtils';
 import styles from './SearchFilters.module.css';
 
 export const SearchFilters = ({ hits, query }) => {
   const groupedHits = useMemo(() => {
-    return sortSearchGroupsForFilters(buildSearchGroups(hits || []));
+    return buildSearchGroups(hits || []);
   }, [hits]);
 
   if (!query || groupedHits.length === 0) return null;

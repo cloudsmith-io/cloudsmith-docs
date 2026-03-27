@@ -11,7 +11,7 @@ import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import styles from './SearchDialog.module.css';
 import { SearchDialogContent } from './SearchDialogContent/SearchDialogContent';
 import { SearchTrigger } from './SearchTrigger/SearchTrigger';
-import { normalizeMergedSearchHref, normalizeSearchValue } from './utils/searchHitUtils';
+import { normalizeMergedSearchHref, normalizeSearchValue, SEARCH_SOURCE_FIELD } from './utils/searchHitUtils';
 
 const algoliaAppId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
 const algoliaApiKey = process.env.NEXT_PUBLIC_ALGOLIA_API_KEY;
@@ -20,7 +20,6 @@ const algoliaIndexName = process.env.NEXT_PUBLIC_ALGOLIA_INDEX;
 const algoliaDocsIndexName = process.env.NEXT_PUBLIC_ALGOLIA_DOCS_INDEX || 'Docs';
 const DEFAULT_HITS_PER_PAGE = 20;
 const DOCS_MAX_HITS_PER_PAGE = 40;
-const SEARCH_SOURCE_FIELD = '__searchSource';
 const DOCS_TITLE_SUFFIX_PATTERN = /\s*\|\s*cloudsmith docs\s*$/i;
 
 // Guard against missing Algolia credentials to prevent breaking the navbar
