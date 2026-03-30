@@ -40,14 +40,55 @@ const getReadableAnchorTitle = (value) => {
   return titleCase(decodedValue.replace(/[-_]+/g, ' '));
 };
 
+const getDocsPageDisplayTitle = (hit) => {
+  const pageDisplayTitle = normalizeSearchValue(hit?.title) || normalizeSearchValue(hit?.name);
+  if (
+    pageDisplayTitle &&
+    normalizeComparableSearchValue(pageDisplayTitle) !== normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL)
+  ) {
+    return pageDisplayTitle;
+  }
+
+  const hierarchyLevels = ['lvl1', 'lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'];
+
+  for (const levelKey of hierarchyLevels) {
+    const candidate = normalizeSearchValue(hit?.hierarchy?.[levelKey]);
+    if (!candidate) continue;
+    if (normalizeComparableSearchValue(candidate) === normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL)) {
+      continue;
+    }
+
+    return candidate;
+  }
+
+  const pageTitleFromSlug =
+    getDocsBreadcrumbScope(hit) === 'documentation' ? getDocsSectionSlug(hit) : getReadableDocsPageSlug(hit);
+
+  return normalizeSearchValue(pageTitleFromSlug);
+};
+
 const getDocsAnchorTitle = (hit) => {
-  const pageTitle = normalizeComparableSearchValue(hit?.title || hit?.name);
+  const pageDisplayTitle = getDocsPageDisplayTitle(hit);
+  const pageTitle = normalizeComparableSearchValue(pageDisplayTitle);
   const sectionTitle = normalizeComparableSearchValue(getDocsSectionSlug(hit));
+  const anchorFragment = normalizeComparableSearchValue(getDocsAnchorFragment(hit));
+  const pageSlugSegment = normalizeComparableSearchValue(getDocsPageSlugSegment(hit));
+
+  if (
+    pageDisplayTitle &&
+    anchorFragment &&
+    (anchorFragment === pageTitle || anchorFragment === pageSlugSegment)
+  ) {
+    return pageDisplayTitle;
+  }
 
   for (const levelKey of DOCS_HIERARCHY_LEVEL_KEYS) {
     const candidate = normalizeSearchValue(hit?.hierarchy?.[levelKey]);
     if (!candidate) continue;
 
+    if (normalizeComparableSearchValue(candidate) === normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL)) {
+      continue;
+    }
     if (pageTitle && normalizeComparableSearchValue(candidate) === pageTitle) continue;
     if (sectionTitle && normalizeComparableSearchValue(candidate) === sectionTitle) continue;
 
@@ -291,7 +332,11 @@ const buildSearchResultDescriptionSegments = ({ category, groupLabel, hit }) => 
     return getUniqueSearchSegments([groupLabel, getScopedSearchCategory(category, hit)]);
   }
 
-  return getUniqueSearchSegments([DOCS_BREADCRUMB_LABEL, getDocsSectionSlug(hit)]);
+  return getUniqueSearchSegments([
+    DOCS_BREADCRUMB_LABEL,
+    getDocsSectionSlug(hit),
+    getReadableDocsPageSlug(hit),
+  ]);
 };
 
 export {
