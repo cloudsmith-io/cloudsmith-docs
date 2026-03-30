@@ -9,11 +9,6 @@ export const filtersData = [
     icon: 'utility/documentation',
     documentType: 'documentation',
   },
-  {
-    label: 'Cloudsmith website',
-    icon: 'utility/documentation',
-    documentType: 'cloudsmithWebsite',
-  },
   { label: 'Blog', icon: 'utility/documentation', documentType: 'blog' },
   {
     label: 'Customer stories',
@@ -46,4 +41,9 @@ export const filtersData = [
   { label: 'Switch', icon: 'arrowRight', documentType: 'switchPage' },
   { label: 'Webinars', icon: 'action/play', documentType: 'webinar' },
   { label: 'Workshops', icon: 'question', documentType: 'workshop' },
+  {
+    label: 'Cloudsmith website',
+    icon: 'utility/documentation',
+    documentType: 'cloudsmithWebsite',
+  },
 ];

@@ -11,7 +11,12 @@ import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import styles from './SearchDialog.module.css';
 import { SearchDialogContent } from './SearchDialogContent/SearchDialogContent';
 import { SearchTrigger } from './SearchTrigger/SearchTrigger';
-import { normalizeMergedSearchHref, normalizeSearchValue, SEARCH_SOURCE_FIELD } from './utils/searchHitUtils';
+import {
+  dedupeMergedSearchHits,
+  normalizeMergedSearchHref,
+  normalizeSearchValue,
+  SEARCH_SOURCE_FIELD,
+} from './utils/searchHitUtils';
 
 const algoliaAppId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
 const algoliaApiKey = process.env.NEXT_PUBLIC_ALGOLIA_API_KEY;
@@ -111,7 +116,10 @@ const mergeMultiIndexResults = (websiteResult, docsResult, request) => {
     : DEFAULT_HITS_PER_PAGE;
   const websiteHits = websiteResult?.hits || [];
   const docsHits = docsResult?.hits || [];
-  const mergedHits = blendHitsByScore(websiteHits, docsHits).slice(0, effectiveHitsPerPage);
+  const mergedHits = dedupeMergedSearchHits(blendHitsByScore(websiteHits, docsHits)).slice(
+    0,
+    effectiveHitsPerPage,
+  );
 
   return {
     ...(websiteResult || {}),

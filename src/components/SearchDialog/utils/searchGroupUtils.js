@@ -19,6 +19,7 @@ const FILTER_ORDER_BY_TYPE = new Map(
   filtersData.map(({ documentType }, index) => [documentType || RECOMMENDED_GROUP_TYPE, index]),
 );
 const RECOMMENDED_FILTER_ORDER = -1;
+const CLOUDSMITH_WEBSITE_FILTER_ORDER = Number.MAX_SAFE_INTEGER;
 
 // Map of document types that should be merged into other types
 // e.g., platformFeaturesPage results are grouped with productPage, generic "page" types with "Resources"
@@ -175,13 +176,20 @@ const sortSearchGroupsForFilters = (groups = []) => {
     const leftOrder =
       left._type === RECOMMENDED_GROUP_TYPE
         ? RECOMMENDED_FILTER_ORDER
-        : (FILTER_ORDER_BY_TYPE.get(left._type) ?? Number.MAX_SAFE_INTEGER);
+        : left._type === CLOUDSMITH_WEBSITE_GROUP_TYPE
+          ? CLOUDSMITH_WEBSITE_FILTER_ORDER
+          : (FILTER_ORDER_BY_TYPE.get(left._type) ?? Number.MAX_SAFE_INTEGER);
     const rightOrder =
       right._type === RECOMMENDED_GROUP_TYPE
         ? RECOMMENDED_FILTER_ORDER
-        : (FILTER_ORDER_BY_TYPE.get(right._type) ?? Number.MAX_SAFE_INTEGER);
+        : right._type === CLOUDSMITH_WEBSITE_GROUP_TYPE
+          ? CLOUDSMITH_WEBSITE_FILTER_ORDER
+          : (FILTER_ORDER_BY_TYPE.get(right._type) ?? Number.MAX_SAFE_INTEGER);
 
     if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+
+    if (left._type === CLOUDSMITH_WEBSITE_GROUP_TYPE) return 1;
+    if (right._type === CLOUDSMITH_WEBSITE_GROUP_TYPE) return -1;
 
     return left.label.localeCompare(right.label);
   });
