@@ -43,9 +43,15 @@ const getReadableAnchorTitle = (value) => {
 
 const getDocsPageDisplayTitle = (hit) => {
   const pageDisplayTitle = normalizeSearchValue(hit?.title) || normalizeSearchValue(hit?.name);
+  const normalizedPageDisplayTitle = normalizeComparableSearchValue(pageDisplayTitle);
+  const sectionTitle = normalizeComparableSearchValue(getDocsSectionSlug(hit));
+  const pageSlugTitle = normalizeSearchValue(getReadableDocsPageSlug(hit));
+  const normalizedPageSlugTitle = normalizeComparableSearchValue(pageSlugTitle);
+
   if (
     pageDisplayTitle &&
-    normalizeComparableSearchValue(pageDisplayTitle) !== normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL)
+    normalizedPageDisplayTitle !== normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL) &&
+    (normalizedPageDisplayTitle !== sectionTitle || normalizedPageSlugTitle === sectionTitle)
   ) {
     return pageDisplayTitle;
   }
@@ -55,15 +61,29 @@ const getDocsPageDisplayTitle = (hit) => {
   for (const levelKey of hierarchyLevels) {
     const candidate = normalizeSearchValue(hit?.hierarchy?.[levelKey]);
     if (!candidate) continue;
-    if (normalizeComparableSearchValue(candidate) === normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL)) {
+
+    const normalizedCandidate = normalizeComparableSearchValue(candidate);
+
+    if (normalizedCandidate === normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL)) {
+      continue;
+    }
+    if (
+      normalizedCandidate === sectionTitle &&
+      normalizedPageSlugTitle &&
+      normalizedPageSlugTitle !== sectionTitle
+    ) {
       continue;
     }
 
     return candidate;
   }
 
+  if (pageSlugTitle && normalizedPageSlugTitle !== sectionTitle) {
+    return pageSlugTitle;
+  }
+
   const pageTitleFromSlug =
-    getDocsBreadcrumbScope(hit) === 'documentation' ? getDocsSectionSlug(hit) : getReadableDocsPageSlug(hit);
+    getDocsBreadcrumbScope(hit) === 'documentation' ? getDocsSectionSlug(hit) : pageSlugTitle;
 
   return normalizeSearchValue(pageTitleFromSlug);
 };
@@ -107,12 +127,14 @@ const getDocsAnchorTitle = (hit) => {
 };
 
 const getHitTitle = (hit) => {
-  if (
-    normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) === DOCS_SEARCH_SOURCE &&
-    getHitHref(hit).includes('#')
-  ) {
-    const anchorTitle = getDocsAnchorTitle(hit);
-    if (anchorTitle) return anchorTitle;
+  if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) === DOCS_SEARCH_SOURCE) {
+    if (getHitHref(hit).includes('#')) {
+      const anchorTitle = getDocsAnchorTitle(hit);
+      if (anchorTitle) return anchorTitle;
+    }
+
+    const pageDisplayTitle = getDocsPageDisplayTitle(hit);
+    if (pageDisplayTitle) return pageDisplayTitle;
   }
 
   return (
@@ -197,6 +219,12 @@ const getReadableDocsPageSlug = (hit) => {
   if (!pageSlugSegment) return '';
 
   return titleCase(pageSlugSegment);
+};
+
+const isDocsAnchorHit = (hit) => {
+  if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) return false;
+
+  return getHitHref(hit).includes('#');
 };
 
 const isDocsPageEquivalentAnchorHit = (anchorHit, pageHit) => {
@@ -337,10 +365,16 @@ const buildSearchResultDescriptionSegments = ({ category, groupLabel, hit }) => 
     return getUniqueSearchSegments([groupLabel, getScopedSearchCategory(category, hit)]);
   }
 
+  const includePageTitle = isDocsAnchorHit(hit);
+  const hitTitle = normalizeComparableSearchValue(getHitTitle(hit));
+  const docsSectionTitle = getDocsSectionSlug(hit);
+  const includeSectionTitle =
+    includePageTitle || normalizeComparableSearchValue(docsSectionTitle) !== hitTitle;
+
   if (getDocsBreadcrumbScope(hit) === 'guides') {
     return getUniqueSearchSegments([
       groupLabel,
-      getReadableDocsPageSlug(hit),
+      includePageTitle ? getReadableDocsPageSlug(hit) : '',
       getScopedSearchCategory(category, hit),
     ]);
   }
@@ -351,8 +385,8 @@ const buildSearchResultDescriptionSegments = ({ category, groupLabel, hit }) => 
 
   return getUniqueSearchSegments([
     DOCS_BREADCRUMB_LABEL,
-    getDocsSectionSlug(hit),
-    getReadableDocsPageSlug(hit),
+    includeSectionTitle ? docsSectionTitle : '',
+    includePageTitle ? getReadableDocsPageSlug(hit) : '',
   ]);
 };
 
