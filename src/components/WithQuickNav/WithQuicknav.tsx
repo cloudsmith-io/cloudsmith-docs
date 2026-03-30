@@ -1,8 +1,7 @@
 import { Icon } from '@/icons';
-import { quickNavContentId } from '@/lib/constants/quickNav';
-import { QuickNav } from '../QuickNav';
-import { PageInfo } from '../PageInfo';
 
+import { PageInfo } from '../PageInfo';
+import { QuickNav } from '../QuickNav';
 import styles from './WithQuicknav.module.css';
 
 /*
@@ -13,7 +12,7 @@ import styles from './WithQuicknav.module.css';
 const WithQuicknav = ({ children, showPageInfo = false, path = '', lastUpdated }: WithQuicknavProps) => {
   return (
     <main className={styles.root}>
-      <article className={styles.content} id={quickNavContentId}>
+      <article className={styles.content} data-quick-nav-content>
         <Icon name="action/link" as="symbol" title="" />
         {children}
       </article>

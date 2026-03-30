@@ -1,3 +1,4 @@
+import { quickNavIgnoredAnchorFragments } from '@/lib/constants/quickNav';
 import { slugify, titleCase } from '@/util/strings';
 import { isExternalHref } from '@/util/url';
 
@@ -73,6 +74,8 @@ const getDocsAnchorTitle = (hit) => {
   const sectionTitle = normalizeComparableSearchValue(getDocsSectionSlug(hit));
   const anchorFragment = normalizeComparableSearchValue(getDocsAnchorFragment(hit));
   const pageSlugSegment = normalizeComparableSearchValue(getDocsPageSlugSegment(hit));
+
+  if (isIgnoredDocsAnchorFragment(getDocsAnchorFragment(hit))) return '';
 
   if (
     pageDisplayTitle &&
@@ -164,6 +167,19 @@ const getDocsAnchorFragment = (hit) => {
   }
 };
 
+const isIgnoredDocsAnchorFragment = (value) => {
+  const anchorFragment = normalizeSearchValue(value);
+  if (!anchorFragment) return false;
+
+  return quickNavIgnoredAnchorFragments.has(anchorFragment);
+};
+
+const isIgnoredDocsAnchorHit = (hit) => {
+  if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) return false;
+
+  return isIgnoredDocsAnchorFragment(getDocsAnchorFragment(hit));
+};
+
 const getDocsPageSlugSegment = (hit) => {
   const pageHref = getDocsPageHref(hit);
   if (!pageHref) return '';
@@ -202,8 +218,9 @@ const isDocsPageEquivalentAnchorHit = (anchorHit, pageHit) => {
 
 const dedupeMergedSearchHits = (hits = []) => {
   const docsPageHitsByHref = new Map();
+  const filteredHits = hits.filter((hit) => !isIgnoredDocsAnchorHit(hit));
 
-  for (const hit of hits) {
+  for (const hit of filteredHits) {
     if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) continue;
 
     const href = getHitHref(hit);
@@ -215,7 +232,7 @@ const dedupeMergedSearchHits = (hits = []) => {
     docsPageHitsByHref.set(docsPageHref, hit);
   }
 
-  const dedupedDocsHits = hits.filter((hit) => {
+  const dedupedDocsHits = filteredHits.filter((hit) => {
     if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) return true;
 
     const href = getHitHref(hit);

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { cx } from 'class-variance-authority';
 import { usePathname } from 'next/navigation';
 
-import { quickNavContentId } from '@/lib/constants/quickNav';
+import { quickNavContentSelector } from '@/lib/constants/quickNav';
 
 import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
@@ -27,7 +27,12 @@ export const scrollToHashTarget = (hash = window.location.hash) => {
 export const QuickNav = () => {
   const pathname = usePathname();
   const [headings, setHeadings] = useState<Array<HeadingList>>([]);
-  const activeHeadline = useHeadingsObserver(quickNavContentId, headingsToObserve, '-5% 0px -50% 0px', 1);
+  const activeHeadline = useHeadingsObserver(
+    quickNavContentSelector,
+    headingsToObserve,
+    '-5% 0px -50% 0px',
+    1,
+  );
 
   useEffect(() => {
     if (!headings.length) return;
@@ -43,8 +48,8 @@ export const QuickNav = () => {
   }, [headings.length, pathname]);
 
   useEffect(() => {
-    const contentArea = document.getElementById(quickNavContentId);
-    if (!contentArea) return;
+    const contentArea = document.querySelector(quickNavContentSelector);
+    if (!(contentArea instanceof HTMLElement)) return;
 
     // Get all headings
     const headingElements = contentArea.querySelectorAll(headingsToObserve);
