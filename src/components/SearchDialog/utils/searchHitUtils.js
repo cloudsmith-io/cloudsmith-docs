@@ -179,9 +179,37 @@ const getDocsSectionSlug = (hit) => {
   }
 };
 
+const getDocsBreadcrumbScope = (hit) => {
+  const sectionSlug = normalizeComparableSearchValue(getDocsSectionSlug(hit));
+
+  if (sectionSlug === 'guides') return 'guides';
+  if (sectionSlug === 'api') return 'api';
+  return 'documentation';
+};
+
+const getScopedSearchCategory = (category, hit) => {
+  const normalizedCategory = normalizeSearchValue(category);
+  if (!normalizedCategory) return '';
+
+  if (
+    normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) === DOCS_SEARCH_SOURCE &&
+    getDocsBreadcrumbScope(hit) !== 'documentation' &&
+    normalizeComparableSearchValue(normalizedCategory) ===
+      normalizeComparableSearchValue(DOCS_BREADCRUMB_LABEL)
+  ) {
+    return '';
+  }
+
+  return normalizedCategory;
+};
+
 const buildSearchResultDescriptionSegments = ({ category, groupLabel, hit }) => {
   if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) {
-    return getUniqueSearchSegments([groupLabel, category]);
+    return getUniqueSearchSegments([groupLabel, getScopedSearchCategory(category, hit)]);
+  }
+
+  if (getDocsBreadcrumbScope(hit) !== 'documentation') {
+    return getUniqueSearchSegments([groupLabel, getScopedSearchCategory(category, hit)]);
   }
 
   return getUniqueSearchSegments([DOCS_BREADCRUMB_LABEL, getDocsSectionSlug(hit)]);
