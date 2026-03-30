@@ -9,6 +9,7 @@ const SEARCH_SOURCE_FIELD = 'searchSource';
 const DOCS_SEARCH_SOURCE = 'docs';
 const WEBSITE_SEARCH_SOURCE = 'website';
 const DOCS_BREADCRUMB_LABEL = 'Documentation';
+const DOCS_HIERARCHY_LEVEL_KEYS = ['lvl6', 'lvl5', 'lvl4', 'lvl3', 'lvl2', 'lvl1', 'lvl0'];
 
 const normalizeSearchValue = (value) => (typeof value === 'string' ? value.trim() : '');
 
@@ -21,7 +22,55 @@ const normalizeComparableSearchValue = (value) => {
 
 const getHitHref = (hit) => normalizeSearchValue(hit?.slug);
 
+const decodeSearchValue = (value) => {
+  const normalizedValue = normalizeSearchValue(value);
+  if (!normalizedValue) return '';
+
+  try {
+    return decodeURIComponent(normalizedValue);
+  } catch {
+    return normalizedValue;
+  }
+};
+
+const getReadableAnchorTitle = (value) => {
+  const decodedValue = decodeSearchValue(value);
+  if (!decodedValue) return '';
+
+  return titleCase(decodedValue.replace(/[-_]+/g, ' '));
+};
+
+const getDocsAnchorTitle = (hit) => {
+  const pageTitle = normalizeComparableSearchValue(hit?.title || hit?.name);
+  const sectionTitle = normalizeComparableSearchValue(getDocsSectionSlug(hit));
+
+  for (const levelKey of DOCS_HIERARCHY_LEVEL_KEYS) {
+    const candidate = normalizeSearchValue(hit?.hierarchy?.[levelKey]);
+    if (!candidate) continue;
+
+    if (pageTitle && normalizeComparableSearchValue(candidate) === pageTitle) continue;
+    if (sectionTitle && normalizeComparableSearchValue(candidate) === sectionTitle) continue;
+
+    return candidate;
+  }
+
+  const anchorTitle = getReadableAnchorTitle(getDocsAnchorFragment(hit));
+  if (!anchorTitle) return '';
+
+  if (pageTitle && normalizeComparableSearchValue(anchorTitle) === pageTitle) return '';
+
+  return anchorTitle;
+};
+
 const getHitTitle = (hit) => {
+  if (
+    normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) === DOCS_SEARCH_SOURCE &&
+    getHitHref(hit).includes('#')
+  ) {
+    const anchorTitle = getDocsAnchorTitle(hit);
+    if (anchorTitle) return anchorTitle;
+  }
+
   return (
     normalizeSearchValue(hit?.title) ||
     normalizeSearchValue(hit?.name) ||
@@ -86,6 +135,13 @@ const getDocsPageSlugSegment = (hit) => {
   }
 };
 
+const getReadableDocsPageSlug = (hit) => {
+  const pageSlugSegment = decodeSearchValue(getDocsPageSlugSegment(hit));
+  if (!pageSlugSegment) return '';
+
+  return titleCase(pageSlugSegment);
+};
+
 const isDocsPageEquivalentAnchorHit = (anchorHit, pageHit) => {
   if (normalizeSearchValue(anchorHit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) return false;
   if (normalizeSearchValue(pageHit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) return false;
@@ -118,7 +174,7 @@ const dedupeMergedSearchHits = (hits = []) => {
     docsPageHitsByHref.set(docsPageHref, hit);
   }
 
-  return hits.filter((hit) => {
+  const dedupedDocsHits = hits.filter((hit) => {
     if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) return true;
 
     const href = getHitHref(hit);
@@ -130,6 +186,21 @@ const dedupeMergedSearchHits = (hits = []) => {
     if (!pageHit) return true;
 
     return !isDocsPageEquivalentAnchorHit(hit, pageHit);
+  });
+
+  const seenHitDestinations = new Set();
+
+  return dedupedDocsHits.filter((hit) => {
+    const href = getHitHref(hit);
+    if (!href) return true;
+
+    const searchSource = normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) || 'unknown';
+    const dedupeKey = `${searchSource}:${href}`;
+
+    if (seenHitDestinations.has(dedupeKey)) return false;
+
+    seenHitDestinations.add(dedupeKey);
+    return true;
   });
 };
 
@@ -206,6 +277,14 @@ const getScopedSearchCategory = (category, hit) => {
 const buildSearchResultDescriptionSegments = ({ category, groupLabel, hit }) => {
   if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) {
     return getUniqueSearchSegments([groupLabel, getScopedSearchCategory(category, hit)]);
+  }
+
+  if (getDocsBreadcrumbScope(hit) === 'guides') {
+    return getUniqueSearchSegments([
+      groupLabel,
+      getReadableDocsPageSlug(hit),
+      getScopedSearchCategory(category, hit),
+    ]);
   }
 
   if (getDocsBreadcrumbScope(hit) !== 'documentation') {
