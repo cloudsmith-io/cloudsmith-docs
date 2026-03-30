@@ -327,6 +327,21 @@ const getUniqueSearchSegments = (segments = []) => {
   return uniqueSegments;
 };
 
+const getWebsiteBreadcrumbSegment = (hit) => {
+  if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== WEBSITE_SEARCH_SOURCE) return '';
+
+  const href = getHitHref(hit);
+  if (!href) return '';
+
+  try {
+    const url = new URL(href, MARKETING_SITE_URL);
+    const firstSegment = url.pathname.split('/').filter(Boolean).at(0);
+    return getReadableAnchorTitle(firstSegment);
+  } catch {
+    return '';
+  }
+};
+
 const getDocsSectionSlug = (hit) => {
   try {
     const url = new URL(getDocsPageHref(hit), DOCS_SITE_URL);
@@ -362,7 +377,11 @@ const getScopedSearchCategory = (category, hit) => {
 
 const buildSearchResultDescriptionSegments = ({ category, groupLabel, hit }) => {
   if (normalizeSearchValue(hit?.[SEARCH_SOURCE_FIELD]) !== DOCS_SEARCH_SOURCE) {
-    return getUniqueSearchSegments([groupLabel, getScopedSearchCategory(category, hit)]);
+    return getUniqueSearchSegments([
+      groupLabel,
+      getWebsiteBreadcrumbSegment(hit),
+      getScopedSearchCategory(category, hit),
+    ]);
   }
 
   const includePageTitle = isDocsAnchorHit(hit);
