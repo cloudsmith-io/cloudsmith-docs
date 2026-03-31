@@ -1,0 +1,95 @@
+.root {
+  position: relative;
+  width: var(--width, 100%);
+  left: 50%;
+  transform: translate(-50%);
+  overflow: hidden;
+
+  &.inline {
+    position: relative;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.illustration {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--background-grid-width, 100%);
+  height: var(--background-grid-height, 100%);
+  max-width: var(--background-grid-max-width, none);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.illustration svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.topVignette {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--background-grid-top-vignette-height, var(--background-grid-vignette-height, 80px));
+  background: linear-gradient(
+    to top,
+    transparent,
+    var(--background-grid-vignette-color, var(--color-background-default))
+  );
+  pointer-events: none;
+}
+
+.leftVignette {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: var(--background-grid-left-vignette-width, var(--background-grid-vignette-width, 80px));
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--background-grid-vignette-color, var(--color-background-default))
+  );
+  pointer-events: none;
+}
+
+.bottomVignette {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--background-grid-bottom-vignette-height, var(--background-grid-vignette-height, 80px));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--background-grid-vignette-color, var(--color-background-default))
+  );
+  pointer-events: none;
+}
+
+.rightVignette {
+  position: absolute;
+  z-index: 1;
+  top: var(--background-grid-right-vignette-top, 0);
+  right: 0;
+  bottom: 0;
+  width: var(--background-grid-right-vignette-width, var(--background-grid-vignette-width, 80px));
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--background-grid-vignette-color, var(--color-background-default))
+  );
+  pointer-events: none;
+}

@@ -9,10 +9,9 @@ import { usePathname } from 'next/navigation';
 import { useNavigation } from '@/app/navigation';
 import { Container } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
-import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
-
+import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
 
 import styles from './Navbar.module.css';
 
@@ -29,17 +28,13 @@ export const Navbar = () => {
 
   const primary = [documentationItem, guidesItem, apiItem];
   const secondary = mobileNavbarItem.children;
-
   const activeMenuItem = getActiveMenuItem(pathname);
-
+  const isHome = pathname === '/';
   const toggle = () => toggleNavigation('globalNav');
 
   return (
     <>
-      <div className={cx(styles.root, { [styles.isHome]: pathname === '/' })}>
-
-        
-
+      <div className={cx(styles.root, { [styles.isHome]: isHome })}>
         <Container className={styles.container}>
           <div className={styles.top}>
             <div className={styles.left}>
@@ -56,14 +51,36 @@ export const Navbar = () => {
               ) : null}
             </div>
 
+            <nav className={styles.nav}>
+              {primary?.map((item, i) => (
+                <Link
+                  key={`${item.path}-${i}`}
+                  href={item.path!}
+                  className={cx(
+                    styles.navLink,
+                    { [styles.navLinkActive]: !isHome && activeMenuItem === item },
+                    'bodyM',
+                  )}>
+                  <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
+                  {item.title}
+                </Link>
+              ))}
+            </nav>
+
             <div className={styles.right}>
-              <SearchDialog />
+              {!isHome && <SearchDialog />}
+              <Link
+                href="https://cloudsmith.com/contact/"
+                target={'_blank'}
+                className={cx(styles.bookDemo, 'bodyS')}>
+                Book a demo
+              </Link>
               <Link
                 href="https://app.cloudsmith.com/login"
                 target={'_blank'}
                 className={cx(styles.openCloudsmith, 'bodyS', pathname === '/' && styles.light)}
-                aria-label="Open Cloudsmith">
-                Open Cloudsmith
+                aria-label="Login">
+                Login
               </Link>
 
               <button
@@ -75,17 +92,6 @@ export const Navbar = () => {
               </button>
             </div>
           </div>
-          <nav className={styles.nav}>
-            {primary?.map((item, i) => (
-              <Link
-                key={`${item.path}-${i}`}
-                href={item.path!}
-                className={cx(styles.navLink, { [styles.navLinkActive]: activeMenuItem === item }, 'bodyM')}>
-                <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
-                {item.title}
-              </Link>
-            ))}
-          </nav>
         </Container>
       </div>
 

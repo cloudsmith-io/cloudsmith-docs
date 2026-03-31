@@ -1,5 +1,8 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
+import type { Route } from 'next';
+import type { IndexedSearchGroup, SearchFilterDefinition, SearchGroup, SearchHit } from '../../types';
+
 import { cx } from 'class-variance-authority';
 import { useRouter } from 'next/navigation';
 
@@ -25,7 +28,44 @@ import {
 } from '../../utils/searchHitUtils';
 import styles from './SearchResults.module.css';
 
-const getHitCategory = (hit) => {
+const HTTP_METHODS = new Set<Tag.HttpRequestMethods>([
+  'delete',
+  'get',
+  'head',
+  'options',
+  'patch',
+  'post',
+  'put',
+  'trace',
+]);
+
+const searchFilters = filtersData as SearchFilterDefinition[];
+
+interface HitProps {
+  hit: SearchHit;
+  group?: SearchFilterDefinition;
+  groupType: string;
+  onClose: () => void;
+}
+
+interface RenderResultsSectionProps {
+  group: IndexedSearchGroup;
+  activeIndex: number;
+  itemRefs: React.MutableRefObject<Array<HTMLLIElement | null>>;
+  currentFilter?: SearchFilterDefinition;
+  onClose: () => void;
+}
+
+interface SearchResultsProps {
+  hits: SearchHit[];
+  isSearching: boolean;
+  onClose: () => void;
+  query: string;
+  searchError: string | null;
+  settledQuery: string;
+}
+
+const getHitCategory = (hit: SearchHit): string => {
   return (
     normalizeSearchValue(hit?.category) ||
     normalizeSearchValue(hit?.section) ||
@@ -33,14 +73,18 @@ const getHitCategory = (hit) => {
   );
 };
 
-const getHitObjectId = (hit, fallbackIndex) => {
+const getHitObjectId = (hit: SearchHit, fallbackIndex: number): string => {
   return (
     normalizeSearchValue(hit?.objectID) ||
     `${normalizeSearchValue(hit?._type || hit?.type || 'result')}-${getHitHref(hit) || getHitTitle(hit) || fallbackIndex}`
   );
 };
 
-const navigateToHit = (slug, router, opensInNewTab) => {
+const isHttpMethod = (value: string): value is Tag.HttpRequestMethods => {
+  return HTTP_METHODS.has(value as Tag.HttpRequestMethods);
+};
+
+const navigateToHit = (slug: string, router: ReturnType<typeof useRouter>, opensInNewTab: boolean) => {
   if (!slug) return;
 
   if (opensInNewTab) {
@@ -56,13 +100,15 @@ const navigateToHit = (slug, router, opensInNewTab) => {
   router.push(slug);
 };
 
-const Hit = ({ hit, group, groupType, onClose }) => {
+const Hit = ({ hit, group, groupType, onClose }: HitProps) => {
   const href = getHitHref(hit);
-  const method = getHitMethod(hit);
+  const methodValue = getHitMethod(hit);
+  const method = isHttpMethod(methodValue) ? methodValue : undefined;
   const title = getHitTitle(hit);
   const opensInNewTab = shouldOpenSearchHitInNewTab(hit);
+  const isExternal = isExternalHref(href);
   const hitType = getSearchGroupType(hit);
-  const hitFilter = filtersData.find((filter) => filter.documentType === hitType);
+  const hitFilter = searchFilters.find((filter) => filter.documentType === hitType);
   const resultIcon = groupType === RECOMMENDED_GROUP_TYPE ? hitFilter?.icon : group?.icon;
   const resultGroupLabel = formatGroupLabel(groupType === RECOMMENDED_GROUP_TYPE ? hitType : groupType);
   const resultCategory = getHitCategory(hit);
@@ -113,14 +159,28 @@ const Hit = ({ hit, group, groupType, onClose }) => {
     );
   }
 
+  if (isExternal) {
+    return (
+      <a href={href} className={styles.resultLink} tabIndex={-1} onClick={onClose}>
+        {hitContent}
+      </a>
+    );
+  }
+
   return (
-    <Link href={href} className={styles.resultLink} tabIndex={-1} onClick={onClose} prefetch={false}>
+    <Link href={href as Route<string>} className={styles.resultLink} tabIndex={-1} onClick={onClose}>
       {hitContent}
     </Link>
   );
 };
 
-const renderResultsSection = ({ group, activeIndex, itemRefs, currentFilter, onClose }) => {
+const renderResultsSection = ({
+  group,
+  activeIndex,
+  itemRefs,
+  currentFilter,
+  onClose,
+}: RenderResultsSectionProps) => {
   const items = group.items.map((item) => (
     <li
       key={getHitObjectId(item.hit, item.index)}
@@ -144,17 +204,24 @@ const renderResultsSection = ({ group, activeIndex, itemRefs, currentFilter, onC
   );
 };
 
-const SearchResults = ({ hits, isSearching, onClose, query, searchError, settledQuery }) => {
+const SearchResults = ({
+  hits,
+  isSearching,
+  onClose,
+  query,
+  searchError,
+  settledQuery,
+}: SearchResultsProps) => {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(-1);
-  const itemRefs = useRef([]);
-  const scrollContainerRef = useRef(null);
+  const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const groupedHits = useMemo(() => {
-    return buildSearchGroups(hits || []);
+    return buildSearchGroups(hits || []) as SearchGroup[];
   }, [hits]);
 
-  const groupedHitsWithIndex = useMemo(() => {
+  const groupedHitsWithIndex = useMemo<IndexedSearchGroup[]>(() => {
     let index = 0;
 
     return groupedHits.map((group) => ({
@@ -163,7 +230,7 @@ const SearchResults = ({ hits, isSearching, onClose, query, searchError, settled
     }));
   }, [groupedHits]);
 
-  const flattenedHits = useMemo(
+  const flattenedHits = useMemo<SearchHit[]>(
     () => groupedHitsWithIndex.flatMap((group) => group.items.map((item) => item.hit)),
     [groupedHitsWithIndex],
   );
@@ -207,7 +274,7 @@ const SearchResults = ({ hits, isSearching, onClose, query, searchError, settled
   useEffect(() => {
     if (!query || flattenedHits.length === 0) return;
 
-    const updateActiveIndex = (delta) => {
+    const updateActiveIndex = (delta: number) => {
       setActiveIndex((current) => {
         if (flattenedHits.length === 0) return -1;
 
@@ -216,7 +283,7 @@ const SearchResults = ({ hits, isSearching, onClose, query, searchError, settled
       });
     };
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented) return;
 
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -235,7 +302,7 @@ const SearchResults = ({ hits, isSearching, onClose, query, searchError, settled
       if (event.key === 'Enter' && activeIndex >= 0) {
         event.preventDefault();
         const activeItem = itemRefs.current[activeIndex];
-        const activeLink = activeItem?.querySelector('a[href]');
+        const activeLink = activeItem?.querySelector<HTMLAnchorElement>('a[href]');
 
         if (activeLink) {
           activeLink.click();
@@ -281,7 +348,7 @@ const SearchResults = ({ hits, isSearching, onClose, query, searchError, settled
     <div className={styles.root} ref={scrollContainerRef}>
       <div className={styles.resultsContainer}>
         {groupedHitsWithIndex.map((group) => {
-          const currentFilter = filtersData.find(
+          const currentFilter = searchFilters.find(
             (filter) => filter.documentType === (group._type === RECOMMENDED_GROUP_TYPE ? '' : group._type),
           );
 

@@ -160,6 +160,7 @@
     /* Border */
     --color-border: var(--brand-color-grey-3);
     --color-border-tabs: var(--base-color-blue-500);
+    --color-grid-line-default: var(--brand-color-grey-2);
 
     /* Accent */
     --color-accent-default: var(--base-color-blue-500);

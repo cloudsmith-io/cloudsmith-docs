@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
+import type { SearchHit, SearchSource } from './types';
+
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { algoliasearch } from 'algoliasearch';
@@ -30,7 +32,31 @@ const DOCS_TITLE_SUFFIX_PATTERN = /\s*\|\s*cloudsmith docs\s*$/i;
 // Guard against missing Algolia credentials to prevent breaking the navbar
 const hasAlgoliaCredentials = Boolean(algoliaAppId && algoliaApiKey);
 
-const stripDocsTitleSuffix = (value) => {
+interface SearchRequestParams {
+  query?: string;
+  hitsPerPage?: number;
+  page?: number;
+  getRankingInfo?: boolean;
+  [key: string]: unknown;
+}
+
+interface SearchRequest {
+  indexName?: string;
+  params?: SearchRequestParams;
+}
+
+interface SearchResult {
+  hits: SearchHit[];
+  nbHits?: number;
+  page?: number;
+  nbPages?: number;
+  hitsPerPage?: number;
+  processingTimeMS?: number;
+  query?: string;
+  params?: string;
+}
+
+const stripDocsTitleSuffix = (value: unknown): unknown => {
   if (typeof value === 'string') return value.replace(DOCS_TITLE_SUFFIX_PATTERN, '').trim();
   if (!value || typeof value !== 'object') return value;
 
@@ -41,14 +67,15 @@ const stripDocsTitleSuffix = (value) => {
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, stripDocsTitleSuffix(item)]));
 };
 
-const normalizeDocsHit = (hit) => ({
-  ...hit,
-  title: stripDocsTitleSuffix(hit?.title),
-  name: stripDocsTitleSuffix(hit?.name),
-  hierarchy: stripDocsTitleSuffix(hit?.hierarchy),
-});
+const normalizeDocsHit = (hit: SearchHit): SearchHit =>
+  ({
+    ...hit,
+    title: stripDocsTitleSuffix(hit?.title),
+    name: stripDocsTitleSuffix(hit?.name),
+    hierarchy: stripDocsTitleSuffix(hit?.hierarchy),
+  }) as SearchHit;
 
-const getRawSearchHitHref = (hit, source) => {
+const getRawSearchHitHref = (hit: SearchHit, source: SearchSource): string => {
   if (source === 'docs') {
     return normalizeSearchValue(hit?.url ?? hit?.url_without_anchor);
   }
@@ -56,7 +83,7 @@ const getRawSearchHitHref = (hit, source) => {
   return normalizeSearchValue(hit?.slug);
 };
 
-const attachSearchSource = (hit, source) => {
+const attachSearchSource = (hit: SearchHit, source: SearchSource): SearchHit => {
   const normalizedHit = source === 'docs' ? normalizeDocsHit(hit) : hit;
   const href = getRawSearchHitHref(normalizedHit, source);
 
@@ -67,12 +94,12 @@ const attachSearchSource = (hit, source) => {
   };
 };
 
-const getRankingScore = (hit) => {
+const getRankingScore = (hit: SearchHit): number | null => {
   const score = hit?._rankingInfo?.userScore ?? hit?._rankingInfo?.score;
   return Number.isFinite(score) ? Number(score) : null;
 };
 
-const annotateHitsForMerge = (hits = [], source) => {
+const annotateHitsForMerge = (hits: SearchHit[] = [], source: SearchSource) => {
   return hits.map((hit, rank) => ({
     hit: attachSearchSource(hit, source),
     source,
@@ -80,7 +107,7 @@ const annotateHitsForMerge = (hits = [], source) => {
   }));
 };
 
-const blendHitsByScore = (websiteHits = [], docsHits = []) => {
+const blendHitsByScore = (websiteHits: SearchHit[] = [], docsHits: SearchHit[] = []) => {
   const annotatedWebsiteHits = annotateHitsForMerge(websiteHits, 'website');
   const annotatedDocsHits = annotateHitsForMerge(docsHits, 'docs');
 
@@ -107,7 +134,11 @@ const blendHitsByScore = (websiteHits = [], docsHits = []) => {
   return result.map(({ hit }) => hit);
 };
 
-const mergeMultiIndexResults = (websiteResult, docsResult, request) => {
+const mergeMultiIndexResults = (
+  websiteResult: SearchResult | undefined,
+  docsResult: SearchResult | undefined,
+  request: SearchRequest,
+): SearchResult => {
   const requestedHitsPerPage = Number(
     request?.params?.hitsPerPage ?? websiteResult?.hitsPerPage ?? DEFAULT_HITS_PER_PAGE,
   );
@@ -133,14 +164,14 @@ const mergeMultiIndexResults = (websiteResult, docsResult, request) => {
   };
 };
 
-const getHitsPerPageFromRequest = (request, fallback = DEFAULT_HITS_PER_PAGE) => {
+const getHitsPerPageFromRequest = (request: SearchRequest, fallback = DEFAULT_HITS_PER_PAGE) => {
   const requestedHitsPerPage = Number(request?.params?.hitsPerPage ?? fallback);
   if (!Number.isFinite(requestedHitsPerPage)) return fallback;
 
   return Math.max(1, requestedHitsPerPage);
 };
 
-const shouldRequestRankingInfo = (request) => {
+const shouldRequestRankingInfo = (request: SearchRequest) => {
   const query = normalizeSearchValue(request?.params?.query);
   if (!query) return false;
 
@@ -152,8 +183,8 @@ const shouldRequestRankingInfo = (request) => {
 };
 
 // Create a resilient search client that handles connection errors
-const createSearchClient = (onError) => {
-  const buildEmptyResult = (request) => ({
+const createSearchClient = (onError: (message: string | null) => void) => {
+  const buildEmptyResult = (request: SearchRequest): SearchResult => ({
     hits: [],
     nbHits: 0,
     page: 0,
@@ -164,24 +195,17 @@ const createSearchClient = (onError) => {
     params: '',
   });
 
-  const isEmptySearchRequest = (request) => {
+  const isEmptySearchRequest = (request: SearchRequest) => {
     return normalizeSearchValue(request?.params?.query).length === 0;
   };
 
-  if (!hasAlgoliaCredentials) {
-    return {
-      search: () => Promise.resolve({ results: [] }),
-      searchForFacetValues: () => Promise.resolve([]),
-      clearCache: () => {},
-    };
-  }
-
-  const client = algoliasearch(algoliaAppId, algoliaApiKey);
+  const client = algoliasearch(algoliaAppId!, algoliaApiKey!);
+  const websiteIndexName = algoliaIndexName || '';
 
   // Wrap the search method to handle connection errors gracefully
   return {
     ...client,
-    search: async (requests) => {
+    search: async (requests: SearchRequest[]) => {
       const normalizedRequests = Array.isArray(requests) ? requests : [];
       if (normalizedRequests.length === 0) return { results: [] };
 
@@ -196,7 +220,7 @@ const createSearchClient = (onError) => {
 
       const websiteRequests = normalizedRequests.map((request) => ({
         ...request,
-        indexName: request?.indexName || algoliaIndexName,
+        indexName: request?.indexName || websiteIndexName,
         params: {
           ...(request?.params || {}),
           ...(shouldRequestRankingInfo(request) ? { getRankingInfo: true } : {}),
@@ -221,7 +245,9 @@ const createSearchClient = (onError) => {
       });
 
       try {
-        const result = await client.search([...websiteRequests, ...docsRequests]);
+        const result = (await client.search([...websiteRequests, ...docsRequests] as never)) as {
+          results: SearchResult[];
+        };
 
         const mergedResults = normalizedRequests.map((request, index) => {
           const websiteResult = result?.results?.[index];
@@ -235,7 +261,8 @@ const createSearchClient = (onError) => {
         return { results: mergedResults };
       } catch (error) {
         // Log the error for debugging
-        console.warn('Algolia search failed:', error.message);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.warn('Algolia search failed:', errorMessage);
 
         // Set error state for UI display
         onError('Search is currently unavailable. Please try again later.');
@@ -246,12 +273,12 @@ const createSearchClient = (onError) => {
         };
       }
     },
-  };
+  } as typeof client;
 };
 
 export const SearchDialog = () => {
   const [open, setOpen] = useState(false);
-  const [searchError, setSearchError] = useState(null);
+  const [searchError, setSearchError] = useState<string | null>(null);
   const [theme, setTheme] = useState(() => {
     if (typeof document === 'undefined') {
       return 'undefined';
@@ -259,6 +286,22 @@ export const SearchDialog = () => {
 
     return document.body.dataset.theme || 'undefined';
   });
+  const enableKeyboardShortcut = true;
+
+  // Open dialog with Cmd+K
+  useEffect(() => {
+    if (!enableKeyboardShortcut) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [enableKeyboardShortcut]);
 
   // Watch for theme changes on body element
   useEffect(() => {
@@ -286,8 +329,8 @@ export const SearchDialog = () => {
   });
 
   // Create search client with error handler
-  const searchClient = useMemo(() => createSearchClient(setSearchError), []);
-  if (!hasAlgoliaCredentials) return null;
+  const searchClient = useMemo(() => (hasAlgoliaCredentials ? createSearchClient(setSearchError) : null), []);
+  if (!hasAlgoliaCredentials || !searchClient) return null;
 
   return (
     <RadixDialog.Root open={open} onOpenChange={setOpen}>

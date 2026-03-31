@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 
+import type { SearchHit } from '../types';
+
 import { Configure, SearchBox, useInstantSearch, useSearchBox } from 'react-instantsearch';
 
 import { Icon } from '@/icons';
@@ -10,18 +12,23 @@ import styles from './SearchDialogContent.module.css';
 import { SearchFilters } from './SearchFilters/SearchFilters';
 import { SearchResults } from './SearchResults/SearchResults';
 
-export const SearchDialogContent = ({ onClose, searchError }) => {
+interface SearchDialogContentProps {
+  onClose: () => void;
+  searchError: string | null;
+}
+
+export const SearchDialogContent = ({ onClose, searchError }: SearchDialogContentProps) => {
   const { results, status } = useInstantSearch();
   const { query } = useSearchBox();
-  const debounceRef = useRef(null);
+  const debounceRef = useRef<number | null>(null);
   const trimmedQuery = query?.trim() || '';
-  const displayedHits = results?.hits || [];
+  const displayedHits = (results?.hits as SearchHit[] | undefined) || [];
   const settledQuery = results?.query?.trim?.() || '';
   const showReset = trimmedQuery.length > 0;
   const isSearching = status === 'loading' || status === 'stalled';
   const showResultsLayout = trimmedQuery.length > 0;
 
-  const queryHook = useCallback((nextQuery, search) => {
+  const queryHook = useCallback((nextQuery: string, search: (value: string) => void) => {
     const trimmed = nextQuery.trim();
 
     if (trimmed.length === 0) {
@@ -53,7 +60,6 @@ export const SearchDialogContent = ({ onClose, searchError }) => {
         </div>
         <SearchBox
           placeholder="Search for items..."
-          name="search"
           queryHook={queryHook}
           resetIconComponent={() => <Icon name="action/close" className={styles.resetIcon} title="" />}
           loadingIconComponent={() => null}

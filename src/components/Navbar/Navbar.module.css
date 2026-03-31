@@ -20,6 +20,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-s);
 }
 
 .left,
@@ -29,17 +30,52 @@
   gap: var(--space-xs);
 }
 
+.left {
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.right {
+  flex: 1;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.search {
+  --search-trigger-border: var(--brand-color-grey-8);
+  --search-trigger-background: transparent;
+  --search-trigger-background-hover: var(--base-color-grey-900);
+  --search-trigger-icon-color: var(--brand-color-grey-4);
+  --search-trigger-placeholder-color: var(--brand-color-grey-4);
+  --search-trigger-kbd-border: var(--brand-color-grey-8);
+  --search-trigger-kbd-background: transparent;
+  --search-trigger-kbd-color: var(--brand-color-grey-5);
+
+  flex: 0 1 280px;
+  width: 100%;
+  max-width: 280px;
+  min-width: 0;
+}
+
 .nav {
   display: none;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
   gap: var(--space-m);
-  height: var(--navbar-bottom-height);
+  min-width: 0;
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
   color: var(--base-color-white);
 }
 
 .logoSymbol {
+  width: 20px;
+  height: 20px;
   min-width: 20px;
 }
 
@@ -72,7 +108,7 @@
 
 .navLink:hover,
 .navLinkActive {
-  color: var(--base-color-white);
+  /* color: var(--base-color-white); */
   box-shadow: inset 0 -4px 0 var(--brand-color-yellow-4);
 }
 
@@ -99,6 +135,20 @@
   border-radius: var(--border-radius-s);
   border: 1px solid var(--brand-color-grey-8);
   padding: var(--space-2xs) var(--space-s);
+}
+
+.bookDemo {
+  display: none;
+  color: var(--base-color-white);
+  background-color: var(--color-accent-default);
+  border-radius: var(--border-radius-s);
+  border: 1px solid transparent;
+  padding: var(--space-2xs) var(--space-s);
+  text-decoration: none;
+}
+
+.bookDemo:hover {
+  background-color: var(--color-accent-hover);
 }
 
 .openCloudsmith:hover {
@@ -139,7 +189,7 @@
   }
 
   .logo {
-    color: var(--color-text-primary);
+    color: var(--base-color-white);
   }
 
   .logoWordmark {
@@ -149,6 +199,17 @@
   .logoSymbol,
   .currentSection {
     display: none;
+  }
+
+  .search {
+    --search-trigger-border: var(--color-border);
+    --search-trigger-background: transparent;
+    --search-trigger-background-hover: transparent;
+    --search-trigger-icon-color: var(--brand-color-grey-5);
+    --search-trigger-placeholder-color: var(--brand-color-grey-5);
+    --search-trigger-kbd-border: var(--brand-color-grey-3);
+    --search-trigger-kbd-background: transparent;
+    --search-trigger-kbd-color: var(--brand-color-grey-6);
   }
 }
 
@@ -208,17 +269,11 @@
   }
 
   .container {
-    flex-direction: column;
-    align-items: flex-start;
     padding-block: 0;
   }
 
   .nav {
     display: flex;
-  }
-
-  .isHome .nav {
-    display: none;
   }
 
   .currentSection,
@@ -234,6 +289,10 @@
   }
 
   .openCloudsmith {
+    display: block;
+  }
+
+  .bookDemo {
     display: block;
   }
 

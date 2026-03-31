@@ -1,25 +1,34 @@
 import { useMemo } from 'react';
 
+import type { SearchFilterDefinition, SearchGroup, SearchHit } from '../../types';
+
 import { Icon } from '@/icons';
 
 import { filtersData } from '../../utils/data';
 import { buildSearchGroups, RECOMMENDED_GROUP_TYPE } from '../../utils/searchGroupUtils';
 import styles from './SearchFilters.module.css';
 
-export const SearchFilters = ({ hits, query }) => {
+interface SearchFiltersProps {
+  hits: SearchHit[];
+  query: string;
+}
+
+const searchFilters = filtersData as SearchFilterDefinition[];
+
+export const SearchFilters = ({ hits, query }: SearchFiltersProps) => {
   const groupedHits = useMemo(() => {
-    return buildSearchGroups(hits || []);
+    return buildSearchGroups(hits || []) as SearchGroup[];
   }, [hits]);
 
   if (!query || groupedHits.length === 0) return null;
 
-  const scrollToGroup = (groupId) => {
+  const scrollToGroup = (groupId: string) => {
     const target = document.getElementById(groupId);
     if (!target) return;
 
     // Find the scrollable container (SearchResults root)
     const scrollContainer = target.closest('[class*="root"]');
-    if (!scrollContainer) return;
+    if (!(scrollContainer instanceof HTMLElement)) return;
 
     // Calculate position relative to the scroll container
     const containerRect = scrollContainer.getBoundingClientRect();
@@ -36,7 +45,7 @@ export const SearchFilters = ({ hits, query }) => {
     <nav className={styles.groups} aria-label="Search result groups">
       <ul className={styles.groupList}>
         {groupedHits.map((group) => {
-          const currentFilter = filtersData.find(
+          const currentFilter = searchFilters.find(
             (filter) => filter.documentType === (group._type === RECOMMENDED_GROUP_TYPE ? '' : group._type),
           );
 
