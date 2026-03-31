@@ -52,7 +52,7 @@ For full details of how to install and setup the Cloudsmith CLI, see [Command Li
 
 #### Alpine Linux - Package Upload
 
-The command to upload an Alpine Linux package is:
+The command to upload an Alpine package via the Cloudsmith CLI is:
 
 ```shell
 cloudsmith push alpine OWNER/REPOSITORY/alpine/VERSION PACKAGE_NAME-PACKAGE_VERSION.apk
@@ -96,9 +96,7 @@ You have a choice of 3 methods to set up your Cloudsmith repository:
 - Force a specific distribution/release (if your system is compatible but not identical)
 - Manual configuration
 
-### Alpine Linux
-
-#### Public Repositories
+### Public Repositories
 
 To install Alpine packages from a public Cloudsmith repository, you can set up the repository using the following:
 
@@ -164,36 +162,45 @@ curl -u "token:TOKEN" -sLf \
   | sudo bash
 ```
 
-If you need to force a specific distribution:
+If you need to force a specific distribution, set `distro` and `codename` (for Alpine) or just `distro` (for Wolfi):
 
-```shell Entitlement Token Auth
+```shell Alpine (Entitlement Token)
 sudo apk add --no-cache bash
 curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-| sudo distro=alpine codename=VERSION bash
+  | sudo distro=alpine codename=VERSION bash
 ```
 
-```shell HTTP Basic Auth (User & Pass)
+```shell Alpine (HTTP Basic Auth)
 sudo apk add --no-cache bash
-curl -u "USERNAME:PASSWORD" -sLf \
+curl -u "CREDENTIALS" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo distro=alpine codename=VERSION bash
 ```
 
-```shell HTTP Basic Auth (API-Key)
+```shell Wolfi (Entitlement Token)
 sudo apk add --no-cache bash
-curl -u "USERNAME:API-KEY" -sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-  | sudo distro=alpine codename=VERSION bash
+curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  | sudo distro=wolfi bash
 ```
 
-```shell HTTP Basic Auth (Token)
+```shell Wolfi (HTTP Basic Auth)
 sudo apk add --no-cache bash
-curl -u "token:TOKEN" -sLf \
+curl -u "CREDENTIALS" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-  | sudo distro=alpine codename=VERSION bash
+  | sudo distro=wolfi bash
 ```
+
+Replace `CREDENTIALS` with one of:
+
+| Method        | Value               |
+|:--------------|:--------------------|
+| User & Pass   | `USERNAME:PASSWORD` |
+| API Key       | `USERNAME:API-KEY`  |
+| Token         | `token:TOKEN`       |
 
 Or, you can manually configure the repository:
+
+# TODO: fix the following as it's not how we manually configure a repo
 
 ```shell Entitlement Token Auth
 curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
@@ -219,85 +226,6 @@ curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/
 apk update
 ```
 
-### Wolfi
-
-Wolfi uses a rolling release model with no version concept. Use `distro=wolfi` when running the setup script.
-
-#### Public Repositories
-
-To install Wolfi packages from a public Cloudsmith repository, set up the repository using the following:
-
-```shell
-sudo apk add --no-cache bash
-curl -sLf \
-  'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-  | sudo distro=wolfi bash
-```
-
-Or, you can manually configure the repository:
-
-```shell
-curl -sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -sLf 'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=wolfi' >> /etc/apk/repositories
-apk update
-```
-
-#### Private Repositories
-
-To install Wolfi packages from a private Cloudsmith repository, set up the repository using the following:
-
-```shell Entitlement Token Auth
-curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-| sudo distro=wolfi bash
-```
-
-```shell HTTP Basic Auth (User & Pass)
-sudo apk add --no-cache bash
-curl -u "USERNAME:PASSWORD" -sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-  | sudo distro=wolfi bash
-```
-
-```shell HTTP Basic Auth (API-Key)
-sudo apk add --no-cache bash
-curl -u "USERNAME:API-KEY" -sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-  | sudo distro=wolfi bash
-```
-
-```shell HTTP Basic Auth (Token)
-sudo apk add --no-cache bash
-curl -u "token:TOKEN" -sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-  | sudo distro=wolfi bash
-```
-
-Or, you can manually configure the repository:
-
-```shell Entitlement Token Auth
-curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=wolfi' >> /etc/apk/repositories
-apk update
-```
-
-```shell HTTP Basic Auth (User & Pass)
-curl -u "USERNAME:PASSWORD" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -u "USERNAME:PASSWORD" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=wolfi' >> /etc/apk/repositories
-apk update
-```
-
-```shell HTTP Basic Auth (API-Key)
-curl -u "USERNAME:API-KEY" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -u "USERNAME:API-KEY" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=wolfi' >> /etc/apk/repositories
-apk update
-```
-
-```shell HTTP Basic Auth (Token)
-curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/rsa/rsa.FINGERPRINT.key' > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-curl -u "token:TOKEN" -sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/config.alpine.txt?distro=wolfi' >> /etc/apk/repositories
-apk update
-```
-
 ### Installing a Package
 
 After setting up the repository, install a package with:
@@ -312,6 +240,13 @@ If you no longer want to install packages from your Cloudsmith repository, you c
 
 ```shell
 $EDITOR /etc/apk/repositories
+```
+
+Remove the cloudsmith repository line, save then execute:
+
+```shell
+rm -f /etc/apk/keys/REPOSITORY@cloudsmith-FINGERPRINT.rsa.pub
+apk update
 ```
 
 ## Upstream Proxying / Caching
