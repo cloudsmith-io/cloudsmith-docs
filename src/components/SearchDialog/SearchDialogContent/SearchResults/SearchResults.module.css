@@ -114,7 +114,8 @@
 }
 
 .hitItem .resultMethodTag {
-  margin-top: 1px;
+  align-items: center;
+  align-self: center;
 }
 
 .hitItem .resultDescription {

@@ -76,6 +76,8 @@ const statusCodes: { [key in Tag.HttpResponseStatusCodes]: Tag.VariantsProps['va
 
 export const Tag = ({ theme, size, type, active, mobileDarkMode, className, ...props }: Tag.Props) => {
   const sharedVariants = { theme, size, type, active, mobileDarkMode };
+  const isStatusType = (type ?? 'status') === 'status';
+  const contentClassName = `${styles.content}${isStatusType ? ` ${styles.statusContent}` : ''}`;
 
   if ('method' in props) {
     const { method, children, ...rest } = props;
@@ -84,7 +86,7 @@ export const Tag = ({ theme, size, type, active, mobileDarkMode, className, ...p
       <span
         className={tagVariants({ ...sharedVariants, variant: requestMethods[method], className })}
         {...rest}>
-        {children || method}
+        <span className={contentClassName}>{children || method}</span>
       </span>
     );
   }
@@ -96,7 +98,7 @@ export const Tag = ({ theme, size, type, active, mobileDarkMode, className, ...p
       <span
         className={tagVariants({ ...sharedVariants, variant: statusCodes[statusCode], className })}
         {...rest}>
-        {children || statusCode}
+        <span className={contentClassName}>{children || statusCode}</span>
       </span>
     );
   }
