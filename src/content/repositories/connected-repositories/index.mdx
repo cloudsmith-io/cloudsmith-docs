@@ -22,7 +22,7 @@ This is a significant improvement over Cloudsmith-to-Cloudsmith upstreams, which
 
 Connected Repositories resolve both of these issues:
 
-- Packages are available instantaneously across all connected repositories. Cache invalidation occurs immediately when packages are pushed or updated.
+- Packages are available instantaneously across all connected repositories as soon as they are pushed or updated.
 - Package resolution happens inside a single request with no redirection, significantly improving performance.
 
 ## Priority
@@ -63,7 +63,7 @@ Connected repositories can be configured via the UI or API.
 
 ### Using the UI
 
-Navigate to the Sources tab on the repository you want to configure as the primary repository where you will find the **Connected Repositories** settings. 
+Navigate to the Sources tab on the repository you want to configure as the primary repository where you will find the **Connected Repositories** settings.
 <BlockImage src={connectedRepoConfig} alt="Connected Repositories Configuration"></BlockImage>
 
 Select the target repository and assign it a priority to create the connection.
