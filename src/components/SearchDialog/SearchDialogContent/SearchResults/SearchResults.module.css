@@ -105,6 +105,18 @@
   color: var(--color-text-default);
 }
 
+.hitItem .resultTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3xs);
+  min-width: 0;
+}
+
+.hitItem .resultMethodTag {
+  margin-top: 1px;
+}
+
 .hitItem .resultDescription {
   display: flex;
   gap: var(--space-3xs);

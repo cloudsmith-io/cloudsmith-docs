@@ -3,6 +3,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { cx } from 'class-variance-authority';
 import { useRouter } from 'next/navigation';
 
+import { Tag } from '@/components';
 import { Link } from '@/components/Link';
 import { Icon } from '@/icons';
 import { isExternalHref } from '@/util/url';
@@ -17,6 +18,7 @@ import {
 import {
   buildSearchResultDescriptionSegments,
   getHitHref,
+  getHitMethod,
   getHitTitle,
   normalizeSearchValue,
   shouldOpenSearchHitInNewTab,
@@ -56,6 +58,7 @@ const navigateToHit = (slug, router, opensInNewTab) => {
 
 const Hit = ({ hit, group, groupType, onClose }) => {
   const href = getHitHref(hit);
+  const method = getHitMethod(hit);
   const title = getHitTitle(hit);
   const opensInNewTab = shouldOpenSearchHitInNewTab(hit);
   const hitType = getSearchGroupType(hit);
@@ -79,7 +82,10 @@ const Hit = ({ hit, group, groupType, onClose }) => {
         </div>
       )}
       <div className={styles.resultContent}>
-        <span className={styles.resultTitle}>{title}</span>
+        <span className={styles.resultTitleRow}>
+          <span className={styles.resultTitle}>{title}</span>
+          {method && <Tag method={method} size="small" className={styles.resultMethodTag} />}
+        </span>
         <span className={styles.resultDescription}>
           {descriptionSegments.map((segment, index) => (
             <Fragment key={`${segment}-${index}`}>

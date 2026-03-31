@@ -11,6 +11,7 @@ const DOCS_SEARCH_SOURCE = 'docs';
 const WEBSITE_SEARCH_SOURCE = 'website';
 const DOCS_BREADCRUMB_LABEL = 'Documentation';
 const DOCS_HIERARCHY_LEVEL_KEYS = ['lvl6', 'lvl5', 'lvl4', 'lvl3', 'lvl2', 'lvl1', 'lvl0'];
+const HTTP_METHODS = new Set(['delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'trace']);
 
 const normalizeSearchValue = (value) => (typeof value === 'string' ? value.trim() : '');
 
@@ -148,6 +149,12 @@ const getHitTitle = (hit) => {
 
 const getHitType = (hit) =>
   normalizeSearchValue(hit?._type ?? hit?.type ?? hit?.documentType ?? hit?.docType);
+
+const getHitMethod = (hit) => {
+  const method = normalizeSearchValue(hit?.method).toLowerCase();
+
+  return HTTP_METHODS.has(method) ? method : '';
+};
 
 const getRelativeDocsHref = (href) => {
   const normalizedHref = normalizeSearchValue(href);
@@ -415,6 +422,7 @@ export {
   dedupeMergedSearchHits,
   getDocsPageHref,
   getHitHref,
+  getHitMethod,
   getHitTitle,
   getHitType,
   normalizeMergedSearchHref,
