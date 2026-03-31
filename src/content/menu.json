@@ -305,6 +305,10 @@
             "path": "/repositories/upstreams"
           },
           {
+            "title": "Connected Repositories",
+            "path": "/repositories/connected-repositories"
+          },
+          {
             "title": "Privileges",
             "path": "/repositories/repository-privileges"
           }
