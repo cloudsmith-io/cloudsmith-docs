@@ -5,6 +5,8 @@ import { Tag, Note, Video } from '@/components';
 
 <Video wistiaId="r3nwwf3g1o"></Video>
 
+Alpine Linux is a lightweight Linux Distribution that is designed to be smaller and more resource efficient, and as such has grown popular as the basis for Docker containers.
+
 Cloudsmith supports hosting and distributing packages in the APK format, used by both **Alpine Linux** and **Wolfi**. Although both distributions use the same package format, they are distinct and incompatible — packages built for Alpine Linux cannot be used on Wolfi, and vice versa.
 
 - **Alpine Linux** is a lightweight Linux distribution popular as a Docker container base image. It uses versioned releases (e.g., v3.0, …, v3.22, v3.23, etc.) grouped by architecture e.g. `v3.23/main/aarch64/` via the `apk` package manager.
@@ -60,7 +62,8 @@ cloudsmith push alpine OWNER/REPOSITORY/alpine/VERSION PACKAGE_NAME-PACKAGE_VERS
 Upload a package for specific Alpine version:
 
 ```shell
-cloudsmith push alpine OWNER/REPOSITORY/alpine/v3.23 libjq-1.0.3.apk```
+cloudsmith push alpine OWNER/REPOSITORY/alpine/v3.23 libjq-1.0.3.apk
+```
 
 Upload a package for any version of Alpine:
 
@@ -68,15 +71,15 @@ Upload a package for any version of Alpine:
 cloudsmith push alpine OWNER/REPOSITORY/alpine/any-version libjq-1.0.3.apk
 ```
 
-Upload a WOLFI package:
+Upload a package for Wolfi:
+
+```shell
+cloudsmith push alpine OWNER/REPOSITORY/wolfi/any-version libjq-1.0.3.apk
+```
 
 <Note variant="note" headline="Contextual Documentation">
 Wolfi has a single index that typically contains all versions available within the past 12 months. When uploading a Wolfi package to Cloudsmith, use the `wolfi/any-version` distribution.
 </Note>
-
-```shell
-cloudsmith push alpine OWNER/REPOSITORY/wolfi/any-version glibc-2.38-r1.apk
-```
 
 ### Upload via Cloudsmith Website
 
@@ -96,6 +99,7 @@ To install Alpine packages from a public Cloudsmith repository, you can set up t
 
 ```shell
 sudo apk add --no-cache bash
+
 curl -sLf \
   'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo bash
@@ -105,6 +109,7 @@ If you need to force a specific distribution:
 
 ```shell
 sudo apk add --no-cache bash
+
 curl -sLf \
   'https://dl.cloudsmith.io/public/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo distro=alpine codename=VERSION bash
@@ -128,13 +133,6 @@ Private Cloudsmith repositories require authentication. You can choose between E
 Entitlement Tokens and API-Keys should be treated as secrets. You should ensure that you do not commit them in configuration files along with source code, or expose them in any logs.
 </Note>
 
-Replace `CREDENTIALS` with one of:
-
-| Method  | Value              |
-|:--------|:-------------------|
-| API Key | `USERNAME:API-KEY` |
-| Token   | `token:TOKEN`      |
-
 To install Alpine packages from a private Cloudsmith repository, you can set up the repository using the following:
 
 ```shell Entitlement Token Auth
@@ -142,9 +140,16 @@ curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.alpine
 | sudo bash
 ```
 
-```shell HTTP Basic Auth
+```shell HTTP Basic Auth (API-Key)
 sudo apk add --no-cache bash
-curl -u "CREDENTIALS" -sLf \
+curl -u "USERNAME:API-KEY" -sLf \
+  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
+  | sudo bash
+```
+
+```shell HTTP Basic Auth (Token)
+sudo apk add --no-cache bash
+curl -u "token:TOKEN" -sLf \
   'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
   | sudo bash
 ```
@@ -157,14 +162,7 @@ curl -sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/cfg/setup/bash.alpine
   | sudo distro=alpine codename=VERSION bash
 ```
 
-```shell Alpine (HTTP Basic Auth)
-sudo apk add --no-cache bash
-curl -u "CREDENTIALS" -sLf \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/cfg/setup/bash.alpine.sh' \
-  | sudo distro=alpine codename=VERSION bash
-```
-
-Or, you can manually configure the repository:
+Or, you can manually configure the repository for Alpine:
 
 ```shell Entitlement Token Auth
 curl -1sLf 'https://dl.cloudsmith.io/TOKEN/OWNER/REPOSITORY/rsa.FINGERPRINT.key' \
@@ -175,22 +173,16 @@ apk update
 ```
 
 ```shell HTTP Basic Auth
-curl -u "CREDENTIALS" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rsa.FINGERPRINT.key' \
+curl -u "token:TOKEN" -1sLf 'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rsa.FINGERPRINT.key' \
   > /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub
-echo "https://CREDENTIALS@dl.cloudsmith.io/basic/OWNER/REPOSITORY/alpine/VERSION/main" \
+echo "https://token:TOKEN@dl.cloudsmith.io/basic/OWNER/REPOSITORY/alpine/VERSION/main" \
   > /etc/apk/repositories
 apk update
 ```
 
-### Wolfi
+Alternatively, for Wolfi distributions:
 
-<Note variant="note" headline="No automated setup script for Wolfi">
-The automated setup script (`bash.alpine.sh`) does not support Wolfi. Use the manual setup below instead.
-</Note>
-
-Wolfi uses a flat repository path (`alpine/os`) with no version hierarchy. The setup differs from Alpine in two ways: the existing Chainguard/Wolfi keys must be removed, and the repository path uses `alpine/os` rather than `alpine/VERSION/main`.
-
-```shell Entitlement Token Auth
+```shell Manual Configuration
 apk add curl
 
 # Remove existing Wolfi/Chainguard keys and repository list
@@ -210,22 +202,10 @@ apk update -v --no-cache
 apk add -v --no-cache PACKAGE_NAME
 ```
 
-```shell HTTP Basic Auth
-apk add curl
+<Note variant="note" headline="No automated setup script for Wolfi">
+The automated setup script (`bash.alpine.sh`) does not support Wolfi. Use the manual setup for this distribution.
+</Note>
 
-rm -f /etc/apk/keys/chainguard-*
-rm -f /etc/apk/keys/wolfi-signing.rsa.pub
-rm -f /etc/apk/repositories
-
-curl -u "CREDENTIALS" -L -o /etc/apk/keys/REPOSITORY@OWNER-FINGERPRINT.rsa.pub \
-  'https://dl.cloudsmith.io/basic/OWNER/REPOSITORY/rsa.FINGERPRINT.key'
-
-echo "https://CREDENTIALS@dl.cloudsmith.io/basic/OWNER/REPOSITORY/alpine/os" \
-  > /etc/apk/repositories
-
-apk update -v --no-cache
-apk add -v --no-cache PACKAGE_NAME
-```
 
 ### Installing a Package
 
@@ -256,7 +236,7 @@ apk update
 
 The Alpine format supports upstream proxying and caching for both Alpine Linux and Wolfi repositories. When a package is requested, Cloudsmith checks for a local copy. If missing, it fetches the package from the upstream, caches it as a first-class local package, and serves it.
 
-However, they are distinct, incompatible distributions and **cannot be mixed in the same upstream**. The key difference is in their URL structures — these paths only return packages for the given distribution:
+The key difference between Alpine and Wolfi upstreams is in their URL structures — these paths only return packages for the given distribution:
 
 - **Alpine Linux** uses a versioned path structure: `/{version}/{branch}/{arch}/` (e.g., `/v3.23/main/x86_64/`)
 - **Wolfi** uses a flat structure with no version hierarchy: `/{arch}/` (e.g., `/x86_64/`)
