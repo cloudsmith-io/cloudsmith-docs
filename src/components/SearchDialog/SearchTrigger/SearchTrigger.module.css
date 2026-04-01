@@ -7,9 +7,9 @@
   justify-content: flex-start;
   gap: var(--space-xs);
   width: 100%;
-  min-width: 0;
-  height: 44px;
-  padding-inline: var(--space-m);
+  height: 38px;
+  padding-block: var(--space-2xs);
+  padding-inline: var(--space-xs);
   cursor: pointer;
   border: 0;
   border: 1px solid var(--search-trigger-border);
