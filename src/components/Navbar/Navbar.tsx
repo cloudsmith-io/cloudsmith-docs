@@ -113,7 +113,12 @@ export const Navbar = () => {
                 </div>
 
                 <div className={styles.topSecondarySearch}>
-                  <SearchDialog className={styles.search} triggerTheme="dark" dialogTheme="light" />
+                  <SearchDialog
+                    className={styles.search}
+                    triggerTheme="dark"
+                    dialogTheme="light"
+                    triggerVariant="compact"
+                  />
                 </div>
 
                 <div className={cx(styles.topEnd, styles.topSecondaryEnd)}>

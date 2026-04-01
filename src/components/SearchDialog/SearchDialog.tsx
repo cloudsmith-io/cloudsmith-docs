@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import type { SearchHit, SearchSource } from './types';
+import type { SearchHit, SearchSource, SearchTriggerVariant } from './types';
 
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
@@ -63,6 +63,7 @@ interface SearchDialogProps {
   theme?: SearchTheme;
   triggerTheme?: SearchTheme;
   dialogTheme?: SearchTheme;
+  triggerVariant?: SearchTriggerVariant;
 }
 
 const stripDocsTitleSuffix = (value: unknown): unknown => {
@@ -290,6 +291,7 @@ export const SearchDialog = ({
   theme: themeOverride,
   triggerTheme,
   dialogTheme,
+  triggerVariant = 'inline',
 }: SearchDialogProps) => {
   const [open, setOpen] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
@@ -352,7 +354,7 @@ export const SearchDialog = ({
 
   return (
     <RadixDialog.Root open={open} onOpenChange={setOpen}>
-      <SearchTrigger className={className} theme={effectiveTriggerTheme} />
+      <SearchTrigger className={className} theme={effectiveTriggerTheme} variant={triggerVariant} />
 
       <RadixDialog.Portal>
         <RadixDialog.Overlay className={overlayClasses}>

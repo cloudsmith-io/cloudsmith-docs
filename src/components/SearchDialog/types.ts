@@ -3,6 +3,7 @@
 import type { IconName } from '@/icons';
 
 export type SearchSource = 'docs' | 'website';
+export type SearchTriggerVariant = 'compact' | 'inline';
 
 export interface SearchHitHierarchy {
   lvl0?: string;

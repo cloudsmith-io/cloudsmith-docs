@@ -84,10 +84,38 @@
   }
 }
 
+.root.compact {
+  justify-content: center;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--border-radius-full);
+
+  .placeholder,
+  .kbdHint {
+    display: none;
+  }
+
+  &:hover {
+    background-color: var(
+      --search-trigger-compact-background-hover,
+      var(--search-trigger-background-hover, var(--color-border))
+    );
+    transition: var(--transition-default);
+  }
+}
+
+.root.inline {
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .themeLight {
   --color-border: var(--color-background-light);
   --search-trigger-background: var(--color-background-light);
   --search-trigger-background-hover: var(--color-background-light);
+  --search-trigger-compact-background-hover: var(--color-border);
   --search-trigger-icon-color: var(--brand-color-grey-8);
   --search-trigger-border: var(--color-border);
   --search-trigger-placeholder-color: var(--brand-color-grey-5);
@@ -100,6 +128,7 @@
   --color-border: var(--brand-color-grey-8);
   --search-trigger-background: var(--base-color-grey-1000);
   --search-trigger-background-hover: var(--base-color-grey-1000);
+  --search-trigger-compact-background-hover: var(--brand-color-grey-7);
   --search-trigger-icon-color: var(--brand-color-white);
   --search-trigger-border: var(--color-border);
   --search-trigger-placeholder-color: var(--brand-color-grey-5);
