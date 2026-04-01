@@ -50,6 +50,7 @@ import { FormatTerraformIcon } from './svgs/format/Terraform';
 import { FormatUnityIcon } from './svgs/format/Unity';
 import { FormatVagrantIcon } from './svgs/format/Vagrant';
 import { GithubIcon } from './svgs/Github';
+import { Heart } from './svgs/Heart';
 import { HomepageAPIIcon } from './svgs/homepage/API';
 import { HomepageDocumentationIcon } from './svgs/homepage/Documentation';
 import { HomepageGuideIcon } from './svgs/homepage/Guide';
@@ -126,6 +127,7 @@ export const iconRegistry = createIconRegistry({
   external: ExternalIcon,
   edit: EditIcon,
   github: GithubIcon,
+  heart: Heart,
   info: InfoIcon,
   question: QuestionIcon,
   'utility/documentation': UtilityDocumentationIcon,

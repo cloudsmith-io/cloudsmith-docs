@@ -6,7 +6,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { cx } from 'class-variance-authority';
 import Script from 'next/script';
 
-import { Navbar } from '@/components';
+import { Footer, Navbar } from '@/components';
 
 import { mdSystem, replica, replicaMono } from './_assets/fonts';
 import { NavigationEvents, NavigationProvider } from './navigation';
@@ -31,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NavigationProvider>
           <Navbar />
           {children}
+          <Footer />
           <noscript>
             <img
               src="https://simple.cloudsmith.com/noscript.gif?collect-dnt=true&hostname=docs.cloudsmith.com"
