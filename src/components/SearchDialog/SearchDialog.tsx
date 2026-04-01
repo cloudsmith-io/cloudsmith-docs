@@ -56,6 +56,15 @@ interface SearchResult {
   params?: string;
 }
 
+type SearchTheme = 'light' | 'dark';
+
+interface SearchDialogProps {
+  className?: string;
+  theme?: SearchTheme;
+  triggerTheme?: SearchTheme;
+  dialogTheme?: SearchTheme;
+}
+
 const stripDocsTitleSuffix = (value: unknown): unknown => {
   if (typeof value === 'string') return value.replace(DOCS_TITLE_SUFFIX_PATTERN, '').trim();
   if (!value || typeof value !== 'object') return value;
@@ -276,7 +285,12 @@ const createSearchClient = (onError: (message: string | null) => void) => {
   } as typeof client;
 };
 
-export const SearchDialog = () => {
+export const SearchDialog = ({
+  className,
+  theme: themeOverride,
+  triggerTheme,
+  dialogTheme,
+}: SearchDialogProps) => {
   const [open, setOpen] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [theme, setTheme] = useState(() => {
@@ -318,14 +332,18 @@ export const SearchDialog = () => {
     return () => observer.disconnect();
   }, []);
 
+  const fallbackTheme: SearchTheme = themeOverride || (theme === 'dark' ? 'dark' : 'light');
+  const effectiveTriggerTheme: SearchTheme = triggerTheme || fallbackTheme;
+  const effectiveDialogTheme: SearchTheme = dialogTheme || fallbackTheme;
+
   const overlayClasses = cx(styles.overlay, {
-    [styles.themeLight]: theme === 'light' || theme === 'undefined',
-    [styles.themeDark]: theme === 'dark',
+    [styles.themeLight]: effectiveDialogTheme === 'light',
+    [styles.themeDark]: effectiveDialogTheme === 'dark',
   });
 
   const contentClasses = cx(styles.content, {
-    [styles.themeLight]: theme === 'light' || theme === 'undefined',
-    [styles.themeDark]: theme === 'dark',
+    [styles.themeLight]: effectiveDialogTheme === 'light',
+    [styles.themeDark]: effectiveDialogTheme === 'dark',
   });
 
   // Create search client with error handler
@@ -334,7 +352,7 @@ export const SearchDialog = () => {
 
   return (
     <RadixDialog.Root open={open} onOpenChange={setOpen}>
-      <SearchTrigger className={theme === 'light' ? styles.triggerDark : styles.triggerLight} />
+      <SearchTrigger className={className} theme={effectiveTriggerTheme} />
 
       <RadixDialog.Portal>
         <RadixDialog.Overlay className={overlayClasses}>

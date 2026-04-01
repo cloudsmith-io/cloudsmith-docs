@@ -39,6 +39,8 @@
 .content.themeLight {
   --color-text-default: var(--brand-color-grey-10);
   --color-text-secondary: var(--brand-color-grey-8);
+  --color-text-tertiary: var(--brand-color-grey-6);
+  --color-background-header: var(--base-color-white);
   --color-background-default: var(--brand-color-grey-1);
   --color-background-hover: var(--brand-color-grey-2);
   --color-border-light: var(--brand-color-grey-1);
@@ -50,16 +52,12 @@
   border-color: var(--color-border);
 }
 
-.triggerLight {
-  --search-trigger-background: var(--color-background-light);
-  --search-trigger-background-hover: var(--color-border);
-  --search-trigger-icon-color: var(--brand-color-grey-8);
-}
-
 /* Dark theme */
 .content.themeDark {
   --color-text-default: var(--base-color-white);
   --color-text-secondary: var(--brand-color-grey-4);
+  --color-text-tertiary: var(--brand-color-grey-5);
+  --color-background-header: var(--brand-color-grey-10);
   --color-background-default: var(--brand-color-grey-9);
   --color-background-hover: var(--brand-color-grey-8);
   --color-border: var(--brand-color-grey-8);
@@ -68,12 +66,6 @@
   background-color: var(--brand-color-grey-10);
   color: var(--color-text-default);
   border-color: var(--color-border);
-}
-
-.triggerDark {
-  --search-trigger-background: var(--brand-color-grey-8);
-  --search-trigger-background-hover: var(--brand-color-grey-7);
-  --search-trigger-icon-color: var(--brand-color-white);
 }
 
 /* Media queries */

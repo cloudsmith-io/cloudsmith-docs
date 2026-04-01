@@ -6,6 +6,7 @@
 
 .wrapper {
   background-color: var(--brand-color-grey-10);
+  overflow-x: clip;
 }
 
 .container {
@@ -65,17 +66,7 @@
   color: var(--Text-secondary, rgba(255, 255, 255, 0.75));
 }
 
-/* Wrapper that constrains and themes the inline search trigger */
 .search {
-  --search-trigger-border: var(--color-border);
-  --search-trigger-background: transparent;
-  --search-trigger-background-hover: transparent;
-  --search-trigger-icon-color: var(--brand-color-grey-5);
-  --search-trigger-placeholder-color: var(--brand-color-grey-5);
-  --search-trigger-kbd-border: var(--brand-color-grey-3);
-  --search-trigger-kbd-background: transparent;
-  --search-trigger-kbd-color: var(--brand-color-grey-6);
-
   width: 100%;
   max-width: 480px;
   padding-top: var(--space-m);

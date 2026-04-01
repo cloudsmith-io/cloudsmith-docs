@@ -68,17 +68,17 @@ export const Navbar = () => {
             </nav>
 
             <div className={styles.right}>
-              {!isHome && <SearchDialog />}
+              {!isHome && <SearchDialog className={styles.search} />}
               <Link
                 href="https://cloudsmith.com/contact/"
                 target={'_blank'}
-                className={cx(styles.bookDemo, 'bodyS')}>
+                className={cx(styles.bookDemo, 'headlineXXXS')}>
                 Book a demo
               </Link>
               <Link
                 href="https://app.cloudsmith.com/login"
                 target={'_blank'}
-                className={cx(styles.openCloudsmith, 'bodyS', pathname === '/' && styles.light)}
+                className={cx(styles.openCloudsmith, 'headlineXXXS', pathname === '/' && styles.light)}
                 aria-label="Login">
                 Login
               </Link>

@@ -7,6 +7,7 @@
   justify-content: flex-start;
   gap: var(--space-xs);
   width: 100%;
+  min-width: 0;
   height: 44px;
   padding-inline: var(--space-m);
   cursor: pointer;
@@ -43,11 +44,15 @@
   }
 
   .placeholder {
+    display: flex;
+    align-items: center;
     flex: 1;
+    height: 100%;
     min-width: 0;
     text-align: left;
     font-family: var(--font-family-body);
     font-size: var(--text-body-s);
+    line-height: 1;
     color: var(--search-trigger-placeholder-color, currentcolor);
   }
 
@@ -58,14 +63,47 @@
     margin-left: auto;
 
     & kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--font-family-body);
       font-size: var(--text-body-2xs);
       line-height: 1;
-      padding: var(--space-4xs) var(--space-3xs);
+      height: 20px;
+      padding: 0 var(--space-3xs);
       border-radius: var(--border-radius-s);
       border: 1px solid var(--search-trigger-kbd-border);
       background-color: var(--search-trigger-kbd-background);
       color: var(--search-trigger-kbd-color);
     }
+
+    .kbdText {
+      display: inline-block;
+      transform: translateY(1px);
+    }
   }
+}
+
+.themeLight {
+  --color-border: var(--color-background-light);
+  --search-trigger-background: var(--color-background-light);
+  --search-trigger-background-hover: var(--color-background-light);
+  --search-trigger-icon-color: var(--brand-color-grey-8);
+  --search-trigger-border: var(--color-border);
+  --search-trigger-placeholder-color: var(--brand-color-grey-5);
+  --search-trigger-kbd-border: var(--brand-color-grey-3);
+  --search-trigger-kbd-background: transparent;
+  --search-trigger-kbd-color: var(--brand-color-grey-6);
+}
+
+.themeDark {
+  --color-border: var(--brand-color-grey-8);
+  --search-trigger-background: var(--base-color-grey-1000);
+  --search-trigger-background-hover: var(--base-color-grey-1000);
+  --search-trigger-icon-color: var(--brand-color-white);
+  --search-trigger-border: var(--color-border);
+  --search-trigger-placeholder-color: var(--brand-color-grey-5);
+  --search-trigger-kbd-border: var(--color-border);
+  --search-trigger-kbd-background: transparent;
+  --search-trigger-kbd-color: var(--brand-color-grey-5);
 }

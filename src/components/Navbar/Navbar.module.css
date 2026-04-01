@@ -104,6 +104,7 @@
   align-items: center;
   gap: var(--space-3xs);
   padding: var(--space-s) 0;
+  font-family: var(--font-family-headline);
 }
 
 .navLink:hover,
