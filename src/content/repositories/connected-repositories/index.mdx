@@ -6,10 +6,10 @@ import connectedRepoConnect from './images/connected-repository-connect.png'
 # Connected Repositories
 
 <Note variant="important" headline="Early Access">
-Connected Repositories is in Early Access (EA) and is currently supported for Maven and Docker. Please reach out to us if you are interested in trying it out or have feedback to share.
+Connected Repositories is in Early Access (EA) and is currently supported for Maven, Docker, Python and NPM. Please reach out to us if you are interested in trying it out or have feedback to share.
 </Note>
 
-Connected Repositories allows you to natively link multiple repositories together within a workspace, making packages from all connected repositories available through a single URL. This provides first-class "virtual" repository support (similar to JFrog's Virtual Repositories) without the drawbacks of Cloudsmith-to-Cloudsmith upstream configurations.
+Connected Repositories allows you to natively link multiple repositories together within a workspace, making packages from all connected repositories available through a single URL.
 
 ## How It Works
 
@@ -54,6 +54,9 @@ This mirrors the permission model used for upstreams.
 | :----- | :----------------------------- |
 | Maven  | ✅                              |
 | Docker | ✅                              |
+| Python | ✅                              |
+| NPM    | ✅                              |
+
 
 Support for additional formats is planned.
 
@@ -113,3 +116,4 @@ The following is a non-exhaustive list of known limitations during Early Access:
 - **OSS repositories**: Connected repository configurations cannot be created on OSS repositories, or targeting OSS repositories.
 - **Cross-workspace**: Connected repositories can only be configured between repositories within the same workspace.
 - **Download log attribution**: Client logs do not yet attribute package downloads to connected repositories.
+- **Repository restrictions**: Repository level restrictions such as Geo/IP Rules and EULA enforcement must be defined on the source repository. These restrictions are not inherited from connected repositories.
