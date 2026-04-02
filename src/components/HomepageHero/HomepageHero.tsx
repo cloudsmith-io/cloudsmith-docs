@@ -30,7 +30,7 @@ export function HomepageHero({
               )}
               <p className={cx(styles.description, 'headlineS')}>{description}</p>
               <div className={styles.search}>
-                <SearchDialog triggerTheme="dark" dialogTheme="light" />
+                <SearchDialog triggerTheme="dark" dialogTheme="light" enableKeyboardShortcut={false} />
               </div>
             </Flex>
           </Container>

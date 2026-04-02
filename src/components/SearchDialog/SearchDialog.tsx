@@ -64,6 +64,7 @@ interface SearchDialogProps {
   triggerTheme?: SearchTheme;
   dialogTheme?: SearchTheme;
   triggerVariant?: SearchTriggerVariant;
+  enableKeyboardShortcut?: boolean;
 }
 
 const stripDocsTitleSuffix = (value: unknown): unknown => {
@@ -292,6 +293,7 @@ export const SearchDialog = ({
   triggerTheme,
   dialogTheme,
   triggerVariant = 'inline',
+  enableKeyboardShortcut = true,
 }: SearchDialogProps) => {
   const [open, setOpen] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
@@ -302,8 +304,6 @@ export const SearchDialog = ({
 
     return document.body.dataset.theme || 'undefined';
   });
-  const enableKeyboardShortcut = true;
-
   // Open dialog with Cmd+K
   useEffect(() => {
     if (!enableKeyboardShortcut) return;

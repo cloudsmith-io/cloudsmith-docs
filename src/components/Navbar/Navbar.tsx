@@ -97,6 +97,7 @@ export const Navbar = () => {
                   triggerTheme="dark"
                   dialogTheme="light"
                   triggerVariant="compact"
+                  enableKeyboardShortcut
                 />
 
                 <Button href="https://cloudsmith.com/contact/" isExternalLink className={styles.bookDemo}>
@@ -144,7 +145,12 @@ export const Navbar = () => {
                 </div>
 
                 <div className={styles.topSecondarySearch}>
-                  <SearchDialog className={styles.search} triggerTheme="dark" dialogTheme="light" />
+                  <SearchDialog
+                    className={styles.search}
+                    triggerTheme="dark"
+                    dialogTheme="light"
+                    enableKeyboardShortcut={false}
+                  />
                 </div>
 
                 <div className={cx(styles.topEnd, styles.topSecondaryEnd)}>
@@ -153,6 +159,7 @@ export const Navbar = () => {
                     triggerTheme="dark"
                     dialogTheme="light"
                     triggerVariant="compact"
+                    enableKeyboardShortcut
                   />
 
                   <Button
