@@ -1,8 +1,11 @@
 import { Note, BlockImage } from '@/components'
+import img6fe0d48_list_tags from './images/recently-deleted-packages//restore.png'
+import img06958c2_add_tags from './images/recently-deleted-packages/delete.png'
+
 
 # Recently deleted packages
 
-The recently deleted packages page allows you to view deleted packages that are pending permanent deletion.You can also restore to the repository and permanently delete packages from this page. This can be useful in cases of accidental artifact deletion or when evaluating/configuring Artifact Lifecycle rules. 
+The recently deleted packages page allows you to view deleted packages that are pending permanent deletion. You can also restore to the repository and permanently delete packages from this page. This can be useful in cases of accidental artifact deletion. 
 
 ## Package retention
 
@@ -14,7 +17,7 @@ To restore an individual package, click on the arrow icon on the right hand side
 
 These packages will be restored to their original repository. 
 
-<IMAGE>
+<BlockImage src={img6fe0d48_list_tags} alt="List tags"></BlockImage>
 
 ## Permanently delete packages
 
@@ -22,4 +25,8 @@ To permanently delete an individual package, click on the trash icon on the righ
 
 **Note:** once permanently deleted, this packages can no longer be restored. 
 
-<IMAGE>
+<BlockImage src={img6fe0d48_list_tags} alt="List tags"></BlockImage>
+
+# Deleted repositories
+
+When a repository is deleted, all of the packages will be transferred to recently deleted packages. When you restore a package from a deleted repository, the repository will be automatically restored too. 
