@@ -235,23 +235,35 @@
 }
 
 .mobileNav {
+  --mobile-nav-icon-size: 16px;
+  --mobile-nav-toggle-size: 38px;
+
   display: flex;
   flex-direction: column;
   color: var(--base-color-white);
   list-style: none;
-  margin-block-start: var(--space-m);
-  margin-inline: var(--space-l);
-  margin-block-end: var(--space-l);
+  margin: var(--space-m);
   padding: 0;
+}
+
+.mobileNavItem {
+  padding-inline-end: calc((var(--mobile-nav-toggle-size) - var(--mobile-nav-icon-size)) / 2);
 }
 
 .mobileNavLink {
   display: flex;
   align-items: center;
   gap: var(--space-3xs);
+  width: 100%;
   padding-block: var(--space-xs);
   text-decoration: none;
   color: var(--base-color-white);
+}
+
+.mobileNavLinkIcon {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: block;
 }
 
 @media (--laptop-up) {

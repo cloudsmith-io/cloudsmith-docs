@@ -6,7 +6,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: var(--space-s) var(--space-m);
+  gap: var(--space-s);
+  padding: var(--space-m);
 }
 
 .credit {
@@ -50,7 +51,7 @@
   gap: var(--space-3xs);
 }
 
-@media (--phablet-up) {
+@media (--laptop-up) {
   .container {
     flex-direction: row;
     align-items: center;

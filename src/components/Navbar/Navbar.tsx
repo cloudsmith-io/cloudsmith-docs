@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { cx } from 'class-variance-authority';
 import { AnimatePresence } from 'motion/react';
 import * as motion from 'motion/react-client';
@@ -12,6 +14,7 @@ import { LogoSymbol, LogoWordMark } from '@/components/Logo';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
 import { getActiveMenuItem, getMenuItems } from '@/lib/menu/util';
+import { isExternalHref } from '@/util/url';
 
 import styles from './Navbar.module.css';
 
@@ -19,6 +22,13 @@ export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
   const isGlobalNavOpen = navigationState === 'globalNav';
+
+  useEffect(() => {
+    document.body.style.overflow = isGlobalNavOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isGlobalNavOpen]);
 
   const [documentationItem, guidesItem, apiItem, mobileNavbarItem] = getMenuItems([
     'documentation',
@@ -225,9 +235,16 @@ export const Navbar = () => {
               transition={{ duration: 0.2, ease: 'easeInOut' }}>
               <ul className={styles.mobileNav}>
                 {orderedMobileItems.map((item, i) => (
-                  <li key={`${item.path}-${i}`}>
+                  <li key={`${item.path}-${i}`} className={styles.mobileNavItem}>
                     <Link href={item.path!} className={styles.mobileNavLink}>
                       {item.title}
+                      <Icon
+                        name={isExternalHref(item.path) ? 'external' : 'arrowRight'}
+                        className={styles.mobileNavLinkIcon}
+                        aria-hidden="true"
+                        focusable="false"
+                        title=""
+                      />
                     </Link>
                   </li>
                 ))}
