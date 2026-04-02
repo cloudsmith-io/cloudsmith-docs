@@ -90,6 +90,7 @@
   min-width: 32px;
   height: 32px;
   padding: 0;
+  background-color: var(--search-trigger-compact-background);
   border-radius: var(--border-radius-full);
 
   .placeholder,
@@ -115,6 +116,7 @@
   --color-border: var(--color-background-light);
   --search-trigger-background: var(--color-background-light);
   --search-trigger-background-hover: var(--color-background-light);
+  --search-trigger-compact-background: var(--brand-color-grey-8);
   --search-trigger-compact-background-hover: var(--color-border);
   --search-trigger-icon-color: var(--brand-color-grey-8);
   --search-trigger-border: var(--color-border);
@@ -128,7 +130,8 @@
   --color-border: var(--brand-color-grey-8);
   --search-trigger-background: var(--base-color-grey-1000);
   --search-trigger-background-hover: var(--base-color-grey-1000);
-  --search-trigger-compact-background-hover: var(--brand-color-grey-7);
+  --search-trigger-compact-background: var(--brand-color-grey-9);
+  --search-trigger-compact-background-hover: var(--brand-color-grey-8);
   --search-trigger-icon-color: var(--brand-color-white);
   --search-trigger-border: var(--color-border);
   --search-trigger-placeholder-color: var(--brand-color-grey-5);

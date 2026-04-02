@@ -89,7 +89,6 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  flex-shrink: 0;
   color: var(--base-color-white);
 }
 
@@ -121,73 +120,34 @@
   font-family: var(--font-family-headline);
 }
 
+.navLinkIcon {
+  display: none;
+}
+
 .navLink:hover,
 .navLinkActive {
-  /* color: var(--base-color-white); */
   box-shadow: inset 0 -4px 0 var(--brand-color-yellow-4);
 }
 
 .menuButton {
   display: flex;
   cursor: pointer;
-  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--brand-color-grey-8);
+  border: none;
+  color: var(--base-color-white);
   height: 38px;
   width: 38px;
   border-radius: var(--border-radius-s);
 }
 
-.menuIcon {
-  opacity: 0.6;
-}
-
-.openCloudsmith {
+.bookDemo,
+.login {
   display: none;
-  color: var(--brand-color-white);
-  background-color: var(--base-color-grey-1000);
-  border-radius: var(--border-radius-s);
-  border: 1px solid var(--brand-color-grey-8);
-  padding: var(--space-2xs) var(--space-s);
 }
 
-.bookDemo {
-  display: none;
-  color: var(--base-color-white);
-  background-color: var(--color-accent-default);
-  border-radius: var(--border-radius-s);
-  border: 1px solid transparent;
-  padding: var(--space-2xs) var(--space-s);
-  text-decoration: none;
-}
-
-.bookDemo:hover {
-  background-color: var(--color-accent-hover);
-}
-
-.openCloudsmith:hover {
-  background-color: var(--base-color-grey-900);
-}
-
-.openCloudsmith.light {
-  background-color: var(--base-color-white);
-  color: var(--brand-color-grey-8);
-  border: 1px solid var(--brand-color-grey-3);
-}
-
-.openCloudsmith.light:hover {
-  background-color: var(--base-color-grey-100);
-}
-
-.menuButton.light {
-  background-color: var(--base-color-white);
-  color: var(--base-color-grey-900);
-  border: 1px solid var(--brand-color-grey-3);
-}
-
-.menuButton.light:hover {
-  background-color: var(--base-color-grey-100);
+.mobileSearch {
+  display: inline-flex;
 }
 
 .isHome {
@@ -258,11 +218,7 @@
   color: var(--base-color-white);
 }
 
-.mobileNavIcon {
-  flex-shrink: 0;
-}
-
-@media (--phablet-up) {
+@media (--laptop-up) {
   .root {
     padding-bottom: 0;
   }
@@ -273,6 +229,7 @@
 
   .nav {
     display: flex;
+    flex: 2;
   }
 
   .topSecondary {
@@ -301,6 +258,7 @@
 
   .currentSection,
   .menuButton,
+  .mobileSearch,
   .logoSymbol,
   .mobileBackground,
   .mobileNavbar {
@@ -311,15 +269,18 @@
     display: block;
   }
 
-  .openCloudsmith {
-    display: block;
-  }
-
+  .login,
   .bookDemo {
-    display: block;
+    display: inline-flex;
   }
 
   .menuIcon {
     opacity: 1;
+  }
+}
+
+@media (--tablet-up) {
+  .navLinkIcon {
+    display: block;
   }
 }

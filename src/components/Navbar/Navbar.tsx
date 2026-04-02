@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { useNavigation } from '@/app/navigation';
-import { Container } from '@/components';
+import { Button, Container } from '@/components';
 import { LogoSymbol, LogoWordMark } from '@/components/Logo';
 import { SearchDialog } from '@/components/SearchDialog';
 import { Icon } from '@/icons';
@@ -27,7 +27,18 @@ export const Navbar = () => {
   ]);
 
   const primary = [documentationItem, guidesItem, apiItem];
-  const secondary = mobileNavbarItem.children;
+  const secondary = mobileNavbarItem.children ?? [];
+  const homeIndex = secondary.findIndex((item) => item.title === 'Home');
+  const blogIndex = secondary.findIndex((item) => item.title === 'Blog');
+  const orderedMobileItems =
+    homeIndex !== -1 && blogIndex !== -1 && blogIndex > homeIndex
+      ? [
+          ...secondary.slice(0, homeIndex + 1),
+          ...primary,
+          ...secondary.slice(homeIndex + 1, blogIndex),
+          ...secondary.slice(blogIndex),
+        ]
+      : [...primary, ...secondary];
   const activeMenuItem = getActiveMenuItem(pathname);
   const isHome = pathname === '/';
   const toggle = () => toggleNavigation('globalNav');
@@ -42,7 +53,13 @@ export const Navbar = () => {
             { [styles.navLinkActive]: !isHome && activeMenuItem === item },
             'bodyM',
           )}>
-          <Icon name={item.icon!} aria-hidden="true" focusable="false" title="" />
+          <Icon
+            name={item.icon!}
+            className={styles.navLinkIcon}
+            aria-hidden="true"
+            focusable="false"
+            title=""
+          />
           {item.title}
         </Link>
       ))}
@@ -72,19 +89,24 @@ export const Navbar = () => {
               <nav className={styles.nav}>{primaryNav}</nav>
 
               <div className={styles.topEnd}>
-                <Link
-                  href="https://cloudsmith.com/contact/"
-                  target={'_blank'}
-                  className={cx(styles.bookDemo, 'headlineXXXS')}>
+                <SearchDialog
+                  className={styles.mobileSearch}
+                  triggerTheme="dark"
+                  dialogTheme="light"
+                  triggerVariant="compact"
+                />
+
+                <Button href="https://cloudsmith.com/contact/" isExternalLink className={styles.bookDemo}>
                   Book a demo
-                </Link>
-                <Link
+                </Button>
+                <Button
                   href="https://app.cloudsmith.com/login"
-                  target={'_blank'}
-                  className={cx(styles.openCloudsmith, 'headlineXXXS', styles.light)}
+                  isExternalLink
+                  variant="secondary"
+                  className={styles.login}
                   aria-label="Login">
                   Login
-                </Link>
+                </Button>
 
                 <button
                   type="button"
@@ -122,19 +144,29 @@ export const Navbar = () => {
                 </div>
 
                 <div className={cx(styles.topEnd, styles.topSecondaryEnd)}>
-                  <Link
+                  <SearchDialog
+                    className={styles.mobileSearch}
+                    triggerTheme="dark"
+                    dialogTheme="light"
+                    triggerVariant="compact"
+                  />
+
+                  <Button
                     href="https://cloudsmith.com/contact/"
-                    target={'_blank'}
-                    className={cx(styles.bookDemo, 'headlineXXXS')}>
+                    isExternalLink
+                    size="small"
+                    className={styles.bookDemo}>
                     Book a demo
-                  </Link>
-                  <Link
+                  </Button>
+                  <Button
                     href="https://app.cloudsmith.com/login"
-                    target={'_blank'}
-                    className={cx(styles.openCloudsmith, 'headlineXXXS')}
+                    isExternalLink
+                    variant="secondary"
+                    size="small"
+                    className={styles.login}
                     aria-label="Login">
                     Login
-                  </Link>
+                  </Button>
 
                   <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
                     <Icon name="menu" title="" className={styles.menuIcon} />
@@ -176,26 +208,15 @@ export const Navbar = () => {
                 <Icon name="action/close" title="" className={styles.closeIcon} />
               </button>
 
-              {[primary, secondary].map((items, index) => (
-                <ul key={index} className={styles.mobileNav}>
-                  {items?.map((item, i) => (
-                    <li key={`${item.path}-${i}`}>
-                      <Link href={item.path!} className={styles.mobileNavLink}>
-                        {item.icon && (
-                          <Icon
-                            name={item.icon}
-                            className={styles.mobileNavIcon}
-                            aria-hidden="true"
-                            focusable="false"
-                            title=""
-                          />
-                        )}
-                        {item.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ))}
+              <ul className={styles.mobileNav}>
+                {orderedMobileItems.map((item, i) => (
+                  <li key={`${item.path}-${i}`}>
+                    <Link href={item.path!} className={styles.mobileNavLink}>
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </motion.nav>
           </>
         ) : null}
