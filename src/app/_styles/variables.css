@@ -304,6 +304,10 @@
       --container-margin-home: var(--space-l);
     }
 
+    @media (--tablet-up) {
+      --navbar-top-height: 80px;
+    }
+
     @media (--laptop-up) {
       --navbar-bottom-height: 50px;
       --container-margin-home: var(--space-2xl);

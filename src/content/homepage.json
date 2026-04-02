@@ -1,24 +1,7 @@
 {
   "hero": {
     "title": "Cloudsmith <br/> <strong>Documentation</strong>",
-    "description": "Cloudsmith is a fully-managed artifact management, software supply chain security, and software distribution platform. ",
-    "buttons": [
-      {
-        "label": "Documentation",
-        "href": "/about-cloudsmith",
-        "icon": "action/documentation"
-      },
-      {
-        "label": "Guides",
-        "href": "/guides/getting-started",
-        "icon": "utility/guide"
-      },
-      {
-        "label": "API Reference",
-        "href": "/api",
-        "icon": "action/api"
-      }
-    ]
+    "description": "Cloudsmith is a fully-managed artifact management, software supply chain security, and software distribution platform. "
   },
   "sections": [
     {
