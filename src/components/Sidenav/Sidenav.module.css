@@ -15,6 +15,7 @@
 .toggleButton {
   display: flex;
   inline-size: 100%;
+  min-height: var(--navbar-top-height);
   padding-inline: var(--space-m);
   padding-block: var(--space-s);
   align-items: center;
@@ -32,7 +33,7 @@
   flex-shrink: 0;
   fill: var(--base-color-grey-100);
   margin-inline-start: auto;
-  transition: transform 0.2s ease;
+  transition: var(--transition-default);
 }
 
 .toggleIconDownOpen {

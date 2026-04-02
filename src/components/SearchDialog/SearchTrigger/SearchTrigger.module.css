@@ -105,6 +105,12 @@
     );
     transition: var(--transition-default);
   }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
 .root.inline {

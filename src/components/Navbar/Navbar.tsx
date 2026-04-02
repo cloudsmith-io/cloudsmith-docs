@@ -18,6 +18,7 @@ import styles from './Navbar.module.css';
 export const Navbar = () => {
   const pathname = usePathname();
   const { navigationState, toggleNavigation } = useNavigation();
+  const isGlobalNavOpen = navigationState === 'globalNav';
 
   const [documentationItem, guidesItem, apiItem, mobileNavbarItem] = getMenuItems([
     'documentation',
@@ -80,7 +81,9 @@ export const Navbar = () => {
 
                 {activeMenuItem ? (
                   <span className={styles.currentSection}>
-                    {activeMenuItem.icon && <Icon name={activeMenuItem.icon} title="" />}
+                    {activeMenuItem.icon && (
+                      <Icon name={activeMenuItem.icon} title="" className={styles.currentSectionIcon} />
+                    )}
                     <span>{activeMenuItem.title}</span>
                   </span>
                 ) : null}
@@ -111,9 +114,13 @@ export const Navbar = () => {
                 <button
                   type="button"
                   className={cx(styles.menuButton, styles.light)}
-                  aria-label="Menu"
+                  aria-label={isGlobalNavOpen ? 'Close menu' : 'Open menu'}
                   onClick={toggle}>
-                  <Icon name="menu" title="" className={styles.menuIcon} />
+                  <Icon
+                    name={isGlobalNavOpen ? 'action/close' : 'menu'}
+                    title=""
+                    className={styles.menuIcon}
+                  />
                 </button>
               </div>
             </div>
@@ -128,19 +135,16 @@ export const Navbar = () => {
 
                   {activeMenuItem ? (
                     <span className={styles.currentSection}>
-                      {activeMenuItem.icon && <Icon name={activeMenuItem.icon} title="" />}
+                      {activeMenuItem.icon && (
+                        <Icon name={activeMenuItem.icon} title="" className={styles.currentSectionIcon} />
+                      )}
                       <span>{activeMenuItem.title}</span>
                     </span>
                   ) : null}
                 </div>
 
                 <div className={styles.topSecondarySearch}>
-                  <SearchDialog
-                    className={styles.search}
-                    triggerTheme="dark"
-                    dialogTheme="light"
-                    triggerVariant="compact"
-                  />
+                  <SearchDialog className={styles.search} triggerTheme="dark" dialogTheme="light" />
                 </div>
 
                 <div className={cx(styles.topEnd, styles.topSecondaryEnd)}>
@@ -168,8 +172,16 @@ export const Navbar = () => {
                     Login
                   </Button>
 
-                  <button type="button" className={styles.menuButton} aria-label="Menu" onClick={toggle}>
-                    <Icon name="menu" title="" className={styles.menuIcon} />
+                  <button
+                    type="button"
+                    className={styles.menuButton}
+                    aria-label={isGlobalNavOpen ? 'Close menu' : 'Open menu'}
+                    onClick={toggle}>
+                    <Icon
+                      name={isGlobalNavOpen ? 'action/close' : 'menu'}
+                      title=""
+                      className={styles.menuIcon}
+                    />
                   </button>
                 </div>
               </div>
@@ -200,14 +212,10 @@ export const Navbar = () => {
             <motion.nav
               key="mobileNavbar"
               className={styles.mobileNavbar}
-              initial={{ translateX: '50%', opacity: 0 }}
+              initial={{ translateX: '8%', opacity: 0 }}
               animate={{ translateX: '0%', opacity: 1 }}
-              exit={{ translateX: '50%', opacity: 0 }}
+              exit={{ translateX: '8%', opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}>
-              <button className={styles.closeButton} onClick={toggle}>
-                <Icon name="action/close" title="" className={styles.closeIcon} />
-              </button>
-
               <ul className={styles.mobileNav}>
                 {orderedMobileItems.map((item, i) => (
                   <li key={`${item.path}-${i}`}>

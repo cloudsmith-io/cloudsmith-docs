@@ -4,9 +4,6 @@
 }
 
 .secondaryNav {
-  position: sticky;
-  top: calc(var(--navbar-banner-height) + var(--navbar-top-height));
-  z-index: var(--layer-navigation);
   background-color: var(--base-color-grey-1000);
 
   &::-webkit-scrollbar {
@@ -17,18 +14,14 @@
   -ms-overflow-style: none;
 }
 
-@media (--phablet-up) {
-  .secondaryNav {
-    top: var(--navbar-height);
-  }
-}
-
 @media (--laptop-up) {
   .root {
     display: flex;
   }
 
   .secondaryNav {
+    position: sticky;
+    top: var(--navbar-height);
     z-index: 0;
     flex: 0 0 var(--sidebar-width);
     background-color: transparent;

@@ -31,6 +31,14 @@ export const Sidenav = ({ items }: SidenavProps) => {
   const activeMenuItems = getActiveAncestors(pathname, items);
   const activeLabel = last(activeMenuItems)?.title ?? 'Select page';
 
+  useEffect(() => {
+    document.body.classList.add('has-sidenav-toggle');
+
+    return () => {
+      document.body.classList.remove('has-sidenav-toggle');
+    };
+  }, []);
+
   const isOpen = navigationState === 'sideNav';
   const toggle = () => toggleNavigation('sideNav');
 
