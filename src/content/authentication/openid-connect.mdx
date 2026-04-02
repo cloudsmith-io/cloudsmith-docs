@@ -214,37 +214,34 @@ If successful, this will give a JWT token to be used as an API key.
 
 If unsuccessful, you will receive an error message that is intentionally quite generic. This is by design so that we do not leak any information (such as whether OIDC is configured, which claim failed, whether a service account is associated with the provider, etc.).
 
-Additionally, as of version `1.0.6` of the Cloudsmith orb, you can use the `authenticate-with-oidc` command to perform this step automatically.
+Additionally, as of version `2.0.0` of the Cloudsmith orb, you can use the `authenticate-with-oidc` command to perform this step automatically.
 
 ```yaml
 version: 2.1
 
 orbs:
-  cloudsmith: cloudsmith/cloudsmith@1.0.6
-  python: circleci/python@2.1.1
+  cloudsmith: cloudsmith/cloudsmith@2.0.0
+
+workflows:
+  cloudsmith_oidc_publish:
+    jobs:
+      - publish
 
 jobs:
   publish:
-    executor: python/default
+    executor: cloudsmith/default
     steps:
       - checkout
       - cloudsmith/authenticate-with-oidc:
-          organization: <your organization slug>
-          service-account: <service account slug>
-      - cloudsmith/ensure-api-key
+          organization: my-org
+          service-account: my-service-account
       - cloudsmith/install-cli
       - run:
-          name: Build Python package
-          command: python setup.py sdist
-      - cloudsmith/publish:
-          cloudsmith-repository: <organization_slug>/<repository_slug>
-          package-path: dist/*.tar.gz
-          package-format: python
-
-workflows:
-  cloudsmith_publish:
-    jobs:
-      - publish
+          name: Build and publish Python package
+          command: |
+            pip install build
+            python -m build --wheel
+            cloudsmith push python my-org/my-repo dist/*.whl
 ```
 
 #### GitHub Actions Example

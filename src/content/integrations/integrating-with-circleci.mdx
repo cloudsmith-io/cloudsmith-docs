@@ -37,7 +37,7 @@ And then include the orb:
 
 ```yaml
 orbs:
-  cloudsmith: cloudsmith/cloudsmith@1.0.6
+  cloudsmith: cloudsmith/cloudsmith@2.0.0
 ```
 
 Note that you can check the [releases page on github](https://github.com/cloudsmith-io/orb/releases) for our orb, [or the orb page](https://circleci.com/developer/orbs/orb/cloudsmith/cloudsmith) on CircleCI itself to find the latest version to use.
@@ -51,7 +51,7 @@ The orb (for now) requires that you have already built the package you wish to p
 ```yaml
 jobs:
   publish:
-    executor: circleci/python:3.7
+    executor: cimg/python:3.10
     steps:
       - checkout
       - run:
@@ -64,12 +64,16 @@ workflows:
       - publish
 ```
 
-Once built, we can use the orb to easily publish the package. The orb provides a number of commands to make this process simpler. We'll first ensure the Cloudsmith CLi is configured and installed, then after we've built the package, publish it:
+Once built, we can use the orb to easily publish the package. The orb provides a number of commands to make this process simpler. We'll first ensure the Cloudsmith CLI is configured and installed, then after we've built the package, publish it:
+
+<Note variant="note">
+  The `cloudsmith/publish` command is deprecated and will be removed in a future major version. The recommended approach is to use `cloudsmith/install-cli` and `cloudsmith/authenticate-with-oidc` (or `cloudsmith/ensure-api-key`), then invoke the Cloudsmith CLI directly in your `run` steps. See the [Manual integration](#manual-integration) section below.
+</Note>
 
 ```yaml
 jobs:
   publish:
-    executor: circleci/python:3.7
+    executor: cimg/python:3.10
     steps:
       - checkout
       - cloudsmith/ensure-api-key
@@ -83,49 +87,57 @@ jobs:
           package-format: python
 ```
 
-If using OIDC for authentication, ensure you're using at least version `1.0.6` of the Cloudsmith orb and add an extra step calling `authenticate-with-oidc` e.g.
-
-```
-...
-jobs:
-  publish:
-    executor: circleci/python:3.7
-    steps:
-      - checkout
-      - cloudsmith/authenticate-with-oidc:
-          organization: <organization slug>
-          service-account: <service account slug>
-      - cloudsmith/ensure-api-key
-...
-```
-
-Putting this all together, we end up with a `.circleci/config.yaml` file which looks like so:
+If using OIDC for authentication, ensure you're using at least version `2.0.0` of the Cloudsmith orb and add an `authenticate-with-oidc` step. This exchanges the CircleCI OIDC token for a short-lived Cloudsmith API token, exported as `CLOUDSMITH_API_KEY`:
 
 ```yaml
 version: 2.1
 
 orbs:
-  cloudsmith: cloudsmith/cloudsmith@1.0.4
+  cloudsmith: cloudsmith/cloudsmith@2.0.0
+
+workflows:
+  cloudsmith_oidc_auth:
+    jobs:
+      - authenticate
+
+jobs:
+  authenticate:
+    executor: cloudsmith/default
+    steps:
+      - checkout
+      - cloudsmith/authenticate-with-oidc:
+          organization: my-org
+          service-account: my-service-account
+```
+
+The recommended approach is to combine OIDC authentication with the CLI and invoke it directly in your `run` steps. Putting this all together, we end up with a `.circleci/config.yaml` file which looks like so:
+
+```yaml
+version: 2.1
+
+orbs:
+  cloudsmith: cloudsmith/cloudsmith@2.0.0
+
+workflows:
+  cloudsmith_oidc_publish:
+    jobs:
+      - publish
 
 jobs:
   publish:
-    executor: circleci/python:3.7
+    executor: cloudsmith/default
     steps:
       - checkout
-      - cloudsmith/ensure-api-key
+      - cloudsmith/authenticate-with-oidc:
+          organization: my-org
+          service-account: my-service-account
       - cloudsmith/install-cli
       - run:
-          name: Build Python package
-          command: python setup.py sdist
-      - cloudsmith/publish:
-          cloudsmith-repository: myorg/myrepo
-          package-path: dist/package-*.tar.gz
-          package-format: python
-
-workflows:
-  cloudsmith_publish:
-    jobs:
-      - publish
+          name: Build and publish Python package
+          command: |
+            pip install build
+            python -m build --wheel
+            cloudsmith push python my-org/my-repo dist/*.whl
 ```
 
 ## Manual integration
@@ -138,11 +150,11 @@ For example, to use the orb to install and configure the CLI, but then use the C
 version: 2.1
 
 orbs:
-  cloudsmith: cloudsmith/cloudsmith@1.0.4
+  cloudsmith: cloudsmith/cloudsmith@2.0.0
 
 jobs:
   publish:
-    executor: circleci/python:3.7
+    executor: cimg/python:3.10
     steps:
       - checkout
       - cloudsmith/ensure-api-key
