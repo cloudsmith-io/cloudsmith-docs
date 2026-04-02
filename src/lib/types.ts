@@ -58,15 +58,14 @@ export interface Card {
   type?: 'default' | 'simple';
 }
 
-interface Button {
-  label: string;
-  href: string;
-}
-
-interface Hero {
+export interface Hero {
   title: string;
   description: string;
-  buttons: Button[];
+  buttons: {
+    label: string;
+    href: string;
+    icon: IconName;
+  }[];
 }
 
 interface CardSection {
