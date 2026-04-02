@@ -66,8 +66,8 @@ A good approach when determining what priority to apply to upstreams is to ensur
 | [Debian](/formats/debian-repository)             | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Ahead-of-Time</div>                | [API](/api/repos/upstream/deb/create)         |
 | [Docker](/formats/docker-registry)               | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Just-in-Time</div>                 | [API](/api/repos/upstream/docker/create)      |
 | [Generic](/formats/generic-repository)           | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Ahead-of-Time / Just-in-Time</div> | [API](/api/repos/upstream/generic/create)     |
-| [Golang ](/formats/go-registry)                  | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Ahead-of-Time</div>                | [API](/api/repos/upstream/go/create)          |
-| [Gradle ](/formats/gradle-repository)            | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Just-in-Time</div>                 | [API](/api/repos/upstream/maven/create)       |
+| [Golang](/formats/go-registry)                   | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Ahead-of-Time</div>                | [API](/api/repos/upstream/go/create)          |
+| [Gradle](/formats/gradle-repository)             | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Just-in-Time</div>                 | [API](/api/repos/upstream/maven/create)       |
 | [Helm](/formats/helm-chart-repository)           | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Ahead-of-Time</div>                | [API](/api/repos/upstream/helm/create)        |
 | [Hex](/formats/hex-repository)                   | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Ahead-of-Time</div>                | [API](/api/repos/upstream/hex/create)         |
 | [Hugging Face](/formats/hugging-face-repository) | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Ahead-of-Time</div>                | [API](/api/repos/upstream/huggingface/create) |
@@ -80,7 +80,7 @@ A good approach when determining what priority to apply to upstreams is to ensur
 | [sbt ](/formats/sbt-repository)                  | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Just-in-Time</div>                 | [API](/api/repos/upstream/maven/create)       |
 | [Swift](/formats/swift-registry)                 | ✅                                              | ✅                                   | ✅                                    | <div class="cs-center">Just-in-Time</div>                 | [API](/api/repos/upstream/swift/create)       |
 
-<Note variant="note">You can can also create and manage upstreams via the [Cloudsmith API](/api).</Note>
+<Note variant="note">You can also create and manage upstreams via the [Cloudsmith API](/api).</Note>
 
 ## Create an Upstream Proxy
 
@@ -219,7 +219,7 @@ Click the "+ Configure new upstream" button to open the configuration modal. Fro
 | Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                                   |
 
 <Note variant="note">
-  Package caching is only supported for for Maven packages that have a `.pom` file present on the upstream
+  Package caching is only supported for Maven packages that have a `.pom` file present on the upstream
   source.
 </Note>
 
