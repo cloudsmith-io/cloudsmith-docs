@@ -229,10 +229,11 @@
 }
 
 .navLink:hover {
-  color: var(--base-color-grey-100);
+  color: var(--base-color-white);
 }
 
 .navLinkActive {
+  color: var(--base-color-white);
   box-shadow: inset 0 -4px 0 var(--brand-color-yellow-4);
 }
 

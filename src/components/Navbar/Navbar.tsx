@@ -174,18 +174,13 @@ export const Navbar = () => {
                     enableKeyboardShortcut
                   />
 
-                  <Button
-                    href="https://cloudsmith.com/contact/"
-                    isExternalLink
-                    size="small"
-                    className={styles.bookDemo}>
+                  <Button href="https://cloudsmith.com/contact/" isExternalLink className={styles.bookDemo}>
                     Book a demo
                   </Button>
                   <Button
                     href="https://app.cloudsmith.com/login"
                     isExternalLink
                     variant="secondary"
-                    size="small"
                     className={styles.login}
                     aria-label="Login">
                     Login
