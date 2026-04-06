@@ -24,6 +24,7 @@
     padding: 0 var(--space-xs);
     color: var(--color-text-secondary);
     font-size: var(--text-body-xs);
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     scroll-margin-top: var(--space-s);

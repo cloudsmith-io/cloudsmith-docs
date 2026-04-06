@@ -10,13 +10,15 @@
 
 .iconWrapper {
   display: flex;
-  flex: 0;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   color: var(--color-text-secondary);
 }
 
 .icon {
+  width: 16px;
+  height: 16px;
   transform: translateY(-1px);
   color: inherit;
 

@@ -23,10 +23,10 @@ export const SearchDialogContent = ({ onClose, searchError }: SearchDialogConten
   const debounceRef = useRef<number | null>(null);
   const trimmedQuery = query?.trim() || '';
   const displayedHits = (results?.hits as SearchHit[] | undefined) || [];
-  const settledQuery = results?.query?.trim?.() || '';
   const showReset = trimmedQuery.length > 0;
   const isSearching = status === 'loading' || status === 'stalled';
-  const showResultsLayout = trimmedQuery.length > 0;
+  const settledQuery = results?.query?.trim?.() || '';
+  const showResultsLayout = trimmedQuery.length > 0 && displayedHits.length > 0;
 
   const queryHook = useCallback((nextQuery: string, search: (value: string) => void) => {
     const trimmed = nextQuery.trim();
