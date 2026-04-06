@@ -29,8 +29,16 @@ const DEFAULT_HITS_PER_PAGE = 20;
 const DOCS_MAX_HITS_PER_PAGE = 40;
 const DOCS_TITLE_SUFFIX_PATTERN = /\s*\|\s*cloudsmith docs\s*$/i;
 
-// Guard against missing Algolia credentials to prevent breaking the navbar
-const hasAlgoliaCredentials = Boolean(algoliaAppId && algoliaApiKey);
+// Guard against incomplete Algolia config to prevent runtime search errors.
+const hasAlgoliaCredentials = Boolean(
+  algoliaAppId && algoliaApiKey && normalizeSearchValue(algoliaIndexName),
+);
+
+if (!hasAlgoliaCredentials && process.env.NODE_ENV !== 'production') {
+  console.warn(
+    'SearchDialog disabled: set NEXT_PUBLIC_ALGOLIA_APP_ID, NEXT_PUBLIC_ALGOLIA_API_KEY, and NEXT_PUBLIC_ALGOLIA_INDEX.',
+  );
+}
 
 interface SearchRequestParams {
   query?: string;
@@ -211,7 +219,7 @@ const createSearchClient = (onError: (message: string | null) => void) => {
   };
 
   const client = algoliasearch(algoliaAppId!, algoliaApiKey!);
-  const websiteIndexName = algoliaIndexName || '';
+  const websiteIndexName = normalizeSearchValue(algoliaIndexName);
 
   // Wrap the search method to handle connection errors gracefully
   return {
@@ -362,7 +370,10 @@ export const SearchDialog = ({
             <RadixDialog.Title>Search</RadixDialog.Title>
           </VisuallyHidden>
           <RadixDialog.Content className={contentClasses}>
-            <InstantSearchNext indexName={algoliaIndexName} searchClient={searchClient} insights>
+            <InstantSearchNext
+              indexName={normalizeSearchValue(algoliaIndexName)}
+              searchClient={searchClient}
+              insights>
               <SearchDialogContent onClose={() => setOpen(false)} searchError={searchError} />
             </InstantSearchNext>
           </RadixDialog.Content>

@@ -19,7 +19,7 @@ const normalizeComparableSearchValue = (value) => {
   const normalizedValue = normalizeSearchValue(value);
   if (!normalizedValue) return '';
 
-  return slugify(decodeURIComponent(normalizedValue).replace(/\+/g, ' '));
+  return slugify(decodeSearchValue(normalizedValue));
 };
 
 const getHitHref = (hit) => normalizeSearchValue(hit?.slug);
@@ -29,7 +29,7 @@ const decodeSearchValue = (value) => {
   if (!normalizedValue) return '';
 
   try {
-    return decodeURIComponent(normalizedValue);
+    return new URLSearchParams(`q=${normalizedValue}`).get('q') ?? normalizedValue;
   } catch {
     return normalizedValue;
   }
