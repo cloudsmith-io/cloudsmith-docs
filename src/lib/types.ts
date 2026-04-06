@@ -61,7 +61,7 @@ export interface Card {
 export interface Hero {
   title: string;
   description: string;
-  buttons: {
+  buttons?: {
     label: string;
     href: string;
     icon: IconName;
