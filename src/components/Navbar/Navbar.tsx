@@ -3,8 +3,6 @@
 import { useEffect } from 'react';
 
 import { cx } from 'class-variance-authority';
-import { AnimatePresence } from 'motion/react';
-import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -79,7 +77,11 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className={cx(styles.root, { [styles.isHome]: isHome })}>
+      <div
+        className={cx(styles.root, {
+          [styles.isHome]: isHome,
+          [styles.globalNavOpen]: isGlobalNavOpen,
+        })}>
         <Container className={styles.container}>
           {isHome ? (
             <div className={styles.top}>
@@ -211,48 +213,30 @@ export const Navbar = () => {
         </Container>
       </div>
 
-      <AnimatePresence initial={false}>
-        {navigationState === 'globalNav' ? (
-          <>
-            <motion.div
-              key="mobileBackground"
-              className={styles.mobileBackground}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              onClick={toggle}
-              role="button"
-              tabIndex={0}
-            />
+      {navigationState === 'globalNav' ? (
+        <>
+          <div className={styles.mobileBackground} onClick={toggle} role="button" tabIndex={0} />
 
-            <motion.nav
-              key="mobileNavbar"
-              className={styles.mobileNavbar}
-              initial={{ translateX: '8%', opacity: 0 }}
-              animate={{ translateX: '0%', opacity: 1 }}
-              exit={{ translateX: '8%', opacity: 0 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}>
-              <ul className={styles.mobileNav}>
-                {orderedMobileItems.map((item, i) => (
-                  <li key={`${item.path}-${i}`} className={styles.mobileNavItem}>
-                    <Link href={item.path!} className={styles.mobileNavLink}>
-                      {item.title}
-                      <Icon
-                        name={isExternalHref(item.path) ? 'external' : 'arrowRight'}
-                        className={styles.mobileNavLinkIcon}
-                        aria-hidden="true"
-                        focusable="false"
-                        title=""
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.nav>
-          </>
-        ) : null}
-      </AnimatePresence>
+          <nav className={styles.mobileNavbar}>
+            <ul className={styles.mobileNav}>
+              {orderedMobileItems.map((item, i) => (
+                <li key={`${item.path}-${i}`} className={styles.mobileNavItem}>
+                  <Link href={item.path!} className={cx(styles.mobileNavLink, 'headlineXS')}>
+                    {item.title}
+                    <Icon
+                      name={isExternalHref(item.path) ? 'external' : 'arrowRight'}
+                      className={styles.mobileNavLinkIcon}
+                      aria-hidden="true"
+                      focusable="false"
+                      title=""
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </>
+      ) : null}
     </>
   );
 };

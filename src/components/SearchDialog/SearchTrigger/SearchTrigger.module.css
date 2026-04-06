@@ -93,6 +93,7 @@
   padding: 0;
   background-color: var(--search-trigger-compact-background);
   border-radius: var(--border-radius-full);
+  border: transparent;
 
   .placeholder,
   .kbdHint {

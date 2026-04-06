@@ -307,10 +307,19 @@
   }
 }
 
+.globalNavOpen {
+  background-color: var(--base-color-grey-1000);
+  border-bottom: 1px solid var(--brand-color-grey-8);
+
+  @media (--laptop-up) {
+    border-bottom: none;
+  }
+}
+
 .mobileBackground {
   position: fixed;
   z-index: var(--layer-navigation-mobile-bg);
-  top: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height));
+  top: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height) + 1px);
   right: 0;
   bottom: 0;
   left: 0;
@@ -324,7 +333,7 @@
 .mobileNavbar {
   position: fixed;
   z-index: var(--layer-navigation-mobile);
-  top: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height));
+  top: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height) + 1px);
   right: 0;
   bottom: 0;
   left: 0;
@@ -339,6 +348,9 @@
 }
 
 .menuIcon {
+  width: 20px;
+  height: 20px;
+
   @media (--laptop-up) {
     opacity: 1;
   }
