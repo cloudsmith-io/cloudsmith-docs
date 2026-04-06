@@ -16,7 +16,13 @@ export const scrollToHashTarget = (hash = window.location.hash) => {
   const normalizedHash = hash.replace(/^#/, '');
   if (!normalizedHash) return false;
 
-  const targetId = decodeURIComponent(normalizedHash);
+  let targetId = normalizedHash;
+  try {
+    targetId = decodeURIComponent(normalizedHash);
+  } catch {
+    targetId = normalizedHash;
+  }
+
   const target = document.getElementById(targetId);
   if (!target) return false;
 
