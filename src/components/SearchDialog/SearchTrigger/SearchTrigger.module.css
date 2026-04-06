@@ -54,6 +54,7 @@
     font-size: var(--text-body-s);
     line-height: 1;
     color: var(--search-trigger-placeholder-color, currentcolor);
+    margin-top: 2px;
   }
 
   .kbdHint {

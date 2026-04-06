@@ -5,14 +5,26 @@
   position: sticky;
   top: var(--navbar-banner-height, 0);
   z-index: var(--layer-navigation);
+
+  @media (--laptop-up) {
+    padding-bottom: 0;
+  }
 }
 
 :global(body.has-sidenav-toggle) .root {
   border-bottom: 1px solid var(--brand-color-grey-8);
+
+  @media (--laptop-up) {
+    border-bottom: none;
+  }
 }
 
 .container {
   padding-inline: var(--space-m);
+
+  @media (--laptop-up) {
+    padding-block: 0;
+  }
 }
 
 .top {
@@ -31,6 +43,14 @@
   align-items: center;
   gap: var(--space-xs) var(--space-s);
   padding-block: var(--space-xs);
+
+  @media (--laptop-up) {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 320px) minmax(0, 1fr);
+    grid-template-areas: 'left search right';
+    min-height: var(--navbar-top-height);
+    gap: var(--space-l);
+    padding-block: 0;
+  }
 }
 
 .topStart,
@@ -57,9 +77,16 @@
 
 .topSecondarySearch {
   display: none;
+
   @media (--phablet-up) {
     grid-area: search;
     min-width: 0;
+  }
+
+  @media (--laptop-up) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 }
 
@@ -76,6 +103,12 @@
 
 .secondaryNavRow {
   display: none;
+
+  @media (--laptop-up) {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+  }
 }
 
 .nav,
@@ -84,12 +117,23 @@
   flex: 1;
   align-items: center;
   justify-content: center;
-  gap: var(--space-m);
+  gap: var(--space-l);
   min-width: 0;
+}
+
+.nav {
+  @media (--laptop-up) {
+    display: flex;
+    flex: 2;
+  }
 }
 
 .secondaryNav {
   justify-content: flex-start;
+
+  @media (--laptop-up) {
+    display: flex;
+  }
 }
 
 .logo {
@@ -102,12 +146,20 @@
   width: 25px;
   height: 25px;
   min-width: 25px;
+
+  @media (--laptop-up) {
+    display: none;
+  }
 }
 
 .logoWordmark {
   display: none;
   width: 150px;
   height: auto;
+
+  @media (--laptop-up) {
+    display: block;
+  }
 }
 
 .currentSection {
@@ -118,6 +170,13 @@
   padding-left: var(--space-s);
   position: relative;
   min-height: 20px;
+
+  @media (--laptop-up) {
+    margin-left: 0;
+    padding-left: 0;
+    position: static;
+    display: none;
+  }
 }
 
 .currentSection > span {
@@ -137,15 +196,23 @@
   width: 1px;
   height: 1.25em;
   background-color: var(--base-color-grey-700);
+
+  @media (--laptop-up) {
+    display: none;
+  }
 }
 
 .currentSectionIcon {
   display: none;
+
+  @media (--laptop-up) {
+    display: inline-flex;
+  }
 }
 
 .navLink {
   display: flex;
-  color: var(--base-color-grey-500);
+  color: var(--base-color-grey-400);
   text-decoration: none;
   align-items: center;
   gap: var(--space-3xs);
@@ -155,9 +222,16 @@
 
 .navLinkIcon {
   display: none;
+
+  @media (--tablet-up) {
+    display: block;
+  }
 }
 
-.navLink:hover,
+.navLink:hover {
+  color: var(--base-color-grey-100);
+}
+
 .navLinkActive {
   box-shadow: inset 0 -4px 0 var(--brand-color-yellow-4);
 }
@@ -178,6 +252,10 @@
     outline: none;
     box-shadow: none;
   }
+
+  @media (--laptop-up) {
+    display: none;
+  }
 }
 
 .bookDemo,
@@ -185,8 +263,26 @@
   display: none;
 }
 
+.login {
+  --button-color: var(--brand-color-blue-5);
+
+  @media (--laptop-up) {
+    display: inline-flex;
+  }
+}
+
+.bookDemo {
+  @media (--laptop-up) {
+    display: inline-flex;
+  }
+}
+
 .mobileSearch {
   display: inline-flex;
+
+  @media (--laptop-up) {
+    display: none;
+  }
 }
 
 .isHome {
@@ -219,6 +315,10 @@
   bottom: 0;
   left: 0;
   background-color: var(--base-color-grey-1000);
+
+  @media (--laptop-up) {
+    display: none;
+  }
 }
 
 .mobileNavbar {
@@ -232,6 +332,16 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+
+  @media (--laptop-up) {
+    display: none;
+  }
+}
+
+.menuIcon {
+  @media (--laptop-up) {
+    opacity: 1;
+  }
 }
 
 .mobileNav {
@@ -264,89 +374,4 @@
   margin-left: auto;
   flex-shrink: 0;
   display: block;
-}
-
-@media (--laptop-up) {
-  .root {
-    padding-bottom: 0;
-  }
-
-  :global(body.has-sidenav-toggle) .root {
-    border-bottom: none;
-  }
-
-  .container {
-    padding-block: 0;
-  }
-
-  .nav {
-    display: flex;
-    flex: 2;
-  }
-
-  .topSecondary {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 320px) minmax(0, 1fr);
-    grid-template-areas: 'left search right';
-    min-height: var(--navbar-top-height);
-    gap: var(--space-l);
-    padding-block: 0;
-  }
-
-  .topSecondarySearch {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .secondaryNavRow {
-    display: flex;
-    min-height: 44px;
-    align-items: center;
-  }
-
-  .currentSection {
-    margin-left: 0;
-    padding-left: 0;
-    position: static;
-  }
-
-  .currentSection::before {
-    display: none;
-  }
-
-  .currentSectionIcon {
-    display: inline-flex;
-  }
-
-  .secondaryNav {
-    display: flex;
-  }
-
-  .currentSection,
-  .menuButton,
-  .mobileSearch,
-  .logoSymbol,
-  .mobileBackground,
-  .mobileNavbar {
-    display: none;
-  }
-
-  .logoWordmark {
-    display: block;
-  }
-
-  .login,
-  .bookDemo {
-    display: inline-flex;
-  }
-
-  .menuIcon {
-    opacity: 1;
-  }
-}
-
-@media (--tablet-up) {
-  .navLinkIcon {
-    display: block;
-  }
 }

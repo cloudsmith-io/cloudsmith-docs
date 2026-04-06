@@ -309,6 +309,7 @@
     }
 
     @media (--laptop-up) {
+      --navbar-top-height: 90px;
       --navbar-bottom-height: 50px;
       --container-margin-home: var(--space-2xl);
     }
