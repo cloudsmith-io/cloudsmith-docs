@@ -220,7 +220,11 @@ export const Navbar = () => {
           <nav className={styles.mobileNavbar}>
             <ul className={styles.mobileNav}>
               {orderedMobileItems.map((item, i) => (
-                <li key={`${item.path}-${i}`} className={styles.mobileNavItem}>
+                <li
+                  key={`${item.path}-${i}`}
+                  className={cx(styles.mobileNavItem, {
+                    [styles.mobileNavItemWithDivider]: item.title === 'Go to App',
+                  })}>
                   <Link href={item.path!} className={cx(styles.mobileNavLink, 'headlineXS')}>
                     {item.title}
                     <Icon
