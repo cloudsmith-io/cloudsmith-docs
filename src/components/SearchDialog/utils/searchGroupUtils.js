@@ -1,5 +1,6 @@
-import { slugify, titleCase } from '../../../util/strings';
-import { isExternalHref } from '../../../util/url';
+import { slugify, titleCase } from '@/util/strings';
+import { isExternalHref } from '@/util/url';
+
 import { filtersData } from './data';
 import {
   getDocsPageHref,
