@@ -19,7 +19,7 @@
 
   .container {
     display: grid;
-    grid-template-columns: calc(var(--sidebar-width) - var(--space-m) + 1px) minmax(0, 1fr);
+    grid-template-columns: calc(var(--sidebar-width) - var(--space-m)) minmax(0, 1fr);
     align-items: center;
     gap: 0;
   }
