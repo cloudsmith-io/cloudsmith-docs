@@ -158,7 +158,7 @@
     padding-inline: var(--space-m);
     border-right: 1px solid var(--brand-color-grey-2);
     margin-block-end: 0;
-    min-height: calc(100vh - 130px);
+    min-height: 100%;
   }
 
   .toggleButton {

@@ -5,7 +5,9 @@
 
 .secondaryNav {
   background-color: var(--base-color-grey-1000);
+}
 
+.secondaryNavInner {
   &::-webkit-scrollbar {
     display: none;
   }
@@ -17,6 +19,7 @@
 @media (--laptop-up) {
   .root {
     display: flex;
+    align-items: flex-start;
   }
 
   .secondaryNav {
@@ -24,9 +27,15 @@
     top: var(--navbar-height);
     z-index: 0;
     flex: 0 0 var(--sidebar-width);
+    align-self: flex-start;
+    height: fit-content;
     background-color: transparent;
-    height: calc(100vh - var(--navbar-height));
+  }
+
+  .secondaryNavInner {
+    max-height: calc(100vh - var(--navbar-height));
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .main {

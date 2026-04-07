@@ -15,6 +15,11 @@
 
   body.has-sidenav-toggle {
     --navbar-border-height: 1px;
+
+    /* Mobile decoration only */
+    @media (--laptop-up) {
+      --navbar-border-height: 0px;
+    }
   }
 
   a {

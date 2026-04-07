@@ -220,6 +220,15 @@
   font-family: var(--font-family-headline);
 }
 
+@media (--laptop-up) {
+  .secondaryNav .navLink {
+    min-height: 50px;
+    /* Resolves an issue where The link sizing + padding was causing the navbar to be taller than expected, which then caused a scrolling bug with the sidebars */
+    padding-block: calc((50px - (var(--text-body-m) * var(--line-height-normal))) / 2);
+    box-sizing: border-box;
+  }
+}
+
 .navLinkIcon {
   display: none;
 
