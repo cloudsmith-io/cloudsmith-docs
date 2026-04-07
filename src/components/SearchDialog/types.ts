@@ -1,5 +1,3 @@
-// Copyright 2026 Cloudsmith Ltd
-
 import type { IconName } from '@/icons';
 
 export type SearchSource = 'docs' | 'website';
