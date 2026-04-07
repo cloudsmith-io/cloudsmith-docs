@@ -10,6 +10,13 @@
   padding: var(--space-m);
 }
 
+@media (--laptop-up) {
+  .container {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
 .credit {
   display: inline-flex;
   align-items: center;
@@ -31,6 +38,15 @@
   gap: var(--space-3xs) var(--space-s);
 }
 
+@media (--laptop-up) {
+  .nav {
+    margin-left: var(--space-m);
+    padding-left: var(--space-m);
+    border-left: 1px solid var(--color-border);
+    justify-content: flex-end;
+  }
+}
+
 .link,
 .legalGroup {
   color: var(--color-text-tertiary);
@@ -49,18 +65,4 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-3xs);
-}
-
-@media (--laptop-up) {
-  .container {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .nav {
-    margin-left: var(--space-m);
-    padding-left: var(--space-m);
-    border-left: 1px solid var(--color-border);
-    justify-content: flex-end;
-  }
 }

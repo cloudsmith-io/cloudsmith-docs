@@ -1,5 +1,3 @@
-// Copyright 2026 Cloudsmith Ltd
-
 import { Container } from '@/components/Container';
 import { Link } from '@/components/Link';
 import { Icon } from '@/icons';
