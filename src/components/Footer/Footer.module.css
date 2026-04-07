@@ -11,6 +11,12 @@
 }
 
 @media (--laptop-up) {
+  .root {
+    margin-top: calc(var(--footer-overlap-height) * -1);
+    position: relative;
+    z-index: 1;
+  }
+
   .container {
     flex-direction: row;
     align-items: center;

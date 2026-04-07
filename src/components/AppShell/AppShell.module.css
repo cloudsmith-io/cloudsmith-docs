@@ -19,7 +19,20 @@
 @media (--laptop-up) {
   .root {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
+    position: relative;
+    min-height: calc(100vh - var(--navbar-height));
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: var(--sidebar-width);
+      width: 1px;
+      background-color: var(--brand-color-grey-2);
+      pointer-events: none;
+    }
   }
 
   .secondaryNav {
@@ -33,7 +46,9 @@
   }
 
   .secondaryNavInner {
+    box-sizing: border-box;
     max-height: calc(100vh - var(--navbar-height));
+    padding-bottom: var(--footer-overlap-height);
     overflow-y: auto;
     overscroll-behavior: contain;
   }
@@ -45,6 +60,11 @@
 
     /* Make sure that pre tags don't expand the tags */
     min-width: 0;
+  }
+
+  .footerSpacer {
+    flex: 0 0 100%;
+    height: var(--footer-overlap-height);
   }
 }
 

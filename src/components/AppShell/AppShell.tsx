@@ -12,6 +12,7 @@ export const AppShell = ({ children, secondaryNav }: AppShellProps) => {
         </aside>
       )}
       <div className={styles.main}>{children}</div>
+      <div className={styles.footerSpacer} aria-hidden="true" />
     </Container>
   );
 };
