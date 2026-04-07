@@ -184,68 +184,39 @@ pipelines:
 
 #### CircleCI Example
 
-```yaml
-version: 2.1
-
-commands:
-  make_oidc_request:
-    steps:
-      - run: |
-          echo "Testing CircleCI OIDC."
-          jwt=$(curl -X POST -H "Content-Type: application/json" -d "{\"oidc_token\":\"$CIRCLE_OIDC_TOKEN_V2\", \"service_slug\":\"{SERVICE_SLUG}"}" https://api.cloudsmith.io/openid/{ACCOUNT}/ | jq -r '.token')
-          echo "OIDC token from Cloudsmith: $jwt"
-
-jobs:
-  build:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - make_oidc_request
-         
-workflows:
-  test-workflow:
-    jobs:
-      - build:
-          context:
-            - circle-oidc-test
-```
-
-If successful, this will give a JWT token to be used as an API key.
-
-If unsuccessful, you will receive an error message that is intentionally quite generic. This is by design so that we do not leak any information (such as whether OIDC is configured, which claim failed, whether a service account is associated with the provider, etc.).
-
-Additionally, as of version `1.0.6` of the Cloudsmith orb, you can use the `authenticate-with-oidc` command to perform this step automatically.
+Using the [Cloudsmith CircleCI orb](https://circleci.com/developer/orbs/orb/cloudsmith/cloudsmith), the `authenticate-with-oidc` command handles the token exchange automatically and exports the result as `CLOUDSMITH_API_KEY`:
 
 ```yaml
 version: 2.1
 
 orbs:
-  cloudsmith: cloudsmith/cloudsmith@1.0.6
-  python: circleci/python@2.1.1
+  cloudsmith: cloudsmith/cloudsmith@2.0.0
+
+workflows:
+  cloudsmith_oidc_publish:
+    jobs:
+      - publish
 
 jobs:
   publish:
-    executor: python/default
+    executor: cloudsmith/default
     steps:
       - checkout
       - cloudsmith/authenticate-with-oidc:
-          organization: <your organization slug>
-          service-account: <service account slug>
-      - cloudsmith/ensure-api-key
+          organization: my-org
+          service-account: my-service-account
       - cloudsmith/install-cli
       - run:
-          name: Build Python package
-          command: python setup.py sdist
-      - cloudsmith/publish:
-          cloudsmith-repository: <organization_slug>/<repository_slug>
-          package-path: dist/*.tar.gz
-          package-format: python
-
-workflows:
-  cloudsmith_publish:
-    jobs:
-      - publish
+          name: Build and publish Python package
+          command: |
+            pip install build
+            python -m build --wheel
+            cloudsmith push python my-org/my-repo dist/*.whl
 ```
+
+Ensure OIDC is enabled in your CircleCI project settings (Project Settings → Advanced → Enable OpenID Connect Tokens).
+
+If successful, `CLOUDSMITH_API_KEY` will be set for all subsequent steps. If unsuccessful, you will receive an error message that is intentionally quite generic. This is by design so that we do not leak any information (such as whether OIDC is configured, which claim failed, whether a service account is associated with the provider, etc.).
 
 #### GitHub Actions Example
 
@@ -266,7 +237,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Authenticate with Cloudsmith via OIDC
-        uses: cloudsmith-io/cloudsmith-cli-action@v1.0.3
+        uses: cloudsmith-io/cloudsmith-cli-action@v2
         with:
           oidc-namespace: 'your-oidc-workspace' # Replace with your Cloudsmith workspace
           oidc-service-slug: 'your-service-account-slug' # Replace with the slug of your Cloudsmith service account
