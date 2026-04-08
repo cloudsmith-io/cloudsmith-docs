@@ -1,8 +1,11 @@
 .root {
   position: relative;
-  width: var(--width, 100%);
+  --background-grid-effective-width: var(--background-grid-width, var(--width, 100%));
+  --background-grid-vignette-offset: max(0px, calc(var(--background-grid-effective-width) / 2 - 50vw));
+
+  width: var(--background-grid-effective-width);
   left: 50%;
-  transform: translate(-50%);
+  transform: translateX(-50%);
   overflow: hidden;
 
   &.inline {
@@ -36,60 +39,66 @@
 
 .topVignette {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   width: 100%;
   height: var(--background-grid-top-vignette-height, var(--background-grid-vignette-height, 80px));
   background: linear-gradient(
-    to top,
-    transparent,
-    var(--background-grid-vignette-color, var(--color-background-default))
+    180deg,
+    var(--background-grid-vignette-color, var(--color-background-default)) 0%,
+    transparent 100%
   );
   pointer-events: none;
 }
 
 .leftVignette {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 0;
-  left: 0;
+  left: var(
+    --background-grid-left-vignette-left,
+    var(--background-grid-vignette-left, var(--background-grid-vignette-offset))
+  );
   width: var(--background-grid-left-vignette-width, var(--background-grid-vignette-width, 80px));
   height: 100%;
   background: linear-gradient(
-    to left,
-    transparent,
-    var(--background-grid-vignette-color, var(--color-background-default))
+    90deg,
+    var(--background-grid-vignette-color, var(--color-background-default)) 0%,
+    transparent 100%
   );
   pointer-events: none;
 }
 
 .bottomVignette {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   bottom: 0;
   left: 0;
   width: 100%;
   height: var(--background-grid-bottom-vignette-height, var(--background-grid-vignette-height, 80px));
   background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--background-grid-vignette-color, var(--color-background-default))
+    0deg,
+    var(--background-grid-vignette-color, var(--color-background-default)) 0%,
+    transparent 100%
   );
   pointer-events: none;
 }
 
 .rightVignette {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: var(--background-grid-right-vignette-top, 0);
-  right: 0;
+  right: var(
+    --background-grid-right-vignette-right,
+    var(--background-grid-vignette-right, var(--background-grid-vignette-offset))
+  );
   bottom: 0;
   width: var(--background-grid-right-vignette-width, var(--background-grid-vignette-width, 80px));
   background: linear-gradient(
-    to right,
-    transparent,
-    var(--background-grid-vignette-color, var(--color-background-default))
+    -90deg,
+    var(--background-grid-vignette-color, var(--color-background-default)) 0%,
+    transparent 100%
   );
   pointer-events: none;
 }
