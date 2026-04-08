@@ -15,8 +15,8 @@ Connected Repositories allow you to natively link multiple repositories together
 
 When a repository has connections, package resolution happens within the context of a single request. There is no redirection between repositories, and packages pushed to any connected repository are immediately visible to consumers of the primary repository.
 
-- Packages are available instantaneously across all connected repositories as soon as they are pushed or updated - no indexing required. This happens because cache invalidation is triggered within the primary repository as soon as a package is pushed or updated in any connected repository.
-- Package resolution happens inside a single request with no redirection, significantly improving performance. There is no performance penalty if the package exists within the primary repository or a connected repository.
+- Packages are available instantaneously from all connected repositories as soon as they are pushed or updated - no indexing required. This happens because cache invalidation is triggered within the primary repository as soon as a package is pushed or updated in any connected repository.
+- Package resolution happens inside a single request with no redirection, significantly improving performance. Native package management tools receive a flattened blended view of packages from all configured repositories.
 
 ## Priority
 
