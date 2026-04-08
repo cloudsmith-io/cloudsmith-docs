@@ -4,6 +4,7 @@
   --background-grid-vignette-offset: max(0px, calc(var(--background-grid-effective-width) / 2 - 50vw));
 
   width: var(--background-grid-effective-width);
+  min-height: var(--background-grid-height, auto);
   left: 50%;
   transform: translateX(-50%);
   overflow: hidden;
@@ -25,7 +26,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: var(--background-grid-width, 100%);
-  height: var(--background-grid-height, 100%);
+  height: 100%;
   max-width: var(--background-grid-max-width, none);
   overflow: hidden;
   pointer-events: none;
