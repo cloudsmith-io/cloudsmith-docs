@@ -6,24 +6,17 @@ import connectedRepoConnect from './images/connected-repository-connect.png'
 # Connected Repositories
 
 <Note variant="important" headline="Early Access">
-Connected Repositories is in Early Access (EA) and is currently supported for Maven, Docker, Python and NPM. Please reach out to us if you are interested in trying it out or have feedback to share.
+Connected Repositories are in Early Access (EA) and are currently supported for Maven, Docker, Python and NPM. Please contact us if you are interested in trying them.
 </Note>
 
-Connected Repositories allows you to natively link multiple repositories together within a workspace, making packages from all connected repositories available through a single URL.
+Connected Repositories allow you to natively link multiple repositories together within a single repository, making packages from all connected repositories available through the repository that the connections are created on.
 
 ## How It Works
 
-When repositories are connected, package resolution happens within the context of a single request. There is no redirection between repositories, and packages pushed to any connected repository are immediately visible to consumers of the primary repository — no indexing delay.
+When a repository has connections, package resolution happens within the context of a single request. There is no redirection between repositories, and packages pushed to any connected repository are immediately visible to consumers of the primary repository.
 
-This is a significant improvement over Cloudsmith-to-Cloudsmith upstreams, which have two notable drawbacks:
-
-- **Delayed availability**: Packages in upstream Cloudsmith repositories only become visible after the indexing cycle runs (typically every two hours). Packages are not available immediately after being pushed.
-- **Double requests**: Each package download triggers a request to the primary repository and a redirect to the upstream repository, resulting in two requests per download. This reduces performance.
-
-Connected Repositories resolve both of these issues:
-
-- Packages are available instantaneously across all connected repositories as soon as they are pushed or updated.
-- Package resolution happens inside a single request with no redirection, significantly improving performance.
+- Packages are available instantaneously across all connected repositories as soon as they are pushed or updated - no indexing required. This happens because cache invalidation is triggered within the primary repository as soon as a package is pushed or updated in any connected repository.
+- Package resolution happens inside a single request with no redirection, significantly improving performance. There is no performance penalty if the package exists within the primary repository or a connected repository.
 
 ## Priority
 
@@ -38,6 +31,12 @@ Upstreams configured on connected repositories are automatically available throu
 Packages fetched from inherited upstreams are cached in the repository where the upstream is configured (i.e., Repository B in this example).
 
 When blending upstreams across connected repositories, relative priorities are dynamically calculated based on the priority of each connection. For example, if Repository A has two connections each with priority `1` on their respective repositories, the upstream from the higher-priority connection will be assigned relative priority `1`, and the upstream from the lower-priority connection will be assigned relative priority `2`.
+
+Packages are always resolved in the following order: 
+  1. Packages within the primary repository. 
+  2. Packages within any of the connected repositories, evaluated in priority order.
+  3. Upstream packages, evaluated in relative priority order (beginning with upstreams defined on the primary repository).
+
 
 ## Requirements
 
