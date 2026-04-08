@@ -12,6 +12,7 @@ import { ActionGuideIcon } from './svgs/action/Guide';
 import { ActionLinkIcon } from './svgs/action/Link';
 import { ActionPlayIcon } from './svgs/action/Play';
 import { ArrowIcon } from './svgs/Arrow';
+import { BuildingIcon } from './svgs/Building';
 import { ChevronIcon } from './svgs/Chevron';
 import { ChevronSmallIcon } from './svgs/ChevronSmall';
 import { EditIcon } from './svgs/Edit';
@@ -50,6 +51,7 @@ import { FormatTerraformIcon } from './svgs/format/Terraform';
 import { FormatUnityIcon } from './svgs/format/Unity';
 import { FormatVagrantIcon } from './svgs/format/Vagrant';
 import { GithubIcon } from './svgs/Github';
+import { Globe } from './svgs/Globe';
 import { Heart } from './svgs/Heart';
 import { HomepageAPIIcon } from './svgs/homepage/API';
 import { HomepageDocumentationIcon } from './svgs/homepage/Documentation';
@@ -90,9 +92,11 @@ import { IntegrationTravisCIIcon } from './svgs/integration/TravisCI';
 import { IntegrationVSCodeIcon } from './svgs/integration/VSCode';
 import { IntegrationZapierIcon } from './svgs/integration/Zapier';
 import { MenuIcon } from './svgs/Menu';
+import { MonitorIcon } from './svgs/Monitor';
 import { QuestionIcon } from './svgs/Question';
 import { RegoIcon } from './svgs/Rego';
 import { SearchIcon } from './svgs/Search';
+import { StarIcon } from './svgs/Star';
 import { UtilityApiIcon } from './svgs/utility/Api';
 import { UtilityDocumentationIcon } from './svgs/utility/Documentation';
 import { UtilityGuideIcon } from './svgs/utility/Guide';
@@ -124,11 +128,15 @@ export const iconRegistry = createIconRegistry({
   arrowDown: (props) => <ArrowIcon {...props} id="icon-arrow-down" arrowDirection="down" />,
   arrowLeft: (props) => <ArrowIcon {...props} id="icon-arrow-left" arrowDirection="left" />,
   search: SearchIcon,
+  star: StarIcon,
   external: ExternalIcon,
   edit: EditIcon,
+  building: BuildingIcon,
   github: GithubIcon,
+  globe: Globe,
   heart: Heart,
   info: InfoIcon,
+  monitor: MonitorIcon,
   question: QuestionIcon,
   'utility/documentation': UtilityDocumentationIcon,
   'utility/guide': UtilityGuideIcon,

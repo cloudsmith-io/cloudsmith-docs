@@ -50,10 +50,14 @@
   display: flex;
   gap: var(--space-2xs);
   align-items: center;
+  min-width: 0;
   font-size: var(--text-body-s);
+  line-height: var(--line-height-tight);
 }
 
 .groupItemIcon {
+  display: block;
+  flex-shrink: 0;
   width: var(--search-icon-size);
   height: var(--search-icon-size);
   color: inherit;
