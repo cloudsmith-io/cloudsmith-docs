@@ -336,6 +336,10 @@
             "title": "Troubleshooting",
             "path": "/troubleshooting"
           }
+          {
+            "title": "Recently deleted packages",
+            "path": "/artifact-management/recently-deleted-packages"
+          }
         ]
       },
       {
