@@ -7,6 +7,7 @@
   justify-content: flex-start;
   gap: var(--space-xs);
   width: 100%;
+  min-width: 0;
   height: 38px;
   padding-block: var(--space-2xs);
   padding-inline: var(--space-xs);
@@ -49,6 +50,9 @@
     flex: 1;
     height: 100%;
     min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     text-align: left;
     font-family: var(--font-family-body);
     font-size: var(--text-body-s);

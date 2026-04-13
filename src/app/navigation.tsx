@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 
@@ -31,10 +31,24 @@ export const useNavigation = () => {
 export const NavigationEvents = () => {
   const pathname = usePathname();
   const { setNavigationState } = useNavigation();
+  const previousPathname = useRef(pathname);
 
   // Close the navigation when the pathname changes
   useEffect(() => {
     setNavigationState('closed');
+
+    if (previousPathname.current !== pathname) {
+      // Disable smooth scroll so the top-reset is instant, then restore it
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        window.requestAnimationFrame(() => {
+          document.documentElement.style.scrollBehavior = '';
+        });
+      });
+    }
+
+    previousPathname.current = pathname;
   }, [pathname, setNavigationState]);
 
   return null;

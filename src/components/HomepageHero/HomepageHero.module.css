@@ -10,7 +10,8 @@
 }
 
 .container {
-  width: 100%;
+  width: min(100%, 100vw);
+  max-width: min(var(--container-width-l), 100vw);
   position: relative;
 }
 
@@ -70,6 +71,7 @@
 
 .search {
   width: 100%;
+  min-width: 0;
   padding-top: var(--space-m);
 
   @media (--phablet-up) {

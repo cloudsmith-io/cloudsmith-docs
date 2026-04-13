@@ -5,7 +5,7 @@ import { Icon } from '@/icons';
 import styles from './Footer.module.css';
 
 const navigationLinks = [
-  { href: '/documentation', label: 'Docs' },
+  { href: '/about-cloudsmith', label: 'Docs' },
   { href: '/guides', label: 'Guides' },
   { href: '/api', label: 'API Reference' },
 ] as const;

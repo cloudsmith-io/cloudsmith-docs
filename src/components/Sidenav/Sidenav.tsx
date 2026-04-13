@@ -87,6 +87,7 @@ const List = ({ items, isExpanded }: ListProps) => {
 
 const Item = ({ item }: ItemProps) => {
   const pathname = usePathname();
+  const { setNavigationState } = useNavigation();
   const isCurrentPageActive = item.path === pathname && !item.children;
   const shouldBeExpanded = isExpandedByDefault(item, pathname);
   const [isExpanded, setIsExpanded] = useState(shouldBeExpanded);
@@ -96,9 +97,16 @@ const Item = ({ item }: ItemProps) => {
   }, [shouldBeExpanded]);
 
   function toggleExpand(event: React.MouseEvent<HTMLAnchorElement>) {
+    const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
+
     // Mobile will always link to the clicked item
-    if (isCurrentPageActive && window.matchMedia('(max-width: 767px)').matches) {
+    if (isCurrentPageActive && isMobileViewport) {
       event.preventDefault();
+    }
+
+    if (isMobileViewport && !isCurrentPageActive) {
+      event.currentTarget.blur();
+      setNavigationState('closed');
     }
 
     setIsExpanded((isExpanded) => !isExpanded);
