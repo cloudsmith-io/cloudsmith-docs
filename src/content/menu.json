@@ -769,8 +769,22 @@
         ]
       },
       {
-        "title": "Contact Us",
+        "title": "Resources",
+        "path": "/resources",
+        "children": [
+           {
+         "title": "Contact Us",
         "path": "https://cloudsmith.com/company/contact-us"
+          },
+                     {
+         "title": "Bug Bounty Program",
+        "path": "/resources/bug-bounty-program"
+          },
+                     {
+         "title": "Open Source Policy",
+        "path": "/resources/open-source-hosting-policy"
+          }
+        ]
       }
     ]
   },
