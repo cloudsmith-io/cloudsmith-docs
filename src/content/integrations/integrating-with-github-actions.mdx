@@ -31,7 +31,7 @@ permissions:
 steps:
   - uses: actions/checkout@v4
   - name: Authenticate & Install Cloudsmith CLI (OIDC)
-    uses: cloudsmith-io/cloudsmith-cli-action@v1
+    uses: cloudsmith-io/cloudsmith-cli-action@v2
     with:
       oidc-namespace: your-oidc-namespace
       oidc-service-slug: your-service-account-slug
@@ -47,7 +47,7 @@ Use when you only need the token for API calls:
 
 ```yaml
 steps:
-  - uses: cloudsmith-io/cloudsmith-cli-action@v1
+  - uses: cloudsmith-io/cloudsmith-cli-action@v2
     with:
       oidc-namespace: your-oidc-namespace
       oidc-service-slug: your-service-account-slug
@@ -64,7 +64,7 @@ Use for quick tests or legacy setups when OIDC isn’t available.
 steps:
   - uses: actions/checkout@v4
   - name: Install Cloudsmith CLI (API Key)
-    uses: cloudsmith-io/cloudsmith-cli-action@v1
+    uses: cloudsmith-io/cloudsmith-cli-action@v2
     with:
       api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
 ```
@@ -113,7 +113,7 @@ jobs:
           python -m pip install build
           python -m build
       - name: Install Cloudsmith CLI (OIDC)
-        uses: cloudsmith-io/cloudsmith-cli-action@v1
+        uses: cloudsmith-io/cloudsmith-cli-action@v2
         with:
           oidc-namespace: your-oidc-namespace
           oidc-service-slug: your-service-account-slug

@@ -3,7 +3,7 @@ import { Note, BlockImage } from '@/components'
 import quick_configure from './images/quick_configure.png'
 import upstream_formats from './images/upstream_formats.png'
 import edit_upstream from './images/edit_upstream.png'
-
+import alpine from './images/alpine.png'
 import cargo from './images/cargo.png'
 import conda from './images/conda.png'
 import composer from './images/composer.png'
@@ -57,29 +57,31 @@ A good approach when determining what priority to apply to upstreams is to ensur
 
 ## Supported Formats
 
-|Format|<div class="cs-center">Configurable Proxy</div>|<div class="cs-center">Caching</div>|<div class="cs-center">Indexing</div>|<div class="cs-center">Indexing Type</div>|<div class="cs-center">API Reference</div>|
-|:---|:---|:---|:---|:---|:---|
-|[Cargo (Rust)](/formats/cargo-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/cargo/create) |
-|[Conda](/formats/conda-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/conda/create) |
-|[Composer](/formats/composer-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/composer/create) |
-|[CRAN](/formats/cran-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/cran/create) |
-|[Dart](/formats/dart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/dart/create) |
-|[Debian](/formats/debian-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/deb/create) |
-|[Docker](/formats/docker-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/docker/create) |
-|[Generic](/formats/generic-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time / Just-in-Time</div>|  [API](/api/repos/upstream/generic/create) |
-|[Golang ](/formats/go-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/go/create) |
-|[Gradle ](/formats/gradle-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/maven/create) |
-|[Helm](/formats/helm-chart-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/helm/create) |
-|[Hex](/formats/hex-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/hex/create) |
-|[Hugging Face](/formats/hugging-face-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/huggingface/create) |
-|[Maven](/formats/maven-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/maven/create) |
-|[npm](/formats/npm-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/npm/create) |
-|[NuGet](/formats/nuget-feed) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/nuget/create) |
-|[Python](/formats/python-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/python/create) |
-|[RedHat](/formats/redhat-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/rpm/create) |
-|[Ruby](/formats/ruby-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Ahead-of-Time</div>|  [API](/api/repos/upstream/ruby/create) |
-|[sbt ](/formats/sbt-repository) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/maven/create) |
-|[Swift](/formats/swift-registry) | ✅ | ✅ | ✅ |<div class="cs-center">Just-in-Time</div>|  [API](/api/repos/upstream/swift/create) |
+| Format                                             | <div class="cs-center">Configurable Proxy</div> | <div class="cs-center">Caching</div> | <div class="cs-center">Indexing</div> | <div class="cs-center">Indexing Type</div> | <div class="cs-center">API Reference</div>              |
+| :------------------------------------------------- | :---------------------------------------------- | :----------------------------------- | :------------------------------------ | :----------------------------------------- | :------------------------------------------------------ |
+| [Alpine](/formats/alpine-repository)               | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/apk/create)                   |
+| [Cargo (Rust)](/formats/cargo-registry)            | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/cargo/create)                 |
+| [Conda](/formats/conda-repository)                 | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/conda/create)                 |
+| [Composer](/formats/composer-repository)           | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/composer/create)              |
+| [CRAN](/formats/cran-repository)                   | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/cran/create)                  |
+| [Dart](/formats/dart-repository)                   | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/dart/create)                  |
+| [Debian](/formats/debian-repository)               | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/deb/create)                   |
+| [Docker](/formats/docker-registry)                 | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Just-in-Time</div>  | [API](/api/repos/upstream/docker/create)                |
+| [Generic](/formats/generic-repository)             | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/generic/create)               |
+| [Golang](/formats/go-registry)                     | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/go/create)                    |
+| [Gradle](/formats/gradle-repository)               | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Just-in-Time</div>  | [API](/api/repos/upstream/maven/create)                 |
+| [Helm](/formats/helm-chart-repository)             | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/helm/create)                  |
+| [Hex](/formats/hex-repository)                     | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/hex/create)                   |
+| [Hugging Face](/formats/hugging-face-repository)   | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/huggingface/create)           |
+| [Maven](/formats/maven-repository)                 | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Just-in-Time</div>  | [API](/api/repos/upstream/maven/create)                 |
+| [npm](/formats/npm-registry)                       | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Just-in-Time</div>  | [API](/api/repos/upstream/npm/create)                   |
+| [NuGet](/formats/nuget-feed)                       | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/nuget/create)                 |
+| [Python](/formats/python-repository)               | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/python/create)                |
+| [RedHat](/formats/redhat-repository)               | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/rpm/create)                   |
+| [Ruby](/formats/ruby-repository)                   | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Ahead-of-Time</div> | [API](/api/repos/upstream/ruby/create)                  |
+| [sbt](/formats/sbt-repository)                     | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Just-in-Time</div>  | [API](/api/repos/upstream/maven/create)                 |
+| [Swift](/formats/swift-registry)                   | ✅                                               | ✅                                    | ✅                                     | <div class="cs-center">Just-in-Time</div>  | [API](/api/repos/upstream/swift/create)                 |
+
 
 <Note variant="note">
   You can can also create and manage upstreams via the [Cloudsmith API](/api).
@@ -126,6 +128,30 @@ This command will return the details about your new configured upstream. Please,
 Click the  "+ Add Upstream Proxy" button, and then select the format you want to create an upstream for:
 
 <BlockImage src={upstream_formats} alt="Create Upstream button"></BlockImage>
+
+#### Create a Alpine Upstream
+
+<BlockImage src={alpine} alt="Create Alpine Upstream"></BlockImage>
+
+
+| Form Field                | Description                                                                                                                                                                                      |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
+| Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
+| Upstream URL              | The URL for this upstream source. For Alpine Linux, use the mirror root (e.g., `https://dl-cdn.alpinelinux.org/alpine/`). For Wolfi, use `https://packages.wolfi.dev/os/`. The distribution type (Alpine or Wolfi) is automatically detected from the domain — you do not need to configure it separately. |
+| Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
+| Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
+| Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommend leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
+| Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible.                                                                                                            |
+| Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
+
+<Note variant="note" headline="Distribution Type Detection">
+Cloudsmith automatically detects whether an upstream is Alpine Linux or Wolfi based on the URL domain. URLs containing `alpinelinux.org` are treated as Alpine Linux; URLs containing `wolfi.dev` are treated as Wolfi. For unrecognized domains, Alpine Linux is assumed by default.
+</Note>
+
+<Note variant="note" headline="Alpine and Wolfi are incompatible">
+Alpine Linux and Wolfi both use the APK package format but are distinct, incompatible distributions. Do not mix Alpine and Wolfi packages in the same Cloudsmith repository — create separate repositories for each distribution.
+</Note>
 
 #### Create a Cargo (Rust) Upstream
 
@@ -311,17 +337,19 @@ Click the  "+ Add Upstream Proxy" button, and then select the format you want to
 | Name                      | A descriptive name for this upstream source. A shortened version of this name will be used for tagging cached packages retrieved from this upstream.                                             |
 | Priority                  | The weighting of the Upstream source. Upstream sources are selected for resolving requests by sequential order (1..n), followed by creation date.                                                |
 | Upstream URL              | The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository.                                                   |
-| Upstream Prefix           | The path prefix to prevent file collisions when using multiple upstreams. All files from this upstream will be grouped under this path (e.g., `node_distributions/`).                            |
+| Upstream Prefix (optional)| Optional path prefix to prevent file collisions when using multiple upstreams. All files from this upstream will be grouped under this path (e.g., `node_distributions/`).                      |
 | Proxy Only                | Proxy requests through to upstream sources in order to match assets that are not present in this repository.                                                                                     |
 | Cache and Proxy           | Proxy the initial request for an asset through to the upstream source and then store (cache) resolved assets in this repository for future requests.                                             |
 | Verify SSL Certificates   | If enabled, SSL certificates are verified when requests are made to this upstream. We recommended leaving this enabled for all public sources to help mitigate Man-In-The-Middle (MITM) attacks. |
 | Authentication (optional) | Optional credentials that can be provided if the upstream is not publicly accessible.                                                                                                            |
 | Headers (optional)        | Optional Key-Value headers that can be passed to upstreams with each request.                                                                                                                    |
 
-**HTML-based upstreams**
+<Note variant="note" headline="HTML-based upstreams">
 Generic upstreams work with simple HTML-based sources. The upstream must consist of simple, unstyled HTML pages with no JavaScript. Each page should contain only links to package files or subdirectories. Examples include Gradle distributions, Apache releases, and Node distributions.
+</Note>
 
 **Authentication requirements**
+
 Some upstream sources require authentication to access packages or interact with their APIs. For example, GitHub package registries require token-based authentication for API access. Review the documentation for your upstream source to determine if credentials are needed and configure them accordingly in the upstream settings.
 
 <Note variant="note" headline="Enterprise Repository Support">

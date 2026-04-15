@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Cloudsmith API",
-    "version": "1.1040.3 (v2)",
+    "version": "1.1104.7 (v2)",
     "description": "The API to the Cloudsmith Service",
     "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
     "contact": {
@@ -17,6 +17,254 @@
     "versionAlias": "v2"
   },
   "paths": {
+    "/packages/{package_slug_perm}/metadata/": {
+      "get": {
+        "operationId": "packages_metadata_list",
+        "description": "API for managing artifact metadata on a package.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "package_slug_perm",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]+$"
+            },
+            "required": true
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "tags": [
+          "packages"
+        ],
+        "security": [
+          {
+            "apikey": []
+          },
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedArtifactMetadataReadList"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "packages_metadata_create",
+        "description": "API for managing artifact metadata on a package.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "package_slug_perm",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]+$"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "packages"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArtifactMetadataWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "apikey": []
+          },
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtifactMetadataWrite"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/packages/{package_slug_perm}/metadata/{slug_perm}/": {
+      "get": {
+        "operationId": "packages_metadata_retrieve",
+        "description": "API for managing artifact metadata on a package.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "package_slug_perm",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]+$"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "slug_perm",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "packages"
+        ],
+        "security": [
+          {
+            "apikey": []
+          },
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtifactMetadataRead"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "operationId": "packages_metadata_partial_update",
+        "description": "API for managing artifact metadata on a package.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "package_slug_perm",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]+$"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "slug_perm",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "packages"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchedArtifactMetadataWrite"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apikey": []
+          },
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtifactMetadataWrite"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "packages_metadata_destroy",
+        "description": "API for managing artifact metadata on a package.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "package_slug_perm",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]+$"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "slug_perm",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "packages"
+        ],
+        "security": [
+          {
+            "apikey": []
+          },
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No response body"
+          }
+        }
+      }
+    },
     "/workspaces/{workspace}/policies/": {
       "get": {
         "operationId": "workspaces_policies_list",
@@ -947,7 +1195,7 @@
               "type": "string",
               "default": "-started_at"
             },
-            "description": "A comma-separated string of fields to sort by. Legal fields are: `started_at`, `ended_at`. Descending order can be expressed by prepending `-` to a field name."
+            "description": "A comma-separated string of fields to sort by. Legal fields are: `started_at`, `ended_at`. Descending order can be expressed by prepending `-` to a field name. Note: `ended_at` sorting is backed by `started_at` internally; the two are equivalent in ordering since policy evaluations are near-instant."
           },
           {
             "in": "query",
@@ -1070,6 +1318,87 @@
           }
         ]
       },
+      "ArtifactMetadataRead": {
+        "type": "object",
+        "description": "Serializer for GET list/retrieve on the effective metadata view.",
+        "properties": {
+          "slug_perm": {
+            "type": "string",
+            "readOnly": true
+          },
+          "content": {
+            "readOnly": true
+          },
+          "content_type": {
+            "type": "string",
+            "readOnly": true
+          },
+          "classification": {
+            "$ref": "#/components/schemas/ClassificationEnum"
+          },
+          "source_kind": {
+            "$ref": "#/components/schemas/SourceKindEnum"
+          },
+          "source_identity": {
+            "type": "string",
+            "readOnly": true
+          },
+          "is_canonical": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "source_table": {
+            "type": "string",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "classification",
+          "content",
+          "content_type",
+          "created_at",
+          "is_canonical",
+          "slug_perm",
+          "source_identity",
+          "source_kind",
+          "source_table"
+        ]
+      },
+      "ArtifactMetadataWrite": {
+        "type": "object",
+        "description": "Serializer for POST create and PATCH update on artifact metadata.",
+        "properties": {
+          "slug_perm": {
+            "type": "string",
+            "readOnly": true,
+            "pattern": "^[-a-zA-Z0-9_]+$"
+          },
+          "content": {
+            "description": "The JSON representation of this metadata."
+          },
+          "content_type": {
+            "type": "string",
+            "description": "A content type string describing the format of the raw data.",
+            "maxLength": 128
+          },
+          "source_identity": {
+            "type": "string",
+            "description": "The identifier context for this metadata (e.g. 'upstream:npmjs').",
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "content",
+          "content_type",
+          "slug_perm",
+          "source_identity"
+        ]
+      },
       "AvailabilityEnum": {
         "enum": [
           "UNAVAILABLE",
@@ -1083,6 +1412,19 @@
         "enum": [
           ""
         ]
+      },
+      "ClassificationEnum": {
+        "enum": [
+          "UNKNOWN",
+          "INTRINSIC",
+          "UPSTREAM",
+          "SECURITY",
+          "PROVENANCE",
+          "SBOM",
+          "GENERIC"
+        ],
+        "type": "string",
+        "description": "* `UNKNOWN` - Unknown\n* `INTRINSIC` - Intrinsic\n* `UPSTREAM` - Upstream\n* `SECURITY` - Security\n* `PROVENANCE` - Provenance\n* `SBOM` - SBOM\n* `GENERIC` - Generic"
       },
       "CountryEnum": {
         "enum": [
@@ -1433,6 +1775,20 @@
         "type": "string",
         "description": "* `BINARY` - Binary\n* `SOURCE` - Source\n* `COMBINED` - Combined\n* `OTHER` - Other"
       },
+      "PaginatedArtifactMetadataReadList": {
+        "type": "object",
+        "required": [
+          "results"
+        ],
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArtifactMetadataRead"
+            }
+          }
+        }
+      },
       "PaginatedPolicyActionList": {
         "type": "object",
         "required": [
@@ -1529,6 +1885,30 @@
             "$ref": "#/components/schemas/PatchedAddPackageTagsPolicyAction"
           }
         ]
+      },
+      "PatchedArtifactMetadataWrite": {
+        "type": "object",
+        "description": "Serializer for POST create and PATCH update on artifact metadata.",
+        "properties": {
+          "slug_perm": {
+            "type": "string",
+            "readOnly": true,
+            "pattern": "^[-a-zA-Z0-9_]+$"
+          },
+          "content": {
+            "description": "The JSON representation of this metadata."
+          },
+          "content_type": {
+            "type": "string",
+            "description": "A content type string describing the format of the raw data.",
+            "maxLength": 128
+          },
+          "source_identity": {
+            "type": "string",
+            "description": "The identifier context for this metadata (e.g. 'upstream:npmjs').",
+            "maxLength": 128
+          }
+        }
       },
       "PatchedPolicy": {
         "type": "object",
@@ -1979,6 +2359,27 @@
         },
         "required": [
           "name"
+        ]
+      },
+      "PolicyArtifactMetadata": {
+        "type": "object",
+        "description": "Minimal read-only serializer for generic metadata entries in policy input.",
+        "properties": {
+          "content": {
+            "readOnly": true
+          },
+          "source_kind": {
+            "$ref": "#/components/schemas/SourceKindEnum"
+          },
+          "source_identity": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "content",
+          "source_identity",
+          "source_kind"
         ]
       },
       "PolicyDecisionLog": {
@@ -2717,6 +3118,73 @@
           "type"
         ]
       },
+      "PolicyIdentity": {
+        "type": "object",
+        "description": "Read-only serializer for Artifact model in policy input context.",
+        "properties": {
+          "purl": {
+            "type": "string",
+            "readOnly": true
+          },
+          "namespace": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "qualifiers": {
+            "readOnly": true
+          },
+          "subpath": {
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "format": {
+            "type": "string"
+          },
+          "checksum_md5": {
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "checksum_sha1": {
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "checksum_sha256": {
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "checksum_sha512": {
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          }
+        },
+        "required": [
+          "checksum_md5",
+          "checksum_sha1",
+          "checksum_sha256",
+          "checksum_sha512",
+          "format",
+          "name",
+          "namespace",
+          "purl",
+          "qualifiers",
+          "subpath",
+          "version"
+        ]
+      },
       "PolicyInput": {
         "type": "object",
         "description": "Serializer for policy input.",
@@ -2742,6 +3210,23 @@
           "workspace": {
             "$ref": "#/components/schemas/PolicyWorkspace"
           },
+          "identity": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicyIdentity"
+              }
+            ],
+            "nullable": true
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyArtifactMetadata"
+            }
+          },
+          "upstream": {
+            "nullable": true
+          },
           "osv": {
             "type": "array",
             "items": {
@@ -2763,6 +3248,7 @@
           }
         },
         "required": [
+          "metadata",
           "osv",
           "package",
           "repository",
@@ -3855,6 +4341,17 @@
         ],
         "type": "string",
         "description": "* `LOW` - LOW\n* `MEDIUM` - MEDIUM\n* `HIGH` - HIGH\n* `CRITICAL` - CRITICAL"
+      },
+      "SourceKindEnum": {
+        "enum": [
+          "UNKNOWN",
+          "SYSTEM",
+          "ECOSYSTEM",
+          "CUSTOMER",
+          "THIRD_PARTY"
+        ],
+        "type": "string",
+        "description": "* `UNKNOWN` - Unknown\n* `SYSTEM` - System\n* `ECOSYSTEM` - Ecosystem\n* `CUSTOMER` - Customer\n* `THIRD_PARTY` - Third Party"
       },
       "StatusEnum": {
         "enum": [

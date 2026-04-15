@@ -45,7 +45,7 @@ docker push docker.cloudsmith.io/<org>/<repo>/alpine:<sha256-checksum>
 
 cosign verify --private-infrastructure=true --key public-ecdsa-key.key docker.cloudsmith.io/<org>/<repo>/alpine:<sha256-checksum>
 ```
-See [Docker Images: Signing and Verifying SBOMd with Cosign](/artifact-management/sbom#docker-images-signing-and-verifying-sboms-with-cosign) for more.
+See [Docker Images: Signing and Verifying SBOMs with Cosign](/artifact-management/sbom#docker-images-signing-and-verifying-sboms-with-cosign) for more.
 
 <Note variant="important" headline="Docker image verification">
 Cloudsmith does not log to Rekor when generating signatures on image upload. When verifying these using `cosign verify` pass `--private-infrastructure=true` to prevent cosign querying the Rekor log.

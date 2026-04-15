@@ -70,7 +70,7 @@ permissions:
 
 ```yaml
 - name: Authenticate with Cloudsmith via OIDC
-  uses: cloudsmith-io/cloudsmith-cli-action@v1.0.3
+  uses: cloudsmith-io/cloudsmith-cli-action@v2
   with:
     oidc-namespace: 'your-workspace' # Your Cloudsmith Workspace
     oidc-service-slug: 'your-service-account-slug' # Your Cloudsmith service account slug
@@ -104,7 +104,7 @@ jobs:
       # This step handles the entire OIDC authentication flow automatically.
       # It gets a token from GitHub and exchanges it for a Cloudsmith token.
       - name: Authenticate with Cloudsmith via OIDC
-        uses: cloudsmith-io/cloudsmith-cli-action@v1.0.3
+        uses: cloudsmith-io/cloudsmith-cli-action@v2
         with:
           oidc-namespace: 'WORKSPACE'             # Replace with your Cloudsmith workspace
           oidc-service-slug: 'SERVICE_ACCOUNT_SLUG' # Replace with your service account slug

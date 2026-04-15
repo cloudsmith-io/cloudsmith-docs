@@ -1,0 +1,118 @@
+import { Note, BlockImage } from '@/components'
+
+import connectedRepoConfig from './images/connected-repository-config.png'
+import connectedRepoConnect from './images/connected-repository-connect.png'
+
+# Connected Repositories
+
+<Note variant="important" headline="Early Access">
+Connected Repositories are in Early Access (EA) and are currently supported for Maven, Docker, Python and NPM. Please contact us if you are interested in trying them.
+</Note>
+
+Connected Repositories allow you to natively link multiple repositories together within a single repository, making packages from all connected repositories available through the repository that the connections are created on.
+
+## How It Works
+
+When a repository has connections, package resolution happens within the context of a single request. There is no redirection between repositories, and packages pushed to any connected repository are immediately visible to consumers of the primary repository.
+
+- Packages are available instantaneously from all connected repositories as soon as they are pushed or updated - no indexing required. This happens because cache invalidation is triggered within the primary repository as soon as a package is pushed or updated in any connected repository.
+- Package resolution happens inside a single request with no redirection, significantly improving performance. Native package management tools receive a flattened blended view of packages from all configured repositories.
+
+## Priority
+
+Each connected repository is assigned an integer priority, which determines the order in which repositories are evaluated during package resolution. This is important when the requested package exists in multiple connected repositories.
+
+Resolution order follows `1..n`, where `1` is the highest priority. When multiple connected repositories share the same priority value, the configuration creation date is used as a tiebreaker.
+
+## Upstream Inheritance
+
+Upstreams configured on connected repositories are automatically available through the primary repository. For example, if Repository A is connected to Repository B, and Repository B has upstreams pointing to PyPI and PyTorch, consumers of Repository A can resolve packages from both upstreams.
+
+Packages fetched from inherited upstreams are cached in the repository where the upstream is configured (i.e., Repository B in this example).
+
+When blending upstreams across connected repositories, relative priorities are dynamically calculated based on the priority of each connection. For example, if Repository A has two connections each with priority `1` on their respective repositories, the upstream from the higher-priority connection will be assigned relative priority `1`, and the upstream from the lower-priority connection will be assigned relative priority `2`.
+
+Packages are always resolved in the following order: 
+  1. Packages within the primary repository. 
+  2. Packages within any of the connected repositories, evaluated in priority order.
+  3. Upstream packages, evaluated in relative priority order (beginning with upstreams defined on the primary repository).
+
+
+## Requirements
+
+To create a connected repository configuration, you must have:
+
+- **Administrator** privileges on the repository you are creating the connection on (the "primary" repository).
+- At least **Read** privileges on the repository you are connecting to.
+
+This mirrors the permission model used for upstreams.
+
+## Supported Formats
+
+| Format | Connected Repositories Support |
+| :----- | :----------------------------- |
+| Maven  | ✅                              |
+| Docker | ✅                              |
+| Python | ✅                              |
+| NPM    | ✅                              |
+
+
+Support for additional formats is planned.
+
+## Configuring Connected Repositories
+
+Connected repositories can be configured via the UI or API.
+
+### Using the UI
+
+Navigate to the Sources tab on the repository you want to configure as the primary repository where you will find the **Connected Repositories** settings.
+<BlockImage src={connectedRepoConfig} alt="Connected Repositories Configuration"></BlockImage>
+
+Select the target repository and assign it a priority to create the connection.
+<BlockImage src={connectedRepoConnect} alt="Connect To A Repository"></BlockImage>
+
+### Using the API
+
+<Note variant="note">
+The Connected Repositories API is currently unlisted from the public OpenAPI specification while the feature is in Early Access. It will be made public in a future release, enabling language binding generation and support in the Cloudsmith CLI and Terraform provider.
+</Note>
+
+The following operations are available:
+
+| Operation | Description |
+| :-------- | :---------- |
+| Create    | Create a new connected repository configuration |
+| List      | List all connected repository configurations for a repository |
+| Update    | Update the priority or target of an existing configuration |
+| Delete    | Remove a connected repository configuration |
+
+## Behavior and Considerations
+
+### Access Control
+
+Connecting Repository A to Repository B gives consumers of Repository A implicit access to view and download packages within Repository B via native tooling.
+
+### Audit Logs
+
+Audit log entries are created when connected repository configurations are created, updated, or deleted.
+
+### Download Attribution
+
+When a package download occurs through the primary repository for a package that belongs to a connected repository, the client log entry is produced for the primary repository. The individual package download count is incremented on the package in the repository where it resides.
+
+<Note variant="note">
+Client logs do not currently indicate that a package was resolved through a connected repository. Work is planned to add connected repository attribution to download logs.
+</Note>
+
+### Package Signatures
+
+Connected repositories do not cache packages. Package signatures are sourced from the repository where the package belongs and are signed using that repository's key. Policies continue to apply to packages within the repository they belong to.
+
+## Current Limitations
+
+The following is a non-exhaustive list of known limitations during Early Access:
+
+- **OSS repositories**: Connected repository configurations cannot be created on OSS repositories, or targeting OSS repositories.
+- **Cross-workspace**: Connected repositories can only be configured between repositories within the same workspace.
+- **Download log attribution**: Client logs do not yet attribute package downloads to connected repositories.
+- **Repository restrictions**: Repository level restrictions such as Geo/IP Rules and EULA enforcement must be defined on the source repository. These restrictions are not inherited from connected repositories.
