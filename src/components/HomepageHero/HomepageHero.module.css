@@ -1,84 +1,32 @@
 .root {
-  background-color: var(--brand-color-grey-0);
   overflow: hidden;
-  height: 518px;
 
   --offset-top: calc(var(--space-xl) + var(--navbar-banner-height) + var(--navbar-top-height));
-  --hero-illustration-overlap: min(20vh, 150px);
+}
+
+.wrapper {
+  background-color: var(--brand-color-grey-10);
+  overflow-x: clip;
 }
 
 .container {
-  width: 100%;
+  width: min(100%, 100vw);
+  max-width: min(var(--container-width-l), 100vw);
   position: relative;
 }
 
-.background {
-  height: 518px;
-  width: 100%;
-  position: absolute;
-  max-width: var(--container-width-l);
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: hidden;
-
-  & > svg {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    max-inline-size: none;
-    max-block-size: none;
-  }
-
-  .topVignette,
-  .bottomVignette {
-    height: 40px;
-  }
-
-  .rightVignette,
-  .leftVignette {
-    width: 40px;
-  }
-
-  .topVignette {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, transparent, var(--brand-color-grey-0));
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .rightVignette {
-    position: absolute;
-    top: 80px;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to right, transparent, var(--brand-color-grey-0));
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .bottomVignette {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to bottom, transparent, var(--brand-color-grey-0));
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .leftVignette {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    background: linear-gradient(to left, transparent, var(--brand-color-grey-0));
-    pointer-events: none;
-    z-index: 1;
-  }
+.backgroundGrid {
+  background-color: var(--brand-color-grey-10);
+  --background-grid-width: 1920px;
+  --grid-color: var(--brand-color-grey-9);
+  --background-grid-height: 518px;
+  --background-grid-max-width: none;
+  --background-grid-vignette-color: var(--brand-color-grey-10);
+  --background-grid-top-vignette-height: 40px;
+  --background-grid-bottom-vignette-height: 40px;
+  --background-grid-left-vignette-width: 40px;
+  --background-grid-right-vignette-width: 40px;
+  --background-grid-right-vignette-top: 80px;
 }
 
 .content {
@@ -86,7 +34,11 @@
   width: 100%;
   max-width: var(--container-width-s);
   padding: var(--offset-top) var(--space-m);
+  box-sizing: border-box;
+  min-width: 0;
   font-family: var(--font-family-body);
+  text-align: center;
+  margin: 0 auto;
 }
 
 .title {
@@ -94,24 +46,45 @@
   font-size: var(--text-headline-l);
   line-height: var(--line-height-compact);
   letter-spacing: -0.0075em;
+  color: var(--color-text-on-color);
 }
 
 .title strong {
   background-clip: text;
-  background: linear-gradient(to right, var(--brand-color-blue-6), var(--brand-color-blue-8));
+  /* TODO: Update tokens to match the Product DS */
+  background: var(
+    --Text-highlight-Blue-light,
+    linear-gradient(90deg, var(--Blue-4, #90b7f6) 0%, var(--Blue-6, #498af6) 100%)
+  );
+  /* background: linear-gradient(to right, var(--brand-color-blue-6), var(--brand-color-blue-8)); */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .description {
   max-width: var(--container-width-xs);
-  margin-bottom: var(--space-s);
-  color: var(--brand-color-grey-8);
+  margin-left: auto;
+  margin-right: auto;
+  /* TODO: Update tokens to match the Product DS */
+  color: var(--Text-secondary, rgba(255, 255, 255, 0.75));
+}
+
+.search {
+  width: 100%;
+  min-width: 0;
+  padding-top: var(--space-m);
+
+  @media (--phablet-up) {
+    max-width: 480px;
+  }
 }
 
 .buttonContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   gap: var(--space-s);
 }
@@ -129,13 +102,10 @@
     width: var(--button-width-m);
   }
 
-  .topVignette,
-  .bottomVignette {
-    height: 80px;
-  }
-
-  .rightVignette,
-  .leftVignette {
-    width: 80px;
+  .backgroundGrid {
+    --background-grid-top-vignette-height: 80px;
+    --background-grid-bottom-vignette-height: 80px;
+    --background-grid-left-vignette-width: 80px;
+    --background-grid-right-vignette-width: 80px;
   }
 }

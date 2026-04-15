@@ -1,3 +1,13 @@
+.main {
+  width: 100%;
+}
+
+@media (--laptop-up) {
+  .main {
+    padding-bottom: var(--footer-overlap-height);
+  }
+}
+
 .section {
   max-width: var(--container-width-l);
   margin: 0 auto;

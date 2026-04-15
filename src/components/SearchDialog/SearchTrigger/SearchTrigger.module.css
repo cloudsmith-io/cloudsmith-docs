@@ -1,0 +1,153 @@
+.root {
+  --search-icon-size: 20px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--space-xs);
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding-block: var(--space-2xs);
+  padding-inline: var(--space-xs);
+  cursor: pointer;
+  border: 0;
+  border: 1px solid var(--search-trigger-border);
+  border-radius: var(--border-radius-s);
+  background-color: var(--search-trigger-background, var(--color-background-light));
+  color: var(--search-trigger-placeholder-color, var(--search-trigger-icon-color, var(--brand-color-grey-8)));
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background-color: var(--search-trigger-background-hover, var(--color-border));
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--brand-color-teal-5);
+    outline-offset: 2px;
+  }
+
+  .icon {
+    flex-shrink: 0;
+    color: currentcolor;
+    width: var(--search-icon-size);
+    height: var(--search-icon-size);
+
+    & path {
+      fill: currentcolor;
+    }
+  }
+
+  .placeholder {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    font-family: var(--font-family-body);
+    font-size: var(--text-body-s);
+    line-height: 1;
+    color: var(--search-trigger-placeholder-color, currentcolor);
+    margin-top: 2px;
+  }
+
+  .kbdHint {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    margin-left: auto;
+
+    & kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-family-body);
+      font-size: var(--text-body-2xs);
+      line-height: 1;
+      height: 20px;
+      padding: 0 var(--space-3xs);
+      border-radius: var(--border-radius-s);
+      border: 1px solid var(--search-trigger-kbd-border);
+      background-color: var(--search-trigger-kbd-background);
+      color: var(--search-trigger-kbd-color);
+    }
+
+    .kbdText {
+      display: inline-block;
+      transform: translateY(1px);
+    }
+  }
+}
+
+.root.compact {
+  justify-content: center;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  background-color: var(--search-trigger-compact-background);
+  border-radius: var(--border-radius-full);
+  border: transparent;
+
+  .placeholder,
+  .kbdHint {
+    display: none;
+  }
+
+  &:hover {
+    background-color: var(
+      --search-trigger-compact-background-hover,
+      var(--search-trigger-background-hover, var(--color-border))
+    );
+    transition: var(--transition-default);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.root.inline {
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.themeLight {
+  --color-border: var(--color-background-light);
+  --search-trigger-background: var(--color-background-light);
+  --search-trigger-background-hover: var(--color-background-light);
+  --search-trigger-compact-background: var(--brand-color-grey-8);
+  --search-trigger-compact-background-hover: var(--color-border);
+  --search-trigger-icon-color: var(--brand-color-grey-8);
+  --search-trigger-border: var(--color-border);
+  --search-trigger-placeholder-color: var(--brand-color-grey-5);
+  --search-trigger-kbd-border: var(--brand-color-grey-3);
+  --search-trigger-kbd-background: transparent;
+  --search-trigger-kbd-color: var(--brand-color-grey-6);
+}
+
+.themeDark {
+  --color-border: var(--brand-color-grey-8);
+  --search-trigger-background: var(--base-color-grey-1000);
+  --search-trigger-background-hover: var(--base-color-grey-1000);
+  --search-trigger-compact-background: var(--brand-color-grey-9);
+  --search-trigger-compact-background-hover: var(--brand-color-grey-8);
+  --search-trigger-icon-color: var(--brand-color-white);
+  --search-trigger-border: var(--color-border);
+  --search-trigger-placeholder-color: var(--brand-color-grey-5);
+  --search-trigger-kbd-border: var(--color-border);
+  --search-trigger-kbd-background: transparent;
+  --search-trigger-kbd-color: var(--brand-color-grey-5);
+}

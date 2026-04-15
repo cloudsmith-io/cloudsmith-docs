@@ -1,0 +1,139 @@
+/* Header */
+.header {
+  display: flex;
+  align-items: stretch; /* add this to ensure full height */
+  padding: 0 var(--space-xs);
+  gap: var(--space-2xs);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-background-header);
+}
+
+.iconWrapper {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  transform: translateY(-1px);
+  color: inherit;
+
+  & path {
+    fill: currentcolor;
+  }
+}
+
+.searchBox {
+  display: flex;
+  flex: 1;
+}
+
+.searchBoxForm {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.searchBoxInput {
+  flex: 1;
+  width: 100%;
+  padding: var(--space-xs) 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  outline: none;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-m);
+  text-overflow: ellipsis;
+  color: var(--color-text-secondary);
+
+  @media (--laptop-up) {
+    font-size: var(--text-body-s);
+  }
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  &[type='search'],
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-decoration {
+    appearance: none;
+  }
+}
+
+.searchBoxSubmit {
+  display: none;
+}
+
+.searchBoxReset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--space-3xs);
+  padding: var(--space-2xs);
+  background: none;
+  border: 0;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+
+  &:hover {
+    color: var(--color-reset-button-hover);
+  }
+}
+
+.resetIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.searchBoxResetHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.searchBoxResetVisible {
+  opacity: 1;
+  pointer-events: auto;
+  outline: none;
+}
+
+.kbdBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-left: auto;
+  height: fit-content;
+  padding-block: var(--space-4xs);
+  padding-inline: var(--space-3xs);
+  background-color: var(--color-background-default);
+  border-radius: var(--border-radius-s);
+  align-self: center;
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-2xs);
+  text-transform: uppercase;
+}
+
+/* Results layout */
+.resultsWrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow-y: auto;
+  height: 100%;
+  scrollbar-color: var(--color-background-default) transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-background-default);
+  }
+
+  @media (--tablet-up) {
+    grid-template-columns: 225px minmax(0, 1fr);
+  }
+}
