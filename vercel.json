@@ -11,6 +11,10 @@
     {
       "source": "/proxy-agent",
       "destination": "https://docs.cloudsmith.com/repositories/upstreams/proxy-agent"
+    },
+    {
+      "source": "/bug-bounty-program",
+      "destination": "https://docs.cloudsmith.com/resources/bug-bounty-program"
     }
   ]
 }
