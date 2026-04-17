@@ -4,9 +4,13 @@ import imgiPad_Pro_1 from './images/audit-logs/4e9356d46f85b38b0939a0b3a5a19fbe4
 
 # Audit Logs
 
-Audit Logs provide a log of events across your organization, such as [creating](/repositories/create-a-repository)/[deleting](/repositories/repository-settings#dangerous-actions) a repository or modifications to repository settings/configuration. 
+Audit logs provide a log of events across your organization, such as [creating](/repositories/create-a-repository)/[deleting](/repositories/repository-settings#dangerous-actions) a repository, or modifications to repository settings/configuration. 
 
 <BlockImage src={imgiPad_Pro} alt="Audit Logs"></BlockImage>
+
+<Note>
+Audit logs are available to customers on Pro, Ultra, and Enterprise plans.
+</Note>
 
 ## Key Concepts
 
@@ -175,3 +179,18 @@ The following events are logged for repository-level actions, including package 
 | Signature Key Created             | `repo.signature_key.created`              | Created a signature key.                           | Repo             |
 | Signature Key Deleted             | `repo.signature_key.deleted`              | Deleted a signature key.                           | Repo             |
 | Signature Key Type Changed        | `repo.signature_key.type_changed`         | Changed the type of a repository signature key.    | Repo             |
+
+
+## Audit Log Retention Period
+
+Cloudsmith retains audit logs for up to 1 year, depending on your plan level.
+
+| **Plan**                          | **Audit log retention period**            |
+| --------------------------------- | ----------------------------------------- |
+| Pro                               | 30 days                                   |
+| Ultra                             | 60 days                                   |
+| Enterprise                        | Custom                                    |
+
+<Note variant="note" headline="Enterprise plans">
+The default audit log retention period for Enterprise plans is 1 year. To update your retention period, please reach out to your customer success manager.
+</Note>
