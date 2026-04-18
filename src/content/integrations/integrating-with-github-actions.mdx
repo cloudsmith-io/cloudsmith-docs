@@ -53,7 +53,7 @@ steps:
       oidc-service-slug: your-service-account-slug
       oidc-auth-only: 'true'
   - name: Validate token
-    run: > 
+    run: >
       curl -H "X-Api-Key: $CLOUDSMITH_API_KEY" https://api.cloudsmith.io/v1/user/self/
 ```
 
