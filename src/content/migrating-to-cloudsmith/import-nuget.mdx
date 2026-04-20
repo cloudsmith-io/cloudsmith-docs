@@ -11,7 +11,7 @@ A folder of NuGet packages, in the .nupkg format, can be published to Cloudsmith
 ```powershell
 # Script to upload all package in a directory into a Cloudsmith repo, using the Cloudsmith CLI
 
-$SourceFolder = '/your/full/path/to/folder/conatining/nupkgs/here'
+$SourceFolder = '/your/full/path/to/folder/containing/nupkgs/here'
 $TargetRepo = 'YOUR_CLOUDSMITH_ORG/YOUR_CLOUDSMITH_REPO'
 
 Get-ChildItem -Path $SourceFolder -Filter '*.nupkg'|
@@ -26,7 +26,7 @@ Get-ChildItem -Path $SourceFolder -Filter '*.nupkg'|
 
 # How to use:
 # Save this bash script as 'migrate_nuget_to_cs.sh' and give it execute privileges
-# this script tackes in 3 parameters from the command line:
+# this script takes in 3 parameters from the command line:
 # $1: '<YOUR_CLOUDSMITH_ORG>/<YOUR_CLOUDSMITH_REPO>' 
 # $2: '</YOUR/FULL/PATH/TO/FOLDER/CONTAINING/NUPKGS/HERE>'
 # $3: '<CLOUDSMITH_API_TOKEN>'
