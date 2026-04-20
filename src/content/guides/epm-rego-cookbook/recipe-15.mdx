@@ -52,7 +52,7 @@ pip download requests==2.6.0
 cloudsmith push python WORKSPACE/REPO requests-2.6.0-py2.py3-none-any.whl \-k "API_KEY"
 ```
 
-### Business value from this polic
+### Business value from this policy
   
 Building policies based on specific deny lists of CVEs delivers targeted risk management, faster response times, and stronger compliance. Unlike broad vulnerability rules that might block packages unnecessarily, a CVE-specific approach enforces a surgical block on only those vulnerabilities that have been explicitly identified as critical to your environment. For example, the requests package version 2.6.0 contains CVE-2018-18074, which is a documented flaw with known security implications. By adding this CVE (and others) to a deny list, you ensure that packages containing these vulnerabilities, and those vulnerabilities only, are correctly quarantined automatically during synchronization, without relying on manual review or broad, catch-all criteria that can slow development. This approach allows security teams to react quickly to new threats, by simply adding the CVE to the list, rather than relying on assessing the CVSS scores. As always, the policy blocks it instantly, preventing risky packages from ever entering the supply chain.
 

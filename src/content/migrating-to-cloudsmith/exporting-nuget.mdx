@@ -10,7 +10,7 @@ Before continuing, you must **disable your upstreams**- otherwise, this powershe
 $credential = New-Object PSCredential('token',$(ConvertTo-SecureString '<TOKEN>' -AsPlainText -Force))
 $SOURCE_REPOSITORY = <SOURCE_REPOSITORY_NAME>
 $NUGET_V2_SOURCE_REPOSITORY_FEED_URL = <NUGET_V2_SOURCE_REPOSITORY_FEED_URL>
-$DESTINATION_DIR = <PATH_TO_DESTINSTION_FOLDER>
+$DESTINATION_DIR = <PATH_TO_DESTINATION_FOLDER>
 
 Register-PackageSource -Name $SOURCE_REPOSITORY -Location $NUGET_V2_SOURCE_REPOSITORY_FEED_URL -Trusted -Credential $credential -ProviderName NuGet
 
@@ -27,7 +27,7 @@ Some issues:
 $credential = New-Object PSCredential('token',$(ConvertTo-SecureString '<TOKEN>' -AsPlainText -Force))
 $SOURCE_REPOSITORY = <SOURCE_REPOSITORY_NAME>
 $NUGET_V2_SOURCE_REPOSITORY_FEED_URL = <NUGET_V2_SOURCE_REPOSITORY_FEED_URL>
-$DESTINATION_DIR = <PATH_TO_DESTINSTION_FOLDER>
+$DESTINATION_DIR = <PATH_TO_DESTINATION_FOLDER>
 
 Register-PSRepository -Name $SOURCE_REPOSITORY -SourceLocation $NUGET_V2_SOURCE_REPOSITORY_FEED_URL -InstallationPolicy 'trusted' -Credential $credential
 
