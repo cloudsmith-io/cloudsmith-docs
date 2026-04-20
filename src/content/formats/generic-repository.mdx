@@ -268,26 +268,26 @@ The upstream prefix (`node_distributions`) ensures files from Node.js don't coll
 This example demonstrates how upstream URLs, prefixes, and file paths are applied when working with GitHub Releases.
 
 **Upstream configuration:**
-- **Upstream URL**: `https://api.github.com/repos/<owner>/<repo>/releases`
+- **Upstream URL**: `https://api.github.com/repos/cloudsmith-io/cloudsmith-cli/releases`
 - **Upstream Prefix**: `github_releases`
 
 **How paths are resolved:**
 
 The upstream URL includes the base path (`/releases/`), so file paths are relative to that location. 
-To download `https://github.com/aquasecurity/trivy/releases/download/v0.69.3/trivy_0.69.3_Linux-ARM64.tar.gz`, request the path `v0.69.3/trivy_0.69.3_Linux-ARM64.tar.gz` from Cloudsmith:
+To download `https://github.com/cloudsmith-io/cloudsmith-cli/releases/download/v1.16.0/cloudsmith.pyz`, request the path `download/v1.16.0/cloudsmith.pyz` from Cloudsmith:
 
 | Component | Value |
 | :-------- | :---- |
-| Upstream URL | `https://api.github.com/repos/aquasecurity/trivy/releases` |
-| File path on upstream | `v0.69.3/trivy_0.69.3_Linux-ARM64.tar.gz` |
-| Full upstream URL | `https://api.github.com/repos/aquasecurity/trivy/releases/v0.69.3/trivy_0.69.3_Linux-ARM64.tar.gz` |
+| Upstream URL | `https://api.github.com/repos/cloudsmith-io/cloudsmith-cli/releases` |
+| File path on upstream | `download/v1.16.0/cloudsmith.pyz` |
+| Full upstream URL | `https://api.github.com/repos/cloudsmith-io/cloudsmith-cli/releases/download/v1.16.0/cloudsmith.pyz` |
 | Upstream prefix | `github_releases` |
-| Cloudsmith URL | `https://generic.cloudsmith.io/OWNER/REPOSITORY/github_releases/v0.69.3/trivy_0.69.3_Linux-ARM64.tar.gz` |
+| Cloudsmith URL | `https://generic.cloudsmith.io/OWNER/REPOSITORY/github_releases/download/v1.16.0/cloudsmith.pyz` |
 
 **Download command:**
 
 ```shell
-curl -sLf -O 'https://generic.cloudsmith.io/OWNER/REPOSITORY/github_releases/v0.69.3/trivy_0.69.3_Linux-ARM64.tar.gz'
+curl -sLf -O 'https://generic.cloudsmith.io/OWNER/REPOSITORY/github_releases/download/v1.16.0/cloudsmith.pyz'
 ```
 
 ### Upstream Priority
