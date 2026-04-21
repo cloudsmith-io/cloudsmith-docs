@@ -49,7 +49,7 @@ Although Slack consumes JSON, the format of a Cloudsmith webhook payload differs
       "fallback": "{{ data.filename }} version {{ data.version }} by {{ data.uploader }}",
       "text": "{{ data.summary }}",
       "title": "{{ data.filename }}",
-      "title_link": "{{ data.self_html_url }}",
+      "title_link": "{{ data.self_webapp_url }}",
       "mrkdwn_in": ["fields"],
       "color": "good",
       "fields": [

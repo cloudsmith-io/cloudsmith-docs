@@ -189,7 +189,7 @@ Now, for the fun part, to meet her requirements Sheila writes out the following 
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "The <{{data.self_html_url}}|{{data.name}}{{#if (truth data.version)}} ({{data.version}}){{/if}}> {{data.format}} package is ready for download."
+        "text": "The <{{data.self_webapp_url}}|{{data.name}}{{#if (truth data.version)}} ({{data.version}}){{/if}}> {{data.format}} package is ready for download."
       }
     },
     {{#each data.tags.info}}
@@ -323,7 +323,7 @@ An example of a `Package` payload, sent for webhooks emitted by packages:
     "release": null,
     "repository": "testo2",
     "repository_url": "https://api.cloudsmith.io/repos/my-org/my-repo/",
-    "self_html_url": "https://app.cloudsmith.com/~my-org/repos/my-repo/packages/detail/my-package/",
+    "self_webapp_url": "https://app.cloudsmith.com/~my-org/repos/my-repo/packages/detail/my-package/",
     "self_url": "https://api.cloudsmith.io/packages/my-org/my-repo/xKYgfsOsboz6/",
     "size": 2204,
     "slug": "my-package",
