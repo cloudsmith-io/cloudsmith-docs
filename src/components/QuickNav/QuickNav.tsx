@@ -1,20 +1,61 @@
 'use client';
 
-import { quickNavContentId } from '@/lib/constants/quickNav';
 import { useEffect, useState } from 'react';
+
+import { cx } from 'class-variance-authority';
+import { usePathname } from 'next/navigation';
+
+import { quickNavContentSelector } from '@/lib/constants/quickNav';
+
 import styles from './QuickNav.module.css';
 import { useHeadingsObserver } from './useHeadingsObserver';
-import { cx } from 'class-variance-authority';
 
 const headingsToObserve = ':scope > :is(h2, h3, h4, h5, h6):not([data-quick-nav-ignore])';
 
+export const scrollToHashTarget = (hash = window.location.hash) => {
+  const normalizedHash = hash.replace(/^#/, '');
+  if (!normalizedHash) return false;
+
+  let targetId = normalizedHash;
+  try {
+    targetId = decodeURIComponent(normalizedHash);
+  } catch {
+    targetId = normalizedHash;
+  }
+
+  const target = document.getElementById(targetId);
+  if (!target) return false;
+
+  target.scrollIntoView({ block: 'start' });
+  return true;
+};
+
 export const QuickNav = () => {
+  const pathname = usePathname();
   const [headings, setHeadings] = useState<Array<HeadingList>>([]);
-  const activeHeadline = useHeadingsObserver(quickNavContentId, headingsToObserve, '-5% 0px -50% 0px', 1);
+  const activeHeadline = useHeadingsObserver(
+    quickNavContentSelector,
+    headingsToObserve,
+    '-5% 0px -50% 0px',
+    1,
+  );
 
   useEffect(() => {
-    const contentArea = document.getElementById(quickNavContentId);
-    if (!contentArea) return;
+    if (!headings.length) return;
+
+    const queueHashScroll = () => window.requestAnimationFrame(() => scrollToHashTarget());
+
+    queueHashScroll();
+    window.addEventListener('hashchange', queueHashScroll);
+
+    return () => {
+      window.removeEventListener('hashchange', queueHashScroll);
+    };
+  }, [headings.length, pathname]);
+
+  useEffect(() => {
+    const contentArea = document.querySelector(quickNavContentSelector);
+    if (!(contentArea instanceof HTMLElement)) return;
 
     // Get all headings
     const headingElements = contentArea.querySelectorAll(headingsToObserve);

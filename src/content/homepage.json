@@ -1,24 +1,7 @@
 {
   "hero": {
     "title": "Cloudsmith <br/> <strong>Documentation</strong>",
-    "description": "Cloudsmith is a fully-managed artifact management, software supply chain security, and software distribution platform. ",
-    "buttons": [
-      {
-        "label": "Documentation",
-        "href": "/about-cloudsmith",
-        "icon": "action/documentation"
-      },
-      {
-        "label": "Guides",
-        "href": "/guides/getting-started",
-        "icon": "utility/guide"
-      },
-      {
-        "label": "API Reference",
-        "href": "/api",
-        "icon": "action/api"
-      }
-    ]
+    "description": "Cloudsmith is a fully-managed artifact management, software supply chain security, and software distribution platform. "
   },
   "sections": [
     {
@@ -109,7 +92,7 @@
         },
         {
           "title": "Creating teams",
-          "description": "Grouping member and services togehter as teams gives you another layer of control. Here's how to manage teams.",
+          "description": "Grouping members and services together as teams gives you another layer of control. Here's how to manage teams.",
           "href": "/accounts-and-teams/teams",
           "linkText": "Read the doc",
           "icon": "homepage/guide",

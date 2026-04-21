@@ -4,11 +4,10 @@
 }
 
 .secondaryNav {
-  position: sticky;
-  top: calc(var(--navbar-banner-height) + var(--navbar-top-height));
-  z-index: var(--layer-navigation);
   background-color: var(--base-color-grey-1000);
+}
 
+.secondaryNavInner {
   &::-webkit-scrollbar {
     display: none;
   }
@@ -17,23 +16,41 @@
   -ms-overflow-style: none;
 }
 
-@media (--phablet-up) {
-  .secondaryNav {
-    top: var(--navbar-height);
-  }
-}
-
 @media (--laptop-up) {
   .root {
     display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    position: relative;
+    min-height: calc(100vh - var(--navbar-height));
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: var(--sidebar-width);
+      width: 1px;
+      background-color: var(--brand-color-grey-2);
+      pointer-events: none;
+    }
   }
 
   .secondaryNav {
+    position: sticky;
+    top: var(--navbar-height);
     z-index: 0;
     flex: 0 0 var(--sidebar-width);
+    align-self: flex-start;
+    height: fit-content;
     background-color: transparent;
-    height: calc(100vh - var(--navbar-height));
+  }
+
+  .secondaryNavInner {
+    box-sizing: border-box;
+    max-height: calc(100vh - var(--navbar-height));
+    padding-bottom: var(--footer-overlap-height);
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .main {
@@ -43,6 +60,11 @@
 
     /* Make sure that pre tags don't expand the tags */
     min-width: 0;
+  }
+
+  .footerSpacer {
+    flex: 0 0 100%;
+    height: var(--footer-overlap-height);
   }
 }
 

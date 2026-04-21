@@ -1,8 +1,10 @@
-import { Card, Flex, HomepageHero, Container } from '@/components';
-import { HomepageContent, Section, Card as CardType } from '@/lib/types';
 import { cx } from 'class-variance-authority';
-import styles from './page.module.css';
+
+import { Card, Container, Flex, HomepageHero } from '@/components';
 import content from '@/content/homepage.json';
+import { Card as CardType, HomepageContent, Section } from '@/lib/types';
+
+import styles from './page.module.css';
 
 export default function Page() {
   const typedContent = content as HomepageContent;
@@ -42,7 +44,7 @@ export default function Page() {
   };
 
   return (
-    <>
+    <main className={styles.main}>
       {typedContent.hero && (
         <HomepageHero
           title={typedContent.hero.title}
@@ -52,6 +54,6 @@ export default function Page() {
       )}
 
       {typedContent.sections?.map((section, index) => renderSection(section, index))}
-    </>
+    </main>
   );
 }

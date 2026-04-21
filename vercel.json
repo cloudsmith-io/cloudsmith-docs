@@ -2,15 +2,23 @@
   "redirects": [
     {
       "source": "/tbc/upstream-proxying-and-caching",
-      "destination": "https://docs.cloudsmith.com/repositories/upstreams"
+      "destination": "https://docs.cloudsmith.com/repositories/upstreams",
+      "permanent": true
     },
     {
       "source": "/supply-chain-security/malware-scanning",
-      "destination": "https://docs.cloudsmith.com/supply-chain-security/malware-detection"
+      "destination": "https://docs.cloudsmith.com/supply-chain-security/malware-detection",
+      "permanent": true
     },
     {
       "source": "/proxy-agent",
-      "destination": "https://docs.cloudsmith.com/repositories/upstreams/proxy-agent"
+      "destination": "https://docs.cloudsmith.com/repositories/upstreams/proxy-agent",
+      "permanent": true
+    },
+    {
+      "source": "/bug-bounty-program",
+      "destination": "https://docs.cloudsmith.com/resources/bug-bounty-program",
+      "permanent": true
     }
   ]
 }

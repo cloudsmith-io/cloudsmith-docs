@@ -46,7 +46,7 @@ release_names=$(ls $repo_name)
 
 # loop through release names and upload to cloudsmith
 for release in $release_names; do
-    # create a new veriable for release name and replace dot with slash
+    # create a new variable for release name and replace dot with slash
     release_name=$(echo $release | sed 's/\./\//g')
     
     # get all .rpm files in release and upload to cloudsmith

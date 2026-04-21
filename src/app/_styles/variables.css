@@ -160,6 +160,7 @@
     /* Border */
     --color-border: var(--brand-color-grey-3);
     --color-border-tabs: var(--base-color-blue-500);
+    --color-grid-line-default: var(--brand-color-grey-2);
 
     /* Accent */
     --color-accent-default: var(--base-color-blue-500);
@@ -291,18 +292,29 @@
 
     /* Specific measurements */
     --navbar-banner-height: 0px; /* Will be set by LegacySiteBanner. Remove when banner is removed.*/
-    --navbar-top-height: 67px;
-    --navbar-bottom-height: 50px;
+    --navbar-top-height: 60px;
+    --navbar-border-height: 0px;
+    --navbar-bottom-height: 0px;
+    --footer-overlap-height: 0px;
     --navbar-height: calc(
-      var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-bottom-height)
+      var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height) +
+        var(--navbar-bottom-height)
     );
 
     @media (--phablet-up) {
-      --navbar-top-height: 80px;
       --container-margin-home: var(--space-l);
     }
 
+    @media (--tablet-up) {
+      --navbar-top-height: 80px;
+    }
+
     @media (--laptop-up) {
+      --navbar-top-height: 90px;
+      --navbar-bottom-height: 50px;
+      --footer-overlap-height: calc(
+        (var(--space-m) * 2) + (var(--text-body-s) * var(--line-height-normal)) + 1px
+      );
       --container-margin-home: var(--space-2xl);
     }
 

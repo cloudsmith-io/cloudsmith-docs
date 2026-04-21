@@ -201,7 +201,7 @@ To upload via the Cloudsmith CLI (or via API), you'll need to generate your pack
 swift package archive-source
 ```
 
-This will generate a zip file named `Alamofire.zip` that you can upload. Use the previous command to upload your new swift package via the Cloudsmith CLI and rememver to use a different version number (for example `5.9.2`):
+This will generate a zip file named `Alamofire.zip` that you can upload. Use the previous command to upload your new swift package via the Cloudsmith CLI and remember to use a different version number (for example `5.9.2`):
 
 ```shell
 cloudsmith push swift WORKSPACE/REPOSITORY PACKAGE_NAME.zip --name PACKAGE_NAME --version VERSION --scope SCOPE
@@ -276,7 +276,7 @@ After this, use the `--replace-scm-with-registry` flag to prioritize fetching fr
 swift package --replace-scm-with-registry resolve
 ```
 
-You will see output indicating that Swift is downloading `alamofire.alamofire` directly from your Cloudsmith registry. You should see the following printed out when resolving dependancies
+You will see output indicating that Swift is downloading `alamofire.alamofire` directly from your Cloudsmith registry. You should see the following printed out when resolving dependencies:
 
 ```
 Computing version for alamofire.alamofire

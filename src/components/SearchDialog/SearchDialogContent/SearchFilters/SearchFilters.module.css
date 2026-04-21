@@ -1,0 +1,72 @@
+.groups {
+  display: none;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  width: 100%;
+  min-width: 0;
+  overflow-y: auto;
+  height: 100%;
+  padding: var(--space-s) var(--space-s) 0 0;
+  border-right: 1px solid var(--color-border);
+
+  @media (--tablet-up) {
+    display: block;
+  }
+}
+
+.groupList {
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.groupItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+  width: 100%;
+  padding: var(--space-2xs) var(--space-xs);
+  background: transparent;
+  border: 0;
+  border-radius: var(--border-radius-s);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-xs);
+  text-align: left;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-text-default);
+    outline: none;
+  }
+}
+
+.groupItemLabel {
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: center;
+  min-width: 0;
+  font-size: var(--text-body-s);
+  line-height: var(--line-height-tight);
+}
+
+.groupItemIcon {
+  display: block;
+  flex-shrink: 0;
+  width: var(--search-icon-size);
+  height: var(--search-icon-size);
+  color: inherit;
+
+  & path {
+    fill: currentcolor;
+  }
+}
+
+.groupItemCount {
+  color: inherit;
+}

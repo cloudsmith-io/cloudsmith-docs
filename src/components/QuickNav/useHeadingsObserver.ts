@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const useHeadingsObserver = (
-  scopeId: string,
+  scopeSelector: string,
   querySelector: string,
   rootMargin: string,
   threshold: number,
@@ -24,8 +24,8 @@ export const useHeadingsObserver = (
         threshold: threshold,
       });
 
-      const observerArea = document.getElementById(scopeId);
-      if (!observerArea) return;
+      const observerArea = document.querySelector(scopeSelector);
+      if (!(observerArea instanceof HTMLElement)) return;
       const elements = observerArea.querySelectorAll(querySelector);
 
       elements.forEach((elem) => {
@@ -38,7 +38,7 @@ export const useHeadingsObserver = (
     return () => {
       observerRef.current?.disconnect();
     };
-  }, [querySelector, rootMargin, threshold, scopeId]);
+  }, [querySelector, rootMargin, threshold, scopeSelector]);
 
   return activeHeadline;
 };

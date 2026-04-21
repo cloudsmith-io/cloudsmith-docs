@@ -1,14 +1,18 @@
-import * as motion from 'motion/react-client';
 import React from 'react';
-import { Container } from '../Container';
 
+import { Container } from '../Container';
 import styles from './AppShell.module.css';
 
 export const AppShell = ({ children, secondaryNav }: AppShellProps) => {
   return (
     <Container className={styles.root}>
-      {secondaryNav && <motion.aside className={styles.secondaryNav}>{secondaryNav}</motion.aside>}
+      {secondaryNav && (
+        <aside className={styles.secondaryNav}>
+          <div className={styles.secondaryNavInner}>{secondaryNav}</div>
+        </aside>
+      )}
       <div className={styles.main}>{children}</div>
+      <div className={styles.footerSpacer} aria-hidden="true" />
     </Container>
   );
 };

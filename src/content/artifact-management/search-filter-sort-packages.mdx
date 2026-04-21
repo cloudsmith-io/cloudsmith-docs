@@ -69,7 +69,7 @@ Please note, when you use a query like `uploaded: >'1 month ago'`, that becomes 
 `>=` -  for versions greater / equal.  (Example: `>=1.2.3`)  
 `<`   -  for versions less than.  (Example: `<1.2.3`)  
 `<=` -  for versions less / equal.  (Example: `<=1.2.3`)  
-`~=` -  for versions greater than or equal to, upto the next incompatible version. (Example: `~=1.2.0`)
+`~=` -  for versions greater than or equal to, up to the next incompatible version. (Example: `~=1.2.0`)
 
 <Note variant="note">
   Remember: You can use any combination of `AND`, `OR` and `NOT`. You can use parentheses to group terms if required, as `AND` has a higher precedence than `OR`, and it may change the meaning of queries without it.
@@ -96,7 +96,7 @@ To bring the query down, we added the following parts:
 
 - `name:^AlphaLib$` - Find a package name that is **exactly** "AlphaLib". Without the `^` (starts-with) and `$` (ends-with), the query would be fuzzy, and potentially find packages called "AlphaLib2" or "FreeAlphaLib" too.
 - `AND` - We want to search for both the name and version together. Both must match for the results.
-- `version:~=1.0` - Find package versions that are at-least 1.0, upto the next incompatible version (2.0).
+- `version:~=1.0` - Find package versions that are at-least 1.0, up to the next incompatible version (2.0).
 
 ## Searching Packages via the Cloudsmith web app
 

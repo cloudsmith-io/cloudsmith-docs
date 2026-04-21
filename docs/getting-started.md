@@ -2,8 +2,8 @@
 
 The Cloudsmith documentation website is a static website created with Next.js using two different types of content:
 
-- Text content written in Markdown (`.mdx`) inside of the [`src/content`](./src/content) folder.
-- The API reference is generated from a OpenApi definition file stored in the [`src/content/schemas`](./src/content/schemas) folder
+- Text content written in Markdown (`.mdx`) inside of the [`src/content`](/src/content) folder.
+- The API reference is generated from a OpenApi definition file stored in the [`src/content/schemas`](/src/content/schemas) folder
 
 The path of the `.mdx` file will determine the slug in the URL, e.g. `src/content/my-folder/my-file.mdx` will be available as `docs.cloudsmith.com/my-folder/my-file`.
 
@@ -13,7 +13,7 @@ In order to make changes to the website, you will need to run the website locall
 
 Follow these steps to get a local development setup going:
 
-1. Make sure you are running the Node.js version that is specified in the [`.nvmrc`](./nvmrc) file. When this text was written, the version is `22.12.0`.
+1. Make sure you are running the Node.js version that is specified in the [`.nvmrc`](/.nvmrc) file. When this text was written, the version is `22.12.0`.
 2. Clone down the repo into your computer using the following command: `git clone git@github.com:cloudsmith-io/cloudsmith-docs.git`.
 3. Run `cd cloudsmith-docs` to move into the project folder
 4. Run `npm i` to install the dependencies

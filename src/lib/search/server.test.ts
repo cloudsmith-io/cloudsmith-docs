@@ -6,7 +6,7 @@ describe('lib', () => {
       test('does not return content of file', async () => {
         const results = await performSearch('Formats');
         const res = results[0];
-        expect(res?.content).toBeUndefined();
+        expect('content' in (res || {})).toBe(false);
       });
 
       test('searches content across all sections', async () => {

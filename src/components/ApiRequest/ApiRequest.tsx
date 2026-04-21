@@ -24,7 +24,7 @@ export const ApiRequest = ({
 
   return (
     <>
-      <div className={styles.request}>
+      <div className={styles.request} data-api-method={operation.method}>
         <div className={styles.sandbox}>
           <ClipboardCopy textToCopy={url} className={styles.urlCopy}>
             <Tag className={styles.method} method={operation.method} />

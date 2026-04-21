@@ -9,6 +9,7 @@
   /* Make sure that pre tags don't expand the tags */
   min-width: 0;
   margin-top: var(--space-xs);
+  scroll-margin-top: calc(var(--space-xl) + var(--navbar-height));
 }
 
 .nav {
@@ -21,10 +22,9 @@
 }
 
 /*
-  Offset anchors to all headings inside main, so they are not hidden by the navbar.
-  This is done by adding the navbar height to the top of the anchor.
+  Offset anchors so hash links are not hidden by the navbar.
 */
-.content :is(h2, h3, h4, h5, h6) {
+.content :is(h1, h2, h3, h4, h5, h6) {
   scroll-margin-top: calc(var(--space-l) + var(--navbar-height));
 }
 
