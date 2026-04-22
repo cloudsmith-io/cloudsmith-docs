@@ -8416,6 +8416,79 @@
         }
       ]
     },
+    "/packages/{owner}/{repo}/upload/mcp/": {
+      "post": {
+        "operationId": "packages_upload_mcp",
+        "summary": "Create a new MCP package",
+        "description": "Create a new MCP package",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/McpPackageUploadRequest"
+        },
+        "responses": {
+          "201": {
+            "description": "Upload acknowledged and queued for synchronization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/McpPackageUpload"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Namespace (owner) or repository not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "packages"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "repo",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/packages/{owner}/{repo}/upload/npm/": {
       "post": {
         "operationId": "packages_upload_npm",
@@ -10341,6 +10414,72 @@
         }
       ]
     },
+    "/packages/{owner}/{repo}/validate-upload/mcp/": {
+      "post": {
+        "operationId": "packages_validate-upload_mcp",
+        "summary": "Validate parameters for create MCP package",
+        "description": "Validate parameters for create MCP package",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/McpPackageUploadRequest"
+        },
+        "responses": {
+          "204": {
+            "description": "Validation was successful, parameters are OK."
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Namespace (owner) or repository not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "packages"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "repo",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "/packages/{owner}/{repo}/validate-upload/npm/": {
       "post": {
         "operationId": "packages_validate-upload_npm",
@@ -12076,6 +12215,150 @@
         ]
       },
       "parameters": []
+    },
+    "/recycle-bin/{owner}/": {
+      "get": {
+        "operationId": "recycle-bin_list",
+        "summary": "List soft-deleted packages in recycle bin",
+        "description": "Retrieve all soft-deleted packages in the workspace. Optionally filter by repository using the 'repository' query parameter.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "repository",
+            "in": "query",
+            "description": "Filter packages by repository slug",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RecycleBinPackage"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "recycle-bin"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/recycle-bin/{owner}/action/": {
+      "post": {
+        "operationId": "recycle-bin_recycle_bin_action",
+        "description": "Perform actions on soft-deleted packages in the recycle bin. Supported actions: permanently delete (hard delete), restore. Returns a list of successfully actioned packages and any packages that failed with error details. ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageRecycleBin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageBulkActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request could not be processed (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing or invalid parameters (see detail).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "recycle-bin"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "owner",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     },
     "/repos/": {
       "get": {
@@ -21723,6 +22006,15 @@
           }
         }
       },
+      "McpPackageUploadRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/McpPackageUploadRequest"
+            }
+          }
+        }
+      },
       "HuggingfacePackageUploadRequest": {
         "content": {
           "application/json": {
@@ -22691,7 +22983,8 @@
           "access_private_broadcasts": {
             "title": "Access private broadcasts",
             "description": "If enabled, this token can be used for private broadcasts",
-            "type": "boolean"
+            "type": "boolean",
+            "readOnly": true
           },
           "clients": {
             "title": "Clients",
@@ -22969,11 +23262,6 @@
         ],
         "type": "object",
         "properties": {
-          "access_private_broadcasts": {
-            "title": "Access private broadcasts",
-            "description": "If enabled, this token can be used for private broadcasts",
-            "type": "boolean"
-          },
           "eula_required": {
             "title": "Eula required",
             "description": "If checked, a EULA acceptance is required for this token.",
@@ -23124,11 +23412,6 @@
       "RepositoryTokenRequestPatch": {
         "type": "object",
         "properties": {
-          "access_private_broadcasts": {
-            "title": "Access private broadcasts",
-            "description": "If enabled, this token can be used for private broadcasts",
-            "type": "boolean"
-          },
           "eula_required": {
             "title": "Eula required",
             "description": "If checked, a EULA acceptance is required for this token.",
@@ -23256,11 +23539,6 @@
       "RepositoryTokenRefreshRequest": {
         "type": "object",
         "properties": {
-          "access_private_broadcasts": {
-            "title": "Access private broadcasts",
-            "description": "If enabled, this token can be used for private broadcasts",
-            "type": "boolean"
-          },
           "eula_required": {
             "title": "Eula required",
             "description": "If checked, a EULA acceptance is required for this token.",
@@ -23382,7 +23660,8 @@
           "access_private_broadcasts": {
             "title": "Access private broadcasts",
             "description": "If enabled, this token can be used for private broadcasts",
-            "type": "boolean"
+            "type": "boolean",
+            "readOnly": true
           },
           "clients": {
             "title": "Clients",
@@ -37170,6 +37449,588 @@
           }
         }
       },
+      "McpPackageUploadRequest": {
+        "required": [
+          "package_file"
+        ],
+        "type": "object",
+        "properties": {
+          "package_file": {
+            "title": "Package file",
+            "description": "The primary file for the package.",
+            "type": "string",
+            "minLength": 1
+          },
+          "republish": {
+            "title": "Republish",
+            "description": "If true, the uploaded package will overwrite any others with the same attributes (e.g. same version); otherwise, it will be flagged as a duplicate.",
+            "type": "boolean"
+          },
+          "tags": {
+            "title": "Tags",
+            "description": "A comma-separated values list of tags to add to the package.",
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "nullable": true
+          },
+          "version": {
+            "title": "Version",
+            "description": "The raw version for this package.",
+            "type": "string",
+            "maxLength": 255,
+            "nullable": true
+          }
+        }
+      },
+      "McpPackageUpload": {
+        "type": "object",
+        "properties": {
+          "architectures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Architecture"
+            },
+            "readOnly": true
+          },
+          "cdn_url": {
+            "title": "Cdn url",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "checksum_md5": {
+            "title": "Checksum md5",
+            "type": "string",
+            "readOnly": true
+          },
+          "checksum_sha1": {
+            "title": "Checksum sha1",
+            "type": "string",
+            "readOnly": true
+          },
+          "checksum_sha256": {
+            "title": "Checksum sha256",
+            "type": "string",
+            "readOnly": true
+          },
+          "checksum_sha512": {
+            "title": "Checksum sha512",
+            "type": "string",
+            "readOnly": true
+          },
+          "dependencies_checksum_md5": {
+            "title": "Dependencies checksum md5",
+            "description": "A checksum of all of the package's dependencies.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "dependencies_url": {
+            "title": "Dependencies url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "description": {
+            "title": "Description",
+            "description": "A textual description of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "display_name": {
+            "title": "Display name",
+            "type": "string",
+            "readOnly": true
+          },
+          "distro": {
+            "$ref": "#/components/schemas/Distribution"
+          },
+          "distro_version": {
+            "$ref": "#/components/schemas/DistributionVersion"
+          },
+          "downloads": {
+            "title": "Downloads",
+            "type": "integer",
+            "readOnly": true
+          },
+          "epoch": {
+            "title": "Epoch",
+            "description": "The epoch of the package version (if any).",
+            "type": "integer",
+            "readOnly": true,
+            "nullable": true
+          },
+          "extension": {
+            "title": "Extension",
+            "type": "string",
+            "readOnly": true
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageFile"
+            },
+            "readOnly": true
+          },
+          "format": {
+            "title": "Format",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "format_url": {
+            "title": "Format url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "freeable_storage": {
+            "title": "Freeable storage",
+            "description": "Amount of storage that will be freed if this package is deleted",
+            "type": "integer",
+            "readOnly": true
+          },
+          "fully_qualified_name": {
+            "title": "Fully qualified name",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1,
+            "nullable": true
+          },
+          "identifier_perm": {
+            "title": "Identifier perm",
+            "description": "Unique and permanent identifier for the package.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "identifiers": {
+            "title": "Identifiers",
+            "description": "Return a map of identifier field names and their values.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "readOnly": true
+          },
+          "indexed": {
+            "title": "Indexed",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_cancellable": {
+            "title": "Is cancellable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_copyable": {
+            "title": "Is copyable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_deleteable": {
+            "title": "Is deleteable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_downloadable": {
+            "title": "Is downloadable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_moveable": {
+            "title": "Is moveable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_quarantinable": {
+            "title": "Is quarantinable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_quarantined": {
+            "title": "Is quarantined",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_resyncable": {
+            "title": "Is resyncable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_security_scannable": {
+            "title": "Is security scannable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_awaiting": {
+            "title": "Is sync awaiting",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_completed": {
+            "title": "Is sync completed",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_failed": {
+            "title": "Is sync failed",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_in_flight": {
+            "title": "Is sync in flight",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_sync_in_progress": {
+            "title": "Is sync in progress",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "license": {
+            "title": "License",
+            "description": "The license of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "name": {
+            "title": "Name",
+            "description": "The name of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "namespace": {
+            "title": "Namespace",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "namespace_url": {
+            "title": "Namespace url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "num_files": {
+            "title": "Num files",
+            "type": "integer",
+            "readOnly": true
+          },
+          "origin_repository": {
+            "title": "Origin repository",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "origin_repository_url": {
+            "title": "Origin repository url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "package_type": {
+            "title": "Package type",
+            "description": "The type of package contents.",
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              9
+            ],
+            "readOnly": true
+          },
+          "policy_violated": {
+            "title": "Policy violated",
+            "description": "Whether or not the package has violated any policy.",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "raw_license": {
+            "title": "Raw license",
+            "description": "The raw license string.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1,
+            "nullable": true
+          },
+          "release": {
+            "title": "Release",
+            "description": "The release of the package version (if any).",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "repository": {
+            "title": "Repository",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "repository_url": {
+            "title": "Repository url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "security_scan_completed_at": {
+            "title": "Security scan completed at",
+            "description": "The datetime the security scanning was completed.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "security_scan_started_at": {
+            "title": "Security scan started at",
+            "description": "The datetime the security scanning was started.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "security_scan_status": {
+            "title": "Security scan status",
+            "type": "string",
+            "enum": [
+              "Awaiting Security Scan",
+              "Security Scanning in Progress",
+              "Scan Detected Vulnerabilities",
+              "Scan Detected No Vulnerabilities",
+              "Security Scanning Disabled",
+              "Security Scanning Failed",
+              "Security Scanning Skipped",
+              "Security Scanning Not Supported"
+            ],
+            "readOnly": true,
+            "default": "Awaiting Security Scan",
+            "nullable": true
+          },
+          "security_scan_status_updated_at": {
+            "title": "Security scan status updated at",
+            "description": "The datetime the security scanning status was updated.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "self_html_url": {
+            "title": "Self html url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "self_url": {
+            "title": "Self url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "self_webapp_url": {
+            "title": "Self webapp url",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "signature_url": {
+            "title": "Signature url",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "size": {
+            "title": "Size",
+            "description": "The calculated size of the package.",
+            "type": "integer",
+            "readOnly": true
+          },
+          "slug": {
+            "title": "Slug",
+            "description": "The public unique identifier for the package.",
+            "type": "string",
+            "format": "slug",
+            "pattern": "^[-a-zA-Z0-9_]+$",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "slug_perm": {
+            "title": "Slug perm",
+            "type": "string",
+            "format": "slug",
+            "pattern": "^[-a-zA-Z0-9_]+$",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "spdx_license": {
+            "title": "Spdx license",
+            "description": "The SPDX license identifier for this package.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1,
+            "nullable": true
+          },
+          "stage": {
+            "title": "Stage",
+            "description": "The synchronisation (in progress) stage of the package.",
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "readOnly": true
+          },
+          "stage_str": {
+            "title": "Stage str",
+            "type": "string",
+            "readOnly": true
+          },
+          "stage_updated_at": {
+            "title": "Stage updated at",
+            "description": "The datetime the package stage was updated at.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "status": {
+            "title": "Status",
+            "description": "The synchronisation status of the package.",
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "readOnly": true
+          },
+          "status_reason": {
+            "title": "Status reason",
+            "description": "A textual description for the synchronous status reason (if any",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "status_str": {
+            "title": "Status str",
+            "type": "string",
+            "readOnly": true
+          },
+          "status_updated_at": {
+            "title": "Status updated at",
+            "description": "The datetime the package status was updated at.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "status_url": {
+            "title": "Status url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "subtype": {
+            "title": "Subtype",
+            "type": "string",
+            "readOnly": true
+          },
+          "summary": {
+            "title": "Summary",
+            "description": "A one-liner synopsis of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "sync_finished_at": {
+            "title": "Sync finished at",
+            "description": "The datetime the package sync was finished at.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "sync_progress": {
+            "title": "Sync progress",
+            "description": "Synchronisation progress (from 0-100)",
+            "type": "integer",
+            "readOnly": true
+          },
+          "tags_automatic": {
+            "$ref": "#/components/schemas/Tags"
+          },
+          "tags_immutable": {
+            "$ref": "#/components/schemas/Tags"
+          },
+          "type_display": {
+            "title": "Type display",
+            "type": "string",
+            "readOnly": true
+          },
+          "uploaded_at": {
+            "title": "Uploaded at",
+            "description": "The date this package was uploaded.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "uploader": {
+            "title": "Uploader",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "uploader_url": {
+            "title": "Uploader url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          },
+          "version": {
+            "title": "Version",
+            "description": "The raw version for this package.",
+            "type": "string",
+            "maxLength": 255,
+            "nullable": true
+          },
+          "version_orig": {
+            "title": "Version orig",
+            "type": "string",
+            "readOnly": true
+          },
+          "vulnerability_scan_results_url": {
+            "title": "Vulnerability scan results url",
+            "type": "string",
+            "format": "uri",
+            "readOnly": true
+          }
+        }
+      },
       "NpmPackageUploadRequest": {
         "required": [
           "package_file"
@@ -47302,6 +48163,223 @@
           }
         }
       },
+      "RecycleBinPackage": {
+        "type": "object",
+        "properties": {
+          "action_by": {
+            "title": "Action by",
+            "description": "The name of the user who deleted the package.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1,
+            "nullable": true
+          },
+          "downloads": {
+            "title": "Downloads",
+            "type": "integer",
+            "readOnly": true
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "format": {
+            "title": "Format",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "fully_qualified_name": {
+            "title": "Fully qualified name",
+            "description": "The fully qualified name of the package.",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "identifiers": {
+            "title": "Identifiers",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "readOnly": true
+          },
+          "invoked_retention_rule": {
+            "title": "Invoked retention rule",
+            "description": "Information about the retention rule that triggered deletion (if any).",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "readOnly": true,
+            "nullable": true
+          },
+          "is_deleteable": {
+            "title": "Is deleteable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_quarantined": {
+            "title": "Is quarantined",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "is_restorable": {
+            "title": "Is restorable",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "name": {
+            "title": "Name",
+            "description": "The name of this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "policy_violated": {
+            "title": "Policy violated",
+            "description": "Whether or not the package has violated any policy.",
+            "type": "boolean",
+            "readOnly": true
+          },
+          "repository": {
+            "title": "Repository",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "security_scan_completed_at": {
+            "title": "Security scan completed at",
+            "description": "The datetime the security scanning was completed.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "nullable": true
+          },
+          "security_scan_status": {
+            "title": "Security scan status",
+            "type": "string",
+            "enum": [
+              "Awaiting Security Scan",
+              "Security Scanning in Progress",
+              "Scan Detected Vulnerabilities",
+              "Scan Detected No Vulnerabilities",
+              "Security Scanning Disabled",
+              "Security Scanning Failed",
+              "Security Scanning Skipped",
+              "Security Scanning Not Supported"
+            ],
+            "readOnly": true,
+            "default": "Awaiting Security Scan",
+            "nullable": true
+          },
+          "size": {
+            "title": "Size",
+            "description": "The calculated size of the package.",
+            "type": "integer",
+            "readOnly": true
+          },
+          "slug_perm": {
+            "title": "Slug perm",
+            "type": "string",
+            "format": "slug",
+            "pattern": "^[-a-zA-Z0-9_]+$",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "status": {
+            "title": "Status",
+            "description": "The synchronisation status of the package.",
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "readOnly": true
+          },
+          "status_updated_at": {
+            "title": "Status updated at",
+            "description": "The datetime the package status was updated at.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "tags": {
+            "$ref": "#/components/schemas/Tags"
+          },
+          "type_display": {
+            "title": "Type display",
+            "type": "string",
+            "readOnly": true
+          },
+          "uploaded_at": {
+            "title": "Uploaded at",
+            "description": "The date this package was uploaded.",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "uploader": {
+            "title": "Uploader",
+            "type": "string",
+            "readOnly": true,
+            "minLength": 1
+          },
+          "version": {
+            "title": "Version",
+            "description": "The raw version for this package.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          }
+        }
+      },
+      "PackageRecycleBin": {
+        "required": [
+          "action",
+          "identifiers"
+        ],
+        "type": "object",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "description": "The action to perform on soft-deleted packages.",
+            "type": "string",
+            "enum": [
+              "hard_delete",
+              "restore"
+            ]
+          },
+          "identifiers": {
+            "description": "A list of soft-deleted package identifiers to action.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 255,
+              "minLength": 1
+            },
+            "maxItems": 100,
+            "minItems": 1
+          },
+          "repository": {
+            "title": "Repository",
+            "description": "The repository name to filter packages to. If not provided, the action will be performed across all accessible repositories in the workspace.",
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1
+          }
+        }
+      },
       "RepositoryEcdsaKey": {
         "type": "object",
         "properties": {
@@ -49471,6 +50549,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -49575,6 +50654,45 @@
             "type": "integer",
             "maximum": 32767,
             "minimum": 1
+          },
+          "rsa_key_inline": {
+            "title": "RSA Public Key",
+            "description": "A base64-encoded RSA public key in PEM format used to verify package signatures.",
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "rsa_key_url": {
+            "title": "RSA Key URL",
+            "description": "When provided, Cloudsmith will fetch and validate the RSA public key at this URL and use it to verify package signatures from this upstream.",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 254,
+            "nullable": true
+          },
+          "rsa_verification": {
+            "title": "Rsa verification",
+            "description": "The RSA signature verification mode for this upstream.",
+            "type": "string",
+            "enum": [
+              "Allow All",
+              "Warn on Invalid",
+              "Reject Invalid"
+            ],
+            "default": "Allow All"
+          },
+          "rsa_verification_status": {
+            "title": "Rsa verification status",
+            "description": "The RSA signature verification status for this upstream.",
+            "type": "string",
+            "enum": [
+              "Unknown",
+              "Invalid",
+              "Valid",
+              "Invalid (No Key)"
+            ],
+            "readOnly": true,
+            "default": "Unknown"
           },
           "slug_perm": {
             "title": "Slug perm",
@@ -49698,6 +50816,25 @@
             "maximum": 32767,
             "minimum": 1
           },
+          "rsa_key_url": {
+            "title": "RSA Key URL",
+            "description": "When provided, Cloudsmith will fetch and validate the RSA public key at this URL and use it to verify package signatures from this upstream.",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 254,
+            "nullable": true
+          },
+          "rsa_verification": {
+            "title": "Rsa verification",
+            "description": "The RSA signature verification mode for this upstream.",
+            "type": "string",
+            "enum": [
+              "Allow All",
+              "Warn on Invalid",
+              "Reject Invalid"
+            ],
+            "default": "Allow All"
+          },
           "upstream_url": {
             "title": "Upstream URL",
             "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
@@ -49802,6 +50939,25 @@
             "maximum": 32767,
             "minimum": 1
           },
+          "rsa_key_url": {
+            "title": "RSA Key URL",
+            "description": "When provided, Cloudsmith will fetch and validate the RSA public key at this URL and use it to verify package signatures from this upstream.",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 254,
+            "nullable": true
+          },
+          "rsa_verification": {
+            "title": "Rsa verification",
+            "description": "The RSA signature verification mode for this upstream.",
+            "type": "string",
+            "enum": [
+              "Allow All",
+              "Warn on Invalid",
+              "Reject Invalid"
+            ],
+            "default": "Allow All"
+          },
           "upstream_url": {
             "title": "Upstream URL",
             "description": "The URL for this upstream source. This must be a fully qualified URL including any path elements required to reach the root of the repository. ",
@@ -49874,6 +51030,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -50277,6 +51434,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -50680,6 +51838,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -51083,6 +52242,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -51486,6 +52646,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -51897,6 +53058,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -52469,6 +53631,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -52879,6 +54042,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -53305,6 +54469,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -53708,6 +54873,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -54111,6 +55277,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -54514,6 +55681,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -54917,6 +56085,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -55447,6 +56616,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -55882,6 +57052,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -56285,6 +57456,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -56719,6 +57891,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -57246,6 +58419,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
@@ -57649,6 +58823,7 @@
               "N/A",
               "Upstream points to its own repository",
               "Missing upstream source",
+              "RSA key did not verify the upstream's APKINDEX signature",
               "Upstream was disabled by request of user"
             ],
             "readOnly": true,
