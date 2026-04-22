@@ -193,6 +193,10 @@
             "path": "/workspaces/privileges"
           },
           {
+            "title": "Personalization",
+            "path": "/workspaces/personalization"
+          },
+          {
             "title": "Custom Domains",
             "path": "/workspaces/custom-domains"
           },
