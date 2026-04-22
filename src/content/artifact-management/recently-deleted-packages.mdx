@@ -1,32 +1,38 @@
 import { Note, BlockImage } from '@/components'
+import recentlyDeletedPage from './images/recently-deleted-packages/recently-deleted-page.png'
 import restorePackages from './images/recently-deleted-packages/restore.png'
 import deletePackages from './images/recently-deleted-packages/delete.png'
 
+# Recently Deleted Packages
 
-# Recently deleted packages
+The Recently Deleted Packages page acts as a recycle bin for your deleted packages, giving you the opportunity to restore or permanently delete them before they are automatically removed. This is useful in cases of accidental deletion.
 
-The recently deleted packages page allows you to view deleted packages that are pending permanent deletion. You can also restore to the repository and permanently delete packages from this page. This can be useful in cases of accidental artifact deletion. 
+Recently Deleted Packages is available at both the workspace and repository level. The workspace-level view aggregates deleted packages across all repositories, while the repository-level view is scoped to a single repository.
+
+<BlockImage src={recentlyDeletedPage} alt="Recently deleted packages page"></BlockImage>
 
 ## Package retention
 
-Deleted packages are retained for a 7 day period and then are automatically deleted.
+Deleted packages are retained for 7 days from the time of deletion, after which they are permanently and automatically removed.
 
 ## Restore packages
 
-To restore an individual package, click on the arrow icon on the right hand side of the table row. If you want to restore multiple packages at once, select your packages then choose 'Restore' from the actions menu on the bottom of the page. 
+To restore an individual package, click the arrow icon on the right-hand side of the table row. To restore multiple packages at once, select the packages you want to restore, then choose **Restore** from the actions menu at the bottom of the page.
 
-These packages will be restored to their original repository. 
+Packages will be restored to their original repository.
 
 <BlockImage src={restorePackages} alt="Restore packages"></BlockImage>
 
 ## Permanently delete packages
 
-To permanently delete an individual package, click on the trash icon on the right hand side of the table row. If you want to permanently delete multiple packages at once, select your packages then choose 'Permanent delete' from the actions menu on the bottom of the page. 
+To permanently delete an individual package, click the trash icon on the right-hand side of the table row. To permanently delete multiple packages at once, select the packages you want to remove, then choose **Permanent Delete** from the actions menu at the bottom of the page.
 
-**Note:** once permanently deleted, this packages can no longer be restored. 
+<Note variant="warning">
+  Once permanently deleted, packages can no longer be restored.
+</Note>
 
 <BlockImage src={deletePackages} alt="Delete packages"></BlockImage>
 
-# Deleted repositories
+## Deleted repositories
 
-When a repository is deleted, all of the packages will be transferred to recently deleted packages. When you restore a package from a deleted repository, the repository will be automatically restored too. 
+When a repository is deleted, all of its packages are transferred to Recently Deleted Packages. If you restore a package from a deleted repository, the repository will be automatically restored as well.
