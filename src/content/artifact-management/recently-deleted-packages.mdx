@@ -1,0 +1,38 @@
+import { Note, BlockImage } from '@/components'
+import recentlyDeletedPage from './images/recently-deleted-packages/recently-deleted-page.png'
+import restorePackages from './images/recently-deleted-packages/restore.png'
+import deletePackages from './images/recently-deleted-packages/delete.png'
+
+# Recently Deleted Packages
+
+The Recently Deleted Packages page acts as a recycle bin for your deleted packages, giving you the opportunity to restore or permanently delete them before they are automatically removed. This is useful in cases of accidental deletion.
+
+Recently Deleted Packages is available at both the workspace and repository level. The workspace-level view aggregates deleted packages across all repositories, while the repository-level view is scoped to a single repository.
+
+<BlockImage src={recentlyDeletedPage} alt="Recently deleted packages page"></BlockImage>
+
+## Package retention
+
+Deleted packages are retained for 7 days from the time of deletion, after which they are permanently and automatically removed.
+
+## Restore packages
+
+To restore an individual package, click the arrow icon on the right-hand side of the table row. To restore multiple packages at once, select the packages you want to restore, then choose **Restore** from the actions menu at the bottom of the page.
+
+Packages will be restored to their original repository.
+
+<BlockImage src={restorePackages} alt="Restore packages"></BlockImage>
+
+## Permanently delete packages
+
+To permanently delete an individual package, click the trash icon on the right-hand side of the table row. To permanently delete multiple packages at once, select the packages you want to remove, then choose **Permanently delete** from the actions menu at the bottom of the page.
+
+<Note variant="warning">
+  Once permanently deleted, packages can no longer be restored.
+</Note>
+
+<BlockImage src={deletePackages} alt="Delete packages"></BlockImage>
+
+## Deleted repositories
+
+When a repository is deleted, all of its packages are transferred to Recently Deleted Packages. If you restore a package from a deleted repository, the repository will be automatically restored as well.
