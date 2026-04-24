@@ -12302,7 +12302,7 @@
     },
     "/recycle-bin/{owner}/action/": {
       "post": {
-        "operationId": "recycle-bin_recycle_bin_action",
+        "operationId": "recycle-bin_action",
         "description": "Perform actions on soft-deleted packages in the recycle bin. Supported actions: permanently delete (hard delete), restore. Returns a list of successfully actioned packages and any packages that failed with error details. ",
         "requestBody": {
           "content": {
