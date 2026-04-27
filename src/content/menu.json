@@ -365,10 +365,6 @@
             "path": "/artifact-management/package-groups"
           },
           {
-            "title": "Troubleshooting",
-            "path": "/resources/troubleshooting"
-          },
-          {
             "title": "Recently Deleted Packages",
             "path": "/artifact-management/recently-deleted-packages"
           }
