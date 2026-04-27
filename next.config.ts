@@ -1,9 +1,28 @@
 import createMDX from '@next/mdx';
 
+import { getContentSecurityPolicyHeaderValue } from '@/lib/csp';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['mdx', 'tsx'],
+  async headers() {
+    const cspValue = getContentSecurityPolicyHeaderValue();
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspValue,
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
   experimental: {
     optimizePackageImports: ['@/components', '@/markdown', '@/icons'],
     turbo: {
@@ -41,14 +60,15 @@ const rehypeAutolinkHeadings = {
       width: 16,
       viewBox: '0 0 16 16',
     },
-    children: [{
-      type: 'element',
-      tagName: 'use',
-      properties: { href: '#action/link' }
-    }]
+    children: [
+      {
+        type: 'element',
+        tagName: 'use',
+        properties: { href: '#action/link' },
+      },
+    ],
   },
 };
-
 
 const withMDX = createMDX({
   options: {
