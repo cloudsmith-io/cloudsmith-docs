@@ -239,11 +239,6 @@
                 "path": "/authentication/scim",
                 "children": [
 
-
-                  {
-                    "title": "SCIM with Google",
-                    "path": "/authentication/scim-with-google"
-                  },
                   {
                     "title": "SCIM with JumpCloud",
                     "path": "/authentication/scim-with-jumpcloud"
