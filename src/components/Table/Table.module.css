@@ -1,9 +1,15 @@
+.container {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .root {
   width: 100%;
   margin-block: var(--space-m);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-m);
   border-spacing: 0;
+  min-width: 0;
 }
 
 .root td:first-child,
@@ -42,7 +48,15 @@
 .root td {
   padding: var(--space-xs);
   border-bottom: 1px solid var(--color-border);
-  font-size: var(--text-body-xs); 
+  font-size: var(--text-body-xs);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.root td :global(code) {
+  display: inline;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .root tbody tr:first-child td {

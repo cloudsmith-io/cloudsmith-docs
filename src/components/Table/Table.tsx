@@ -1,5 +1,9 @@
 import styles from './Table.module.css';
 
 export function Table(props: React.ComponentPropsWithoutRef<'table'>) {
-  return <table className={styles.root} {...props} />;
+  return (
+    <div className={styles.container}>
+      <table className={styles.root} {...props} />
+    </div>
+  );
 }
