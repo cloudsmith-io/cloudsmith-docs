@@ -19,6 +19,11 @@
       "source": "/bug-bounty-program",
       "destination": "https://docs.cloudsmith.com/resources/bug-bounty-program",
       "permanent": true
+    },
+    {
+      "source": "/troubleshooting",
+      "destination": "/resources/troubleshooting",
+      "permanent": true
     }
   ]
 }
