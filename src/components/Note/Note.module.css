@@ -1,5 +1,5 @@
 .root {
-  --color-background-code: rgba(255, 255, 255, 0.45);
+  --color-background-code: rgb(255 255 255 / 45%);
 
   background: var(--note-background);
   color: var(--note-text);
@@ -17,8 +17,7 @@
   font-size: var(--text-headline-2xs);
   font-weight: bold;
   line-height: var(--text-body-l);
-  margin-block-start: var(--space-3xs);
-  margin-block-end: var(--space-2xs);
+  margin-block: var(--space-3xs) var(--space-2xs);
   letter-spacing: 0.08px;
 }
 

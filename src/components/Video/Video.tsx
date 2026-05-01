@@ -1,48 +1,59 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import styles from './Video.module.css';
-import { Icon } from '@/icons';
-import { useState, useRef } from 'react';
+import { CSSProperties, useMemo, useState } from 'react';
 
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
+import { Icon } from '@/icons';
+
+import styles from './Video.module.css';
 
 export function Video({ wistiaId = 'r5d3j2nz4m', posterImage, resumable = false }: VideoProps) {
   const [showOverlay, setShowOverlay] = useState(true);
-  const playerRef = useRef<typeof ReactPlayer>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+
+  const videoUrl = useMemo(() => {
+    const params = new URLSearchParams({
+      controlsVisibleOnLoad: 'false',
+      playButton: 'false',
+      resumable: String(resumable),
+      seo: 'false',
+      videoFoam: 'true',
+    });
+
+    if (!showOverlay) {
+      params.set('autoPlay', 'true');
+    }
+
+    if (posterImage) {
+      params.set('stillUrl', posterImage);
+    }
+
+    return `https://fast.wistia.net/embed/iframe/${wistiaId}?${params.toString()}`;
+  }, [posterImage, resumable, showOverlay, wistiaId]);
+
+  const overlayStyle = posterImage
+    ? ({
+        '--video-poster-image': `url("${posterImage}")`,
+      } as CSSProperties)
+    : undefined;
 
   const handleOverlayClick = () => {
     setShowOverlay(false);
-    setIsPlaying(true);
   };
 
   return (
     <div className={styles.videoContainer}>
       {showOverlay && (
-        <div className={styles.overlay} onClick={handleOverlayClick}>
-          <button className={styles.playButton}>
+        <div className={styles.overlay} onClick={handleOverlayClick} style={overlayStyle}>
+          <button className={styles.playButton} type="button" aria-label="Play video">
             <Icon name="action/play" title="" className={styles.playIcon} />
           </button>
         </div>
       )}
-      <ReactPlayer
-        ref={playerRef}
-        url={`https://fast.wistia.net/embed/iframe/${wistiaId}`}
-        width="100%"
-        height="100%"
-        playing={isPlaying}
-        controls={true}
-        config={{
-          wistia: {
-            options: {
-              resumable: resumable,
-              playButton: false,
-              controlsVisibleOnLoad: false,
-              stillUrl: posterImage,
-            },
-          },
-        }}
+      <iframe
+        className={styles.player}
+        src={videoUrl}
+        title="Cloudsmith video"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
       />
     </div>
   );

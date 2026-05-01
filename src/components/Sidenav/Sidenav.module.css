@@ -98,6 +98,7 @@
 
   &:is(:hover, :active) {
     color: var(--brand-color-blue-7);
+
     --svg-path-fill: var(--brand-color-blue-7);
   }
 
@@ -112,6 +113,7 @@
 
 .linkActive {
   color: var(--brand-color-blue-7);
+
   --svg-path-fill: var(--brand-color-blue-7);
 }
 
@@ -151,6 +153,7 @@
 
     opacity: 1 !important;
     height: auto !important;
+
     --color-font-primary: var(--brand-color-grey-8);
   }
 

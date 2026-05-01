@@ -15,7 +15,16 @@
   height: 100%;
   cursor: pointer;
   background-color: color-mix(in srgb, var(--base-color-blue-500), transparent 50%);
+  background-image: var(--video-poster-image);
+  background-position: center;
+  background-size: cover;
   z-index: 1;
+}
+
+.player {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .playButton {
