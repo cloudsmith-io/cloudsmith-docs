@@ -48703,6 +48703,11 @@
             "format": "uri",
             "readOnly": true
           },
+          "npm_upstream_tags_take_precedence": {
+            "title": "Npm Upstream Tags Take Precedence?",
+            "description": "If checked, npm distribution tags from configured upstreams will take precedence over matching local tags. When both upstream and local repositories have the same tag name (e.g., 'latest'), the upstream tag will be used instead of the local one, even if the local repository has a semantically higher version.",
+            "type": "boolean"
+          },
           "nuget_native_signing_enabled": {
             "title": "Nuget Native Signing Enabled?",
             "description": "When enabled, all pushed (or pulled from upstream) nuget packages and artifacts will be signed using the repository's X.509 RSA certificate. Additionally, the nuget RepositorySignature index will list all of the repository's signing certificates including the ones from configured upstreams.",
@@ -49128,6 +49133,11 @@
             "maxLength": 50,
             "minLength": 1
           },
+          "npm_upstream_tags_take_precedence": {
+            "title": "Npm Upstream Tags Take Precedence?",
+            "description": "If checked, npm distribution tags from configured upstreams will take precedence over matching local tags. When both upstream and local repositories have the same tag name (e.g., 'latest'), the upstream tag will be used instead of the local one, even if the local repository has a semantically higher version.",
+            "type": "boolean"
+          },
           "nuget_native_signing_enabled": {
             "title": "Nuget Native Signing Enabled?",
             "description": "When enabled, all pushed (or pulled from upstream) nuget packages and artifacts will be signed using the repository's X.509 RSA certificate. Additionally, the nuget RepositorySignature index will list all of the repository's signing certificates including the ones from configured upstreams.",
@@ -49527,6 +49537,11 @@
             "type": "string",
             "format": "uri",
             "readOnly": true
+          },
+          "npm_upstream_tags_take_precedence": {
+            "title": "Npm Upstream Tags Take Precedence?",
+            "description": "If checked, npm distribution tags from configured upstreams will take precedence over matching local tags. When both upstream and local repositories have the same tag name (e.g., 'latest'), the upstream tag will be used instead of the local one, even if the local repository has a semantically higher version.",
+            "type": "boolean"
           },
           "nuget_native_signing_enabled": {
             "title": "Nuget Native Signing Enabled?",
@@ -49948,6 +49963,11 @@
             "pattern": "^\\w[\\w \\-'\\.\\/()]+$",
             "maxLength": 50,
             "minLength": 1
+          },
+          "npm_upstream_tags_take_precedence": {
+            "title": "Npm Upstream Tags Take Precedence?",
+            "description": "If checked, npm distribution tags from configured upstreams will take precedence over matching local tags. When both upstream and local repositories have the same tag name (e.g., 'latest'), the upstream tag will be used instead of the local one, even if the local repository has a semantically higher version.",
+            "type": "boolean"
           },
           "nuget_native_signing_enabled": {
             "title": "Nuget Native Signing Enabled?",
