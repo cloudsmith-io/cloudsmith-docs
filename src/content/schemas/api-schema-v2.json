@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Cloudsmith API",
-    "version": "1.1138.1 (v2)",
+    "version": "1.1146.0 (v2)",
     "description": "The API to the Cloudsmith Service",
     "termsOfService": "https://help.cloudsmith.io/docs/legal-policies-overview",
     "contact": {
@@ -1093,6 +1093,314 @@
         }
       }
     },
+    "/workspaces/{workspace}/policies/decision-logs-v1/": {
+      "get": {
+        "operationId": "workspaces_policies_decision_logs_v1_list",
+        "description": "List policy evaluation decision logs.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "correlation_id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Filter by `correlation_id`."
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter by the datetime at which the log was created. This operates as an inclusive lower bound (greater than or equal to).",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter by the datetime at which the log was created. This operates as an exclusive upper bound (less than)."
+          },
+          {
+            "in": "query",
+            "name": "match",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            },
+            "description": "Filter by whether the policy matched the package."
+          },
+          {
+            "in": "query",
+            "name": "package_format",
+            "schema": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "DEB",
+                  "RPM",
+                  "RUBY",
+                  "PYTHON",
+                  "MAVEN",
+                  "BOWER",
+                  "DOCKER",
+                  "RAW",
+                  "CHOCOLATEY",
+                  "NPM",
+                  "NUGET",
+                  "VAGRANT",
+                  "COMPOSER",
+                  "ALPINE",
+                  "HELM",
+                  "CONAN",
+                  "CARGO",
+                  "LUAROCKS",
+                  "CRAN",
+                  "GO",
+                  "DART",
+                  "COCOAPODS",
+                  "TERRAFORM",
+                  "P2",
+                  "CONDA",
+                  "HEX",
+                  "SWIFT",
+                  "HUGGINGFACE",
+                  "GENERIC",
+                  "VSX",
+                  "MCP",
+                  "DEFAULT"
+                ],
+                "type": "string",
+                "description": "* `DEB` - Debian\n* `RPM` - RedHat\n* `RUBY` - Ruby\n* `PYTHON` - Python\n* `MAVEN` - Maven\n* `BOWER` - Bower\n* `DOCKER` - Docker\n* `RAW` - Raw\n* `CHOCOLATEY` - Chocolatey\n* `NPM` - npm\n* `NUGET` - NuGet\n* `VAGRANT` - Vagrant\n* `COMPOSER` - Composer\n* `ALPINE` - Alpine\n* `HELM` - Helm\n* `CONAN` - Conan\n* `CARGO` - Cargo\n* `LUAROCKS` - LuaRocks\n* `CRAN` - CRAN\n* `GO` - Go\n* `DART` - Dart\n* `COCOAPODS` - CocoaPods\n* `TERRAFORM` - Terraform\n* `P2` - P2\n* `CONDA` - Conda\n* `HEX` - Hex\n* `SWIFT` - Swift\n* `HUGGINGFACE` - HuggingFace\n* `GENERIC` - Generic\n* `VSX` - VSX\n* `MCP` - MCP\n* `DEFAULT` - Default"
+              }
+            },
+            "description": "Type of package formats by which to filter logs (e.g. Nuget, Cargo, Raw). Multiple formats can be provided e.g. `package_format=Nuget&package_format=Cargo`."
+          },
+          {
+            "in": "query",
+            "name": "package_name",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filter by package name."
+          },
+          {
+            "in": "query",
+            "name": "package_slug_perm",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filter by package identifier (`slug_perm`)."
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "policy_slug_perm",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filter by policy identifier (`slug_perm`)."
+          },
+          {
+            "in": "query",
+            "name": "repository_slug_perm",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Filter by repository identifier (`slug_perm`)."
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "default": "-id"
+            },
+            "description": "A comma-separated string of fields to sort by. Legal fields are: `id`. Descending order can be expressed by prepending `-` to a field name.",
+            "examples": {
+              "ReverseChronologicalOrder(theDefault)": {
+                "value": "-id",
+                "summary": "reverse chronological order (the default)"
+              },
+              "ChronologicalOrder": {
+                "value": "id",
+                "summary": "chronological order"
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "workspace",
+            "schema": {
+              "type": "string",
+              "pattern": "^[-_\\w]+$"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "workspaces"
+        ],
+        "security": [
+          {
+            "apikey": []
+          },
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedPolicyDecisionLogV1SummaryList"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                },
+                "examples": {
+                  "InvalidCreatedAfter": {
+                    "value": {
+                      "code": "invalid",
+                      "detail": "Invalid input.",
+                      "fields": {
+                        "created_after": [
+                          "value outside of legal range."
+                        ]
+                      }
+                    },
+                    "summary": "Invalid created_after"
+                  },
+                  "InvalidCreatedBefore": {
+                    "value": {
+                      "code": "invalid",
+                      "detail": "Invalid input.",
+                      "fields": {
+                        "created_before": [
+                          "value outside of legal range."
+                        ]
+                      }
+                    },
+                    "summary": "Invalid created_before"
+                  }
+                }
+              }
+            },
+            "description": "Invalid query parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                },
+                "examples": {
+                  "Unauthenticated": {
+                    "value": {
+                      "detail": "Authentication credentials were not provided."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Authentication credentials were not provided."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                },
+                "examples": {
+                  "Forbidden": {
+                    "value": {
+                      "detail": "You do not have permission to perform this action."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Insufficient permissions."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                },
+                "examples": {
+                  "NotFound": {
+                    "value": {
+                      "detail": "The request is for a resource/endpoint that cannot be found."
+                    },
+                    "summary": "Not Found"
+                  }
+                }
+              }
+            },
+            "description": "Workspace not found."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                },
+                "examples": {
+                  "CreatedBeforePredatesCreatedAfter": {
+                    "value": {
+                      "code": "invalid",
+                      "detail": "Invalid input.",
+                      "fields": {
+                        "non_field_errors": [
+                          "created_before is earlier than created_after."
+                        ]
+                      }
+                    },
+                    "summary": "created_before predates created_after"
+                  }
+                }
+              }
+            },
+            "description": "Invalid date/time range"
+          }
+        }
+      }
+    },
     "/workspaces/{workspace}/policies/decision_logs/": {
       "get": {
         "operationId": "workspaces_policies_decision_logs_list",
@@ -1236,6 +1544,7 @@
             "basic": []
           }
         ],
+        "deprecated": true,
         "responses": {
           "200": {
             "content": {
@@ -1813,6 +2122,20 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PolicyDecisionLog"
+            }
+          }
+        }
+      },
+      "PaginatedPolicyDecisionLogV1SummaryList": {
+        "type": "object",
+        "required": [
+          "results"
+        ],
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyDecisionLogV1Summary"
             }
           }
         }
@@ -2440,6 +2763,131 @@
           "policy",
           "policy_input",
           "policy_output",
+          "started_at"
+        ]
+      },
+      "PolicyDecisionLogV1Summary": {
+        "type": "object",
+        "description": "A summary of a policy decision log.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true,
+            "description": "A ULID which uniquely identifies this decision log in the context of the correlation_id."
+          },
+          "actions": {
+            "type": "object",
+            "additionalProperties": {},
+            "readOnly": true
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "A UUID which identifies the group of decision logs which were generated off the back of a single evaluation trigger."
+          },
+          "ended_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "title": "The date and time at which policy evaluation ended."
+          },
+          "match": {
+            "type": "boolean",
+            "readOnly": true,
+            "description": "Whether the policy evaluation matched the package."
+          },
+          "package_format": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The format of the package which policy evaluation occurred for."
+          },
+          "package_name": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The name of the package which policy evaluation occurred for."
+          },
+          "package_slug": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The slug of the package which policy evaluation occurred for."
+          },
+          "package_slug_perm": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The identifier of the package which policy evaluation occurred for."
+          },
+          "package_version": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The version of the package which policy evaluation occurred for."
+          },
+          "policy_is_terminal": {
+            "type": "boolean",
+            "readOnly": true,
+            "description": "Whether the evaluated policy was terminal."
+          },
+          "policy_name": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The name of the policy."
+          },
+          "policy_precedence": {
+            "type": "integer",
+            "readOnly": true,
+            "description": "The order in which the policy was evaluated relative to other policies in the same correlation_id group."
+          },
+          "policy_slug_perm": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The identifier of the policy."
+          },
+          "policy_version": {
+            "type": "integer",
+            "readOnly": true,
+            "description": "The version of the policy."
+          },
+          "repository_name": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The name of the repository which the package belongs to."
+          },
+          "repository_slug": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The slug of the repository which the package belongs to."
+          },
+          "repository_slug_perm": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The identifier of the repository which the package belongs to."
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "The date and time at which policy evaluation started."
+          }
+        },
+        "required": [
+          "actions",
+          "correlation_id",
+          "ended_at",
+          "id",
+          "match",
+          "package_format",
+          "package_name",
+          "package_slug",
+          "package_slug_perm",
+          "package_version",
+          "policy_is_terminal",
+          "policy_name",
+          "policy_precedence",
+          "policy_slug_perm",
+          "policy_version",
+          "repository_name",
+          "repository_slug",
+          "repository_slug_perm",
           "started_at"
         ]
       },
