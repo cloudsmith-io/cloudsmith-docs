@@ -1,5 +1,6 @@
 .root {
   position: relative;
+
   --background-grid-effective-width: var(--background-grid-width, var(--width, 100%));
   --background-grid-vignette-offset: max(0px, calc(var(--background-grid-effective-width) / 2 - 50vw));
 

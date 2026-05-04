@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import * as RadixSelect from '@radix-ui/react-select';
 import { cx } from 'class-variance-authority';
@@ -40,7 +40,7 @@ const ParamInput = ({
   const [value, setValue] = useState(_value);
   useEffect(() => setValue(_value), [_value]);
 
-  const onChange = useCallback(debounce(_onChange, 200), [_onChange]);
+  const onChange = useMemo(() => debounce(_onChange, 200), [_onChange]);
 
   const className = cx(styles.root, { [styles.singleLine]: singleLine || isItem, [styles.isItem]: isItem });
 

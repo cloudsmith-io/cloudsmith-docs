@@ -33,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Footer />
           <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://simple.cloudsmith.com/noscript.gif?collect-dnt=true&hostname=docs.cloudsmith.com"
               alt=""

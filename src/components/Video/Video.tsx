@@ -1,15 +1,17 @@
 'use client';
 
+import { useState } from 'react';
+
 import dynamic from 'next/dynamic';
-import styles from './Video.module.css';
+
 import { Icon } from '@/icons';
-import { useState, useRef } from 'react';
+
+import styles from './Video.module.css';
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 export function Video({ wistiaId = 'r5d3j2nz4m', posterImage, resumable = false }: VideoProps) {
   const [showOverlay, setShowOverlay] = useState(true);
-  const playerRef = useRef<typeof ReactPlayer>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleOverlayClick = () => {
@@ -21,14 +23,13 @@ export function Video({ wistiaId = 'r5d3j2nz4m', posterImage, resumable = false 
     <div className={styles.videoContainer}>
       {showOverlay && (
         <div className={styles.overlay} onClick={handleOverlayClick}>
-          <button className={styles.playButton}>
+          <button className={styles.playButton} type="button" aria-label="Play video">
             <Icon name="action/play" title="" className={styles.playIcon} />
           </button>
         </div>
       )}
       <ReactPlayer
-        ref={playerRef}
-        url={`https://fast.wistia.net/embed/iframe/${wistiaId}`}
+        src={`https://wistia.com/medias/${wistiaId}`}
         width="100%"
         height="100%"
         playing={isPlaying}
@@ -36,7 +37,7 @@ export function Video({ wistiaId = 'r5d3j2nz4m', posterImage, resumable = false 
         config={{
           wistia: {
             options: {
-              resumable: resumable,
+              resumable,
               playButton: false,
               controlsVisibleOnLoad: false,
               stillUrl: posterImage,
