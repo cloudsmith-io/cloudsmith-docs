@@ -155,13 +155,13 @@ Cloudsmith has full support for distribution tags and (mostly) follows the same 
 
 1. A specific tag can point at one version of a package only.
 2. A package version may have multiple unique tags.
-3. Unless specified otherwise, the default tag for the last package published is latest.
+3. Unless specified otherwise, the latest tag is given to the semantically highest version of a package.
 4. When a package that is **latest** is deleted, the tag is moved to the next applicable version by [semver](https://semver.npmjs.com/).
 5. When a package is copied/moved to another repository, its tags are carried with it.
 6. If the **latest** package is moved/deleted, then existing packages are sorted via SemVer to determine the next latest.
 
 <Note variant="note" headline="Upstream Tag Precedence">
-By default, the `latest` tag is given to the semantically highest version of a package within the native NPM responses. However, if you have an upstream configured and would like the `latest` tag defined on the upstream to take precedence, you can enable the **Npm Upstream Tags Take Precedence** option in your repository settings. This ensures that the `latest` tag from the upstream registry is used instead of the one from Cloudsmith.
+By default, the `latest` tag is given to the semantically highest version of a package within the native NPM responses. However, if you have an upstream configured and would like the `latest` tag defined on the upstream to take precedence, you can enable the **Npm Upstream Tags Take Precedence** option in your repository settings. This ensures that the `latest` tag from the upstream registry is used instead of the one calculated by Cloudsmith.
 
 This is a common configuration for users who have an upstream to the public npm registry and want to ensure that the `latest` tag matches the response from the public registry.
 </Note>
