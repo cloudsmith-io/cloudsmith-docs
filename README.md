@@ -62,7 +62,8 @@ This branch includes a dependency refresh and framework/tooling upgrades. Highli
 - ESLint moved to flat config (`eslint.config.mjs`) and `npm run lint:js` now runs `eslint .`.
 - TypeScript upgraded to 6.x, including compiler config updates for Next.js 16 (`moduleResolution: bundler`, updated includes/types).
 - Shiki upgraded to 4.x, with code block styling updates.
-- Video playback stack updated (including `react-player` v3 migration), with a rewrite of `src/components/Video/Video.tsx`.
+- Video playback stack updated with a `react-player` v3 migration in `src/components/Video/Video.tsx`.
+- Fixed Wistia URL compatibility in `src/components/Video/Video.tsx` to prevent `Cannot read properties of null (reading '1')` on `/developer-tools/terraform-provider`.
 - API Sandbox input flow updated in `RequestBody.tsx` and `ParamInput.tsx`.
 - Global/layout CSS updates in navigation, sidenav, homepage hero, background grid, and related components.
 - Stylelint upgraded to 17.x with rule adjustments to preserve existing style patterns.
