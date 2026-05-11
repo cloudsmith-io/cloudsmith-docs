@@ -160,12 +160,6 @@ Cloudsmith has full support for distribution tags and (mostly) follows the same 
 5. When a package is copied/moved to another repository, its tags are carried with it.
 6. If the `latest` package is moved/deleted, then existing packages are sorted via SemVer to determine the next latest.
 
-<Note variant="note" headline="Upstream Tag Precedence">
-By default, Cloudsmith assigns the `latest` tag to the semantically highest version of a package within the native npm responses. However, if you have an upstream configured and would like the `latest` tag defined on the upstream to take precedence, you can enable the **NPM upstream tags take precedence** option in your repository settings. This ensures that the `latest` tag from the upstream registry is used instead of the one calculated by Cloudsmith.
-
-This is a common configuration for users who have an upstream to the public npm registry and want to ensure that the `latest` tag matches the response from the public registry.
-</Note>
-
 You can inspect a package to see what tags it has:
 
 ```shell
@@ -186,6 +180,17 @@ npm dist-tags rm PACKAGE_NAME TAG --registry=https://npm.cloudsmith.io/OWNER/REP
 ```
 
 You can find out more about [distribution tags](https://docs.npmjs.com/adding-dist-tags-to-packages) in the npm documentation (external link).
+
+### Upstream Tag Precedence
+
+By default, Cloudsmith assigns the `latest` tag to the semantically highest version of a package within the native npm responses. If you have an upstream configured and would like the `latest` tag defined on the upstream to take precedence, you can enable the **NPM upstream tags take precedence** option in your repository settings. This ensures that the `latest` tag from the upstream registry is used instead of the one calculated by Cloudsmith.
+
+With the **NPM upstream tags take precedence** option enabled, Cloudsmith's npm metadata logic uses semantic versioning (SemVer) as the baseline, then checks for the `latest` dist-tag in the upstream registry and applies it as an override. 
+
+<Note variant="note">
+This override occurs only if the tag’s corresponding version is present within the versions to be returned to the user.  If not, then the `latest` tag defaults to the semantically highest version. 
+</Note>
+
 
 # Download / Install a Package
 

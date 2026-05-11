@@ -123,30 +123,45 @@ If your custom RSA key is encrypted, please also provide the passphrase for it.
 </Note>
 
 
-## Potentially Unsafe Actions
+## Potentially Dangerous Actions
 
-<BlockImage src={img_repo_settingsiPad_Pro_2} alt="Potentially Unsafe Actions"></BlockImage>
+<Note variant="warning" headline="Potentially dangerous actions">
+The actions in this section are reversible, but may have broader impacts. For example, renaming a repository slug/identifier will break configurations that use the original slug/identifier. Transferring a repository to a new storage region may affect region-specific compliance requirements.
+
+Exercise caution before making changes here.
+</Note>
+
+**Start broadcasting**
+
+Broadcasting a repository creates a public page where users can browse, search, and download repository packages. You can customize the branding of the page and control which package information to display.
+Broadcasting doesn't make any changes to your repository, and can be changed or turned off at any point. See [Broadcasts](/software-distribution/broadcasts) for more information.
+
+**Rename repository slug/identifier**
+
+The repository slug/identifier is what clients and users see in the URI when connecting to a repository. Renaming the slug/identifier will immediately impact any existing clients/users.
+
+The slug/identifier rename occurs immediately, but you can rename it back if you change your mind.
+
+**Transfer repository to a new storage region**
+
+Transferring a repository to a new storage region will move all packages and files to a storage location in the chosen region.
+
+During the transfer, you will be unable to upload any new packages or change existing ones. Downloads will continue to work normally.
+
+<Note variant="note">
+Storage in the non-default region is an Ultra (or above) plan feature.
+</Note>
+
+<BlockImage src={img_repo_settingsiPad_Pro_2} alt="Potentially Dangerous Actions"></BlockImage>
 
 ## Dangerous Actions
 
-<Note variant="caution" headline="Dangerous Actions">
- Actions in this section may result in data loss. Before performing a repository transfer or deletion, confirm the potential user impact and any communication required.
+<Note variant="caution" headline="Dangerous actions">
+Actions in this section may result in data loss. 
+
+A repository deletion is irreversible and will prevent existing users from accessing the repository. Before performing a repository deletion, confirm the potential user impact and any communication required.
 </Note>
-
-The following actions are categorized as **Dangerous** because performing them can affect a user's ability to access a repository. 
-
-For example, a repository transfer will require repository users to update their configuration and may require coordination with your user base. A repository deletion is irreversible and will prevent existing users from accessing the repository.
 
 <BlockImage src={img_repo_settingsiPad_Pro_3} alt="Dangerous Actions"></BlockImage>
 
-### Transferring a repository
 
-A repository transfer is initiated from within the repository settings of the repository you wish to transfer. The action to perform the transfer is listed under "Actions (Danger)".
-
-When you initiate a repository transfer, the owner of the destination account/namespace will be notified that a transfer is pending approval, and must approve and accept the transfer on the receiving repository.
-
-When the destination account/namespace accepts the transfer, the repository will be transferred to the destination account/namespace immediately. 
-
-The repository storage size will immediately count towards the storage limits for the destination account/namespace. Any entitlement tokens associated with the repository will also be transferred. 
-
-Collaborators for the repository will be reset, and any existing clients of the repository will need to update their URIs to point to the new location.
