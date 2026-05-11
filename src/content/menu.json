@@ -559,14 +559,6 @@
             "path": "/integrations/integrating-with-aws-sagemaker"
           },
           {
-            "title": "MLflow",
-            "path": "/integrations/integrating-with-mlflow"
-          },
-          {
-            "title": "MCP",
-            "path": "/integrations/integrating-with-mcp"
-          },
-          {
             "title": "Azure DevOps",
             "path": "/integrations/integrating-with-azure-devops"
           },
@@ -635,8 +627,16 @@
             "path": "/integrations/integrating-with-jenkins"
           },
           {
+            "title": "MCP",
+            "path": "/integrations/integrating-with-mcp"
+          },
+          {
             "title": "Microsoft Teams",
             "path": "/integrations/integrating-with-microsoft-teams"
+          },
+          {
+            "title": "MLflow",
+            "path": "/integrations/integrating-with-mlflow"
           },
           {
             "title": "Octopus Deploy",
