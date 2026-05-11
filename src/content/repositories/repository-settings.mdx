@@ -91,6 +91,9 @@ Enables the assumption that Cargo crates which do not set an explicit value for 
 **Apply Latest Tag for Pre-Release Versions**  
 If checked, packages pushed with a pre-release component on that version will be marked with the 'latest' tag. Please note, if unchecked, a repository containing ONLY pre-release versions will have no version marked latest which may cause incompatibility with native tools.
 
+**NPM upstream tags take precedence**
+If checked, npm distribution tags from configured upstreams will take precedence over matching local tags when fetching natively. When upstream and local repositories have the same tag name, such as `latest`, the upstream tag is used instead of the local one, even if the local repository has a semantically higher version.
+
 ## Custom GPG Signing Key
 
 You can specify a custom GPG key for signing repository metadata and packages. We will automatically derive the public key and fingerprint for any custom GPG key specified.  
