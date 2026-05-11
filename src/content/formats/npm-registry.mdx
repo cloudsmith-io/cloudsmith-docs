@@ -156,7 +156,7 @@ Cloudsmith has full support for distribution tags and (mostly) follows the same 
 1. A specific tag can point at one version of a package only.
 2. A package version may have multiple unique tags.
 3. Unless specified otherwise, Cloudsmith assigns the `latest` tag to the semantically highest version of a package.
-4. When a package that is `latest` is deleted, the tag is moved to the next applicable version by [semver](https://semver.npmjs.com/).
+4. When a package that is `latest` is deleted, the tag is moved to the next applicable version by [SemVer](https://semver.npmjs.com/).
 5. When a package is copied/moved to another repository, its tags are carried with it.
 6. If the `latest` package is moved/deleted, then existing packages are sorted via SemVer to determine the next latest.
 
