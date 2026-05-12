@@ -1,10 +1,10 @@
 import { Note, BlockImage } from '@/components'
-import general-settings from './images/repository-settings/general-settings.png'
-import repo-privileges from './images/repository-settings/repo-privileges.png'
-import user-self-privileges from './images/repository-settings/user-self-privileges.png'
-import miscellaneous-settings from './images/repository-settings/miscellaneous-settings.png'
-import potentially-dangerous-actions from './images/repository-settings/potentially-dangerous-actions.png'
-import dangerous-actions from './images/repository-settings/dangerous-actions.png'
+import generalSettings from './images/repository-settings/general-settings.png'
+import repoPrivileges from './images/repository-settings/repo-privileges.png'
+import userSelfPrivileges from './images/repository-settings/user-self-privileges.png'
+import miscellaneousSettings from './images/repository-settings/miscellaneous-settings.png'
+import potentiallyDangerousActions from './images/repository-settings/potentially-dangerous-actions.png'
+import dangerousActions from './images/repository-settings/dangerous-actions.png'
 
 # Repository Settings
 
@@ -14,7 +14,7 @@ You can change the display name or description of a repository at any time.
 
 The repository display name is just a descriptive value and is not the repository slug/identifier. Changing the repository display name will not affect configurations used by client programs or other users.
 
-<BlockImage src={general-settings} alt="Repository Name and Description"></BlockImage>
+<BlockImage src={generalSettings} alt="Repository Name and Description"></BlockImage>
 
 For information about changing the repository slug/identifier, see [Potentially Dangerous Actions](/repositories/repository-settings#potentially-dangerous-actions).
 
@@ -24,7 +24,7 @@ For information about changing the repository slug/identifier, see [Potentially 
 
 ## Repository Privileges
 
-<BlockImage src={repo-privileges} alt="Repository Privileges"></BlockImage>
+<BlockImage src={repoPrivileges} alt="Repository Privileges"></BlockImage>
 
 Repository privileges let you configure which permissions are required to perform actions on a repository.  
 
@@ -42,7 +42,7 @@ Then, in the repository [Access Control](/repositories/repository-privileges#acc
 These settings override the repository privilege level setting for the repository. 
 </Note>
 
-<BlockImage src={user-self-privileges} alt="Repository User / Self Privileges"></BlockImage>
+<BlockImage src={userSelfPrivileges} alt="Repository User/Self Privileges"></BlockImage>
 
 **User entitlements enabled**  
 If checked, users can use and manage their own user-specific entitlement token for the repository (if the repository is a private repository).  
@@ -53,7 +53,7 @@ If checked, users with **Write** access to the repository can scan, copy, move, 
 
 ## Miscellaneous Settings
 
-<BlockImage src={miscellaneous-settings} alt="Miscellaneous Repository Settings"></BlockImage>
+<BlockImage src={miscellaneousSettings} alt="Miscellaneous Repository Settings"></BlockImage>
 
 **Use/configure noarch packages**
 
@@ -170,7 +170,7 @@ During the transfer, you will be unable to upload any new packages or change exi
 Storage in the non-default region is available to users on Ultra and Enterprise plans.
 </Note>
 
-<BlockImage src={potentially-dangerous-actions} alt="Potentially Dangerous Actions"></BlockImage>
+<BlockImage src={potentiallyDangerousActions} alt="Potentially Dangerous Actions"></BlockImage>
 
 ## Dangerous Actions
 
@@ -180,6 +180,6 @@ Actions in this section may result in data loss.
 A repository deletion is irreversible and will prevent existing users from accessing the repository. Before performing a repository deletion, confirm the potential user impact and any communication required.
 </Note>
 
-<BlockImage src={dangerous-actions} alt="Dangerous Actions"></BlockImage>
+<BlockImage src={dangerousActions} alt="Dangerous Actions"></BlockImage>
 
 
