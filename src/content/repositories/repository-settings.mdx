@@ -24,31 +24,33 @@ For information about changing the repository slug/identifier, see [Potentially 
 
 ## Repository Privileges
 
-<BlockImage src={repoPrivileges} alt="Repository Privileges"></BlockImage>
-
 Repository privileges let you configure which permissions are required to perform actions on a repository.  
 
-You assign a permission level to a team or user when you grant them access to a repository. After that, you can use the repository privileges to set precisely which actions that permission level can perform. See [Access Control](/repositories/repository-privileges#access-control) for information on granting access to a repository.
+<BlockImage src={repoPrivileges} alt="Repository Privileges"></BlockImage>
 
-For example, if you wanted a team or user to only be able to set or use entitlement tokens, then you could set the permission level required for **See/Use entitlements** to **Read**, and set all other actions to **Write** or above.  
+You assign a permission level to a team or user when you grant them access to a repository. After that, you can use the repository privileges to set precisely which actions that permission level can perform. For more information about granting access to a repository, see [Access Control](/repositories/repository-privileges#access-control).
 
-Then, in the repository [Access Control](/repositories/repository-privileges#access-control), you would set the team or user to have only **Read** permissions on the repository.  As a result, they would be able to set or use entitlement tokens, but would not have permission to perform any other repository actions.
+**Example:**
 
-***
+If you want a team to only be able to see or use entitlement tokens, then you could set the permission level required for **See/Use entitlements** to **Read**, and all other actions to **Write** or higher.  
+
+In the repository **Access control** settings, you would then set the team to have only **Read** permissions on the repository. As a result, they would be able to see and use entitlement tokens, but would not have permission to perform any other repository actions.
 
 ## User/Self Privileges
 
 <Note variant="note">
-These settings override the repository privilege level setting for the repository. 
+These settings override the repository privilege level setting. 
 </Note>
 
 <BlockImage src={userSelfPrivileges} alt="Repository User/Self Privileges"></BlockImage>
 
-**User entitlements enabled**  
+**User entitlements enabled**
+
 If checked, users can use and manage their own user-specific entitlement token for the repository (if the repository is a private repository).  
 If not checked, user-specific entitlement tokens are disabled for all users.
 
-**Scan / Copy / Move / Delete / Resync**  
+**Scan / Copy / Move / Delete / Resync**
+
 If checked, users with **Write** access to the repository can scan, copy, move, delete, and resync packages that they have uploaded.
 
 ## Miscellaneous Settings
@@ -89,7 +91,7 @@ If checked, refresh tokens will be issued in addition to access tokens for Docke
 
 **Use Debian repository labels**
 
-If checked, a `Label` field will be present in Debian-based repositories. It will contain a string that identifies the entitlement token used to authenticate the repository, in the form of 'source=t-'; or 'source=none' if no token was used. You can use this to help with pinning.
+If checked, a `Label` field will be present in Debian-based repositories. It will contain a string that identifies the entitlement token used to authenticate the repository, in the form of `source=t-`, or `source=none` if no token was used. You can use this to help with pinning.
 
 **Scan for vulnerabilities**
 
@@ -97,15 +99,17 @@ If checked, vulnerability scanning will be enabled for all supported packages wi
 
 **Contextual authentication realm**
 
-If checked, missing credentials for this repository where basic authentication is required shall present an enriched value in the 'WWW-Authenticate' header containing the namespace and repository. This can be useful for tools such as SBT, where the authentication realm is used to distinguish and disambiguate credentials.
+If checked, missing credentials for this repository where basic authentication is required shall present an enriched value in the 'WWW-Authenticate' header containing the namespace and repository. This can be useful for tools such as sbt, where the authentication realm is used to distinguish and disambiguate credentials.
 
 **Use crates.io as default Cargo upstream**
 
-If checked, dependencies of uploaded Cargo crates which do not set an explicit value for `registry` will be assumed to be available from crates.io. If unchecked, dependencies with unspecified `registry` values will be assumed to be available in the registry being uploaded to. Uncheck this if you want to ensure that dependencies are only ever installed from Cloudsmith unless explicitly specified as belong to another registry.
+If checked, dependencies of uploaded Cargo crates which do not set an explicit value for `registry` will be assumed to be available from crates.io. If unchecked, dependencies with unspecified `registry` values will be assumed to be available in the registry being uploaded to.
+
+Uncheck this if you want to ensure that dependencies are only ever installed from Cloudsmith unless explicitly specified as belong to another registry.
 
 **Strict npm validation**
 
-If checked, npm packages will be validated strictly to ensure that they match the specification. You can turn this on if you want to guarantee that the packages will work with npm-cli and other tools correctly.
+If checked, npm packages will be validated strictly to ensure that they match the specification. You can turn this on if you want to guarantee that the packages will work correctly with npm-cli and other tools.
 
 **Apply "Latest" tag for pre-release versions**
 
@@ -149,10 +153,14 @@ For example, renaming a repository slug/identifier will break configurations tha
 Exercise caution before making changes here.
 </Note>
 
+<BlockImage src={potentiallyDangerousActions} alt="Potentially Dangerous Actions"></BlockImage>
+
 **Start broadcasting**
 
 Broadcasting a repository creates a public page where users can browse, search, and download repository packages. You can customize the branding of the page and control which package information to display.
-Broadcasting doesn't make any changes to your repository, and can be changed or turned off at any point. For more information, see [Broadcasts](/software-distribution/broadcasts).
+Broadcasting doesn't make any changes to your repository, and can be changed or turned off at any point. 
+
+For more information, see [Broadcasts](/software-distribution/broadcasts).
 
 **Rename repository slug/identifier**
 
@@ -167,10 +175,8 @@ Transferring a repository to a new storage region will move all packages and fil
 During the transfer, you will be unable to upload any new packages or change existing ones. Downloads will continue to work normally.
 
 <Note variant="note">
-Storage in the non-default region is available to users on Ultra and Enterprise plans.
+Storage in the non-default region is available only to users on Ultra and Enterprise plans.
 </Note>
-
-<BlockImage src={potentiallyDangerousActions} alt="Potentially Dangerous Actions"></BlockImage>
 
 ## Dangerous Actions
 
@@ -181,5 +187,9 @@ A repository deletion is irreversible and will prevent existing users from acces
 </Note>
 
 <BlockImage src={dangerousActions} alt="Dangerous Actions"></BlockImage>
+
+You can restore deleted packages from the **Recently deleted packages in {repository-name}** section on the **Deleted** tab of the repository. 
+
+For more information, see [Recently Deleted Packages](/artifact-management/recently-deleted-packages).
 
 
