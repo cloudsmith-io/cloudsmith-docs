@@ -42,7 +42,7 @@ Then, in the repository [Access Control](/repositories/repository-privileges#acc
 These settings override the repository privilege level setting for the repository. 
 </Note>
 
-<BlockImage src={img_repo_settingsiPad_Pro_1} alt="Repository User / Self Privileges"></BlockImage>
+<BlockImage src={user-self-privileges} alt="Repository User / Self Privileges"></BlockImage>
 
 **User entitlements enabled**  
 If checked, users can use and manage their own user-specific entitlement token for the repository (if the repository is a private repository).  
@@ -142,7 +142,9 @@ If your custom RSA key is encrypted, please also provide the passphrase for it.
 ## Potentially Dangerous Actions
 
 <Note variant="warning" headline="Potentially dangerous actions">
-The actions in this section are reversible, but may have broader impacts. For example, renaming a repository slug/identifier will break configurations that use the original slug/identifier. Transferring a repository to a new storage region may affect region-specific compliance requirements.
+The actions in this section are reversible, but may have broader impacts. 
+
+For example, renaming a repository slug/identifier will break configurations that use the original slug/identifier. Transferring a repository to a new storage region may affect region-specific compliance requirements.
 
 Exercise caution before making changes here.
 </Note>
