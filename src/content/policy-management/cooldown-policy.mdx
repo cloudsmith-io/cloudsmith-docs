@@ -59,8 +59,8 @@ You can configure the following fields in your cooldown policy Rego:
 | **Cooldown period**.                | The minimum age, in days, a package must reach before it appears in the index. Packages published more recently than this value are hidden from the index. |
 | **Apply to packages already in use**| Checked by default. When unchecked, packages already in Cloudsmith will not be quarantined by the cooldown policy or hidden from the repository index. |
 
-<Note>A cooldown policy is always set to **Terminal**, which prevents the evaluation of any further policies if this policy matches. This setting cannot be edited. 
-</Note>
+A cooldown policy is always set to **Terminal**, which prevents the evaluation of any further policies if this policy matches. This setting cannot be edited. 
+
 
 <Note> **Precedence** for a cooldown policy is always set to `0`. 
 Policies within an organization are ordered based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first, then each remaining policy is evaluated in order of ascending precedence. 
