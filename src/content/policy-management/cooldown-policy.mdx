@@ -12,6 +12,7 @@ A cooldown policy applies at the Cloudsmith index level and is supported for npm
 
 <Note variant="note" headline="Automatic reversal">
 If a cooldown policy is updated, disabled, or deleted, packages will be reevaluated. This is different from other policies that only apply to cached packages and do not have automatic reversal.
+</Note>
 
 ## How it works
 
@@ -28,7 +29,7 @@ When a cooldown policy is enabled, packages that do not meet the configured age 
 - Packages already cached in Cloudsmith are quarantined and hidden from the index until the cooldown period elapses. Once the cooldown period expires, the package is unquarantined and becomes available for download and visible in the index, provided it does not violate any other active policies.
 
 <Note variant="tip">
-You can exclude upstream packages that are already cached in your Cloudsmith workspace from the policy scope by unchecking the **Apply to packages already in use** option in the policy view.</Note>
+You can exclude upstream packages that are already cached in your Cloudsmith workspace from the policy scope by unchecking the **Apply to packages already in use** option in the policy view.
 </Note>
 
 Decision logs for a cooldown policy are only generated for upstream packages that are already in your Cloudsmith workspace. They are accessible via the Cloudsmith web app and the Cloudsmith API. 
@@ -112,13 +113,15 @@ To create and manage a cooldown policy, you must have access to Policy Manager i
 
 ### Create a cooldown policy via the Cloudsmith web app (recommended method)
 
-<Note> Only one cooldown policy can be created per workspace. </Note>
+<Note> Only one cooldown policy can be created per workspace. 
+</Note>
 
 1. From your Cloudsmith dashboard, go to the **Policies** tab and click **Create a new policy**. 
 2. Select **Start from a template**, and then select the **Cooldown period** template.
 The **Cooldown period** policy template opens.
 3. Click **Use template** to create the cooldown policy.
-<Note> When created from a template, your cooldown policy is disabled by default. </Note>
+<Note> When created from a template, your cooldown policy is disabled by default. 
+</Note>
 4. (Optional) Click the edit icon next to the policy name to customize the policy name and description.
 5. Customize the policy options. For guidance on which policy options are configurable, see [Policy configuration](#policy-configuration).
 6. Click **Save policy** to save and apply your changes.
@@ -244,5 +247,6 @@ To find packages currently hidden due to a cooldown policy, search your workspac
 When a cooldown policy is deleted or disabled, packages previously displayed as **HIDDEN** revert to their prior status.
 
 
-<Note> After a cooldown policy is created, it may take several minutes for the non-compliant packages in your Cloudsmith workspace to appear as **HIDDEN**.</Note>
+<Note> After a cooldown policy is created, it may take several minutes for the non-compliant packages in your Cloudsmith workspace to appear as **HIDDEN**.
+</Note>
 
