@@ -37,7 +37,7 @@ A dynamic configuration adds two fields on top of the standard provider configur
 On every authentication request, Cloudsmith:
 
 1. Verifies the JWT against the provider URL, exactly as it does for a static configuration.
-2. Verifies that the JWT contains every claim listed in `claims` (these still act as a gate — typically `iss` and any organisation-level scoping).
+2. Verifies that the JWT contains every claim listed in `claims` (these still act as a gate — typically `iss` and any organization-level scoping).
 3. Reads the value of `mapping_claim` from the JWT.
 4. Looks that value up in `dynamic_mappings` and, if a match is found, issues a Cloudsmith token for the mapped service account.
 
