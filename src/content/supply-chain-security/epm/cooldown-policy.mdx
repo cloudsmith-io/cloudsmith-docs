@@ -3,7 +3,7 @@ import hiddenPackageToast from '../images/hidden-pkg-explainer.png'
 import hiddenPackageSearch from '../images/view-hidden-packages.png'
 import cooldownPolicyView from '../images/cooldown-policy-view.png'
 
-# Cooldown Policy
+# Cooldown policy
 
 <Note variant="note" headline="Early Access">
 The cooldown policy feature is in early access. To try this feature, please [contact us](https://cloudsmith.com/company/contact-us).
@@ -54,7 +54,7 @@ You can configure the following fields in your cooldown policy Rego:
 | Field                               | Description                                                                                     |
 | :---------------------------------- | :---------------------------------------------------------------------------------------------- |
 | **Policy name**                     | A display name for the cooldown policy. The default policy name can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy name is returned with any 403 error. |
-| **Policy description**              | A description of the cooldown policy. The default policy description can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy description is returned with any 403 error.|
+| **Policy description**              | A description of the cooldown policy. The default policy description can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy description is returned with any 403 error. |
 | **Enabled**                         | Enable or disable the cooldown policy. |
 | **Repositories**                    | The repositories that the cooldown policy applies to. By default, the cooldown policy applies to all repositories in a workspace unless configured otherwise.  |
 | **Formats**                         | The package formats the policy applies to. Currently supported:  `npm`, `python`. |
@@ -63,8 +63,8 @@ You can configure the following fields in your cooldown policy Rego:
 
 <Note variant="note"> A cooldown policy is always set to **Terminal**, which prevents the evaluation of any further policies if this policy matches. This setting cannot be edited. </Note>
 
-<Note> Precedence for a cooldown policy is always set to `0`. 
-Policies within a workspace are ordered based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first, then each remaining policy is evaluated in order of ascending precedence. 
+<Note> Precedence for a cooldown policy is always set to `0`.
+Policies within a workspace are ordered based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first, then each remaining policy is evaluated in order of ascending precedence.
 This setting cannot be edited. </Note>
 
 ## The developer experience
@@ -183,6 +183,7 @@ A cooldown policy can also be created and managed via the Cloudsmith API by usin
 - [Partially update a policy](https://docs.cloudsmith.com/api/workspaces/policies/partial-update)
 - [List policies](https://docs.cloudsmith.com/api/workspaces/policies/list)
 - [Retrieve a policy](https://docs.cloudsmith.com/api/workspaces/policies/retrieve)
+- [Delete a policy](https://docs.cloudsmith.com/api/workspaces/policies/destroy)
 
 As with the web app, only the fields listed in [Policy configuration](#policy-configuration) can be edited via the API.
 
