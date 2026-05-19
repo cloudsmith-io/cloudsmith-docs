@@ -1,4 +1,7 @@
 import { Note, BlockImage } from '@/components'
+import hiddenPackageToast from 'src/content/supply-chain-security/images/hidden-pkg-explainer.png'
+import hiddenPackageSearch from 'src/content/supply-chain-security/images/view-hidden-packages.png'
+import cooldownPolicyView from 'src/content/supply-chain-security/images/cooldown-policy-view.png'
 
 # Cooldown Policy
 
@@ -35,6 +38,7 @@ You can exclude upstream packages that are already cached in your Cloudsmith wor
 Decision logs for a cooldown policy are only generated for upstream packages that are already in your Cloudsmith workspace. They are accessible via the Cloudsmith web app and the Cloudsmith API. 
 
 Cloudsmith determines a package's age by using metadata retrieved from the upstream source. Where package age metadata is not populated, the cooldown policy will fail open, meaning the package will not be hidden from the index.
+
 
 ### Supported package formats
 
@@ -104,6 +108,7 @@ The message includes:
 
 To create and manage a cooldown policy, you must have access to Policy Manager in your workspace.
 
+
 ### Create a cooldown policy via the Cloudsmith web app (recommended method)
 
 <Note>Only one cooldown policy can be created per workspace. </Note>
@@ -119,6 +124,7 @@ When created from a template, your cooldown policy is disabled by default.
 
 After the policy is created, it might take a few minutes to take effect on packages in your workspace.
 
+<BlockImage src={cooldownPolicyView} alt="Cooldown policy view"></BlockImage>
 
 ### Edit a cooldown policy via the Cloudsmith web app (recommended method)
 
@@ -144,6 +150,7 @@ You can enable a cooldown policy from the **Policies** tab of the Cloudsmith das
 Hovering over the toggle next to the policy displays **Click to enable policy**.
 3. Click the toggle to enable the policy.
 
+
 ### Disable a cooldown policy via the Cloudsmith web app (recommended method)
 
 You can disable a cooldown policy from the **Policies** tab of the Cloudsmith dashboard:
@@ -154,6 +161,7 @@ Hovering over the toggle next to the policy displays **Click to disable policy**
 3. Click the toggle to disable the policy.
 
 When a policy is disabled, it might take a few minutes to take effect on packages that are already in your workspace.
+
 
 ### Delete a cooldown policy via the Cloudsmith web app (recommended method)
 
@@ -168,7 +176,8 @@ You can delete a cooldown policy from the **Policies** tab of the Cloudsmith das
 When a policy is deleted, it might take a few minutes to take effect on packages that are already in your workspace.
 
 
-### Create and manage a cooldown policy via the Cloudsmith API
+
+## Create and manage a cooldown policy via the Cloudsmith API
 
 To create and manage a cooldown policy, you must have access to Policy Manager in your workspace.
 
@@ -225,16 +234,23 @@ reason contains msg if {
 
 When creating a cooldown policy, you can exclude specific repositories, formats, and local packages from the policy scope by using the configuration fields described in [Policy configuration](#policy-configuration).
 
+<Note> 
 For the initial early access release, it is not possible to add exemptions for specific package versions directly. We are treating this as a priority area ahead of general availability, and are gathering user feedback during early access to ensure that we take the right approach.
-In the meantime, if a specific package version needs to bypass the cooldown policy urgently, we recommend that your security or platform team downloads the required package directly and uploads it into Cloudsmith manually. This bypasses the cooldown requirement and makes the package available to developers immediately.
 
+In the meantime, if a specific package version needs to bypass the cooldown policy urgently, we recommend that your security or platform team downloads the required package directly and uploads it into Cloudsmith manually. This bypasses the cooldown requirement and makes the package available to developers immediately.
+</Note>
 
 ## Viewing packages that violate your cooldown policy
 
 Upstream packages that are already cached in your Cloudsmith workspace and violate your cooldown policy are displayed as **HIDDEN** in the Cloudsmith web app and via the Cloudsmith API. These packages cannot be downloaded, unhidden, or unquarantined. 
 
-To find packages currently hidden due to a cooldown policy, search your workspace using the search term `status:hidden`. Hovering over the **HIDDEN** status in the web app will display why the package is hidden.
+To find packages currently hidden due to a cooldown policy, search your workspace using the search term `status:hidden`:
 
+<BlockImage src={hiddenPackageSearch} alt="Hidden package search results"></BlockImage>
+
+Hovering over the **HIDDEN** status in the web app will display why the package is hidden:
+
+<BlockImage src={hiddenPackageToast} alt="Hidden status"></BlockImage>
 
 When a cooldown policy is deleted or disabled, packages previously displayed as **HIDDEN** revert to their prior status.
 
