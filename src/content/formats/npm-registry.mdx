@@ -3,17 +3,17 @@ import { Tag, Note, BlockImage, Video } from '@/components';
 
 # npm Registry
 
-Cloudsmith provides public & private registries for npm (JavaScript)
+Cloudsmith provides public & private registries for npm (JavaScript).
 
 <Video wistiaId="yb24y37ume"></Video>
 
-npm is an extremely popular package manager for [JavaScript](https://en.wikipedia.org/wiki/JavaScript), and is used for creating and using packaged [Node.js](https://en.wikipedia.org/wiki/Node.js) modules. A public index of packages is available from npm, inc. on [npmjs.org](https://npmjs.org). npm, Inc. also develop and maintain the official  `npm` client, ecosystem and tooling.
+npm is an extremely popular package manager for [JavaScript](https://en.wikipedia.org/wiki/JavaScript), and is used for creating and using packaged [Node.js](https://en.wikipedia.org/wiki/Node.js) modules. A public index of packages is available from npm, Inc. on [npmjs.org](https://npmjs.org). npm, Inc. also develops and maintains the official `npm` client, ecosystem, and tooling.
 
 For more information on npm, please see:
 
 - [npm](https://npmjs.org): The official website for npm
 
-Cloudsmith is proud to support fully-featured registries for managing your own private and public npm packages.   We provide a high-level of compatibility with the official npmjs API meaning you can use the [official CLI client](https://docs.npmjs.com/cli/npm) -  `npm` - for installing, managing, and publishing npm packages to Cloudsmith. Or if you prefer you can use the Cloudsmith UI, API or  CLI - `cloudsmith`.
+Cloudsmith is proud to support fully-featured registries for managing your own private and public npm packages. We provide a high level of compatibility with the official npmjs API, meaning you can use the [official CLI client](https://docs.npmjs.com/cli/npm) -  `npm` - for installing, managing, and publishing npm packages to Cloudsmith. Or, if you prefer, you can use the Cloudsmith UI, API, or  CLI - `cloudsmith`.
 
 The Cloudsmith npm registry has been fully tested with the following:
 
@@ -21,7 +21,7 @@ The Cloudsmith npm registry has been fully tested with the following:
 - `node` version: v6.11.3
 - `yarn` version: v1.9.4
 
-It is likely that it will work for other environments, including older and more recent  versions.  If you encounter any issues please [let us know](https://cloudsmith.com/company/contact-us).
+It is likely that it will work for other environments, including older and more recent versions. If you encounter any issues, please [let us know](https://cloudsmith.com/company/contact-us).
 
 <Note variant="note" headline="Contextual Documentation">
 The examples in this document are generic. Cloudsmith provides contextual setup instructions within each repository, complete with copy and paste snippets (with your namespace/repo/rsa-key pre-configured).
@@ -60,7 +60,7 @@ To authenticate for native publishing, you can either use `npm login` or create 
 
 <Note variant="note" headline="Authentication types from npm v9">
 npm Version 9 introduced a change which consolidated the legacy authentication types.  
-Please see the official NPM release notes **[here](https://github.blog/changelog/2022-10-24-npm-v9-0-0-released/)** for further details.
+Please see the official npm release notes **[here](https://github.blog/changelog/2022-10-24-npm-v9-0-0-released/)** for further details.
 </Note>
 
 Use `npm login`:
@@ -149,16 +149,16 @@ You can find further information in the npm documentation on [scoped packages](h
 
 ## Distribution Tags
 
-Distribution tags allow npm packages to be tagged with a mnemonic that is associated with a specific package version.
+Distribution tags allow npm packages to be tagged with an alias that is associated with a specific package version.
 
 Cloudsmith has full support for distribution tags and (mostly) follows the same rules for them as on npmjs.com:
 
 1. A specific tag can point at one version of a package only.
 2. A package version may have multiple unique tags.
-3. Unless specified otherwise, the default tag for the last package published is latest.
-4. When a package that is **latest** is deleted, the tag is moved to the next applicable version by [semver](https://semver.npmjs.com/).
+3. Unless specified otherwise, Cloudsmith assigns the `latest` tag to the semantically highest version of a package.
+4. When a package that is `latest` is deleted, the tag is moved to the next applicable version by semantic versioning ([SemVer](https://semver.npmjs.com/)).
 5. When a package is copied/moved to another repository, its tags are carried with it.
-6. If the **latest** package is moved/deleted, then existing packages are sorted via SemVer to determine the next latest.
+6. If the `latest` package is moved/deleted, then existing packages are sorted via SemVer to determine the next latest.
 
 You can inspect a package to see what tags it has:
 
@@ -179,7 +179,21 @@ You can also remove tags from a package:
 npm dist-tags rm PACKAGE_NAME TAG --registry=https://npm.cloudsmith.io/OWNER/REPOSITORY/
 ```
 
-You can find out more about [distribution tags](https://docs.npmjs.com/adding-dist-tags-to-packages) in the npm documentation (external link).
+For more information about distribution tags, see [npm Docs: Adding dist-tags to packages](https://docs.npmjs.com/adding-dist-tags-to-packages).
+
+### Upstream Tag Precedence
+
+By default, Cloudsmith assigns the `latest` tag to the semantically highest version of a package within the native npm responses. If you have an upstream configured and want the `latest` tag defined on the upstream to take precedence, you can enable the **NPM upstream tags take precedence** option in your repository settings. This ensures that the `latest` tag from the upstream registry is used instead of the one calculated by Cloudsmith.
+
+With the **NPM upstream tags take precedence** option enabled, Cloudsmith's npm metadata logic uses SemVer as the baseline, then checks for the `latest` dist-tag in the upstream registry and applies it as an override. 
+
+<Note variant="note">
+This override occurs only if the tag’s corresponding version is present within the versions to be returned to the user.  If not, then the `latest` tag defaults to the semantically highest version. 
+</Note>
+
+For information about enabling the **NPM upstream tags take precedence** option in the web app, see [Repository Settings](/repositories/repository-settings).
+
+For information about enabling npm upstream tag precedence via the Cloudsmith API, please refer to [Repos Create](https://docs.cloudsmith.com/api/repos/create) for creating a new repository, or [Repos Partial Update](https://docs.cloudsmith.com/api/repos/partial-update) for updating an existing one.
 
 # Download / Install a Package
 
@@ -363,7 +377,7 @@ Please see our [Security Scanning](/policy-management/vulnerability-policy) docu
 <Tag variant="dark-green" theme="legacy">Configurable Proxying</Tag>
 <Tag variant="orange" theme="legacy">Caching</Tag>
 
-You can configure upstream NPM repositories you wish to use as additional package sources for your Cloudsmith repository. You can also choose to cache any requested packages for future use.
+You can configure upstream npm repositories you wish to use as additional package sources for your Cloudsmith repository. You can also choose to cache any requested packages for future use.
 
 Please see our [Upstream Proxying](/repositories/upstreams) documentation for further instructions
 
