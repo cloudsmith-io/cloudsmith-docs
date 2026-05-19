@@ -3,6 +3,8 @@ title: Dynamic OIDC Mapping
 description: Map a single OIDC provider configuration to many Cloudsmith service accounts based on a claim value from the incoming JWT.
 ---
 
+import { Note } from '@/components'
+
 # Dynamic OIDC Mapping
 
 Cloudsmith's [standard OIDC configuration](/authentication/openid-connect) creates a one-to-one trust relationship between a single provider configuration and a fixed set of service accounts. Authentication succeeds for any token that matches the required claims, and every authenticated request is mapped to the same service account(s).
@@ -132,9 +134,9 @@ Buildkite's JWT includes a `pipeline_slug` claim, which is the most common mappi
 
 ## Configuring via API
 
-> **Note**
->
-> Dynamic OIDC mapping is currently configurable via the API and the [Cloudsmith Terraform provider](https://registry.terraform.io/providers/cloudsmith-io/cloudsmith/latest/docs/resources/oidc) only. 
+<Note variant="note">
+  Dynamic OIDC mapping is currently configurable via the API and the [Cloudsmith Terraform provider](https://registry.terraform.io/providers/cloudsmith-io/cloudsmith/latest/docs/resources/oidc) only.
+</Note>
 
 Create a dynamic provider configuration with a `POST` to the OIDC endpoint:
 
@@ -193,4 +195,4 @@ This collapses what would otherwise be one `cloudsmith_oidc` resource per reposi
 - **One mapping claim per provider.** Each provider configuration uses exactly one `mapping_claim`. If you need to route on different claims for different sets of pipelines, create separate provider configurations.
 - **Static and dynamic are mutually exclusive on a single configuration.** A provider is either static (uses `service_accounts`) or dynamic (uses `mapping_claim` + `dynamic_mappings`). Set `service_accounts` to an empty array when using dynamic mapping.
 - **Claim values must match exactly.** Trailing-wildcard syntax (`prefix.*`) is supported in the same way as it is for `claims` values.
-- **Client log enrichment.** Client logs currently record only that a service account was used; they do not record the OIDC claim values that were exchanged for that token. Enriched logging for OIDC token exchanges is on the roadmap.
+- **Client log enrichment.** Client logs currently record only that a service account was used; they do not record the OIDC claim values that were exchanged for that token. 
