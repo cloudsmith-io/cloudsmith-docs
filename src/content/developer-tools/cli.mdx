@@ -69,28 +69,6 @@ brew upgrade cloudsmith-cli
 
 For issues with the tap, please open a [GitHub issue](https://github.com/cloudsmith-io/homebrew-cloudsmith-cli/issues/new) or contact [support@cloudsmith.io](mailto:support@cloudsmith.io).
 
-### Installing on Windows
-
-The instructions below detail how to install the Cloudsmith CLI using [chocolatey](https://chocolatey.org/):
-
-1. Click Start on your Windows machine and type “powershell“
-2. Right-click Windows Powershell and select to “Run as Administrator“
-3. To install chocolatey, type the following command into the Powershell terminal:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; `
-  iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-```
-
-4. Close and reopen Powershell in Administrator mode.
-5. Install the cloudsmith cli using chocolately:
-
-```powershell
-choco install python -y
-refreshenv
-choco install cloudsmith-cli --source python
-```
-
 ### Deploying the CLI containerized
 
 Cloudsmith maintains a [Docker image for the Cloudsmith CLI](https://hub.docker.com/r/cloudsmith/cloudsmith-cli)⁠ built for use in CI/CD pipelines and automation environments.
