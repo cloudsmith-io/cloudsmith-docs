@@ -1,6 +1,5 @@
 /** @type {import('postcss-load-config').Config} */
-
-export default {
+const config = {
   plugins: {
     'postcss-flexbugs-fixes': {},
     // This plugin adds the fluid function to CSS, which can be used to generate fluid
@@ -32,3 +31,5 @@ export default {
     },
   },
 };
+
+export default config;

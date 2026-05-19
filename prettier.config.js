@@ -2,7 +2,7 @@
  * @see https://prettier.io/docs/en/configuration.html
  * @type {import("prettier").Config}
  */
-export default {
+const config = {
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
   singleQuote: true,
   printWidth: 110,
@@ -34,3 +34,5 @@ export default {
   importOrderTypeScriptVersion: '5.0.0',
   importOrderCaseSensitive: false,
 };
+
+export default config;

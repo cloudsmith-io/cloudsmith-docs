@@ -12,7 +12,6 @@
   padding-block: var(--space-2xs);
   padding-inline: var(--space-xs);
   cursor: pointer;
-  border: 0;
   border: 1px solid var(--search-trigger-border);
   border-radius: var(--border-radius-s);
   background-color: var(--search-trigger-background, var(--color-background-light));

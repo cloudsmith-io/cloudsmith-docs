@@ -28,6 +28,7 @@
 
 .code :global(pre) {
   margin: 0;
+
   /* Needed to overwrite Shikit theme */
   background-color: var(--color-background-pre) !important;
   padding-block: 15px;

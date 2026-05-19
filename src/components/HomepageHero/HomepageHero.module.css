@@ -17,6 +17,7 @@
 
 .backgroundGrid {
   background-color: var(--brand-color-grey-10);
+
   --background-grid-width: 1920px;
   --grid-color: var(--brand-color-grey-9);
   --background-grid-height: 518px;
@@ -50,14 +51,14 @@
 }
 
 .title strong {
-  background-clip: text;
   /* TODO: Update tokens to match the Product DS */
   background: var(
     --Text-highlight-Blue-light,
     linear-gradient(90deg, var(--Blue-4, #90b7f6) 0%, var(--Blue-6, #498af6) 100%)
   );
+
   /* background: linear-gradient(to right, var(--brand-color-blue-6), var(--brand-color-blue-8)); */
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -65,8 +66,9 @@
   max-width: var(--container-width-xs);
   margin-left: auto;
   margin-right: auto;
+
   /* TODO: Update tokens to match the Product DS */
-  color: var(--Text-secondary, rgba(255, 255, 255, 0.75));
+  color: var(--Text-secondary, rgb(255 255 255 / 75%));
 }
 
 .search {

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import * as RadixSelect from '@radix-ui/react-select';
 
@@ -180,55 +180,49 @@ const GenericObjectParam = ({
 }: ObjectBodyParamProps) => {
   const entries = Object.entries((state as ObjectParamState)?.items ?? {}) as [string, StringParamState][];
 
-  const Wrapper = useMemo(
-    () =>
-      isNested
-        ? ({ children }: { children: ReactNode }) => (
-            <ParamSet
-              heading="object"
-              name={name}
-              required={required}
-              schema={schema}
-              description={schema.description}
-              item={item}
-              onAddEntry={() => {
-                onUpdateParam([randomId()], {
-                  type: 'string',
-                  name: '',
-                  value: '',
-                });
-              }}
-              onDeleteItem={(keys) => onDeleteItem?.(keys)}>
-              {children}
-            </ParamSet>
-          )
-        : React.Fragment,
-    [],
-  );
+  const children = entries.map(([id, state]) => (
+    <ParamKeyValue
+      key={id}
+      keyValue={state.name ?? ''}
+      value={state.value ?? ''}
+      onKeyValueChange={(v) =>
+        onUpdateParam([id], {
+          ...state,
+          name: v,
+        })
+      }
+      onValueChange={(v) =>
+        onUpdateParam([id], {
+          ...state,
+          value: v,
+        })
+      }
+      onDelete={() => onUpdateParam([id], undefined)}
+    />
+  ));
+
+  if (!isNested) {
+    return <>{children}</>;
+  }
 
   return (
-    <Wrapper>
-      {entries.map(([id, state]) => (
-        <ParamKeyValue
-          key={id}
-          keyValue={state.name ?? ''}
-          value={state.value ?? ''}
-          onKeyValueChange={(v) =>
-            onUpdateParam([id], {
-              ...state,
-              name: v,
-            })
-          }
-          onValueChange={(v) =>
-            onUpdateParam([id], {
-              ...state,
-              value: v,
-            })
-          }
-          onDelete={() => onUpdateParam([id], undefined)}
-        />
-      ))}
-    </Wrapper>
+    <ParamSet
+      heading="object"
+      name={name}
+      required={required}
+      schema={schema}
+      description={schema.description}
+      item={item}
+      onAddEntry={() => {
+        onUpdateParam([randomId()], {
+          type: 'string',
+          name: '',
+          value: '',
+        });
+      }}
+      onDeleteItem={(keys) => onDeleteItem?.(keys)}>
+      {children}
+    </ParamSet>
   );
 };
 
@@ -263,27 +257,8 @@ const StructuredObjectParam = ({
     [sortedParameterEntries, schema.required],
   );
 
-  const Wrapper = useMemo(
-    () =>
-      isNested
-        ? ({ children }: { children: ReactNode }) => (
-            <ParamSet
-              heading="object"
-              name={name}
-              required={required}
-              schema={schema}
-              description={schema.description}
-              item={item}
-              onDeleteItem={(keys) => onDeleteItem?.(keys)}>
-              {children}
-            </ParamSet>
-          )
-        : React.Fragment,
-    [],
-  );
-
-  return (
-    <Wrapper>
+  const children = (
+    <>
       {requiredParameters.map((p) => {
         const [name, param] = p;
         const s = Object.entries((state as ObjectParamState)?.items ?? {}).find((v) => v[1].name === name);
@@ -332,9 +307,26 @@ const StructuredObjectParam = ({
                 onUpdateParam([id, ...keys], value);
               }}
             />
-          );
-        })}
-    </Wrapper>
+            );
+          })}
+    </>
+  );
+
+  if (!isNested) {
+    return children;
+  }
+
+  return (
+    <ParamSet
+      heading="object"
+      name={name}
+      required={required}
+      schema={schema}
+      description={schema.description}
+      item={item}
+      onDeleteItem={(keys) => onDeleteItem?.(keys)}>
+      {children}
+    </ParamSet>
   );
 };
 

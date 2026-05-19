@@ -223,6 +223,7 @@
 @media (--laptop-up) {
   .secondaryNav .navLink {
     min-height: 50px;
+
     /* Resolves an issue where The link sizing + padding was causing the navbar to be taller than expected, which then caused a scrolling bug with the sidebars */
     padding-block: calc((50px - (var(--text-body-m) * var(--line-height-normal))) / 2);
     box-sizing: border-box;
@@ -329,10 +330,7 @@
 .mobileBackground {
   position: fixed;
   z-index: var(--layer-navigation-mobile-bg);
-  top: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height));
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height)) 0 0;
   background-color: var(--base-color-grey-1000);
 
   @media (--laptop-up) {
@@ -343,10 +341,7 @@
 .mobileNavbar {
   position: fixed;
   z-index: var(--layer-navigation-mobile);
-  top: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height));
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: calc(var(--navbar-banner-height) + var(--navbar-top-height) + var(--navbar-border-height)) 0 0;
   background-color: var(--base-color-grey-1000);
   display: flex;
   flex-direction: column;
