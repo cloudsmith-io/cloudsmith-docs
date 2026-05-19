@@ -60,14 +60,11 @@ You can configure the following fields in your cooldown policy Rego:
 | **Apply to packages already in use**| Checked by default. When unchecked, packages already in Cloudsmith will not be quarantined by the cooldown policy or hidden from the repository index. |
 
 <Note> A cooldown policy is always set to **Terminal**, which prevents the evaluation of any further policies if this policy matches. 
-
 This setting cannot be edited. 
 </Note>
 
 <Note> **Precedence** for a cooldown policy is always set to `0`. 
-
 Policies within an organization are ordered based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first, then each remaining policy is evaluated in order of ascending precedence. 
-
 This setting cannot be edited. 
 </Note>
 
@@ -120,8 +117,7 @@ To create and manage a cooldown policy, you must have access to Policy Manager i
 2. Select **Start from a template**, and then select the **Cooldown period** template.
 The **Cooldown period** policy template opens.
 3. Click **Use template** to create the cooldown policy.
-<Note> When created from a template, your cooldown policy is disabled by default. 
-</Note>
+<Note> When created from a template, your cooldown policy is disabled by default. </Note>
 4. (Optional) Click the edit icon next to the policy name to customize the policy name and description.
 5. Customize the policy options. For guidance on which policy options are configurable, see [Policy configuration](#policy-configuration).
 6. Click **Save policy** to save and apply your changes.
@@ -247,6 +243,5 @@ To find packages currently hidden due to a cooldown policy, search your workspac
 When a cooldown policy is deleted or disabled, packages previously displayed as **HIDDEN** revert to their prior status.
 
 
-<Note> After a cooldown policy is created, it may take several minutes for the non-compliant packages in your Cloudsmith workspace to appear as **HIDDEN**.
-</Note>
+<Note> After a cooldown policy is created, it may take several minutes for the non-compliant packages in your Cloudsmith workspace to appear as **HIDDEN**.</Note>
 
