@@ -33,6 +33,7 @@ export async function getHighlighter() {
         'scss',
         'ruby',
         'csv',
+        'hcl',
       ],
     });
   }

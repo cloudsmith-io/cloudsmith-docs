@@ -281,6 +281,10 @@
                   {
                     "title": "Jenkins",
                     "path": "/authentication/setup-jenkins-to-authenticate-to-cloudsmith-using-oidc"
+                  },
+                  {
+                    "title": "Dynamic OIDC Mapping",
+                    "path": "/authentication/dynamic-oidc-mapping"
                   }
                 ]
               }
