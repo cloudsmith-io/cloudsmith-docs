@@ -194,5 +194,5 @@ This collapses what would otherwise be one `cloudsmith_oidc` resource per reposi
 
 - **One mapping claim per provider.** Each provider configuration uses exactly one `mapping_claim`. If you need to route on different claims for different sets of pipelines, create separate provider configurations.
 - **Static and dynamic are mutually exclusive on a single configuration.** A provider is either static (uses `service_accounts`) or dynamic (uses `mapping_claim` + `dynamic_mappings`). Set `service_accounts` to an empty array when using dynamic mapping.
-- **Claim values must match exactly.** Trailing-wildcard syntax (`prefix.*`) is supported in the same way as it is for `claims` values.
+- **Claim values match literally.** Each `claim_value` is compared as a literal string against the incoming JWT, except for the trailing-wildcard syntax (`prefix.*`), which is supported in the same way as it is for `claims` values.
 - **Client log enrichment.** Client logs currently record only that a service account was used; they do not record the OIDC claim values that were exchanged for that token. 
