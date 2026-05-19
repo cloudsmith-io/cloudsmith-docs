@@ -54,7 +54,7 @@ You can configure the following fields in your cooldown policy Rego:
 | Field                               | Description                                                                                     |
 | :---------------------------------- | :---------------------------------------------------------------------------------------------- |
 | **Policy name**                     | A display name for the cooldown policy. The default policy name can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy name is returned with any 403 error. |
-| **Policy description**              | A description of the cooldown policy. The default policy description can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy name is returned with any 403 error.|
+| **Policy description**              | A description of the cooldown policy. The default policy description can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy description is returned with any 403 error.|
 | **Enabled**                         | Enable or disable the cooldown policy. |
 | **Repositories**                    | The repositories that the cooldown policy applies to. By default, the cooldown policy applies to all repositories in a workspace unless configured otherwise.  |
 | **Formats**                         | The package formats the policy applies to. Currently supported:  `npm`, `python`. |
@@ -64,7 +64,7 @@ You can configure the following fields in your cooldown policy Rego:
 <Note variant="note"> A cooldown policy is always set to **Terminal**, which prevents the evaluation of any further policies if this policy matches. This setting cannot be edited. </Note>
 
 <Note> Precedence for a cooldown policy is always set to `0`. 
-Policies within an organization are ordered based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first, then each remaining policy is evaluated in order of ascending precedence. 
+Policies within a workspace are ordered based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first, then each remaining policy is evaluated in order of ascending precedence. 
 This setting cannot be edited. </Note>
 
 ## The developer experience
@@ -93,10 +93,10 @@ For supported package managers, Cloudsmith returns a customizable error message 
 The message includes:
 
 - **Policy name**: The name of the cooldown policy that matched the package.
-- **Policy description**: The policy description field, which you can use to include internal guidance — for example, who to contact, a link to the exemption process, or a link to internal documentation.
+- **Policy description**: The policy description field, which you can use to include internal guidance — for example, who to contact, or a link to internal documentation.
 - **Policy ID**: The unique identifier for the policy action, for reference and troubleshooting.
 
-#### Supported package managers:
+#### Supported package managers
 
 - uv (Python)
 - npm
@@ -119,7 +119,7 @@ When created from a template, your cooldown policy is disabled by default.
 5. Customize the policy options. For guidance on which policy options are configurable, see [Policy configuration](#policy-configuration).
 6. Click **Save policy** to save and apply your changes.
 
-After the policy is created, it might take a few minutes to take effect on packages in your workspace.
+After the policy is created, it might take a few minutes to take effect on packages that are already cached in your workspace.
 
 <BlockImage src={cooldownPolicyView} alt="Cooldown policy view"></BlockImage>
 
