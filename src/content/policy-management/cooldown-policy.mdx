@@ -1,0 +1,240 @@
+import { Note, BlockImage } from '@/components'
+import ix from './images/vulnerability-policy/2fe13f1-cross_red.png'
+
+# Cooldown Policy
+
+<Note variant="note" headline="Early Access">
+The cooldown policy feature is in early access. To try this feature, please [contact us](https://cloudsmith.com/company/contact-us).
+</Note>
+
+A cooldown policy hides newly published versions of packages from your repository index until they reach a minimum age based on the package version’s publish date. Packages that do not meet the age requirement are hidden from the index, preventing package managers from accessing them. This protects your supply chain from recently published packages that may carry malware or have not yet undergone sufficient community scrutiny.
+
+A cooldown policy applies at the Cloudsmith index level and is supported for npm and Python packages that originate from a public upstream source. It can apply to packages proxied directly from an upstream source as well as packages that are cached in your Cloudsmith workspace.
+
+<Note variant="note" headline="Automatic reversal">
+If a cooldown policy is updated, disabled, or deleted, packages will be reevaluated. This is different from other policies that only apply to cached packages and do not have automatic reversal.
+
+## How it works
+
+Only one cooldown policy can be created per workspace. A cooldown policy is evaluated directly on the package index, which is made up of two types of packages:
+
+- Upstream cached packages already in your Cloudsmith workspace. 
+- Packages that originate from an upstream source but are not yet cached in your Cloudsmith workspace.
+
+By default, a cooldown policy applies to upstream cached packages already in your Cloudsmith workspace and packages coming directly from an upstream source.
+
+When a cooldown policy is enabled, packages that do not meet the configured age requirement are hidden from the index.
+
+- Packages that are not yet cached in Cloudsmith and need to be requested directly from a public upstream source are hidden from the index. They will not be downloaded or cached in Cloudsmith.
+- Packages already cached in Cloudsmith are quarantined and hidden from the index until the cooldown period elapses. Once the cooldown period expires, the package is unquarantined and becomes available for download and visible in the index, provided it does not violate any other active policies.
+
+<Note variant="tip">
+You can exclude upstream packages that are already cached in your Cloudsmith workspace from the policy scope by unchecking the **Apply to packages already in use** option in the policy view.</Note>
+</Note>
+
+Decision logs for a cooldown policy are only generated for upstream packages that are already in your Cloudsmith workspace. They are accessible via the Cloudsmith web app and the Cloudsmith API. 
+
+
+Cloudsmith determines a package's age by using metadata retrieved from the upstream source. Where package age metadata is not populated, the cooldown policy will fail open, meaning the package will not be hidden from the index.
+
+### Supported package formats
+
+| Format        | Description                                                                                     |
+| :------------ | :---------------------------------------------------------------------------------------------- |
+| Python        | Applies to packages where the `upload-time` field has been populated by the package maintainer. |
+| npm           | Applies to packages where the `time` field has been populated by the package maintainer.        |
+
+
+### Policy configuration
+
+You can configure the following fields in your cooldown policy Rego:
+
+| Field                               | Description                                                                                     |
+| :---------------------------------- | :---------------------------------------------------------------------------------------------- |
+| **Policy name**                     | A display name for the cooldown policy. The default policy name can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy name is returned with any 403 error. |
+| **Policy description**              | A description of the cooldown policy. The default policy description can be customized as needed. <br /><br /> For package managers where enhanced 403 error messaging is supported, the policy name is returned with any 403 error.|
+| **Enabled**                         | Enable or disable the cooldown policy. |
+| **Repositories**                    | The repositories that the cooldown policy applies to. By default, the cooldown policy applies to all repositories in a workspace unless configured otherwise.  |
+| **Formats**                         | The package formats the policy applies to. Currently supported:  `npm`, `python`. |
+| **Cooldown period**.                | The minimum age, in days, a package must reach before it appears in the index. Packages published more recently than this value are hidden from the index. |
+| **Apply to packages already in use**| Checked by default. When unchecked, packages already in Cloudsmith will not be quarantined by the cooldown policy or hidden from the repository index. |
+
+<Note> A cooldown policy is always set to **Terminal**, which prevents the evaluation of any further policies if this policy matches. 
+
+This setting cannot be edited. 
+</Note>
+
+<Note> **Precedence** for a cooldown policy is always set to `0`. 
+
+Policies within an organization are ordered, based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first. Then each remaining policy is evaluated, in order of ascending precedence. 
+
+This setting cannot be edited. 
+</Note>
+
+
+## The developer experience
+
+What developers experience depends on how their dependencies are specified:
+
+- **Compliant version available**: The package manager resolves to the latest compliant version. Non-compliant versions are skipped automatically.
+- **No compliant version available**: Cloudsmith returns a 404 Not Found or 403 Forbidden error - this is common when pinned versions or a lockfile is used to resolve dependencies. Behavior may vary in different package managers. To resolve this, choose a version that satisfies the cooldown requirement. 
+
+| Error                               | Cause                                                                                                                                             |
+| :---------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 404 Not Found                       | The specific pinned version you requested does not exist, or the version (or version within your declared range) is not old enough to be allowed. |
+| 403 Forbidden                       | The package has been quarantined, or you do not have the requisite permissions to access the package.                                             |
+| 200 OK                              | The requested version is accessible and has been downloaded.                                                                                      |
+
+### Impact on existing packages
+
+If caching is enabled on upstreams, packages previously pulled through Cloudsmith are already stored in your workspace. Excluding those from the policy means your existing builds are unlikely to break, because only new package versions entering the workspace are subject to the cooldown period.
+If a cooldown policy is applied to packages that are already in your workspace, or if upstreams are proxy-only, builds are more likely to break because compliant versions may be quarantined or unreachable.
+
+
+### Enhanced 403 error messaging
+
+For supported package managers, Cloudsmith returns a customizable error message in the terminal or build log when a package is hidden from the index. The message is returned as part of the standard 403 response body and surfaced directly by the package manager, with no client-side configuration required.
+
+The message includes:
+
+- **Policy name**: The name of the cooldown policy that matched the package.
+- **Policy description**: The policy description field, which you can use to include internal guidance — for example, who to contact, a link to the exemption process, or a link to internal documentation.
+- **Policy ID**: The unique identifier for the policy action, for reference and troubleshooting.
+
+#### Supported package managers:
+
+- uv (Python)
+- npm
+
+
+## Creating and managing a cooldown policy via the Cloudsmith web app (recommended method)
+
+To create and manage a cooldown policy, you must have access to Policies in your workspace.
+
+
+### Create a cooldown policy via the Cloudsmith web app (recommended method)
+
+<Note> Only one cooldown policy can be created per workspace. </Note>
+
+1. From your Cloudsmith dashboard, go to the **Policies** tab and click **Create a new policy**. 
+2. Select **Start from a template**, and then select the **Cooldown period** template.
+The **Cooldown period** policy template opens.
+3. Click **Use template** to create the cooldown policy.
+4. 
+
+
+### Enable a cooldown policy via the Cloudsmith web app (recommended method)
+
+You can enable an existing cooldown policy:
+
+- From the **Policies** tab of the Cloudsmith dashboard
+- From the individual policy detail page 
+- In the **Edit policy** view
+
+
+1. From the Cloudsmith dashboard, go to the **Policies** tab.
+2. In the policy list, find the cooldown policy that you want to enable.
+Hovering over the toggle next to the policy displays **Click to enable policy**.
+3. Click the toggle to enable the policy.
+
+You can also enable a policy from the individual policy view:
+
+
+
+### Disable a cooldown policy via the Cloudsmith web app (recommended method)
+
+If a policy is disabled it will also take a few minutes for this change to take effect on packages already in your workspace
+
+
+### Update a cooldown policy via the Cloudsmith web app (recommended method)
+
+To update an existing cooldown policy, go to **Policies** and select the cooldown policy from the policy list. The policy opens in read-only mode. Click **Edit policy** to make changes.
+
+The following fields can be updated after the policy is created:
+- Policy name
+- Policy description
+- Enabled
+- Repositories
+- Formats
+- Cooldown period
+- Apply to packages already in use
+
+A cooldown policy can also be deleted from this view.
+
+
+
+### Creating and managing a cooldown policy via the Cloudsmith API
+
+A cooldown policy can also be created and managed via the Cloudsmith API by using the following endpoints:
+
+- [Create a policy](https://docs.cloudsmith.com/api/workspaces/policies/create)
+- [Update a policy](https://docs.cloudsmith.com/api/workspaces/policies/update)
+- [Partially update a policy](https://docs.cloudsmith.com/api/workspaces/policies/partial-update)
+- [List policies](https://docs.cloudsmith.com/api/workspaces/policies/list)
+- [Retrieve a policy](https://docs.cloudsmith.com/api/workspaces/policies/retrieve)
+
+As with the web app, only the fields listed in [Policy configuration](#policy-configuration) can be edited via the API.
+
+Example policy: 
+
+```rego
+package cloudsmith
+import rego.v1
+default match := false
+within_past_days := 14
+supported_formats := {"python", "npm"}
+included_repositories := {}
+excluded_repositories := {}
+include_local_packages := true
+match if count(reason) != 0
+_should_evaluate if {
+    not input.v0.package.is_local
+}
+_should_evaluate if {
+    include_local_packages == true
+}
+_repo_allowed if {
+    count(included_repositories) == 0
+
+    not input.v0.repository.slug in excluded_repositories
+}
+_repo_allowed if {
+    input.v0.repository.slug in included_repositories
+    not input.v0.repository.slug in excluded_repositories
+}
+reason contains msg if {
+    _should_evaluate
+    _repo_allowed
+    pkg := input.v0.package
+    within_past_days_date := time.add_date(time.now_ns(), 0, 0, 0 - within_past_days)
+    publish_date := time.parse_rfc3339_ns(pkg.upstream_metadata.published_at)
+    publish_date >= within_past_days_date
+    pkg.format in supported_formats
+    msg := sprintf("Package %v within cooldown", [pkg.upstream_metadata.published_at])
+}
+```
+
+## Exemptions
+
+When creating a cooldown policy, you can exclude specific repositories, formats, and local packages from the policy scope by using the configuration fields described in [Policy configuration](#policy-configuration).
+
+For the initial early access release, it is not possible to add exemptions for specific package versions directly. We are treating this as a priority area ahead of general availability, and are gathering user feedback during early access to ensure that we take the right approach.
+In the meantime, if a specific package version needs to bypass the cooldown policy urgently, we recommend that your security or platform team downloads the required package directly and uploads it into Cloudsmith manually. This bypasses the cooldown requirement and makes the package available to developers immediately.
+
+
+## Viewing packages that violate your cooldown policy
+
+Upstream packages that are already cached in your Cloudsmith workspace and violate your cooldown policy are displayed as **HIDDEN** in the Cloudsmith web app and via the Cloudsmith API. These packages cannot be downloaded, unhidden, or unquarantined. 
+
+To find packages currently hidden due to a cooldown policy, search your workspace using the search term `status:hidden`. Hovering over the **HIDDEN** status in the web app will display why the package is hidden.
+
+
+When a cooldown policy is deleted or disabled, packages previously displayed as **HIDDEN** revert to their prior status.
+
+
+
+
+img
+
+<Note> After a cooldown policy is created, it may take several minutes for the non-compliant packages in your Cloudsmith workspace to appear as **HIDDEN** </Note>
+
