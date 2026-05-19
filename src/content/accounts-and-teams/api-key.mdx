@@ -50,7 +50,7 @@ If you wish to restrict the use of your API-Key to a specific IP address or rang
 
 One you have added your CIDR address/mask, just click the "+ Add" button to apply your restriction.
 
-## Refreshing a Personal/User API Key
+## Refreshing a Personal/User API Key from the webapp
 
 If you lose the API key associated with your account, or suspect it has been compromised, you'll need to refresh the key, generating a new one. 
 
@@ -59,3 +59,28 @@ To do this, under your profile menu, select Personal API Keys.
 
 Click the "Refresh API Key" button to generate a new API key.  
 <BlockImage src={refreshKeyImage} alt="Refreshing the key"></BlockImage>
+
+## Refreshing a Personal/User API Key from the Cloudsmith CLI ##
+
+This script uses SSO to login, grab the API key and workspace id. Just change the ORG_NAME to the your workspace id and you should be all set.
+
+```
+#!/bin/bash
+
+ORG_NAME="cloudsmith"
+
+# Step 1: Authenticate
+cloudsmith auth -o $ORG_NAME
+
+# List tokens for user and extract the slug_perm (grabbing the first for simplicity)
+SLUG_PERM=$(cloudsmith tokens ls -F json | jq -r '.data[0].slug_perm')
+
+# Now refresh the token to get a key valid for 2 hours, then export it for use
+NEW_KEY=$(cloudsmith tokens refresh $SLUG_PERM -F json | grep '^{' | jq '.data.key')
+
+echo "New API Key: $NEW_KEY"
+export CLOUDSMITH_API_KEY=$NEW_KEY
+
+# Step 4: Verify we're logged in
+cloudsmith whoami
+```
