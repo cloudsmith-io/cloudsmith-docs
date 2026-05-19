@@ -1,7 +1,7 @@
 import { Note, BlockImage } from '@/components'
-import hiddenPackageToast from 'src/content/supply-chain-security/images/hidden-pkg-explainer.png'
-import hiddenPackageSearch from 'src/content/supply-chain-security/images/view-hidden-packages.png'
-import cooldownPolicyView from 'src/content/supply-chain-security/images/cooldown-policy-view.png'
+import hiddenPackageToast from '../images/hidden-pkg-explainer.png'
+import hiddenPackageSearch from '../images/view-hidden-packages.png'
+import cooldownPolicyView from '../images/cooldown-policy-view.png'
 
 # Cooldown Policy
 
@@ -32,15 +32,14 @@ When a cooldown policy is enabled, packages that do not meet the configured age 
 - Packages already cached in Cloudsmith are quarantined and hidden from the index until the cooldown period elapses. Once the cooldown period expires, the package is unquarantined and becomes available for download and visible in the index, provided it does not violate any other active policies.
 
 <Note variant="tip">
-You can exclude upstream packages that are already cached in your Cloudsmith workspace from the policy scope by unchecking the **Apply to packages already in use** option in the policy view.
+You can exclude upstream packages that are already cached in your Cloudsmith workspace from the policy scope by unchecking the **Apply to packages already in use** option in the **Edit policy** view.
 </Note>
 
 Decision logs for a cooldown policy are only generated for upstream packages that are already in your Cloudsmith workspace. They are accessible via the Cloudsmith web app and the Cloudsmith API. 
 
 Cloudsmith determines a package's age by using metadata retrieved from the upstream source. Where package age metadata is not populated, the cooldown policy will fail open, meaning the package will not be hidden from the index.
 
-
-### Supported package formats
+### Supported package formats
 
 | Format        | Description                                                                                     |
 | :------------ | :---------------------------------------------------------------------------------------------- |
@@ -59,11 +58,10 @@ You can configure the following fields in your cooldown policy Rego:
 | **Enabled**                         | Enable or disable the cooldown policy. |
 | **Repositories**                    | The repositories that the cooldown policy applies to. By default, the cooldown policy applies to all repositories in a workspace unless configured otherwise.  |
 | **Formats**                         | The package formats the policy applies to. Currently supported:  `npm`, `python`. |
-| **Cooldown period**.                | The minimum age, in days, a package must reach before it appears in the index. Packages published more recently than this value are hidden from the index. |
+| **Cooldown period**                 | The minimum age, in days, a package must reach before it appears in the index. Packages published more recently than this value are hidden from the index. |
 | **Apply to packages already in use**| Checked by default. When unchecked, packages already in Cloudsmith will not be quarantined by the cooldown policy or hidden from the repository index. |
 
 <Note variant="note"> A cooldown policy is always set to **Terminal**, which prevents the evaluation of any further policies if this policy matches. This setting cannot be edited. </Note>
-
 
 <Note> Precedence for a cooldown policy is always set to `0`. 
 Policies within an organization are ordered based on the precedence integer defined in each policy. The policy with the lowest number is evaluated first, then each remaining policy is evaluated in order of ascending precedence. 
@@ -108,8 +106,7 @@ The message includes:
 
 To create and manage a cooldown policy, you must have access to Policy Manager in your workspace.
 
-
-### Create a cooldown policy via the Cloudsmith web app (recommended method)
+### Create a cooldown policy via the Cloudsmith web app (recommended method)
 
 <Note>Only one cooldown policy can be created per workspace. </Note>
 
@@ -175,9 +172,7 @@ You can delete a cooldown policy from the **Policies** tab of the Cloudsmith das
 
 When a policy is deleted, it might take a few minutes to take effect on packages that are already in your workspace.
 
-
-
-## Create and manage a cooldown policy via the Cloudsmith API
+## Create and manage a cooldown policy via the Cloudsmith API
 
 To create and manage a cooldown policy, you must have access to Policy Manager in your workspace.
 
