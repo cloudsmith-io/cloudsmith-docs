@@ -1,5 +1,4 @@
 import { Note, BlockImage } from '@/components'
-import ix from './images/vulnerability-policy/2fe13f1-cross_red.png'
 
 # Cooldown Policy
 
@@ -124,6 +123,9 @@ The **Cooldown period** policy template opens.
 5. Customize the policy options. For guidance on which policy options are configurable, see [Policy configuration](#policy-configuration).
 6. Click **Save policy** to save and apply your changes.
 
+After the policy is created, it might take a few minutes to take effect on packages in your workspace.
+
+
 ### Edit a cooldown policy via the Cloudsmith web app (recommended method)
 
 To edit an existing cooldown policy, go to **Policies** and select the cooldown policy from the policy list. The policy opens in read-only mode. Click **Edit policy** to make changes.
@@ -242,9 +244,5 @@ To find packages currently hidden due to a cooldown policy, search your workspac
 When a cooldown policy is deleted or disabled, packages previously displayed as **HIDDEN** revert to their prior status.
 
 
-
-
-img
-
-<Note> After a cooldown policy is created, it may take several minutes for the non-compliant packages in your Cloudsmith workspace to appear as **HIDDEN** </Note>
+<Note> After a cooldown policy is created, it may take several minutes for the non-compliant packages in your Cloudsmith workspace to appear as **HIDDEN**.</Note>
 
