@@ -1,0 +1,196 @@
+---
+title: Dynamic OIDC Mapping
+description: Map a single OIDC provider configuration to many Cloudsmith service accounts based on a claim value from the incoming JWT.
+---
+
+# Dynamic OIDC Mapping [#dynamic-oidc-mapping]
+
+Cloudsmith's [standard OIDC configuration](/authentication/openid-connect) creates a one-to-one trust relationship between a single provider configuration and a fixed set of service accounts. Authentication succeeds for any token that matches the required claims, and every authenticated request is mapped to the same service account(s).
+
+This works well at small scale. It does not scale to scenarios where each pipeline, repository, or project needs its own service account. A separate provider configuration per service account quickly produces hundreds (or thousands) of near-identical entries — every one of which differs only by a single claim value and the service account it points to.
+
+**Dynamic OIDC mapping** condenses these into a single provider configuration. You nominate one claim from the incoming JWT as the _mapping claim_, and Cloudsmith routes each request to a service account based on that claim's value.
+
+## When to use it [#when-to-use-it]
+
+Use dynamic mapping when **all** of the following are true:
+
+- You want a dedicated Cloudsmith service account per pipeline, repository, project, or other CI-side scope.
+- All of those service accounts authenticate via the same OIDC provider (e.g. all GitHub Actions, all GitLab CI, all Buildkite).
+- The CI provider's JWT contains a claim whose value uniquely identifies each scope (e.g. `repository`, `project_path`, `pipeline_slug`).
+
+Use the **standard (static) configuration** when you only need a small number of providers, or when a single provider should always authenticate as the same service account(s).
+
+## How it works [#how-it-works]
+
+A dynamic configuration adds two fields on top of the standard provider configuration:
+
+| Field              | Description                                                                                  |
+| ------------------ | -------------------------------------------------------------------------------------------- |
+| `mapping_claim`    | The claim in the incoming JWT whose value Cloudsmith will use to choose a service account.   |
+| `dynamic_mappings` | A list of `claim_value` → `service_account` pairs.                                           |
+
+`claims` remains the security boundary that gates which tokens are eligible to authenticate at all. `mapping_claim` and `dynamic_mappings` are the routing logic that selects a service account from within that boundary.
+
+On every authentication request, Cloudsmith:
+
+1. Verifies the JWT against the provider URL, exactly as it does for a static configuration.
+2. Verifies that the JWT contains every claim listed in `claims` (these still act as a gate — typically `iss` and any organisation-level scoping).
+3. Reads the value of `mapping_claim` from the JWT.
+4. Looks that value up in `dynamic_mappings` and, if a match is found, issues a Cloudsmith token for the mapped service account.
+
+If the value of `mapping_claim` does not match any entry in `dynamic_mappings`, the request is rejected. As with all OIDC token exchange failures, the error returned is deliberately generic and does not indicate which check failed.
+
+## Examples [#examples]
+
+### GitHub Actions [#example-github-actions]
+
+A token issued by GitHub Actions includes a `repository` claim of the form `owner/repo`. A configuration that gives each repository its own service account looks like this:
+
+```json
+{
+  "name": "GitHub Actions",
+  "provider_url": "https://token.actions.githubusercontent.com",
+  "enabled": true,
+  "claims": {
+    "repository_owner": "my-org"
+  },
+  "mapping_claim": "repository",
+  "dynamic_mappings": [
+    { "claim_value": "my-org/service-a", "service_account": "service-a-ci" },
+    { "claim_value": "my-org/service-b", "service_account": "service-b-ci" },
+    { "claim_value": "my-org/service-c", "service_account": "service-c-ci" }
+  ],
+  "service_accounts": []
+}
+```
+
+`claims` still scopes the configuration — here, only tokens whose `repository_owner` is `my-org` are eligible at all. `mapping_claim` and `dynamic_mappings` then select the service account from the candidates inside that scope. `service_accounts` is left empty, because the service account is now chosen per request.
+
+### GitHub Actions (per workflow) [#example-github-actions-per-workflow]
+
+A GitHub Actions JWT also includes a `workflow` claim, which lets you scope authentication more tightly than per repository. This is useful when a single repository contains workflows that need different levels of access — for example, a release workflow that needs to publish, and a CI workflow that only needs to pull:
+
+```json
+{
+  "name": "GitHub Actions (per workflow)",
+  "provider_url": "https://token.actions.githubusercontent.com",
+  "enabled": true,
+  "claims": {
+    "repository": "my-org/my-repo"
+  },
+  "mapping_claim": "workflow",
+  "dynamic_mappings": [
+    { "claim_value": "release", "service_account": "my-repo-release" },
+    { "claim_value": "ci",      "service_account": "my-repo-ci" }
+  ],
+  "service_accounts": []
+}
+```
+
+### GitLab CI [#example-gitlab-ci]
+
+GitLab tokens contain a `sub` claim that combines the project path with the branch reference (`project_path:my-group/my-project:ref_type:branch:ref:main`). For per-project mapping, use the `project_path` claim instead:
+
+```json
+{
+  "name": "GitLab CI",
+  "provider_url": "https://gitlab.com",
+  "enabled": true,
+  "claims": {
+    "namespace_path": "my-group"
+  },
+  "mapping_claim": "project_path",
+  "dynamic_mappings": [
+    { "claim_value": "my-group/service-a", "service_account": "service-a-ci" },
+    { "claim_value": "my-group/service-b", "service_account": "service-b-ci" }
+  ],
+  "service_accounts": []
+}
+```
+
+### Buildkite [#example-buildkite]
+
+Buildkite's JWT includes a `pipeline_slug` claim, which is the most common mapping target:
+
+```json
+{
+  "name": "Buildkite",
+  "provider_url": "https://agent.buildkite.com",
+  "enabled": true,
+  "claims": {
+    "organization_slug": "my-org"
+  },
+  "mapping_claim": "pipeline_slug",
+  "dynamic_mappings": [
+    { "claim_value": "deploy-prod", "service_account": "deploy-prod-ci" },
+    { "claim_value": "deploy-staging", "service_account": "deploy-staging-ci" }
+  ],
+  "service_accounts": []
+}
+```
+
+## Configuring via API [#configuring-via-api]
+
+> **Note**
+>
+> Dynamic OIDC mapping is currently configurable via the API and the [Cloudsmith Terraform provider](https://registry.terraform.io/providers/cloudsmith-io/cloudsmith/latest/docs/resources/oidc) only. A UI for managing dynamic mappings is on the roadmap.
+
+Create a dynamic provider configuration with a `POST` to the OIDC endpoint:
+
+```bash
+curl --request POST \
+  --url https://api.cloudsmith.io/orgs/<org-slug>/openid-connect/ \
+  --header 'X-Api-Key: <API_KEY>' \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json' \
+  --data '{
+    "name": "GitHub Actions",
+    "provider_url": "https://token.actions.githubusercontent.com",
+    "enabled": true,
+    "claims": { "repository_owner": "my-org" },
+    "mapping_claim": "repository",
+    "dynamic_mappings": [
+      { "claim_value": "my-org/service-a", "service_account": "service-a-ci" },
+      { "claim_value": "my-org/service-b", "service_account": "service-b-ci" }
+    ]
+  }'
+```
+
+You can list the dynamic mappings on an existing provider with the [list dynamic mappings endpoint](https://docs.cloudsmith.com/api/openid-connect/dynamic-mappings/list).
+
+## Configuring via Terraform [#configuring-via-terraform]
+
+The `cloudsmith_oidc` resource accepts `mapping_claim` and `dynamic_mappings` from provider version `v0.0.63` onwards. A typical pattern is to drive `dynamic_mappings` from a `for_each` over the repositories or pipelines you manage elsewhere in your Terraform configuration:
+
+```hcl
+resource "cloudsmith_oidc" "github_actions" {
+  namespace    = data.cloudsmith_organization.my_org.slug
+  name         = "GitHub Actions"
+  provider_url = "https://token.actions.githubusercontent.com"
+  enabled      = true
+
+  claims = {
+    repository_owner = "my-org"
+  }
+
+  mapping_claim = "repository"
+
+  dynamic "dynamic_mappings" {
+    for_each = var.repositories
+    content {
+      claim_value     = "my-org/${dynamic_mappings.value.name}"
+      service_account = cloudsmith_service.this[dynamic_mappings.value.name].slug
+    }
+  }
+}
+```
+
+This collapses what would otherwise be one `cloudsmith_oidc` resource per repository into a single resource whose mappings are generated from the same data structure that provisions the service accounts.
+
+## Notes and limitations [#notes-and-limitations]
+
+- **One mapping claim per provider.** Each provider configuration uses exactly one `mapping_claim`. If you need to route on different claims for different sets of pipelines, create separate provider configurations.
+- **Static and dynamic are mutually exclusive on a single configuration.** A provider is either static (uses `service_accounts`) or dynamic (uses `mapping_claim` + `dynamic_mappings`). Set `service_accounts` to an empty array when using dynamic mapping.
+- **Claim values must match exactly.** Trailing-wildcard syntax (`prefix.*`) is supported in the same way as it is for `claims` values.
+- **Client log enrichment.** Client logs currently record only that a service account was used; they do not record the OIDC claim values that were exchanged for that token. Enriched logging for OIDC token exchanges is on the roadmap.
