@@ -9,7 +9,7 @@ import cooldownPolicyView from '../images/cooldown-policy-view.png'
 The cooldown policy feature is in early access. To try this feature, please [contact us](https://cloudsmith.com/company/contact-us).
 </Note>
 
-A cooldown policy hides newly published versions of packages from your repository index until they reach a minimum age based on the package version’s publish date. Packages that do not meet the age requirement are hidden from the index, preventing package managers from accessing them. This protects your supply chain from recently published packages that may carry malware or have not yet undergone sufficient community scrutiny.
+A cooldown policy hides newly published versions of packages from your repository index until they reach a minimum age based on the package version’s publish date. Packages that do not meet the age requirement are hidden from the index, preventing package managers from accessing them. This protects your supply chain from recently published packages that may carry malware or have not yet undergone sufficient community scrutiny, while automatically resolving to the latest compliant version when one is available.
 
 A cooldown policy applies at the Cloudsmith index level and is supported for npm and Python packages that originate from a public upstream source. It can apply to packages proxied directly from an upstream source as well as packages that are cached in your Cloudsmith workspace.
 
