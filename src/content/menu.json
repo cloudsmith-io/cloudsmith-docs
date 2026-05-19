@@ -431,6 +431,10 @@
               {
                 "title": "EPM Workflow Example",
                 "path": "/supply-chain-security/epm/tag-addition-removal-flow"
+              },
+              {
+                "title": "Cooldown Policy",
+                "path": "/supply-chain-security/epm/cooldown-policy"
               }
             ]
           },
