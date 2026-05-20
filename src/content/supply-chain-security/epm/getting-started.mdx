@@ -196,20 +196,31 @@ Once enabled, if you wish to test the policy against an actual package, you can 
 Decision log entries are not added when a policy is simulated via the simulator.
 </Note>
 
-When a package is scanned or triggers the policy, EPM creates a decision log entry. These logs can be viewed via the decision_logs_list REST API method. An example request to this method is shown below (this filters logs to a specific policy using the`?policy=$POLICY_SLUG` query parameter.)
+When a package is scanned or triggers the policy, EPM creates a decision log entry. Logs are accessed via the decision logs API, which provides two endpoints: a list endpoint returning lightweight summaries, and a retrieve endpoint for fetching the full decision log detail.
+
+**List decision log summaries** (the `created_after` parameter is required):
 
 ```shell
 curl -X GET \
-  "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/decision_logs/?policy=$POLICY_SLUG" \
+  "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/decision-logs-v1/?created_after=2026-06-01T00:00:00Z" \
   -H "Accept: application/json" \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
 ```
 
-The following will be provided within these logs:
+Each summary in the list includes: `id`, `correlation_id`, `started_at`, `ended_at`, `match`, `package_name`, `package_format`, `policy_name`, and an `actions` summary dict.
 
-- `started_at`/ `ended_at`: Times the policy evaluation started and ended.
+**Retrieve the full decision log** using the `id` from the list response:
+
+```shell
+curl -X GET \
+  "https://api.cloudsmith.io/v2/workspaces/$CLOUDSMITH_WORKSPACE/policies/decision-logs-v1/$DECISION_LOG_ID/" \
+  -H "Accept: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
+```
+
+The full log additionally provides:
+
 - `policy_input`: The exact data used to evaluate the policy.
 - `policy_output`: The results (match or not, partial rule states).
-- `actions`: The actions invoked against the package.
 
 For more information on building common matching criteria in Rego, please see the [Enterprise Policy Manager Rego Recipes guide](rego).

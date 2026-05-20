@@ -252,9 +252,21 @@ curl -X POST "https://api.cloudsmith.io/v2/workspaces/{workspace-name}/policies/
 
 The details of every policy evaluation and its outcome are captured in a decision log. Decision logs record the result of policy evaluations, including why the decision was made and what actions were taken as a result.
 
+Use the list endpoint to retrieve decision log summaries. The `created_after` parameter is required.
+
 ```bash
-curl -X GET  "https://api.cloudsmith.io/v2/workspaces/acme-corporation/policies/decision_logs/?policy=$SLUG_PERM"   
-  -H "Accept: application/json"   
+curl -X GET \
+  "https://api.cloudsmith.io/v2/workspaces/acme-corporation/policies/decision-logs-v1/?created_after=2026-06-01T00:00:00Z" \
+  -H "Accept: application/json" \
+  -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
+```
+
+To retrieve the full decision log (including `policy_input` and `policy_output`), use the retrieve endpoint with the `id` from the list response:
+
+```bash
+curl -X GET \
+  "https://api.cloudsmith.io/v2/workspaces/acme-corporation/policies/decision-logs-v1/$DECISION_LOG_ID/" \
+  -H "Accept: application/json" \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
 ```
 
