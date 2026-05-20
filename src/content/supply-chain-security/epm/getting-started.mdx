@@ -207,7 +207,7 @@ curl -X GET \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
 ```
 
-Each summary in the list includes: `id`, `started_at`, `ended_at`, `match`, `package_name`, `package_format`, `policy_name`, and an `actions` summary dict.
+Each summary in the list includes: `id`, `correlation_id`, `started_at`, `ended_at`, `match`, `package_name`, `package_format`, `policy_name`, and an `actions` summary dict.
 
 **Retrieve the full decision log** using the `id` from the list response:
 
@@ -222,7 +222,5 @@ The full log additionally provides:
 
 - `policy_input`: The exact data used to evaluate the policy.
 - `policy_output`: The results (match or not, partial rule states).
-- `actions`: The full detail of actions invoked against the package.
-- `correlation_id`: Groups related evaluations together.
 
 For more information on building common matching criteria in Rego, please see the [Enterprise Policy Manager Rego Recipes guide](rego).

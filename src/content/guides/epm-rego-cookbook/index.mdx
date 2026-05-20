@@ -261,7 +261,7 @@ curl -X GET \
   -H "X-Api-Key: $CLOUDSMITH_API_KEY" | jq .
 ```
 
-To retrieve the full decision log (including `policy_input`, `policy_output`, and full `actions` detail), use the retrieve endpoint with the `id` from the list response:
+To retrieve the full decision log (including `policy_input` and `policy_output`), use the retrieve endpoint with the `id` from the list response:
 
 ```bash
 curl -X GET \
